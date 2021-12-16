@@ -1,8 +1,8 @@
 package service.auction.impl;
 
-public class A {
+public class AuctionRestDAOImpl {
 
-	public A() {
+	public AuctionRestDAOImpl() {
 		// TODO Auto-generated constructor stub
 	}
 

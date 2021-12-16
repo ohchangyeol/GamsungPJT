@@ -1,8 +1,8 @@
 package controller.servicecenter;
 
-public class A {
+public class ServiceCenterController {
 
-	public A() {
+	public ServiceCenterController() {
 		// TODO Auto-generated constructor stub
 	}
 
