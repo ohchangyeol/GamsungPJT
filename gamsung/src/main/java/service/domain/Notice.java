@@ -34,12 +34,12 @@ public class Notice {
 
 
 	public User getUser() {
-		return user;
+		return writer;
 	}
 
 
 	public void setUser(User user) {
-		this.user = user;
+		this.writer = user;
 	}
 
 
