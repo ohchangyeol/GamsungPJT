@@ -1,4 +1,4 @@
-package service.common.impl;
+package service.camp.impl;
 
 import service.common.RatingReviewService;
 
