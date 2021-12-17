@@ -39,9 +39,9 @@
 
 		<mapper resource="sql/CampBusinessMapper.xml"/>
 		<mapper resource="sql/PaymentMapper.xml"/> 
-	-->
+	
 		<mapper resource="sql/AuctionMapper.xml"/>
- 	
+ 	-->
 
 	</mappers>
 
