@@ -1,4 +1,4 @@
-package service.user.impl;
+package site.gamsung.service.user.impl;
 
 public class UserDAOImpl {
 

@@ -21,7 +21,7 @@ public class User {
 	private Date suspensionDate;
 	private String suspensionContent;
 	private Date secessionRegDate;
-	private int cancelReceiveCount;
+	private int countCancelReceive;
 	private Date receiveProhibitionEndDate;
 	private int auctionGrade;	
 	private String tourismBusinessNum;
@@ -197,15 +197,13 @@ public class User {
 	}
 
 
-	public int getCancelReceiveCount() {
-		return cancelReceiveCount;
+	public int getCountCancelReceive() {
+		return countCancelReceive;
 	}
 
-
-	public void setCancelReceiveCount(int cancelReceiveCount) {
-		this.cancelReceiveCount = cancelReceiveCount;
+	public void setCountCancelReceive(int countCancelReceive) {
+		this.countCancelReceive = countCancelReceive;
 	}
-
 
 	public Date getReceiveProhibitionEndDate() {
 		return receiveProhibitionEndDate;
