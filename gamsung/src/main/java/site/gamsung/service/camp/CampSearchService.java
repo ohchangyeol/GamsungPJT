@@ -1,6 +1,8 @@
-package service.camp;
+package site.gamsung.service.camp;
 
 import java.util.Map;
+
+import site.gamsung.service.common.Search;
 
 public interface CampSearchService {
 	

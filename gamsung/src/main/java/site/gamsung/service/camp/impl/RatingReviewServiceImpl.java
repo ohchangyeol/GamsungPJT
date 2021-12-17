@@ -1,11 +1,11 @@
-package service.camp.impl;
+package site.gamsung.service.camp.impl;
 
-import service.common.RatingReviewService;
+import site.gamsung.service.common.RatingReviewService;
 
 public class RatingReviewServiceImpl implements RatingReviewService {
 
 	public RatingReviewServiceImpl() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 }

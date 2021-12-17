@@ -1,4 +1,4 @@
-package service.common.impl;
+package site.gamsung.service.common.impl;
 
 public class AImpl {
 
