@@ -1,4 +1,4 @@
-package service.domain;
+package site.gamsung.service.domain;
 
 import java.sql.Timestamp;
 import java.util.List;

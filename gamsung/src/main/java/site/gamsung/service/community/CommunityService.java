@@ -1,7 +1,7 @@
 /**
  * 
  */
-package service.community;
+package site.gamsung.service.community;
 
 /**
  * @author MyeongSikSeo

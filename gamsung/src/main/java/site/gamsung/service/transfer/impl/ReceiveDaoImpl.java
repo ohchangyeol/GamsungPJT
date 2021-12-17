@@ -1,6 +1,6 @@
-package service.transfer.impl;
+package site.gamsung.service.transfer.impl;
 
-import service.transfer.ReceiveDAO;
+import site.gamsung.service.transfer.ReceiveDAO;
 
 public class ReceiveDaoImpl implements ReceiveDAO {
 
