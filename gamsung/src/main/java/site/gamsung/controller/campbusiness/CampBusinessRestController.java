@@ -1,5 +1,5 @@
 package site.gamsung.controller.campbusiness;
 
-public class a {
+public class CampBusinessRestController {
 
 }

@@ -1,41 +1,5 @@
---최초 생성 이후 개별로 삭제할 경우 필요한 DROP 주석 해제후 사용
---DROP SCHEMA gamsung;
---CREATE SCHEMA gamsung;
+CREATE SCHEMA gamsung;
 USE gamsung;
-
---최초 생성시 주석 해제시 오류 발생--
-
---DROP TABLE MAIN_AUCTION_HISTORY;
---DROP TRIGGER IF EXISTS MAIN_AUCTION_HISTORY_SEQ;
---DROP TABLE BID_CONCERN;
---DROP TRIGGER IF EXISTS BID_CONCERN_SEQ;
---DROP TABLE AUCTION_HISTORY;
---DROP TRIGGER IF EXISTS AUCTION_HISTORY_SEQ;
---DROP TABLE rating_review;
---DROP TRIGGER IF EXISTS RATING_REVIEW_SEQ;
---DROP TABLE AUCTION_PRODUCT;
---DROP TRIGGER IF EXISTS AUCTION_PRODUCT_SEQ;
---DROP TABLE qna;
---DROP TABLE notice;
---DROP TABLE report;
---DROP TABLE concern;
---DROP TABLE receive;
---DROP TABLE transfer;
---DROP TABLE comment;
---DROP TABLE post;
---DROP TABLE site_profit;
---DROP TABLE camp_reservation;
---DROP TRIGGER IF EXISTS CAMP_RESERVATION_SEQ;
---DROP TABLE payment;
---DROP TABLE payment_code;
---DROP TRIGGER IF exists PAYMENT_SEQ;
---DROP TABLE subsite;
---DROP TABLE mainsite;
---DROP TABLE camp;
---DROP TABLE login_history;
---DROP TRIGGER IF EXISTS LOGIN_HISTORY_SEQ;
---DROP TABLE USERS;
-
 
 CREATE TABLE `USERS` (
     `user_id` VARCHAR(50) NOT NULL,
@@ -65,21 +29,8 @@ CREATE TABLE `USERS` (
     UNIQUE (`user_id`,`nick_name`, `phone`, `tourism_business_num`)
 );
 
-INSERT INTO USERS(user_id, role, nick_name, password, name, phone, entry_reg_date, camp_name, camp_call) values
-('admin', 'ADMIN', '관리자', 'admin', '최정아', '77777777', SYSDATE(), null, null),
-('user1@gamsung.com', 'GENERAL', '니코', '1111', '김관우', '01022223333', SYSDATE(), null, null),
-('user2@gamsung.com', 'GENERAL', '헤이즐', '2222', '이소희', '01012345679', SYSDATE(), null, null),
-('user3@gamsung.com', 'GENERAL', '제나바', '3333', '유희주', '01012345680', SYSDATE(), null, null),
-('user4@gamsung.com', 'GENERAL', '키아라', '4444', '조영주', '01012345681', SYSDATE(), null, null),
-('user5@gamsung.com', 'GENERAL', '이젤라', '5555', '권도윤', '01012345682', SYSDATE(), null, null),
-('businessuser1@gamsung.com', 'BUSINESS', null, '1111', '박철홍', '01012345683', SYSDATE(), '갤럭시', '021234567'),
-('businessuser2@gamsung.com', 'BUSINESS', null, '2222', '오창열', '01012345684', SYSDATE(), '오감자', '0315552637'),
-('businessuser3@gamsung.com', 'BUSINESS', null, '3333', '최인규', '01012345685', SYSDATE(), '밀키웨이', '0329998476'),
-('businessuser4@gamsung.com', 'BUSINESS', null, '4444', '황현지', '01012345686', SYSDATE(), '아리스', '029384736'),
-('businessuser5@gamsung.com', 'BUSINESS', null, '5555', '임준희', '01012345687', SYSDATE(), '비너스', '07019283746');
-
 CREATE TABLE `LOGIN_HISTORY` (
-    `login_history_no` CHAR(5) NOT NULL,
+    `login_history_no` INT NOT NULL,
     `user_id` VARCHAR(50) NOT NULL,
     `login_reg_date` DATE NOT NULL,
     PRIMARY KEY (`login_history_no`)
@@ -99,7 +50,7 @@ DELIMITER ;
 CREATE TABLE `AUCTION_PRODUCT` (
     `product_no` VARCHAR(9) NOT NULL,
     `registrant_id` VARCHAR(50) NOT NULL,
-    `successful_bidder_id` VARCHAR(50) NOT NULL,
+    `successful_bidder_id` VARCHAR(50),
     `product_name` VARCHAR(20),
     `product_detail` VARCHAR(4000),
     `start_bid_price` INT,
@@ -126,8 +77,6 @@ CREATE TABLE `AUCTION_PRODUCT` (
     PRIMARY KEY (`product_no`)
 );
 
-
-
 DELIMITER $$
 CREATE TRIGGER AUCTION_PRODUCT_SEQ
 BEFORE INSERT ON AUCTION_PRODUCT
@@ -140,7 +89,7 @@ END $$
 DELIMITER ;
 
 CREATE TABLE `AUCTION_HISTORY` (
-    `bid_no` CHAR(15) NOT NULL,
+    `bid_no` CHAR(8) NOT NULL,
     `product_no` CHAR(9) NOT NULL,
     `bidder_id` VARCHAR(50) NOT NULL,
     `bid_price` INT NOT NULL,
@@ -228,7 +177,7 @@ CREATE TABLE `CAMP` (
     PRIMARY KEY (`camp_no`)
 );
 
-ALTER TABLE CAMP AUTO_INCREMENT=9999;
+ALTER TABLE CAMP AUTO_INCREMENT=10000;
 
 CREATE TABLE `MAINSITE` (
     `mainsite_no` INT NOT NULL AUTO_INCREMENT,
@@ -254,8 +203,7 @@ CREATE TABLE `MAINSITE` (
     PRIMARY KEY (`mainsite_no`)
 );
 
-ALTER TABLE MAINSITE AUTO_INCREMENT=9999;
-
+ALTER TABLE MAINSITE AUTO_INCREMENT=10000;
 
 CREATE TABLE `SUBSITE` (
     `subsite_no` INT NOT NULL AUTO_INCREMENT,
@@ -268,7 +216,7 @@ CREATE TABLE `SUBSITE` (
     PRIMARY KEY (`subsite_no`)
 );
 
-ALTER TABLE SUBSITE AUTO_INCREMENT=9999;
+ALTER TABLE SUBSITE AUTO_INCREMENT=10000;
 
 CREATE TABLE `PAYMENT` (
     `payment_no` VARCHAR(10) NOT NULL,
@@ -291,14 +239,14 @@ CREATE TABLE `PAYMENT` (
 );
 
 DELIMITER $$
-	CREATE TRIGGER PAYMENT_SEQ
-	BEFORE INSERT ON PAYMENT
-	FOR EACH ROW
-	BEGIN
-	   DECLARE pay_no INT;
-	   SET pay_no = (SELECT COUNT(payment_no) FROM PAYMENT);
-	   SET NEW.payment_no = CONCAT('P',LPAD(pay_no+1, 9, '0'));
-	END $$ 
+CREATE TRIGGER PAYMENT_SEQ
+BEFORE INSERT ON PAYMENT
+FOR EACH ROW
+BEGIN
+DECLARE pay_no INT;
+SET pay_no = (SELECT COUNT(payment_no) FROM PAYMENT);
+SET NEW.payment_no = CONCAT('P',LPAD(pay_no+1, 9, '0'));
+END $$ 
 DELIMITER ;
 
 CREATE TABLE `PAYMENT_CODE` (
@@ -307,7 +255,6 @@ CREATE TABLE `PAYMENT_CODE` (
     `payment_code_range_end` INT,
     `payment_code_info` VARCHAR(100) NOT NULL,
     `payment_code_fee` INT NOT NULL,
-    `payment_code_no` INT NOT NULL,
     PRIMARY KEY (`payment_code`)
 );
 
@@ -357,7 +304,7 @@ CREATE TABLE `RATING_REVIEW` (
     `user_id` VARCHAR(50) NOT NULL,
     `camp_no` INT,
     `product_no` CHAR(9),
-    `rating_review_status` INT NOT NULL,
+    `rating_review_status` INT NOT NULL DEFAULT 0,
     `rating_review_title` VARCHAR(40),
     `rating_review_content` VARCHAR(1000) NOT NULL,
     `review_reg_date` DATE NOT NULL,
@@ -387,7 +334,7 @@ DELIMITER ;
 
 
 CREATE TABLE `POST` (
-    `post_no` INT NOT NULL,
+    `post_no` INT NOT NULL AUTO_INCREMENT,
     `user_id` VARCHAR(50) NOT NULL,
     `post_type` INT NOT NULL,
     `post_title` VARCHAR(40),
@@ -406,7 +353,7 @@ CREATE TABLE `POST` (
 
 
 CREATE TABLE `COMMENT` (
-    `comment_no` INT NOT NULL,
+    `comment_no` INT NOT NULL AUTO_INCREMENT,
     `post_no` INT NOT NULL,
     `user_id` VARCHAR(50) NOT NULL,
     `comment_content` VARCHAR(400),
@@ -415,8 +362,8 @@ CREATE TABLE `COMMENT` (
 );
 
 
-CREATE TABLE `CONCERN` (
-    `count_no` INT NOT NULL,
+CREATE TABLE `POST_CONCERN` (
+    `count_no` INT NOT NULL AUTO_INCREMENT,
     `user_id` VARCHAR(50) NOT NULL,
     `post_no` INT NOT NULL,
     PRIMARY KEY (`count_no`)
@@ -424,7 +371,7 @@ CREATE TABLE `CONCERN` (
 
 
 CREATE TABLE `TRANSFER` (
-    `transfer_no` INT NOT NULL,
+    `transfer_no` INT NOT NULL AUTO_INCREMENT,
     `user_id` VARCHAR(50) NOT NULL,
     `reservation_no` VARCHAR(10),
     `transfer_camp_area` VARCHAR(30),
@@ -448,7 +395,7 @@ CREATE TABLE `TRANSFER` (
 );
 
 CREATE TABLE `RECEIVE` (
-    `receive_no` INT NOT NULL,
+    `receive_no` INT NOT NULL AUTO_INCREMENT,
     `transfer_no` INT NOT NULL,
     `user_id` VARCHAR(50) NOT NULL,
     `transfer_ee_phone` VARCHAR(11),
@@ -461,8 +408,10 @@ CREATE TABLE `RECEIVE` (
     PRIMARY KEY (`receive_no`)
 );
 
+
+
 CREATE TABLE `QNA` (
-    `qna_no` INT NOT NULL,
+    `qna_no` INT NOT NULL AUTO_INCREMENT,
     `sender_id` VARCHAR(50) NOT NULL,
     `receiver_id` VARCHAR(50) NOT NULL,
     `delete_flag` CHAR(1) NOT NULL DEFAULT 'N',
@@ -478,7 +427,7 @@ CREATE TABLE `QNA` (
 );
 
 CREATE TABLE `NOTICE` (
-    `notice_no` INT NOT NULL,
+    `notice_no` INT NOT NULL AUTO_INCREMENT,
     `user_id` VARCHAR(50) NOT NULL,
     `delete_flag` CHAR(1) NOT NULL DEFAULT 'N',
     `notice_title` VARCHAR(40) NOT NULL,
@@ -494,7 +443,7 @@ CREATE TABLE `NOTICE` (
 );
 
 CREATE TABLE `REPORT` (
-    `report_no` INT NOT NULL,
+    `report_no` INT NOT NULL AUTO_INCREMENT,
     `sender_id` VARCHAR(50) NOT NULL,
     `receiver_id` VARCHAR(50) NOT NULL,
     `report_status` INT,
@@ -516,8 +465,8 @@ ALTER TABLE `REPORT` ADD FOREIGN KEY (`receiver_id`) REFERENCES `USERS`(`user_id
 ALTER TABLE `POST` ADD FOREIGN KEY (`user_id`) REFERENCES `USERS`(`user_id`);
 ALTER TABLE `COMMENT` ADD FOREIGN KEY (`post_no`) REFERENCES `POST`(`post_no`);
 ALTER TABLE `COMMENT` ADD FOREIGN KEY (`user_id`) REFERENCES `USERS`(`user_id`);
-ALTER TABLE `CONCERN` ADD FOREIGN KEY (`post_no`) REFERENCES `POST`(`post_no`);
-ALTER TABLE `CONCERN` ADD FOREIGN KEY (`user_id`) REFERENCES `USERS`(`user_id`);
+ALTER TABLE `POST_CONCERN` ADD FOREIGN KEY (`post_no`) REFERENCES `POST`(`post_no`);
+ALTER TABLE `POST_CONCERN` ADD FOREIGN KEY (`user_id`) REFERENCES `USERS`(`user_id`);
 ALTER TABLE `TRANSFER` ADD FOREIGN KEY (`user_id`) REFERENCES `USERS`(`user_id`);
 ALTER TABLE `RECEIVE` ADD FOREIGN KEY (`transfer_no`) REFERENCES `TRANSFER`(`transfer_no`);
 ALTER TABLE `TRANSFER` ADD FOREIGN KEY (`reservation_no`) REFERENCES `CAMP_RESERVATION`(`reservation_no`);

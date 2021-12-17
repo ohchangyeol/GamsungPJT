@@ -1,4 +1,4 @@
-package service.user;
+package site.gamsung.service.user;
 
 public interface UserDAO {
 

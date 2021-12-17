@@ -5,7 +5,7 @@ import java.sql.Date;
 public class RatingReview {
 
 	private Camp camp;
-	private Product product;
+	private AuctionProduct auctionProduct;
 	private String id;
 	private int ratingReviewNo;
 	private int ratingReviewStatus;
@@ -36,20 +36,20 @@ public class RatingReview {
 		this.camp = camp;
 	}
 
-	public Product getProduct() {
-		return product;
+	public AuctionProduct getProduct() {
+		return auctionProduct;
 	}
 
-	public void setProduct(Product product) {
-		this.product = product;
+	public void setProduct(AuctionProduct auctionProduct) {
+		this.auctionProduct = auctionProduct;
 	}
 
-	public String getID() {
-		return ID;
+	public String getId() {
+		return id;
 	}
 
-	public void setID(String iD) {
-		ID = iD;
+	public void setID(String id) {
+		id = id;
 	}
 
 	public int getRatingReviewNo() {
@@ -183,8 +183,8 @@ public class RatingReview {
 	public String toString() {
 		return "\n RatingReview -> "
 			+ "[camp] : " + camp
-			+ ",[product] : " + product
-			+ ",[ID] : " + ID
+			+ ",[product] : " + auctionProduct
+			+ ",[ID] : " + id
 			+ ",[ratingReviewNo] : " + ratingReviewNo				
 			+ ",[ratingReviewStatus] : " + ratingReviewStatus
 			+ ",[ratingReviewTitle] : " + ratingReviewTitle 
