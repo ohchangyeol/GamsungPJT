@@ -97,7 +97,7 @@
 <body>
 
 	<!-- ToolBar -->
-	<jsp:include page="/campbusiness/zTestToolBar.jsp" />
+	<jsp:include page="/view/campbusiness/zTestToolBar.jsp" />
 
 	<!-- Page Start -->
 	<div class="container">
