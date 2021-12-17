@@ -1,7 +1,7 @@
-package service.servicecenter.impl;
+package site.gamsung.service.servicecenter.impl;
 
-import service.servicecenter.QnaDAO;
-import service.servicecenter.QnaService;
+import site.gamsung.service.servicecenter.QnaDAO;
+import site.gamsung.service.servicecenter.QnaService;
 
 public class QnaServiceImpl implements QnaService {
 	
