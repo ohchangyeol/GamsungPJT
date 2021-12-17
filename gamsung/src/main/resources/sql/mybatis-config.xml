@@ -20,6 +20,7 @@
 		<typeAlias alias="product" type="com.model2.mvc.service.domain.Product" />
 		<typeAlias alias="purchase" type="com.model2.mvc.service.domain.Purchase" />
 		 -->
+		<typeAlias alias="auctionProduct" type="site.gamsung.service.domain.AuctionProduct" />
 	</typeAliases>
 	
 	 <!-- SQL Definition :: file include -->
@@ -29,6 +30,7 @@
 		<mapper resource="sql/ProductMapper.xml"/>
 		<mapper resource="sql/PurchaseMapper.xml"/>
 		 -->
+		 <mapper resource="sql/AuctionMapper.xml"/>
 	</mappers>
 
 </configuration>

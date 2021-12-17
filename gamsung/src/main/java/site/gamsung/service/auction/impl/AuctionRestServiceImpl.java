@@ -1,4 +1,4 @@
-package service.auction.impl;
+package site.gamsung.service.auction.impl;
 
 public class AuctionRestServiceImpl {
 
