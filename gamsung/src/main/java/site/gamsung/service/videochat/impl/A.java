@@ -1,4 +1,4 @@
-package service.videochat.impl;
+package site.gamsung.service.videochat.impl;
 
 public class A {
 
