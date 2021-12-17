@@ -126,7 +126,7 @@
 <body>
 
 	<!-- ToolBar Start /////////////////////////////////////-->
-	<jsp:include page="/campbusiness/zTestToolBar.jsp" />
+	<jsp:include page="/view/campbusiness/zTestToolBar.jsp" />
    	<!-- ToolBar End /////////////////////////////////////-->
    	
    	<!--  화면구성 div Start /////////////////////////////////////-->
