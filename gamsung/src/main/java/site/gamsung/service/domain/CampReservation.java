@@ -1,13 +1,12 @@
-package service.domain;
+package site.gamsung.service.domain;
 
 import java.sql.Date;
 
 public class CampReservation {
 
 	private Camp camp;
-	private BusinessUser businessUser;
-	private MainUnit mainUnit;
 	private User user;
+	private MainSite mainSite;
 	private int reservationNo;
 	private int reservationStatus;
 	private boolean deleteFlag;
@@ -34,20 +33,20 @@ public class CampReservation {
 		this.camp = camp;
 	}
 
-	public BusinessUser getBusinessUser() {
-		return businessUser;
+	public User getBusinessUser() {
+		return user;
 	}
 
-	public void setBusinessUser(BusinessUser businessUser) {
-		this.businessUser = businessUser;
+	public void setBusinessUser(User user) {
+		this.user = user;
 	}
 
-	public MainUnit getMainUnit() {
-		return mainUnit;
+	public MainSite getMainUnit() {
+		return mainSite;
 	}
 
-	public void setMainUnit(MainUnit mainUnit) {
-		this.mainUnit = mainUnit;
+	public void setMainSite(MainSite mainSite) {
+		this.mainSite = mainSite;
 	}
 
 	public User getUser() {
@@ -165,8 +164,8 @@ public class CampReservation {
 	public String toString() {
 		return "\n CampReservation -> "
 			+ "[camp] : " + camp
-			+ ",[businessUser] : " + businessUser
-			+ ",[mainUnit] : " + mainUnit
+			+ ",[businessUser] : " + user
+			+ ",[mainUnit] : " + mainSite
 			+ ",[user] : " + user				
 			+ ",[reservationNo] : " + reservationNo
 			+ ",[reservationStatus] : " + reservationStatus 

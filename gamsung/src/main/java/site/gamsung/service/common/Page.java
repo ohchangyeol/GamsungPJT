@@ -1,4 +1,4 @@
-package service.common;
+package site.gamsung.service.common;
 
 
 //==> PageNavigation 을 위한 Bean

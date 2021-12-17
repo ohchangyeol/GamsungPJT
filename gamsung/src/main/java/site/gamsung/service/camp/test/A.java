@@ -1,4 +1,4 @@
-package service.camp.test;
+package site.gamsung.service.camp.test;
 
 public class A {
 

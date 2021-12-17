@@ -1,11 +1,11 @@
-package service.camp.impl;
+package site.gamsung.service.camp.impl;
 
-import service.camp.CampRatingReviewDAO;
+import site.gamsung.service.camp.CampRatingReviewDAO;
 
 public class CampRatingReviewDAOImpl implements CampRatingReviewDAO {
 
 	public CampRatingReviewDAOImpl() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 }

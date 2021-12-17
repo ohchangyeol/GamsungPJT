@@ -1,4 +1,4 @@
-package service.camp;
+package site.gamsung.service.camp;
 
 public interface CampSearchDAO {
 

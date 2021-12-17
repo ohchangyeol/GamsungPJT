@@ -1,9 +1,12 @@
-package service.camp.impl;
+package site.gamsung.service.camp.impl;
 
 import java.util.Map;
 
-import service.camp.CampSearchDAO;
-import service.camp.CampSearchService;
+import site.gamsung.service.camp.CampSearchDAO;
+import site.gamsung.service.camp.CampSearchService;
+import site.gamsung.service.common.Search;
+
+
 
 public class CampSearchServiceImpl implements CampSearchService{
 	
