@@ -227,7 +227,7 @@ public class MainSite {
 	
 	// Override toString
 	public String toString() {
-		return "\n -- Camp --"
+		return "\n -- MainSite --"
 			+ "\n [mainSiteNo] : " + mainSiteNo
 			+ "\n [campNo] : " + campNo
 			+ "\n [mainSiteType] : " + mainSiteType

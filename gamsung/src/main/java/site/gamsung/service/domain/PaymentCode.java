@@ -75,7 +75,7 @@ public class PaymentCode {
 
 	// Override toString
 	public String toString() {
-		return "\n -- Camp --"
+		return "\n -- PaymentCode --"
 			+ "\n [paymentCodeNo] : " + paymentCodeNo
 			+ "\n [paymentCode] : " + paymentCode
 			+ "\n [paymentCodeRangeStart] : " + paymentCodeRangeStart
