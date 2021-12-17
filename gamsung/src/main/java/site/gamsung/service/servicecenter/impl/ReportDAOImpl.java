@@ -1,6 +1,6 @@
-package service.servicecenter.impl;
+package site.gamsung.service.servicecenter.impl;
 
-import service.servicecenter.ReportDAO;
+import site.gamsung.service.servicecenter.ReportDAO;
 
 public interface ReportDAOImpl extends ReportDAO {
 

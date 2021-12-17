@@ -1,6 +1,6 @@
 package site.gamsung.service.servicecenter.impl;
 
-import service.servicecenter.QnaDAO;
+import site.gamsung.service.servicecenter.QnaDAO;
 
 public class QnaDAOImpl implements QnaDAO {
 
