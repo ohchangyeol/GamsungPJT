@@ -22,7 +22,7 @@
 		 -->
 		 <typeAlias alias="camp" type="site.gamsung.service.domain.Camp" />
 		 <typeAlias alias="mainSite" type="site.gamsung.service.domain.MainSite" />
-		 <typeAlias alias="subSite" type="site.gamsung.service.domain.Subsite" />
+		 <typeAlias alias="subSite" type="site.gamsung.service.domain.SubSite" />
 		 <typeAlias alias="payment" type="site.gamsung.service.domain.Payment" />
 		 <typeAlias alias="paymentCode" type="site.gamsung.service.domain.PaymentCode" />
 		 <typeAlias alias="siteProfit" type="site.gamsung.service.domain.SiteProfit" />
