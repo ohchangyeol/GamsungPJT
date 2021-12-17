@@ -176,6 +176,14 @@ public class MainSite {
 	public void setMainSiteReservationEnd(Date mainSiteReservationEnd) {
 		this.mainSiteReservationEnd = mainSiteReservationEnd;
 	}
+	
+	public String getMainSiteReservationUserName() {
+		return mainSiteReservationUserName;
+	}
+
+	public void setMainSiteReservationUserName(String mainSiteReservationUserName) {
+		this.mainSiteReservationUserName = mainSiteReservationUserName;
+	}
 
 	public Date getMainSiteRegDate() {
 		return mainSiteRegDate;
@@ -235,6 +243,7 @@ public class MainSite {
 			+ "\n [mainSiteInfo] : " + mainSiteInfo
 			+ "\n [mainSiteReservationStart] :" + mainSiteReservationStart
 			+ "\n [mainSiteReservationEnd] : " + mainSiteReservationEnd
+			+ "\n [mainSiteReservationUserName] : " + mainSiteReservationUserName
 			+ "\n [mainSiteRegDate] : " + mainSiteRegDate
 			+ "\n [mainSiteImg1] : " + mainSiteImg1 
 			+ "\n [mainSiteImg2] : " + mainSiteImg2 
