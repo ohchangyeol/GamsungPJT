@@ -1,5 +1,9 @@
 package site.gamsung.service.auction;
 
-public interface AuctionProductDAO {
+import site.gamsung.service.domain.AuctionProduct;
 
+public interface AuctionProductDAO {
+	
+	public void addAuctionProduct(AuctionProduct auctionProduc);
+	
 }

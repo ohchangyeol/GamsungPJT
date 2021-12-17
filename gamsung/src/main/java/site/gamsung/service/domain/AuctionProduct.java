@@ -1,4 +1,4 @@
-package service.domain;
+package site.gamsung.service.domain;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -42,11 +42,18 @@ public class AuctionProduct {
 	public void setAuctionProductDatail(String auctionProductDatail) {
 		this.auctionProductDatail = auctionProductDatail;
 	}
-	public String getUserId() {
-		return userId;
+	
+	public String getAuctionProductNo() {
+		return auctionProductNo;
 	}
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setAuctionProductNo(String auctionProductNo) {
+		this.auctionProductNo = auctionProductNo;
+	}
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
 	}
 	public String getStartBidPrice() {
 		return startBidPrice;
