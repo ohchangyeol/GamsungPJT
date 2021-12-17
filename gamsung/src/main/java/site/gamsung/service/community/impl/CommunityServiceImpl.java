@@ -1,6 +1,6 @@
-package service.community.impl;
+package site.gamsung.service.community.impl;
 
-import service.community.CommunityService;
+import site.gamsung.service.community.CommunityService;
 
 public class CommunityServiceImpl implements CommunityService {
 

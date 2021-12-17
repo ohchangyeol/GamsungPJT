@@ -20,14 +20,13 @@
 		<typeAlias alias="product" type="com.model2.mvc.service.domain.Product" />
 		<typeAlias alias="purchase" type="com.model2.mvc.service.domain.Purchase" />
 		 -->
-
-		<typeAlias alias="camp" type="site.gamsung.service.domain.Camp" />
-		<typeAlias alias="mainSite" type="site.gamsung.service.domain.MainSite" />
-		<typeAlias alias="subSite" type="site.gamsung.service.domain.Subsite" />
-		<typeAlias alias="payment" type="site.gamsung.service.domain.Payment" />
-		<typeAlias alias="paymentCode" type="site.gamsung.service.domain.PaymentCode" />
-		<typeAlias alias="siteProfit" type="site.gamsung.service.domain.SiteProfit" />
-		<typeAlias alias="auctionProduct" type="site.gamsung.service.domain.AuctionProduct" />
+		 <typeAlias alias="camp" type="site.gamsung.service.domain.Camp" />
+		 <typeAlias alias="mainSite" type="site.gamsung.service.domain.MainSite" />
+		 <typeAlias alias="subSite" type="site.gamsung.service.domain.SubSite" />
+		 <typeAlias alias="payment" type="site.gamsung.service.domain.Payment" />
+		 <typeAlias alias="paymentCode" type="site.gamsung.service.domain.PaymentCode" />
+		 <typeAlias alias="siteProfit" type="site.gamsung.service.domain.SiteProfit" />
+		 <typeAlias alias="auctionProduct" type="site.gamsung.service.domain.AuctionProduct" />
 
 	</typeAliases>
 	
@@ -37,11 +36,14 @@
 		<mapper resource="sql/UserMapper.xml"/>
 		<mapper resource="sql/ProductMapper.xml"/>
 		<mapper resource="sql/PurchaseMapper.xml"/>
+
 	 -->
 	
 		<mapper resource="sql/CampBusinessMapper.xml"/>
 		<mapper resource="sql/PaymentMapper.xml"/> 
+
 		<mapper resource="sql/AuctionMapper.xml"/>
+
 
 	</mappers>
 

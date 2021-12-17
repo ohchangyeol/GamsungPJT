@@ -1,6 +1,6 @@
-package service.community.impl;
+package site.gamsung.service.community.impl;
 
-import service.community.CommunityDAO;
+import site.gamsung.service.community.CommunityDAO;
 
 public class CommunityDAOImpl implements CommunityDAO {
 

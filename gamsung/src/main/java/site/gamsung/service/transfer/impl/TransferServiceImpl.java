@@ -1,6 +1,6 @@
-package service.transfer.impl;
+package site.gamsung.service.transfer.impl;
 
-import service.transfer.TransferService;
+import site.gamsung.service.transfer.TransferService;
 
 public class TransferServiceImpl implements TransferService {
 

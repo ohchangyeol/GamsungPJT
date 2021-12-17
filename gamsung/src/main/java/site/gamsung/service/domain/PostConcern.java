@@ -1,12 +1,8 @@
 package site.gamsung.service.domain;
 
-public class Comment {
-	
-	private Post post;
-	
+public class PostConcern {
 
-
-	public Comment() {
+	public PostConcern() {
 		// TODO Auto-generated constructor stub
 	}
 

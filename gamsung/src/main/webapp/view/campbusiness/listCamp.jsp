@@ -1,5 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
-<%@ taglib prefix="c" uri="http://Java.sun.com/jsp/jstl/core" %>	
 
 <!DOCTYPE html>
 
@@ -251,7 +250,7 @@
  	
  	
  	<!-- PageNavigation Start... -->
-	<jsp:include page="../common/pageNavigator_newProduct.jsp"/>
+	
 	<!-- PageNavigation End... -->
 	
 </body>
