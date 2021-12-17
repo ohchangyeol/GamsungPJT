@@ -6,7 +6,7 @@ public class RatingReview {
 
 	private Camp camp;
 	private Product product;
-	private String ID;
+	private String id;
 	private int ratingReviewNo;
 	private int ratingReviewStatus;
 	private String ratingReviewTitle;
