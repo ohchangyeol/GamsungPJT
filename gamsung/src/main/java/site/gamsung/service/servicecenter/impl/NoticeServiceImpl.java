@@ -1,9 +1,10 @@
-package service.servicecenter.impl;
+package site.gamsung.service.servicecenter.impl;
 
 import org.springframework.stereotype.Service;
 
-import service.servicecenter.NoticeDAO;
-import service.servicecenter.NoticeService;
+import site.gamsung.service.servicecenter.NoticeDAO;
+import site.gamsung.service.servicecenter.NoticeService;
+
 
 @Service("noticeServiceImpl")
 public class NoticeServiceImpl implements NoticeService {

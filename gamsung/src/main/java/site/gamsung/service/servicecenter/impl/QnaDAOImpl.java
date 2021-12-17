@@ -1,4 +1,4 @@
-package service.servicecenter.impl;
+package site.gamsung.service.servicecenter.impl;
 
 import service.servicecenter.QnaDAO;
 

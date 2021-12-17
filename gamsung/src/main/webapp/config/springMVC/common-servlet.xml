@@ -23,7 +23,7 @@
     <!--  ㅇ 어노테이션 기반 :: Spring Framework 사용.
     		ㅇ @Controller annotation 선언된 Bean 만 Wiring
 		   ㅇ @Service / @Repository  annotation 선언된 Bean 은 Scan 제외 -->
-	<context:component-scan base-package="stie.gamsung.controller">
+	<context:component-scan base-package="site.gamsung.controller">
 		<context:include-filter 	type="annotation"		expression="org.springframework.stereotype.Controller" />
 		<context:exclude-filter 	type="annotation" 	expression="org.springframework.stereotype.Service"/>
 		<context:exclude-filter 	type="annotation" 	expression="org.springframework.stereotype.Repository"/>
