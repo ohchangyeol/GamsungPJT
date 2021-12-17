@@ -1,5 +1,10 @@
 package site.gamsung.controller.camp;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
 import site.gamsung.service.camp.CampReservationService;
 import site.gamsung.service.camp.CampSearchService;
 import site.gamsung.service.common.RatingReviewService;
@@ -7,13 +12,22 @@ import site.gamsung.service.payment.PaymentService;
 import site.gamsung.service.servicecenter.NoticeService;
 import site.gamsung.service.servicecenter.QnaService;
 
+@Controller
+@RequestMapping("/campGeneral/*")
 public class CampGeneralController {
 
+	@Autowired
+	@Qualifier("campSearchServiceImpl")
 	private CampSearchService campSearchService;
+	
 	private CampReservationService campReservationService;
+	
 	private NoticeService noticeService;
+	
 	private QnaService qnaService;
+	
 	private PaymentService paymentService;
+	
 	private RatingReviewService ratingReviewService;
 	
 	private static final String FILE_SERVER_PATH = "";
