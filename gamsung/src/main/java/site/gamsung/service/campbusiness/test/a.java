@@ -1,4 +1,4 @@
-package service.campbusiness.test;
+package site.gamsung.service.campbusiness.test;
 
 public class a {
 

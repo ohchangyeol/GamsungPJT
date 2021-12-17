@@ -1,4 +1,4 @@
-package service.domain;
+package site.gamsung.service.domain;
 
 public class PaymentCode {
 	

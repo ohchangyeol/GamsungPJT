@@ -1,4 +1,4 @@
-package service.campbusiness.impl;
+package site.gamsung.service.campbusiness.impl;
 
 public class a {
 
