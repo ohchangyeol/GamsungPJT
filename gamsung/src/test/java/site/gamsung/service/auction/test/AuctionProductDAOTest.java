@@ -12,6 +12,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import site.gamsung.service.auction.AuctionProductDAO;
 import site.gamsung.service.domain.AuctionProduct;
+import site.gamsung.service.domain.User;
 
 
 
@@ -33,12 +34,15 @@ public class AuctionProductDAOTest {
 
 	//==>@RunWith,@ContextConfiguration 이용 Wiring, Test 할 instance DI
 	@Autowired(required = false)
-	@Qualifier("AuctionProductDAO")
+	@Qualifier("auctionProductDAO")
 	private AuctionProductDAO auctionProductDAO;
 
 	@Test
 	public void testAddProduct() throws Exception {
 		AuctionProduct auctionProduct = new AuctionProduct();
+		User user = new User();
+		user.setId("user1@gamsung.com");
+		auctionProduct.setUser(user);
 		auctionProduct.setAuctionProductName("텐트");
 		auctionProduct.setAuctionProductDatail("너무 좋아요");
 		auctionProduct.setAuctionStartTime("2021-12-18 15:00:00");

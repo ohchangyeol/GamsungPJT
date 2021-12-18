@@ -38,11 +38,10 @@
 		<mapper resource="sql/ProductMapper.xml"/>
 		<mapper resource="sql/PurchaseMapper.xml"/>
 		
-		<mapper resource="sql/AuctionMapper.xml"/>
-	-->
-	
 		<mapper resource="sql/CampBusinessMapper.xml"/>
 		<mapper resource="sql/PaymentMapper.xml"/> 
+	-->
+		<mapper resource="sql/AuctionMapper.xml"/>
 
 	</mappers>
 
