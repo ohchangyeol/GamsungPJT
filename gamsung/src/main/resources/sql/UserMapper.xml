@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+		
+<mapper namespace="UserMapper">
+
+	<resultMap id="userSelectMap" type="user">
+		<result property="id" 			column="user_id" 			jdbcType="VARCHAR"/>
+		<result property="role"			column="role" 				jdbcType="VARCHAR" />
+		<result property="nickName" 	column="nick_name" 		jdbcType="VARCHAR" />
+		<result property="password" 		column="password" 		jdbcType="VARCHAR" />
+		<result property="name" 				column="name" 				jdbcType="VARCHAR" />
+		<result property="phone" 			column="phone" 		jdbcType="VARCHAR" />
+		<result property="addr" 				column="addr" 					jdbcType="VARCHAR" />
+		<result property="addUserRegDate" 			column="entry_reg_date" 		jdbcType="DATE"  />
+		<result property="bank" 		column="bank" 			jdbcType="VARCHAR" />
+		<result property="accountHolder" 		column="account_holder" 			jdbcType="VARCHAR" />
+		<result property="accountNum" 		column="account_num" 			jdbcType="VARCHAR" />
+		<result property="havingPoint" 		column="having_point" 			jdbcType="NUMERIC" />
+		<result property="campName" 		column="camp_name" 			jdbcType="VARCHAR" />
+		<result property="campCall" 		column="camp_call" 			jdbcType="VARCHAR" />
+		<result property="businessUserApprovalFlag" 		column="entry_approval_flag" 			jdbcType="CHAR" />
+		<result property="countCancelReceive" 		column="receive_cancel_total_count" 			jdbcType="NUMERIC" />
+		<result property="receiveProhibitionEndDate" 		column="receive_ban_end_date" 			jdbcType="DATE" />
+		<result property="dormantConversionDate" 		column="dormant_reg_date" 			jdbcType="DATE" />
+		<result property="secessionRegDate" 		column="secession_reg_date" 			jdbcType="DATE" />
+		<result property="suspensionDate" 		column="suspension_reg_date" 			jdbcType="DATE" />
+		<result property="tourismBusinessNum" 		column="tourism_business_num" 			jdbcType="VARCHAR" />
+		<result property="suspensionContent" 		column="suspension_content" 			jdbcType="VARCHAR" />
+		<result property="auctionGrade" 		column="auction_grade" 			jdbcType="SMALLINT" />
+	</resultMap>
+	
+		<!-- SQL : INSERT -->
+	<insert 	id="addUser"		parameterType="user" >
+	 	INSERT
+		INTO gamsung.users( user_id , role , nick_name , password , name, phone, addr, entry_reg_date , bank , account_holder, 
+		account_num, camp_name, camp_call, entry_approval_flag, receive_cancel_total_count, receive_ban_end_date,
+		dormant_reg_date, secession_reg_date, suspension_reg_date, tourism_business_num, suspension_content, auction_grade) 
+		VALUES	 (	#{userId} , #{role} , #{nickName:VARCHAR} , #{password} , #{name} , #{phone} , #{addr} , SYSDATE , #{bank}, #{accountHolder}, #{ssn:VARCHAR} , 
+		#{accountNum}, #{campName}, #{campCall}, #{countCancelReceive} , #{receiveProhibitionEndDate:DATE}, #{dormantConversionDate:DATE} , #{secessionRegDate:DATE} ,
+		#{suspensionDate:DATE}, #{tourismBusinessNum:VARCHAR}, #{suspensionContent:VARCHAR});
+	 </insert>
+	 
+	 <!-- SQL : SELECT ONE -->
+	 <select 	id="getUser"	parameterType="string"	resultMap="userSelectMap">
+		SELECT
+		user_id , user_name , password , role ,  cell_phone ,  addr , email , reg_date 		
+		FROM users 
+		WHERE user_id = #{value}
+	 </select>
+	 
+	 <!-- SQL : UPDATE -->
+	 <update	id="updateUser"	parameterType="user" >
+	   	UPDATE users
+	   	<set>
+	   		user_name 	= #{userName} ,
+			cell_phone	= #{phone},
+			addr 				= #{addr} ,
+			email				=	#{email}
+	   	</set>
+	   	WHERE user_id = #{userId}
+	 </update>
+	 
+</mapper>
