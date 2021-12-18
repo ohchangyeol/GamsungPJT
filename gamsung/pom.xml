@@ -104,13 +104,14 @@
 		    <version>${spring.version}</version>
 		</dependency>
 		
-		<!-- org.springframework/spring-test -->
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-test -->
 		<dependency>
 		    <groupId>org.springframework</groupId>
 		    <artifactId>spring-test</artifactId>
 		    <version>${spring.version}</version>
 		    <scope>test</scope>
 		</dependency>
+				
 		
 		<!-- org.aspectj/com.springsource.org.aspectj.weaver -->
 		<dependency>

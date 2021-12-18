@@ -8,11 +8,11 @@ import org.springframework.stereotype.Repository;
 import site.gamsung.service.auction.AuctionProductDAO;
 import site.gamsung.service.domain.AuctionProduct;
 
-@Repository("AuctionProductDAO")
+@Repository("auctionProductDAO")
 public class AuctionProductDAOImpl implements AuctionProductDAO{
 	
-	@Autowired(required = false)
-	@Qualifier("sqlSessionTamplate")
+	@Autowired
+	@Qualifier("sqlSessionTemplate")
 	private SqlSession sqlSession;
 	public void setSqlSession(SqlSession sqlSession) {
 		this.sqlSession = sqlSession;
@@ -26,6 +26,7 @@ public class AuctionProductDAOImpl implements AuctionProductDAO{
 	@Override
 	public void addAuctionProduct(AuctionProduct auctionProduct) {
 		// TODO Auto-generated method stub
+		System.out.println("sqlSession : "+sqlSession );
 		sqlSession.insert("AuctionMapper.addAuctionProduct", auctionProduct);
 	}
 	
