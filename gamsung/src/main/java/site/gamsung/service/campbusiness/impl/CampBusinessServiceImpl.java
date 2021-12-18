@@ -35,7 +35,11 @@ public class CampBusinessServiceImpl implements CampBusinessService{
 
 	@Override
 	public void addCamp(Camp camp) throws Exception {
+
+		String methodName = new Object() {}.getClass().getEnclosingMethod().getName();
+		System.out.println(" >> "+ this.getClass().getName() + " : " + methodName);
 		
+		campBusinessDAO.addCamp(camp);
 	}
 
 }
