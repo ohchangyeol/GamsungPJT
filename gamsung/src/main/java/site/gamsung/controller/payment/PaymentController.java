@@ -20,11 +20,11 @@ public class PaymentController {
 	private PaymentService paymentService;
 
 	// @Value("#{commonProperties['pageUnit']}")
-	@Value("#{commonProperties['pageUnit'] ?: 3}")
+	@Value("#{commonProperties['pageUnit'] ?: 10}")
 	int pageUnit;
 
 	// @Value("#{commonProperties['pageSize']}")
-	@Value("#{commonProperties['pageSize'] ?: 2}")
+	@Value("#{commonProperties['pageSize'] ?: 5}")
 	int pageSize;
 
 	public PaymentController() {
