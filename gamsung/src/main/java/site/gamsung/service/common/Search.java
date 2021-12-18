@@ -14,7 +14,7 @@ public class Search {
 	private List mainSite;
 	private List subSite;
 	private List theme;
-	private String price;
+	private List price;
 	private int currentPage;
 	private int pageSize;
 	private int startRowNum;
@@ -112,11 +112,11 @@ public class Search {
 		this.theme = theme;
 	}
 
-	public String getPrice() {
+	public List getPrice() {
 		return price;
 	}
 
-	public void setPrice(String price) {
+	public void setPrice(List price) {
 		this.price = price;
 	}
 

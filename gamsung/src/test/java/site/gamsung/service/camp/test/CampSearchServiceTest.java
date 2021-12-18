@@ -1,5 +1,6 @@
 package site.gamsung.service.camp.test;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -7,6 +8,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -35,20 +37,42 @@ public class CampSearchServiceTest {
 	@Qualifier("campSearchServiceImpl")
 	private CampSearchService campSearchService;
 	
+	@Value("#{commonProperties['pageUnit']}")
+	int pageUnit;	
 	
+	@Value("#{commonProperties['pageSize']}")
+	int pageSize;
 	
 	@Test
 	public void testListCamp() throws Exception{
 		
 		Search search = new Search();
 		search.setCurrentPage(1);
-		search.setPageSize(3);
+		search.setPageSize(pageSize);
+//		search.setSearchKeyword("감자");
+//		
+//		List mainSite = new ArrayList();
+//		mainSite.add("오토캠핑");
+//		mainSite.add("글램핑");
+//		search.setMainSite(mainSite);
+		
+		List price = new ArrayList();
+		price.add(100000);
+		price.add(200000);
+		
+		search.setPrice(price);
 					
 		Map<String,Object> map = campSearchService.listCamp(search);
 		
 		List<Object> list = (List<Object>)map.get("list");
 		
-		System.out.println(list);
+		Assert.assertEquals(1, list.size());
+		
+		System.out.println("콘솔 확인 : " +list);
+		
+		Integer totalCount = (Integer)map.get("totalCount");
+				
+	 	System.out.println("콘솔 확인 : " +totalCount);
 		
 	}
 }
