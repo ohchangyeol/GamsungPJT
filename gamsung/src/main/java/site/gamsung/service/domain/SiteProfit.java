@@ -67,7 +67,7 @@ public class SiteProfit {
 
 	// Override toString
 	public String toString() {
-		return "\n -- Camp --"
+		return "\n -- SiteProfit --"
 			+ "\n [profitRegDate] : " + profitRegDate
 			+ "\n [profitPoint] : " + profitPoint
 			+ "\n [profitCash] : " + profitCash

@@ -71,8 +71,7 @@ public class CampBusinessController {
 //		}
 		
 		// Business Logic
-		campBusinessService.addCamp(camp);
-
+	
 		return "redirect:/view/campbusiness/addCamp.jsp";
 	}
 	
