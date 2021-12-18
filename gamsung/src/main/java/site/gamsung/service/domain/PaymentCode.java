@@ -12,7 +12,6 @@ public class PaymentCode {
 	*/
 	
 	/// Field
-	private int paymentCodeNo;
 	private String paymentCode;
 	private int paymentCodeRangeStart;
 	private int paymentCodeRangeEnd;
@@ -25,14 +24,6 @@ public class PaymentCode {
 	}
 	
 	/// Getter / Setter	
-	public int getPaymentCodeNo() {
-		return paymentCodeNo;
-	}
-
-	public void setPaymentCodeNo(int paymentCodeNo) {
-		this.paymentCodeNo = paymentCodeNo;
-	}
-
 	public String getPaymentCode() {
 		return paymentCode;
 	}
@@ -76,7 +67,6 @@ public class PaymentCode {
 	// Override toString
 	public String toString() {
 		return "\n -- PaymentCode --"
-			+ "\n [paymentCodeNo] : " + paymentCodeNo
 			+ "\n [paymentCode] : " + paymentCode
 			+ "\n [paymentCodeRangeStart] : " + paymentCodeRangeStart
 			+ "\n [paymentCodeRangeEnd] : " + paymentCodeRangeEnd				

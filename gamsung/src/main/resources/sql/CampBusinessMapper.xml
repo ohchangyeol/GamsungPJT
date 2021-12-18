@@ -1,1 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="CampBusinessMapper"> 	
+ 		
+	<resultMap id="CampSelectMap" type="camp">
+		<result property="campNo" 						column="camp_no" 		  					jdbcType="NUMERIC"/>
+		<result property="user.id"						column="user_id" 		  					jdbcType="VARCHAR"/>
+		<result property="campTempSave" 				column="tempsave_flag" 	  					jdbcType="CHAR"/>
+		<result property="deleteFlag" 					column="delete_flag"  						jdbcType="CHAR"/>
+		<result property="campSummery" 					column="camp_summery" 			  			jdbcType="NUMERIC"/>
+		<result property="campDetail" 					column="camp_detail" 	  					jdbcType="VARCHAR"/>
+		<result property="campMapImg" 					column="camp_map_img" 					 	jdbcType="VARCHAR"/>
+		<result property="campImg1" 					column="camp_img1" 							jdbcType="VARCHAR"/>
+		<result property="campImg2" 					column="camp_img2"  						jdbcType="VARCHAR"/>
+		<result property="campImg3" 					column="camp_img3" 			  				jdbcType="VARCHAR"/>
+		<result property="campImg4" 					column="camp_img4" 	  						jdbcType="VARCHAR"/>
+		<result property="campImg5" 					column="camp_img5" 		 					jdbcType="VARCHAR"/>
+		<result property="campViewCountCurrentMonth"	column="camp_view_count_previous_month"		jdbcType="NUMERIC"/>
+		<result property="campViewCountPreviousMonth"	column="camp_view_count_current_month"  	jdbcType="NUMERIC"/>
+		<result property="campReservationCount" 		column="camp_reservation_count" 			jdbcType="NUMERIC"/>
+		<result property="campRegDate" 					column="camp_reg_date" 	  					jdbcType="DATE"/>
+		<result property="campTheme1" 					column="camp_theme1" 		 				jdbcType="VARCHAR"/>
+		<result property="campTheme2" 					column="camp_theme2" 						jdbcType="VARCHAR"/>
+		<result property="campNature1" 					column="camp_nature1"  						jdbcType="VARCHAR"/>
+		<result property="campNature2" 					column="camp_nature2" 			  			jdbcType="VARCHAR"/>
+		<result property="campOperation1" 				column="camp_operation1" 	  				jdbcType="VARCHAR"/>
+		<result property="campOperation2" 				column="camp_operation2" 		 			jdbcType="VARCHAR"/>
+		<result property="campName" 					column="camp_name" 							jdbcType="VARCHAR"/>
+		<result property="campAddr" 					column="addr" 								jdbcType="VARCHAR"/>
+		<result property="campCall" 					column="camp_call" 							jdbcType="VARCHAR"/>
+		<result property="campRate" 					column="camp_rating" 						jdbcType="DOUBLE"/>		
+	</resultMap>
+	
+	<resultMap id="mainSiteSelectMap" type="mainSite">
+		<result property="mainSiteNo" 						column="mainsite_no" 		  				jdbcType="NUMERIC"/>
+		<result property="campNo"							column="camp_no" 		  					jdbcType="NUMERIC"/>
+		<result property="mainSiteType" 					column="mainsite_type" 	  					jdbcType="VARCHAR"/>
+		<result property="deleteFlag" 						column="delete_flag"  						jdbcType="CHAR"/>
+		<result property="mainSiteName" 					column="mainsite_name" 			  			jdbcType="VARCHAR"/>
+		<result property="mainSiteSection" 					column="mainsite_section" 	  				jdbcType="VARCHAR"/>
+		<result property="mainSiteSize" 					column="mainsite_size" 		 				jdbcType="VARCHAR"/>
+		<result property="mainSiteMinCapacity" 				column="mainsite_min_capacity" 				jdbcType="NUMERIC"/>
+		<result property="mainSiteMaxCapacity" 				column="mainsite_max_capacity" 				jdbcType="NUMERIC"/>
+		<result property="mainSiteMinPrice" 				column="mainsite_min_price" 				jdbcType="NUMERIC"/>
+		<result property="mainSiteAddPrice" 				column="mainsite_add_price" 				jdbcType="NUMERIC"/>
+		<result property="mainSiteParkingSize" 				column="mainsite_parking_size" 				jdbcType="NUMERIC"/>
+		<result property="mainSiteInfo" 					column="mainsite_info" 						jdbcType="VARCHAR"/>
+		<result property="mainSiteReservationStart" 		column="mainsite_reservation_start" 		jdbcType="DATE"/>
+		<result property="mainSiteReservationEnd"			column="mainsite_reservation_end" 			jdbcType="DATE"/>
+		<result property="mainSiteReservationUserName"		column="mainsite_reservation_user_name"		jdbcType="VARCHAR"/>
+		<result property="mainSiteRegDate" 					column="mainsite_reg_date" 					jdbcType="DATE"/>
+		<result property="mainSiteImg1" 					column="mainsite_img1" 						jdbcType="VARCHAR"/>
+		<result property="mainSiteImg2" 					column="mainsite_img2" 						jdbcType="VARCHAR"/>
+		<result property="mainSiteImg3" 					column="mainsite_img3" 						jdbcType="VARCHAR"/>
+		<result property="campName" 						column="camp_name" 							jdbcType="VARCHAR"/>		
+	</resultMap>
+	
+	<resultMap id="subSiteSelectMap" type="subSite">
+		<result property="subSiteNo" 			column="subsite_no" 		  	jdbcType="NUMERIC"/>
+		<result property="campNo"				column="camp_no" 		  		jdbcType="NUMERIC"/>
+		<result property="subSiteType" 			column="subsite_type" 	  		jdbcType="VARCHAR"/>
+		<result property="subSiteRegDate" 		column="subsite_reg_date"  		jdbcType="DATE"/>
+		<result property="subSiteName" 			column="subsite_name" 			jdbcType="VARCHAR"/>
+		<result property="subSiteInfo" 			column="subsite_info" 	  		jdbcType="VARCHAR"/>
+		<result property="subSiteImg" 			column="subsite_img" 		 	jdbcType="VARCHAR"/>
+		<result property="campName" 			column="camp_name" 				jdbcType="VARCHAR"/>
+	</resultMap>
+	
+
+</mapper>
