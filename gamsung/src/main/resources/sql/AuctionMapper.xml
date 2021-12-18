@@ -4,8 +4,8 @@
 		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="ProductMapper">
-	<resultMap id="auctionDomain" type="auction">
+<mapper namespace="AuctionMapper">
+	<resultMap id="auction" type="auctionProduct">
 		<result property="auctionProductNo" column="product_no"/>
 		<result property="" column="registrant_id"/>
 		<result property="" column="successful_bidder_id"/>
@@ -17,14 +17,14 @@
 		<result property="auctionStartTime" column="auction_start_time"/>
 		<result property="auctionEndTime" column="auction_end_time"/>
 		<result property="bidableGrade" column="bidable_grade"/>
-		<result property="hashtag" column="hashtag1"/>
-		<result property="hashtag" column="hashtag2"/>
-		<result property="hashtag" column="hashtag3"/>
-		<result property="productImg" column="product_img1"/>
-		<result property="productImg" column="product_img2"/>
-		<result property="productImg" column="product_img3"/>
-		<result property="productImg" column="product_img4"/>
-		<result property="productImg" column="product_img5"/>
+		<result property="hashtag1" column="hashtag1"/>
+		<result property="hashtag2" column="hashtag2"/>
+		<result property="hashtag3" column="hashtag3"/>
+		<result property="productImg1" column="product_img1"/>
+		<result property="productImg2" column="product_img2"/>
+		<result property="productImg3" column="product_img3"/>
+		<result property="productImg4" column="product_img4"/>
+		<result property="productImg5" column="product_img5"/>
 		<result property="productViewCount" column="product_view_count"/>
 		<result property="productRegDate" column="product_reg_date"/>
 		<result property="isConfirm" column="registrant_confirm_flag"/>
@@ -34,14 +34,18 @@
 		<result property="isDelete" column="delete_flag"/>
 	</resultMap>
 	
-	<insert id="addAuctionProduct" parameterType="auctoinProduct">
+	<insert id="addAuctionProduct" parameterType="auctionProduct">
 		INSERT INTO AUCTION_PRODUCT
 		(registrant_id, product_name, product_detail, start_bid_price, hopeful_bid_price, bid_unit, auction_start_time, auction_end_time, bidable_grade, 
 		 hashtag1, hashtag2, hashtag3, product_img1, product_img2, product_img3, product_img4, product_img5) 
 		VALUES (#{user.id}, #{auctionProductName}, #{auctionProductDatail}, #{startBidPrice}, #{hopefulBidPrice}, #{bidUnit}, #{auctionStartTime}, #{auctionEndTime},
-		        #{bidableGrade}, 
-		        <foreach collection=""></foreach>
-		        #{hashtag})
+		        #{bidableGrade},
+		        <foreach item="item1" index="key" collection="hashtag" separator=",">
+		        	#{item1}
+		        </foreach>
+		        <foreach item="item2" index="key" collection="productImg" separator=",">
+		        	#{item2}
+		        </foreach>);
 		 
 	</insert>
 	

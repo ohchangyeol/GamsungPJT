@@ -4,6 +4,6 @@ import site.gamsung.service.domain.AuctionProduct;
 
 public interface AuctionProductDAO {
 	
-	public void addAuctionProduct(AuctionProduct auctionProduc);
+	public void addAuctionProduct(AuctionProduct auctionProduct) throws Exception;
 	
 }

@@ -431,7 +431,7 @@ CREATE TABLE `NOTICE` (
     `user_id` VARCHAR(50) NOT NULL,
     `delete_flag` CHAR(1) NOT NULL DEFAULT 'N',
     `notice_title` VARCHAR(40) NOT NULL,
-    `notice_Content` VARCHAR(2000) NOT NULL,
+    `notice_content` VARCHAR(2000) NOT NULL,
     `view_count` INT,
     `reg_date` DATETIME,
     `camp_no` INT,
