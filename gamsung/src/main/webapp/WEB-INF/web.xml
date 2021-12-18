@@ -5,17 +5,15 @@
 					xsi:schemaLocation="http://Java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" 
 					 version="3.0"
 					 metadata-complete="true">
-					 
-	<display-name>Gamsung Campping</display-name>
  	
  	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-	</listener>
-	
+	</listener>		
+	 
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
-			<!-- classpath:config/context-aspect.xml, -->
+			classpath:config/context-aspect.xml,
 			classpath:config/context-common.xml,
 			classpath:config/context-mybatis.xml,
 			classpath:config/context-transaction.xml
@@ -44,7 +42,7 @@
 		    <init-param>
 		      <param-name>contextConfigLocation</param-name>
 		      <param-value>/config/springMVC/common-servlet.xml</param-value>
-		      <!-- Servlet Meta-data / Spring Meta-data 위치 분리함 -->
+		      <!-- Servlet Meta-data / Spring Meta-data 위치 분리함 -->\
 		    </init-param>
 		    
 		    <load-on-startup>1</load-on-startup>
