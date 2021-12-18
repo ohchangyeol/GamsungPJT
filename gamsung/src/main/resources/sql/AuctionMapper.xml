@@ -39,13 +39,7 @@
 		(registrant_id, product_name, product_detail, start_bid_price, hopeful_bid_price, bid_unit, auction_start_time, auction_end_time, bidable_grade, 
 		 hashtag1, hashtag2, hashtag3, product_img1, product_img2, product_img3, product_img4, product_img5) 
 		VALUES (#{user.id}, #{auctionProductName}, #{auctionProductDatail}, #{startBidPrice}, #{hopefulBidPrice}, #{bidUnit}, #{auctionStartTime}, #{auctionEndTime},
-		        #{bidableGrade},
-		        <foreach item="item1" index="key" collection="hashtag" separator=",">
-		        	#{item1}
-		        </foreach>
-		        <foreach item="item2" index="key" collection="productImg" separator=",">
-		        	#{item2}
-		        </foreach>);
+		        #{bidableGrade},#{hashtag1},#{hashtag2},#{hashtag3},#{productImg1}, #{productImg2}, #{productImg3}, #{productImg4}, #{productImg5});
 		 
 	</insert>
 	
