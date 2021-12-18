@@ -37,16 +37,37 @@ public class AuctionProductDAOTest {
 	@Qualifier("auctionProductDAO")
 	private AuctionProductDAO auctionProductDAO;
 
+	//임시저장 데이터 호출 테스트
 	@Test
-	public void testAddProduct() throws Exception {
+	public void testGetTempSaveAuctionProduct() {
+			
+		AuctionProduct auctionProduct = auctionProductDAO.getTempSaveAuctionProduct("user2@gamsung.com");
+		System.out.println(auctionProduct);
+			
+	}
+	
+	//임시 저장 테스트
+	//@Test
+	public void testTempSaveAuctionProduct() {
+		
 		AuctionProduct auctionProduct = new AuctionProduct();
-		User user = new User();
-		user.setId("user1@gamsung.com");
-		auctionProduct.setUser(user);
+		auctionProduct.setRegistrantId("user2@gamsung.com");
+		auctionProduct.setIsTempSave("Y");
+		
+		auctionProductDAO.tempSaveAuctionProduct(auctionProduct);
+	}
+	
+	//임시 저장 여부 삭제 및 경매 상품 정보 등록 Test
+	@Test
+	public void testAddAuctionProduct() {
+		
+		AuctionProduct auctionProduct = new AuctionProduct();
+		auctionProduct.setAuctionProductNo("PROD00015");
+		auctionProduct.setRegistrantId("user1@gamsung.com");
 		auctionProduct.setAuctionProductName("텐트");
 		auctionProduct.setAuctionProductDatail("너무 좋아요");
-		auctionProduct.setAuctionStartTime("2021-12-18 15:00:00");
-		auctionProduct.setAuctionStartTime("2021-12-25 15:00:00");
+		auctionProduct.setAuctionStartTime("2021-12-23 15:00:00");
+		auctionProduct.setAuctionEndTime("2021-12-25 15:00:00");
 		auctionProduct.setHashtag1("1111");
 		auctionProduct.setBidableGrade(12);
 		auctionProduct.setBidUnit(1000);
@@ -56,7 +77,31 @@ public class AuctionProductDAOTest {
 		auctionProductDAO.addAuctionProduct(auctionProduct);
 		
 	}
+	
+	//상품 정보 호출 테스트
+	//@Test
+	public void testGetAuctionProduct() {
 		
+		AuctionProduct auctionProduct = auctionProductDAO.getAuctionProduct("PROD00001");
+		System.out.println(auctionProduct);
 		
+	}
+		
+	//회원 경매 정보 호출 테스트
+	//@Test
+	public void testAuctionProductBidUserInfo() {
+		
+		User user = auctionProductDAO.auctionProductBidUserInfo("user2@gamsung.com");
+		System.out.println(user);
+		
+	}
+	
+	//경매 상품 10초 추가 테스트
+	//@Test
+	public void testUpdateBidEndTime() {
+		
+		auctionProductDAO.updateBidEndTime("PROD00001");
+		
+	}
 }
 	
