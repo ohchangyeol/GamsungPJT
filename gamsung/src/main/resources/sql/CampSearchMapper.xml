@@ -48,15 +48,15 @@
 					'%'||#{item}||'%'
 				</foreach>
 	 		</if>
-			<if test="mainsite !=null and mainsite.size !=0">
+			<if test="mainSite !=null and mainSite.size !=0">
 	 			and m.mainsite_type In
-				<foreach collection="mainsite" item="item" index="index" open="(" close=")" separator=",">
+				<foreach collection="mainSite" item="item" index="index" open="(" close=")" separator=",">
 					#{item}
 				</foreach>
 			</if>
-			<if test="subsite !=null and subsite.size !=0">
+			<if test="subSite !=null and subSite.size !=0">
 	 			and s.subsite_type In
-				<foreach collection="subsite" item="item" index="index" open="(" close=")" separator=",">
+				<foreach collection="subSite" item="item" index="index" open="(" close=")" separator=",">
 					#{item}
 				</foreach>
 			</if>
