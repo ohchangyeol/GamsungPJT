@@ -7,7 +7,8 @@ public class AuctionProduct {
 	private String auctionProductNo;
 	private String auctionProductName;
 	private String auctionProductDatail;
-	private User user;
+	private String registrantId;
+	private String successfulBidderId;
 	private int startBidPrice;
 	private int hopefulBidPrice;
 	private int bidUnit;
@@ -26,9 +27,9 @@ public class AuctionProduct {
 	private int productViewCount;
 	private Timestamp productRegDate;
 	private String auctionStatus;
-	private boolean isConfirm;
-	private boolean isTempSave;
-	private boolean isDelete;
+	private String isConfirm;
+	private String isTempSave;
+	private String isDelete;
 	
 	
 	public String getAuctionProductName() {
@@ -50,11 +51,18 @@ public class AuctionProduct {
 	public void setAuctionProductNo(String auctionProductNo) {
 		this.auctionProductNo = auctionProductNo;
 	}
-	public User getUser() {
-		return user;
+	
+	public String getRegistrantId() {
+		return registrantId;
 	}
-	public void setUser(User user) {
-		this.user = user;
+	public void setRegistrantId(String registrantId) {
+		this.registrantId = registrantId;
+	}
+	public String getSuccessfulBidderId() {
+		return successfulBidderId;
+	}
+	public void setSuccessfulBidderId(String successfulBidderId) {
+		this.successfulBidderId = successfulBidderId;
 	}
 	public int getStartBidPrice() {
 		return startBidPrice;
@@ -160,42 +168,45 @@ public class AuctionProduct {
 	public void setProductRegDate(Timestamp productRegDate) {
 		this.productRegDate = productRegDate;
 	}
-	public boolean isConfirm() {
-		return isConfirm;
-	}
-	public void setConfirm(boolean isConfirm) {
-		this.isConfirm = isConfirm;
-	}
+	
 	public String getAuctionStatus() {
 		return auctionStatus;
 	}
 	public void setAuctionStatus(String auctionStatus) {
 		this.auctionStatus = auctionStatus;
 	}
-	public boolean isTempSave() {
+	public String getIsConfirm() {
+		return isConfirm;
+	}
+	public void setIsConfirm(String isConfirm) {
+		this.isConfirm = isConfirm;
+	}
+	public String getIsTempSave() {
 		return isTempSave;
 	}
-	public void setTempSave(boolean isTempSave) {
+	public void setIsTempSave(String isTempSave) {
 		this.isTempSave = isTempSave;
 	}
-	public boolean isDelete() {
+	public String getIsDelete() {
 		return isDelete;
 	}
-	public void setDelete(boolean isDelete) {
+	public void setIsDelete(String isDelete) {
 		this.isDelete = isDelete;
 	}
 	@Override
 	public String toString() {
 		return "AuctionProduct [auctionProductNo=" + auctionProductNo + ", auctionProductName=" + auctionProductName
-				+ ", auctionProductDatail=" + auctionProductDatail + ", user=" + user + ", startBidPrice="
-				+ startBidPrice + ", hopefulBidPrice=" + hopefulBidPrice + ", bidUnit=" + bidUnit
-				+ ", auctionStartTime=" + auctionStartTime + ", auctionEndTime=" + auctionEndTime + ", bidableGrade="
-				+ bidableGrade + ", allhashtag=" + allhashtag + ", hashtag1=" + hashtag1 + ", hashtag2=" + hashtag2
-				+ ", hashtag3=" + hashtag3 + ", productImg1=" + productImg1 + ", productImg2=" + productImg2
-				+ ", productImg3=" + productImg3 + ", productImg4=" + productImg4 + ", productImg5=" + productImg5
-				+ ", productViewCount=" + productViewCount + ", productRegDate=" + productRegDate + ", auctionStatus="
-				+ auctionStatus + ", isConfirm=" + isConfirm + ", isTempSave=" + isTempSave + ", isDelete=" + isDelete
-				+ "]";
+				+ ", auctionProductDatail=" + auctionProductDatail + ", registrantId=" + registrantId
+				+ ", successfulBidderId=" + successfulBidderId + ", startBidPrice=" + startBidPrice
+				+ ", hopefulBidPrice=" + hopefulBidPrice + ", bidUnit=" + bidUnit + ", auctionStartTime="
+				+ auctionStartTime + ", auctionEndTime=" + auctionEndTime + ", bidableGrade=" + bidableGrade
+				+ ", allhashtag=" + allhashtag + ", hashtag1=" + hashtag1 + ", hashtag2=" + hashtag2 + ", hashtag3="
+				+ hashtag3 + ", productImg1=" + productImg1 + ", productImg2=" + productImg2 + ", productImg3="
+				+ productImg3 + ", productImg4=" + productImg4 + ", productImg5=" + productImg5 + ", productViewCount="
+				+ productViewCount + ", productRegDate=" + productRegDate + ", auctionStatus=" + auctionStatus
+				+ ", isConfirm=" + isConfirm + ", isTempSave=" + isTempSave + ", isDelete=" + isDelete + "]";
 	}
+	
+	
 	
 }
