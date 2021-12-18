@@ -27,10 +27,17 @@ public class CampBusinessDAOImpl implements CampBusinessDAO{
 	public void setSqlSession(SqlSession sqlSession) {
 		this.sqlSession = sqlSession;
 	}
+	
+	public CampBusinessDAOImpl() {
+		System.out.println(this.getClass());
+	}
 
 	@Override
 	public void addCamp(Camp camp) throws Exception {
-		sqlSession.insert("CampBusinessMapper.addCamp", camp);		
+		
+		String methodName = new Object() {}.getClass().getEnclosingMethod().getName();
+		System.out.println(" >> "+ this.getClass().getName() + " : " + methodName);
+		
 	}
 
 

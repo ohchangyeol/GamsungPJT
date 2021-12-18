@@ -1,15 +1,15 @@
-package site.gamsung.service.camp.impl;
+package site.gamsung.service.payment.impl;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
-import site.gamsung.service.camp.CampSearchDAO;
+import site.gamsung.service.payment.PaymentDAO;
 
-@Repository("campSearchDaoImpl")
-public class CampSearchDAOImpl implements CampSearchDAO {
-
+@Repository("paymentDAOImpl")
+public class PaymentDAOImpl implements PaymentDAO{
+	
 	@Autowired
 	@Qualifier("sqlSessionTemplate")
 	private SqlSession sqlSession;
@@ -18,8 +18,15 @@ public class CampSearchDAOImpl implements CampSearchDAO {
 		this.sqlSession = sqlSession;
 	}
 	
-	public CampSearchDAOImpl() {
+	public PaymentDAOImpl() {
 		System.out.println(this.getClass());
 	}
+
+	@Override
+	public void addMakePayment() throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 }
