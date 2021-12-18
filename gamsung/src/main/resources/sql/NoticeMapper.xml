@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="NoticeMapper">
+
+	<resultMap id="NoticeDomain" type="notice">
+		<result property="noticeNo"      column="notice_no" 	 jdbcType="NUMERIC"/>
+		<result property="writer.id"     column="user_id" 		 jdbcType="VARCHAR"/>
+		<result property="deleteFlag"    column="delete_flag" 	 jdbcType="CHAR"/>
+		<result property="noticeTitle"   column="notice_title"   jdbcType="VARCHAR"/>
+		<result property="noticeContent" column="notice_content" jdbcType="VARCHAR"/>
+		<result property="viewCount"     column="view_count" 	 jdbcType="NUMERIC"/>
+		<result property="regDate" 		 column="reg_date" 	     jdbcType="VARCHAR"/>
+		<result property="campNo" 		 column="camp_no" 	     jdbcType="NUMERIC"/>
+		<result property="campName" 	 column="camp_name" 	 jdbcType="VARCHAR"/>
+		<result property="noticeFile1" 	 column="notice_file1" 	 jdbcType="VARCHAR"/>
+		<result property="noticeFile2" 	 column="notice_file1" 	 jdbcType="VARCHAR"/>
+		<result property="noticeFile3" 	 column="notice_file1" 	 jdbcType="VARCHAR"/>
+		
+		<association property="writer" javaType="user">
+		      <id property="id"						       column="user_id"                    jdbcType="VARCHAR"/>
+		      <result property="role"  					   column="role"                       jdbcType="VARCHAR" />
+		      <result property="nickName"                  column="nick_name"                  jdbcType="VARCHAR" />
+		      <result property="password"                  column="password"                   jdbcType="VARCHAR" />
+		      <result property="name"                      column="name"                       jdbcType="VARCHAR" />
+		      <result property="phone"                     column="phone"                      jdbcType="VARCHAR" />
+		      <result property="addr"                      column="addr"                       jdbcType="VARCHAR" />
+		      <result property="addUserRegDate"            column="entry_reg_date"             jdbcType="DATE"  />
+		      <result property="bank"                      column="bank"                       jdbcType="VARCHAR" />
+		      <result property="accountHolder"             column="account_holder"             jdbcType="VARCHAR" />
+		      <result property="accountNum"                column="account_num"                jdbcType="VARCHAR" />
+		      <result property="havingPoint"               column="having_point"               jdbcType="NUMERIC" />
+		      <result property="campName"                  column="camp_name"                  jdbcType="VARCHAR" />
+		      <result property="campCall" 				   column="camp_call"                  jdbcType="VARCHAR" />
+		      <result property="businessUserApprovalFlag"  column="entry_approval_flag"        jdbcType="CHAR" />
+		      <result property="countCancelReceive" 	   column="receive_cancel_total_count" jdbcType="NUMERIC" />
+		      <result property="receiveProhibitionEndDate" column="receive_ban_end_date"       jdbcType="DATE" />
+		      <result property="dormantConversionDate"     column="dormant_reg_date"           jdbcType="DATE" />
+		      <result property="secessionRegDate"          column="secession_reg_date"         jdbcType="DATE" />
+		      <result property="suspensionDate"            column="suspension_reg_date"        jdbcType="DATE" />
+		      <result property="tourismBusinessNum"        column="tourism_business_num"       jdbcType="VARCHAR" />
+		      <result property="suspensionContent"         column="suspension_content"         jdbcType="VARCHAR" />
+		      <result property="auctionGrade"              column="auction_grade"              jdbcType="SMALLINT" />
+		   </association>
+	</resultMap>
+	
+	<insert id="addNotice" parameterType="notice">
+		INSERT INTO notice (user_id, notice_title, notice_content, notice_file1, notice_file2,notice_file3)
+		VALUE (#{writer.id}, #{noticeTitle:VARCHAR}, #{noticeContent:VARCHAR}, #{noticeFile1:VARCHAR},#{noticeFile2:VARCHAR},#{noticeFile2:VARCHAR})
+	</insert>
+
+</mapper>

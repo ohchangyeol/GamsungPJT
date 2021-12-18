@@ -5,7 +5,7 @@ public class Report {
 	private int reportNo;
 	private String reportType;
 	private String reportContent;
-	private boolean deleteFlag;
+	private String deleteFlag;
 	private String reportStatus;
 	private User sender;
 	private User receiver;
@@ -21,125 +21,87 @@ public class Report {
 		// TODO Auto-generated constructor stub
 	}
 
-
+	//Getter
 	public int getReportNo() {
 		return reportNo;
 	}
-
-
-	public void setReportNo(int reportNo) {
-		this.reportNo = reportNo;
-	}
-
-
 	public String getReportType() {
 		return reportType;
 	}
-
-
-	public void setReportType(String reportType) {
-		this.reportType = reportType;
-	}
-
-
 	public String getReportContent() {
 		return reportContent;
 	}
-
-
-	public void setReportContent(String reportContent) {
-		this.reportContent = reportContent;
-	}
-
-
-	public boolean isDeleteFlag() {
+	public String getDeleteFlag() {
 		return deleteFlag;
 	}
-
-
-	public void setDeleteFlag(boolean deleteFlag) {
-		this.deleteFlag = deleteFlag;
-	}
-
-
 	public String getReportStatus() {
 		return reportStatus;
 	}
-
-
-	public void setReportStatus(String reportStatus) {
-		this.reportStatus = reportStatus;
-	}
-
-
 	public User getSender() {
 		return sender;
 	}
-
-
-	public void setSender(User sender) {
-		this.sender = sender;
-	}
-
-
 	public User getReceiver() {
 		return receiver;
 	}
-
-
-	public void setReceiver(User receiver) {
-		this.receiver = receiver;
-	}
-
-
 	public String getRegDate() {
 		return regDate;
 	}
-
-
-	public void setRegDate(String regDate) {
-		this.regDate = regDate;
-	}
-
-
 	public String getCampName() {
 		return campName;
 	}
-
-
-	public void setCampName(String campName) {
-		this.campName = campName;
-	}
-
-
 	public String getReportImgFile1() {
 		return reportImgFile1;
 	}
-
-
-	public void setReportImgFile1(String reportImgFile1) {
-		this.reportImgFile1 = reportImgFile1;
-	}
-
-
 	public String getReportImgFile2() {
 		return reportImgFile2;
 	}
-
-
-	public void setReportImgFile2(String reportImgFile2) {
-		this.reportImgFile2 = reportImgFile2;
-	}
-
-
 	public String getReportImgFile3() {
 		return reportImgFile3;
 	}
 
-
+	//Setter
+	public void setReportNo(int reportNo) {
+		this.reportNo = reportNo;
+	}
+	public void setReportType(String reportType) {
+		this.reportType = reportType;
+	}
+	public void setReportContent(String reportContent) {
+		this.reportContent = reportContent;
+	}
+	public void setDeleteFlag(String deleteFlag) {
+		this.deleteFlag = deleteFlag;
+	}
+	public void setReportStatus(String reportStatus) {
+		this.reportStatus = reportStatus;
+	}
+	public void setSender(User sender) {
+		this.sender = sender;
+	}
+	public void setReceiver(User receiver) {
+		this.receiver = receiver;
+	}
+	public void setRegDate(String regDate) {
+		this.regDate = regDate;
+	}
+	public void setCampName(String campName) {
+		this.campName = campName;
+	}
+	public void setReportImgFile1(String reportImgFile1) {
+		this.reportImgFile1 = reportImgFile1;
+	}
+	public void setReportImgFile2(String reportImgFile2) {
+		this.reportImgFile2 = reportImgFile2;
+	}
 	public void setReportImgFile3(String reportImgFile3) {
 		this.reportImgFile3 = reportImgFile3;
 	}
 
-	
+	@Override
+	public String toString() {
+		return "Report [reportNo=" + reportNo + ", reportType=" + reportType + ", reportContent=" + reportContent
+				+ ", deleteFlag=" + deleteFlag + ", reportStatus=" + reportStatus + ", sender=" + sender + ", receiver="
+				+ receiver + ", regDate=" + regDate + ", campName=" + campName + ", reportImgFile1=" + reportImgFile1
+				+ ", reportImgFile2=" + reportImgFile2 + ", reportImgFile3=" + reportImgFile3 + "]";
+	}
 }
