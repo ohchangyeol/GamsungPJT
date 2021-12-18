@@ -98,7 +98,7 @@ public class SubSite {
 
 	// Override toString
 	public String toString() {
-		return "\n -- Camp --"
+		return "\n -- SubSite --"
 			+ "\n [subSiteNo] : " + subSiteNo
 			+ "\n [campNo] : " + campNo
 			+ "\n [subSiteType] : " + subSiteType

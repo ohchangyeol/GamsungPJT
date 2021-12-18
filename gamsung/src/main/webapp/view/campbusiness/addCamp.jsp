@@ -35,22 +35,23 @@
 	<!-- JavaScript -->
 	<script type="text/javascript">
 
-	// 버튼
-	$(function() {
-		//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-		$("button[name='save']").on("click" , function() {
-			$("form").attr("method" , "POST").attr("action" , "/campBusiness/addCamp").submit();
-			/* $("form").attr("method" , "POST").attr("action" , "/campBusiness/addCamp").attr("enctype","multipart/form-data").submit(); */
-		});
+		// 버튼
+		$(function() {
+			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+			$("#save").on("click" , function() {
+				alert("1");
+				$("form").attr("method" , "POST").attr("action" , "/campBusiness/addCamp").submit();
+			});
+			
+			$("#tempsave").on("click" , function() {
+				alert("2");				
+			});
+			
+			$("#cancle").on("click" , function() {
+				$("form")[0].reset();	
+			});
 		
-		$("button[name='tempSave']").on("click" , function() {
-			fncAddCampTempSave();
-		});
-		
-		$("button[name='cancle']").on("click" , function() {
-			$("form")[0].reset();
-		});
-	});	
+		});	
 
 </script>		
 
@@ -59,7 +60,7 @@
 <body>
 
 	<!-- ToolBar -->
-	<jsp:include page="/view/campbusiness/zTestToolBar.jsp" />
+	<jsp:include page="/view/campbusiness/campBusinessToolbar.jsp" />
 
 	<!-- Page Start -->
 	<div class="container">
@@ -74,14 +75,14 @@
 		<div class="form-group">
 			<label for="campRegDate" class="col-sm-offset-1 col-sm-3 control-label">등록 일자</label>
 				<div class="col-sm-4">
-					<input type="text" class="form-control" id="campRegDate" name="campRegDate" value="${camp.campRegDate}" readonly>
+					<input type="text" class="form-control" id="campRegDate" name="campRegDate" value="" readonly>
 				</div>
 		</div>
 		
 		<div class="form-group">
-			<label for="businessUser" class="col-sm-offset-1 col-sm-3 control-label">사업자회원ID</label>
+			<label for="user" class="col-sm-offset-1 col-sm-3 control-label">사업자회원ID</label>
 				<div class="col-sm-4">
-					<input type="text" class="form-control" id="businessUser" name="businessUser" value="${businessUser.Id}" readonly>
+					<input type="text" class="form-control" id="user" name="user.id" value="${user.id}" readonly>
 				</div>
 		</div>
 
@@ -184,24 +185,25 @@
 		<div class="form-group">
 			<label for="campName" class="col-sm-offset-1 col-sm-3 control-label">캠핑장 이름</label>
 				<div class="col-sm-4">
-					<input type="text" class="form-control" id="campName" name="campName" value="${product.prodName}" readonly>
+					<input type="text" class="form-control" id="campName" name="campName" value="${user.campName}" readonly>
 				</div>
 		</div>
 
 		<div class="form-group">
 			<label for="campCall" class="col-sm-offset-1 col-sm-3 control-label">캠핑장 전화번호</label>
 				<div class="col-sm-4">
-					<input type="text" class="form-control" id="campCall" name="campCall" value="${product.prodName}" readonly>
+					<input type="text" class="form-control" id="campCall" name="campCall" value="${user.campCall}" readonly>
 				</div>
 		</div>
 		
 		<div class="form-group">
 			<label for="campAddr" class="col-sm-offset-1 col-sm-3 control-label">캠핑장 주소</label>
 				<div class="col-sm-4">
-					<input type="text" class="form-control" id="campAddr" name="campAddr" value="${product.prodName}" readonly>
+					<input type="text" class="form-control" id="campAddr" name="campAddr" value="${user.addr}" readonly>
 				</div>
 		</div>
 
+		<!-- 
 		<div class="form-group">
 			<label for="campMapImg" class="col-sm-offset-1 col-sm-3 control-label">캠핑장 지도사진</label>
 				<div class="col-sm-4">
@@ -242,27 +244,28 @@
 				<div class="col-sm-4">
 					<input type="file"  id="campImg5" name="campImg5">
 				</div>
-		</div>
+		</div>		
+		-->
 		
 		<div class="form-group">
 			<label for="campSummery" class="col-sm-offset-1 col-sm-3 control-label">캠핑장 요약소개</label>
 				<div class="col-sm-4">
-					<input type="text" class="form-control" id="campSummery" name="campSummery" value="${product.prodName}">
+					<input type="text" class="form-control" id="campSummery" name="campSummery" value="" placeholder="요약 소개를 입력해주세요">
 				</div>
 		</div>
 		
 		<div class="form-group">
 			<label for="campDetail" class="col-sm-offset-1 col-sm-3 control-label">캠핑장 상세소개</label>
 				<div class="col-sm-4">
-					<input type="text" class="form-control" id="campDetail" name="campDetail" value="${product.prodName}">
+					<input type="text" class="form-control" id="campDetail" name="campDetail" value="" placeholder="상세 소개를 입력해주세요">
 				</div>
 		</div>
 
 		<div class="form-group">
 			<div class="col-sm-offset-4  col-sm-4 text-center">
-				<button type="button" name="cancle" class="btn btn-primary">취소</button>
-				<button type="button" name="tempSave" class="btn btn-primary">임시저장</button>
-				<button type="button" name="save" class="btn btn-primary">저장</button>
+				<button id="cancle" type="button" class="btn btn-primary">취소</button>
+				<button id="tempsave"type="button" class="btn btn-primary">임시저장</button>
+				<button id="save" type="button" class="btn btn-primary">저장</button>
 			</div>
 		</div>
 

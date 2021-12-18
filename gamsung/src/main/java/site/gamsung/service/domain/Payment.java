@@ -181,7 +181,7 @@ public class Payment {
 
 	// Override toString
 	public String toString() {
-		return "\n -- Camp --"
+		return "\n -- Payment --"
 			+ "\n [paymentNo] : " + paymentNo
 			+ "\n [paymentSender] : " + paymentSender
 			+ "\n [paymentReceiver] : " + paymentReceiver

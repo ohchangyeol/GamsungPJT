@@ -5,7 +5,7 @@
  	<br>
  	<br>
  	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
- 	<a href="/view/campbusiness/zTestMain.jsp">Camping Business Test Main</a>
+ 	<a href="./view/campbusiness/campBusinessMain.jsp">Camping Business Test Main</a>
 
 </body>
 </html>

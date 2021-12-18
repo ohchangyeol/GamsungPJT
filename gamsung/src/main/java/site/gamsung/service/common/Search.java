@@ -1,20 +1,26 @@
 package site.gamsung.service.common;
 
+import java.util.List;
 
 //==>리스트화면을 모델링(추상화/캡슐화)한 Bean 
 public class Search {
 	
 	///Field
-	private int currentPage;
 	private String searchCondition;
+	private String sortCondition;
 	private String searchKeyword;
+	private List campAddr;
+	private List circumstance;
+	private List mainSite;
+	private List subSite;
+	private List theme;
+	private String price;
+	private int currentPage;
 	private int pageSize;
-	//==> 리스트화면 currentPage에 해당하는 회원정보를 ROWNUM 사용 SELECT 위해 추가된 Field 
-	//==> UserMapper.xml 의 
-	//==> <select  id="getUserList"  parameterType="search"	resultMap="userSelectMap">
-	//==> 참조
-	private int endRowNum;
 	private int startRowNum;
+	private int endRowNum;
+	private int viewCount;
+	private int reservationCount;
 	
 	///Constructor
 	public Search() {
@@ -56,6 +62,86 @@ public class Search {
 	//==> Select Query 시 ROWNUM 시작 값
 	public int getStartRowNum() {
 		return (getCurrentPage()-1)*getPageSize()+1;
+	}
+
+	public String getSortCondition() {
+		return sortCondition;
+	}
+
+	public void setSortCondition(String sortCondition) {
+		this.sortCondition = sortCondition;
+	}
+
+	public List getCampAddr() {
+		return campAddr;
+	}
+
+	public void setCampAddr(List campAddr) {
+		this.campAddr = campAddr;
+	}
+
+	public List getCircumstance() {
+		return circumstance;
+	}
+
+	public void setCircumstance(List circumstance) {
+		this.circumstance = circumstance;
+	}
+
+	public List getMainSite() {
+		return mainSite;
+	}
+
+	public void setMainSite(List mainSite) {
+		this.mainSite = mainSite;
+	}
+
+	public List getSubSite() {
+		return subSite;
+	}
+
+	public void setSubSite(List subSite) {
+		this.subSite = subSite;
+	}
+
+	public List getTheme() {
+		return theme;
+	}
+
+	public void setTheme(List theme) {
+		this.theme = theme;
+	}
+
+	public String getPrice() {
+		return price;
+	}
+
+	public void setPrice(String price) {
+		this.price = price;
+	}
+
+	public int getViewCount() {
+		return viewCount;
+	}
+
+	public void setViewCount(int viewCount) {
+		this.viewCount = viewCount;
+	}
+
+	public int getReservationCount() {
+		return reservationCount;
+	}
+
+	public void setReservationCount(int reservationCount) {
+		this.reservationCount = reservationCount;
+	}
+
+	public void setStartRowNum(int startRowNum) {
+		this.startRowNum = startRowNum;
+	}
+
+	public void setEndRowNum(int endRowNum) {
+		this.endRowNum = endRowNum;
 	}
 
 	@Override
