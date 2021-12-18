@@ -28,10 +28,14 @@ public class CampBusinessServiceImpl implements CampBusinessService{
 	public void setCampBusinessDAO(CampBusinessDAO campBusinessDAO) {
 		this.campBusinessDAO = campBusinessDAO;
 	}
+	
+	public CampBusinessServiceImpl() {
+		System.out.println(this.getClass());
+	}
 
 	@Override
 	public void addCamp(Camp camp) throws Exception {
-		campBusinessDAO.addCamp(camp);
+		
 	}
 
 }
