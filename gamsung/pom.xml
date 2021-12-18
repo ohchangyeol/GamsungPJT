@@ -25,28 +25,28 @@
 
 	<dependencies>
 			
-		<!-- https://mvnrepository.com/artifact/org.springframework/spring-core -->
+		<!-- org.springframework/spring-core -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
 		
-		<!-- https://mvnrepository.com/artifact/org.springframework/spring-web -->
+		<!-- org.springframework/spring-web -->
 		<dependency>
 		    <groupId>org.springframework</groupId>
 		    <artifactId>spring-web</artifactId>
 		    <version>${spring.version}</version>
 		</dependency>
 		
-		<!-- https://mvnrepository.com/artifact/org.springframework/spring-webmvc -->
+		<!-- org.springframework/spring-webmvc -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
 		
-		<!-- https://mvnrepository.com/artifact/org.springframework/spring-context -->
+		<!-- org.springframework/spring-context -->
 		<dependency>
 		    <groupId>org.springframework</groupId>
 		    <artifactId>spring-context</artifactId>
@@ -54,21 +54,21 @@
 		</dependency>
 		
 		
-		<!-- https://mvnrepository.com/artifact/org.springframework/spring-aop -->
+		<!-- org.springframework/spring-aop -->
 		<dependency>
 		    <groupId>org.springframework</groupId>
 		    <artifactId>spring-aop</artifactId>
 		    <version>${spring.version}</version>
 		</dependency>
 		
-		<!-- https://mvnrepository.com/artifact/org.springframework/spring-tx -->
+		<!-- org.springframework/spring-tx -->
 		<dependency>
 		    <groupId>org.springframework</groupId>
 		    <artifactId>spring-tx</artifactId>
 		    <version>5.2.5.RELEASE</version>
 		</dependency>
 		
-		<!-- https://mvnrepository.com/artifact/org.springframework/spring-jdbc -->
+		<!-- org.springframework/spring-jdbc -->
 		<dependency>
 		    <groupId>org.springframework</groupId>
 		    <artifactId>spring-jdbc</artifactId>
@@ -76,36 +76,50 @@
 		</dependency>
 				
 		
-		<!-- https://mvnrepository.com/artifact/org.springframework/spring-websocket -->
+		<!-- org.springframework/spring-websocket -->
 		<dependency>
 		    <groupId>org.springframework</groupId>
 		    <artifactId>spring-websocket</artifactId>
 		    <version>${spring.version}</version>
 		</dependency>
 		
-		<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-core -->
+		<!-- org.springframework.security/spring-security-core -->
 		<dependency>
 		    <groupId>org.springframework.security</groupId>
 		    <artifactId>spring-security-core</artifactId>
 		    <version>${spring.version}</version>
 		</dependency>
 				
-		<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-web -->
+		<!-- org.springframework.security/spring-security-web -->
 		<dependency>
 		    <groupId>org.springframework.security</groupId>
 		    <artifactId>spring-security-web</artifactId>
 		    <version>${spring.version}</version>
 		</dependency>
 		
-		<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-config -->
+		<!-- org.springframework.security/spring-security-config -->
 		<dependency>
 		    <groupId>org.springframework.security</groupId>
 		    <artifactId>spring-security-config</artifactId>
 		    <version>${spring.version}</version>
 		</dependency>
 		
+		<!-- org.springframework/spring-test -->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-test</artifactId>
+		    <version>${spring.version}</version>
+		    <scope>test</scope>
+		</dependency>
 		
-		<!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
+		<!-- org.aspectj/com.springsource.org.aspectj.weaver -->
+		<dependency>
+		    <groupId>org.aspectj</groupId>
+		    <artifactId>aspectjweaver</artifactId>
+		    <version>1.9.5</version>
+		</dependency>
+
+		<!-- javax.servlet/javax.servlet-api -->
 		<dependency>
 		    <groupId>javax.servlet</groupId>
 		    <artifactId>javax.servlet-api</artifactId>
@@ -114,105 +128,105 @@
 		</dependency>
 
 		
-		<!-- https://mvnrepository.com/artifact/javax.servlet/jstl -->
+		<!-- javax.servlet/jstl -->
 		<dependency>
     		<groupId>javax.servlet.jsp.jstl</groupId>
     		<artifactId>javax.servlet.jsp.jstl-api</artifactId>
     		<version>1.2.1</version>
 		</dependency>
 		
-		<!-- https://mvnrepository.com/artifact/org.mybatis/mybatis -->
+		<!-- org.mybatis/mybatis -->
 		<dependency>
 		    <groupId>org.mybatis</groupId>
 		    <artifactId>mybatis</artifactId>
 		    <version>3.4.6</version>
 		</dependency>
 		
-		<!-- https://mvnrepository.com/artifact/org.mybatis/mybatis-spring -->
+		<!-- org.mybatis/mybatis-spring -->
 		<dependency>
 		    <groupId>org.mybatis</groupId>
 		    <artifactId>mybatis-spring</artifactId>
 		    <version>1.3.1</version>
 		</dependency>
 		
-		<!-- https://mvnrepository.com/artifact/org.webjars/sockjs-client -->
+		<!--org.webjars/sockjs-client -->
 		<dependency>
 		    <groupId>org.webjars</groupId>
 		    <artifactId>sockjs-client</artifactId>
 		    <version>1.5.1</version>
 		</dependency>
 		
-		<!-- https://mvnrepository.com/artifact/org.webjars/stomp-websocket -->
+		<!-- org.webjars/stomp-websocket -->
 		<dependency>
 		    <groupId>org.webjars</groupId>
 		    <artifactId>stomp-websocket</artifactId>
 		    <version>2.3.4</version>
 		</dependency>
 		
-		<!-- https://mvnrepository.com/artifact/javax.mail/javax.mail-api -->
+		<!-- javax.mail/javax.mail-api -->
 		<dependency>
 		    <groupId>javax.mail</groupId>
 		    <artifactId>javax.mail-api</artifactId>
 		    <version>1.6.2</version>
 		</dependency>
 		
-		<!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
+		<!-- commons-fileupload/commons-fileupload -->
 		<dependency>
 		    <groupId>commons-fileupload</groupId>
 		    <artifactId>commons-fileupload</artifactId>
 		    <version>${commons-version}</version>
 		</dependency>
 		
-		<!-- https://mvnrepository.com/artifact/commons-dbcp/commons-dbcp -->
+		<!-- commons-dbcp/commons-dbcp -->
 		<dependency>
 		    <groupId>commons-dbcp</groupId>
 		    <artifactId>commons-dbcp</artifactId>
 		    <version>${commons-version}</version>
 		</dependency>
 				
-		<!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+		<!-- commons-io/commons-io -->
 		<dependency>
 		    <groupId>commons-io</groupId>
 		    <artifactId>commons-io</artifactId>
 		    <version>${commons-version}</version>
 		</dependency>
 		
-		<!-- https://mvnrepository.com/artifact/commons-pool/commons-pool -->
+		<!-- commons-pool/commons-pool -->
 		<dependency>
 		    <groupId>commons-pool</groupId>
 		    <artifactId>commons-pool</artifactId>
 		    <version>${commons-version}</version>
 		</dependency>
 		
-		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+		<!-- mysql/mysql-connector-java -->
 		<dependency>
 		    <groupId>mysql</groupId>
 		    <artifactId>mysql-connector-java</artifactId>
 		    <version>8.0.27</version>
 		</dependency>
 		
-		<!-- https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple -->
+		<!-- com.googlecode.json-simple/json-simple -->
 		<dependency>
 		    <groupId>com.googlecode.json-simple</groupId>
 		    <artifactId>json-simple</artifactId>
 		    <version>1.1.1</version>
 		</dependency>
 		
-		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+		<!-- com.fasterxml.jackson.core/jackson-databind -->
 		<dependency>
 		    <groupId>com.fasterxml.jackson.core</groupId>
 		    <artifactId>jackson-databind</artifactId>
 		    <version>${jackson.version}</version>
 		</dependency>
 		
-		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core -->
+		<!-- com.fasterxml.jackson.core/jackson-core -->
 		<dependency>
 		    <groupId>com.fasterxml.jackson.core</groupId>
 		    <artifactId>jackson-core</artifactId>
 		    <version>${jackson.version}</version>
 		</dependency>
 		
-		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations -->
+		<!-- com.fasterxml.jackson.core/jackson-annotations -->
 		<dependency>
 		    <groupId>com.fasterxml.jackson.core</groupId>
 		    <artifactId>jackson-annotations</artifactId>
@@ -220,7 +234,7 @@
 		</dependency>
 				
 			
-		<!-- https://mvnrepository.com/artifact/junit/junit -->
+		<!-- junit/junit -->
 		<dependency>
 		    <groupId>junit</groupId>
 		    <artifactId>junit</artifactId>
@@ -228,14 +242,14 @@
 		    <scope>test</scope>
 		</dependency>
 		
-		<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
+		<!-- org.slf4j/slf4j-api -->
 		<dependency>
 		    <groupId>org.slf4j</groupId>
 		    <artifactId>slf4j-api</artifactId>
 		    <version>1.7.25</version>
 		</dependency>
 		
-		<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-log4j12 -->
+		<!-- org.slf4j/slf4j-log4j12 -->
 		<dependency>
 		    <groupId>org.slf4j</groupId>
 		    <artifactId>slf4j-log4j12</artifactId>
@@ -243,7 +257,7 @@
 		    <scope>test</scope>
 		</dependency>
 		
-		<!-- https://mvnrepository.com/artifact/org.jsoup/jsoup -->
+		<!--artifact/org.jsoup/jsoup -->
 		<dependency>
 		    <groupId>org.jsoup</groupId>
 		    <artifactId>jsoup</artifactId>
