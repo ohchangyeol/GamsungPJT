@@ -1,11 +1,11 @@
-package service.camp.impl;
+package site.gamsung.service.camp.impl;
 
-import service.camp.CampReservationDAO;
+import site.gamsung.service.camp.CampReservationDAO;
 
 public class CampReservationDAOImpl implements CampReservationDAO {
 
 	public CampReservationDAOImpl() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 }

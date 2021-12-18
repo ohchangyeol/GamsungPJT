@@ -1,7 +1,7 @@
-package service.servicecenter.impl;
+package site.gamsung.service.servicecenter.impl;
 
-import service.servicecenter.ReportDAO;
-import service.servicecenter.ReportService;
+import site.gamsung.service.servicecenter.ReportDAO;
+import site.gamsung.service.servicecenter.ReportService;
 
 public class ReportServiceImpl implements ReportService {
 	

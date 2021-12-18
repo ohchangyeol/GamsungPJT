@@ -6,7 +6,7 @@ public class Camp {
 
 	/*
 	캠핑장등록번호
-	사업자 회원
+	회원ID
 	임시저장 유무
 		Y-임시저장
 		N-일반저장
@@ -38,7 +38,7 @@ public class Camp {
 	
 	/// Field
 	private int campNo;
-	private BusinessUser businessUser;
+	private User user;
 	private boolean campTempSave;
 	private boolean deleteFlag;
 	private String campSummery;
@@ -78,12 +78,12 @@ public class Camp {
 		this.campNo = campNo;
 	}
 	
-	public BusinessUser getBusinessUser() {
-		return businessUser;
+	public User getBusinessUser() {
+		return user;
 	}
 	
-	public void setBusinessUser(BusinessUser businessUser) {
-		this.businessUser = businessUser;
+	public void setUser(User user) {
+		this.user = user;
 	}
 	
 	public boolean isCampTempSave() {
@@ -280,7 +280,7 @@ public class Camp {
 	public String toString() {
 		return "\n -- Camp --"
 			+ "\n [campNo] : " + campNo
-			+ "\n [businessUser] : " + businessUser
+			+ "\n [User] : " + user
 			+ "\n [campTempSave] : " + campTempSave
 			+ "\n [deleteFlag] : " + deleteFlag				
 			+ "\n [campSummery] : " + campSummery

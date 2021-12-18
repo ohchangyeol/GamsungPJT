@@ -1,6 +1,6 @@
-package service.transfer.impl;
+package site.gamsung.service.transfer.impl;
 
-import service.transfer.TransferDAO;
+import site.gamsung.service.transfer.TransferDAO;
 
 public class TransferDaoImpl implements TransferDAO {
 

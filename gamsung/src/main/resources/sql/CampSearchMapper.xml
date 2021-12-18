@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="CampSearchMapper">
+
+	<resultMap id="CampSelectMap" type="camp">
+		<result property="campNo" column="camp_no"/>
+		<result property="user.id" column="business_user_id"/>
+		<result property="campTempSave" column="tempsave_flag"/>
+		<result property="deleteFlag" column="delete_flag"/>
+		<result property="campSummery" column="camp_summery"/>
+		<result property="campDetail" column="camp_detail"/>
+		<result property="campMapImg" column="camp_map_img"/>
+		<result property="campImg1" column="camp_img1"/>
+		<result property="campImg2" column="camp_img2"/>
+		<result property="campImg3" column="camp_img3"/>
+		<result property="campImg4" column="camp_img4"/>
+		<result property="campImg5" column="camp_img5"/>
+		<result property="campViewCountCurrentMonth" column="camp_view_count_current_month"/>
+		<result property="campViewCountPreviousMonth" column="camp_view_count_previous_month"/>
+		<result property="campReservationCount" column="camp_reservation_count"/>
+		<result property="campRegDate" column="camp_reg_date"/>
+		<result property="campTheme1" column="camp_theme1"/>
+		<result property="campTheme2" column="camp_theme2"/>
+		<result property="campNature1" column="camp_nature1"/>
+		<result property="campNature2" column="camp_nature2"/>
+		<result property="campOperation1" column="camp_operation1"/>
+		<result property="campOperation2" column="camp_operation2"/>
+		<result property="campName" column=""/>
+		<result property="campAddr" column=""/>
+		<result property="campCall" column=""/>
+		<result property="campRate" column="camp_rating"/>
+	</resultMap>
+	
+	<select id="listCamp"  parameterType="search"  resultMap="CampSelectMap">
+		
+	</select>
+	
+	
+	
+</mapper>

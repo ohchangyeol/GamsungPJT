@@ -1,11 +1,11 @@
-package service.camp.impl;
+package site.gamsung.service.camp.impl;
 
-import service.camp.CampReservationService;
+import site.gamsung.service.camp.CampReservationService;
 
 public class CampReservationServiceImpl implements CampReservationService {
 
 	public CampReservationServiceImpl() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 }

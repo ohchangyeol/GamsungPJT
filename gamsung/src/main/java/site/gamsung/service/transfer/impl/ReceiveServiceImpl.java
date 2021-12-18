@@ -1,6 +1,6 @@
-package service.transfer.impl;
+package site.gamsung.service.transfer.impl;
 
-import service.transfer.ReceiveService;
+import site.gamsung.service.transfer.ReceiveService;
 
 public class ReceiveServiceImpl implements ReceiveService {
 
@@ -8,4 +8,4 @@ public class ReceiveServiceImpl implements ReceiveService {
 		// TODO Auto-generated constructor stub
 	}
 
-}
+} 

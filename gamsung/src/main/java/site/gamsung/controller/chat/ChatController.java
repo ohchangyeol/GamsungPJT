@@ -1,8 +1,8 @@
 package site.gamsung.controller.chat;
 
-public class A {
+public class ChatController {
 
-	public A() {
+	public ChatController() {
 		// TODO Auto-generated constructor stub
 	}
 
