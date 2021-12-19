@@ -4,11 +4,12 @@ import java.sql.Timestamp;
 
 public class AuctionBidInfo {
 	private String bidNo;
-	private String productNo;
-	private String bidderId;
+	private String auctionProductNo;
+	//id, nickname, auctionGrade
+	private User user;
+	private int bidPrice;
 	private Timestamp bidDateTime;
 	private String auctionStatus;
-	private int bidderGrade;
 	
 	public String getBidNo() {
 		return bidNo;
@@ -16,17 +17,24 @@ public class AuctionBidInfo {
 	public void setBidNo(String bidNo) {
 		this.bidNo = bidNo;
 	}
-	public String getProductNo() {
-		return productNo;
+	public String getAuctionProductNo() {
+		return auctionProductNo;
 	}
-	public void setProductNo(String productNo) {
-		this.productNo = productNo;
+	public void setAuctionProductNo(String auctionProductNo) {
+		this.auctionProductNo = auctionProductNo;
 	}
-	public String getBidderId() {
-		return bidderId;
+	public User getUser() {
+		return user;
 	}
-	public void setBidderId(String bidderId) {
-		this.bidderId = bidderId;
+	public void setUser(User user) {
+		this.user = user;
+	}
+	
+	public int getBidPrice() {
+		return bidPrice;
+	}
+	public void setBidPrice(int bidPrice) {
+		this.bidPrice = bidPrice;
 	}
 	public Timestamp getBidDateTime() {
 		return bidDateTime;
@@ -40,13 +48,11 @@ public class AuctionBidInfo {
 	public void setAuctionStatus(String auctionStatus) {
 		this.auctionStatus = auctionStatus;
 	}
-	public int getBidderGrade() {
-		return bidderGrade;
+	@Override
+	public String toString() {
+		return "AuctionBidInfo [bidNo=" + bidNo + ", auctionProductNo=" + auctionProductNo + ", userId=" + user.getId() + ", nickName=" + user.getNickName()
+				+ ", auctionGrade=" + user.getAuctionGrade() + ", bidPrice=" + bidPrice +", bidDateTime=" + bidDateTime + ", auctionStatus=" + auctionStatus + "]";
 	}
-	public void setBidderGrade(int bidderGrade) {
-		this.bidderGrade = bidderGrade;
-	}
-	
 	
 	
 }

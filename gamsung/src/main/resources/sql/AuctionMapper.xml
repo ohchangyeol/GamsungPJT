@@ -34,10 +34,15 @@
 		<result property="isDelete" column="delete_flag"/>
 	</resultMap>
 	
-	<resultMap id="users" type="user">
-		<result property="id" column="user_id"/>
-		<result property="nickName" column="nick_Name"/>
-		<result property="auctionGrade" column="auction_grade"/>
+	<resultMap id="bidInfo" type="AuctionBidInfo">
+		<result property="bidNo" column="bid_no"/>
+		<result property="auctionProductNo" column="product_no"/>
+		<result property="user.id" column="user_id"/>
+		<result property="user.nickName" column="nick_name"/>
+		<result property="user.auctionGrade" column="auction_grade"/>
+		<result property="bidPrice" column="bid_price"/>
+		<result property="bidDateTime" column="bid_date_time"/>
+		<result property="auctionStatus" column="auction_status"/>
 	</resultMap>
 	
 	<select id="getTempSaveAuctionProduct" parameterType="String" resultMap="auction">
@@ -84,7 +89,7 @@
 		WHERE product_no = #{value};
 	</select>
 	
-	<select id="auctionProductBidUserInfo" parameterType="String" resultMap="users">
+	<select id="auctionProductBidUserInfo" parameterType="String" resultMap="bidInfo">
 		SELECT user_id, nick_name, auction_grade
 		FROM USERS
 		WHERE user_id = #{value};
@@ -98,9 +103,7 @@
 	
 	<insert id="auctionProductBid" parameterType="auctionProduct">
 		INSERT INTO AUCTION_HISTORY (product_no, bidder_id, bid_price)
-		VALUES(#{productNo}, #{bidderId}, #{bidPrice})
-		
-		
+		VALUES(#{auctionProductNo}, #{user.id}, #{bidPrice})
 	</insert>
 	
 </mapper>

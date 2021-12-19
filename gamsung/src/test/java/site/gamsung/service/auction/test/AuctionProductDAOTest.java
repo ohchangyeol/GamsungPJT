@@ -8,12 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 
 import site.gamsung.service.auction.AuctionProductDAO;
+import site.gamsung.service.domain.AuctionBidInfo;
 import site.gamsung.service.domain.AuctionProduct;
 import site.gamsung.service.domain.User;
-
 
 
 /*
@@ -58,7 +57,7 @@ public class AuctionProductDAOTest {
 	}
 	
 	//임시 저장 여부 삭제 및 경매 상품 정보 등록 Test
-	@Test
+	//@Test
 	public void testAddAuctionProduct() {
 		
 		AuctionProduct auctionProduct = new AuctionProduct();
@@ -91,8 +90,8 @@ public class AuctionProductDAOTest {
 	//@Test
 	public void testAuctionProductBidUserInfo() {
 		
-		User user = auctionProductDAO.auctionProductBidUserInfo("user2@gamsung.com");
-		System.out.println(user);
+		AuctionBidInfo auctionBidInfo = auctionProductDAO.auctionProductBidUserInfo("user2@gamsung.com");
+		System.out.println(auctionBidInfo);
 		
 	}
 	
@@ -101,6 +100,21 @@ public class AuctionProductDAOTest {
 	public void testUpdateBidEndTime() {
 		
 		auctionProductDAO.updateBidEndTime("PROD00001");
+		
+	}
+	
+	//입찰 내역 추가 test
+	@Test
+	public void testAuctionProductBid() {
+		
+		AuctionBidInfo auctionBidInfo = new AuctionBidInfo();
+		User user = new User();
+		user.setId("user1@gamsung.com");
+		auctionBidInfo.setUser(user);
+		auctionBidInfo.setAuctionProductNo("PROD00015");
+		auctionBidInfo.setBidPrice(100000);
+		
+		auctionProductDAO.auctionProductBid(auctionBidInfo);
 		
 	}
 }
