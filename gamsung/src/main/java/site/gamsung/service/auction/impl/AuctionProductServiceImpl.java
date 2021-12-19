@@ -6,15 +6,22 @@ import org.springframework.stereotype.Service;
 
 import site.gamsung.service.auction.AuctionProductService;
 
-@Service("AuctionProductService")
+@Service("auctionProductService")
 public class AuctionProductServiceImpl implements AuctionProductService{
 
 	@Autowired(required = false)
-	@Qualifier("AuctionProductDAO")
+	@Qualifier("auctionProductDAO")
 	private AuctionProductService auctionProductService;
 	
 	public AuctionProductServiceImpl(){
 		// TODO Auto-generated constructor stub
 	}
 
+	@Override
+	public void addAuctionProduct() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
 }

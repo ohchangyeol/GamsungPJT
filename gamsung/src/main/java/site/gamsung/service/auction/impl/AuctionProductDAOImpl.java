@@ -70,6 +70,12 @@ public class AuctionProductDAOImpl implements AuctionProductDAO{
 		// TODO Auto-generated method stub
 		sqlSession.insert("AuctionMapper.auctionProductBid", auctionBidInfo);
 	}
+
+	@Override
+	public void get() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 	
