@@ -2,6 +2,8 @@ package site.gamsung.service.auction.test;
 
 
 
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +12,10 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import site.gamsung.service.auction.AuctionProductDAO;
+import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.AuctionBidInfo;
 import site.gamsung.service.domain.AuctionProduct;
+import site.gamsung.service.domain.AuctionSearch;
 import site.gamsung.service.domain.User;
 
 
@@ -36,8 +40,24 @@ public class AuctionProductDAOTest {
 	@Qualifier("auctionProductDAO")
 	private AuctionProductDAO auctionProductDAO;
 
+	//경매 상품 list 호출 테스트
+	//@Test
+	public void testListAuctionProduct() {
+		
+		AuctionSearch auctionSearch = new AuctionSearch();
+//		auctionSearch.setSearchKeyword("텐");
+		auctionSearch.setPageSize(8);
+		auctionSearch.setCurrentPage(1);
+		auctionSearch.setSortCondition("희망 낙찰가 낮은 순");
+		List<AuctionProduct> list = auctionProductDAO.listAuctionProduct(auctionSearch);
+		for(AuctionProduct auctionProduct : list) {
+			System.out.println(auctionProduct);
+		}
+	}
+	
+	
 	//임시저장 데이터 호출 테스트
-	@Test
+	//@Test
 	public void testGetTempSaveAuctionProduct() {
 			
 		AuctionProduct auctionProduct = auctionProductDAO.getTempSaveAuctionProduct("user2@gamsung.com");
@@ -104,7 +124,7 @@ public class AuctionProductDAOTest {
 	}
 	
 	//입찰 내역 추가 test
-	@Test
+	//@Test
 	public void testAuctionProductBid() {
 		
 		AuctionBidInfo auctionBidInfo = new AuctionBidInfo();

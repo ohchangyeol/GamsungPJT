@@ -146,9 +146,11 @@ public class Search {
 
 	@Override
 	public String toString() {
-		return "Search [currentPage=" + currentPage + ", searchCondition="
-				+ searchCondition + ", searchKeyword=" + searchKeyword
-				+ ", pageSize=" + pageSize + ", endRowNum=" + endRowNum
-				+ ", startRowNum=" + startRowNum + "]";
+		return "Search [searchCondition=" + searchCondition + ", sortCondition=" + sortCondition + ", searchKeyword="
+				+ searchKeyword + ", campAddr=" + campAddr + ", circumstance=" + circumstance + ", mainSite=" + mainSite
+				+ ", subSite=" + subSite + ", theme=" + theme + ", price=" + price + ", currentPage=" + currentPage
+				+ ", pageSize=" + pageSize + ", startRowNum=" + startRowNum + ", endRowNum=" + endRowNum
+				+ ", viewCount=" + viewCount + ", reservationCount=" + reservationCount + "]";
 	}
+
 }

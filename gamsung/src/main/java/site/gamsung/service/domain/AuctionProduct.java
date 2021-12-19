@@ -10,7 +10,7 @@ public class AuctionProduct {
 	private String registrantId;
 	private String successfulBidderId;
 	private int startBidPrice;
-	private int hopefulBidPrice;
+	private String hopefulBidPrice;
 	private int bidUnit;
 	private String auctionStartTime;
 	private String auctionEndTime;
@@ -70,10 +70,10 @@ public class AuctionProduct {
 	public void setStartBidPrice(int startBidPrice) {
 		this.startBidPrice = startBidPrice;
 	}
-	public int getHopefulBidPrice() {
+	public String getHopefulBidPrice() {
 		return hopefulBidPrice;
 	}
-	public void setHopefulBidPrice(int hopefulBidPrice) {
+	public void setHopefulBidPrice(String hopefulBidPrice) {
 		this.hopefulBidPrice = hopefulBidPrice;
 	}
 	public int getBidUnit() {

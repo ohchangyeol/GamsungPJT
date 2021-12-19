@@ -1,8 +1,14 @@
 package site.gamsung.service.auction;
 
+import java.util.List;
+
+import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.AuctionBidInfo;
 import site.gamsung.service.domain.AuctionProduct;
+import site.gamsung.service.domain.AuctionSearch;
 public interface AuctionProductDAO {
+	
+	public List<AuctionProduct> listAuctionProduct(AuctionSearch auctionSearch);
 	
 	public void tempSaveAuctionProduct(AuctionProduct auctionProduct);
 	
@@ -18,5 +24,4 @@ public interface AuctionProductDAO {
 	
 	public void auctionProductBid(AuctionBidInfo auctionBidInfo);
 	
-	public void get();
 }

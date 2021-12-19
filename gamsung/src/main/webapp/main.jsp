@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
+	<%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 <!-- <html>
 <body>
@@ -22,7 +22,7 @@
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
  
      <!-- Site Metas -->
-    <title>Christmas - Responsive HTML5 Template</title>  
+    <title>GAMSUNG CAMP</title>  
     <meta name="keywords" content="">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -42,36 +42,23 @@
     <link rel="stylesheet" href="resources/css/responsive.css">
     <link rel="stylesheet" href="resources/css/responsiveslides.css">
     <link rel="stylesheet" href="resources/css/style.css">
-    <link rel="stylesheet" href="resources/css/timeline.css">     
-
+    <link rel="stylesheet" href="resources/css/timeline.css">  
     
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-   	<script src="resources/javascript/bootstrap.min.js"></script>
-	<script src="resources/javascript/contact-form-script.js"></script>
-	<script src="resources/javascript/custom.js"></script>
-	<script src="resources/javascript/form-validator.min.js"></script>
-	<script src="resources/javascript/images-loded.min.js"></script>
-	<script src="resources/javascript/isotope.min.js"></script>
-	<script src="resources/javascript/jquery.magnific-popup.min.js"></script>
-	<script src="resources/javascript/jquery.min.js"></script>
-	<script src="resources/javascript/jquery.pogo-slider.min.js"></script>
-	<script src="resources/javascript/popper.min.js"></script>
-	<script src="resources/javascript/responsiveslides.min.js"></script>
-	<script src="resources/javascript/slider-index.js"></script>
-	<script src="resources/javascript/smoothscroll.js"></script>
-	
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>   
 	
 </head>
 <body id="home" data-spy="scroll" data-target="#navbar-wd" data-offset="98">
 
 	<!-- LOADER -->
-   <!--  <div id="preloader">
+   <!-- 
+   <div id="preloader">
 		<div class="loader">
 			<div class="box"></div>
 			<div class="box"></div>
 		</div>
-    </div> --><!-- end loader -->
+    </div>
+    -->
     <!-- END LOADER -->
 	
 	<jsp:include page="view/common/header.jsp"></jsp:include>
@@ -446,20 +433,19 @@
 	<!-- End Footer -->
 	
 	<a href="#" id="scroll-to-top" class="hvr-radial-out"><i class="fa fa-angle-up"></i></a>
-
-	<!-- ALL JS FILES -->
-	<script src="js/jquery.min.js"></script>
-	<script src="js/popper.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-    <!-- ALL PLUGINS -->
-	<script src="js/jquery.magnific-popup.min.js"></script>
-    <script src="js/jquery.pogo-slider.min.js"></script> 
-	<script src="js/slider-index.js"></script>
-	<script src="js/smoothscroll.js"></script>
-	<script src="js/form-validator.min.js"></script>
-    <script src="js/contact-form-script.js"></script>
-	<script src="js/isotope.min.js"></script>	
-	<script src="js/images-loded.min.js"></script>	
-    <script src="js/custom.js"></script>
+    
+   	<script src="resources/javascript/bootstrap.min.js"></script>
+	<script src="resources/javascript/contact-form-script.js"></script>
+	<script src="resources/javascript/custom.js"></script>
+	<script src="resources/javascript/form-validator.min.js"></script>
+	<script src="resources/javascript/images-loded.min.js"></script>
+	<script src="resources/javascript/isotope.min.js"></script>
+	<script src="resources/javascript/jquery.magnific-popup.min.js"></script>
+	<script src="resources/javascript/jquery.min.js"></script>
+	<script src="resources/javascript/jquery.pogo-slider.min.js"></script>
+	<script src="resources/javascript/popper.min.js"></script>
+	<script src="resources/javascript/responsiveslides.min.js"></script>
+	<script src="resources/javascript/slider-index.js"></script>
+	<script src="resources/javascript/smoothscroll.js"></script>
 </body>
 </html>

@@ -1,13 +1,17 @@
 package site.gamsung.service.auction.impl;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import site.gamsung.service.auction.AuctionProductDAO;
+import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.AuctionBidInfo;
 import site.gamsung.service.domain.AuctionProduct;
+import site.gamsung.service.domain.AuctionSearch;
 
 @Repository("auctionProductDAO")
 public class AuctionProductDAOImpl implements AuctionProductDAO{
@@ -22,7 +26,15 @@ public class AuctionProductDAOImpl implements AuctionProductDAO{
 	public AuctionProductDAOImpl() {
 		// TODO Auto-generated method stub
 	}
-	
+
+	//경매 상품 리스트
+	@Override
+	public List<AuctionProduct> listAuctionProduct(AuctionSearch auctionSearch) {
+		// TODO Auto-generated method stub
+		
+		return sqlSession.selectList("AuctionMapper.listAuctionProduct",auctionSearch);
+	}
+
 	//임시 저장 상품 호출
 	@Override
 	public AuctionProduct getTempSaveAuctionProduct(String registrant_id) {
@@ -71,11 +83,6 @@ public class AuctionProductDAOImpl implements AuctionProductDAO{
 		sqlSession.insert("AuctionMapper.auctionProductBid", auctionBidInfo);
 	}
 
-	@Override
-	public void get() {
-		// TODO Auto-generated method stub
-		
-	}
 	
 	
 	

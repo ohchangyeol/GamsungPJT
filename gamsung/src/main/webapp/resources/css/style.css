@@ -1312,7 +1312,7 @@ select.form-control:not([size]):not([multiple]){
 
 .footer-box {
     background: #ccc;
-    padding: 20px 0;\
+    padding: 20px 0;
 }
 
 .footer-box .footer-company-name {
