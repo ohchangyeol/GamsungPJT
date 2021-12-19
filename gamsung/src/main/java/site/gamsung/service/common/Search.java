@@ -17,11 +17,8 @@ public class Search {
 	private List price;
 	private int currentPage;
 	private int pageSize;
-	private int startRowNum;
-	private int endRowNum;
-	private int viewCount;
-	private int reservationCount;
-	
+	private int offset;
+
 	///Constructor
 	public Search() {
 	}
@@ -55,13 +52,13 @@ public class Search {
 		this.searchKeyword = searchKeyword;
 	}
 	
-	//==> Select Query 시 ROWNUM 마지막 값 
-	public int getEndRowNum() {
-		return getCurrentPage()*getPageSize();
+	//==> Select Query 시 offset(검색 시작 행) 값
+	public int getOffset() {
+		return (getCurrentPage()-1)*getPageSize();
 	}
-	//==> Select Query 시 ROWNUM 시작 값
-	public int getStartRowNum() {
-		return (getCurrentPage()-1)*getPageSize()+1;
+	
+	public void setOffset(int offset) {
+		this.offset = offset;
 	}
 
 	public String getSortCondition() {
@@ -120,37 +117,12 @@ public class Search {
 		this.price = price;
 	}
 
-	public int getViewCount() {
-		return viewCount;
-	}
-
-	public void setViewCount(int viewCount) {
-		this.viewCount = viewCount;
-	}
-
-	public int getReservationCount() {
-		return reservationCount;
-	}
-
-	public void setReservationCount(int reservationCount) {
-		this.reservationCount = reservationCount;
-	}
-
-	public void setStartRowNum(int startRowNum) {
-		this.startRowNum = startRowNum;
-	}
-
-	public void setEndRowNum(int endRowNum) {
-		this.endRowNum = endRowNum;
-	}
-
 	@Override
 	public String toString() {
 		return "Search [searchCondition=" + searchCondition + ", sortCondition=" + sortCondition + ", searchKeyword="
 				+ searchKeyword + ", campAddr=" + campAddr + ", circumstance=" + circumstance + ", mainSite=" + mainSite
 				+ ", subSite=" + subSite + ", theme=" + theme + ", price=" + price + ", currentPage=" + currentPage
-				+ ", pageSize=" + pageSize + ", startRowNum=" + startRowNum + ", endRowNum=" + endRowNum
-				+ ", viewCount=" + viewCount + ", reservationCount=" + reservationCount + "]";
+				+ ", pageSize=" + pageSize + ", offset=" + offset + "]";
 	}
 
 }

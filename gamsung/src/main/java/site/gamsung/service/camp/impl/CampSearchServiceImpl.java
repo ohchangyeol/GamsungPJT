@@ -12,6 +12,8 @@ import site.gamsung.service.camp.CampSearchDAO;
 import site.gamsung.service.camp.CampSearchService;
 import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.Camp;
+import site.gamsung.service.domain.MainSite;
+import site.gamsung.service.domain.SubSite;
 
 
 @Service("campSearchServiceImpl")
@@ -43,9 +45,21 @@ public class CampSearchServiceImpl implements CampSearchService{
 	}
 
 	@Override
-	public Map<String, Object> getCamp(int campNo) {
+	public Map<String, Object> getCamp(int campNo) throws Exception{
 		
-		return null;
+		Camp camp = campSearchDAO.getCamp(campNo);
+		List<MainSite> mainSite = campSearchDAO.getMainSite(campNo);
+		List<SubSite> subSite = campSearchDAO.getSubSite(campNo);
+		int viewUpdate = campSearchDAO.updateViewCount(campNo); 		
+		
+		System.out.println("조회수 증가 확인 -> "+viewUpdate);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("camp", camp);
+		map.put("mainSite", mainSite);
+		map.put("subSite", subSite);
+		
+		return map;
 	}
 
 	@Override
