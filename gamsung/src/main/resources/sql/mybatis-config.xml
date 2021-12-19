@@ -30,6 +30,7 @@
 		 <typeAlias alias="paymentCode" type="site.gamsung.service.domain.PaymentCode" />
 		 <typeAlias alias="siteProfit" type="site.gamsung.service.domain.SiteProfit" />
 		 <typeAlias alias="auctionProduct" type="site.gamsung.service.domain.AuctionProduct" />
+		 <typeAlias alias="auctionBidInfo" type="site.gamsung.service.domain.AuctionBidInfo" />
 		 <typeAlias alias="notice" type="site.gamsung.service.domain.Notice" />
 		
 	</typeAliases>

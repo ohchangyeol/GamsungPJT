@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import site.gamsung.service.auction.AuctionProductDAO;
+import site.gamsung.service.domain.AuctionBidInfo;
 import site.gamsung.service.domain.AuctionProduct;
-import site.gamsung.service.domain.User;
 
 @Repository("auctionProductDAO")
 public class AuctionProductDAOImpl implements AuctionProductDAO{
@@ -53,7 +53,7 @@ public class AuctionProductDAOImpl implements AuctionProductDAO{
 	
 	//회원 경매 정보 호출
 	@Override
-	public User auctionProductBidUserInfo(String bidderId) {
+	public AuctionBidInfo auctionProductBidUserInfo(String bidderId) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("AuctionMapper.auctionProductBidUserInfo", bidderId);
 	}
@@ -66,9 +66,9 @@ public class AuctionProductDAOImpl implements AuctionProductDAO{
 	}
 
 	@Override
-	public void auctionProductBid(AuctionProduct auctionProduct) {
+	public void auctionProductBid(AuctionBidInfo auctionBidInfo) {
 		// TODO Auto-generated method stub
-		
+		sqlSession.insert("AuctionMapper.auctionProductBid", auctionBidInfo);
 	}
 	
 	

@@ -284,5 +284,6 @@ public class User {
 		this.businessUserApprovalFlag = businessUserApprovalFlag;
 	}
 	
+	
 
 }

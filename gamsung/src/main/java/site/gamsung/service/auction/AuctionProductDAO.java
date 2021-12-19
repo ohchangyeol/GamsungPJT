@@ -1,8 +1,7 @@
 package site.gamsung.service.auction;
 
+import site.gamsung.service.domain.AuctionBidInfo;
 import site.gamsung.service.domain.AuctionProduct;
-import site.gamsung.service.domain.User;
-
 public interface AuctionProductDAO {
 	
 	public void tempSaveAuctionProduct(AuctionProduct auctionProduct);
@@ -13,9 +12,9 @@ public interface AuctionProductDAO {
 	
 	public AuctionProduct getAuctionProduct(String auctionProductNo);
 	
-	public User auctionProductBidUserInfo(String bidderId);
+	public AuctionBidInfo auctionProductBidUserInfo(String bidderId);
 	
 	public void updateBidEndTime(String auctionProductNo);
 	
-	public void auctionProductBid(AuctionProduct auctionProduct);
+	public void auctionProductBid(AuctionBidInfo auctionBidInfo);
 }
