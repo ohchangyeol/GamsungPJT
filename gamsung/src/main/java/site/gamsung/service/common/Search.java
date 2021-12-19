@@ -1,5 +1,6 @@
 package site.gamsung.service.common;
 
+import java.util.List;
 
 //==>리스트화면을 모델링(추상화/캡슐화)한 Bean 
 public class Search {
@@ -8,12 +9,12 @@ public class Search {
 	private String searchCondition;
 	private String sortCondition;
 	private String searchKeyword;
-	private String campAddr;
-	private String circumstance;
-	private String mainSite;
-	private String subSite;
-	private String theme;
-	private String price;
+	private List campAddr;
+	private List circumstance;
+	private List mainSite;
+	private List subSite;
+	private List theme;
+	private List price;
 	private int currentPage;
 	private int pageSize;
 	private int startRowNum;
@@ -71,51 +72,51 @@ public class Search {
 		this.sortCondition = sortCondition;
 	}
 
-	public String getCampAddr() {
+	public List getCampAddr() {
 		return campAddr;
 	}
 
-	public void setCampAddr(String campAddr) {
+	public void setCampAddr(List campAddr) {
 		this.campAddr = campAddr;
 	}
 
-	public String getCircumstance() {
+	public List getCircumstance() {
 		return circumstance;
 	}
 
-	public void setCircumstance(String circumstance) {
+	public void setCircumstance(List circumstance) {
 		this.circumstance = circumstance;
 	}
 
-	public String getMainSite() {
+	public List getMainSite() {
 		return mainSite;
 	}
 
-	public void setMainSite(String mainSite) {
+	public void setMainSite(List mainSite) {
 		this.mainSite = mainSite;
 	}
 
-	public String getSubSite() {
+	public List getSubSite() {
 		return subSite;
 	}
 
-	public void setSubSite(String subSite) {
+	public void setSubSite(List subSite) {
 		this.subSite = subSite;
 	}
 
-	public String getTheme() {
+	public List getTheme() {
 		return theme;
 	}
 
-	public void setTheme(String theme) {
+	public void setTheme(List theme) {
 		this.theme = theme;
 	}
 
-	public String getPrice() {
+	public List getPrice() {
 		return price;
 	}
 
-	public void setPrice(String price) {
+	public void setPrice(List price) {
 		this.price = price;
 	}
 
@@ -145,9 +146,11 @@ public class Search {
 
 	@Override
 	public String toString() {
-		return "Search [currentPage=" + currentPage + ", searchCondition="
-				+ searchCondition + ", searchKeyword=" + searchKeyword
-				+ ", pageSize=" + pageSize + ", endRowNum=" + endRowNum
-				+ ", startRowNum=" + startRowNum + "]";
+		return "Search [searchCondition=" + searchCondition + ", sortCondition=" + sortCondition + ", searchKeyword="
+				+ searchKeyword + ", campAddr=" + campAddr + ", circumstance=" + circumstance + ", mainSite=" + mainSite
+				+ ", subSite=" + subSite + ", theme=" + theme + ", price=" + price + ", currentPage=" + currentPage
+				+ ", pageSize=" + pageSize + ", startRowNum=" + startRowNum + ", endRowNum=" + endRowNum
+				+ ", viewCount=" + viewCount + ", reservationCount=" + reservationCount + "]";
 	}
+
 }

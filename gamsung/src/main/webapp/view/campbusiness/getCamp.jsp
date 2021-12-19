@@ -38,17 +38,17 @@
 		// 버튼
 		$(function() {
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-			$("#save").on("click" , function() {
+			$("#confirm").on("click" , function() {
 				alert("1");
-				$("form").attr("method" , "POST").attr("action" , "/campBusiness/addCamp").submit();
+				$("form").attr("method" , "get").attr("action" , "/campBusiness/listCamp").submit();
 			});
 			
-			$("#tempsave").on("click" , function() {
+			$("#update").on("click" , function() {
 				alert("2");				
 			});
 			
-			$("#cancle").on("click" , function() {
-				$("form")[0].reset();	
+			$("#delete").on("click" , function() {
+				alert("3");	
 			});
 		
 		});	
@@ -63,54 +63,176 @@
 	<jsp:include page="/view/campbusiness/campBusinessToolbar.jsp" />
 
 	<!-- Page Start -->
-	<div class="container">
-	
+	<div class="container">	
 	
 		<div class="page-header">
 	       <h3 class=" text-info">캠핑장등록 결과</h3>
-	       <h5 class="text-muted"><strong class="text-danger">환영합니다. 사장님! 등록완료 되었습니다.</strong></h5>
+	       <h5 class="text-muted"><strong class="text-danger">환영합니다. 등록완료 되었습니다.</strong></h5>
 	    </div>
 	    	
 		<div class="row">
-	  		<div class="col-xs-4 col-md-2"><strong>도 서 명</strong></div>
-			<div class="col-xs-8 col-md-4">${product.prodName}</div>
+	  		<div class="col-xs-4 col-md-2"><strong>캠핑장 등록번호</strong></div>
+			<div class="col-xs-8 col-md-4">${camp.campNo}</div>
 		</div>
 		
 		<hr/>
 		
 		<div class="row">
-	  		<div class="col-xs-4 col-md-2"><strong>상세정보</strong></div>
-			<div class="col-xs-8 col-md-4">${product.prodDetail}</div>
+	  		<div class="col-xs-4 col-md-2"><strong>사업자회원ID</strong></div>
+			<div class="col-xs-8 col-md-4">${camp.user.id}</div>
 		</div>
 		
 		<hr/>
 		
 		<div class="row">
-	  		<div class="col-xs-4 col-md-2"><strong>출판일자</strong></div>
-			<div class="col-xs-8 col-md-4">${product.manuDate}</div>
+	  		<div class="col-xs-4 col-md-2"><strong>캠핑장 이름</strong></div>
+			<div class="col-xs-8 col-md-4">${camp.campName}</div>
 		</div>
 		
 		<hr/>
 		
 		<div class="row">
-	  		<div class="col-xs-4 col-md-2"><strong>판매가격</strong></div>
-			<div class="col-xs-8 col-md-4">${product.price}</div>
+	  		<div class="col-xs-4 col-md-2"><strong>캠핑장 주소</strong></div>
+			<div class="col-xs-8 col-md-4">${camp.campAddr}</div>
 		</div>
 		
 		<hr/>
 		
 		<div class="row">
-	  		<div class="col-xs-4 col-md-2"><strong>이미지 </strong></div>
-			<img src="/images/uploadFiles/${product.fileName}" />
+	  		<div class="col-xs-4 col-md-2"><strong>캠핑장 전화번호</strong></div>
+			<div class="col-xs-8 col-md-4">${camp.campCall}</div>
 		</div>
-				  		  
-		  <div class="form-group">
-		    <div class="col-sm-offset-4  col-sm-4 text-center">
-		      <button type="button" class="btn btn-primary"  >상품목록</button>
-			  <a class="btn btn-primary btn" href="#" role="button">추가등록</a>
+		
+		<hr/>							
+		
+		<div class="row">
+	  		<div class="col-xs-4 col-md-2"><strong>캠핑장 평점</strong></div>
+			<div class="col-xs-8 col-md-4">${camp.campRate}</div>
+		</div>
+		
+		<hr/>
+		
+		<div class="row">
+	  		<div class="col-xs-4 col-md-2"><strong>예약수</strong></div>
+			<div class="col-xs-8 col-md-4">${camp.campReservationCount}</div>
+		</div>
+		
+		<hr/>
+		
+		<div class="row">
+	  		<div class="col-xs-4 col-md-2"><strong>캠핑장 이번달 조회수</strong></div>
+			<div class="col-xs-8 col-md-4">${camp.campViewCountCurrentMonth}</div>
+		</div>
+		
+		<hr/>
+		
+		<div class="row">
+	  		<div class="col-xs-4 col-md-2"><strong>캠핑장 지난달 조회수</strong></div>
+			<div class="col-xs-8 col-md-4">${camp.campViewCountPreviousMonth}</div>
+		</div>
+		
+		<hr/>	
+		
+		<div class="row">
+	  		<div class="col-xs-4 col-md-2"><strong>캠핑장 요약정보</strong></div>
+			<div class="col-xs-8 col-md-4">${camp.campSummery}</div>
+		</div>
+		
+		<hr/>
+		
+		<div class="row">
+	  		<div class="col-xs-4 col-md-2"><strong>캠핑장 상세정보</strong></div>
+			<div class="col-xs-8 col-md-4">${camp.campDetail}</div>
+		</div>
+		
+		<hr/>
+		
+		<div class="row">
+	  		<div class="col-xs-4 col-md-2"><strong>캠핑장 등록일자</strong></div>
+			<div class="col-xs-8 col-md-4">${camp.campRegDate}</div>
+		</div>
+		
+		<hr/>
 
-		    </div>
-		  </div>
+		<div class="row">
+	  		<div class="col-xs-4 col-md-2"><strong>캠핑장 테마1</strong></div>
+			<div class="col-xs-8 col-md-4">${camp.campTheme1}</div>
+		</div>
+		
+		<hr/>
+		
+		<div class="row">
+	  		<div class="col-xs-4 col-md-2"><strong>캠핑장 테마2</strong></div>
+			<div class="col-xs-8 col-md-4">${camp.campTheme2}</div>
+		</div>
+		
+		<hr/>
+		
+		<div class="row">
+	  		<div class="col-xs-4 col-md-2"><strong>캠핑장 자연1</strong></div>
+			<div class="col-xs-8 col-md-4">${camp.campNature1}</div>
+		</div>
+		
+		<hr/>	
+		
+		<div class="row">
+	  		<div class="col-xs-4 col-md-2"><strong>캠핑장 자연2</strong></div>
+			<div class="col-xs-8 col-md-4">${camp.campNature2}</div>
+		</div>
+		
+		<hr/>
+		
+		<div class="row">
+	  		<div class="col-xs-4 col-md-2"><strong>캠핑장 운영1</strong></div>
+			<div class="col-xs-8 col-md-4">${camp.campOperation1}</div>
+		</div>
+		
+		<hr/>
+		
+		<div class="row">
+	  		<div class="col-xs-4 col-md-2"><strong>캠핑장 운영2</strong></div>
+			<div class="col-xs-8 col-md-4">${camp.campOperation2}</div>
+		</div>
+		
+		<hr/>
+		
+		<div class="row">
+	  		<div class="col-xs-4 col-md-2"><strong>캠핑장 지도이미지</strong></div>
+			<img src="/uploadFiles/camping/campbusiness/camp/${camp.campMapImg}" />
+		</div>
+		
+		<div class="row">
+	  		<div class="col-xs-4 col-md-2"><strong>캠핑장 전경1</strong></div>
+			<img src="/uploadFiles/camping/campbusiness/camp/${camp.campImg1}" />
+		</div>
+		
+		<div class="row">
+	  		<div class="col-xs-4 col-md-2"><strong>캠핑장 전경2</strong></div>
+			<img src="/uploadFiles/camping/campbusiness/camp/${camp.campImg2}" />
+		</div>
+		
+		<div class="row">
+	  		<div class="col-xs-4 col-md-2"><strong>캠핑장 전경3</strong></div>
+			<img src="/uploadFiles/camping/campbusiness/camp/${camp.campImg3}" />
+		</div>
+		
+		<div class="row">
+	  		<div class="col-xs-4 col-md-2"><strong>캠핑장 전경4</strong></div>
+			<img src="/uploadFiles/camping/campbusiness/camp/${camp.campImg4}" />
+		</div>
+		
+		<div class="row">
+	  		<div class="col-xs-4 col-md-2"><strong>캠핑장 전경5</strong></div>
+			<img src="/uploadFiles/camping/campbusiness/camp/${camp.campImg5}" />
+		</div>	
+								  		  
+		<div class="form-group">
+			<div class="col-sm-offset-4  col-sm-4 text-center">
+				<button id="delete" type="button" class="btn btn-primary">삭제</button>
+				<button id="update"type="button" class="btn btn-primary">수정</button>
+				<button id="confirm" type="button" class="btn btn-primary">확인</button>
+			</div>
+		</div>
 		  	
  	</div>
 
