@@ -22,7 +22,7 @@
 		 -->
 
 		 <typeAlias alias="user" type="site.gamsung.service.domain.User" />
-
+		 <typeAlias alias="search" type="site.gamsung.service.common.Search" />
 		 
 		 <typeAlias alias="camp" type="site.gamsung.service.domain.Camp" />
 		 <typeAlias alias="mainSite" type="site.gamsung.service.domain.MainSite" />
