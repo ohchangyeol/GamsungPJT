@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="CommunityMapper">
+ 	
+ 	
+	<resultMap id="PostMapper" type="Post">
+		<result property="postTile"    		 column="post_title"       jdbcType="VARCHAR"/>
+		<result property="postNo"	   		 column="post_no" 	       jdbcType="INT" />
+		<result property="postContent"       column="post_content"     jdbcType="VARCHAR" />
+		<result property="writer"  			 column="user_id" 	       jdbcType="VARCHAR" />
+		<result property="postType"    		 column="post_type"        jdbcType="INT" />
+		<result property="postRegdate" 	     column="post_reg_date"    jdbcType="DATETIME" />
+		<result property="video"    		 column="video" 		   jdbcType="VARCHAR"/>
+		<result property="deleteFlag"	     column="delete_flag" 	   jdbcType="CHAR" />
+		<result property="postImg1"  		 column="post_Img1" 	   jdbcType="VARCHAR" />
+		<result property="postImg2"    		 column="post_Img2" 	   jdbcType="VARCHAR" />
+		<result property="postImg3" 	   	 column="post_Img3" 	   jdbcType="VARCHAR" />
+		<result property="Hashtag1" 	   	 column="post_hashtag1"    jdbcType="VARCHAR" />
+		<result property="Hashtag2" 		 column="post_hashtag2"    jdbcType="VARCHAR" />
+		<result property="Hashtag3"  		 column="post_hashtag3"    jdbcType="VARCHAR" />
+		<result property="concernFlag" 	     column="concern_flag" 	   jdbcType="DATE" />
+<!-- 	<result property="postConcernCount"  column="" 		jdbcType="NUMERIC" /> //게시물추천총수
+		<result property="commentTotalCount" column="" 		jdbcType="NUMERIC" />//게시물댓글총수 -->
+	</resultMap>
+	
+
+	<resultMap id="CommentMapper" type="Comment">
+		<result property="postNo"    	  	 column="post_no" 		   jdbcType="VARCHAR"/>
+		<result property="commentNo"	  	 column="comment_no" 	   jdbcType="VARCHAR" />
+		<result property="commentContent" 	 column="comment_content"  jdbcType="NUMERIC" />
+		<result property="commentWriter"  	 column="user_id" 		   jdbcType="VARCHAR" />
+		<result property="commentRegdate" 	 column="comment_reg_date" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	
+	<!-- SQL : INSERT -->
+   <insert    id="addPost"      parameterType="post" >
+      INSERT 
+      INTO gamsung.post(user_id,post_type,post_title,post_content,post_Img1,post_Img2,post_Img3,post_hashtag1,post_hashtag2,post_hashtag3,video)
+      VALUES    (#{writer}, #{postType}, #{postTile:VARCHAR}, #{postContent:VARCHAR}, #{postImg1:VARCHAR}, #{postImg2:VARCHAR}, #{postImg3:VARCHAR}, #{Hashtag1:VARCHAR}, #{Hashtag2:VARCHAR}, #{Hashtag3:VARCHAR}, #{video:VARCHAR});                                     
+    </insert>
+<!-- 	 
+	 SQL : SELECT ONE
+	 <select 	id="getProduct"	parameterType="int"	resultMap="ProductSelectMapper">
+		SELECT
+	    PROD_NO , PROD_NAME , PROD_DETAIL , MANUFACTURE_DAY , PRICE, IMAGE_FILE, REG_DATE
+		FROM product 
+		WHERE PROD_NO = #{value}
+	 </select>
+	 
+	 SQL : UPDATE
+	 <update	id="updateProduct"	parameterType="product" >
+	   	UPDATE product
+	   	<set>
+	   		PROD_NAME = #{prodName},
+	   		PROD_DETAIL = #{prodDetail},
+	   		MANUFACTURE_DAY = #{manuDate},
+	   		PRICE = #{price},
+	   		IMAGE_FILE = #{fileName}
+	   	</set>
+	   	WHERE PROD_NO = #{prodNo}
+	 </update>
+		 
+	SQL : SELECT LIST
+	<select  id="getProductList"  parameterType="search"	resultMap="ProductSelectMapper">
+	  	SELECT *
+	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
+	  					FROM		(	SELECT PROD_NO , PROD_NAME , PRICE ,REG_DATE
+											FROM product
+											<if test="searchCondition != null">
+												<where>
+													<if test="searchCondition == 0 and searchKeyword !='' ">
+										 				Prod_no = #{searchKeyword}
+													</if>
+													<if test="searchCondition == 1 and searchKeyword !='' ">
+										 				Prod_name = #{searchKeyword}
+													</if>
+													<if test="searchCondition == 2 and searchKeyword !='' ">
+										 				price = #{searchKeyword}
+													</if>
+												</where>
+											</if>
+											ORDER BY Prod_no ) inner_table
+						WHERE ROWNUM &lt;= #{endRowNum} )
+		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
+	 </select>
+	 	 위 두번째 subQuery 의  
+	 			WHERE ROWNUM &lt;= #{endRowNum} ) 는
+	 			WHERE ROWNUM <= #{endRowNum} ) 의미이며..
+	 			< 는 keyword 로 &lt; 를	사용.
+	 			
+	 			<![CDATA[  ~~~  ]]> 를 이용하여 아래와 같이 사용  할 수 있다.
+	 			CDATA ==> Character Data 의 의미 Java 에서 \n 같은 특수문자 처리  
+
+				WHERE ROWNUM <![CDATA[ <=]]> #{endRowNum} )
+		
+	
+	SQL : SELECT ROW Count	 
+	 <select  id="getTotalCount"  parameterType="search"	 resultType="int">
+	  	SELECT COUNT(*)
+	  	FROM(	SELECT PROD_NO , PROD_NAME , PRICE ,REG_DATE
+						FROM product
+						<if test="searchCondition != null">
+							<where>
+								<if test="searchCondition == 0 and searchKeyword !='' ">
+							 			Prod_no = #{searchKeyword}
+							    </if>
+							    <if test="searchCondition == 1 and searchKeyword !='' ">
+										Prod_name = #{searchKeyword}
+							    </if>
+								<if test="searchCondition == 2 and searchKeyword !='' ">
+										price = #{searchKeyword}
+								</if>
+							</where>
+						</if> ) countTable						
+	 </select> -->
+	 
+</mapper>

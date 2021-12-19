@@ -23,7 +23,11 @@
 
 		 <typeAlias alias="user" type="site.gamsung.service.domain.User" />
 		 <typeAlias alias="search" type="site.gamsung.service.common.Search" />	
-		 
+		 <typeAlias alias="Post" type="site.gamsung.service.domain.Post" />		 
+		 <typeAlias alias="Comment" type="site.gamsung.service.domain.Comment" />		 
+		 <typeAlias alias="PostConcern" type="site.gamsung.service.domain.PostConcern" />		
+		 <typeAlias alias="Receive" type="site.gamsung.service.domain.Receive" />		
+		 <typeAlias alias="Transfer" type="site.gamsung.service.domain.Transfer" />		
 		 <typeAlias alias="camp" type="site.gamsung.service.domain.Camp" />
 		 <typeAlias alias="mainSite" type="site.gamsung.service.domain.MainSite" />
 		 <typeAlias alias="subSite" type="site.gamsung.service.domain.SubSite" />
@@ -48,6 +52,8 @@
 	
 		<mapper resource="sql/AuctionMapper.xml"/>
  	-->
+ 		<mapper resource="sql/TransferMapper.xml"/>
+ 		<mapper resource="sql/CommunityMapper.xml"/>
  		<mapper resource="sql/NoticeMapper.xml"/>
 		<mapper resource="sql/CampSearchMapper.xml"/>
 		<mapper resource="sql/AuctionMapper.xml"/>

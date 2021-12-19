@@ -1,5 +1,6 @@
 package site.gamsung.service.community.impl;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -21,6 +22,10 @@ public class CommunityDAOImpl implements CommunityDAO {
 	@Autowired
 	@Qualifier("sqlSessionTemplate")
 	private SqlSession sqlSession;
+	public void setSqlSession(SqlSession sqlSession) {
+		System.out.println("sqlSessions"+sqlSession);
+		this.sqlSession = sqlSession;
+	}
 	
 	
 	//Constructor
@@ -37,8 +42,8 @@ public class CommunityDAOImpl implements CommunityDAO {
 	}
 
 	@Override
-	public List<Post> ListPost(Search search) throws Exception {
-		return sqlSession.selectList("CommunityMapper.listPost", search);
+	public List<Post> ListPost(Post post) throws Exception {
+		return sqlSession.selectList("CommunityMapper.listPost", post);
 	}
 
 	@Override
@@ -47,13 +52,13 @@ public class CommunityDAOImpl implements CommunityDAO {
 	}
 
 	@Override
-	public void updatePost(Post post) throws Exception {
-		sqlSession.update("CommunityMapper.updatePost", post);		
+	public int updatePost(Post post) throws Exception {
+		return sqlSession.update("CommunityMapper.updatePost", post);		
 	}
 
 	@Override
 	public int deletePost(int postNo) throws Exception {
-		return sqlSession.update("CommunityMapper.updatePost", postNo);
+		return sqlSession.update("CommunityMapper.deletePost", postNo);
 	}
 
 	@Override
@@ -67,8 +72,8 @@ public class CommunityDAOImpl implements CommunityDAO {
 	}
 
 	@Override
-	public void updateComment(Comment comment) throws Exception {
-		sqlSession.update("CommunityMapper.updateComment", comment);		
+	public int updateComment(Comment comment) throws Exception {
+		return sqlSession.update("CommunityMapper.updateComment", comment);		
 	}
 
 	@Override
@@ -76,19 +81,17 @@ public class CommunityDAOImpl implements CommunityDAO {
 		return sqlSession.update("CommunityMapper.deleteComment", CommentNo);
 	}
 
-	@Override
-	public int addConcern(int postNo, String userId) throws Exception {
-		return sqlSession.insert("CommunityMapper.addConcern", product);
-	}
 
-	@Override
-	public int getConcernCount(int postNo) throws Exception {
-		return sqlSession.selectOne("CommunityMapper.getConcernCount", postNo);
+	public int updateConcern(HashMap<String,Object> Map) throws Exception {
+		
+		String concernType = (String) Map.get("concernType");// 동작 insert / delete
+		
+		if(concernType.equals("insert")){
+			return sqlSession.insert("CommunityMapper.addConcern", Map);	
+		}else {
+			return sqlSession.update("CommunityMapper.deleteConcern", Map);	
+		}
+		
 	}
-
-	@Override
-	public int deleteConcern(int postNo, String userId) throws Exception {
-		return sqlSession.update("CommunityMapper.deleteConcern", product);
-	}
-
+	
 }
