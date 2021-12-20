@@ -49,7 +49,7 @@
 	<!-- //////////////////////////////////////////////////////AuctionProductDAO Mapper////////////////////////////////////////////////////// -->
 	<select id="listAuctionProduct" parameterType="search" resultMap="auction">
 		SELECT product_no, product_name, product_view_count, start_bid_price, hopeful_bid_price, auction_start_time, auction_end_time,
-               timediff(auction_end_time, auciton_start_time) remain_time, hashtag1, hashtag2, hashtag3
+               timediff(auction_end_time, auction_start_time) AS remain_time, hashtag1, hashtag2, hashtag3, product_img1
 			FROM AUCTION_PRODUCT
 			WHERE temp_save_flag = 'N' AND auction_status = 'START' AND delete_flag = 'N'
 			<if test="searchKeyword != null">

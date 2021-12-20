@@ -160,7 +160,7 @@ public class AuctionProductDAOTest {
 	}
 
 	//메인 경매 상품 목록 조회
-	@Test
+	//@Test
 	public void listMainAuctionProduct() {
 		
 		Search search = new Search();

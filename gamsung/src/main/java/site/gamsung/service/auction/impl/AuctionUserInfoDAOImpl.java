@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import site.gamsung.service.auction.AuctionUserInfoDAO;
 import site.gamsung.service.domain.AuctionBidInfo;
+import site.gamsung.service.domain.AuctionList;
 import site.gamsung.service.domain.AuctionProduct;
 import site.gamsung.service.domain.User;
 
@@ -27,22 +28,22 @@ public class AuctionUserInfoDAOImpl implements AuctionUserInfoDAO{
 	}
 
 	@Override
-	public List<AuctionBidInfo> listBidConcern(String auctionUserId) {
+	public List<AuctionBidInfo> listBidConcern(AuctionList auctionList) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList("AuctionUserInfoMapper.listBidConcern",auctionUserId);
+		return sqlSession.selectList("AuctionUserInfoMapper.listBidConcern",auctionList);
 
 	}
 
 	@Override
-	public List<AuctionProduct> listAuctionProductByRole(User user) {
+	public List<AuctionProduct> listAuctionProductByRole(AuctionList auctionList) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList("AuctionUserInfoMapper.listAuctionProductByRole",user);
+		return sqlSession.selectList("AuctionUserInfoMapper.listAuctionProductByRole",auctionList);
 	}
 
 	@Override
-	public List<AuctionBidInfo> AuctionHistory(AuctionBidInfo auctionBidInfo) {
+	public List<AuctionBidInfo> AuctionHistory(AuctionList auctionList) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList("AuctionUserInfoMapper.AuctionHistory",auctionBidInfo);
+		return sqlSession.selectList("AuctionUserInfoMapper.AuctionHistory", auctionList);
 	}
 	
 	

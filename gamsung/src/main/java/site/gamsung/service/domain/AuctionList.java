@@ -4,7 +4,7 @@ import site.gamsung.service.common.Search;
 
 public class AuctionList {
 
-	private String stringdata;
+	private String stringData;
 	private User user;
 	private AuctionBidInfo auctionBidInfo;
 	private AuctionProduct auctionProduct;
@@ -15,11 +15,11 @@ public class AuctionList {
 	}
 
 	public String getStringdata() {
-		return stringdata;
+		return stringData;
 	}
 
-	public void setStringdata(String stringdata) {
-		this.stringdata = stringdata;
+	public void setStringData(String stringData) {
+		this.stringData = stringData;
 	}
 
 	public User getUser() {
@@ -56,7 +56,7 @@ public class AuctionList {
 
 	@Override
 	public String toString() {
-		return "AuctionList [stringdata=" + stringdata + ", user=" + user + ", auctionBidInfo=" + auctionBidInfo
+		return "AuctionList [stringData=" + stringData + ", user=" + user + ", auctionBidInfo=" + auctionBidInfo
 				+ ", auctionProduct=" + auctionProduct + ", search=" + search + "]";
 	}
 	

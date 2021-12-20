@@ -44,9 +44,15 @@ public class AuctionUserInfoDAOTest {
 	//@Test
 	public void testListBidConcern() {
 		
+		Search search = new Search();
+		search.setCurrentPage(1);
+		search.setOffset(10);
+		search.setPageSize(10);
+		
 		AuctionList auctionList = new AuctionList();
-		auctionList.setStringdata("");
-		List<AuctionBidInfo> list = auctionUserInfoDAO.listBidConcern("");
+		auctionList.setStringData("user1@gamsung.com");
+		auctionList.setSearch(search);
+		List<AuctionBidInfo> list = auctionUserInfoDAO.listBidConcern(auctionList);
 		
 		for(AuctionBidInfo auctionBidInfo : list) {
 			System.out.println(auctionBidInfo);
@@ -54,20 +60,56 @@ public class AuctionUserInfoDAOTest {
 		
 	}
 	
-	//role에 따라 상품 리스트 출력
+	//role에 따라 상품 리스트 출력 test
 	//@Test
 	public void testListAuctionProductByRole() {
 		
 		User user = new User();
-		List<AuctionProduct> list = auctionUserInfoDAO.listAuctionProductByRole(user);
+		user.setId("user1@gamsung.com");
+		user.setRole("GENERAL");
+		
+		Search search = new Search();
+		search.setCurrentPage(1);
+		search.setPageSize(10);
+		search.setOffset(10);
+		
+		AuctionList auctionList = new AuctionList();
+		auctionList.setUser(user);
+		auctionList.setSearch(search);
+		
+		List<AuctionProduct> list = auctionUserInfoDAO.listAuctionProductByRole(auctionList);
+		
+		for(AuctionProduct auctionProduct : list) {
+			System.out.println(auctionProduct);
+		}
 		
 	}
 	
-	//@Test
+	//상품 입찰 내역 출력 test
+	@Test
 	public void testAuctionHistory() {
 		
+		User user = new User();
+		user.setId("user1@gamsung.com");
+		
+		Search search = new Search();
+		search.setCurrentPage(1);
+		search.setPageSize(10);
+		search.setOffset(10);
+		
 		AuctionBidInfo auctionBidInfo = new AuctionBidInfo();
-		List<AuctionBidInfo> list = auctionUserInfoDAO.AuctionHistory(auctionBidInfo);
+		auctionBidInfo.setAuctionProductNo("PROD00001");
+		
+		AuctionList auctionList = new AuctionList();
+		auctionList.setUser(user);
+		auctionList.setSearch(search);
+		auctionList.setAuctionBidInfo(auctionBidInfo);
+		
+		List<AuctionBidInfo> list = auctionUserInfoDAO.AuctionHistory(auctionList);
+		
+		for(AuctionBidInfo bidInfo : list) {
+			System.out.println(bidInfo);
+		}
 		
 	}
 	

@@ -4,7 +4,6 @@ import java.util.List;
 
 import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.AuctionBidInfo;
-import site.gamsung.service.domain.AuctionList;
 import site.gamsung.service.domain.AuctionProduct;
 
 public interface AuctionProductDAO {

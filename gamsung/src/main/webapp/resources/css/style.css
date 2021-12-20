@@ -338,7 +338,7 @@ button:focus{
 }
 
 .top-header .navbar .navbar-collapse ul li a.active {
-    background: #e91327;
+    background: rgb(0, 0, 0);
     color: #ffffff;
     border-radius: 0 15px;
 }
@@ -553,7 +553,7 @@ button:focus{
 .title-box h2 {
     font-size: 75px;
     font-family: 'Great Vibes', cursive;
-    color: #e91327;
+    color: rgb(0, 0, 0);
     font-weight: 400;
     padding: 0;
 }
@@ -607,7 +607,7 @@ button:focus{
 
 .about-main-info h2 {
     font-size: 45px;
-    color: #e91327;
+    color: #333333;
     font-weight: 600;
 }
 
@@ -616,7 +616,7 @@ button:focus{
     border-radius: 2px;
     transition: .2s;
     padding: 10px 25px;
-    background: #e91327;
+    background:  #333333;
     color: #ffffff;
     font-weight: 300;
     font-size: 15px;
@@ -687,14 +687,14 @@ button:focus{
     height: auto;
     text-align: center;
     cursor: pointer;
-    border: 8px solid #eee;
+    border: 8px solid #0000;
     margin-bottom: 30px;
 }
 
-figure.effect-service{
+/* figure.effect-service{
 	background: -webkit-linear-gradient(-45deg, #EC65B7 0%,#05E0D8 100%);
 	background: linear-gradient(-45deg, #EC65B7 0%,#05E0D8 100%);
-}
+} */
 figure img {
     position: relative;
     display: block;
@@ -786,7 +786,7 @@ figure.effect-service:hover p {
     opacity: 1;
 }
 figure.effect-service:hover {
-    border: 8px solid #e91327;
+    border: 4px solid rgb(0,0,0);
 }
 
 
@@ -1454,8 +1454,6 @@ p {
 #client_slider .carousel-indicators li.active {
     background: #e91327;
 }
-
-
 
 
 

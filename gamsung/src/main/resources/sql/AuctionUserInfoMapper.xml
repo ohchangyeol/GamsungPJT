@@ -49,18 +49,18 @@
 	<select id="listBidConcern" parameterType="auctionList" resultMap="bidInfo">
 		SELECT bid_concern_no, product_no, concern_reg_date
 		FROM BID_CONCERN
-		WHERE auction_user_id = #{value}
-		LIMIT #{pageSize} OFFSET #{offset}
+		WHERE auction_user_id = #{stringData}
+		LIMIT #{search.pageSize} OFFSET #{search.offset}
 	</select>
 	
 	<select id="listAuctionProductByRole" parameterType="auctionList" resultMap="auction">
 		SELECT product_no, product_name, start_bid_price, hopeful_bid_price, auction_start_time, product_view_count, auction_end_time, product_reg_date, auction_status
 		FROM AUCTION_PRODUCT
 		WHERE temp_save_flag = 'N'
-		<if test='role.equals("GENERAL")'>
-			AND registrant_id = #{id}
+		<if test='user.role.equals("GENERAL")'>
+			AND registrant_id = #{user.id}
 		</if>
-		LIMIT #{pageSize} OFFSET #{offset}
+		LIMIT #{search.pageSize} OFFSET #{search.offset}
 	</select>
 	
 	
@@ -69,9 +69,9 @@
 		FROM AUCTION_HISTORY
 		WHERE bidder_id = #{user.id}
 		<if test="productNo != null">
-			AND product_no = #{productNo};
+			AND product_no = #{auctionBidInfo.productNo};
 		</if>
-		LIMIT #{pageSize} OFFSET #{offset}
+		LIMIT #{search.pageSize} OFFSET #{search.offset}
 	</select>
 	
 	
