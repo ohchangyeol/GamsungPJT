@@ -77,7 +77,7 @@ public class AuctionProductDAOImpl implements AuctionProductDAO{
 		return sqlSession.selectOne("AuctionMapper.auctionProductBidUserInfo", bidderId);
 	}
 	
-	
+	//입찰시 경매 내역에 추가
 	@Override
 	public void auctionProductBid(AuctionBidInfo auctionBidInfo) {
 		// TODO Auto-generated method stub
@@ -89,6 +89,20 @@ public class AuctionProductDAOImpl implements AuctionProductDAO{
 	public void updateBidEndTime(String auctionProductNo) {
 		// TODO Auto-generated method stub
 		sqlSession.update("AuctionMapper.updateBidEndTime", auctionProductNo);
+	}
+	
+	//메인에 표시될 경매 상품정보
+	@Override
+	public void addMainAuctionProduct(AuctionProduct auctionProduct) {
+		// TODO Auto-generated method stub
+		sqlSession.insert("AuctionMapper.addMainAuctionProduct",auctionProduct);
+	}
+
+	@Override
+	public List<AuctionProduct> listMainAuctionProduct() {
+		// TODO Auto-generated method stub
+		
+		return sqlSession.selectList("AuctionMapper.listMainAuctionProduct");
 	}
 
 }
