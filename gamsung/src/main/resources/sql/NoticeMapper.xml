@@ -6,7 +6,7 @@
 
 <mapper namespace="NoticeMapper">
 
-	<resultMap id="NoticeDomain" type="notice">
+	<resultMap id="noticeDomain" type="notice">
 		<result property="noticeNo"      column="notice_no" 	 jdbcType="NUMERIC"/>
 		<result property="writer.id"     column="user_id" 		 jdbcType="VARCHAR"/>
 		<result property="deleteFlag"    column="delete_flag" 	 jdbcType="CHAR"/>
@@ -49,7 +49,54 @@
 	
 	<insert id="addNotice" parameterType="notice">
 		INSERT INTO notice (user_id, notice_title, notice_content, notice_file1, notice_file2,notice_file3)
-		VALUE (#{writer.id}, #{noticeTitle:VARCHAR}, #{noticeContent:VARCHAR}, #{noticeFile1:VARCHAR},#{noticeFile2:VARCHAR},#{noticeFile2:VARCHAR})
+		VALUE (#{writer.id}, #{noticeTitle:VARCHAR}, #{noticeContent:VARCHAR}, #{noticeFile1:VARCHAR},#{noticeFile2:VARCHAR},#{noticeFile3:VARCHAR})
 	</insert>
-
+	
+	<select id="getNotice"	parameterType="_int" resultMap="noticeDomain">
+		SELECT * 
+		FROM notice AS n JOIN users AS u
+		ON n.user_id = u.user_id 
+		WHERE n.notice_no = #{value};
+	</select>
+	
+	<select id="listNotice"	parameterType="search" resultMap="noticeDomain">
+		SELECT<![CDATA[@rownum:=@rownum+1 rownum]]>, notice.*
+		FROM ( 	SELECT 	n.notice_no, n.user_id, n.delete_flag, n.notice_title, n.notice_content, n.view_count, n.reg_date, n.camp_no, n.camp_name, n.notice_file1, n.notice_file2, n.notice_file3,
+						u.role, u.nick_name, u.password, u.name, u.addr, u.phone, u.entry_reg_date, u.bank, u.account_holder, u.account_num, u.having_point, u.camp_call, u.entry_approval_flag, u.receive_cancel_total_count, u.receive_ban_end_date, u.dormant_reg_date, u.secession_reg_date, u.suspension_reg_date, u.tourism_business_num, u.suspension_content, u.auction_grade
+				FROM notice n JOIN users u
+				ON n.user_id = u.user_id 
+				<if test="searchCondition != null">
+					<where>
+						<if test="searchKeyword !='' and searchKeyword != null"> 
+							<!-- 제목 + 내용 -->
+							<if test="searchCondition == 0">
+								AND MATCH (notice_title,notice_content) AGAINST (concat_ws(#{searchKeyword},'*','*') in boolean mode)
+							</if>
+							<!-- 제목 -->
+							<if test="searchCondition == 1">
+								AND MATCH (notice_title) AGAINST (concat_ws(#{searchKeyword},'*','*') in boolean mode) 
+							</if>
+							<!-- 내용 -->
+							<if test="searchCondition == 2">
+								AND MATCH (notice_content) AGAINST (concat_ws(#{searchKeyword},'*','*') in boolean mode) 
+							</if>
+						</if>
+					</where>
+				</if>
+				ORDER BY n.reg_date ) notice , (SELECT<![CDATA[@rownum:=0]]>) r
+		LIMIT #{offset} , #{pageSize}
+	</select>
+	
+	<update id="updateNotice" parameterType="notice">
+		UPDATE NOTICE
+		<set>
+			notice_title=#{noticeTitle},
+			notice_content=#{noticeContent}, 
+		    notice_file1=#{noticeFile1:VARCHAR}, 
+		    notice_file2=#{noticeFile2:VARCHAR},
+		    notice_file3=#{noticeFile3:VARCHAR}
+		</set>
+		WHERE notice_no = #{notice_no}
+	</update>
+	
 </mapper>
