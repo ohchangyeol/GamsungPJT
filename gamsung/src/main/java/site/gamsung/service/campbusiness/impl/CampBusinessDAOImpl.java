@@ -35,8 +35,15 @@ public class CampBusinessDAOImpl implements CampBusinessDAO{
 	@Override
 	public void addCamp(Camp camp) throws Exception {
 		
-		String methodName = new Object() {}.getClass().getEnclosingMethod().getName();
-		System.out.println(" >> "+ this.getClass().getName() + " : " + methodName);
+	}
+
+	@Override
+	public void addMainSite(MainSite mainSite) throws Exception {
+				
+	}
+
+	@Override
+	public void addSubSite(SubSite subSite) throws Exception {
 		
 	}
 

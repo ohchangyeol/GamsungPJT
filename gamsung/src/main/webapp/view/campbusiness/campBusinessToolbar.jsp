@@ -22,7 +22,7 @@
 		});
 		
 	 	$("a:contains('주요시설 등록')" ).on("click" , function() {
-
+	 		$(self.location).attr("href","/view/campbusiness/addMainSite.jsp");
 		}); 
 	 	
 	 	$("a:contains('부가시설 목록')" ).on("click" , function() {
@@ -30,7 +30,7 @@
 		}); 
 	 	
 	 	$("a:contains('부가시설 등록')" ).on("click" , function() {
-	
+	 		$(self.location).attr("href","/view/campbusiness/addSubSite.jsp");	
 		}); 
 	 	
 	 	$("a:contains('예약관리')" ).on("click" , function() {

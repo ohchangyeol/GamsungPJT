@@ -1,15 +1,13 @@
-<%@ page contentType="text/html; charset=EUC-KR" %>
-<%@ page pageEncoding="EUC-KR"%>
-
+<%@ page contentType="text/html; charset=UTF-8" %>
 
 <!DOCTYPE html>
 
 <html lang="ko">
 
 <head>
-	<meta charset="EUC-KR">
+	<meta charset="UTF-8">
 
-	<!-- бЭа╤ : http://getbootstrap.com/css/   бЭа╤ -->
+	<!-- Л╟╦Л║╟ : http://getbootstrap.com/css/   Л╟╦Л║╟ -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 	<!-- Bootstrap, jQuery CDN -->
@@ -35,20 +33,20 @@
 	<!-- JavaScript -->
 	<script type="text/javascript">
 
-		// ╧Жф╟
+		// К╡└М┼╪
 		$(function() {
-			//==> DOM Object GET 3╟║аЖ ╧Ф╧Щ ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+			//==> DOM Object GET 3Й╟─Л╖─ К╟╘К╡∙ ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			$("#confirm").on("click" , function() {
-				alert("1");
-				$("form").attr("method" , "get").attr("action" , "/campBusiness/listCamp").submit();
+				$(self.location).attr("href","/view/campbusiness/campBusinessMain.jsp");
 			});
 			
 			$("#update").on("click" , function() {
-				alert("2");				
+				$("form").attr("method" , "get").attr("action" , "/campBusiness/updateCamp").submit();
 			});
 			
 			$("#delete").on("click" , function() {
-				alert("3");	
+				alert("3");
+				$("form").attr("method" , "get").attr("action" , "/campBusiness/deleteCamp").submit();
 			});
 		
 		});	
@@ -66,171 +64,170 @@
 	<div class="container">	
 	
 		<div class="page-header">
-	       <h3 class=" text-info">д╥гнюЕ╣Н╥о ╟А╟З</h3>
-	       <h5 class="text-muted"><strong class="text-danger">х╞©╣гу╢о╢ы. ╣Н╥о©о╥А ╣г╬З╫ю╢о╢ы.</strong></h5>
+	       <h3 class=" text-info">Л╨═М∙▒Л·╔ Л┐│Л└╦Л═∙КЁ╢</h3>
 	    </div>
 	    	
 		<div class="row">
-	  		<div class="col-xs-4 col-md-2"><strong>д╥гнюЕ ╣Н╥о╧Ьхё</strong></div>
+	  		<div class="col-xs-4 col-md-2"><strong>Л╨═М∙▒Л·╔ К⌠╠К║²К╡┬М≤╦</strong></div>
 			<div class="col-xs-8 col-md-4">${camp.campNo}</div>
 		</div>
 		
 		<hr/>
 		
 		<div class="row">
-	  		<div class="col-xs-4 col-md-2"><strong>╩Г╬Вюзх╦©ЬID</strong></div>
-			<div class="col-xs-8 col-md-4">${camp.user.id}</div>
+	  		<div class="col-xs-4 col-md-2"><strong>Л┌╛Л≈┘Л·░М ▄Л⌡░ID</strong></div>
+			<div class="col-xs-8 col-md-4"></div>
 		</div>
 		
 		<hr/>
 		
 		<div class="row">
-	  		<div class="col-xs-4 col-md-2"><strong>д╥гнюЕ юл╦╖</strong></div>
+	  		<div class="col-xs-4 col-md-2"><strong>Л╨═М∙▒Л·╔ Л²╢К╕└</strong></div>
 			<div class="col-xs-8 col-md-4">${camp.campName}</div>
 		</div>
 		
 		<hr/>
 		
 		<div class="row">
-	  		<div class="col-xs-4 col-md-2"><strong>д╥гнюЕ аж╪р</strong></div>
+	  		<div class="col-xs-4 col-md-2"><strong>Л╨═М∙▒Л·╔ Лё╪Л├▄</strong></div>
 			<div class="col-xs-8 col-md-4">${camp.campAddr}</div>
 		</div>
 		
 		<hr/>
 		
 		<div class="row">
-	  		<div class="col-xs-4 col-md-2"><strong>д╥гнюЕ юЭх╜╧Ьхё</strong></div>
+	  		<div class="col-xs-4 col-md-2"><strong>Л╨═М∙▒Л·╔ Л═└М≥■К╡┬М≤╦</strong></div>
 			<div class="col-xs-8 col-md-4">${camp.campCall}</div>
 		</div>
 		
 		<hr/>							
 		
 		<div class="row">
-	  		<div class="col-xs-4 col-md-2"><strong>д╥гнюЕ фРа║</strong></div>
+	  		<div class="col-xs-4 col-md-2"><strong>Л╨═М∙▒Л·╔ М▐┴Л═░</strong></div>
 			<div class="col-xs-8 col-md-4">${camp.campRate}</div>
 		</div>
 		
 		<hr/>
 		
 		<div class="row">
-	  		<div class="col-xs-4 col-md-2"><strong>©╧╬Ю╪Ж</strong></div>
+	  		<div class="col-xs-4 col-md-2"><strong>Л≤┬Л∙╫Л┬≤</strong></div>
 			<div class="col-xs-8 col-md-4">${camp.campReservationCount}</div>
 		</div>
 		
 		<hr/>
 		
 		<div class="row">
-	  		<div class="col-xs-4 col-md-2"><strong>д╥гнюЕ юл╧Ь╢ч а╤х╦╪Ж</strong></div>
+	  		<div class="col-xs-4 col-md-2"><strong>Л╨═М∙▒Л·╔ Л²╢К╡┬К▀╛ Л║╟М ▄Л┬≤</strong></div>
 			<div class="col-xs-8 col-md-4">${camp.campViewCountCurrentMonth}</div>
 		</div>
 		
 		<hr/>
 		
 		<div class="row">
-	  		<div class="col-xs-4 col-md-2"><strong>д╥гнюЕ аЖЁ╜╢ч а╤х╦╪Ж</strong></div>
+	  		<div class="col-xs-4 col-md-2"><strong>Л╨═М∙▒Л·╔ Л╖─К┌°К▀╛ Л║╟М ▄Л┬≤</strong></div>
 			<div class="col-xs-8 col-md-4">${camp.campViewCountPreviousMonth}</div>
 		</div>
 		
 		<hr/>	
 		
 		<div class="row">
-	  		<div class="col-xs-4 col-md-2"><strong>д╥гнюЕ ©Д╬Юа╓╨╦</strong></div>
+	  		<div class="col-xs-4 col-md-2"><strong>Л╨═М∙▒Л·╔ Л ■Л∙╫Л═∙КЁ╢</strong></div>
 			<div class="col-xs-8 col-md-4">${camp.campSummery}</div>
 		</div>
 		
 		<hr/>
 		
 		<div class="row">
-	  		<div class="col-xs-4 col-md-2"><strong>д╥гнюЕ ╩С╪╪а╓╨╦</strong></div>
+	  		<div class="col-xs-4 col-md-2"><strong>Л╨═М∙▒Л·╔ Л┐│Л└╦Л═∙КЁ╢</strong></div>
 			<div class="col-xs-8 col-md-4">${camp.campDetail}</div>
 		</div>
 		
 		<hr/>
 		
 		<div class="row">
-	  		<div class="col-xs-4 col-md-2"><strong>д╥гнюЕ ╣Н╥оюоюз</strong></div>
+	  		<div class="col-xs-4 col-md-2"><strong>Л╨═М∙▒Л·╔ К⌠╠К║²Л²╪Л·░</strong></div>
 			<div class="col-xs-8 col-md-4">${camp.campRegDate}</div>
 		</div>
 		
 		<hr/>
 
 		<div class="row">
-	  		<div class="col-xs-4 col-md-2"><strong>д╥гнюЕ ев╦╤1</strong></div>
+	  		<div class="col-xs-4 col-md-2"><strong>Л╨═М∙▒Л·╔ М┘▄К╖┬1</strong></div>
 			<div class="col-xs-8 col-md-4">${camp.campTheme1}</div>
 		</div>
 		
 		<hr/>
 		
 		<div class="row">
-	  		<div class="col-xs-4 col-md-2"><strong>д╥гнюЕ ев╦╤2</strong></div>
+	  		<div class="col-xs-4 col-md-2"><strong>Л╨═М∙▒Л·╔ М┘▄К╖┬2</strong></div>
 			<div class="col-xs-8 col-md-4">${camp.campTheme2}</div>
 		</div>
 		
 		<hr/>
 		
 		<div class="row">
-	  		<div class="col-xs-4 col-md-2"><strong>д╥гнюЕ юз©╛1</strong></div>
+	  		<div class="col-xs-4 col-md-2"><strong>Л╨═М∙▒Л·╔ Л·░Л≈╟1</strong></div>
 			<div class="col-xs-8 col-md-4">${camp.campNature1}</div>
 		</div>
 		
 		<hr/>	
 		
 		<div class="row">
-	  		<div class="col-xs-4 col-md-2"><strong>д╥гнюЕ юз©╛2</strong></div>
+	  		<div class="col-xs-4 col-md-2"><strong>Л╨═М∙▒Л·╔ Л·░Л≈╟2</strong></div>
 			<div class="col-xs-8 col-md-4">${camp.campNature2}</div>
 		</div>
 		
 		<hr/>
 		
 		<div class="row">
-	  		<div class="col-xs-4 col-md-2"><strong>д╥гнюЕ ©Н©╣1</strong></div>
+	  		<div class="col-xs-4 col-md-2"><strong>Л╨═М∙▒Л·╔ Л ╢Л≤│1</strong></div>
 			<div class="col-xs-8 col-md-4">${camp.campOperation1}</div>
 		</div>
 		
 		<hr/>
 		
 		<div class="row">
-	  		<div class="col-xs-4 col-md-2"><strong>д╥гнюЕ ©Н©╣2</strong></div>
+	  		<div class="col-xs-4 col-md-2"><strong>Л╨═М∙▒Л·╔ Л ╢Л≤│2</strong></div>
 			<div class="col-xs-8 col-md-4">${camp.campOperation2}</div>
 		</div>
 		
 		<hr/>
 		
 		<div class="row">
-	  		<div class="col-xs-4 col-md-2"><strong>д╥гнюЕ аЖ╣╣юл╧лаЖ</strong></div>
-			<img src="/uploadFiles/camping/campbusiness/camp/${camp.campMapImg}" />
+	  		<div class="col-xs-4 col-md-2"><strong>Л╨═М∙▒Л·╔ Л╖─К▐└Л²╢К╞╦Л╖─</strong></div>
+			<img src="/uploadFiles/campimg/campbusiness/camp/${camp.campMapImg}" />
 		</div>
 		
 		<div class="row">
-	  		<div class="col-xs-4 col-md-2"><strong>д╥гнюЕ юЭ╟Ф1</strong></div>
-			<img src="/uploadFiles/camping/campbusiness/camp/${camp.campImg1}" />
+	  		<div class="col-xs-4 col-md-2"><strong>Л╨═М∙▒Л·╔ Л═└Й╡╫1</strong></div>
+			<img src="/uploadFiles/campimg/campbusiness/camp/${camp.campImg1}" />
 		</div>
 		
 		<div class="row">
-	  		<div class="col-xs-4 col-md-2"><strong>д╥гнюЕ юЭ╟Ф2</strong></div>
-			<img src="/uploadFiles/camping/campbusiness/camp/${camp.campImg2}" />
+	  		<div class="col-xs-4 col-md-2"><strong>Л╨═М∙▒Л·╔ Л═└Й╡╫2</strong></div>
+			<img src="/uploadFiles/campimg/campbusiness/camp/${camp.campImg2}" />
 		</div>
 		
 		<div class="row">
-	  		<div class="col-xs-4 col-md-2"><strong>д╥гнюЕ юЭ╟Ф3</strong></div>
-			<img src="/uploadFiles/camping/campbusiness/camp/${camp.campImg3}" />
+	  		<div class="col-xs-4 col-md-2"><strong>Л╨═М∙▒Л·╔ Л═└Й╡╫3</strong></div>
+			<img src="/uploadFiles/campimg/campbusiness/camp/${camp.campImg3}" />
 		</div>
 		
 		<div class="row">
-	  		<div class="col-xs-4 col-md-2"><strong>д╥гнюЕ юЭ╟Ф4</strong></div>
-			<img src="/uploadFiles/camping/campbusiness/camp/${camp.campImg4}" />
+	  		<div class="col-xs-4 col-md-2"><strong>Л╨═М∙▒Л·╔ Л═└Й╡╫4</strong></div>
+			<img src="/uploadFiles/campimg/campbusiness/camp/${camp.campImg4}" />
 		</div>
 		
 		<div class="row">
-	  		<div class="col-xs-4 col-md-2"><strong>д╥гнюЕ юЭ╟Ф5</strong></div>
-			<img src="/uploadFiles/camping/campbusiness/camp/${camp.campImg5}" />
+	  		<div class="col-xs-4 col-md-2"><strong>Л╨═М∙▒Л·╔ Л═└Й╡╫5</strong></div>
+			<img src="/uploadFiles/campimg/campbusiness/camp/${camp.campImg5}" />
 		</div>	
 								  		  
 		<div class="form-group">
 			<div class="col-sm-offset-4  col-sm-4 text-center">
-				<button id="delete" type="button" class="btn btn-primary">╩Ха╕</button>
-				<button id="update"type="button" class="btn btn-primary">╪Жа╓</button>
-				<button id="confirm" type="button" class="btn btn-primary">х╝юн</button>
+				<button id="delete" type="button" class="btn btn-primary">Л┌╜Л═°</button>
+				<button id="update"type="button" class="btn btn-primary">Л┬≤Л═∙</button>
+				<button id="confirm" type="button" class="btn btn-primary">М≥∙Л²╦</button>
 			</div>
 		</div>
 		  	
