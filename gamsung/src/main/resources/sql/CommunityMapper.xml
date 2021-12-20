@@ -44,7 +44,7 @@
       VALUES    (#{writer}, #{postType}, #{postTile:VARCHAR}, #{postContent:VARCHAR}, #{postImg1:VARCHAR}, #{postImg2:VARCHAR}, #{postImg3:VARCHAR}, #{Hashtag1:VARCHAR}, #{Hashtag2:VARCHAR}, #{Hashtag3:VARCHAR}, #{video:VARCHAR});                                     
     </insert>
  	 
-<!-- 
+
 	 <select 	id="getPost"	parameterType="int"	resultMap="PostMapper">
 	  SELECT
 	  post_no , user_id , post_type , post_title , post_content, post_reg_date, post_Img1, post_Img2, post_Img3, post_hashtag1, post_hashtag2, post_hashtag3, video, delete_flag
@@ -53,41 +53,66 @@
 	 </select>
 	 
 
+
 	 <update	id="updatePost"	parameterType="post" >
 	   	<set>
-	   		PROD_NAME = #{prodName},
-	   		PROD_DETAIL = #{prodDetail},
-	   		MANUFACTURE_DAY = #{manuDate},
-	   		PRICE = #{price},
-	   		IMAGE_FILE = #{fileName}
+	   		post_title= #{postTile},
+	   		post_no= #{postNo},
+	   		post_content= #{postContent},
+	   		user_id= #{writer},
+	   		post_type= #{postType}
+	   		post_reg_date=#{postRegdate},
+	   		video= #{video},
+	   		delete_flag= #{deleteFlag},
+	   		post_Img1= #{postImg1}
+	   		post_Img2= #{postImg2},
+	   		post_Img3= #{postImg3},
+	   		post_hashtag1= #{Hashtag1},
+	   		post_hashtag2= #{Hashtag2},
+	   		post_hashtag3= #{Hashtag3}
+	   		concern_flag= #{concernFlag}
 	   	</set>
-	   	WHERE PROD_NO = #{prodNo}
+	   	WHERE post_no = #{postNo}
 	 </update>
-		 
-	SQL : SELECT LIST
-	<select  id="getProductList"  parameterType="search"	resultMap="ProductSelectMapper">
-	  	SELECT *
-	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
-	  					FROM		(	SELECT PROD_NO , PROD_NAME , PRICE ,REG_DATE
-											FROM product
-											<if test="searchCondition != null">
-												<where>
-													<if test="searchCondition == 0 and searchKeyword !='' ">
-										 				Prod_no = #{searchKeyword}
-													</if>
-													<if test="searchCondition == 1 and searchKeyword !='' ">
-										 				Prod_name = #{searchKeyword}
-													</if>
-													<if test="searchCondition == 2 and searchKeyword !='' ">
-										 				price = #{searchKeyword}
-													</if>
-												</where>
-											</if>
-											ORDER BY Prod_no ) inner_table
-						WHERE ROWNUM &lt;= #{endRowNum} )
-		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
+	 
+	<select  id="listPost"  parameterType="post"	resultMap="PostMapper">
+	SELECT S.* 
+	FROM (SELECT @rownum:=@rownum+1 AS R , P.* 
+		FROM (SELECT * FROM POST
+	  		      WHERE delete_flag = 'N'
+			      <if test="searchCondition != null">		
+				    <trim prefix="AND">
+						<if test="searchCondition == 0 and searchKeyword !='' "> 
+							<!-- 작성자id -->
+							user_id LIKE CONCAT_WS(#{searchKeyword},'%','%')		
+						</if>
+						<if test="searchCondition == 1 and searchKeyword !='' "> 
+							<!-- 게시글 제목 -->
+							MATCH(post_title) AGAINST (concat_ws(#{searchKeyword},'*','*')in boolean mode)
+						</if>
+						<if test="searchCondition == 2 and searchKeyword !='' "> 
+							<!-- 게시글 번호 -->
+							post_no = #{searchKeyword}
+						</if>
+						<if test="searchCondition == 3 and searchKeyword !='' ">
+							<!-- 내용 -->
+							MATCH(post_content) AGAINST (concat_ws(#{searchKeyword},'*','*')in boolean mode)
+						</if>
+						<if test="searchCondition == 4 and searchKeyword !='' ">
+							<!-- 해시태그  -->
+							   post_hashtag1 LIKE CONCAT_WS(#{searchKeyword},'%','%')
+	  						OR post_hashtag2 LIKE CONCAT_WS(#{searchKeyword},'%','%')
+	  						OR post_hashtag3 LIKE CONCAT_WS(#{searchKeyword},'%','%')
+						</if>
+					</trim>
+				</if>
+				ORDER BY post_reg_date )P , (select @rownum:= 0) M
+				WHERE @rownum  <![CDATA[ <=]]> #{endRowNum}  ) S
+				WHERE R BETWEEN #{startRowNum} AND #{endRowNum} 
 	 </select>
-	 	 위 두번째 subQuery 의  
+	 
+	 
+<!-- 	 	 위 두번째 subQuery 의  
 	 			WHERE ROWNUM &lt;= #{endRowNum} ) 는
 	 			WHERE ROWNUM <= #{endRowNum} ) 의미이며..
 	 			< 는 keyword 로 &lt; 를	사용.
@@ -95,7 +120,7 @@
 	 			<![CDATA[  ~~~  ]]> 를 이용하여 아래와 같이 사용  할 수 있다.
 	 			CDATA ==> Character Data 의 의미 Java 에서 \n 같은 특수문자 처리  
 
-				WHERE ROWNUM <![CDATA[ <=]]> #{endRowNum} )
+				WHERE ROWNUM <![CDATA[ <=]]> #{endRowNum} ) -->
 		
 	
 	SQL : SELECT ROW Count	 
