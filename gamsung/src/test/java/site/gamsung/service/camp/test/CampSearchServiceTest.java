@@ -1,5 +1,6 @@
 package site.gamsung.service.camp.test;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -7,12 +8,16 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import junit.framework.Assert;
 import site.gamsung.service.camp.CampSearchService;
 import site.gamsung.service.common.Search;
+import site.gamsung.service.domain.Camp;
+import site.gamsung.service.domain.MainSite;
+import site.gamsung.service.domain.SubSite;
 
 /*
  *	FileName :  UserServiceTest.java
@@ -35,20 +40,62 @@ public class CampSearchServiceTest {
 	@Qualifier("campSearchServiceImpl")
 	private CampSearchService campSearchService;
 	
+	@Value("#{commonProperties['campPageSize']}")
+	int campPageSize;
 	
-	
-	@Test
+	//캠핑장 리스트 :: 간단검색(o), 상세검색(o), 소팅(o), 리미트(o), 토탈카운트(o)
+	//@Test
 	public void testListCamp() throws Exception{
 		
 		Search search = new Search();
-		search.setCurrentPage(1);
-		search.setPageSize(3);
+		search.setCurrentPage(3);
+		search.setPageSize(campPageSize);
+//		search.setSearchKeyword("감자");
+		search.setSortCondition("평점 높은순");
+		
+//		List mainSite = new ArrayList();
+//		mainSite.add("오토캠핑");
+//		mainSite.add("글램핑");
+//		search.setMainSite(mainSite);
+		
+		List price = new ArrayList();
+		price.add(0);
+		price.add(200000);
+		
+		search.setPrice(price);
 					
 		Map<String,Object> map = campSearchService.listCamp(search);
 		
-		List<Object> list = (List<Object>)map.get("list");
+		List<Camp> list = (List<Camp>)map.get("list");
 		
-		System.out.println(list);
+		Assert.assertEquals(1, list.size());
 		
+		System.out.println("콘솔 확인 : " + list);
+		
+		Integer totalCount = (Integer)map.get("totalCount");
+				
+	 	System.out.println("콘솔 확인 : " + totalCount);
+		
+	}
+	
+	//캠핑장 상세검색 :: 캠핑장(O), 주요시설(O), 부가시설(O), 조회수 증가()
+	@Test
+	public void testGetCamp() throws Exception{
+		
+		int campNo = 10000;
+		
+		Map<String, Object> map = campSearchService.getCamp(campNo);
+		
+		Camp camp = (Camp)map.get("camp");
+		
+		System.out.println("콘솔 확인 : " + camp);
+		
+		List<MainSite> mainSiteList = (List<MainSite>)map.get("mainSite");
+		
+		System.out.println("콘솔 확인 : " + mainSiteList);
+		
+		List<SubSite> subSiteList = (List<SubSite>)map.get("subSite");
+		
+		System.out.println("콘솔 확인 : " + subSiteList);
 	}
 }

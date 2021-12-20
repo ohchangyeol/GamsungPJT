@@ -3,7 +3,7 @@ USE gamsung;
 
 CREATE TABLE `USERS` (
     `user_id` VARCHAR(50) NOT NULL,
-    `role` VARCHAR(20)  NOT NULL DEFAULT 'GENERAL',
+    `role` VARCHAR(20)  NOT NULL,
     `nick_name` VARCHAR(30),
     `password` VARCHAR(500) NOT NULL,
     `name` VARCHAR(20) NOT NULL,
@@ -16,7 +16,7 @@ CREATE TABLE `USERS` (
     `having_point` INT NOT NULL DEFAULT 0,
     `camp_name` VARCHAR(30),
     `camp_call` VARCHAR(15),
-    `entry_approval_flag` CHAR(1)  NOT NULL DEFAULT 'N',
+    `entry_approval_flag` CHAR(1)  DEFAULT 'N',
     `receive_cancel_total_count` INT NOT NULL DEFAULT 0,
     `receive_ban_end_date` DATE,
     `dormant_reg_date` DATE,
@@ -408,8 +408,6 @@ CREATE TABLE `RECEIVE` (
     PRIMARY KEY (`receive_no`)
 );
 
-
-
 CREATE TABLE `QNA` (
     `qna_no` INT NOT NULL AUTO_INCREMENT,
     `sender_id` VARCHAR(50) NOT NULL,
@@ -417,10 +415,10 @@ CREATE TABLE `QNA` (
     `delete_flag` CHAR(1) NOT NULL DEFAULT 'N',
     `question_title` VARCHAR(40),
     `question_content` VARCHAR(800),
-    `question_reg_date` DATE,
+    `question_reg_date` DATETIME DEFAULT CURRENT_TIMESTAMP,
     `view_count` INT,
     `answer_content` VARCHAR(1000),
-    `answer_reg_date` DATE,
+    `answer_reg_date` DATETIME ,
     `camp_no` INT,
     `camp_name` VARCHAR(30),
     PRIMARY KEY (`qna_no`)
@@ -433,7 +431,7 @@ CREATE TABLE `NOTICE` (
     `notice_title` VARCHAR(40) NOT NULL,
     `notice_content` VARCHAR(2000) NOT NULL,
     `view_count` INT,
-    `reg_date` DATETIME,
+    `reg_date` DATETIME DEFAULT CURRENT_TIMESTAMP,
     `camp_no` INT,
     `camp_name` VARCHAR(30),
     `notice_file1` VARCHAR(50),
@@ -451,7 +449,7 @@ CREATE TABLE `REPORT` (
     `delete_flag` CHAR(1) NOT NULL DEFAULT 'N',
     `camp_name` VARCHAR(30),
     `report_content` VARCHAR(1000),
-    `report_reg_date` DATE,
+    `report_reg_date` DATETIME DEFAULT CURRENT_TIMESTAMP,
     `report_Img1` VARCHAR(50),
     `report_Img2` VARCHAR(50),
     `report_img3` VARCHAR(50),

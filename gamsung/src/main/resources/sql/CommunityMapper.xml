@@ -43,18 +43,17 @@
       INTO gamsung.post(user_id,post_type,post_title,post_content,post_Img1,post_Img2,post_Img3,post_hashtag1,post_hashtag2,post_hashtag3,video)
       VALUES    (#{writer}, #{postType}, #{postTile:VARCHAR}, #{postContent:VARCHAR}, #{postImg1:VARCHAR}, #{postImg2:VARCHAR}, #{postImg3:VARCHAR}, #{Hashtag1:VARCHAR}, #{Hashtag2:VARCHAR}, #{Hashtag3:VARCHAR}, #{video:VARCHAR});                                     
     </insert>
-<!-- 	 
-	 SQL : SELECT ONE
-	 <select 	id="getProduct"	parameterType="int"	resultMap="ProductSelectMapper">
-		SELECT
-	    PROD_NO , PROD_NAME , PROD_DETAIL , MANUFACTURE_DAY , PRICE, IMAGE_FILE, REG_DATE
-		FROM product 
-		WHERE PROD_NO = #{value}
+ 	 
+<!-- 
+	 <select 	id="getPost"	parameterType="int"	resultMap="PostMapper">
+	  SELECT
+	  post_no , user_id , post_type , post_title , post_content, post_reg_date, post_Img1, post_Img2, post_Img3, post_hashtag1, post_hashtag2, post_hashtag3, video, delete_flag
+	  FROM gamsung.post 
+      WHERE post_no = #{value}
 	 </select>
 	 
-	 SQL : UPDATE
-	 <update	id="updateProduct"	parameterType="product" >
-	   	UPDATE product
+
+	 <update	id="updatePost"	parameterType="post" >
 	   	<set>
 	   		PROD_NAME = #{prodName},
 	   		PROD_DETAIL = #{prodDetail},
@@ -119,4 +118,4 @@
 						</if> ) countTable						
 	 </select> -->
 	 
-</mapper>
+</mapper> 

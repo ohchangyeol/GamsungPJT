@@ -2,6 +2,7 @@ package site.gamsung.controller.camp;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -35,6 +36,12 @@ public class CampGeneralController {
 	public CampGeneralController() {
 		System.out.println(this.getClass());
 	}
+	
+	@Value("#{commonProperties['pageUnit']}")
+	int pageUnit;	
+	
+	@Value("#{commonProperties['pageSize']}")
+	int pageSize;
 	
 	public String campSearch() throws Exception{
 		System.out.println("/campGeneral/campSearch : GET");

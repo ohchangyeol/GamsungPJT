@@ -9,19 +9,20 @@ public class Search {
 	private String searchCondition;
 	private String sortCondition;
 	private String searchKeyword;
+	private String role;
+	private String id;
 	private List campAddr;
 	private List circumstance;
 	private List mainSite;
 	private List subSite;
 	private List theme;
-	private String price;
+	private List price;
 	private int currentPage;
 	private int pageSize;
-	private int startRowNum;
+	private int offset;
 	private int endRowNum;
-	private int viewCount;
-	private int reservationCount;
-	
+	private int startRowNum;
+
 	///Constructor
 	public Search() {
 	}
@@ -55,15 +56,27 @@ public class Search {
 		this.searchKeyword = searchKeyword;
 	}
 	
-	//==> Select Query 시 ROWNUM 마지막 값 
-	public int getEndRowNum() {
-		return getCurrentPage()*getPageSize();
-	}
-	//==> Select Query 시 ROWNUM 시작 값
-	public int getStartRowNum() {
-		return (getCurrentPage()-1)*getPageSize()+1;
+	public String getRole() {
+		return role;
 	}
 
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	//==> Select Query 시 offset(검색 시작 행) 값
+	public int getOffset() {
+		return (getCurrentPage()-1)*getPageSize();
+	}
+	
 	public String getSortCondition() {
 		return sortCondition;
 	}
@@ -112,28 +125,12 @@ public class Search {
 		this.theme = theme;
 	}
 
-	public String getPrice() {
+	public List getPrice() {
 		return price;
 	}
 
-	public void setPrice(String price) {
+	public void setPrice(List price) {
 		this.price = price;
-	}
-
-	public int getViewCount() {
-		return viewCount;
-	}
-
-	public void setViewCount(int viewCount) {
-		this.viewCount = viewCount;
-	}
-
-	public int getReservationCount() {
-		return reservationCount;
-	}
-
-	public void setReservationCount(int reservationCount) {
-		this.reservationCount = reservationCount;
 	}
 
 	public void setStartRowNum(int startRowNum) {
@@ -143,12 +140,22 @@ public class Search {
 	public void setEndRowNum(int endRowNum) {
 		this.endRowNum = endRowNum;
 	}
+	
+	//==> Select Query 시 ROWNUM 마지막 값 
+	public int getEndRowNum() {
+		return getCurrentPage()*getPageSize();
+	}
+	//==> Select Query 시 ROWNUM 시작 값
+	public int getStartRowNum() {
+		return (getCurrentPage()-1)*getPageSize()+1;
+	}
 
 	@Override
 	public String toString() {
-		return "Search [currentPage=" + currentPage + ", searchCondition="
-				+ searchCondition + ", searchKeyword=" + searchKeyword
-				+ ", pageSize=" + pageSize + ", endRowNum=" + endRowNum
-				+ ", startRowNum=" + startRowNum + "]";
+		return "Search [searchCondition=" + searchCondition + ", sortCondition=" + sortCondition + ", searchKeyword="
+				+ searchKeyword + ", campAddr=" + campAddr + ", circumstance=" + circumstance + ", mainSite=" + mainSite
+				+ ", subSite=" + subSite + ", theme=" + theme + ", price=" + price + ", currentPage=" + currentPage
+				+ ", pageSize=" + pageSize + ", offset=" + offset + "]";
 	}
+
 }

@@ -7,94 +7,287 @@
 <mapper namespace="CampSearchMapper">
 
 	<resultMap id="CampSelectMap" type="camp">
-		<result property="campNo"	 column="camp_no" 	jdbcType="NUMERIC"/>
-		<result property="user.id" column="business_user_id" 	jdbcType="VARCHAR"/>
-		<result property="campTempSave" column="tempsave_flag" 	jdbcType="CHAR"/>
-		<result property="deleteFlag" column="delete_flag" 	jdbcType="CHAR"/>
-		<result property="campSummery" column="camp_summery" 	jdbcType="VARCHAR"/>
-		<result property="campDetail" column="camp_detail" 	jdbcType="VARCHAR"/>
-		<result property="campMapImg" column="camp_map_img" 	jdbcType="VARCHAR"/>
-		<result property="campImg1" column="camp_img1" 	jdbcType="VARCHAR"/>
-		<result property="campImg2" column="camp_img2" 	jdbcType="VARCHAR"/>
-		<result property="campImg3" column="camp_img3" 	jdbcType="VARCHAR"/>
-		<result property="campImg4" column="camp_img4" 	jdbcType="VARCHAR"/>
-		<result property="campImg5" column="camp_img5" 	jdbcType="VARCHAR"/>
-		<result property="campViewCountCurrentMonth" column="camp_view_count_current_month" 	jdbcType="NUMERIC"/>
-		<result property="campViewCountPreviousMonth" column="camp_view_count_previous_month" 	jdbcType="NUMERIC"/>
-		<result property="campReservationCount" column="camp_reservation_count" 	jdbcType="NUMERIC"/>
-		<result property="campRegDate" column="camp_reg_date" 	jdbcType="DATE"/>
-		<result property="campTheme1" column="camp_theme1" 	jdbcType="VARCHAR"/>
-		<result property="campTheme2" column="camp_theme2" 	jdbcType="VARCHAR"/>
-		<result property="campNature1" column="camp_nature1" 	jdbcType="VARCHAR"/>
-		<result property="campNature2" column="camp_nature2" 	jdbcType="VARCHAR"/>
-		<result property="campOperation1" column="camp_operation1" 	jdbcType="VARCHAR"/>
-		<result property="campOperation2" column="camp_operation2" 	jdbcType="VARCHAR"/>
-		<result property="campName" column="camp_name" 	jdbcType="VARCHAR"/>
-		<result property="campAddr" column="addr" 	jdbcType="VARCHAR"/>
-		<result property="campCall" column="camp_call" 	jdbcType="VARCHAR"/>
-		<result property="campRate" column="camp_rating" 	jdbcType="FLOAT"/>
+		<result property="campNo"					 	column="camp_no" 							jdbcType="NUMERIC"/>
+		<result property="user.id" 						column="business_user_id" 					jdbcType="VARCHAR"/>
+		<result property="campTempSave"					column="tempsave_flag" 						jdbcType="CHAR"/>
+		<result property="deleteFlag"					column="delete_flag" 						jdbcType="CHAR"/>
+		<result property="campSummery" 					column="camp_summery" 						jdbcType="VARCHAR"/>
+		<result property="campDetail" 					column="camp_detail" 						jdbcType="VARCHAR"/>
+		<result property="campMapImg"					column="camp_map_img" 						jdbcType="VARCHAR"/>
+		<result property="campImg1" 					column="camp_img1" 							jdbcType="VARCHAR"/>
+		<result property="campImg2" 					column="camp_img2" 							jdbcType="VARCHAR"/>
+		<result property="campImg3" 					column="camp_img3" 							jdbcType="VARCHAR"/>
+		<result property="campImg4" 					column="camp_img4" 							jdbcType="VARCHAR"/>
+		<result property="campImg5" 					column="camp_img5" 							jdbcType="VARCHAR"/>
+		<result property="campViewCountCurrentMonth" 	column="camp_view_count_current_month" 		jdbcType="NUMERIC"/>
+		<result property="campViewCountPreviousMonth" 	column="camp_view_count_previous_month" 	jdbcType="NUMERIC"/>
+		<result property="campReservationCount" 		column="camp_reservation_count" 			jdbcType="NUMERIC"/>
+		<result property="campRegDate" 					column="camp_reg_date" 						jdbcType="DATE"/>
+		<result property="campTheme1" 					column="camp_theme1" 						jdbcType="VARCHAR"/>
+		<result property="campTheme2" 					column="camp_theme2" 						jdbcType="VARCHAR"/>
+		<result property="campNature1" 					column="camp_nature1" 						jdbcType="VARCHAR"/>
+		<result property="campNature2" 					column="camp_nature2" 						jdbcType="VARCHAR"/>
+		<result property="campOperation1" 				column="camp_operation1" 					jdbcType="VARCHAR"/>
+		<result property="campOperation2" 				column="camp_operation2" 					jdbcType="VARCHAR"/>
+		<result property="campName" 					column="camp_name" 							jdbcType="VARCHAR"/>
+		<result property="campAddr" 					column="addr" 								jdbcType="VARCHAR"/>
+		<result property="campCall" 					column="camp_call" 							jdbcType="VARCHAR"/>
+		<result property="campRate" 					column="camp_rating" 						jdbcType="FLOAT"/>
+	</resultMap>
+	
+	<resultMap id="MainSiteSelectMap" type="mainSite">
+		<result property="mainSiteNo" 						column="mainsite_no" 		  				jdbcType="NUMERIC"/>
+		<result property="campNo"							column="camp_no" 		  					jdbcType="NUMERIC"/>
+		<result property="mainSiteType" 					column="mainsite_type" 	  					jdbcType="VARCHAR"/>
+		<result property="deleteFlag" 						column="delete_flag"  						jdbcType="CHAR"/>
+		<result property="mainSiteName" 					column="mainsite_name" 			  			jdbcType="VARCHAR"/>
+		<result property="mainSiteSection" 					column="mainsite_section" 	  				jdbcType="VARCHAR"/>
+		<result property="mainSiteSize" 					column="mainsite_size" 		 				jdbcType="VARCHAR"/>
+		<result property="mainSiteMinCapacity" 				column="mainsite_min_capacity" 				jdbcType="NUMERIC"/>
+		<result property="mainSiteMaxCapacity" 				column="mainsite_max_capacity" 				jdbcType="NUMERIC"/>
+		<result property="mainSiteMinPrice" 				column="mainsite_min_price" 				jdbcType="NUMERIC"/>
+		<result property="mainSiteAddPrice" 				column="mainsite_add_price" 				jdbcType="NUMERIC"/>
+		<result property="mainSiteParkingSize" 				column="mainsite_parking_size" 				jdbcType="NUMERIC"/>
+		<result property="mainSiteInfo" 					column="mainsite_info" 						jdbcType="VARCHAR"/>
+		<result property="mainSiteReservationStart" 		column="mainsite_reservation_start" 		jdbcType="DATE"/>
+		<result property="mainSiteReservationEnd"			column="mainsite_reservation_end" 			jdbcType="DATE"/>
+		<result property="mainSiteReservationUserName"		column="mainsite_reservation_user_name"		jdbcType="VARCHAR"/>
+		<result property="mainSiteRegDate" 					column="mainsite_reg_date" 					jdbcType="DATE"/>
+		<result property="mainSiteImg1" 					column="mainsite_img1" 						jdbcType="VARCHAR"/>
+		<result property="mainSiteImg2" 					column="mainsite_img2" 						jdbcType="VARCHAR"/>
+		<result property="mainSiteImg3" 					column="mainsite_img3" 						jdbcType="VARCHAR"/>
+		<result property="campName" 						column="camp_name" 							jdbcType="VARCHAR"/>		
+	</resultMap>
+	
+	<resultMap id="SubSiteSelectMap" type="subSite">
+		<result property="subSiteNo" 			column="subsite_no" 		  	jdbcType="NUMERIC"/>
+		<result property="campNo"				column="camp_no" 		  		jdbcType="NUMERIC"/>
+		<result property="subSiteType" 			column="subsite_type" 	  		jdbcType="VARCHAR"/>
+		<result property="subSiteRegDate" 		column="subsite_reg_date"  		jdbcType="DATE"/>
+		<result property="subSiteName" 			column="subsite_name" 			jdbcType="VARCHAR"/>
+		<result property="subSiteInfo" 			column="subsite_info" 	  		jdbcType="VARCHAR"/>
+		<result property="subSiteImg" 			column="subsite_img" 		 	jdbcType="VARCHAR"/>
+		<result property="campName" 			column="camp_name" 				jdbcType="VARCHAR"/>
 	</resultMap>
 	
 	<select id="listCamp"  parameterType="search"  resultMap="CampSelectMap">
-		select c.camp_no, c.camp_img1, c.camp_img2, c.camp_img3, c.camp_img4, c.camp_img5, c.camp_reg_date, c.camp_rating, c.camp_view_count_previous_month, c.camp_summery, u.camp_name, u.addr, u.camp_call 
-		from gamsung.camp c, gamsung.mainsite m, gamsung.subsite s, gamsung.users u
-		where c.business_user_id = u.user_id and c.camp_no = m.camp_no and c.camp_no = s.camp_no 
+		SELECT c.camp_no, c.camp_img1, c.camp_img2, c.camp_img3, c.camp_img4, c.camp_img5, c.camp_reg_date, c.camp_rating, 
+		       c.camp_view_count_previous_month, c.camp_summery, u.camp_name, u.addr, u.camp_call 
+		FROM camp c, mainsite m, subsite s, users u
+		WHERE c.business_user_id = u.user_id and c.camp_no = m.camp_no and c.camp_no = s.camp_no AND c.delete_flag = 'N' 
 			<if test="searchKeyword !=null and searchKeyword !=''">
-	 			and u.camp_name = '%'||#{searchKeyword}||'%'
+	 			AND u.camp_name LIKE CONCAT('%',#{searchKeyword},'%')
 			</if>
 			<if test="campAddr !=null and campAddr.size !=0">
-				and u.addr In
+				AND u.addr IN
 				<foreach collection="campAddr" item="item" index="index" open="(" close=")" separator=",">
-					'%'||#{item}||'%'
+					('%',#{item},'%')
 				</foreach>
 	 		</if>
 			<if test="mainSite !=null and mainSite.size !=0">
-	 			and m.mainsite_type In
+	 			AND m.mainsite_type IN
 				<foreach collection="mainSite" item="item" index="index" open="(" close=")" separator=",">
 					#{item}
 				</foreach>
 			</if>
 			<if test="subSite !=null and subSite.size !=0">
-	 			and s.subsite_type In
+	 			AND s.subsite_type IN
 				<foreach collection="subSite" item="item" index="index" open="(" close=")" separator=",">
 					#{item}
 				</foreach>
 			</if>
 			<if test="circumstance !=null and circumstance.size !=0">
-	 			and c.camp_nature1 In
+	 			AND c.camp_nature1 IN
 				<foreach collection="circumstance" item="item" index="index" open="(" close=")" separator=",">
 					#{item}
 				</foreach>
 			</if>
 			<if test="circumstance !=null and circumstance.size !=0">
-	 			and c.camp_nature2 In
+	 			AND c.camp_nature2 IN
 				<foreach collection="circumstance" item="item" index="index" open="(" close=")" separator=",">
 					#{item}
 				</foreach>
 			</if>
 			<if test="theme !=null and theme.size !=0">
-	 			and c.camp_theme1 In
+	 			AND c.camp_theme1 IN
 				<foreach collection="theme" item="item" index="index" open="(" close=")" separator=",">
 					#{item}
 				</foreach>
 			</if>
 			<if test="theme !=null and theme.size !=0">
-	 			and c.camp_theme2 In
+	 			AND c.camp_theme2 IN
 				<foreach collection="theme" item="item" index="index" open="(" close=")" separator=",">
 					#{item}
 				</foreach>
 			</if>
 			<if test="price !=null">
-	 			and m.mainsite_min_price between #{price}
-			</if>
-		order by u.camp_name;
+	 			AND m.mainsite_min_price BETWEEN
+	 			<foreach collection="price" item="item" index="index" separator="AND">
+					#{item}
+				</foreach>
+	 		</if>
+	  	<trim prefix="ORDER BY">
+            <if test="sortCondition != null ">
+               <if test='sortCondition.equals("조회수 높은순")'>
+                  c.camp_view_count_previous_month DESC
+               </if>
+               <if test='sortCondition.equals("평점 높은순")'>
+                  c.camp_rating DESC
+               </if>
+               <if test='sortCondition.equals("최근 등록일순")'>
+                  c.camp_reg_date DESC
+               </if>
+            </if>
+         </trim>
+         LIMIT #{pageSize} OFFSET #{offset}
 	</select>
 	
 	<select  id="getTotalCount"  parameterType="search"	 resultType="int">
 	  	SELECT COUNT(*)
-	  	FROM(	SELECT *
-					FROM camp) countTable						
-	 </select>
+	  	FROM(	SELECT c.camp_no
+					FROM camp c, mainsite m, subsite s, users u
+					WHERE c.business_user_id = u.user_id and c.camp_no = m.camp_no and c.camp_no = s.camp_no AND c.delete_flag = 'N' 
+					<if test="searchKeyword !=null and searchKeyword !=''">
+	 					AND u.camp_name LIKE CONCAT('%',#{searchKeyword},'%')
+					</if>
+					<if test="campAddr !=null and campAddr.size !=0">
+						AND u.addr IN
+						<foreach collection="campAddr" item="item" index="index" open="(" close=")" separator=",">
+							('%',#{item},'%')
+						</foreach>
+			 		</if>
+					<if test="mainSite !=null and mainSite.size !=0">
+			 			AND m.mainsite_type IN
+						<foreach collection="mainSite" item="item" index="index" open="(" close=")" separator=",">
+							#{item}
+						</foreach>
+					</if>
+					<if test="subSite !=null and subSite.size !=0">
+			 			AND s.subsite_type IN
+						<foreach collection="subSite" item="item" index="index" open="(" close=")" separator=",">
+							#{item}
+						</foreach>
+					</if>
+					<if test="circumstance !=null and circumstance.size !=0">
+			 			AND c.camp_nature1 IN
+						<foreach collection="circumstance" item="item" index="index" open="(" close=")" separator=",">
+							#{item}
+						</foreach>
+					</if>
+					<if test="circumstance !=null and circumstance.size !=0">
+			 			AND c.camp_nature2 IN
+						<foreach collection="circumstance" item="item" index="index" open="(" close=")" separator=",">
+							#{item}
+						</foreach>
+					</if>
+					<if test="theme !=null and theme.size !=0">
+			 			AND c.camp_theme1 IN
+						<foreach collection="theme" item="item" index="index" open="(" close=")" separator=",">
+							#{item}
+						</foreach>
+					</if>
+					<if test="theme !=null and theme.size !=0">
+			 			AND c.camp_theme2 IN
+						<foreach collection="theme" item="item" index="index" open="(" close=")" separator=",">
+							#{item}
+						</foreach>
+					</if>
+					<if test="price !=null">
+			 			AND m.mainsite_min_price BETWEEN
+			 			<foreach collection="price" item="item" index="index" separator="AND">
+							#{item}
+						</foreach>
+			 		</if> ) countTable						
+	</select>
+	
+	<select id="getCamp"  parameterType="int"  resultMap="CampSelectMap">
+		SELECT c.camp_no, c.camp_summery, c.camp_detail, c.camp_map_img, c.camp_img1, c.camp_img2, c.camp_img3, c.camp_img4, 
+			   c.camp_img5, c.camp_view_count_previous_month, c.camp_reg_date, c.camp_theme1, c.camp_theme2, c.camp_nature1, 
+			   c.camp_nature2, c.camp_operation1, c.camp_operation2, c.camp_rating, u.camp_name, u.addr, u.camp_call
+		FROM camp c, users u
+		WHERE c.business_user_id = u.user_id AND c.camp_no = #{value}
+	</select>
+
+	<select id="getMainSite"  parameterType="int"  resultMap="MainSiteSelectMap">
+		SELECT mainsite_no, camp_no, mainsite_type, mainsite_name, mainsite_section, mainsite_size, mainsite_min_capacity, 
+			   mainsite_max_capacity, mainsite_min_price, mainsite_add_price, mainsite_parking_size, mainsite_info, 
+			   mainsite_reg_date, mainsite_img1, mainsite_img2, mainsite_img3
+		FROM mainsite
+		WHERE camp_no = #{value}
+	</select>
+	
+	<select id="getSubSite"  parameterType="int"  resultMap="SubSiteSelectMap">
+		SELECT subsite_no, camp_no, subsite_type, subsite_reg_date, subsite_name, subsite_info, subsite_img
+		FROM subsite
+		WHERE camp_no = #{value}
+	</select>
+			
+	<update id="updateViewCount" parameterType="int">
+		UPDATE camp
+	   	SET camp_view_count_current_month = (camp_view_count_current_month+1)
+	   	WHERE camp_no = #{value}
+	</update>
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<select id="getEventCamp"  parameterType="search"  resultMap="CampSelectMap">
+		SELECT c.camp_no, c.camp_img1, c.camp_img2, c.camp_img3, c.camp_img4, c.camp_img5, c.camp_reg_date, c.camp_rating, 
+		       c.camp_view_count_previous_month, c.camp_summery, u.camp_name, u.addr, u.camp_call 
+		FROM camp c, mainsite m, subsite s, users u
+		WHERE c.business_user_id = u.user_id and c.camp_no = m.camp_no and c.camp_no = s.camp_no AND c.delete_flag = 'N' 
+			<if test="campAddr !=null and campAddr.size !=0">
+				AND u.addr IN
+				<foreach collection="campAddr" item="item" index="index" open="(" close=")" separator=",">
+					('%',#{item},'%')
+				</foreach>
+	 		</if>
+			<if test="circumstance !=null and circumstance.size !=0">
+	 			AND c.camp_nature1 IN
+				<foreach collection="circumstance" item="item" index="index" open="(" close=")" separator=",">
+					#{item}
+				</foreach>
+			</if>
+			<if test="circumstance !=null and circumstance.size !=0">
+	 			AND c.camp_nature2 IN
+				<foreach collection="circumstance" item="item" index="index" open="(" close=")" separator=",">
+					#{item}
+				</foreach>
+			</if>
+		</select>
 </mapper>
