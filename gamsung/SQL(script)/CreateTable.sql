@@ -9,22 +9,22 @@ CREATE TABLE `USERS` (
     `name` VARCHAR(20) NOT NULL,
     `phone` VARCHAR(11) NOT NULL,
     `addr` VARCHAR(100),
-    `entry_reg_date` DATE NOT NULL,
+    `entry_reg_date` DATE,
     `bank` VARCHAR(15),
     `account_holder` VARCHAR(30),
     `account_num` VARCHAR(14),
-    `having_point` INT NOT NULL DEFAULT 0,
+    `having_point` INT DEFAULT 0,
     `camp_name` VARCHAR(30),
     `camp_call` VARCHAR(15),
     `entry_approval_flag` CHAR(1)  DEFAULT 'N',
-    `receive_cancel_total_count` INT NOT NULL DEFAULT 0,
+    `receive_cancel_total_count` INT DEFAULT 0,
     `receive_ban_end_date` DATE,
     `dormant_reg_date` DATE,
     `secession_reg_date` DATE,
     `suspension_reg_date` DATE,
     `tourism_business_num` VARCHAR(10),
     `suspension_content` VARCHAR(200),
-    `auction_grade` SMALLINT NOT NULL DEFAULT 1,
+    `auction_grade` SMALLINT DEFAULT 1,
     PRIMARY KEY ( `user_id`),
     UNIQUE (`user_id`,`nick_name`, `phone`, `tourism_business_num`)
 );
@@ -51,7 +51,7 @@ CREATE TABLE `AUCTION_PRODUCT` (
     `product_no` VARCHAR(9) NOT NULL,
     `registrant_id` VARCHAR(50) NOT NULL,
     `successful_bidder_id` VARCHAR(50),
-    `product_name` VARCHAR(20),
+    `product_name` VARCHAR(200),
     `product_detail` VARCHAR(4000),
     `start_bid_price` INT,
     `hopeful_bid_price` INT,
@@ -62,11 +62,11 @@ CREATE TABLE `AUCTION_PRODUCT` (
     `hashtag1` VARCHAR(20),
     `hashtag2` VARCHAR(20),
     `hashtag3` VARCHAR(20),
-    `product_img1` CHAR(10),
-    `product_img2` CHAR(10),
-    `product_img3` CHAR(10),
-    `product_img4` CHAR(10),
-    `product_img5` CHAR(10),
+    `product_img1` VARCHAR(2000),
+    `product_img2` VARCHAR(2000),
+    `product_img3` VARCHAR(2000),
+    `product_img4` VARCHAR(2000),
+    `product_img5` VARCHAR(2000),
     `product_view_count` INT NOT NULL DEFAULT 0,
     `product_reg_date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `registrant_confirm_flag` CHAR(1) NOT NULL DEFAULT 'N',
@@ -364,11 +364,11 @@ CREATE TABLE `COMMENT` (
 
 CREATE TABLE `POST_CONCERN` (
     `count_no` INT NOT NULL AUTO_INCREMENT,
+    `concern_flag` CHAR(1),
     `user_id` VARCHAR(50) NOT NULL,
     `post_no` INT NOT NULL,
     PRIMARY KEY (`count_no`)
 );
-
 
 CREATE TABLE `TRANSFER` (
     `transfer_no` INT NOT NULL AUTO_INCREMENT,
@@ -407,6 +407,8 @@ CREATE TABLE `RECEIVE` (
     `delete_flag` CHAR(1) NOT NULL DEFAULT 'N',
     PRIMARY KEY (`receive_no`)
 );
+
+
 
 CREATE TABLE `QNA` (
     `qna_no` INT NOT NULL AUTO_INCREMENT,

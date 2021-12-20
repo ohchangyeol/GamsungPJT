@@ -80,13 +80,17 @@ public class AuctionRestServiceImpl implements AuctionRestService{
 		
 		
 		try{
-			auctionRestDAO.coupangCrawlingData(list);	
+						
+			if(auctionRestDAO.coupangCrawlingData(list)) {
+				System.out.println(list.size());
+				return "크롤링 성공";
+			}
+			
 		}catch(Exception e) {
 			e.printStackTrace();
 			return "크롤링 중 문제 발생";
 		}
 		
-		System.out.println(list.size());
 		return "크롤링 성공";
 	}
 

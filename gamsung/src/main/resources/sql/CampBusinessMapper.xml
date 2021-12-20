@@ -70,5 +70,27 @@
 		<result property="campName" 			column="camp_name" 				jdbcType="VARCHAR"/>
 	</resultMap>
 	
+	
+	<!-- SQL : INSERT -->
+	<insert id="addSubSite"	parameterType="subSite" >	
+		INSERT 
+		INTO subsite (camp_no, subsite_type, subsite_reg_date, subsite_name, subsite_info)
+		VALUES	 (	#{campNo:NUMERIC} 
+					, #{subSiteType:VARCHAR} 
+					, #{subSiteRegDate:DATE} 
+					, #{subSiteName:VARCHAR} 
+					, #{subSiteInfo:VARCHAR} )
+	</insert>
+
+	<select id="getSubSite"	parameterType="int"	resultMap="subSiteSelectMap">
+		SELECT 	*
+		FROM subsite
+		WHERE subsite_no = #{value}
+	</select>
+	
+	
+	
+	
+	
 
 </mapper>

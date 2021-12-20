@@ -1,8 +1,8 @@
 package site.gamsung.service.auction.impl;
 
-public class AuctionInfoServiceImpl {
+public class AuctionUserInfoServiceImpl {
 
-	public AuctionInfoServiceImpl() {
+	public AuctionUserInfoServiceImpl() {
 		// TODO Auto-generated constructor stub
 	}
 

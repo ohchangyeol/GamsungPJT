@@ -1,5 +1,6 @@
 package site.gamsung.service.user.test;
 
+import java.util.List;
 import java.util.Map;
 
 import org.junit.Test;
@@ -11,6 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.User;
+import site.gamsung.service.domain.UserWrapper;
 import site.gamsung.service.user.UserService;
 
 
@@ -46,7 +48,7 @@ public class UserServiceTest {
 	//@Test
 	public void testGetUser() throws Exception{
 		User user= new User();
-		user=userService.getUser("test88@test.com");
+		user=userService.getUser("businessuser1@gamsung.com");
 		
 		System.out.println("########### "+user);
 	}
@@ -55,12 +57,17 @@ public class UserServiceTest {
 	public void testUpdateUser() throws Exception{
 		
 		User user = userService.getUser("user1@gamsung.com");
-		
+//		User user = userService.getUser("businessuser1@gamsung.com");
+
 		user.setName("이름변경2");
+		user.setBusinessUserApprovalFlag("Y");
 		
 		userService.updateUser(user);
-		
+
 		//user=userService.getUser("test88@test.com");
+
+		user=userService.getUser("businessuser1@gamsung.com");
+
 	}
 	
 	//@Test
@@ -68,12 +75,50 @@ public class UserServiceTest {
 		
 		Search search = new Search();
 		search.setCurrentPage(1);
-		search.setPageSize(1);
-		Map<String, Object> map = userService.listUser(search);
+		search.setPageSize(5);
 		
-		//List<Object> list = (List<Object>)map.get("list");
+		UserWrapper userWrapper=userService.listUser(search);
 		
-	
+		List<User> list = userWrapper.getUsers();
+		Integer totalCount = userWrapper.getTotalCount();
+		
+		search.setCurrentPage(1);
+	 	search.setPageSize(10);
+		
+		userWrapper = userService.listUser(search);
+		
+		list = userWrapper.getUsers();
+		totalCount = (Integer)userWrapper.getTotalCount();	
+		
+		System.out.println(list);
+		System.out.println(totalCount);
 	}
+	
+	//@Test
+	public void testListUserByRole() throws Exception{
+		Search search = new Search();
+		search.setCurrentPage(1);
+		search.setPageSize(5);
+		
+		UserWrapper userWrapper=userService.listUser(search);
+		
+		List<User> list = userWrapper.getUsers();
+		Integer totalCount = userWrapper.getTotalCount();
+		
+		search.setCurrentPage(1);
+	 	search.setPageSize(5);
+	 	search.setSearchCondition("3");
+	 	//search.setSearchKeyword("");
+		
+		userWrapper = userService.listUser(search);
+		
+		list = userWrapper.getUsers();
+		totalCount = (Integer)userWrapper.getTotalCount();	
+		
+		System.out.println(list);
+		System.out.println(totalCount);
+	}
+	
+	
 
 }

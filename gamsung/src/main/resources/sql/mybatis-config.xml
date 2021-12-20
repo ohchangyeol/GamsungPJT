@@ -16,9 +16,13 @@
 	<typeAliases>
 
 		 <typeAlias alias="user" type="site.gamsung.service.domain.User" />
-
 		 <typeAlias alias="search" type="site.gamsung.service.common.Search" />	
-		 <typeAlias alias="auctionSearch" type="site.gamsung.service.domain.AuctionSearch" />	
+		 <typeAlias alias="Post" type="site.gamsung.service.domain.Post" />		 
+		 <typeAlias alias="Comment" type="site.gamsung.service.domain.Comment" />		 
+		 <typeAlias alias="PostConcern" type="site.gamsung.service.domain.PostConcern" />		
+		 <typeAlias alias="Receive" type="site.gamsung.service.domain.Receive" />		
+		 <typeAlias alias="Transfer" type="site.gamsung.service.domain.Transfer" />		
+		
 		 <typeAlias alias="camp" type="site.gamsung.service.domain.Camp" />
 		 <typeAlias alias="mainSite" type="site.gamsung.service.domain.MainSite" />
 		 <typeAlias alias="subSite" type="site.gamsung.service.domain.SubSite" />
@@ -27,6 +31,7 @@
 		 <typeAlias alias="siteProfit" type="site.gamsung.service.domain.SiteProfit" />
 		 <typeAlias alias="auctionProduct" type="site.gamsung.service.domain.AuctionProduct" />
 		 <typeAlias alias="auctionBidInfo" type="site.gamsung.service.domain.AuctionBidInfo" />
+		 <typeAlias alias="auctionList" type="site.gamsung.service.domain.AuctionList" />
 		 <typeAlias alias="notice" type="site.gamsung.service.domain.Notice" />
 		 <typeAlias alias="campReservation" type="site.gamsung.service.domain.CampReservation" />
 		
@@ -34,14 +39,22 @@
 	
 	 <!-- SQL Definition :: file include -->
 	<mappers>
-	
-		<mapper resource="sql/UserMapper.xml"/>
+ 		<!-- <mapper resource="sql/TransferMapper.xml"/>
+ 		<mapper resource="sql/CommunityMapper.xml"/>-->
+		
+	 <mapper resource="sql/UserMapper.xml"/>
+ 		
  		<mapper resource="sql/NoticeMapper.xml"/>
-		<mapper resource="sql/CampSearchMapper.xml"/>
-		<mapper resource="sql/AuctionMapper.xml"/>
+ 		
+ 		<mapper resource="sql/CampSearchMapper.xml"/>
+ 		
+ 		<mapper resource="sql/CampBusinessMapper.xml"/>
+ 		<mapper resource="sql/PaymentMapper.xml"/>
+		
+		<mapper resource="sql/AuctionProductMapper.xml"/>
+		<mapper resource="sql/AuctionUserInfoMapper.xml"/> 
  		<mapper resource="sql/AuctionRestMapper.xml"/>
 		<mapper resource="sql/CampReservationMapper.xml" />
-
 	</mappers>
 
 </configuration>

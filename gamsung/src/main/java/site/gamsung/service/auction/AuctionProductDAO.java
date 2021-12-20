@@ -5,10 +5,10 @@ import java.util.List;
 import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.AuctionBidInfo;
 import site.gamsung.service.domain.AuctionProduct;
-import site.gamsung.service.domain.AuctionSearch;
+
 public interface AuctionProductDAO {
 	
-	public List<AuctionProduct> listAuctionProduct(AuctionSearch auctionSearch);
+	public List<AuctionProduct> listAuctionProduct(Search search);
 	
 	public void tempSaveAuctionProduct(AuctionProduct auctionProduct);
 	
@@ -18,10 +18,15 @@ public interface AuctionProductDAO {
 	
 	public AuctionProduct getAuctionProduct(String auctionProductNo);
 	
+	public void updateAuctionProductViewCounter(String auctionProductNo);
+	
 	public AuctionBidInfo auctionProductBidUserInfo(String bidderId);
 	
+	public void auctionProductBid(AuctionBidInfo auctionBidInfo);
+
 	public void updateBidEndTime(String auctionProductNo);
 	
-	public void auctionProductBid(AuctionBidInfo auctionBidInfo);
+	public void addMainAuctionProduct(AuctionProduct auctionProduct);
 	
+	public List<AuctionProduct> listMainAuctionProduct(Search search);
 }
