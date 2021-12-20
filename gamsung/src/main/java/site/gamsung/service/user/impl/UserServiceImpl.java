@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.User;
+import site.gamsung.service.domain.UserWrapper;
 import site.gamsung.service.user.UserDAO;
 import site.gamsung.service.user.UserService;
 
@@ -47,17 +48,14 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public Map<String, Object> listUser(Search search) throws Exception {
+	public UserWrapper listUser(Search search) throws Exception {
 		
-		List<User> list = userDAO.listUser(search);
-		int totalCount = userDAO.getTotalCount(search);
-		
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("list", list);
-		map.put("totalCount", new Integer(totalCount));
-		
-		return map;
+		UserWrapper userWrapper = new UserWrapper(userDAO.listUser(search), userDAO.getTotalCount(search));
+				
+		return userWrapper;
 	}
+	
+	
 
 	
 
