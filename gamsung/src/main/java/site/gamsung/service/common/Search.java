@@ -1,5 +1,6 @@
 package site.gamsung.service.common;
 
+import java.util.List;
 
 //==>리스트화면을 모델링(추상화/캡슐화)한 Bean 
 public class Search {
@@ -8,19 +9,20 @@ public class Search {
 	private String searchCondition;
 	private String sortCondition;
 	private String searchKeyword;
-	private String campAddr;
-	private String circumstance;
-	private String mainSite;
-	private String subSite;
-	private String theme;
-	private String price;
+	private String role;
+	private String id;
+	private List campAddr;
+	private List circumstance;
+	private List mainSite;
+	private List subSite;
+	private List theme;
+	private List price;
 	private int currentPage;
 	private int pageSize;
-	private int startRowNum;
+	private int offset;
 	private int endRowNum;
-	private int viewCount;
-	private int reservationCount;
-	
+	private int startRowNum;
+
 	///Constructor
 	public Search() {
 	}
@@ -54,15 +56,27 @@ public class Search {
 		this.searchKeyword = searchKeyword;
 	}
 	
-	//==> Select Query 시 ROWNUM 마지막 값 
-	public int getEndRowNum() {
-		return getCurrentPage()*getPageSize();
-	}
-	//==> Select Query 시 ROWNUM 시작 값
-	public int getStartRowNum() {
-		return (getCurrentPage()-1)*getPageSize()+1;
+	public String getRole() {
+		return role;
 	}
 
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	//==> Select Query 시 offset(검색 시작 행) 값
+	public int getOffset() {
+		return (getCurrentPage()-1)*getPageSize();
+	}
+	
 	public String getSortCondition() {
 		return sortCondition;
 	}
@@ -71,68 +85,52 @@ public class Search {
 		this.sortCondition = sortCondition;
 	}
 
-	public String getCampAddr() {
+	public List getCampAddr() {
 		return campAddr;
 	}
 
-	public void setCampAddr(String campAddr) {
+	public void setCampAddr(List campAddr) {
 		this.campAddr = campAddr;
 	}
 
-	public String getCircumstance() {
+	public List getCircumstance() {
 		return circumstance;
 	}
 
-	public void setCircumstance(String circumstance) {
+	public void setCircumstance(List circumstance) {
 		this.circumstance = circumstance;
 	}
 
-	public String getMainSite() {
+	public List getMainSite() {
 		return mainSite;
 	}
 
-	public void setMainSite(String mainSite) {
+	public void setMainSite(List mainSite) {
 		this.mainSite = mainSite;
 	}
 
-	public String getSubSite() {
+	public List getSubSite() {
 		return subSite;
 	}
 
-	public void setSubSite(String subSite) {
+	public void setSubSite(List subSite) {
 		this.subSite = subSite;
 	}
 
-	public String getTheme() {
+	public List getTheme() {
 		return theme;
 	}
 
-	public void setTheme(String theme) {
+	public void setTheme(List theme) {
 		this.theme = theme;
 	}
 
-	public String getPrice() {
+	public List getPrice() {
 		return price;
 	}
 
-	public void setPrice(String price) {
+	public void setPrice(List price) {
 		this.price = price;
-	}
-	
-	public int getViewCount() {
-		return viewCount;
-	}
-
-	public void setViewCount(int viewCount) {
-		this.viewCount = viewCount;
-	}
-
-	public int getReservationCount() {
-		return reservationCount;
-	}
-
-	public void setReservationCount(int reservationCount) {
-		this.reservationCount = reservationCount;
 	}
 
 	public void setStartRowNum(int startRowNum) {
@@ -142,12 +140,22 @@ public class Search {
 	public void setEndRowNum(int endRowNum) {
 		this.endRowNum = endRowNum;
 	}
+	
+	//==> Select Query 시 ROWNUM 마지막 값 
+	public int getEndRowNum() {
+		return getCurrentPage()*getPageSize();
+	}
+	//==> Select Query 시 ROWNUM 시작 값
+	public int getStartRowNum() {
+		return (getCurrentPage()-1)*getPageSize()+1;
+	}
 
 	@Override
 	public String toString() {
-		return "Search [currentPage=" + currentPage + ", searchCondition="
-				+ searchCondition + ", searchKeyword=" + searchKeyword
-				+ ", pageSize=" + pageSize + ", endRowNum=" + endRowNum
-				+ ", startRowNum=" + startRowNum + "]";
+		return "Search [searchCondition=" + searchCondition + ", sortCondition=" + sortCondition + ", searchKeyword="
+				+ searchKeyword + ", campAddr=" + campAddr + ", circumstance=" + circumstance + ", mainSite=" + mainSite
+				+ ", subSite=" + subSite + ", theme=" + theme + ", price=" + price + ", currentPage=" + currentPage
+				+ ", pageSize=" + pageSize + ", offset=" + offset + "]";
 	}
+
 }

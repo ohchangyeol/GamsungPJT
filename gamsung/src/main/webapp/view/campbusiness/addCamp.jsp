@@ -75,14 +75,14 @@
 		<div class="form-group">
 			<label for="campRegDate" class="col-sm-offset-1 col-sm-3 control-label">등록 일자</label>
 				<div class="col-sm-4">
-					<input type="text" class="form-control" id="campRegDate" name="campRegDate" value="${camp.campRegDate}" readonly>
+					<input type="text" class="form-control" id="campRegDate" name="campRegDate" value="" readonly>
 				</div>
 		</div>
 		
 		<div class="form-group">
-			<label for="businessUser" class="col-sm-offset-1 col-sm-3 control-label">사업자회원ID</label>
+			<label for="user" class="col-sm-offset-1 col-sm-3 control-label">사업자회원ID</label>
 				<div class="col-sm-4">
-					<input type="text" class="form-control" id="businessUser" name="businessUser" value="${user.id}" readonly>
+					<input type="text" class="form-control" id="user" name="user.id" value="${user.id}" readonly>
 				</div>
 		</div>
 

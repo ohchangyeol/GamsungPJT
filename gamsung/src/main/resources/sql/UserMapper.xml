@@ -7,29 +7,29 @@
 <mapper namespace="UserMapper">
 
 	<resultMap id="userSelectMap" type="user">
-		<result property="id" 			column="user_id" 			jdbcType="VARCHAR"/>
-		<result property="role"			column="role" 				jdbcType="VARCHAR" />
-		<result property="nickName" 	column="nick_name" 		jdbcType="VARCHAR" />
-		<result property="password" 		column="password" 		jdbcType="VARCHAR" />
-		<result property="name" 				column="name" 				jdbcType="VARCHAR" />
-		<result property="phone" 			column="phone" 		jdbcType="VARCHAR" />
-		<result property="addr" 				column="addr" 					jdbcType="VARCHAR" />
-		<result property="addUserRegDate" 			column="entry_reg_date" 		jdbcType="DATE"  />
-		<result property="bank" 		column="bank" 			jdbcType="VARCHAR" />
-		<result property="accountHolder" 		column="account_holder" 			jdbcType="VARCHAR" />
-		<result property="accountNum" 		column="account_num" 			jdbcType="VARCHAR" />
-		<result property="havingPoint" 		column="having_point" 			jdbcType="NUMERIC" />
-		<result property="campName" 		column="camp_name" 			jdbcType="VARCHAR" />
-		<result property="campCall" 		column="camp_call" 			jdbcType="VARCHAR" />
-		<result property="businessUserApprovalFlag" 		column="entry_approval_flag" 			jdbcType="CHAR" />
-		<result property="countCancelReceive" 		column="receive_cancel_total_count" 			jdbcType="NUMERIC" />
-		<result property="receiveProhibitionEndDate" 		column="receive_ban_end_date" 			jdbcType="DATE" />
+		<result property="id" 							column="user_id" 			jdbcType="VARCHAR"/>
+		<result property="role"							column="role" 				jdbcType="VARCHAR" />
+		<result property="nickName" 					column="nick_name" 		jdbcType="VARCHAR" />
+		<result property="password" 					column="password" 		jdbcType="VARCHAR" />
+		<result property="name" 						column="name" 				jdbcType="VARCHAR" />
+		<result property="phone" 						column="phone" 		jdbcType="VARCHAR" />
+		<result property="addr" 						column="addr" 					jdbcType="VARCHAR" />
+		<result property="addUserRegDate" 				column="entry_reg_date" 		jdbcType="DATE"  />
+		<result property="bank" 						column="bank" 			jdbcType="VARCHAR" />
+		<result property="accountHolder" 				column="account_holder" 			jdbcType="VARCHAR" />
+		<result property="accountNum" 					column="account_num" 			jdbcType="VARCHAR" />
+		<result property="havingPoint" 					column="having_point" 			jdbcType="NUMERIC" />
+		<result property="campName" 					column="camp_name" 			jdbcType="VARCHAR" />
+		<result property="campCall" 					column="camp_call" 			jdbcType="VARCHAR" />
+		<result property="businessUserApprovalFlag" 	column="entry_approval_flag" 			jdbcType="CHAR" />
+		<result property="countCancelReceive" 			column="receive_cancel_total_count" 			jdbcType="NUMERIC" />
+		<result property="receiveProhibitionEndDate" 	column="receive_ban_end_date" 			jdbcType="DATE" />
 		<result property="dormantConversionDate" 		column="dormant_reg_date" 			jdbcType="DATE" />
-		<result property="secessionRegDate" 		column="secession_reg_date" 			jdbcType="DATE" />
-		<result property="suspensionDate" 		column="suspension_reg_date" 			jdbcType="DATE" />
-		<result property="tourismBusinessNum" 		column="tourism_business_num" 			jdbcType="VARCHAR" />
-		<result property="suspensionContent" 		column="suspension_content" 			jdbcType="VARCHAR" />
-		<result property="auctionGrade" 		column="auction_grade" 			jdbcType="SMALLINT" />
+		<result property="secessionRegDate" 			column="secession_reg_date" 			jdbcType="DATE" />
+		<result property="suspensionDate" 				column="suspension_reg_date" 			jdbcType="DATE" />
+		<result property="tourismBusinessNum" 			column="tourism_business_num" 			jdbcType="VARCHAR" />
+		<result property="suspensionContent" 			column="suspension_content" 			jdbcType="VARCHAR" />
+		<result property="auctionGrade" 				column="auction_grade" 			jdbcType="SMALLINT" />
 	</resultMap>
 	
 		<!-- SQL : INSERT -->
