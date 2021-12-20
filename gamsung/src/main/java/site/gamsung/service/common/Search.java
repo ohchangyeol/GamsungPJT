@@ -21,6 +21,7 @@ public class Search {
 	private int endRowNum;
 	private int viewCount;
 	private int reservationCount;
+	private int offset;
 	
 	///Constructor
 	public Search() {
@@ -63,7 +64,9 @@ public class Search {
 	public int getStartRowNum() {
 		return (getCurrentPage()-1)*getPageSize()+1;
 	}
-
+	public int getOffset() {
+		return (getCurrentPage()-1)*getPageSize();
+	}
 	public String getSortCondition() {
 		return sortCondition;
 	}

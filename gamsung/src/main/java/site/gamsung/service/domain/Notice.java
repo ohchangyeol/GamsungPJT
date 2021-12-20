@@ -103,7 +103,7 @@ public class Notice {
 		return "Notice [noticeNo=" + noticeNo + ", writer=" + writer + ", deleteFlag=" + deleteFlag + ", noticeTitle="
 				+ noticeTitle + ", noticeContent=" + noticeContent + ", viewCount=" + viewCount + ", regDate=" + regDate
 				+ ", campNo=" + campNo + ", campName=" + campName + ", noticeFile1=" + noticeFile1 + ", noticeFile2="
-				+ noticeFile2 + ", noticeFile3=" + noticeFile3 + "]";
+				+ noticeFile2 + ", noticeFile3=" + noticeFile3 + "] \n";
 	}
 	
 	
