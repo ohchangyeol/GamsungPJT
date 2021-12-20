@@ -16,9 +16,7 @@
 	<typeAliases>
 
 		 <typeAlias alias="user" type="site.gamsung.service.domain.User" />
-
 		 <typeAlias alias="search" type="site.gamsung.service.common.Search" />	
-		 <typeAlias alias="auctionSearch" type="site.gamsung.service.domain.AuctionSearch" />	
 		 <typeAlias alias="camp" type="site.gamsung.service.domain.Camp" />
 		 <typeAlias alias="mainSite" type="site.gamsung.service.domain.MainSite" />
 		 <typeAlias alias="subSite" type="site.gamsung.service.domain.SubSite" />

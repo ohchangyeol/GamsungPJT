@@ -2,12 +2,12 @@ package site.gamsung.service.auction;
 
 import java.util.List;
 
+import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.AuctionProduct;
-import site.gamsung.service.domain.AuctionSearch;
 
 public interface AuctionProductService {
 
-	public List<AuctionProduct> listAuctionProduct(AuctionSearch auctionSearch);
+	public List<AuctionProduct> listAuctionProduct(Search search);
 	
 	public AuctionProduct getAuctionProduct(String auctionProductNo);
 	
