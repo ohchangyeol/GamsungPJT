@@ -1,13 +1,13 @@
-<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ page contentType="text/html; charset=EUC-KR" %>
 
 <!DOCTYPE html>
 
 <html lang="ko">
 
 <head>
-	<meta charset="UTF-8">
+	<meta charset="EUC-KR">
 
-	<!-- ì°¸ì¡° : http://getbootstrap.com/css/   ì°¸ì¡° -->
+	<!-- ÂüÁ¶ : http://getbootstrap.com/css/   ÂüÁ¶ -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 	<!-- Bootstrap, jQuery CDN -->
@@ -33,9 +33,9 @@
 	<!-- JavaScript -->
 	<script type="text/javascript">
 
-		// ë²„íŠ¼
+		// ¹öÆ°
 		$(function() {
-			//==> DOM Object GET 3ê°€ì§€ ë°©ë²• ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+			//==> DOM Object GET 3°¡Áö ¹æ¹ı ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			$("#confirm").on("click" , function() {
 				alert("1");
 				$("form").attr("method" , "get").attr("action" , "/campBusiness/listSubSite").submit();
@@ -60,38 +60,38 @@
 <body>
 
 	<!-- ToolBar -->
-	<jsp:include page="/view/campbusiness/campBusinessToolbar.jsp" />
+	<jsp:include page="/view/common/headerCampBusiness.jsp" />
 
 	<!-- Page Start -->
 	<div class="container">	
 	
 		<div class="page-header">
-	       <h3 class=" text-info">ì£¼ìš”ì‹œì„¤ ìƒì„¸ì •ë³´</h3>
+	       <h3 class=" text-info">ÁÖ¿ä½Ã¼³ »ó¼¼Á¤º¸</h3>
 	    </div>
 	    	
 		<div class="row">
-	  		<div class="col-xs-4 col-md-2"><strong>ë¶€ê°€ì‹œì„¤ ë“±ë¡ì¼ì</strong></div>
+	  		<div class="col-xs-4 col-md-2"><strong>ºÎ°¡½Ã¼³ µî·ÏÀÏÀÚ</strong></div>
 			<div class="col-xs-8 col-md-4">${subSite.subSiteRegDate}</div>
 		</div>
 		
 		<hr/>
 		
 		<div class="row">
-	  		<div class="col-xs-4 col-md-2"><strong>ë¶€ê°€ì‹œì„¤ ìœ í˜•</strong></div>
+	  		<div class="col-xs-4 col-md-2"><strong>ºÎ°¡½Ã¼³ À¯Çü</strong></div>
 			<div class="col-xs-8 col-md-4">${subSite.subSiteType}</div>
 		</div>
 		
 		<hr/>
 		
 		<div class="row">
-	  		<div class="col-xs-4 col-md-2"><strong>ë¶€ê°€ì‹œì„¤ ì´ë¦„</strong></div>
+	  		<div class="col-xs-4 col-md-2"><strong>ºÎ°¡½Ã¼³ ÀÌ¸§</strong></div>
 			<div class="col-xs-8 col-md-4">${subSite.subSiteName}</div>
 		</div>
 		
 		<hr/>
 		
 		<div class="row">
-	  		<div class="col-xs-4 col-md-2"><strong>ë¶€ê°€ì‹œì„¤ ì„¤ëª…</strong></div>
+	  		<div class="col-xs-4 col-md-2"><strong>ºÎ°¡½Ã¼³ ¼³¸í</strong></div>
 			<div class="col-xs-8 col-md-4">${subSite.subSiteInfo}</div>
 		</div>
 		
@@ -99,16 +99,16 @@
 		
 		<!-- 	
 		<div class="row">
-	  		<div class="col-xs-4 col-md-2"><strong>ë¶€ê°€ì‹œì„¤ ì‚¬ì§„</strong></div>
+	  		<div class="col-xs-4 col-md-2"><strong>ºÎ°¡½Ã¼³ »çÁø</strong></div>
 			<img src="/uploadFiles/campimg/campbusiness/subSite/${subSite.subSiteImg}" />
 		</div>
 		-->
 		 							  		  
 		<div class="form-group">
 			<div class="col-sm-offset-4  col-sm-4 text-center">
-				<button id="delete" type="button" class="btn btn-primary">ì‚­ì œ</button>
-				<button id="update"type="button" class="btn btn-primary">ìˆ˜ì •</button>
-				<button id="confirm" type="button" class="btn btn-primary">í™•ì¸</button>
+				<button id="delete" type="button" class="btn btn-primary">»èÁ¦</button>
+				<button id="update"type="button" class="btn btn-primary">¼öÁ¤</button>
+				<button id="confirm" type="button" class="btn btn-primary">È®ÀÎ</button>
 			</div>
 		</div>
 		  	

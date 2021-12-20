@@ -36,15 +36,26 @@ public class CampBusinessDAOImpl implements CampBusinessDAO{
 	public void addCamp(Camp camp) throws Exception {
 		
 	}
+	
+	
+	
 
 	@Override
 	public void addMainSite(MainSite mainSite) throws Exception {
 				
 	}
+	
+	
+	
 
 	@Override
 	public void addSubSite(SubSite subSite) throws Exception {
-		
+		sqlSession.insert("CampBusinessMapper.addSubSite", subSite);
+	}
+
+	@Override
+	public SubSite getSubSite(int subSiteNo) throws Exception {
+		return sqlSession.selectOne("CampBusinessMapper.getSubSite", subSiteNo);
 	}
 
 

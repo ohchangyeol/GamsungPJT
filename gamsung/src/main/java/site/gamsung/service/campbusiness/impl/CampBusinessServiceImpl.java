@@ -33,19 +33,32 @@ public class CampBusinessServiceImpl implements CampBusinessService{
 		System.out.println(this.getClass());
 	}
 
+	
+	
 	@Override
 	public void addCamp(Camp camp) throws Exception {
 		campBusinessDAO.addCamp(camp);
 	}
+	
+	
+	
 
 	@Override
 	public void addMainSite(MainSite mainSite) throws Exception {
 		campBusinessDAO.addMainSite(mainSite);
 	}
+	
+	
+	
 
 	@Override
 	public void addSubSite(SubSite subSite) throws Exception {	
 		campBusinessDAO.addSubSite(subSite);
+	}
+
+	@Override
+	public SubSite getSubSite(int subSiteNo) throws Exception {
+		return campBusinessDAO.getSubSite(subSiteNo);
 	}
 
 }

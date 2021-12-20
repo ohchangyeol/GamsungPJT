@@ -1,5 +1,5 @@
-<%@ page contentType="text/html; charset=EUC-KR" %>
-<%@ page pageEncoding="EUC-KR"%>
+<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ page pageEncoding="UTF-8"%>
 
 <script type="text/javascript">
 
@@ -9,71 +9,71 @@
 			$(self.location).attr("href","/main.jsp");
 		}); 		
 				
-	 	$("a:contains('Ä·ÇÎÀåÁ¤º¸ Á¶È¸')").on("click" , function() {
+	 	$("a:contains('ìº í•‘ì¥ì •ë³´ ì¡°íšŒ')").on("click" , function() {
 
 		}); 
 	
-	 	$("a:contains('Ä·ÇÎÀåÁ¤º¸ µî·Ï')").on("click" , function() {
+	 	$("a:contains('ìº í•‘ì¥ì •ë³´ ë“±ë¡')").on("click" , function() {
 	 		$(self.location).attr("href","/view/campbusiness/addCamp.jsp");
 		}); 
 		 
-		$("a:contains('ÁÖ¿ä½Ã¼³ ¸ñ·Ï')" ).on("click" , function() {
+		$("a:contains('ì£¼ìš”ì‹œì„¤ ëª©ë¡')" ).on("click" , function() {
 
 		});
 		
-	 	$("a:contains('ÁÖ¿ä½Ã¼³ µî·Ï')" ).on("click" , function() {
+	 	$("a:contains('ì£¼ìš”ì‹œì„¤ ë“±ë¡')" ).on("click" , function() {
 	 		$(self.location).attr("href","/view/campbusiness/addMainSite.jsp");
 		}); 
 	 	
-	 	$("a:contains('ºÎ°¡½Ã¼³ ¸ñ·Ï')" ).on("click" , function() {
+	 	$("a:contains('ë¶€ê°€ì‹œì„¤ ëª©ë¡')" ).on("click" , function() {
 
 		}); 
 	 	
-	 	$("a:contains('ºÎ°¡½Ã¼³ µî·Ï')" ).on("click" , function() {
+	 	$("a:contains('ë¶€ê°€ì‹œì„¤ ë“±ë¡')" ).on("click" , function() {
 	 		$(self.location).attr("href","/view/campbusiness/addSubSite.jsp");	
 		}); 
 	 	
-	 	$("a:contains('¿¹¾à°ü¸®')" ).on("click" , function() {
+	 	$("a:contains('ì˜ˆì•½ê´€ë¦¬')" ).on("click" , function() {
 	
 		}); 
 	 	
-	 	$("a:contains('¸®ºä°ü¸®')" ).on("click" , function() {
+	 	$("a:contains('ë¦¬ë·°ê´€ë¦¬')" ).on("click" , function() {
 	 		
 		}); 
 	 	
-	 	$("a:contains('Ä·ÇÎÀå °øÁö»çÇ×')" ).on("click" , function() {
+	 	$("a:contains('ìº í•‘ì¥ ê³µì§€ì‚¬í•­')" ).on("click" , function() {
 
 		}); 
 	 		 	
-	 	$("a:contains('Ä·ÇÎÀå Q&A')").on("click" , function() {
+	 	$("a:contains('ìº í•‘ì¥ Q&A')").on("click" , function() {
 	 		
 		});
 	 	
-		$("a:contains('Ä·ÇÎ')").on("click" , function() {
+		$("a:contains('ìº í•‘')").on("click" , function() {
 
 		}); 
 		 	
-	 	$("a:contains('»çÀÌÆ® °í°´¼¾ÅÍ')").on("click" , function() {
+	 	$("a:contains('ì‚¬ì´íŠ¸ ê³ ê°ì„¼í„°')").on("click" , function() {
 	 		
 		});	 	
 	 	
-	 	$("a:contains('Æ÷ÀÎÆ® °ü¸®')").on("click" , function() {
+	 	$("a:contains('í¬ì¸íŠ¸ ê´€ë¦¬')").on("click" , function() {
 
 		});
 	 	
-	 	$("a:contains('°áÁ¦ ³»¿ª')" ).on("click" , function() {
+	 	$("a:contains('ê²°ì œ ë‚´ì—­')" ).on("click" , function() {
 	 	
 		}); 
 	 	
-	 	$("a:contains('³» Á¤º¸')" ).on("click" , function() {
+	 	$("a:contains('ë‚´ ì •ë³´')" ).on("click" , function() {
 
 		});
 
-	 	$("a:contains('·Î±×¾Æ¿ô')" ).on("click" , function() {
+	 	$("a:contains('ë¡œê·¸ì•„ì›ƒ')" ).on("click" , function() {
 
 		});
 	 	
-	 	$("a:contains('Å»ÅğÇÏ±â')" ).on("click" , function() {
+	 	$("a:contains('íƒˆí‡´í•˜ê¸°')" ).on("click" , function() {
 	 	
 		});
 	 	
@@ -117,68 +117,68 @@
 		<div class="collapse navbar-collapse" id="target" 
 			data-hover="dropdown" data-animations="fadeInDownNew fadeInRightNew fadeInUpNew fadeInLeftNew">
 	         
-		<!-- Tool Bar ¸¦ ´Ù¾çÇÏ°Ô »ç¿ëÇÏ¸é.... -->
+		<!-- Tool Bar ë¥¼ ë‹¤ì–‘í•˜ê²Œ ì‚¬ìš©í•˜ë©´.... -->
 		<ul class="nav navbar-nav">
 
 	    	<li class="dropdown">
 				<a  href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-					<span>[Ä·ÇÎÀåÀÌ¸§]</span>
+					<span>[ìº í•‘ì¥ì´ë¦„]</span>
 					<span class="caret"></span>
 				</a>
 					<ul class="dropdown-menu" style="right:0;">
-						<li><a href="#">Ä·ÇÎÀå ÀÌ¸§</a></li>
+						<li><a href="#">ìº í•‘ì¥ ì´ë¦„</a></li>
 						<br>
-						<li><a href="#">º¸À¯ Æ÷ÀÎÆ®</a></li>
-						<li><a href="#">Æ÷ÀÎÆ® °ü¸®</a></li>
-						<li><a href="#">°áÁ¦ ³»¿ª</a></li>
+						<li><a href="#">ë³´ìœ  í¬ì¸íŠ¸</a></li>
+						<li><a href="#">í¬ì¸íŠ¸ ê´€ë¦¬</a></li>
+						<li><a href="#">ê²°ì œ ë‚´ì—­</a></li>
 						<br>
-						<li><a href="#">³» Á¤º¸</a></li>
+						<li><a href="#">ë‚´ ì •ë³´</a></li>
 						<br>
-						<li><a href="#">·Î±×¾Æ¿ô</a></li>
+						<li><a href="#">ë¡œê·¸ì•„ì›ƒ</a></li>
 						<br>						
-						<li><a href="#">Å»ÅğÇÏ±â</a></li>					
+						<li><a href="#">íƒˆí‡´í•˜ê¸°</a></li>					
 					</ul>
 			</li> 			
 	
 			<li class="dropdown">
 				<a  href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-					<span>Ä·ÇÎÀå °ü¸®</span>
+					<span>ìº í•‘ì¥ ê´€ë¦¬</span>
 					<span class="caret"></span>
 				</a>
 					<ul class="dropdown-menu">
-						<li><a href="#">Ä·ÇÎÀåÁ¤º¸ Á¶È¸</a></li>
-						<li><a href="#">Ä·ÇÎÀåÁ¤º¸ µî·Ï</a></li>
+						<li><a href="#">ìº í•‘ì¥ì •ë³´ ì¡°íšŒ</a></li>
+						<li><a href="#">ìº í•‘ì¥ì •ë³´ ë“±ë¡</a></li>
 						<br>
-	                    <li><a href="#">ÁÖ¿ä½Ã¼³ ¸ñ·Ï</a></li>
-						<li><a href="#">ÁÖ¿ä½Ã¼³ µî·Ï</a></li>
+	                    <li><a href="#">ì£¼ìš”ì‹œì„¤ ëª©ë¡</a></li>
+						<li><a href="#">ì£¼ìš”ì‹œì„¤ ë“±ë¡</a></li>
 						<br>
-						<li><a href="#">ºÎ°¡½Ã¼³ ¸ñ·Ï</a></li>
-						<li><a href="#">ºÎ°¡½Ã¼³ µî·Ï</a></li>
+						<li><a href="#">ë¶€ê°€ì‹œì„¤ ëª©ë¡</a></li>
+						<li><a href="#">ë¶€ê°€ì‹œì„¤ ë“±ë¡</a></li>
 					</ul>
 			</li>
 			
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="#">»çÀÌÆ® °í°´¼¾ÅÍ</a></li>
+				<li><a href="#">ì‚¬ì´íŠ¸ ê³ ê°ì„¼í„°</a></li>
 			</ul>
 
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="#">Ä·ÇÎ</a></li>
+				<li><a href="#">ìº í•‘</a></li>
 			</ul>		   
 			
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="#">Ä·ÇÎÀå Q&A</a></li>
+				<li><a href="#">ìº í•‘ì¥ Q&A</a></li>
 			</ul>				
 			
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="#">Ä·ÇÎÀå °øÁö»çÇ×</a></li>
+				<li><a href="#">ìº í•‘ì¥ ê³µì§€ì‚¬í•­</a></li>
 			</ul>
 
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="#">¸®ºä°ü¸®</a></li>
+				<li><a href="#">ë¦¬ë·°ê´€ë¦¬</a></li>
 			</ul>
 			
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="#">¿¹¾à°ü¸®</a></li>
+				<li><a href="#">ì˜ˆì•½ê´€ë¦¬</a></li>
 			</ul>
 			
 		</div>

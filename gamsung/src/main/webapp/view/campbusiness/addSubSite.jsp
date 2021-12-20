@@ -1,13 +1,13 @@
-<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ page contentType="text/html; charset=EUC-KR" %>
 
 <!DOCTYPE html>
 
 <html lang="ko">
 
 <head>
-	<meta charset="UTF-8">
+	<meta charset="EUC-KR">
 
-	<!-- ì°¸ì¡° : http://getbootstrap.com/css/   ì°¸ì¡° -->
+	<!-- ÂüÁ¶ : http://getbootstrap.com/css/   ÂüÁ¶ -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 	<!-- Bootstrap, jQuery CDN -->
@@ -35,24 +35,24 @@
 	
 	
 
-		// ë²„íŠ¼
+		// ¹öÆ°
 		$(function() {
-			//==> DOM Object GET 3ê°€ì§€ ë°©ë²• ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+			//==> DOM Object GET 3°¡Áö ¹æ¹ý ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			
-			//ë“±ë¡ì¼ìž í˜„ìž¬ë…„ì›”ì¼ ë°›ì•„ì˜¤ê¸°	
+			//µî·ÏÀÏÀÚ ÇöÀç³â¿ùÀÏ ¹Þ¾Æ¿À±â	
 			document.getElementById('subSiteRegDate').value = new Date().toISOString().substring(0, 10);;
 			
 			$("#save").on("click" , function() {
-				alert("ë¶€ê°€ì‹œì„¤ì´ ë“±ë¡ ë˜ì—ˆìŠµë‹ˆë‹¤.");			
+				alert("ºÎ°¡½Ã¼³ÀÌ µî·Ï µÇ¾ú½À´Ï´Ù.");			
 				$("form").attr("method" , "POST").attr("action" , "/campBusiness/addSubSite").submit();
 			});
 					
 			$("#cancle").on("click" , function() {
-				alert("ì·¨ì†Œ ë˜ì—ˆìŠµë‹ˆë‹¤.");	
+				alert("Ãë¼Ò µÇ¾ú½À´Ï´Ù.");	
 			});
 			
 			$("#resetform").on("click" , function() {
-				alert("ì´ˆê¸°í™” ë˜ì—ˆìŠµë‹ˆë‹¤.");				
+				alert("ÃÊ±âÈ­ µÇ¾ú½À´Ï´Ù.");				
 				$("form")[0].reset();				
 			});
 		
@@ -65,13 +65,13 @@
 <body>
 
 	<!-- ToolBar -->
-	<jsp:include page="/view/campbusiness/campBusinessToolbar.jsp" />
+	<jsp:include page="/view/common/headerCampBusiness.jsp" />
 
 	<!-- Page Start -->
 	<div class="container">
 
 		<div class="page-header">
-	       <h1 class=" text-info">ë¶€ê°€ì‹œì„¤ ë“±ë¡</h1>
+	       <h1 class=" text-info">ºÎ°¡½Ã¼³ µî·Ï</h1>
 	    </div>
 
 		<!-- Form Start -->
@@ -80,40 +80,40 @@
 		<input type="hidden" name="campNo" id="campNo" value="10000">
 			
 		<div class="form-group">
-			<label for="subSiteRegDate" class="col-sm-offset-1 col-sm-3 control-label">ë“±ë¡ ì¼ìž</label>
+			<label for="subSiteRegDate" class="col-sm-offset-1 col-sm-3 control-label">µî·Ï ÀÏÀÚ</label>
 				<div class="col-sm-4">
 					<input type="text" class="form-control" id="subSiteRegDate" name="subSiteRegDate" value="" readonly>
 				</div>
 		</div>
 
 		<div class="form-group">
-			<label for="subSiteType" class="col-sm-offset-1 col-sm-3 control-label">ë¶€ê°€ì‹œì„¤ ìœ í˜•</label>
+			<label for="subSiteType" class="col-sm-offset-1 col-sm-3 control-label">ºÎ°¡½Ã¼³ À¯Çü</label>
 			<div class="col-sm-4">
 				<select name="subSiteType" class="form-control" >
-					<option value="ì „ê¸°" selected="selected">ì „ê¸°</option>
-					<option value="ì˜¨ìˆ˜">ì˜¨ìˆ˜</option>
-					<option value="ë§¤ì ">ë§¤ì </option>
-					<option value="í™”ìž¥ì‹¤">í™”ìž¥ì‹¤</option>
-					<option value="ë¬¼ë†€ì´ìž¥">ë¬¼ë†€ì´ìž¥</option>
-					<option value="íŠ¸ëž¨í´ë¦°">íŠ¸ëž¨í´ë¦°</option>
-					<option value="ë¬´ì„ ì¸í„°ë„·">ë¬´ì„ ì¸í„°ë„·</option>
-					<option value="ì‚°ì±…ë¡œ">ì‚°ì±…ë¡œ</option>
+					<option value="Àü±â" selected="selected">Àü±â</option>
+					<option value="¿Â¼ö">¿Â¼ö</option>
+					<option value="¸ÅÁ¡">¸ÅÁ¡</option>
+					<option value="È­Àå½Ç">È­Àå½Ç</option>
+					<option value="¹°³îÀÌÀå">¹°³îÀÌÀå</option>
+					<option value="Æ®·¥Æú¸°">Æ®·¥Æú¸°</option>
+					<option value="¹«¼±ÀÎÅÍ³Ý">¹«¼±ÀÎÅÍ³Ý</option>
+					<option value="»êÃ¥·Î">»êÃ¥·Î</option>
 				</select>
 			</div>
 		</div>
 		
 		
 		<div class="form-group">
-			<label for="subSiteName" class="col-sm-offset-1 col-sm-3 control-label">ë¶€ê°€ì‹œì„¤ ì´ë¦„</label>
+			<label for="subSiteName" class="col-sm-offset-1 col-sm-3 control-label">ºÎ°¡½Ã¼³ ÀÌ¸§</label>
 				<div class="col-sm-4">
-					<input type="text" class="form-control" id="subSiteName" name="subSiteName" value="" placeholder="ì´ë¦„ì„ ìž…ë ¥í•˜ì„¸ìš”">
+					<input type="text" class="form-control" id="subSiteName" name="subSiteName" value="" placeholder="ÀÌ¸§À» ÀÔ·ÂÇÏ¼¼¿ä">
 				</div>
 		</div>
 
 		
 		<!-- 
 		<div class="form-group">
-			<label for="subSiteImg" class="col-sm-offset-1 col-sm-3 control-label">ë¶€ê°€ì‹œì„¤ ì‚¬ì§„</label>
+			<label for="subSiteImg" class="col-sm-offset-1 col-sm-3 control-label">ºÎ°¡½Ã¼³ »çÁø</label>
 				<div class="col-sm-4">
 					<input type="file"  id="subSiteImg" name="subSiteImg">
 				</div>
@@ -122,18 +122,18 @@
 		-->
 		
 		<div class="form-group">
-			<label for="subSiteInfo" class="col-sm-offset-1 col-sm-3 control-label">ë¶€ê°€ì‹œì„¤ ì„¤ëª…</label>
+			<label for="subSiteInfo" class="col-sm-offset-1 col-sm-3 control-label">ºÎ°¡½Ã¼³ ¼³¸í</label>
 				<div class="col-sm-4">
-					<input type="text" class="form-control" id="subSiteInfo" name="subSiteInfo" value="" placeholder="ì„¤ëª…ì„ ìž…ë ¥í•˜ì„¸ìš”">
+					<input type="text" class="form-control" id="subSiteInfo" name="subSiteInfo" value="" placeholder="¼³¸íÀ» ÀÔ·ÂÇÏ¼¼¿ä">
 				</div>
 		</div>
 		
 
 		<div class="form-group">
 			<div class="col-sm-offset-4  col-sm-4 text-center">
-				<button id="resetform" type="button" class="btn btn-primary">ì–‘ì‹ ì´ˆê¸°í™”</button>
-				<button id="cancle" type="button" class="btn btn-primary">ì·¨ì†Œ</button>
-				<button id="save" type="button" class="btn btn-primary">ì €ìž¥</button>
+				<button id="resetform" type="button" class="btn btn-primary">¾ç½Ä ÃÊ±âÈ­</button>
+				<button id="cancle" type="button" class="btn btn-primary">Ãë¼Ò</button>
+				<button id="save" type="button" class="btn btn-primary">ÀúÀå</button>
 			</div>
 		</div>
 

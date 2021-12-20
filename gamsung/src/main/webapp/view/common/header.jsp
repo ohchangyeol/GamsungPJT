@@ -17,6 +17,8 @@
                     <ul class="navbar-nav">
                         <li><a class="nav-link" href="#home">캠핑</a></li>
                         <li></li>
+                        <li><a id="auction-header" class="nav-link" href="view/common/subMainCampBusiness.jsp">캠핑 사업자</a></li>
+                        <li></li>
                         <li><a id="auction-header" class="nav-link" href="/auction/listAuctionProduct">경매</a></li>
                         <li></li>
                         <li><a class="nav-link" href="#b-deals">예약양도</a></li>

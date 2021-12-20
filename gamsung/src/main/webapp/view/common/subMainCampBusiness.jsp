@@ -39,7 +39,7 @@
 <body>
 
 	<!-- ToolBar -->
-	<jsp:include page="/view/campbusiness/campBusinessToolbar.jsp" />
+	<jsp:include page="/view/common/headerCampBusiness.jsp" />
 	
 	<br>
 	<br>
