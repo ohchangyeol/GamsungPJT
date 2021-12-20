@@ -56,4 +56,16 @@ public class UserDAOImpl implements UserDAO{
 		return sqlSession.selectOne("UserMapper.getTotalCount", search);
 	}
 
+	@Override
+	public int checkEmail(String id) throws Exception {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int checkNickName(String nickName) throws Exception {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

@@ -29,7 +29,7 @@ public class User {
 	private String bank;
 	private String accountHolder;
 	private String accountNum;
-	private Boolean businessUserApprovalFlag;
+	private String businessUserApprovalFlag;
 		
 		
 	///Constructor
@@ -275,12 +275,11 @@ public class User {
 	}
 
 
-	public Boolean getBusinessUserApprovalFlag() {
+	public String getBusinessUserApprovalFlag() {
 		return businessUserApprovalFlag;
 	}
 
-
-	public void setBusinessUserApprovalFlag(Boolean businessUserApprovalFlag) {
+	public void setBusinessUserApprovalFlag(String businessUserApprovalFlag) {
 		this.businessUserApprovalFlag = businessUserApprovalFlag;
 	}
 
@@ -295,7 +294,7 @@ public class User {
 				countCancelReceive+", receiveProhibitionEndDate="+receiveProhibitionEndDate+
 				", auctionGrade="+auctionGrade+", tourismBusinessNum="+tourismBusinessNum+
 				", havingPoint="+havingPoint+", bank="+bank+", accountHolder="+accountHolder+
-				", accountNum="+accountNum+", businessUserApprovalFlag="+businessUserApprovalFlag+"]";
+				", accountNum="+accountNum+", currentLoginRegDate="+currentLoginRegDate+", businessUserApprovalFlag="+businessUserApprovalFlag+"]\n";
 	}
 	
 }
