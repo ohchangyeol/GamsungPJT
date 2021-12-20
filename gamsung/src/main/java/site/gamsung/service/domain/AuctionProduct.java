@@ -14,6 +14,7 @@ public class AuctionProduct {
 	private int bidUnit;
 	private String auctionStartTime;
 	private String auctionEndTime;
+	private String remainAuctionTime;
 	private int bidableGrade;
 	private String allhashtag;
 	private String hashtag1;
@@ -93,6 +94,12 @@ public class AuctionProduct {
 	}
 	public void setAuctionEndTime(String auctionEndTime) {
 		this.auctionEndTime = auctionEndTime;
+	}
+	public String getRemainAuctionTime() {
+		return remainAuctionTime;
+	}
+	public void setRemainAuctionTime(String remainAuctionTime) {
+		this.remainAuctionTime = remainAuctionTime;
 	}
 	public int getBidableGrade() {
 		return bidableGrade;
@@ -193,20 +200,20 @@ public class AuctionProduct {
 	public void setIsDelete(String isDelete) {
 		this.isDelete = isDelete;
 	}
+	
 	@Override
 	public String toString() {
 		return "AuctionProduct [auctionProductNo=" + auctionProductNo + ", auctionProductName=" + auctionProductName
 				+ ", auctionProductDatail=" + auctionProductDatail + ", registrantId=" + registrantId
 				+ ", successfulBidderId=" + successfulBidderId + ", startBidPrice=" + startBidPrice
 				+ ", hopefulBidPrice=" + hopefulBidPrice + ", bidUnit=" + bidUnit + ", auctionStartTime="
-				+ auctionStartTime + ", auctionEndTime=" + auctionEndTime + ", bidableGrade=" + bidableGrade
-				+ ", allhashtag=" + allhashtag + ", hashtag1=" + hashtag1 + ", hashtag2=" + hashtag2 + ", hashtag3="
-				+ hashtag3 + ", productImg1=" + productImg1 + ", productImg2=" + productImg2 + ", productImg3="
-				+ productImg3 + ", productImg4=" + productImg4 + ", productImg5=" + productImg5 + ", productViewCount="
-				+ productViewCount + ", productRegDate=" + productRegDate + ", auctionStatus=" + auctionStatus
-				+ ", isConfirm=" + isConfirm + ", isTempSave=" + isTempSave + ", isDelete=" + isDelete + "]";
+				+ auctionStartTime + ", auctionEndTime=" + auctionEndTime + ", remainAuctionTime=" + remainAuctionTime
+				+ ", bidableGrade=" + bidableGrade + ", allhashtag=" + allhashtag + ", hashtag1=" + hashtag1
+				+ ", hashtag2=" + hashtag2 + ", hashtag3=" + hashtag3 + ", productImg1=" + productImg1
+				+ ", productImg2=" + productImg2 + ", productImg3=" + productImg3 + ", productImg4=" + productImg4
+				+ ", productImg5=" + productImg5 + ", productViewCount=" + productViewCount + ", productRegDate="
+				+ productRegDate + ", auctionStatus=" + auctionStatus + ", isConfirm=" + isConfirm + ", isTempSave="
+				+ isTempSave + ", isDelete=" + isDelete + "]";
 	}
-	
-	
-	
+		
 }

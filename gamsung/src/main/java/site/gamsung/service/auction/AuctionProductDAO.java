@@ -26,4 +26,7 @@ public interface AuctionProductDAO {
 
 	public void updateBidEndTime(String auctionProductNo);
 	
+	public void addMainAuctionProduct(AuctionProduct auctionProduct);
+	
+	public List<AuctionProduct> listMainAuctionProduct();
 }

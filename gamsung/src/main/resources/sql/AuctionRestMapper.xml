@@ -57,4 +57,11 @@
 	  	</foreach>
 	</insert>
 	
+	<insert id="addBidConcern" parameterType="">
+		INSERT INTO BID_CONCERN(auction_user_id, product_no)
+		
+	</insert>
+	
+	<delete id="deleteBidConcern" parameterType=""></delete>
+	
 </mapper>
