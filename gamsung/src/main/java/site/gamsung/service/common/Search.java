@@ -19,8 +19,9 @@ public class Search {
 	private List price;
 	private int currentPage;
 	private int pageSize;
-	private int offset;
 	private int endRowNum;
+	private int offset;
+	
 	private int startRowNum;
 
 	///Constructor
@@ -76,7 +77,6 @@ public class Search {
 	public int getOffset() {
 		return (getCurrentPage()-1)*getPageSize();
 	}
-	
 	public String getSortCondition() {
 		return sortCondition;
 	}

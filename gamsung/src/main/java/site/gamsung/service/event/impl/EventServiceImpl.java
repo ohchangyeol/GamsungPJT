@@ -1,6 +1,6 @@
-package site.gamsung.controller.event.impl;
+package site.gamsung.service.event.impl;
 
-import site.gamsung.controller.event.EventService;
+import site.gamsung.service.event.EventService;
 
 public class EventServiceImpl implements EventService {
 

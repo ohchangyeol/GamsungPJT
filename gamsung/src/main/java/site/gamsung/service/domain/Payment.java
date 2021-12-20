@@ -195,7 +195,7 @@ public class Payment {
 			+ "\n [paymentReferenceFee] : " + paymentReferenceFee 
 			+ "\n [paymentRefundPriceTotal] : " + paymentRefundPriceTotal 
 			+ "\n [paymentRefundPricePay] : " + paymentRefundPricePay
-			+ "\n [paymentRefundPriceFee] :" + paymentRefundPriceFee
+			+ "\n [paymentRefundPriceFee] : " + paymentRefundPriceFee
 			+ "\n [paymentRefundReferenceNum] : " + paymentRefundReferenceNum
 			+ "\n [paymentRefundReferenceFee] : " + paymentRefundReferenceFee
 			+ "\n ---------------- \n";
