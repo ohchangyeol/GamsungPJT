@@ -15,7 +15,6 @@ import site.gamsung.service.auction.AuctionProductDAO;
 import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.AuctionBidInfo;
 import site.gamsung.service.domain.AuctionProduct;
-import site.gamsung.service.domain.AuctionSearch;
 import site.gamsung.service.domain.User;
 
 
@@ -41,11 +40,11 @@ public class AuctionProductDAOTest {
 	private AuctionProductDAO auctionProductDAO;
 
 	//경매 상품 list 호출 테스트
-	@Test
+	//@Test
 	public void testListAuctionProduct() {
 		
-		AuctionSearch auctionSearch = new AuctionSearch();
-//		auctionSearch.setSearchKeyword("텐");
+		Search auctionSearch = new Search();
+		auctionSearch.setSearchKeyword("텐");
 		auctionSearch.setPageSize(8);
 		auctionSearch.setCurrentPage(1);
 		auctionSearch.setSortCondition("희망 낙찰가 낮은 순");
@@ -76,7 +75,7 @@ public class AuctionProductDAOTest {
 		auctionProductDAO.tempSaveAuctionProduct(auctionProduct);
 	}
 	
-	//임시 저장 여부 삭제 및 경매 상품 정보 등록 Test
+	//수정 및 경매 상품 정보 등록 Test
 	//@Test
 	public void testAddAuctionProduct() {
 		
@@ -103,6 +102,16 @@ public class AuctionProductDAOTest {
 		
 		AuctionProduct auctionProduct = auctionProductDAO.getAuctionProduct("PROD00001");
 		System.out.println(auctionProduct);
+		
+	}
+	
+	//상품 조회수 1증가 테스트
+	@Test
+	public void testUpdateAuctionProductViewCounter() {
+		
+		auctionProductDAO.updateAuctionProductViewCounter("PROD00001");
+		
+		this.testGetAuctionProduct();
 		
 	}
 		
@@ -137,5 +146,7 @@ public class AuctionProductDAOTest {
 		auctionProductDAO.auctionProductBid(auctionBidInfo);
 		
 	}
+
+	
 }
 	

@@ -11,7 +11,6 @@ import site.gamsung.service.auction.AuctionProductDAO;
 import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.AuctionBidInfo;
 import site.gamsung.service.domain.AuctionProduct;
-import site.gamsung.service.domain.AuctionSearch;
 
 @Repository("auctionProductDAO")
 public class AuctionProductDAOImpl implements AuctionProductDAO{
@@ -29,10 +28,10 @@ public class AuctionProductDAOImpl implements AuctionProductDAO{
 
 	//경매 상품 리스트
 	@Override
-	public List<AuctionProduct> listAuctionProduct(AuctionSearch auctionSearch) {
+	public List<AuctionProduct> listAuctionProduct(Search search) {
 		// TODO Auto-generated method stub
 		
-		return sqlSession.selectList("AuctionMapper.listAuctionProduct",auctionSearch);
+		return sqlSession.selectList("AuctionMapper.listAuctionProduct",search);
 	}
 
 	//임시 저장 상품 호출
@@ -49,7 +48,7 @@ public class AuctionProductDAOImpl implements AuctionProductDAO{
 		sqlSession.insert("AuctionMapper.tempSaveAuctionProduct", auctionProduct);
 	}
 
-	//경매 상품 정보 등록
+	//경매 상품 정보 수정 및 등록
 	@Override
 	public void addAuctionProduct(AuctionProduct auctionProduct) {
 		// TODO Auto-generated method stub
@@ -63,12 +62,29 @@ public class AuctionProductDAOImpl implements AuctionProductDAO{
 		return sqlSession.selectOne("AuctionMapper.getAuctionProduct", auctionProductNo);
 	}
 	
+	//상품 조회수 증가
+	@Override
+	public void updateAuctionProductViewCounter(String auctionProductNo) {
+		// TODO Auto-generated method stub
+		sqlSession.update("AuctionMapper.updateAuctionProductViewCounter", auctionProductNo);
+		
+	}	
+	
 	//회원 경매 정보 호출
 	@Override
 	public AuctionBidInfo auctionProductBidUserInfo(String bidderId) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("AuctionMapper.auctionProductBidUserInfo", bidderId);
 	}
+	
+
+	@Override
+	public void auctionProductBid(AuctionBidInfo auctionBidInfo) {
+		// TODO Auto-generated method stub
+		sqlSession.insert("AuctionMapper.auctionProductBid", auctionBidInfo);
+	}
+	
+	
 	
 	//경매 상품 10초 추가
 	@Override
@@ -78,12 +94,13 @@ public class AuctionProductDAOImpl implements AuctionProductDAO{
 	}
 
 	@Override
-	public void auctionProductBid(AuctionBidInfo auctionBidInfo) {
+	public List<AuctionProduct> listMainAuctionProduct() {
 		// TODO Auto-generated method stub
-		sqlSession.insert("AuctionMapper.auctionProductBid", auctionBidInfo);
+		
+		sqlSession.selectList("AuctionMapper.listMainAuctionProduct");
+		
+		return null;
 	}
-
-	
 	
 	
 
