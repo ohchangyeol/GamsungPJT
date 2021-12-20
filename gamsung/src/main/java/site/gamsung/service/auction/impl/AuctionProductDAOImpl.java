@@ -15,7 +15,7 @@ import site.gamsung.service.domain.AuctionProduct;
 @Repository("auctionProductDAO")
 public class AuctionProductDAOImpl implements AuctionProductDAO{
 	
-	@Autowired
+	@Autowired(required = false)
 	@Qualifier("sqlSessionTemplate")
 	private SqlSession sqlSession;
 	public void setSqlSession(SqlSession sqlSession) {
@@ -77,14 +77,12 @@ public class AuctionProductDAOImpl implements AuctionProductDAO{
 		return sqlSession.selectOne("AuctionMapper.auctionProductBidUserInfo", bidderId);
 	}
 	
-
+	
 	@Override
 	public void auctionProductBid(AuctionBidInfo auctionBidInfo) {
 		// TODO Auto-generated method stub
 		sqlSession.insert("AuctionMapper.auctionProductBid", auctionBidInfo);
 	}
-	
-	
 	
 	//경매 상품 10초 추가
 	@Override
@@ -92,16 +90,5 @@ public class AuctionProductDAOImpl implements AuctionProductDAO{
 		// TODO Auto-generated method stub
 		sqlSession.update("AuctionMapper.updateBidEndTime", auctionProductNo);
 	}
-
-	@Override
-	public List<AuctionProduct> listMainAuctionProduct() {
-		// TODO Auto-generated method stub
-		
-		sqlSession.selectList("AuctionMapper.listMainAuctionProduct");
-		
-		return null;
-	}
-	
-	
 
 }
