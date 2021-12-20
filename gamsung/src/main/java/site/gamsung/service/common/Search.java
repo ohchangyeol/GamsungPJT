@@ -11,12 +11,12 @@ public class Search {
 	private String searchKeyword;
 	private String role;
 	private String id;
-	private List campAddr;
-	private List circumstance;
-	private List mainSite;
-	private List subSite;
-	private List theme;
-	private List price;
+	private List<String> campAddr;
+	private List<String> circumstance;
+	private List<String> mainSite;
+	private List<String> subSite;
+	private List<String> theme;
+	private List<String> price;
 	private int currentPage;
 	private int pageSize;
 	private int offset;

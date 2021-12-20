@@ -59,10 +59,23 @@ public class CampSearchDAOImpl implements CampSearchDAO {
 	}
 
 	@Override
+	public Camp getTopRatingCamp() throws Exception {
+		return sqlSession.selectOne("CampSearchMapper.getTopRatingCamp");
+	}
+
+	@Override
+	public Camp getTopViewCamp() throws Exception {
+		return sqlSession.selectOne("CampSearchMapper.getTopViewCamp");
+	}
+
+	@Override
+	public Camp getTopReservationCamp() throws Exception {
+		return sqlSession.selectOne("CampSearchMapper.getTopReservationCamp");
+	}
+
+	@Override
 	public List<Camp> getEventCamp(Search search) throws Exception {
 		return sqlSession.selectList("CampSearchMapper.getEventCamp", search);
-	}
-	
-	
+	}	
 	
 }

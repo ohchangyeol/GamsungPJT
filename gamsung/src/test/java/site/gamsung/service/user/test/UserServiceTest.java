@@ -51,19 +51,19 @@ public class UserServiceTest {
 		System.out.println("########### "+user);
 	}
 	
-	//@Test
+	@Test
 	public void testUpdateUser() throws Exception{
 		
-		User user = userService.getUser("test88@test.com");
+		User user = userService.getUser("user1@gamsung.com");
 		
-		user.setName("이름변경");
+		user.setName("이름변경2");
 		
 		userService.updateUser(user);
 		
-		user=userService.getUser("test88@test.com");
+		//user=userService.getUser("test88@test.com");
 	}
 	
-	@Test
+	//@Test
 	public void testListUserAll() throws Exception{
 		
 		Search search = new Search();

@@ -293,6 +293,7 @@ public class Camp {
 			+ "\n [campImg5] : " + campImg5 
 			+ "\n [campViewCountCurrentMonth] : " + campViewCountCurrentMonth
 			+ "\n [campViewCountPreviousMonth] :" + campViewCountPreviousMonth
+			+ "\n [campReservationCount] :" + campReservationCount
 			+ "\n [campRegDate] : " + campRegDate
 			+ "\n [campTheme1] : " + campTheme1
 			+ "\n [campTheme2] : " + campTheme2 

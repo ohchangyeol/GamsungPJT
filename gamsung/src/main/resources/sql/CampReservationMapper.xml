@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="CampReservationMapper">
+
+	<resultMap id="CampReservationSelectMap" type="campReservation">
+		<result property="camp.campNo"					 	column="camp_no" 							jdbcType="NUMERIC"/>
+		<result property="camp.campName"				 	column="camp_name" 							jdbcType="VARCHAR"/>
+		<result property="user.id" 							column="user_id" 							jdbcType="VARCHAR"/>
+		<result property="mainSite.mainSiteNo"				column="mainsite_no" 						jdbcType="NUMERIC"/>
+		<result property="reservationNo"					column="reservation_no" 					jdbcType="VARCHAR"/>
+		<result property="reservationStatus" 				column="reservation_status" 				jdbcType="NUMERIC"/>
+		<result property="deleteFlag" 						column="delete_flag" 						jdbcType="CHAR"/>
+		<result property="reservationRegDate"				column="reservation_reg_date" 				jdbcType="DATE"/>
+		<result property="reservationUserName" 				column="reservation_user_name" 				jdbcType="VARCHAR"/>
+		<result property="reservationStartDate" 			column="reservation_start_date" 			jdbcType="DATE"/>
+		<result property="reservationEndDate" 				column="reservation_end_date" 				jdbcType="DATE"/>
+		<result property="useNum" 							column="use_num" 							jdbcType="NUMERIC"/>
+		<result property="reservationUserPhone" 			column="reservation_user_phone" 			jdbcType="VARCHAR"/>
+		<result property="reservationRegCarNum" 			column="reservation_reg_car_num" 			jdbcType="VARCHAR"/>
+		<result property="reservationRequest" 				column="reservation_request" 				jdbcType="VARCHAR"/>
+		<result property="totalPaymentPrice" 				column="total_payment_price" 				jdbcType="NUMERIC"/>
+		<result property="totalReservationRegCar" 			column="total_reservation_reg_car" 			jdbcType="NUMERIC"/>
+		<result property="paymentType" 						column="payment_type" 						jdbcType="NUMERIC"/>
+	</resultMap>
+
+	<resultMap id="mainSiteSelectMap" type="mainSite">
+		<result property="mainSiteNo" 						column="mainsite_no" 		  				jdbcType="NUMERIC"/>
+		<result property="campNo"							column="camp_no" 		  					jdbcType="NUMERIC"/>
+		<result property="mainSiteType" 					column="mainsite_type" 	  					jdbcType="VARCHAR"/>
+		<result property="deleteFlag" 						column="delete_flag"  						jdbcType="CHAR"/>
+		<result property="mainSiteName" 					column="mainsite_name" 			  			jdbcType="VARCHAR"/>
+		<result property="mainSiteSection" 					column="mainsite_section" 	  				jdbcType="VARCHAR"/>
+		<result property="mainSiteSize" 					column="mainsite_size" 		 				jdbcType="VARCHAR"/>
+		<result property="mainSiteMinCapacity" 				column="mainsite_min_capacity" 				jdbcType="NUMERIC"/>
+		<result property="mainSiteMaxCapacity" 				column="mainsite_max_capacity" 				jdbcType="NUMERIC"/>
+		<result property="mainSiteMinPrice" 				column="mainsite_min_price" 				jdbcType="NUMERIC"/>
+		<result property="mainSiteAddPrice" 				column="mainsite_add_price" 				jdbcType="NUMERIC"/>
+		<result property="mainSiteParkingSize" 				column="mainsite_parking_size" 				jdbcType="NUMERIC"/>
+		<result property="mainSiteInfo" 					column="mainsite_info" 						jdbcType="VARCHAR"/>
+		<result property="mainSiteReservationStart" 		column="mainsite_reservation_start" 		jdbcType="DATE"/>
+		<result property="mainSiteReservationEnd"			column="mainsite_reservation_end" 			jdbcType="DATE"/>
+		<result property="mainSiteReservationUserName"		column="mainsite_reservation_user_name"		jdbcType="VARCHAR"/>
+		<result property="mainSiteRegDate" 					column="mainsite_reg_date" 					jdbcType="DATE"/>
+		<result property="mainSiteImg1" 					column="mainsite_img1" 						jdbcType="VARCHAR"/>
+		<result property="mainSiteImg2" 					column="mainsite_img2" 						jdbcType="VARCHAR"/>
+		<result property="mainSiteImg3" 					column="mainsite_img3" 						jdbcType="VARCHAR"/>
+		<result property="campName" 						column="camp_name" 							jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<select id="possibleReservationList" parameterType="map" resultMap="mainSiteSelectMap">
+		<![CDATA[
+		SELECT mainsite_info, mainsite_min_capacity, mainsite_max_capacity, mainsite_no, mainsite_parking_size, mainsite_min_price, 
+			   mainsite_add_price, mainsite_name, mainsite_img1, mainsite_img2, mainsite_img3, mainsite_section, mainsite_size, 
+			   mainsite_type, mainsite_reg_date
+		FROM MAINSITE
+		WHERE camp_no =#{campNo} AND mainsite_reservation_end > #{startDate} AND delete_flag = 'N'
+		]]>
+	</select>
+
+	<insert id="addReservation" parameterType="campReservation">
+		INSERT INTO CAMP_RESERVATION (user_id, camp_no, mainsite_no, reservation_status, reservation_reg_date, reservation_user_name, 
+									  reservation_start_date, reservation_end_date, use_num, reservation_user_phone, reservation_reg_car_num, 
+									  reservation_request, total_payment_price, total_reservation_reg_car, payment_type) 
+		values (#{user.id}, #{camp.campNo}, #{mainSite.mainSiteNo}, #{reservationStatus}, #{reservationRegDate}, #{reservationUserName}, 
+				#{reservationStartDate}, #{reservationEndDate}, #{useNum}, #{reservationUserPhone}, #{reservationRegCarNum:VARCHAR}, 
+				#{reservationRequest:VARCHAR}, #{totalPaymentPrice}, #{totalReservationRegCar:NUMERIC}, #{paymentType});
+	</insert>
+
+	<update id="updateMainSiteReservationDate" parameterType="campReservation">
+		UPDATE MAINSITE
+		<set>
+			mainsite_reservation_start = #{reservationStartDate},
+			mainsite_reservation_end = #{reservationEndDate}
+		</set> 
+		WHERE camp_no = #{camp.campNo}
+	</update>
+
+	<select id="getReservationStatus" parameterType="String" resultMap="CampReservationSelectMap">
+		SELECT reservation_status
+		FROM CAMP_RESERVATION
+		WHERE user_id = #{value} AND reservation_status IN (1, 2, 3, 4)
+	</select>
+	
+	<select id="listReservation" parameterType="map" resultMap="CampReservationSelectMap">
+		SELECT r.reservation_no, u.camp_name, m.mainsite_type, r.reservation_status, r.reservation_reg_date, r.reservation_start_date, 
+			   r.reservation_end_date, r.total_payment_price
+		FROM CAMP_RESERVATION r, MAINSITE m, CAMP c, USERS u
+		WHERE r.camp_no = #{campNo} AND r.camp_no = m.camp_no AND m.camp_no = c.camp_no AND c.user_id = u.user_id ;
+		<if test="search.searchCondition != null">
+			<if test="search.searchCondition == 0 and search.searchKeyword !='' ">
+				AND u.camp_name LIKE CONCAT('%',#{search.searchKeyword},'%')
+			</if>
+			<if test="search.searchCondition == 1 and search.searchKeyword !='' ">
+				AND m.mainsite_type LIKE CONCAT('%',#{search.searchKeyword},'%')
+			</if>
+		</if>
+		<trim prefix="ORDER BY">
+            <if test="search.sortCondition != null ">
+               <if test='search.sortCondition.equals("이용가격 높은순")'>
+                  r.total_payment_price DESC
+               </if>
+               <if test='search.sortCondition.equals("이용가격 낮은순")'>
+                  r.total_payment_price ASC
+               </if>
+               <if test='search.sortCondition.equals("이용 가능순")'>
+                  r.reservation_status ASC
+               </if>
+               <if test='search.sortCondition.equals("이용 불가능순")'>
+                  r.reservation_status DESC
+               </if>
+               <if test='search.sortCondition.equals("예약일자 최근순")'>
+                  r.reservation_reg_date DESC
+               </if>
+               <if test='search.sortCondition.equals("예약일자 오래된순")'>
+                  r.reservation_reg_date ASC
+               </if>
+            </if>
+         </trim>
+		LIMIT #{search.pageSize} OFFSET #{search.offset}
+	</select>
+	
+	<select id="listMyReservation" parameterType="map" resultMap="CampReservationSelectMap">
+		SELECT r.reservation_no, u.camp_name, m.mainsite_type, r.reservation_status, r.reservation_reg_date, r.reservation_start_date, 
+			   r.reservation_end_date, r.total_payment_price
+		FROM CAMP_RESERVATION r, MAINSITE m, CAMP c, USERS u
+		WHERE r.user_id = #{id} AND r.camp_no = m.camp_no AND m.camp_no = c.camp_no AND c.user_id = u.user_id ;
+		<if test="search.searchCondition != null">
+			<if test="search.searchCondition == 0 and search.searchKeyword !='' ">
+				AND u.camp_name LIKE CONCAT('%',#{search.searchKeyword},'%')
+			</if>
+			<if test="search.searchCondition == 1 and search.searchKeyword !='' ">
+				AND m.mainsite_type LIKE CONCAT('%',#{search.searchKeyword},'%')
+			</if>
+		</if>
+		<trim prefix="ORDER BY">
+            <if test="search.sortCondition != null ">
+               <if test='search.sortCondition.equals("이용가격 높은순")'>
+                  r.total_payment_price DESC
+               </if>
+               <if test='search.sortCondition.equals("이용가격 낮은순")'>
+                  r.total_payment_price ASC
+               </if>
+               <if test='search.sortCondition.equals("이용 가능순")'>
+                  r.reservation_status ASC
+               </if>
+               <if test='search.sortCondition.equals("이용 불가능순")'>
+                  r.reservation_status DESC
+               </if>
+               <if test='search.sortCondition.equals("예약일자 최근순")'>
+                  r.reservation_reg_date DESC
+               </if>
+               <if test='search.sortCondition.equals("예약일자 오래된순")'>
+                  r.reservation_reg_date ASC
+               </if>
+            </if>
+         </trim>
+		LIMIT #{search.pageSize} OFFSET #{search.offset}
+	</select>
+</mapper>

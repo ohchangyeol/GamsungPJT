@@ -28,6 +28,7 @@
 		 <typeAlias alias="auctionProduct" type="site.gamsung.service.domain.AuctionProduct" />
 		 <typeAlias alias="auctionBidInfo" type="site.gamsung.service.domain.AuctionBidInfo" />
 		 <typeAlias alias="notice" type="site.gamsung.service.domain.Notice" />
+		 <typeAlias alias="campReservation" type="site.gamsung.service.domain.CampReservation" />
 		
 	</typeAliases>
 	
@@ -39,7 +40,7 @@
 		<mapper resource="sql/CampSearchMapper.xml"/>
 		<mapper resource="sql/AuctionMapper.xml"/>
  		<mapper resource="sql/AuctionRestMapper.xml"/>
-
+		<mapper resource="sql/CampReservationMapper.xml" />
 
 	</mappers>
 
