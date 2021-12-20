@@ -41,7 +41,7 @@ public class AuctionProductDAOTest {
 	private AuctionProductDAO auctionProductDAO;
 
 	//경매 상품 list 호출 테스트
-	//@Test
+	@Test
 	public void testListAuctionProduct() {
 		
 		AuctionSearch auctionSearch = new AuctionSearch();

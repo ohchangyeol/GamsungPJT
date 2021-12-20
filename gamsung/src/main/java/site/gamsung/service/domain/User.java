@@ -283,7 +283,19 @@ public class User {
 	public void setBusinessUserApprovalFlag(Boolean businessUserApprovalFlag) {
 		this.businessUserApprovalFlag = businessUserApprovalFlag;
 	}
-	
-	
 
+	@Override
+	public String toString() {
+		return "User [role="+role+", id="+id+", name="+name+", nickName="+nickName+
+				", campName="+campName+", campCall="+campCall+", phone="+phone+", addr="+
+				addr+", addUserRegDate="+addUserRegDate+", reportTotalCount="+reportTotalCount+
+				", currentLoginRegDate="+currentLoginRegDate+", dormantConversionDate="+
+				dormantConversionDate+", suspensionDate="+suspensionDate+", suspensionContent="+
+				suspensionContent+", secessionRegDate="+secessionRegDate+", countCancelReceive="+
+				countCancelReceive+", receiveProhibitionEndDate="+receiveProhibitionEndDate+
+				", auctionGrade="+auctionGrade+", tourismBusinessNum="+tourismBusinessNum+
+				", havingPoint="+havingPoint+", bank="+bank+", accountHolder="+accountHolder+
+				", accountNum="+accountNum+", businessUserApprovalFlag="+businessUserApprovalFlag+"]";
+	}
+	
 }
