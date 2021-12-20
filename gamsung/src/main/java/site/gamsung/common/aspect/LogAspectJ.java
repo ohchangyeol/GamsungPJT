@@ -20,7 +20,7 @@ public class LogAspectJ {
 		if(joinPoint.getArgs().length !=0){
 			System.out.println("[Around before]method에 전달되는 인자 : "+ joinPoint.getArgs()[0]);
 		}
-		//==> Ÿ�� ��ü�� Method �� ȣ�� �ϴ� �κ� 
+		
 		Object obj = joinPoint.proceed();
 
 		System.out.println("[Around after] 타겟 객체return value  : "+obj);

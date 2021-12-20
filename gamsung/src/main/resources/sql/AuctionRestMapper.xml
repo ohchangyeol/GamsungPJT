@@ -34,7 +34,7 @@
 		<result property="isDelete" column="delete_flag"/>
 	</resultMap>
 	
-	<resultMap id="bidInfo" type="AuctionBidInfo">
+	<resultMap id="bidInfo" type="auctionBidInfo">
 		<result property="bidNo" column="bid_no"/>
 		<result property="auctionProductNo" column="product_no"/>
 		<result property="user.id" column="user_id"/>

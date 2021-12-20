@@ -34,7 +34,7 @@
 		<result property="isDelete" column="delete_flag"/>
 	</resultMap>
 	
-	<resultMap id="bidInfo" type="AuctionBidInfo">
+	<resultMap id="bidInfo" type="auctionBidInfo">
 		<result property="bidNo" column="bid_no"/>
 		<result property="auctionProductNo" column="product_no"/>
 		<result property="user.id" column="user_id"/>
@@ -46,7 +46,7 @@
 	</resultMap>
 	
 	<select id="listAuctionProduct" parameterType="search" resultMap="auction">
-		SELECT product_no, product_name, product_view_count, FORMAT(start_bid_price , 0), FORMAT(hopeful_bid_price , 0), auction_start_time, auction_end_time, hashtag1, hashtag2, hashtag3
+		SELECT product_no, product_name, product_view_count, start_bid_price, hopeful_bid_price, auction_start_time, auction_end_time, hashtag1, hashtag2, hashtag3
 			FROM AUCTION_PRODUCT
 			WHERE temp_save_flag = 'N' AND auction_status = 'START' AND delete_flag = 'N'
 			<if test="searchKeyword != null">
@@ -113,7 +113,7 @@
 	</insert>
 	
 	<select id="getAuctionProduct" parameterType="String" resultMap="auction">
-		SELECT registrant_id, product_no, product_name, product_detail, FORMAT(start_bid_price , 0), FORMAT(hopeful_bid_price , 0), FORMAT(bid_unit , 0), auction_start_time, auction_end_time, bidable_grade, 
+		SELECT registrant_id, product_no, product_name, product_detail, start_bid_price , hopeful_bid_price, bid_unit , auction_start_time, auction_end_time, bidable_grade, 
 		 		hashtag1, hashtag2, hashtag3, product_img1, product_img2, product_img3, product_img4, product_img5, product_view_count
 		FROM AUCTION_PRODUCT
 		WHERE product_no = #{value};
@@ -137,15 +137,10 @@
 		WHERE product_no = #{value};
 	</update>
 	
-	<insert id="auctionProductBid" parameterType="bidInfo">
+	<insert id="auctionProductBid" parameterType="auctionBidInfo">
 		INSERT INTO AUCTION_HISTORY (product_no, bidder_id, bid_price)
 		VALUES(#{auctionProductNo}, #{user.id}, #{bidPrice})
 	</insert>
 	
-	<select id="listMainAuctionProduct" resultMap="auction">
-		SELECT mah.main_reg_date, mah.timeout_flag, ap.product_name. ap.
-		FROM MAIN_AUCTION_HISTORY mah, AUCTION_PRODUCT ap
-		
-	</select>
 	
 </mapper>
