@@ -163,7 +163,12 @@ public class AuctionProductDAOTest {
 	@Test
 	public void listMainAuctionProduct() {
 		
-		List<AuctionProduct> list = auctionProductDAO.listMainAuctionProduct();
+		Search search = new Search();
+		search.setCurrentPage(1);
+		search.setPageSize(12);
+		search.setOffset(10);
+		
+		List<AuctionProduct> list = auctionProductDAO.listMainAuctionProduct(search);
 		
 		for(AuctionProduct auctionProduct : list) {
 			System.out.println(auctionProduct);

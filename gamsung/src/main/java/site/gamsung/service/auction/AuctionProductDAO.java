@@ -4,6 +4,7 @@ import java.util.List;
 
 import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.AuctionBidInfo;
+import site.gamsung.service.domain.AuctionList;
 import site.gamsung.service.domain.AuctionProduct;
 
 public interface AuctionProductDAO {
@@ -28,5 +29,5 @@ public interface AuctionProductDAO {
 	
 	public void addMainAuctionProduct(AuctionProduct auctionProduct);
 	
-	public List<AuctionProduct> listMainAuctionProduct();
+	public List<AuctionProduct> listMainAuctionProduct(Search search);
 }

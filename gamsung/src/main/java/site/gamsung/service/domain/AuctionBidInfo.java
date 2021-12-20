@@ -50,9 +50,11 @@ public class AuctionBidInfo {
 	}
 	@Override
 	public String toString() {
-		return "AuctionBidInfo [bidNo=" + bidNo + ", auctionProductNo=" + auctionProductNo + ", userId=" + user.getId() + ", nickName=" + user.getNickName()
-				+ ", auctionGrade=" + user.getAuctionGrade() + ", bidPrice=" + bidPrice +", bidDateTime=" + bidDateTime + ", auctionStatus=" + auctionStatus + "]";
+		return "AuctionBidInfo [bidNo=" + bidNo + ", auctionProductNo=" + auctionProductNo + ", user=" + user
+				+ ", bidPrice=" + bidPrice + ", bidDateTime=" + bidDateTime + ", auctionStatus=" + auctionStatus + "]";
 	}
+	
+	
 	
 	
 }

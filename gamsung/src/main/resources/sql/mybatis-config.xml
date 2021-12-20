@@ -31,6 +31,7 @@
 		 <typeAlias alias="siteProfit" type="site.gamsung.service.domain.SiteProfit" />
 		 <typeAlias alias="auctionProduct" type="site.gamsung.service.domain.AuctionProduct" />
 		 <typeAlias alias="auctionBidInfo" type="site.gamsung.service.domain.AuctionBidInfo" />
+		 <typeAlias alias="auctionList" type="site.gamsung.service.domain.AuctionList" />
 		 <typeAlias alias="notice" type="site.gamsung.service.domain.Notice" />
 		
 	</typeAliases>
@@ -40,7 +41,7 @@
  		<!-- <mapper resource="sql/TransferMapper.xml"/>
  		<mapper resource="sql/CommunityMapper.xml"/>-->
 		
-		<mapper resource="sql/UserMapper.xml"/>
+	 <mapper resource="sql/UserMapper.xml"/>
  		
  		<mapper resource="sql/NoticeMapper.xml"/>
  		
@@ -49,7 +50,8 @@
  		<mapper resource="sql/CampBusinessMapper.xml"/>
  		<mapper resource="sql/PaymentMapper.xml"/>
 		
-		<mapper resource="sql/AuctionMapper.xml"/>
+		<mapper resource="sql/AuctionProductMapper.xml"/>
+		<mapper resource="sql/AuctionUserInfoMapper.xml"/> 
  		<mapper resource="sql/AuctionRestMapper.xml"/>
  
 

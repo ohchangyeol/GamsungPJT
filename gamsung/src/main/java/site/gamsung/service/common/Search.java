@@ -150,12 +150,17 @@ public class Search {
 		return (getCurrentPage()-1)*getPageSize()+1;
 	}
 
+	public void setOffset(int offset) {
+		this.offset = offset;
+	}
+
 	@Override
 	public String toString() {
 		return "Search [searchCondition=" + searchCondition + ", sortCondition=" + sortCondition + ", searchKeyword="
-				+ searchKeyword + ", campAddr=" + campAddr + ", circumstance=" + circumstance + ", mainSite=" + mainSite
-				+ ", subSite=" + subSite + ", theme=" + theme + ", price=" + price + ", currentPage=" + currentPage
-				+ ", pageSize=" + pageSize + ", offset=" + offset + "]";
+				+ searchKeyword + ", role=" + role + ", id=" + id + ", campAddr=" + campAddr + ", circumstance="
+				+ circumstance + ", mainSite=" + mainSite + ", subSite=" + subSite + ", theme=" + theme + ", price="
+				+ price + ", currentPage=" + currentPage + ", pageSize=" + pageSize + ", endRowNum=" + endRowNum
+				+ ", offset=" + offset + ", startRowNum=" + startRowNum + "]";
 	}
 
 }
