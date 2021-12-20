@@ -1,6 +1,4 @@
 <%@ page contentType="text/html; charset=EUC-KR" %>
-<%@ page pageEncoding="EUC-KR"%>
-
 
 <!DOCTYPE html>
 
@@ -37,18 +35,29 @@
 
 		// 버튼
 		$(function() {
-			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+			
+			//등록일자 현재년월일 받아오기	
+			document.getElementById('campRegDate').value = new Date().toISOString().substring(0, 10);
+			
 			$("#save").on("click" , function() {
-				alert("1");
+				alert("캠핑장정보가 등록 되었습니다.");
+				document.getElementById('campTempSave').value = "false";
 				$("form").attr("method" , "POST").attr("action" , "/campBusiness/addCamp").submit();
 			});
 			
 			$("#tempsave").on("click" , function() {
-				alert("2");				
+				alert("임시등록 되었습니다.");
+				document.getElementById('campTempSave').value = "true";
+				$("form").attr("method" , "POST").attr("action" , "/campBusiness/addCamp").submit();
 			});
 			
 			$("#cancle").on("click" , function() {
-				$("form")[0].reset();	
+				alert("취소 되었습니다.");	
+			});
+			
+			$("#resetform").on("click" , function() {
+				alert("초기화 되었습니다.");				
+				$("form")[0].reset();				
 			});
 		
 		});	
@@ -60,7 +69,7 @@
 <body>
 
 	<!-- ToolBar -->
-	<jsp:include page="/view/campbusiness/campBusinessToolbar.jsp" />
+	<jsp:include page="/view/common/headerCampBusiness.jsp" />
 
 	<!-- Page Start -->
 	<div class="container">
@@ -70,7 +79,9 @@
 	    </div>
 
 		<!-- Form Start -->
-		<form class="form-horizontal">
+		<form class="form-horizontal" >
+		
+		<input type="hidden" name="campTempSave" id="campTempSave" value="">
 		
 		<div class="form-group">
 			<label for="campRegDate" class="col-sm-offset-1 col-sm-3 control-label">등록 일자</label>
@@ -78,11 +89,11 @@
 					<input type="text" class="form-control" id="campRegDate" name="campRegDate" value="" readonly>
 				</div>
 		</div>
-		
+	
 		<div class="form-group">
-			<label for="user" class="col-sm-offset-1 col-sm-3 control-label">사업자회원ID</label>
+			<label for="camp.user.id" class="col-sm-offset-1 col-sm-3 control-label">사업자회원ID</label>
 				<div class="col-sm-4">
-					<input type="text" class="form-control" id="user" name="user.id" value="${user.id}" readonly>
+					<input type="text" class="form-control" id="camp.user.id" name="camp.user.id" value="${user.id}" readonly>
 				</div>
 		</div>
 
@@ -90,15 +101,15 @@
 			<label for="campTheme1" class="col-sm-offset-1 col-sm-3 control-label">테마 유형1</label>
 			<div class="col-sm-4">
 				<select name="campTheme1" class="form-control" >
-					<option value="1" selected="selected">봄</option>
-					<option value="2">여름</option>
-					<option value="3">가을</option>
-					<option value="4">겨울</option>
-					<option value="5">일출</option>
-					<option value="6">일몰</option>
-					<option value="7">등산</option>
-					<option value="8">낚시</option>
-					<option value="9">애완동물동반</option>	
+					<option value="봄" selected="selected">봄</option>
+					<option value="여름">여름</option>
+					<option value="가을">가을</option>
+					<option value="겨울">겨울</option>
+					<option value="일출">일출</option>
+					<option value="일몰">일몰</option>
+					<option value="등산">등산</option>
+					<option value="낚시">낚시</option>
+					<option value="애완동물동반">애완동물동반</option>	
 				</select>
 			</div>
 		</div>
@@ -107,15 +118,15 @@
 			<label for="campTheme2" class="col-sm-offset-1 col-sm-3 control-label">테마 유형2</label>
 			<div class="col-sm-4">
 				<select name="campTheme2" class="form-control" >
-					<option value="1">봄</option>
-					<option value="2">여름</option>
-					<option value="3">가을</option>
-					<option value="4">겨울</option>
-					<option value="5" selected="selected">일출</option>
-					<option value="6">일몰</option>
-					<option value="7">등산</option>
-					<option value="8">낚시</option>
-					<option value="9">애완동물동반</option>	
+					<option value="봄">봄</option>
+					<option value="여름">여름</option>
+					<option value="가을">가을</option>
+					<option value="겨울">겨울</option>
+					<option value="일출" selected="selected">일출</option>
+					<option value="일몰">일몰</option>
+					<option value="등산">등산</option>
+					<option value="낚시">낚시</option>
+					<option value="애완동물동반">애완동물동반</option>	
 				</select>
 			</div>
 		</div>
@@ -124,14 +135,14 @@
 			<label for="campNature1" class="col-sm-offset-1 col-sm-3 control-label">주변 환경1</label>
 			<div class="col-sm-4">
 				<select name="campNature1" class="form-control" >
-					<option value="1" selected="selected">계곡</option>
-					<option value="2">호수</option>
-					<option value="3">강</option>
-					<option value="4">바다</option>
-					<option value="5">산</option>
-					<option value="6">숲</option>
-					<option value="7">도시</option>
-					<option value="8">섬</option>
+					<option value="계곡" selected="selected">계곡</option>
+					<option value="호수">호수</option>
+					<option value="강">강</option>
+					<option value="바다">바다</option>
+					<option value="산">산</option>
+					<option value="숲">숲</option>
+					<option value="도시">도시</option>
+					<option value="섬">섬</option>
 				</select>
 			</div>
 		</div>
@@ -140,14 +151,14 @@
 			<label for="campNature2" class="col-sm-offset-1 col-sm-3 control-label">주변 환경2</label>
 			<div class="col-sm-4">
 				<select name="campNature2" class="form-control" >
-					<option value="1">계곡</option>
-					<option value="2">호수</option>
-					<option value="3">강</option>
-					<option value="4">바다</option>
-					<option value="5" selected="selected">산</option>
-					<option value="6">숲</option>
-					<option value="7">도시</option>
-					<option value="8">섬</option>
+					<option value="계곡">계곡</option>
+					<option value="호수">호수</option>
+					<option value="강">강</option>
+					<option value="바다">바다</option>
+					<option value="산"selected="selected">산</option>
+					<option value="숲">숲</option>
+					<option value="도시">도시</option>
+					<option value="섬">섬</option>
 				</select>
 			</div>
 		</div>	
@@ -156,13 +167,13 @@
 			<label for="campOperation1" class="col-sm-offset-1 col-sm-3 control-label">운영 유형1</label>
 			<div class="col-sm-4">
 				<select name="campOperation1" class="form-control" >
-					<option value="1" selected="selected">상시</option>
-					<option value="2">봄 (3월~5월)</option>
-					<option value="3">여름 (6월~7월)</option>
-					<option value="4">가을 (9월~11월)</option>
-					<option value="5">겨울 (12월~2월)</option>
-					<option value="6">주중</option>
-					<option value="7">주말</option>
+					<option value="상시">상시</option>
+					<option value="봄(3월~5월)" selected="selected">봄 (3월~5월)</option>
+					<option value="여름(6월~8월)">여름 (6월~8월)</option>
+					<option value="가을(9월~11월)">가을 (9월~11월)</option>
+					<option value="겨울(12월~2월)">겨울 (12월~2월)</option>
+					<option value="주중">주중</option>
+					<option value="주말">주말</option>
 				</select>
 			</div>
 		</div>
@@ -171,16 +182,17 @@
 			<label for="campOperation2" class="col-sm-offset-1 col-sm-3 control-label">운영 유형2</label>
 			<div class="col-sm-4">
 				<select name="campOperation2" class="form-control" >
-					<option value="1">상시</option>
-					<option value="2" selected="selected">봄 (3월~5월)</option>
-					<option value="3">여름 (6월~7월)</option>
-					<option value="4">가을 (9월~11월)</option>
-					<option value="5">겨울 (12월~2월)</option>
-					<option value="6">주중</option>
-					<option value="7">주말</option>
+					<option value="상시">상시</option>
+					<option value="봄(3월~5월)">봄 (3월~5월)</option>
+					<option value="여름(6월~8월)">여름 (6월~8월)</option>
+					<option value="가을(9월~11월)">가을 (9월~11월)</option>
+					<option value="겨울(12월~2월)">겨울 (12월~2월)</option>
+					<option value="주중" selected="selected">주중</option>
+					<option value="주말">주말</option>
 				</select>
 			</div>
 		</div>
+		
 		
 		<div class="form-group">
 			<label for="campName" class="col-sm-offset-1 col-sm-3 control-label">캠핑장 이름</label>
@@ -250,21 +262,22 @@
 		<div class="form-group">
 			<label for="campSummery" class="col-sm-offset-1 col-sm-3 control-label">캠핑장 요약소개</label>
 				<div class="col-sm-4">
-					<input type="text" class="form-control" id="campSummery" name="campSummery" value="" placeholder="요약 소개를 입력해주세요">
+					<input type="text" class="form-control" id="campSummery" name="campSummery" value="" placeholder="요약소개를 입력하세요">
 				</div>
 		</div>
 		
 		<div class="form-group">
 			<label for="campDetail" class="col-sm-offset-1 col-sm-3 control-label">캠핑장 상세소개</label>
 				<div class="col-sm-4">
-					<input type="text" class="form-control" id="campDetail" name="campDetail" value="" placeholder="상세 소개를 입력해주세요">
+					<input type="text" class="form-control" id="campDetail" name="campDetail" value="" placeholder="상세소개를 입력하세요">
 				</div>
 		</div>
 
 		<div class="form-group">
 			<div class="col-sm-offset-4  col-sm-4 text-center">
+				<button id="resetform" type="button" class="btn btn-primary">양식 초기화</button>
 				<button id="cancle" type="button" class="btn btn-primary">취소</button>
-				<button id="tempsave"type="button" class="btn btn-primary">임시저장</button>
+				<button id="tempsave" type="button" class="btn btn-primary">임시저장</button>
 				<button id="save" type="button" class="btn btn-primary">저장</button>
 			</div>
 		</div>

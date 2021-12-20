@@ -50,19 +50,36 @@ public class NoticeServiceTest {
 		System.out.println("==> "+ notice);
 	}
 	
-	@Test
+	//@Test
 	public void listNoticeServiceTest() throws Exception {
 		Search search = new Search();
 		
 		 search.setCurrentPage(1); 
 		 search.setPageSize(pageSize);
 		 
+		 //제목 + 내용 검색
+//		 search.setSearchCondition("0");
+//		 search.setSearchKeyword("내용");
+		 
+		 // 제목 
+//		 search.setSearchCondition("1");
+//		 search.setSearchKeyword("테이블");
+		 
+		 // 내용
+		 search.setSearchCondition("2");
+		 search.setSearchKeyword("가나다");
+		 
 		 System.out.println("==> Search : " + search);
 		 
 		 List<Notice> list = noticeDAO.listProductList(search);
 		 
 		 System.out.println(list);
-		 
+	}
+	@Test
+	public void updateNoticeServiceTest() throws Exception {
+		Notice notice = noticeDAO.getNotice(5);
+//		notice.set
+		System.out.println("==> "+ notice);
 	}
 
 }

@@ -294,6 +294,7 @@ public class Camp {
 			+ "\n [campViewCountCurrentMonth] : " + campViewCountCurrentMonth
 			+ "\n [campViewCountPreviousMonth] :" + campViewCountPreviousMonth
 			+ "\n [campReservationCount] :" + campReservationCount
+			+ "\n [campViewCountPreviousMonth] : " + campViewCountPreviousMonth
 			+ "\n [campRegDate] : " + campRegDate
 			+ "\n [campTheme1] : " + campTheme1
 			+ "\n [campTheme2] : " + campTheme2 

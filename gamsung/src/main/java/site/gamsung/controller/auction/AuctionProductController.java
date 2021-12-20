@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import site.gamsung.service.auction.AuctionProductService;
+import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.AuctionProduct;
-import site.gamsung.service.domain.AuctionSearch;
 
 @RequestMapping("/auction/*")
 @Controller
@@ -36,12 +36,12 @@ public class AuctionProductController {
 	}
 	
 	@RequestMapping(value = "listAuctionProduct", method = RequestMethod.GET)
-	public String listAucitonProduct(HttpSession httpSession, Model model, @ModelAttribute("aucitonSearch") AuctionSearch auctionSearch) {
+	public String listAucitonProduct(HttpSession httpSession, Model model, @ModelAttribute("search") Search search) {
 		
-		auctionSearch.setPageSize(auctionPageSize);
-		auctionSearch.setCurrentPage(1);
+		search.setPageSize(auctionPageSize);
+		search.setCurrentPage(1);
 		
-		List<AuctionProduct> list = auctionProductService.listAuctionProduct(auctionSearch);
+		List<AuctionProduct> list = auctionProductService.listAuctionProduct(search);
 		
 		model.addAttribute("list",list);
 		
