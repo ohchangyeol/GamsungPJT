@@ -1,9 +1,14 @@
 package site.gamsung.service.user.impl;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.User;
 import site.gamsung.service.user.UserDAO;
 import site.gamsung.service.user.UserService;
@@ -40,5 +45,20 @@ public class UserServiceImpl implements UserService{
 		userDAO.updateUser(user);
 		
 	}
+
+	@Override
+	public Map<String, Object> listUser(Search search) throws Exception {
+		
+		List<User> list = userDAO.listUser(search);
+		int totalCount = userDAO.getTotalCount(search);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		map.put("totalCount", new Integer(totalCount));
+		
+		return map;
+	}
+
+	
 
 }

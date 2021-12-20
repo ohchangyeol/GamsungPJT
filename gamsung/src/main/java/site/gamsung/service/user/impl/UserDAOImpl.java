@@ -1,10 +1,13 @@
 package site.gamsung.service.user.impl;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
+import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.User;
 import site.gamsung.service.user.UserDAO;
 
@@ -13,8 +16,9 @@ public class UserDAOImpl implements UserDAO{
 	
 	///Field
 	@Autowired
-	@Qualifier("sqlSessioTemplate")
+	@Qualifier("sqlSessionTemplate")
 	private SqlSession sqlSession;
+	
 	public void setSqlSession(SqlSession sqlSession) {
 		this.sqlSession=sqlSession;
 	}
@@ -39,6 +43,17 @@ public class UserDAOImpl implements UserDAO{
 	public void updateUser(User user) throws Exception {
 		sqlSession.update("UserMapper.updateUser", user);
 		
+	}
+
+	@Override
+	public List<User> listUser(Search search) throws Exception {
+		return sqlSession.selectList("UserMapper.listUser", search);
+	}
+
+	@Override
+	public int getTotalCount(Search search) throws Exception {
+
+		return sqlSession.selectOne("UserMapper.getTotalCount", search);
 	}
 
 }

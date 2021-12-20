@@ -35,18 +35,20 @@
 		<!-- SQL : INSERT -->
 	<insert 	id="addUser"		parameterType="user" >
 	 	INSERT
-		INTO gamsung.users( user_id , role , nick_name , password , name, phone, addr, entry_reg_date , bank , account_holder, 
-		account_num, camp_name, camp_call, entry_approval_flag, receive_cancel_total_count, receive_ban_end_date,
-		dormant_reg_date, secession_reg_date, suspension_reg_date, tourism_business_num, suspension_content, auction_grade) 
-		VALUES	 (	#{userId} , #{role} , #{nickName:VARCHAR} , #{password} , #{name} , #{phone} , #{addr} , SYSDATE , #{bank}, #{accountHolder}, #{ssn:VARCHAR} , 
-		#{accountNum}, #{campName}, #{campCall}, #{countCancelReceive} , #{receiveProhibitionEndDate:DATE}, #{dormantConversionDate:DATE} , #{secessionRegDate:DATE} ,
-		#{suspensionDate:DATE}, #{tourismBusinessNum:VARCHAR}, #{suspensionContent:VARCHAR});
+		INTO users( user_id , role , nick_name , password , name, phone, addr, entry_reg_date , bank , account_holder, 
+		account_num, camp_name, camp_call, receive_ban_end_date, dormant_reg_date, secession_reg_date, suspension_reg_date, tourism_business_num, suspension_content) 
+		VALUES	 (#{id} , #{role} , #{nickName:VARCHAR} , #{password} , #{name} , #{phone} , #{addr:VARCHAR} , SYSDATE() , #{bank:VARCHAR}, #{accountHolder:VARCHAR},
+		#{accountNum:VARCHAR}, #{campName:VARCHAR}, #{campCall:VARCHAR} , #{receiveProhibitionEndDate:DATE}, #{dormantConversionDate:DATE} , #{secessionRegDate:DATE} ,
+		#{suspensionDate:DATE}, #{tourismBusinessNum:VARCHAR}, #{suspensionContent:VARCHAR})
 	 </insert>
 	 
 	 <!-- SQL : SELECT ONE -->
 	 <select 	id="getUser"	parameterType="string"	resultMap="userSelectMap">
 		SELECT
-		user_id , user_name , password , role ,  cell_phone ,  addr , email , reg_date 		
+		user_id , role , nick_name , password , name, phone, addr, entry_reg_date , bank , account_holder, 
+		account_num, having_point, camp_name, camp_call, entry_approval_flag, receive_cancel_total_count, 
+		receive_ban_end_date, dormant_reg_date, secession_reg_date, suspension_reg_date, tourism_business_num, suspension_content,
+		auction_grade
 		FROM users 
 		WHERE user_id = #{value}
 	 </select>
@@ -55,12 +57,20 @@
 	 <update	id="updateUser"	parameterType="user" >
 	   	UPDATE users
 	   	<set>
-	   		user_name 	= #{userName} ,
-			cell_phone	= #{phone},
-			addr 				= #{addr} ,
-			email				=	#{email}
+	   		password = #{password:VARCHAR} ,
+			nick_name = #{nickName:VARCHAR},
+			phone = #{phone:VARCHAR} ,
+			name =	#{name:VARCHAR},
+			addr = #{addr:VARCHAR},
+			camp_name = #{campName:VARCHAR},
+			camp_call = #{campCall:VARCHAR},
+			bank = #{bank:VARCHAR},
+			account_holder = #{accountHolder:VARCHAR},
+			account_num = #{accountNum:VARCHAR}
 	   	</set>
-	   	WHERE user_id = #{userId}
+	   	WHERE user_id = #{id}
 	 </update>
+	 
+
 	 
 </mapper>

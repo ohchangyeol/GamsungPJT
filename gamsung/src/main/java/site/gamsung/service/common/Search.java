@@ -118,7 +118,7 @@ public class Search {
 	public void setPrice(String price) {
 		this.price = price;
 	}
-
+	
 	public int getViewCount() {
 		return viewCount;
 	}
