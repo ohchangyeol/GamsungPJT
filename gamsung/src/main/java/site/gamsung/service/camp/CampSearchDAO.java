@@ -20,4 +20,6 @@ public interface CampSearchDAO {
 	public List<SubSite> getSubSite(int campNo) throws Exception;
 	
 	public int updateViewCount(int campNo) throws Exception;
+	
+	public List<Camp> getEventCamp(Search search) throws Exception;
 }

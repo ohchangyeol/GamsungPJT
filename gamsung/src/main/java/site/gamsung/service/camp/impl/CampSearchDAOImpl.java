@@ -57,5 +57,12 @@ public class CampSearchDAOImpl implements CampSearchDAO {
 	public int updateViewCount(int campNo) throws Exception {
 		return sqlSession.update("CampSearchMapper.updateViewCount", campNo);
 	}
+
+	@Override
+	public List<Camp> getEventCamp(Search search) throws Exception {
+		return sqlSession.selectList("CampSearchMapper.getEventCamp", search);
+	}
+	
+	
 	
 }
