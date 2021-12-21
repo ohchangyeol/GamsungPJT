@@ -39,8 +39,21 @@ public class CommunityServiceImpl implements CommunityService {
 		return communityDAO.addPost(post);
 	}
 
-	public List<Post> ListPost(Post post) throws Exception {
-		return communityDAO.ListPost(post);
+	public HashMap<String, Object> listPost(Post post) throws Exception {
+		
+		int postNo = post.getPostNo();
+		
+		List<Post> list = communityDAO.listPost(post);
+		
+		int totalConcern = communityDAO.totalConcern(postNo);
+		int totalComment = communityDAO.totalComment(postNo);
+		
+		HashMap<String,Object> map = new HashMap<String,Object>();
+		map.put("list",list);
+		map.put("totalConcern",totalConcern);
+		map.put("totalComment",totalComment);
+		
+		return map;
 	}
 
 	public Post getPost(int postNo) throws Exception {

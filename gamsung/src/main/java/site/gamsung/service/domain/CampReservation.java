@@ -3,14 +3,13 @@ package site.gamsung.service.domain;
 import java.sql.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.bind.annotation.RequestParam;
 
 public class CampReservation {
 
 	private Camp camp;
 	private User user;
 	private MainSite mainSite;
-	private int reservationNo;
+	private String reservationNo;
 	//(1.예약완료 2.예약변경 3.양도대기 4.취소대기) : 전, (5.양도완료 6.취소완료 7.이용완료) : 후
 	private int reservationStatus;
 	private boolean deleteFlag;
@@ -65,11 +64,11 @@ public class CampReservation {
 		this.user = user;
 	}
 
-	public int getReservationNo() {
+	public String getReservationNo() {
 		return reservationNo;
 	}
 
-	public void setReservationNo(int reservationNo) {
+	public void setReservationNo(String reservationNo) {
 		this.reservationNo = reservationNo;
 	}
 

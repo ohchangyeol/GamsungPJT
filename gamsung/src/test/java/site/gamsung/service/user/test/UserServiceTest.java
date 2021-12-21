@@ -65,7 +65,6 @@ public class UserServiceTest {
 		user.setBusinessUserApprovalFlag("Y");
 		
 		userService.updateUser(user);
-
 		//user=userService.getUser("test88@test.com");
 
 		user=userService.getUser("businessuser1@gamsung.com");
