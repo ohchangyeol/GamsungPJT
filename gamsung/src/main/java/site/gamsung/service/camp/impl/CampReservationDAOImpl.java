@@ -1,6 +1,5 @@
 package site.gamsung.service.camp.impl;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,9 +9,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import site.gamsung.service.camp.CampReservationDAO;
-import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.CampReservation;
 import site.gamsung.service.domain.MainSite;
+import site.gamsung.service.domain.ReservationStatistics;
 
 @Repository("campReservationDAOImpl")
 public class CampReservationDAOImpl implements CampReservationDAO {
@@ -38,7 +37,7 @@ public class CampReservationDAOImpl implements CampReservationDAO {
 	public int addReservation(CampReservation campReservation) throws Exception {
 		return sqlSession.insert("CampReservationMapper.addReservation", campReservation);
 	}
-
+	
 	@Override
 	public int updateMainSiteReservationDate(CampReservation campReservation) throws Exception {
 		return sqlSession.update("CampReservationMapper.updateMainSiteReservationDate", campReservation);
@@ -58,24 +57,18 @@ public class CampReservationDAOImpl implements CampReservationDAO {
 	}
 
 	@Override
-	public List<CampReservation> listReservation(Search search, int campNo) throws Exception {
-		
-		Map<String , Object>  map = new HashMap<String, Object>();
-		map.put("search", search);
-		map.put("campNo", campNo);
-		
-		return sqlSession.selectList("CampReservationMapper.listReservation", search);
+	public List<CampReservation> listReservation(Map<String, Object> map) throws Exception {
+		return sqlSession.selectList("CampReservationMapper.listReservation", map);
 	}
 
 	@Override
-	public List<CampReservation> listMyReservation(Search search, String id) throws Exception {
-		
-		Map<String , Object>  map = new HashMap<String, Object>();
-		map.put("search", search);
-		map.put("id", id);
-		
-		return sqlSession.selectList("CampReservationMapper.listMyReservation", search);
+	public int getTotalCount(Map<String, Object> map) throws Exception {
+		return sqlSession.selectOne("CampReservationMapper.getTotalCount", map);
 	}
-	
+
+	@Override
+	public ReservationStatistics getReservationStatistics() throws Exception {
+		return sqlSession.selectOne("CampReservationMapper.totalReservationStatistics");
+	}
 	
 }

@@ -3,9 +3,9 @@ package site.gamsung.service.camp;
 import java.util.List;
 import java.util.Map;
 
-import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.CampReservation;
 import site.gamsung.service.domain.MainSite;
+import site.gamsung.service.domain.ReservationStatistics;
 
 public interface CampReservationDAO {
 
@@ -17,8 +17,10 @@ public interface CampReservationDAO {
 	
 	public boolean isSecessionUserReservationCondition(String id) throws Exception;
 	
-	public List<CampReservation> listReservation(Search search, int campNo) throws Exception;
+	public List<CampReservation> listReservation(Map<String, Object> map) throws Exception;
 	
-	public List<CampReservation> listMyReservation(Search search, String id) throws Exception;
+	public int getTotalCount(Map<String, Object> map) throws Exception;
+	
+	public ReservationStatistics getReservationStatistics() throws Exception;
 	
 }
