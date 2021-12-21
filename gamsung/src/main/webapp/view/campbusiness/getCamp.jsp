@@ -37,16 +37,20 @@
 		$(function() {
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			$("#confirm").on("click" , function() {
-				$(self.location).attr("href","/view/campbusiness/campBusinessMain.jsp");
+				window.self.location = "/campBusiness/main";
 			});
 			
 			$("#update").on("click" , function() {
-				$("form").attr("method" , "get").attr("action" , "/campBusiness/updateCamp").submit();
+				alert("수정화면으로 전환합니다.")
+				$("form").attr("method" , "POST").attr("action" , "/campBusiness/updateCampView").submit();
 			});
 			
 			$("#delete").on("click" , function() {
-				alert("3");
-				$("form").attr("method" , "get").attr("action" , "/campBusiness/deleteCamp").submit();
+				if (confirm("'확인'을 누르시면 삭제가 됩니다 \n삭제 후에는 복구가 불가능합니다.") == true){    
+					$("form").attr("method" , "POST").attr("action" , "/campBusiness/deleteCamp").submit();
+				} else {
+				    return;
+				}			
 			});
 		
 		});	
@@ -62,11 +66,13 @@
 
 	<!-- Page Start -->
 	<div class="container">	
+	<form>	
+	    <input type="hidden" name="campNo" value="${camp.campNo}">	
 	
 		<div class="page-header">
 	       <h3 class=" text-info">캠핑장 상세정보</h3>
 	    </div>
-	    	
+		    	
 		<div class="row">
 	  		<div class="col-xs-4 col-md-2"><strong>캠핑장 등록번호</strong></div>
 			<div class="col-xs-8 col-md-4">${camp.campNo}</div>
@@ -222,6 +228,9 @@
 	  		<div class="col-xs-4 col-md-2"><strong>캠핑장 전경5</strong></div>
 			<img src="/uploadFiles/campimg/campbusiness/camp/${camp.campImg5}" />
 		</div>	
+					
+		<br>
+		<br>			
 								  		  
 		<div class="form-group">
 			<div class="col-sm-offset-4  col-sm-4 text-center">
@@ -231,6 +240,7 @@
 			</div>
 		</div>
 		  	
+	</form>  	
  	</div>
 
 </body>

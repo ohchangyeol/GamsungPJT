@@ -37,18 +37,20 @@
 		$(function() {
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			$("#confirm").on("click" , function() {
-				alert("1");
 				$("form").attr("method" , "get").attr("action" , "/campBusiness/listMainSite").submit();
 			});
 			
 			$("#update").on("click" , function() {
-				alert("2");
-				$("form").attr("method" , "get").attr("action" , "/campBusiness/updateMainSite").submit();
+				alert("수정화면으로 전환합니다.")
+				$("form").attr("method" , "POST").attr("action" , "/campBusiness/updateMainSiteView").submit();
 			});
 			
 			$("#delete").on("click" , function() {
-				alert("3");
-				$("form").attr("method" , "get").attr("action" , "/campBusiness/deleteMainSite").submit();
+				if (confirm("'확인'을 누르시면 삭제가 됩니다 \n삭제 후에는 복구가 불가능합니다.") == true){    
+					$("form").attr("method" , "POST").attr("action" , "/campBusiness/deleteMainSite").submit();
+				} else {
+				    return;
+				}
 			});
 		
 		});	
@@ -63,7 +65,11 @@
 	<jsp:include page="/view/common/headerCampBusiness.jsp" />
 
 	<!-- Page Start -->
-	<div class="container">	
+	<div class="container">		
+	<form>
+	
+	<input type="hidden" name="campNo" value="${camp.campNo}">
+	<input type="hidden" name="mainSiteNo" value="${mainSite.mainSiteNo}">
 	
 		<div class="page-header">
 	       <h3 class=" text-info">주요시설 상세정보</h3>
@@ -168,7 +174,8 @@
 				<button id="confirm" type="button" class="btn btn-primary">확인</button>
 			</div>
 		</div>
-		  	
+		
+	</form>	  	
  	</div>
 
 </body>

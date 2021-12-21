@@ -32,30 +32,21 @@
 
 	<!-- JavaScript -->
 	<script type="text/javascript">
-
-		// 버튼
-		$(function() {
-			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-			
-			//등록일자 현재년월일 받아오기	
-			document.getElementById('subSiteRegDate').value = new Date().toISOString().substring(0, 10);;
-			
-			$("#save").on("click" , function() {
-				alert("부가시설이 등록 되었습니다.");			
-				$("form").attr("method" , "POST").attr("action" , "/campBusiness/addSubSite").submit();
-			});
-					
-			$("#cancle").on("click" , function() {
-				alert("취소 되었습니다.");
-				window.history.back();
-			});
-			
-			$("#resetform").on("click" , function() {
-				alert("초기화 되었습니다.");				
-				$("form")[0].reset();				
-			});
+	
+	// 버튼
+	$(function() {
 		
-		});	
+		$("#update").on("click" , function() {
+			alert("캠핑장정보를 수정합니다.");
+			$("form").attr("method" , "POST").attr("action" , "/campBusiness/updateSubSite").submit();
+		});
+		
+		$("#cancle").on("click" , function() {
+			alert("수정이 취소 되었습니다.");
+			history.go(-1);
+		});			
+
+	});
 
 </script>		
 
@@ -70,33 +61,27 @@
 	<div class="container">
 
 		<div class="page-header">
-	       <h1 class=" text-info">부가시설 등록</h1>
+	       <h1 class=" text-info">부가시설 수정</h1>
 	    </div>
 
 		<!-- Form Start -->
 		<form class="form-horizontal" >
 		 	
-		<input type="hidden" name="campNo" id="campNo" value="10000">
+		<input type="hidden" name="campNo" id="campNo" value="${subSite.campNo}">
+		<input type="hidden" name="subSiteNo" id="subSiteNo" value="${subSite.subSiteNo}">
 			
-		<div class="form-group">
-			<label for="subSiteRegDate" class="col-sm-offset-1 col-sm-3 control-label">등록 일자</label>
-				<div class="col-sm-4">
-					<input type="text" class="form-control" id="subSiteRegDate" name="subSiteRegDate" value="" readonly>
-				</div>
-		</div>
-
 		<div class="form-group">
 			<label for="subSiteType" class="col-sm-offset-1 col-sm-3 control-label">부가시설 유형</label>
 			<div class="col-sm-4">
 				<select name="subSiteType" class="form-control" >
-					<option value="전기" selected="selected">전기</option>
-					<option value="온수">온수</option>
-					<option value="매점">매점</option>
-					<option value="화장실">화장실</option>
-					<option value="물놀이장">물놀이장</option>
-					<option value="트램폴린">트램폴린</option>
-					<option value="무선인터넷">무선인터넷</option>
-					<option value="산책로">산책로</option>
+					<option value="전기" ${! empty subSite.subSiteType && subSite.subSiteType eq '전기' ? "selected" : "" }>전기</option>
+					<option value="온수" ${! empty subSite.subSiteType && subSite.subSiteType eq '온수' ? "selected" : "" }>온수</option>
+					<option value="매점" ${! empty subSite.subSiteType && subSite.subSiteType eq '매점' ? "selected" : "" }>매점</option>
+					<option value="화장실" ${! empty subSite.subSiteType && subSite.subSiteType eq '화장실' ? "selected" : "" }>화장실</option>
+					<option value="물놀이장" ${! empty subSite.subSiteType && subSite.subSiteType eq '물놀이장' ? "selected" : "" }>물놀이장</option>
+					<option value="트램폴린" ${! empty subSite.subSiteType && subSite.subSiteType eq '트램폴린' ? "selected" : "" }>트램폴린</option>
+					<option value="무선인터넷" ${! empty subSite.subSiteType && subSite.subSiteType eq '무선인터넷' ? "selected" : "" }>무선인터넷</option>
+					<option value="산책로" ${! empty subSite.subSiteType && subSite.subSiteType eq '산책로' ? "selected" : "" }>산책로</option>
 				</select>
 			</div>
 		</div>
@@ -105,7 +90,7 @@
 		<div class="form-group">
 			<label for="subSiteName" class="col-sm-offset-1 col-sm-3 control-label">부가시설 이름</label>
 				<div class="col-sm-4">
-					<input type="text" class="form-control" id="subSiteName" name="subSiteName" value="" placeholder="이름을 입력하세요">
+					<input type="text" class="form-control" id="subSiteName" name="subSiteName" value="${subSite.subSiteName}">
 				</div>
 		</div>
 
@@ -123,17 +108,16 @@
 		<div class="form-group">
 			<label for="subSiteInfo" class="col-sm-offset-1 col-sm-3 control-label">부가시설 설명</label>
 				<div class="col-sm-4">
-					<input type="text" class="form-control" id="subSiteInfo" name="subSiteInfo" value="" placeholder="설명을 입력하세요">
+					<input type="text" class="form-control" id="subSiteInfo" name="subSiteInfo" value="${subSite.subSiteInfo}">
 				</div>
-		</div>		
-
+		</div>
+		
 		<div class="form-group">
 			<div class="col-sm-offset-4  col-sm-4 text-center">
-				<button id="resetform" type="button" class="btn btn-primary">양식 초기화</button>
 				<button id="cancle" type="button" class="btn btn-primary">취소</button>
-				<button id="save" type="button" class="btn btn-primary">저장</button>
+				<button id="update" type="button" class="btn btn-primary">수정</button>
 			</div>
-		</div>
+		</div> 
 
 		</form>
 		<!-- Form End -->

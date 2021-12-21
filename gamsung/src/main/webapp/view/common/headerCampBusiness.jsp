@@ -10,31 +10,31 @@
 		}); 		
 				
 	 	$("a:contains('캠핑장정보 조회')").on("click" , function() {
-
+	 		window.self.location = "/campBusiness/listCamp";
 		}); 
 	
 	 	$("a:contains('캠핑장정보 등록')").on("click" , function() {
-	 		$(self.location).attr("href","/view/campbusiness/addCamp.jsp");
+	 		window.self.location = "/campBusiness/addCamp";
 		}); 
 		 
 		$("a:contains('주요시설 목록')" ).on("click" , function() {
-
+			window.self.location = "/campBusiness/listMainSite";
 		});
 		
 	 	$("a:contains('주요시설 등록')" ).on("click" , function() {
-	 		$(self.location).attr("href","/view/campbusiness/addMainSite.jsp");
+	 		window.self.location = "/campBusiness/addMainSite";
 		}); 
 	 	
 	 	$("a:contains('부가시설 목록')" ).on("click" , function() {
-
+	 		window.self.location = "/campBusiness/listSubSite";
 		}); 
 	 	
 	 	$("a:contains('부가시설 등록')" ).on("click" , function() {
-	 		$(self.location).attr("href","/view/campbusiness/addSubSite.jsp");	
+	 		window.self.location = "/campBusiness/addSubSite";
 		}); 
 	 	
 	 	$("a:contains('예약관리')" ).on("click" , function() {
-	
+	 
 		}); 
 	 	
 	 	$("a:contains('리뷰관리')" ).on("click" , function() {

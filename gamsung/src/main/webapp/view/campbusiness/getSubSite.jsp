@@ -37,18 +37,20 @@
 		$(function() {
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			$("#confirm").on("click" , function() {
-				alert("1");
 				$("form").attr("method" , "get").attr("action" , "/campBusiness/listSubSite").submit();
 			});
 			
 			$("#update").on("click" , function() {
-				alert("2");
-				$("form").attr("method" , "get").attr("action" , "/campBusiness/updateSubSite").submit();
+				alert("수정화면으로 전환합니다.")
+				$("form").attr("method" , "POST").attr("action" , "/campBusiness/updateSubSiteView").submit();
 			});
 			
 			$("#delete").on("click" , function() {
-				alert("3");
-				$("form").attr("method" , "get").attr("action" , "/campBusiness/deleteSubSite").submit();
+				if (confirm("'확인'을 누르시면 삭제가 됩니다 \n삭제 후에는 복구가 불가능합니다.") == true){    
+					$("form").attr("method" , "POST").attr("action" , "/campBusiness/deleteSubSite").submit();
+				} else {
+				    return;
+				}
 			});
 		
 		});	
@@ -64,9 +66,13 @@
 
 	<!-- Page Start -->
 	<div class="container">	
+	<form>
+	
+	<input type="hidden" name="campNo" value="${camp.campNo}">
+	<input type="hidden" name="subSiteNo" value="${subSite.subSiteNo}">
 	
 		<div class="page-header">
-	       <h3 class=" text-info">주요시설 상세정보</h3>
+	       <h3 class=" text-info">부가시설 상세정보</h3>
 	    </div>
 	    	
 		<div class="row">
@@ -111,7 +117,8 @@
 				<button id="confirm" type="button" class="btn btn-primary">확인</button>
 			</div>
 		</div>
-		  	
+		  
+	</form>	  	
  	</div>
 
 </body>
