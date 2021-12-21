@@ -1,5 +1,5 @@
 package site.gamsung.service.auction;
 
-public interface AuctionGradeDAO {
+public interface AuctionUserInfoService {
 
 }

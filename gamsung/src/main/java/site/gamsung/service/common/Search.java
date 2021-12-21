@@ -11,12 +11,12 @@ public class Search {
 	private String searchKeyword;
 	private String role;
 	private String id;
-	private List campAddr;
-	private List circumstance;
-	private List mainSite;
-	private List subSite;
-	private List theme;
-	private List price;
+	private List<String> campAddr;
+	private List<String> circumstance;
+	private List<String> mainSite;
+	private List<String> subSite;
+	private List<String> theme;
+	private List<String> price;
 	private int currentPage;
 	private int pageSize;
 	private int endRowNum;
@@ -150,12 +150,17 @@ public class Search {
 		return (getCurrentPage()-1)*getPageSize()+1;
 	}
 
+	public void setOffset(int offset) {
+		this.offset = offset;
+	}
+
 	@Override
 	public String toString() {
 		return "Search [searchCondition=" + searchCondition + ", sortCondition=" + sortCondition + ", searchKeyword="
-				+ searchKeyword + ", campAddr=" + campAddr + ", circumstance=" + circumstance + ", mainSite=" + mainSite
-				+ ", subSite=" + subSite + ", theme=" + theme + ", price=" + price + ", currentPage=" + currentPage
-				+ ", pageSize=" + pageSize + ", offset=" + offset + "]";
+				+ searchKeyword + ", role=" + role + ", id=" + id + ", campAddr=" + campAddr + ", circumstance="
+				+ circumstance + ", mainSite=" + mainSite + ", subSite=" + subSite + ", theme=" + theme + ", price="
+				+ price + ", currentPage=" + currentPage + ", pageSize=" + pageSize + ", endRowNum=" + endRowNum
+				+ ", offset=" + offset + ", startRowNum=" + startRowNum + "]";
 	}
 
 }

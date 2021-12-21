@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 
 import site.gamsung.service.auction.AuctionProductDAO;
 import site.gamsung.service.auction.AuctionProductService;
+import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.AuctionProduct;
-import site.gamsung.service.domain.AuctionSearch;
 
 @Service("auctionProductService")
 public class AuctionProductServiceImpl implements AuctionProductService{
@@ -24,10 +24,10 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 	}
 
 	@Override
-	public List<AuctionProduct> listAuctionProduct(AuctionSearch auctionSearch) {
+	public List<AuctionProduct> listAuctionProduct(Search search) {
 		// TODO Auto-generated method stub
 			
-		return auctionProductDAO.listAuctionProduct(auctionSearch);
+		return auctionProductDAO.listAuctionProduct(search);
 	}
 
 	@Override

@@ -22,4 +22,11 @@ public interface CampSearchDAO {
 	public int updateViewCount(int campNo) throws Exception;
 	
 	public List<Camp> getEventCamp(Search search) throws Exception;
+	
+	public Camp getTopRatingCamp() throws Exception;
+	
+	public Camp getTopViewCamp() throws Exception;
+	
+	public Camp getTopReservationCamp() throws Exception;
+	
 }

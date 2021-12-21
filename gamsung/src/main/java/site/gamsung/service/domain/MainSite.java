@@ -176,7 +176,7 @@ public class MainSite {
 	public void setMainSiteReservationEnd(Date mainSiteReservationEnd) {
 		this.mainSiteReservationEnd = mainSiteReservationEnd;
 	}
-	
+
 	public String getMainSiteReservationUserName() {
 		return mainSiteReservationUserName;
 	}
@@ -223,7 +223,7 @@ public class MainSite {
 
 	public void setCampName(String campName) {
 		this.campName = campName;
-	}	
+	}
 	
 	// Override toString
 	public String toString() {
@@ -241,7 +241,7 @@ public class MainSite {
 			+ "\n [mainSiteAddPrice] : " + mainSiteAddPrice 
 			+ "\n [mainSiteParkingSize] : " + mainSiteParkingSize 
 			+ "\n [mainSiteInfo] : " + mainSiteInfo
-			+ "\n [mainSiteReservationStart] :" + mainSiteReservationStart
+			+ "\n [mainSiteReservationStart] : " + mainSiteReservationStart
 			+ "\n [mainSiteReservationEnd] : " + mainSiteReservationEnd
 			+ "\n [mainSiteReservationUserName] : " + mainSiteReservationUserName
 			+ "\n [mainSiteRegDate] : " + mainSiteRegDate

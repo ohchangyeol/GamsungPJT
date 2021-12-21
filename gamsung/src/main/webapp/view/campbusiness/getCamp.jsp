@@ -1,6 +1,4 @@
 <%@ page contentType="text/html; charset=EUC-KR" %>
-<%@ page pageEncoding="EUC-KR"%>
-
 
 <!DOCTYPE html>
 
@@ -39,16 +37,16 @@
 		$(function() {
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			$("#confirm").on("click" , function() {
-				alert("1");
-				$("form").attr("method" , "get").attr("action" , "/campBusiness/listCamp").submit();
+				$(self.location).attr("href","/view/campbusiness/campBusinessMain.jsp");
 			});
 			
 			$("#update").on("click" , function() {
-				alert("2");				
+				$("form").attr("method" , "get").attr("action" , "/campBusiness/updateCamp").submit();
 			});
 			
 			$("#delete").on("click" , function() {
-				alert("3");	
+				alert("3");
+				$("form").attr("method" , "get").attr("action" , "/campBusiness/deleteCamp").submit();
 			});
 		
 		});	
@@ -60,14 +58,13 @@
 <body>
 
 	<!-- ToolBar -->
-	<jsp:include page="/view/campbusiness/campBusinessToolbar.jsp" />
+	<jsp:include page="/view/common/headerCampBusiness.jsp" />
 
 	<!-- Page Start -->
 	<div class="container">	
 	
 		<div class="page-header">
-	       <h3 class=" text-info">캠핑장등록 결과</h3>
-	       <h5 class="text-muted"><strong class="text-danger">환영합니다. 등록완료 되었습니다.</strong></h5>
+	       <h3 class=" text-info">캠핑장 상세정보</h3>
 	    </div>
 	    	
 		<div class="row">
@@ -79,7 +76,7 @@
 		
 		<div class="row">
 	  		<div class="col-xs-4 col-md-2"><strong>사업자회원ID</strong></div>
-			<div class="col-xs-8 col-md-4">${camp.user.id}</div>
+			<div class="col-xs-8 col-md-4"></div>
 		</div>
 		
 		<hr/>
@@ -198,32 +195,32 @@
 		
 		<div class="row">
 	  		<div class="col-xs-4 col-md-2"><strong>캠핑장 지도이미지</strong></div>
-			<img src="/uploadFiles/camping/campbusiness/camp/${camp.campMapImg}" />
+			<img src="/uploadFiles/campimg/campbusiness/camp/${camp.campMapImg}" />
 		</div>
 		
 		<div class="row">
 	  		<div class="col-xs-4 col-md-2"><strong>캠핑장 전경1</strong></div>
-			<img src="/uploadFiles/camping/campbusiness/camp/${camp.campImg1}" />
+			<img src="/uploadFiles/campimg/campbusiness/camp/${camp.campImg1}" />
 		</div>
 		
 		<div class="row">
 	  		<div class="col-xs-4 col-md-2"><strong>캠핑장 전경2</strong></div>
-			<img src="/uploadFiles/camping/campbusiness/camp/${camp.campImg2}" />
+			<img src="/uploadFiles/campimg/campbusiness/camp/${camp.campImg2}" />
 		</div>
 		
 		<div class="row">
 	  		<div class="col-xs-4 col-md-2"><strong>캠핑장 전경3</strong></div>
-			<img src="/uploadFiles/camping/campbusiness/camp/${camp.campImg3}" />
+			<img src="/uploadFiles/campimg/campbusiness/camp/${camp.campImg3}" />
 		</div>
 		
 		<div class="row">
 	  		<div class="col-xs-4 col-md-2"><strong>캠핑장 전경4</strong></div>
-			<img src="/uploadFiles/camping/campbusiness/camp/${camp.campImg4}" />
+			<img src="/uploadFiles/campimg/campbusiness/camp/${camp.campImg4}" />
 		</div>
 		
 		<div class="row">
 	  		<div class="col-xs-4 col-md-2"><strong>캠핑장 전경5</strong></div>
-			<img src="/uploadFiles/camping/campbusiness/camp/${camp.campImg5}" />
+			<img src="/uploadFiles/campimg/campbusiness/camp/${camp.campImg5}" />
 		</div>	
 								  		  
 		<div class="form-group">

@@ -2,17 +2,24 @@ package site.gamsung.service.domain;
 
 import java.sql.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.bind.annotation.RequestParam;
+
 public class CampReservation {
 
 	private Camp camp;
 	private User user;
 	private MainSite mainSite;
 	private int reservationNo;
+	//(1.예약완료 2.예약변경 3.양도대기 4.취소대기) : 전, (5.양도완료 6.취소완료 7.이용완료) : 후
 	private int reservationStatus;
 	private boolean deleteFlag;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date reservationRegDate;
 	private String reservationUserName;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date reservationStartDate;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date reservationEndDate;
 	private int useNum;
 	private String reservationUserPhone;
@@ -20,6 +27,7 @@ public class CampReservation {
 	private String reservationRequest;
 	private int totalPaymentPrice;
 	private int totalReservationRegCar;
+	private int paymentType;
 				
 	public CampReservation() {
 		
@@ -41,7 +49,7 @@ public class CampReservation {
 		this.user = user;
 	}
 
-	public MainSite getMainUnit() {
+	public MainSite getMainSite() {
 		return mainSite;
 	}
 
@@ -161,12 +169,19 @@ public class CampReservation {
 		this.totalReservationRegCar = totalReservationRegCar;
 	}
 
+	public int getPaymentType() {
+		return paymentType;
+	}
+
+	public void setPaymentType(int paymentType) {
+		this.paymentType = paymentType;
+	}
+
 	public String toString() {
 		return "\n CampReservation -> "
 			+ "[camp] : " + camp
-			+ ",[businessUser] : " + user
+			+ ",[User] : " + user
 			+ ",[mainUnit] : " + mainSite
-			+ ",[user] : " + user				
 			+ ",[reservationNo] : " + reservationNo
 			+ ",[reservationStatus] : " + reservationStatus 
 			+ ",[deleteFlag] : " + deleteFlag 
@@ -179,6 +194,7 @@ public class CampReservation {
 			+ ",[reservationRegCarNum] :" + reservationRegCarNum
 			+ ",[reservationRequest] : " + reservationRequest
 			+ ",[totalPaymentPrice] : " + totalPaymentPrice
-			+ ",[totalReservationRegCar] : " + totalReservationRegCar;
+			+ ",[totalReservationRegCar] : " + totalReservationRegCar
+			+ ",[paymentType] : " + paymentType;
 	}	
 }
