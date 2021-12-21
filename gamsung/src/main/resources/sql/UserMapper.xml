@@ -120,5 +120,14 @@
 		 FROM USERS
 		 WHERE user_id like ('%',#{value},'%')
 	 </select>
+	 
+	 <!-- SQL : CHECK NICK_NAME -->
+	 <select id="checkNickName" parameterType="String"	resultType="int">
+		 SELECT COUNT(*)
+		 FROM USERS
+		 WHERE nick_name like ('%',#{value},'%')
+	 </select>
+	 
+	
 
 </mapper>

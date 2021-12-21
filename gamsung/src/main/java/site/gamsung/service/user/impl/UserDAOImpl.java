@@ -58,14 +58,14 @@ public class UserDAOImpl implements UserDAO{
 
 	@Override
 	public int checkEmail(String id) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		return sqlSession.selectOne("UserMapper.getCheckEmail", id);
 	}
 
 	@Override
 	public int checkNickName(String nickName) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		return sqlSession.selectOne("UserMapper.getNickName", nickName);
 	}
 
 }

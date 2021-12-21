@@ -1,14 +1,14 @@
 package site.gamsung.service.user.impl;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import site.gamsung.service.common.Search;
+import site.gamsung.service.domain.MailSend;
+import site.gamsung.service.domain.TempKey;
 import site.gamsung.service.domain.User;
 import site.gamsung.service.domain.UserWrapper;
 import site.gamsung.service.user.UserDAO;
@@ -54,8 +54,15 @@ public class UserServiceImpl implements UserService{
 				
 		return userWrapper;
 	}
+
+	@Override
+	public void sendEmailAuthNum(String id, String key) throws Exception {
+				
+		MailSend mailSend = new MailSend();
+		mailSend.mailSend(id, key);
 	
-	
+	}
+
 
 	
 

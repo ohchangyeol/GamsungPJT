@@ -44,7 +44,7 @@ public class CampSearchServiceTest {
 	int campPageSize;
 	
 	//캠핑장 리스트 :: 간단검색(o), 상세검색(o), 소팅(o), 리미트(o), 토탈카운트(o)
-	//@Test
+	@Test
 	public void testListCamp() throws Exception{
 		
 		Search search = new Search();

@@ -19,5 +19,9 @@ public interface UserService {
 	
 	//회원 정보 리스트
 	public UserWrapper listUser(Search search) throws Exception;
+	
+	//메일인증
+	public void sendEmailAuthNum(String id, String key) throws Exception;
+	
 
 }

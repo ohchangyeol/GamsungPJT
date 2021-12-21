@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!-- Start header -->
 <head>
 	<meta charset="euc-kr">
@@ -33,10 +34,15 @@
                 </div>
                 <div class="collapse navbar-collapse justify-content-end" id="navbar-wd">
                     <ul class="navbar-nav">
-                        <li><a class="nav-link active" href="#home">로그인</a></li>
+                    <c:if test="${sessionScope.user.role != null}">
+	                <li><a href="#">로그아웃</a></li>
+	                </c:if>
+	                <c:if test="${sessionScope.user.role == null}">
+	                <li><a class="nav-link active" href="/user/login">로 그 인</a></li>
+	                 </c:if>
                     </ul>
                 </div>
             </div>
         </nav>
 	</header>
-<!-- End header -->r -->
+<!-- End header -->
