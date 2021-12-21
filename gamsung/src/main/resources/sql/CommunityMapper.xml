@@ -5,14 +5,13 @@
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="CommunityMapper">
- 	
- 	
+
 	<resultMap id="PostMapper" type="Post">
 		<result property="postTile"    		 column="post_title"       jdbcType="VARCHAR"/>
-		<result property="postNo"	   		 column="post_no" 	       jdbcType="INT" />
+		<result property="postNo"	   		 column="post_no" 	       jdbcType="NUMERIC" />
 		<result property="postContent"       column="post_content"     jdbcType="VARCHAR" />
 		<result property="writer"  			 column="user_id" 	       jdbcType="VARCHAR" />
-		<result property="postType"    		 column="post_type"        jdbcType="INT" />
+		<result property="postType"    		 column="post_type"        jdbcType="NUMERIC" />
 		<result property="postRegdate" 	     column="post_reg_date"    jdbcType="DATETIME" />
 		<result property="video"    		 column="video" 		   jdbcType="VARCHAR"/>
 		<result property="deleteFlag"	     column="delete_flag" 	   jdbcType="CHAR" />
@@ -27,23 +26,46 @@
 		<result property="commentTotalCount" column="" 		jdbcType="NUMERIC" />//게시물댓글총수 -->
 	</resultMap>
 	
-
 	<resultMap id="CommentMapper" type="Comment">
-		<result property="postNo"    	  	 column="post_no" 		   jdbcType="VARCHAR"/>
-		<result property="commentNo"	  	 column="comment_no" 	   jdbcType="VARCHAR" />
-		<result property="commentContent" 	 column="comment_content"  jdbcType="NUMERIC" />
+		<result property="postNo"    	  	 column="post_no" 		   jdbcType="NUMERIC"/>
+		<result property="commentNo"	  	 column="comment_no" 	   jdbcType="NUMERIC" />
+		<result property="commentContent" 	 column="comment_content"  jdbcType="VARCHAR" />
 		<result property="commentWriter"  	 column="user_id" 		   jdbcType="VARCHAR" />
-		<result property="commentRegdate" 	 column="comment_reg_date" jdbcType="VARCHAR" />
+		<result property="commentRegdate" 	 column="comment_reg_date" jdbcType="DATE" />
+	</resultMap>
+	
+	<resultMap id="PostConcernMapper" type="PostConcern">
+		<result property="countNo"    	  	 column="count_no" 		   jdbcType="NUMERIC"/>
+		<result property="concernFlag"	  	 column="concern_flag" 	   jdbcType="VARCHAR" />
+		<result property="userId" 	 		 column="user_id"  		   jdbcType="VARCHAR" />
+		<result property="postNo"  			 column="post_no" 		   jdbcType="NUMERIC" />
 	</resultMap>
 	
 	
 	<!-- SQL : INSERT -->
-   <insert    id="addPost"      parameterType="post" >
+	<!-- 게시글 등록 -->
+    <insert    id="addPost"      parameterType="post" >
       INSERT 
       INTO gamsung.post(user_id,post_type,post_title,post_content,post_Img1,post_Img2,post_Img3,post_hashtag1,post_hashtag2,post_hashtag3,video)
       VALUES    (#{writer}, #{postType}, #{postTile:VARCHAR}, #{postContent:VARCHAR}, #{postImg1:VARCHAR}, #{postImg2:VARCHAR}, #{postImg3:VARCHAR}, #{Hashtag1:VARCHAR}, #{Hashtag2:VARCHAR}, #{Hashtag3:VARCHAR}, #{video:VARCHAR});                                     
     </insert>
  	 
+	<!-- 댓글 등록 -->	 
+    <insert    id="addComment"      parameterType="comment" >
+      INSERT 
+      INTO gamsung.comment(post_no,user_id,comment_content)
+      VALUES    (#{postNo}, #{commentWriter}, #{postContent:VARCHAR});                                      
+    </insert>	 	 
+ 	 
+	<!-- 추천 등록 -->
+    <insert    id="addConcern"      parameterType="hashmap" >
+      INSERT 
+      INTO gamsung.post_concern(user_id, post_no)
+      VALUES    (#{userId}, #{postNo});                                     
+    </insert> 	 
+ 	 
+    <!-- SQL : SELECT --> 	 
+    <!-- 게시글 상세 조회--> 	 
 
 	 <select 	id="getPost"	parameterType="int"	resultMap="PostMapper">
 	  SELECT
@@ -52,34 +74,13 @@
       WHERE post_no = #{value}
 	 </select>
 	 
-
-
-	 <update	id="updatePost"	parameterType="post" >
-	   	<set>
-	   		post_title= #{postTile},
-	   		post_no= #{postNo},
-	   		post_content= #{postContent},
-	   		user_id= #{writer},
-	   		post_type= #{postType}
-	   		post_reg_date=#{postRegdate},
-	   		video= #{video},
-	   		delete_flag= #{deleteFlag},
-	   		post_Img1= #{postImg1}
-	   		post_Img2= #{postImg2},
-	   		post_Img3= #{postImg3},
-	   		post_hashtag1= #{Hashtag1},
-	   		post_hashtag2= #{Hashtag2},
-	   		post_hashtag3= #{Hashtag3}
-	   		concern_flag= #{concernFlag}
-	   	</set>
-	   	WHERE post_no = #{postNo}
-	 </update>
+    <!-- 게시글 List 조회--> 	 
 	 
 	<select  id="listPost"  parameterType="post"	resultMap="PostMapper">
 	SELECT S.* 
 	FROM (SELECT @rownum:=@rownum+1 AS R , P.* 
 		FROM (SELECT * FROM POST
-	  		      WHERE delete_flag = 'N'
+	  		      WHERE delete_flag = 'N' AND post_type = #{postType}
 			      <if test="searchCondition != null">		
 				    <trim prefix="AND">
 						<if test="searchCondition == 0 and searchKeyword !='' "> 
@@ -111,36 +112,97 @@
 				WHERE R BETWEEN #{startRowNum} AND #{endRowNum} 
 	 </select>
 	 
+    <!-- 댓글 list  조회--> 	 
+ 	 
+	<select  id="listComment"  parameterType="int"	resultMap="CommentMapper">
+	SELECT * 
+	FROM comment
+	WHERE delete_flag = 'N' AND post_no= #{postNo}
+	ORDER BY comment_reg_date;
+	 </select>	 
 	 
-<!-- 	 	 위 두번째 subQuery 의  
-	 			WHERE ROWNUM &lt;= #{endRowNum} ) 는
-	 			WHERE ROWNUM <= #{endRowNum} ) 의미이며..
-	 			< 는 keyword 로 &lt; 를	사용.
-	 			
-	 			<![CDATA[  ~~~  ]]> 를 이용하여 아래와 같이 사용  할 수 있다.
-	 			CDATA ==> Character Data 의 의미 Java 에서 \n 같은 특수문자 처리  
+    <!-- SQL : UPDATE --> 	 
+    <!-- 게시물 수정 --> 	 
 
-				WHERE ROWNUM <![CDATA[ <=]]> #{endRowNum} ) -->
-		
+	 <update	id="updatePost"	parameterType="post" >
+	   	<set>
+	   		post_title= #{postTile},
+	   		post_no= #{postNo},
+	   		post_content= #{postContent},
+	   		user_id= #{writer},
+	   		post_type= #{postType}
+	   		post_reg_date=#{postRegdate},
+	   		video= #{video},
+	   		delete_flag= #{deleteFlag},
+	   		post_Img1= #{postImg1}
+	   		post_Img2= #{postImg2},
+	   		post_Img3= #{postImg3},
+	   		post_hashtag1= #{Hashtag1},
+	   		post_hashtag2= #{Hashtag2},
+	   		post_hashtag3= #{Hashtag3}
+	   		concern_flag= #{concernFlag}
+	   	</set>
+	   	WHERE post_no = #{postNo}
+	 </update>
+	 
+    <!-- 게시물 삭제 그에 딸린 댓글들도 delete_flags를 Y 설정해줘야하는가..? --> 	 
+
+	 <update	id="deletePost"	parameterType="int" >
+	   	UPDATE post
+	   	<set>
+	   		delete_flag= 'Y'
+	   	</set>
+	   	WHERE post_no= #{postNo}
+	 </update>
+	 
+	<!-- 댓글 수정  앞단에서 수정버튼을 user만 보이게끔 설정하기때문에 where 조건에는 댓글번호만 가지고 오면된다. -->	 
+	 
+	 <update	id="updateComment"	parameterType="comment" >
+	   	<set>
+	   		comment_content= #{commentContent},
+	   	</set>
+	   	WHERE comment_no = #{commentNo}
+	 </update>	 
+	 
+	<!-- 댓글 삭제 -->
 	
-	SQL : SELECT ROW Count	 
-	 <select  id="getTotalCount"  parameterType="search"	 resultType="int">
-	  	SELECT COUNT(*)
-	  	FROM(	SELECT PROD_NO , PROD_NAME , PRICE ,REG_DATE
-						FROM product
-						<if test="searchCondition != null">
-							<where>
-								<if test="searchCondition == 0 and searchKeyword !='' ">
-							 			Prod_no = #{searchKeyword}
-							    </if>
-							    <if test="searchCondition == 1 and searchKeyword !='' ">
-										Prod_name = #{searchKeyword}
-							    </if>
-								<if test="searchCondition == 2 and searchKeyword !='' ">
-										price = #{searchKeyword}
-								</if>
-							</where>
-						</if> ) countTable						
-	 </select> -->
+	 <update	id="deleteComment"	parameterType="int" >
+	   	UPDATE comment
+	   	<set>
+	   		delete_flag= 'Y'
+	   	</set>
+	   	WHERE comment_no= #{commentNo}
+	 </update>	 
+
+
+   <!-- 추천 해제 table에 postNo값이 등록이 되어있어야 헤재도 된다. -->
+	 <update	id="deleteConcern"	parameterType="hashmap" >
+	   	UPDATE post_concern
+	   	<set>
+	   		concern_flag= 'Y'
+	   	</set>
+	   	WHERE post_no= #{postNo}
+	 </update>	 
+
+   <!-- 총 추천수 -->
+	<select  id="totalConcern"  parameterType="int"	resultType="int">
+	SELECT count(*) 
+	FROM post_concern 
+	WHERE post_no= #{postNo} and concern_flag = 'Y';
+	 </select>	 
+
+   <!-- 총 댓글수-->
+	<select  id="totalComment"  parameterType="int"	resultType="int">
+	SELECT count(*) 
+	FROM comment
+	WHERE post_no= #{postNo} and delete_flag = 'N';
+	 </select>	 
+	 
+	<!-- 추천 여부-->
+	<select  id="ConcernFlag"  parameterType="int"	resultMap="PostConcernMapper">
+	SELECT user_id 
+	FROM post_concern 
+	WHERE post_no= #{postNo} AND concern_flag = 'N';
+	 </select>	 
 	 
 </mapper> 

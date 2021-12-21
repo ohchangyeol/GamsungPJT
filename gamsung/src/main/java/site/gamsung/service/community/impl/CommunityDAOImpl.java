@@ -1,7 +1,7 @@
 package site.gamsung.service.community.impl;
 
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +42,7 @@ public class CommunityDAOImpl implements CommunityDAO {
 	}
 
 	@Override
-	public List<Post> ListPost(Post post) throws Exception {
+	public List<Post>listPost(Post post) throws Exception {
 		return sqlSession.selectList("CommunityMapper.listPost", post);
 	}
 
@@ -82,7 +82,7 @@ public class CommunityDAOImpl implements CommunityDAO {
 	}
 
 
-	public int updateConcern(HashMap<String,Object> Map) throws Exception {
+	public int updateConcern( Map<String,Object> Map) throws Exception {
 		
 		String concernType = (String) Map.get("concernType");// 동작 insert / delete
 		
@@ -93,5 +93,23 @@ public class CommunityDAOImpl implements CommunityDAO {
 		}
 		
 	}
+
+	@Override
+	public int totalConcern(int postNo) throws Exception {
+		return sqlSession.selectOne("CommunityMapper.totalConcern", postNo);
+	}
+
+	@Override
+	public int totalComment(int postNo) throws Exception {
+		return sqlSession.selectOne("CommunityMapper.totalComment", postNo);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }
