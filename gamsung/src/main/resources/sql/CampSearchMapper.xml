@@ -73,8 +73,8 @@
 	<select id="listCamp"  parameterType="search"  resultMap="CampSelectMap">
 		SELECT c.camp_no, c.camp_img1, c.camp_img2, c.camp_img3, c.camp_img4, c.camp_img5, c.camp_reg_date, c.camp_rating, 
 		       c.camp_view_count_previous_month, c.camp_summery, u.camp_name, u.addr, u.camp_call 
-		FROM camp c, mainsite m, subsite s, users u
-		WHERE c.business_user_id = u.user_id and c.camp_no = m.camp_no and c.camp_no = s.camp_no AND c.delete_flag = 'N' 
+		FROM CAMP c, MAINSITE m, SUBSITE s, USERS u
+		WHERE c.user_id = u.user_id and c.camp_no = m.camp_no and c.camp_no = s.camp_no AND c.delete_flag = 'N' 
 			<if test="searchKeyword !=null and searchKeyword !=''">
 	 			AND u.camp_name LIKE CONCAT('%',#{searchKeyword},'%')
 			</if>
@@ -145,8 +145,8 @@
 	<select  id="getTotalCount"  parameterType="search"	 resultType="int">
 	  	SELECT COUNT(*)
 	  	FROM(	SELECT c.camp_no
-					FROM camp c, mainsite m, subsite s, users u
-					WHERE c.business_user_id = u.user_id and c.camp_no = m.camp_no and c.camp_no = s.camp_no AND c.delete_flag = 'N' 
+					FROM CAMP c, MAINSITE m, SUBSITE s, USERS u
+					WHERE c.user_id = u.user_id and c.camp_no = m.camp_no and c.camp_no = s.camp_no AND c.delete_flag = 'N' 
 					<if test="searchKeyword !=null and searchKeyword !=''">
 	 					AND u.camp_name LIKE CONCAT('%',#{searchKeyword},'%')
 					</if>
@@ -204,73 +204,62 @@
 		SELECT c.camp_no, c.camp_summery, c.camp_detail, c.camp_map_img, c.camp_img1, c.camp_img2, c.camp_img3, c.camp_img4, 
 			   c.camp_img5, c.camp_view_count_previous_month, c.camp_reg_date, c.camp_theme1, c.camp_theme2, c.camp_nature1, 
 			   c.camp_nature2, c.camp_operation1, c.camp_operation2, c.camp_rating, u.camp_name, u.addr, u.camp_call
-		FROM camp c, users u
-		WHERE c.business_user_id = u.user_id AND c.camp_no = #{value}
+		FROM CAMP c, USERS u
+		WHERE c.user_id = u.user_id AND c.camp_no = #{value}
 	</select>
 
 	<select id="getMainSite"  parameterType="int"  resultMap="MainSiteSelectMap">
 		SELECT mainsite_no, camp_no, mainsite_type, mainsite_name, mainsite_section, mainsite_size, mainsite_min_capacity, 
 			   mainsite_max_capacity, mainsite_min_price, mainsite_add_price, mainsite_parking_size, mainsite_info, 
 			   mainsite_reg_date, mainsite_img1, mainsite_img2, mainsite_img3
-		FROM mainsite
-		WHERE camp_no = #{value}
+		FROM MAINSITE
+		WHERE camp_no = #{value} AND delete_flag = 'N'
 	</select>
 	
 	<select id="getSubSite"  parameterType="int"  resultMap="SubSiteSelectMap">
 		SELECT subsite_no, camp_no, subsite_type, subsite_reg_date, subsite_name, subsite_info, subsite_img
-		FROM subsite
+		FROM SUBSITE
 		WHERE camp_no = #{value}
 	</select>
 			
 	<update id="updateViewCount" parameterType="int">
-		UPDATE camp
-	   	SET camp_view_count_current_month = (camp_view_count_current_month+1)
+		UPDATE CAMP
+	   	<set>
+	   		camp_view_count_current_month = camp_view_count_current_month+1
+	   	</set>
 	   	WHERE camp_no = #{value}
 	</update>
 	
+	<select id="getTopRatingCamp" resultMap="CampSelectMap">
+		SELECT c.camp_no, c.camp_rating, u.camp_name, u.addr
+		FROM CAMP c, USERS u
+		WHERE c.user_id = u.user_id AND c.delete_flag = 'N'
+		ORDER BY c.camp_rating DESC
+		LIMIT 1
+	</select>
 	
+	<select id="getTopViewCamp" resultMap="CampSelectMap">
+		SELECT c.camp_no, c.camp_view_count_previous_month, u.camp_name, u.addr
+		FROM CAMP c, USERS u
+		WHERE c.user_id = u.user_id AND c.delete_flag = 'N'
+		ORDER BY c.camp_view_count_previous_month DESC
+		LIMIT 1
+	</select>
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	<select id="getTopReservationCamp" resultMap="CampSelectMap">
+		SELECT c.camp_no, c.camp_reservation_count, u.camp_name, u.addr
+		FROM CAMP c, USERS u, CAMP_RESERVATION r
+		WHERE c.user_id = u.user_id AND c.camp_no = r.camp_no AND c.delete_flag = 'N'
+		GROUP BY r.camp_no
+		ORDER BY camp_reservation_count DESC
+		LIMIT 1
+	</select>
 	
 	<select id="getEventCamp"  parameterType="search"  resultMap="CampSelectMap">
 		SELECT c.camp_no, c.camp_img1, c.camp_img2, c.camp_img3, c.camp_img4, c.camp_img5, c.camp_reg_date, c.camp_rating, 
 		       c.camp_view_count_previous_month, c.camp_summery, u.camp_name, u.addr, u.camp_call 
-		FROM camp c, mainsite m, subsite s, users u
-		WHERE c.business_user_id = u.user_id and c.camp_no = m.camp_no and c.camp_no = s.camp_no AND c.delete_flag = 'N' 
+		FROM CAMP c, MAINSITE m, SUBSITE s, USERS u
+		WHERE c.user_id = u.user_id and c.camp_no = m.camp_no and c.camp_no = s.camp_no AND c.delete_flag = 'N' 
 			<if test="campAddr !=null and campAddr.size !=0">
 				AND u.addr IN
 				<foreach collection="campAddr" item="item" index="index" open="(" close=")" separator=",">

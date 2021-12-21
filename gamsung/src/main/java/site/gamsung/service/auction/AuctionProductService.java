@@ -11,4 +11,10 @@ public interface AuctionProductService {
 	
 	public AuctionProduct getAuctionProduct(String auctionProductNo);
 	
+	public AuctionProduct getTempSaveAuctionProduct(String registrantId);
+	
+	public void tempSaveAuctionProduct(AuctionProduct auctionProduct);
+	
+	public void addAuctionProduct(AuctionProduct auctionProduct);
+	
 }

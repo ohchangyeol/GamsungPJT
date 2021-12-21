@@ -11,12 +11,12 @@ public class Search {
 	private String searchKeyword;
 	private String role;
 	private String id;
-	private List campAddr;
-	private List circumstance;
-	private List mainSite;
-	private List subSite;
-	private List theme;
-	private List price;
+	private List<String> campAddr;
+	private List<String> circumstance;
+	private List<String> mainSite;
+	private List<String> subSite;
+	private List<String> theme;
+	private List<String> price;
 	private int currentPage;
 	private int pageSize;
 	private int startRowNum;
@@ -85,51 +85,51 @@ public class Search {
 		this.sortCondition = sortCondition;
 	}
 
-	public List getCampAddr() {
+	public List<String> getCampAddr() {
 		return campAddr;
 	}
 
-	public void setCampAddr(List campAddr) {
+	public void setCampAddr(List<String> campAddr) {
 		this.campAddr = campAddr;
 	}
 
-	public List getCircumstance() {
+	public List<String> getCircumstance() {
 		return circumstance;
 	}
 
-	public void setCircumstance(List circumstance) {
+	public void setCircumstance(List<String> circumstance) {
 		this.circumstance = circumstance;
 	}
 
-	public List getMainSite() {
+	public List<String> getMainSite() {
 		return mainSite;
 	}
 
-	public void setMainSite(List mainSite) {
+	public void setMainSite(List<String> mainSite) {
 		this.mainSite = mainSite;
 	}
 
-	public List getSubSite() {
+	public List<String> getSubSite() {
 		return subSite;
 	}
 
-	public void setSubSite(List subSite) {
+	public void setSubSite(List<String> subSite) {
 		this.subSite = subSite;
 	}
 
-	public List getTheme() {
+	public List<String> getTheme() {
 		return theme;
 	}
 
-	public void setTheme(List theme) {
+	public void setTheme(List<String> theme) {
 		this.theme = theme;
 	}
 
-	public List getPrice() {
+	public List<String> getPrice() {
 		return price;
 	}
 
-	public void setPrice(List price) {
+	public void setPrice(List<String> price) {
 		this.price = price;
 	}
 
@@ -150,12 +150,17 @@ public class Search {
 		return (getCurrentPage()-1)*getPageSize()+1;
 	}
 
+	public void setOffset(int offset) {
+		this.offset = offset;
+	}
+
 	@Override
 	public String toString() {
 		return "Search [searchCondition=" + searchCondition + ", sortCondition=" + sortCondition + ", searchKeyword="
-				+ searchKeyword + ", campAddr=" + campAddr + ", circumstance=" + circumstance + ", mainSite=" + mainSite
-				+ ", subSite=" + subSite + ", theme=" + theme + ", price=" + price + ", currentPage=" + currentPage
-				+ ", pageSize=" + pageSize + ", offset=" + offset + "]";
+				+ searchKeyword + ", role=" + role + ", id=" + id + ", campAddr=" + campAddr + ", circumstance="
+				+ circumstance + ", mainSite=" + mainSite + ", subSite=" + subSite + ", theme=" + theme + ", price="
+				+ price + ", currentPage=" + currentPage + ", pageSize=" + pageSize + ", endRowNum=" + endRowNum
+				+ ", offset=" + offset + ", startRowNum=" + startRowNum + "]";
 	}
 
 }

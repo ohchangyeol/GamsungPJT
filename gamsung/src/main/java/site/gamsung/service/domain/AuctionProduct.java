@@ -6,14 +6,16 @@ import java.util.List;
 public class AuctionProduct {
 	private String auctionProductNo;
 	private String auctionProductName;
-	private String auctionProductDatail;
+	private String auctionProductDatailA;
+	private String auctionProductDatailB;
 	private String registrantId;
 	private String successfulBidderId;
 	private int startBidPrice;
-	private String hopefulBidPrice;
+	private int hopefulBidPrice;
 	private int bidUnit;
 	private String auctionStartTime;
 	private String auctionEndTime;
+	private String remainAuctionTime;
 	private int bidableGrade;
 	private String allhashtag;
 	private String hashtag1;
@@ -38,13 +40,19 @@ public class AuctionProduct {
 	public void setAuctionProductName(String auctionProductName) {
 		this.auctionProductName = auctionProductName;
 	}
-	public String getAuctionProductDatail() {
-		return auctionProductDatail;
+
+	public String getAuctionProductDatailA() {
+		return auctionProductDatailA;
 	}
-	public void setAuctionProductDatail(String auctionProductDatail) {
-		this.auctionProductDatail = auctionProductDatail;
+	public void setAuctionProductDatailA(String auctionProductDatailA) {
+		this.auctionProductDatailA = auctionProductDatailA;
 	}
-	
+	public String getAuctionProductDatailB() {
+		return auctionProductDatailB;
+	}
+	public void setAuctionProductDatailB(String auctionProductDatailB) {
+		this.auctionProductDatailB = auctionProductDatailB;
+	}
 	public String getAuctionProductNo() {
 		return auctionProductNo;
 	}
@@ -70,10 +78,10 @@ public class AuctionProduct {
 	public void setStartBidPrice(int startBidPrice) {
 		this.startBidPrice = startBidPrice;
 	}
-	public String getHopefulBidPrice() {
+	public int getHopefulBidPrice() {
 		return hopefulBidPrice;
 	}
-	public void setHopefulBidPrice(String hopefulBidPrice) {
+	public void setHopefulBidPrice(int hopefulBidPrice) {
 		this.hopefulBidPrice = hopefulBidPrice;
 	}
 	public int getBidUnit() {
@@ -93,6 +101,12 @@ public class AuctionProduct {
 	}
 	public void setAuctionEndTime(String auctionEndTime) {
 		this.auctionEndTime = auctionEndTime;
+	}
+	public String getRemainAuctionTime() {
+		return remainAuctionTime;
+	}
+	public void setRemainAuctionTime(String remainAuctionTime) {
+		this.remainAuctionTime = remainAuctionTime;
 	}
 	public int getBidableGrade() {
 		return bidableGrade;
@@ -196,17 +210,16 @@ public class AuctionProduct {
 	@Override
 	public String toString() {
 		return "AuctionProduct [auctionProductNo=" + auctionProductNo + ", auctionProductName=" + auctionProductName
-				+ ", auctionProductDatail=" + auctionProductDatail + ", registrantId=" + registrantId
-				+ ", successfulBidderId=" + successfulBidderId + ", startBidPrice=" + startBidPrice
-				+ ", hopefulBidPrice=" + hopefulBidPrice + ", bidUnit=" + bidUnit + ", auctionStartTime="
-				+ auctionStartTime + ", auctionEndTime=" + auctionEndTime + ", bidableGrade=" + bidableGrade
+				+ ", auctionProductDatailA=" + auctionProductDatailA + ", auctionProductDatailB="
+				+ auctionProductDatailB + ", registrantId=" + registrantId + ", successfulBidderId="
+				+ successfulBidderId + ", startBidPrice=" + startBidPrice + ", hopefulBidPrice=" + hopefulBidPrice
+				+ ", bidUnit=" + bidUnit + ", auctionStartTime=" + auctionStartTime + ", auctionEndTime="
+				+ auctionEndTime + ", remainAuctionTime=" + remainAuctionTime + ", bidableGrade=" + bidableGrade
 				+ ", allhashtag=" + allhashtag + ", hashtag1=" + hashtag1 + ", hashtag2=" + hashtag2 + ", hashtag3="
 				+ hashtag3 + ", productImg1=" + productImg1 + ", productImg2=" + productImg2 + ", productImg3="
 				+ productImg3 + ", productImg4=" + productImg4 + ", productImg5=" + productImg5 + ", productViewCount="
 				+ productViewCount + ", productRegDate=" + productRegDate + ", auctionStatus=" + auctionStatus
 				+ ", isConfirm=" + isConfirm + ", isTempSave=" + isTempSave + ", isDelete=" + isDelete + "]";
 	}
-	
-	
-	
+		
 }

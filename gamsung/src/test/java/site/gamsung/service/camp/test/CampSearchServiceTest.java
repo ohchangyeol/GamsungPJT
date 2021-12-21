@@ -44,7 +44,7 @@ public class CampSearchServiceTest {
 	int campPageSize;
 	
 	//캠핑장 리스트 :: 간단검색(o), 상세검색(o), 소팅(o), 리미트(o), 토탈카운트(o)
-	//@Test
+	@Test
 	public void testListCamp() throws Exception{
 		
 		Search search = new Search();
@@ -78,8 +78,8 @@ public class CampSearchServiceTest {
 		
 	}
 	
-	//캠핑장 상세검색 :: 캠핑장(O), 주요시설(O), 부가시설(O), 조회수 증가()
-	@Test
+	//캠핑장 상세검색 :: 캠핑장(O), 주요시설(O), 부가시설(O), 조회수 증가(O)
+	//@Test
 	public void testGetCamp() throws Exception{
 		
 		int campNo = 10000;
@@ -94,8 +94,28 @@ public class CampSearchServiceTest {
 		
 		System.out.println("콘솔 확인 : " + mainSiteList);
 		
-		List<SubSite> subSiteList = (List<SubSite>)map.get("subSite");
+		List<SubSite> subSiteList = (List<SubSite>) map.get("subSite");
 		
 		System.out.println("콘솔 확인 : " + subSiteList);
+
+	}
+	
+	//메인화면 :: 조회수(O), 평점(O), 예약수(O) 별 탑 캠핑장 검색.
+	//@Test
+	public void testGetTopCamp() throws Exception{
+		
+		Map<String, Object> map = campSearchService.getTopCamp();
+		
+		Camp topRating = (Camp)map.get("topRating");
+		
+		System.out.println("콘솔 확인 : " + topRating);
+		
+		Camp topView = (Camp)map.get("topView");
+		
+		System.out.println("콘솔 확인 : " + topView);
+		
+		Camp topReservation = (Camp)map.get("topReservation");
+		
+		System.out.println("콘솔 확인 : " + topReservation);
 	}
 }

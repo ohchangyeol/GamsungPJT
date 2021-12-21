@@ -1,5 +1,24 @@
 package site.gamsung.service.camp;
 
-public interface CampReservationService {
+import java.util.List;
+import java.util.Map;
 
+import site.gamsung.service.common.Search;
+import site.gamsung.service.domain.CampReservation;
+import site.gamsung.service.domain.MainSite;
+import site.gamsung.service.domain.Payment;
+import site.gamsung.service.domain.ReservationStatistics;
+
+public interface CampReservationService {
+	
+	public void addReservation(CampReservation campReservation, Payment payment) throws Exception;
+	
+	public List<MainSite> possibleReservationList(Map<String, Object> map) throws Exception;
+	
+	public Map<String, Object> listReservation(Search search, int campNo) throws Exception;
+	
+	public Map<String, Object> listMyReservation(Search search, String id) throws Exception;
+	
+	public ReservationStatistics getReservationStatistics() throws Exception;
+			
 }

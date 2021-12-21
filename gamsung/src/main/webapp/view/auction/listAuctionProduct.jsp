@@ -25,14 +25,20 @@
  
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-
+	
+	<style>
+		.productThumbnails{
+			height : 600px;
+		}
+	</style>
+	
 </head>
 <body id="home" data-spy="scroll" data-target="#navbar-wd" data-offset="98">
 
 	<jsp:include page="../common/header.jsp"></jsp:include>
 	
 	<div id="b-deals" class="services-box main-timeline-box">
-		<div class="container">
+		<div class="container col-lg-9">
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="title-box">
@@ -43,26 +49,32 @@
 			<div>
 				<button id="crawling" class="btn btn-common">상품 크롤링하기!</button>			
 			</div>
-			<div class="row">
+			<div>
+				<button id="addProduct" class="btn btn-common">상품 등록</button>			
+			</div>
 			
+			<div class="row">
 			<c:forEach var="product" items="${list}">
-				<div class="col-lg-3 col-sm-6">
+				<div class="col-lg-3 col-sm-6 productThumbnails">
 					<figure class="effect-service">
 						<div>
-							<img src="/resources/images/d1.png" alt="" />
+							<img src="/uploadfiles/auctionimg/product/${product.productImg1}" width="100%" height="100%"/>
 						</div>
-						<span hidden="">${product.auctionProductNo }</span>
-						<h3>상품명 : ${product.auctionProductName}</h3>
+						<p hidden="">${product.auctionProductNo}</p>
+						<h4>${product.auctionProductName}</h4>
 						<div>조회수 : ${product.productViewCount }</div>
 						<div>경매 시작가 : ${product.startBidPrice }</div>
 						<div>희망 낙찰가 : ${product.hopefulBidPrice }</div>
-						<p></p>
+						<div>경매 잔여 시간 : ${product.remainAuctionTime}</div>
+						<span>${product.hashtag1}&nbsp;${product.hashtag2}&nbsp;${product.hashtag2}</span>
 					</figure>
 				</div>
-			</c:forEach>
+			</c:forEach>			
 			</div>
 			
+			<div id="append"></div>
 		</div>
+		<div class="col-lg-3"></div>
 	</div>	
 	
 	<footer class="footer-box">
@@ -90,30 +102,84 @@
 	<script src="/resources/javascript/smoothscroll.js"></script>
 	
 	<script type="text/javascript">
-		$(function(){
-			$('.effect-service').on('click',function(){
-				const productNo = $(this).children('span').text();
-				window.location.href = '/auction/getAuctionProduct?auctionProductNo='+productNo;
-			});
-			$('#crawling').on("click", function(){
-				alert("크롤링이 시작되었습니다.");
-				$(this).attr('disabled', true);
-				$.ajax( 
-						{
-							url : "/auction/rest/crawling",
-							method : "GET" ,
-							dataType : "json",
-							headers : {
-								"Accept" : "application/json",
-								"Content-Type" : "application/json"
-							},
-							success : function(JSONData , status) {
-								alert(JSONData);
-								$(this).attr('disabled', false);
-							}
-					});
-			});	
+		
+	$(function(){
+		
+		$(document).on('click', '.effect-service', function(){
+			const productNo = $(this).children('p').text();
+			window.location.href = '/auction/getAuctionProduct?auctionProductNo='+productNo;
 		});
+	
+		//크롤링 버튼
+		$('#crawling').on("click", function(){
+			alert("크롤링이 시작되었습니다.");
+			$(this).attr('disabled', true);
+			$.ajax( 
+					{
+						url : "/auction/rest/crawling",
+						method : "GET" ,
+						dataType : "json",
+						headers : {
+							"Accept" : "application/json",
+							"Content-Type" : "application/json"
+						},
+						success : function(JSONData , status) {
+							alert(JSONData.isSuccess);
+							$(this).attr('disabled', false);
+						}
+				});
+		});	
+		
+		//상품 등록 버튼
+		$('#addProduct').on("click", function(){
+			window.location.href = '/auction/addAuctionProduct';
+		});	
+		
+	});
+	
+	var page = 2; 
+	$(window).scroll(function() {
+	    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+	    	$.ajax(
+					{
+						url : "/auction/rest/infiniteScroll/"+page,
+						method : "GET",
+						headers : {
+							"Accept" : "application/json",
+							"Content-Type" : "application/json"
+						},
+						dataType : "json",
+						success : function(JSONData,status){
+							
+						var str = "";
+							for(var i = 0; i<JSONData.length; i++){
+								
+							var stringHtml = 
+									'<div class="col-lg-3 col-sm-6 productThumbnails">'
+									+'<figure class="effect-service">'
+									+	'<div>'
+									+		'<img src="/uploadfiles/auctionimg/product/'+JSONData[i].productImg1+'" width="100%" height="100%"/>'
+									+	'</div>'
+									+	'<p hidden="">'+JSONData[i].auctionProductNo+'</p>'
+									+	'<h4>'+JSONData[i].auctionProductName+'</h4>'
+									+	'<div>조회수 : '+JSONData[i].productViewCount+'</div>'
+									+	'<div>경매 시작가 : '+JSONData[i].startBidPrice+'</div>'
+									+	'<div>희망 낙찰가 : '+JSONData[i].hopefulBidPrice+'</div>'
+									+	'<div>경매 잔여 시간 : '+JSONData[i].remainAuctionTime+'</div>'
+									+	'<span>'+JSONData[i].hashtag1+'&nbsp;'+JSONData[i].hashtag2+'&nbsp;'+JSONData[i].hashtag3+'</span>'
+									+'</figure>'
+									+'</div>';
+							str += stringHtml;
+							}
+							
+							$("#append").append('<div class="row">'+str+'</div>');
+							page += 1;
+						}
+					});
+	    		}
+		});
+		
+		
 	
 	</script>
 </body>

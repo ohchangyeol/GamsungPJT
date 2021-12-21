@@ -35,7 +35,7 @@ public class AuctionProductController {
 		System.out.println(this.getClass());
 	}
 	
-	@RequestMapping(value = "listAuctionProduct", method = RequestMethod.GET)
+	@RequestMapping(value = "listAuctionProduct")
 	public String listAucitonProduct(HttpSession httpSession, Model model, @ModelAttribute("search") Search search) {
 		
 		search.setPageSize(auctionPageSize);
@@ -49,7 +49,7 @@ public class AuctionProductController {
 		
 	}
 	
-	@RequestMapping(value = "getAuctionProduct", method = RequestMethod.GET)
+	@RequestMapping(value = "getAuctionProduct")
 	public String getAuctionProduct(String auctionProductNo, Model model) {
 		
 		AuctionProduct auctionProduct = auctionProductService.getAuctionProduct(auctionProductNo);
@@ -58,16 +58,45 @@ public class AuctionProductController {
 		return "forward:/view/auction/getAuctionProduct.jsp";
 	}
 
-	@RequestMapping(value = "addProduct", method = RequestMethod.GET)
-	public String addAuctionProduct() {
+	@RequestMapping(value = "addAuctionProduct", method = RequestMethod.GET)
+	public String addAuctionProduct(HttpSession session, Model model) {
 		
-		return "forward:view/auction/addAuctionProduct.jsp";
+		AuctionProduct auctionProduct = auctionProductService.getTempSaveAuctionProduct((String)session.getAttribute(""));
+		
+		if(auctionProduct != null) {
+			model.addAttribute("auctionProduct",auctionProduct);
+		}
+		
+		return "forward:/view/auction/addAuctionProduct.jsp";
 	}
 	
-	@RequestMapping(value = "addProduct", method = RequestMethod.POST)
+	@RequestMapping(value = "addAuctionProduct", method = RequestMethod.POST)
 	public String addAuctionProduct(@ModelAttribute("auctionProduct") AuctionProduct auctionProduct) {
+			
+			auctionProductService.addAuctionProduct(auctionProduct);
 		
-		return "forward:view/auction/addAuctionProduct.jsp";
+		return "forward:/view/auction/addAuctionProduct.jsp";
 	}
+	
+	@RequestMapping(value = "previewAuctionProduct", method = RequestMethod.GET)
+	public String previewAuctionProduct() {
+		
+		return "redirect:./listAuctionProduct";
+	}
+	
+	@RequestMapping(value = "previewAuctionProduct", method = RequestMethod.POST)
+	public String previewAuctionProduct(@ModelAttribute("auctionProduct") AuctionProduct auctionProduct) {
+		
+		return "forward:/view/auction/previewAuctionProduct.jsp";
+	}
+	
+	@RequestMapping(value = "tempSaveAuctionProduct")
+	public String tempSaveAuctionProduct(@ModelAttribute("auctionProduct") AuctionProduct auctionProduct) { 
+			
+			auctionProductService.tempSaveAuctionProduct(auctionProduct);
+		
+		return "redirect:./listAuctionProduct";
+	}
+	
 	
 }

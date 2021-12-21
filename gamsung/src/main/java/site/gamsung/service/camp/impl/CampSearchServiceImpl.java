@@ -47,13 +47,14 @@ public class CampSearchServiceImpl implements CampSearchService{
 	@Override
 	public Map<String, Object> getCamp(int campNo) throws Exception{
 		
+		int viewUpdate = campSearchDAO.updateViewCount(campNo);
+		System.out.println("조회수 증가 확인 -> "+viewUpdate);
+		
 		Camp camp = campSearchDAO.getCamp(campNo);
 		List<MainSite> mainSite = campSearchDAO.getMainSite(campNo);
 		List<SubSite> subSite = campSearchDAO.getSubSite(campNo);
-		int viewUpdate = campSearchDAO.updateViewCount(campNo); 		
 		
-		System.out.println("조회수 증가 확인 -> "+viewUpdate);
-		
+				
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("camp", camp);
 		map.put("mainSite", mainSite);
@@ -63,9 +64,18 @@ public class CampSearchServiceImpl implements CampSearchService{
 	}
 
 	@Override
-	public Map<String, Object> getTopCamp() {
+	public Map<String, Object> getTopCamp() throws Exception{
 		
-		return null;
+		Camp topRating = campSearchDAO.getTopRatingCamp();
+		Camp topView = campSearchDAO.getTopViewCamp();
+		Camp topReservation = campSearchDAO.getTopReservationCamp();
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("topRating", topRating);
+		map.put("topView", topView);
+		map.put("topReservation", topReservation);
+		
+		return map;
 	}
 
 }

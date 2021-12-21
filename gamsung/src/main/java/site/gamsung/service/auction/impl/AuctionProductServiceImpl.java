@@ -35,6 +35,26 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 		// TODO Auto-generated method stub
 		return auctionProductDAO.getAuctionProduct(auctionProductNo);
 	}
+
+	@Override
+	public AuctionProduct getTempSaveAuctionProduct(String registrantId) {
+		// TODO Auto-generated method stub
+		return auctionProductDAO.getTempSaveAuctionProduct(registrantId);
+	}
+
+	@Override
+	public void tempSaveAuctionProduct(AuctionProduct auctionProduct) {
+		// TODO Auto-generated method stub
+		auctionProductDAO.tempSaveAuctionProduct(auctionProduct);
+	}
+
+	@Override
+	public void addAuctionProduct(AuctionProduct auctionProduct) {
+		// TODO Auto-generated method stub
+		auctionProductDAO.addAuctionProduct(auctionProduct);
+	}
+	
+	
 	
 	
 

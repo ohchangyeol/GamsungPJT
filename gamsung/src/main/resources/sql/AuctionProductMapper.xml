@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="AuctionProductMapper">
+		<resultMap id="auction" type="auctionProduct">
+		<result property="auctionProductNo" column="product_no"/>
+		<result property="registrantId" column="registrant_id"/>
+		<result property="successfulBidderId" column="successful_bidder_id"/>
+		<result property="auctionProductName" column="product_name"/>
+		<result property="auctionProductDatailA" column="product_detail_a"/>
+		<result property="auctionProductDatailB" column="product_detail_b"/>
+		<result property="startBidPrice" column="start_bid_price"/>
+		<result property="hopefulBidPrice" column="hopeful_bid_price"/>
+		<result property="bidUnit" column="bid_unit"/>
+		<result property="auctionStartTime" column="auction_start_time"/>
+		<result property="auctionEndTime" column="auction_end_time"/>
+		<result property="remainAuctionTime" column="remain_time"/>
+		<result property="bidableGrade" column="bidable_grade"/>
+		<result property="hashtag1" column="hashtag1"/>
+		<result property="hashtag2" column="hashtag2"/>
+		<result property="hashtag3" column="hashtag3"/>
+		<result property="productImg1" column="product_img1"/>
+		<result property="productImg2" column="product_img2"/>
+		<result property="productImg3" column="product_img3"/>
+		<result property="productImg4" column="product_img4"/>
+		<result property="productImg5" column="product_img5"/>
+		<result property="productViewCount" column="product_view_count"/>
+		<result property="productRegDate" column="product_reg_date"/>
+		<result property="isConfirm" column="registrant_confirm_flag"/>
+		<result property="isConfirm" column="successful_bidder_confirm_flag"/>
+		<result property="auctionStatus" column="auction_status"/>
+		<result property="isTempSave" column="temp_save_flag"/>
+		<result property="isDelete" column="delete_flag"/>
+	</resultMap>
+	
+	<resultMap id="bidInfo" type="auctionBidInfo">
+		<result property="bidNo" column="bid_no"/>
+		<result property="auctionProductNo" column="product_no"/>
+		<result property="user.id" column="user_id"/>
+		<result property="user.nickName" column="nick_name"/>
+		<result property="user.auctionGrade" column="auction_grade"/>
+		<result property="bidPrice" column="bid_price"/>
+		<result property="bidDateTime" column="bid_date_time"/>
+		<result property="auctionStatus" column="auction_status"/>
+	</resultMap>
+	
+	<!-- //////////////////////////////////////////////////////AuctionProductDAO Mapper////////////////////////////////////////////////////// -->
+	<select id="listAuctionProduct" parameterType="search" resultMap="auction">
+		SELECT product_no, product_name, product_view_count, start_bid_price, hopeful_bid_price, auction_start_time, auction_end_time,
+               timediff(auction_end_time, now()) AS remain_time, hashtag1, hashtag2, hashtag3, product_img1
+			FROM AUCTION_PRODUCT
+			WHERE temp_save_flag = 'N' AND auction_status = 'START' AND delete_flag = 'N'
+			<if test="searchKeyword != null">
+				AND product_name LIKE CONCAT_WS(#{searchKeyword},'%','%')
+			</if>
+			<trim prefix="ORDER BY">
+				<if test="sortCondition != null ">
+					<if test='sortCondition.equals("희망 낙찰가 높은 순")'>
+						hopeful_bid_price DESC
+					</if>
+					<if test='sortCondition.equals("희망 낙찰가 낮은 순")'>
+						hopeful_bid_price ASC
+					</if>
+					<if test='sortCondition.equals("조회수 높은 순")'>
+						product_view_count DESC
+					</if>
+					<if test='sortCondition.equals("경매 입박 순")'>
+						auction_end_time ASC
+					</if>
+				</if>
+			</trim>
+			LIMIT #{pageSize} OFFSET #{offset}
+	</select>
+	
+	<select id="getTempSaveAuctionProduct" parameterType="String" resultMap="auction">
+		SELECT product_no, product_name, product_detail_a, product_detail_b, start_bid_price, hopeful_bid_price, bid_unit, auction_start_time, auction_end_time,
+		       bidable_grade, hashtag1, hashtag2, hashtag3, product_img1, product_img2, product_img3, product_img4, product_img5, temp_save_flag
+		FROM AUCTION_PRODUCT
+		WHERE registrant_id = #{value} AND temp_save_flag = 'Y';
+	</select>
+	
+	<insert id="tempSaveAuctionProduct" parameterType="auctionProduct">
+		INSERT INTO AUCTION_PRODUCT
+		(registrant_id, product_name, product_detail_a, product_detail_b, start_bid_price, hopeful_bid_price, bid_unit, auction_start_time, auction_end_time, bidable_grade, 
+		 hashtag1, hashtag2, hashtag3, product_img1, product_img2, product_img3, product_img4, product_img5, temp_save_flag) 
+		VALUES (#{registrantId}, #{auctionProductName}, #{auctionProductDatailA}, #{auctionProductDatailB}, #{startBidPrice}, #{hopefulBidPrice}, #{bidUnit}, #{auctionStartTime}, #{auctionEndTime},
+		        #{bidableGrade},#{hashtag1},#{hashtag2},#{hashtag3},#{productImg1}, #{productImg2}, #{productImg3}, #{productImg4}, #{productImg5}, 'Y');
+	</insert>
+	
+	<insert id="addAuctionProduct" parameterType="auctionProduct">
+		UPDATE AUCTION_PRODUCT
+		SET	product_name = #{auctionProductName}, 
+			product_detail_a = #{auctionProductDatailA},
+			product_detail_b = #{auctionProductDatailB},  
+			start_bid_price = #{startBidPrice}, 
+			hopeful_bid_price = #{hopefulBidPrice}, 
+			bid_unit = #{bidUnit}, 
+			auction_start_time = #{auctionStartTime},
+			auction_end_time = #{auctionEndTime}, 
+			bidable_grade = #{bidableGrade}, 
+		 	hashtag1 = #{hashtag1}, 
+		 	hashtag2 = #{hashtag2}, 
+		 	hashtag3 = #{hashtag3}, 
+		 	product_img1 = #{productImg1}, 
+		 	product_img2 = #{productImg2}, 
+		 	product_img3 = #{productImg3}, 
+		 	product_img4 = #{productImg4}, 
+		 	product_img5 = #{productImg5},
+		 	<if test="auctionStatus != null">
+			 	auction_status = #{auctionSatus},
+		 	</if>
+		 	temp_save_flag = 'N'
+		WHERE product_no = #{auctionProductNo} AND registrant_id = #{registrantId};
+	</insert>
+	
+	<select id="getAuctionProduct" parameterType="String" resultMap="auction">
+		SELECT registrant_id, product_no, product_name, product_detail_a, product_detail_b  , start_bid_price , hopeful_bid_price, bid_unit , auction_start_time, auction_end_time, bidable_grade, 
+		 		hashtag1, hashtag2, hashtag3, product_img1, product_img2, product_img3, product_img4, product_img5, product_view_count
+		FROM AUCTION_PRODUCT
+		WHERE product_no = #{value};
+	</select>
+	
+	<update id="updateAuctionProductViewCounter" parameterType="String">
+		UPDATE AUCTION_PRODUCT
+		SET product_view_count = product_view_count + 1
+		WHERE product_no = #{value}
+	</update>
+	
+	<select id="auctionProductBidUserInfo" parameterType="String" resultMap="bidInfo">
+		SELECT user_id, nick_name, auction_grade
+		FROM USERS
+		WHERE user_id = #{value};
+	</select>
+	
+	<update id="updateBidEndTime" parameterType="String">
+		UPDATE AUCTION_PRODUCT
+		SET auction_end_time = DATE_ADD(auction_end_time, INTERVAL 10 SECOND)
+		WHERE product_no = #{value};
+	</update>
+	
+	<insert id="auctionProductBid" parameterType="auctionBidInfo">
+		INSERT INTO AUCTION_HISTORY (product_no, bidder_id, bid_price)
+		VALUES(#{auctionProductNo}, #{user.id}, #{bidPrice})
+	</insert>
+	
+	<select id="addMainAuctionProduct" parameterType="auctionProduct">
+		INSERT INTO MAIN_AUCTION_HISTORY(product_no, main_end_date)
+		VALUES(#{auctionProductNo}, #{auctionEndTime})
+	</select>
+	
+	<select id="listMainAuctionProduct" parameterType="search" resultMap="auction">
+		SELECT ap.product_no, ap.product_name, ap.hopeful_bid_price, timediff(mah.main_end_date,mah.main_start_date) AS remain_time
+		FROM AUCTION_PRODUCT AS ap, MAIN_AUCTION_HISTORY AS mah
+		WHERE ap.product_no = mah.product_no AND timeout_flag = 'N'
+		LIMIT #{pageSize} OFFSET #{offset}
+	</select>
+
+</mapper>

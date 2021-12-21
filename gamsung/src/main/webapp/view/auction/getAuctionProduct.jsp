@@ -26,28 +26,20 @@
 	<div id="contact" class="contact-box" style="background: #f7f7f7;">
 		<div class="container">
 			<div class="row">
-				<div class="col-lg-12">
-					<div class="title-box">
-						<h2>${auctionProduct.auctionProductName}</h2>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				
 				<div class="col-lg-7 col-sm-7 col-xs-12">
 				  <div class="contact-block">
 					<form id="contactForm">
 					  <div class="row">
 						<div class="col-md-12 center">
 							<div class="form-group text-center"> 
-								<img alt="" src="" width="440px" height="440px">
+								<img src="/uploadfiles/auctionimg/product/${auctionProduct.productImg1}" width="440px" height="440px">
 								<div class="help-block with-errors"></div>
 							</div>
 							<div class="submit-button text-center">
-								<img alt="" src="" width="100px" height="100px">
-								<img alt="" src="" width="100px" height="100px">
-								<img alt="" src="" width="100px" height="100px">
-								<img alt="" src="" width="100px" height="100px">
+								<img src="/uploadfiles/auctionimg/product/${auctionProduct.productImg2}" width="100px" height="100px">
+								<img src="/uploadfiles/auctionimg/product/${auctionProduct.productImg3}" width="100px" height="100px">
+								<img src="/uploadfiles/auctionimg/product/${auctionProduct.productImg4}" width="100px" height="100px">
+								<img src="/uploadfiles/auctionimg/product/${auctionProduct.productImg5}" width="100px" height="100px">
 								
 							</div>
 						</div>
@@ -60,33 +52,31 @@
 				<div class="col-lg-5 col-sm-5 col-xs-12">
 					<div class="left-contact">
 						<div class="media cont-line">
-							<div class="media-left icon-b">
-								<i class="fa fa-envelope" aria-hidden="true"></i>
-							</div>
 							<div class="media-body dit-right">
-								<h4>Email</h4>
+								<h4>registrant info</h4>
+								<a href="#">12345 67890</a><br>
+								<a href="#">12345 67890</a>
+							</div>
+						</div>
+						<div class="media cont-line">
+							<div class="media-body dit-right">
+								<h4>product info</h4>
 								<a>ªÛ«∞∏Ì : ${auctionProduct.auctionProductName }</a><br>
 								<a>Ω√¿€∞° : ${auctionProduct.startBidPrice }</a><br>
 								<a>»Ò∏¡ ≥´¬˚∞° : ${auctionProduct.hopefulBidPrice }</a><br>
 								<a>¿‘¬˚ ¥‹¿ß : ${auctionProduct.bidUnit }</a><br>
-								<a>¿‘¬˚ ∞°¥… µÓ±ﬁ : ${auctionProduct.bidableGrade }</a>
-								
-							</div>
-						</div>
-						<div class="media cont-line">
-							<div class="media-left icon-b">
-								<i class="fa fa-volume-control-phone" aria-hidden="true"></i>
-							</div>
-							<div class="media-body dit-right">
-								<h4>Phone Number</h4>
-								<a href="#">12345 67890</a><br>
-								<a href="#">12345 67890</a>
+								<a>¿‘¬˚ ∞°¥… µÓ±ﬁ : ${auctionProduct.bidableGrade }</a>								
 							</div>
 						</div>
 					</div>
 				</div>
 
-
+			</div>
+			<div class="col-lg-5 col-sm-5 col-xs-12">
+				<div class="submit-button text-center">
+					<img src="/uploadfiles/auctionimg/product/${auctionProduct.auctionProductDatailA}" >
+					<img src="/uploadfiles/auctionimg/product/${auctionProduct.auctionProductDatailB}" >		
+				</div>
 			</div>
 		</div>
 	</div>
