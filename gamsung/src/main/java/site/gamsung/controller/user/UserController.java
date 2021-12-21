@@ -1,5 +1,7 @@
 package site.gamsung.controller.user;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -57,6 +59,28 @@ public class UserController {
 		
 		
 		return "forward:/user/getUser.jsp";
+	}
+	
+	@RequestMapping( value="login", method=RequestMethod.GET )
+	public String login() throws Exception{
+		
+		System.out.println("/user/logon : GET");
+
+		return "forward:/view/user/loginView.jsp";
+	}
+	
+	@RequestMapping(value="login", method=RequestMethod.POST)
+	public String login(@ModelAttribute("user") User user, HttpSession session) throws Exception{
+		
+		System.out.println("/user/login : POST");
+		//Business Logic
+		User dbUser=userService.getUser(user.getId());
+		
+		if( user.getPassword().equals(dbUser.getPassword())){
+			session.setAttribute("user", dbUser);
+		}
+		
+		return "redirect:/main.jsp";
 	}
 
 }

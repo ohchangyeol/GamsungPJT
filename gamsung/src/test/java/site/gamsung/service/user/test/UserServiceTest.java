@@ -1,16 +1,17 @@
 package site.gamsung.service.user.test;
 
 import java.util.List;
-import java.util.Map;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import site.gamsung.service.common.Search;
+import site.gamsung.service.domain.MailSend;
 import site.gamsung.service.domain.User;
 import site.gamsung.service.domain.UserWrapper;
 import site.gamsung.service.user.UserService;
@@ -24,6 +25,7 @@ import site.gamsung.service.user.UserService;
 public class UserServiceTest {
 	
 	@Autowired
+	BCryptPasswordEncoder passwordEncoder;
 	@Qualifier("userServiceImpl")
 	private UserService userService;
 
@@ -37,7 +39,7 @@ public class UserServiceTest {
 		user.setPassword("2222");
 		user.setRole("GENERAL");
 		user.setPhone("01022223333");
-		
+				
 		userService.addUser(user);
 		
 		//user=userService.getUser("test1@test.com");
@@ -53,7 +55,7 @@ public class UserServiceTest {
 		System.out.println("########### "+user);
 	}
 	
-	@Test
+	//@Test
 	public void testUpdateUser() throws Exception{
 		
 		User user = userService.getUser("user1@gamsung.com");
@@ -119,6 +121,6 @@ public class UserServiceTest {
 		System.out.println(totalCount);
 	}
 	
-	
+
 
 }
