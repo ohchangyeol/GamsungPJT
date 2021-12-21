@@ -6,7 +6,7 @@
 </head>
 	<header class="top-header">
 		<nav class="navbar header-nav navbar-expand-lg">
-            <div class="container">
+            <div class="container-fluid">
 				<a class="navbar-brand" href="/main.jsp"><img src="/resources/images/°¨¼ºÄ·ÇÎ.png" alt="image" width="100px" height="10	0px"></a>
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-wd" aria-controls="navbar-wd" aria-expanded="false" aria-label="Toggle navigation">
 					<span></span>

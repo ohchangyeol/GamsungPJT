@@ -12,7 +12,7 @@ public interface AuctionProductDAO {
 	
 	public void tempSaveAuctionProduct(AuctionProduct auctionProduct);
 	
-	public AuctionProduct getTempSaveAuctionProduct(String registrant_id);
+	public AuctionProduct getTempSaveAuctionProduct(String registrantId);
 	
 	public void addAuctionProduct(AuctionProduct auctionProduct);
 	

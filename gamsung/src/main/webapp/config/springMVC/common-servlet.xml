@@ -81,6 +81,7 @@
 	   	<mvc:resources mapping="/javascript/**" location="/javascript/" />
 	--> 
     <mvc:resources mapping="/resources/**" location="/resources/" />
+    <mvc:resources mapping="/uploadfiles/**" location="/uploadfiles/" />
 	<!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
    	
 

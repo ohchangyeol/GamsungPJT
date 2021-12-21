@@ -28,7 +28,7 @@
 	
 	<style>
 		.productThumbnails{
-			height : 490px;
+			height : 600px;
 		}
 	</style>
 	
@@ -38,7 +38,7 @@
 	<jsp:include page="../common/header.jsp"></jsp:include>
 	
 	<div id="b-deals" class="services-box main-timeline-box">
-		<div class="container col-lg-10">
+		<div class="container col-lg-9">
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="title-box">
@@ -49,27 +49,30 @@
 			<div>
 				<button id="crawling" class="btn btn-common">상품 크롤링하기!</button>			
 			</div>
-			<div class="row">
+			<div>
+				<button id="addProduct" class="btn btn-common">상품 등록</button>			
+			</div>
 			
+			<div class="row">
 			<c:forEach var="product" items="${list}">
 				<div class="col-lg-3 col-sm-6 productThumbnails">
 					<figure class="effect-service">
 						<div>
-							<img src="${product.productImg1}" width="100%" height="100%"/>
+							<img src="/uploadfiles/auctionimg/product/${product.productImg1}" width="100%" height="100%"/>
 						</div>
-						<span hidden="">${product.auctionProductNo }</span>
+						<p hidden="">${product.auctionProductNo}</p>
 						<h4>${product.auctionProductName}</h4>
 						<div>조회수 : ${product.productViewCount }</div>
 						<div>경매 시작가 : ${product.startBidPrice }</div>
 						<div>희망 낙찰가 : ${product.hopefulBidPrice }</div>
 						<div>경매 잔여 시간 : ${product.remainAuctionTime}</div>
 						<span>${product.hashtag1}&nbsp;${product.hashtag2}&nbsp;${product.hashtag2}</span>
-						<p></p>
 					</figure>
 				</div>
-			</c:forEach>
+			</c:forEach>			
 			</div>
 			
+			<div id="append"></div>
 		</div>
 		<div class="col-lg-3"></div>
 	</div>	
@@ -102,10 +105,8 @@
 		
 	$(function(){
 		
-		
-		
-		$('.effect-service').on('click',function(){
-			const productNo = $(this).children('span').text();
+		$(document).on('click', '.effect-service', function(){
+			const productNo = $(this).children('p').text();
 			window.location.href = '/auction/getAuctionProduct?auctionProductNo='+productNo;
 		});
 	
@@ -129,32 +130,50 @@
 				});
 		});	
 		
+		//상품 등록 버튼
+		$('#addProduct').on("click", function(){
+			window.location.href = '/auction/addAuctionProduct';
+		});	
+		
 	});
 	
-	let page = 0;
-	
+	var page = 2; 
 	$(window).scroll(function() {
-		//console.log($(window).scrollTop());
-		//console.log(e);
 	    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-	    	page += 1;
-	    	console.log(page);
 	    	$.ajax(
 					{
-						url : "/auction/rest/InfiniteScroll",
-						method : "POST",
+						url : "/auction/rest/infiniteScroll/"+page,
+						method : "GET",
 						headers : {
 							"Accept" : "application/json",
 							"Content-Type" : "application/json"
 						},
 						dataType : "json",
-						async : false,
-						data : JSON.stringify({
-							currentPage : page
-						}),
 						success : function(JSONData,status){
-								console.log(JSONData);
+							
+						var str = "";
+							for(var i = 0; i<JSONData.length; i++){
 								
+							var stringHtml = 
+									'<div class="col-lg-3 col-sm-6 productThumbnails">'
+									+'<figure class="effect-service">'
+									+	'<div>'
+									+		'<img src="/uploadfiles/auctionimg/product/'+JSONData[i].productImg1+'" width="100%" height="100%"/>'
+									+	'</div>'
+									+	'<p hidden="">'+JSONData[i].auctionProductNo+'</p>'
+									+	'<h4>'+JSONData[i].auctionProductName+'</h4>'
+									+	'<div>조회수 : '+JSONData[i].productViewCount+'</div>'
+									+	'<div>경매 시작가 : '+JSONData[i].startBidPrice+'</div>'
+									+	'<div>희망 낙찰가 : '+JSONData[i].hopefulBidPrice+'</div>'
+									+	'<div>경매 잔여 시간 : '+JSONData[i].remainAuctionTime+'</div>'
+									+	'<span>'+JSONData[i].hashtag1+'&nbsp;'+JSONData[i].hashtag2+'&nbsp;'+JSONData[i].hashtag3+'</span>'
+									+'</figure>'
+									+'</div>';
+							str += stringHtml;
+							}
+							
+							$("#append").append('<div class="row">'+str+'</div>');
+							page += 1;
 						}
 					});
 	    		}

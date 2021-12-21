@@ -37,9 +37,9 @@ public class AuctionProductDAOImpl implements AuctionProductDAO{
 
 	//임시 저장 상품 호출
 	@Override
-	public AuctionProduct getTempSaveAuctionProduct(String registrant_id) {
+	public AuctionProduct getTempSaveAuctionProduct(String registrantId) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne("AuctionProductMapper.getTempSaveAuctionProduct", registrant_id);
+		return sqlSession.selectOne("AuctionProductMapper.getTempSaveAuctionProduct", registrantId);
 	}
 	
 	//경매 상품 정보 임시 저장
