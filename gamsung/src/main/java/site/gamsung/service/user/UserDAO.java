@@ -10,6 +10,8 @@ public interface UserDAO {
 	//INSERT
 	public void addUser(User user) throws Exception;
 	
+	public void addLoginDate(User user) throws Exception;
+	
 	//SELECT ONE
 	public User getUser(String id) throws Exception;
 	
@@ -22,10 +24,10 @@ public interface UserDAO {
 	//page 처리를 위한 전체 row return
 	public int getTotalCount(Search search) throws Exception;
 	
-	//아이디 중복체크
-	public int checkEmail(String id) throws Exception;
+	//아이디, 닉네임, 휴대폰번호 중복체크
+	public String checkDuplication(User user) throws Exception;
 	
-	//닉네임 중복체크
-	public int checkNickName(String nickName) throws Exception;
-	
+	//회원 이용정지 등록
+//	public void addSuspensionUser(String id, String text) throws Exception;
+		
 }

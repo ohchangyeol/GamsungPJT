@@ -68,10 +68,28 @@ public class UserServiceImpl implements UserService{
 		
 		String text = "[감성캠핑] 인증번호는"+phKey+"입니다.";
 		SendMessage sendMessage = new SendMessage();
-		sendMessage.sendMessage(phone, text);
-		
-		  
+		sendMessage.sendMessage(phone, text);	  
 	}
 
+	@Override
+	public void addLoginDate(User user) throws Exception {
+		
+		userDAO.addLoginDate(user);
+	}
+
+	//update와 같이 쓸 수 있는방법 생각해보기. Controller에서 처리하면 됨
+	@Override
+	public void approvalBusinessUser(User user) throws Exception {
+		userDAO.updateUser(user);
+	}
+
+
+	@Override
+	public String checkDuplication(User user) throws Exception {
+		
+		return userDAO.checkDuplication(user);
+	}
+	
+	
 
 }

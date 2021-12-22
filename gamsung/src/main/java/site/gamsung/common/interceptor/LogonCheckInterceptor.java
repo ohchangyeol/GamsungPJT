@@ -9,17 +9,16 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import site.gamsung.service.domain.User;
 
 
-
 /*
  * FileName : LogonCheckInterceptor.java
- *  �� Controller ȣ���� interceptor �� ���� ��ó��/��ó��/�Ϸ�ó���� ����
- *  	- preHandle() : Controller ȣ���� ��ó��   
- * 			(true return ==> Controller ȣ�� / false return ==> Controller ��ȣ�� ) 
- *  	- postHandle() : Controller ȣ�� �� ��ó��
- *    	- afterCompletion() : view ������ ó��
+ *  ㅇ Controller 호출전 interceptor 를 통해 선처리/후처리/완료처리를 수행
+ *  	- preHandle() : Controller 호출전 선처리   
+ * 			(true return ==> Controller 호출 / false return ==> Controller 미호출 ) 
+ *  	- postHandle() : Controller 호출 후 후처리
+ *    	- afterCompletion() : view 생성후 처리
  *    
- *    ==> �α����� ȸ���̸� Controller ȣ�� : true return
- *    ==> �� �α����� ȸ���̸� Controller �� ȣ�� : false return
+ *    ==> 로그인한 회원이면 Controller 호출 : true return
+ *    ==> 비 로그인한 회원이면 Controller 미 호출 : false return
  */
 public class LogonCheckInterceptor extends HandlerInterceptorAdapter {
 
@@ -37,50 +36,39 @@ public class LogonCheckInterceptor extends HandlerInterceptorAdapter {
 		
 		System.out.println("\n[ LogonCheckInterceptor start........]");
 		
-		//==> �α��� ����Ȯ��
+		//==> 로그인 유무확인
 		HttpSession session = request.getSession(true);
 		User user = (User)session.getAttribute("user");
 
-		//==> �α����� ȸ���̶��...
+		//==> 로그인한 회원이라면...
 		if(   user != null   )  {
-			//==> �α��� ���¿��� ���� �Ұ� URI
+			//==> 로그인 상태에서 접근 불가 URI
 			String uri = request.getRequestURI();
-			
-			/*/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-			if(		uri.indexOf("addUserView") != -1 	|| 	uri.indexOf("addUser") != -1 || 
-					uri.indexOf("loginView") != -1 			||	uri.indexOf("login") != -1 		|| 
-					uri.indexOf("checkDuplication") != -1 ){
-			/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 			
 			if(		uri.indexOf("addUser") != -1 ||	uri.indexOf("login") != -1 		|| 
 					uri.indexOf("checkDuplication") != -1 ){
-				request.getRequestDispatcher("/index.jsp").forward(request, response);
-				System.out.println("[ �α��� ����.. �α��� �� ���ʿ� �� �䱸.... ]");
+				request.getRequestDispatcher("/main.jsp").forward(request, response);
+				System.out.println("[ 로그인 상태.. 로그인 후 불필요 한 요구.... ]");
 				System.out.println("[ LogonCheckInterceptor end........]\n");
 				return false;
 			}
 			
-			System.out.println("[ �α��� ���� ... ]");
+			System.out.println("[ 로그인 상태 ... ]");
 			System.out.println("[ LogonCheckInterceptor end........]\n");
 			return true;
-		}else{ //==> �� �α����� ȭ���̶��...
-			//==> �α��� �õ� ��.....
+		}else{ //==> 미 로그인한 화원이라면...
+			//==> 로그인 시도 중.....
 			String uri = request.getRequestURI();
 			
-			/*/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-			if(		uri.indexOf("addUserView") != -1 	|| 	uri.indexOf("addUser") != -1 || 
-					uri.indexOf("loginView") != -1 			||	uri.indexOf("login") != -1 		|| 
-					uri.indexOf("checkDuplication") != -1 ){
-			/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 			if(		uri.indexOf("addUser") != -1 ||	uri.indexOf("login") != -1 		|| 
 					uri.indexOf("checkDuplication") != -1 ){
-				System.out.println("[ �α� �õ� ���� .... ]");
+				System.out.println("[ 로그 시도 상태 .... ]");
 				System.out.println("[ LogonCheckInterceptor end........]\n");
 				return true;
 			}
 			
-			request.getRequestDispatcher("/index.jsp").forward(request, response);
-			System.out.println("[ �α��� ���� ... ]");
+			request.getRequestDispatcher("/main.jsp").forward(request, response);
+			System.out.println("[ 로그인 이전 ... ]");
 			System.out.println("[ LogonCheckInterceptor end........]\n");
 			return false;
 		}

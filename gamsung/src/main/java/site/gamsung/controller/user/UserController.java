@@ -1,5 +1,10 @@
 package site.gamsung.controller.user;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,27 +81,60 @@ public class UserController {
 		//Business Logic
 		User dbUser=userService.getUser(user.getId());
 		
+		if(dbUser == null) {
+			return "forward:/main.jsp";
+		}
+		
+		System.out.println(dbUser);
+//		System.out.println("1111111111111"+dbUser);
+		LocalDate now = LocalDate.now();
+//		System.out.println("222222222222222222now"+now);
+		String regDate=now.toString();
+		Date currentDate=dbUser.getCurrentLoginRegDate();
+//		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+//		java.sql.Date date = java.sql.Date.valueOf(now);
+		
+		if(dbUser.getRole().equals("ADMIN")) {
+			return "관리자메인.jsp";
+		}else if(dbUser.getDormantConversionDate() != null) {
+			return "휴면회원임.일반으로 전환할건지?.jsp";
+		}else if(dbUser.getSecessionRegDate() != null) {
+			return "탈퇴회원안내.jsp";
+		}else if(dbUser.getSuspensionDate() != null) {
+			return "이용정지된 회원임.jsp";
+		}
+		
+		String jsp ="";
+		
 		if(user.getPassword().equals(dbUser.getPassword())) {
+			System.out.println("로그인 시작");
 			
-			if(user.getDormantConversionDate() != null) {
-				return "휴면회원임.일반으로 전환할건지?.jsp";
-			}else if(user.getSecessionRegDate() != null) {
-				return "탈퇴회원안내.jsp";
-			}else if(user.getSuspensionDate() != null) {
-				return "이용정지된 회원임.jsp";
-			} else {			 
-				if(user.getRole().equals("BUSINESS")) {
-					if(user.getBusinessUserApprovalFlag().equals("Y")) {
-						session.setAttribute("user", dbUser);
-						return "사업자메인.jsp";   
-					}else {
-						return "아직 회원가입 승인안됨.jsp";
-					}
-				  } else {
-					  session.setAttribute("user", dbUser);
-				  }			
+			if(dbUser.getNickName() != null) {
+				jsp = "redirect:/main.jsp";
+			}else if(dbUser.getBusinessUserApprovalFlag() != null && dbUser.getBusinessUserApprovalFlag().equals("Y")) {
+				jsp = "forward:/campbusiness/goSubMainCampBusiness"; 
+		    }else {
+		    	return "아직 회원가입 승인안됨.jsp";
+		    	
 			}
 		}
-			return "redirect:/main.jsp";
+		
+		if(!(currentDate != null && regDate.equals(currentDate.toString()))) {
+			userService.addLoginDate(dbUser);	
+		}
+			
+		session.setAttribute("user", dbUser);
+		return jsp;
+	}
+		
+	@RequestMapping(value="logout", method=RequestMethod.GET)
+	public String logout(HttpSession session) throws Exception{
+		
+		System.out.println("/user/logout : GET");
+		
+		session.invalidate();
+		
+		return "redirect:/main.jsp";
+		
 	}
 }
