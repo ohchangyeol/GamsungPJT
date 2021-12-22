@@ -31,7 +31,7 @@
 		 <typeAlias alias="siteProfit" type="site.gamsung.service.domain.SiteProfit" />
 		 <typeAlias alias="auctionProduct" type="site.gamsung.service.domain.AuctionProduct" />
 		 <typeAlias alias="auctionBidInfo" type="site.gamsung.service.domain.AuctionBidInfo" />
-		 <typeAlias alias="auctionList" type="site.gamsung.service.domain.AuctionList" />
+		 <typeAlias alias="auctionIntergration" type="site.gamsung.service.domain.AuctionIntergration" />
 		 <typeAlias alias="notice" type="site.gamsung.service.domain.Notice" />
 		 <typeAlias alias="campReservation" type="site.gamsung.service.domain.CampReservation" />
 		<!--  <typeAlias alias="reservationStatistics" type="site.gamsung.service.domain.ReservationStatistics" /> -->

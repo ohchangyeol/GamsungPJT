@@ -38,7 +38,8 @@ public class AuctionRestController {
 	@Value("#{commonProperties['auctionPageSize']}")
 	int auctionPageSize;
 	
-	private static final String PATH= "D:\\Git\\git\\GamsungPJT\\GamsungPJT\\gamsung\\src\\main\\webapp\\uploadfiles\\auctionimg\\product\\";
+	@Value("#{commonProperties['path']}")
+	private String PATH;
 	
 	
 	@RequestMapping("crawling")

@@ -4,7 +4,6 @@ package site.gamsung.service.auction.test;
 
 import java.util.List;
 
-import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -14,7 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import site.gamsung.service.auction.AuctionUserInfoDAO;
 import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.AuctionBidInfo;
-import site.gamsung.service.domain.AuctionList;
+import site.gamsung.service.domain.AuctionIntergration;
 import site.gamsung.service.domain.AuctionProduct;
 import site.gamsung.service.domain.User;
 
@@ -49,7 +48,7 @@ public class AuctionUserInfoDAOTest {
 		search.setOffset(10);
 		search.setPageSize(10);
 		
-		AuctionList auctionList = new AuctionList();
+		AuctionIntergration auctionList = new AuctionIntergration();
 		auctionList.setStringData("user1@gamsung.com");
 		auctionList.setSearch(search);
 		List<AuctionBidInfo> list = auctionUserInfoDAO.listBidConcern(auctionList);
@@ -73,7 +72,7 @@ public class AuctionUserInfoDAOTest {
 		search.setPageSize(10);
 		search.setOffset(10);
 		
-		AuctionList auctionList = new AuctionList();
+		AuctionIntergration auctionList = new AuctionIntergration();
 		auctionList.setUser(user);
 		auctionList.setSearch(search);
 		
@@ -86,7 +85,7 @@ public class AuctionUserInfoDAOTest {
 	}
 	
 	//상품 입찰 내역 출력 test
-	@Test
+	//@Test
 	public void testAuctionHistory() {
 		
 		User user = new User();
@@ -100,18 +99,68 @@ public class AuctionUserInfoDAOTest {
 		AuctionBidInfo auctionBidInfo = new AuctionBidInfo();
 		auctionBidInfo.setAuctionProductNo("PROD00001");
 		
-		AuctionList auctionList = new AuctionList();
+		AuctionIntergration auctionList = new AuctionIntergration();
 		auctionList.setUser(user);
 		auctionList.setSearch(search);
 		auctionList.setAuctionBidInfo(auctionBidInfo);
 		
-		List<AuctionBidInfo> list = auctionUserInfoDAO.AuctionHistory(auctionList);
+		List<AuctionBidInfo> list = auctionUserInfoDAO.auctionHistory(auctionList);
 		
 		for(AuctionBidInfo bidInfo : list) {
 			System.out.println(bidInfo);
+		}	
+	}
+	
+	// 경매에 관련된 횟수 role에 따라 구분 test
+	//@Test
+	public void testAuctionStatusTotalCount() {
+		
+		User user = new User();
+		user.setId("user1@gamsung.com");
+		user.setRole("GENERAL");
+//		user.setRole("ADMIN");
+		
+		AuctionBidInfo auctionBidInfo = auctionUserInfoDAO.auctionStatusTotalCount(user);
+		System.out.println(auctionBidInfo);
+	}
+
+	//user 경매 등급 출력 test
+	//@Test
+	public void getUserAuctionGradeInfo() {
+		
+		int userGrade = auctionUserInfoDAO.getUserAuctionGradeInfo("user1@gamsung.com");
+		
+		if(userGrade != 0) {
+			System.out.println(userGrade); 
+		}else {			
+			System.out.println("사용자 정보 없음");
 		}
 		
+		
 	}
+	
+	//user 경매 등급 업데이트 test
+	//@Test
+	public void updateUserAuctionGrade() {
+		
+		User user = new User();
+		user.setId("user1@gamsung.com");
+		user.setAuctionGrade(12);
+		
+		auctionUserInfoDAO.updateUserAuctionGrade(user);
+		
+	}
+	
+	// 탈퇴회원 경매 상태 test
+	//@Test
+	public void testIsSecessionUserAuctionCondition() {
+		
+		System.out.println(auctionUserInfoDAO.isSecessionUserAuctionCondition("user1@gamsung.com")); 
+		
+	}
+	
+	
+	
 	
 }
 	
