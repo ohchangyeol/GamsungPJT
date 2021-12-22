@@ -30,8 +30,8 @@ public class CampReservationDAOImpl implements CampReservationDAO {
 	}
 
 	@Override
-	public List<MainSite> possibleReservationList(Map<String, Object> map) throws Exception {
-		return sqlSession.selectList("CampReservationMapper.possibleReservationList", map);
+	public List<MainSite> listPossibleReservation(Map<String, Object> map) throws Exception {
+		return sqlSession.selectList("CampReservationMapper.listPossibleReservation", map);
 	}
 
 	@Override
@@ -40,8 +40,8 @@ public class CampReservationDAOImpl implements CampReservationDAO {
 	}
 	
 	@Override
-	public int updateMainSiteReservationDate(CampReservation campReservation) throws Exception {
-		return sqlSession.update("CampReservationMapper.updateMainSiteReservationDate", campReservation);
+	public int updateMainSiteReservation(CampReservation campReservation) throws Exception {
+		return sqlSession.update("CampReservationMapper.updateMainSiteReservation", campReservation);
 	}
 
 	@Override
@@ -105,6 +105,11 @@ public class CampReservationDAOImpl implements CampReservationDAO {
 	@Override
 	public CampReservation getReservation(String reservationNo) throws Exception {
 		return sqlSession.selectOne("CampReservationMapper.getReservation", reservationNo);
+	}
+
+	@Override
+	public int updateReservation(CampReservation campReservation) throws Exception {
+		return sqlSession.selectOne("CampReservationMapper.updateReservation", campReservation);
 	}
 
 }

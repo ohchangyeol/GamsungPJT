@@ -12,7 +12,7 @@ public interface CampReservationService {
 	
 	public void addReservation(CampReservation campReservation) throws Exception;
 	
-	public List<MainSite> possibleReservationList(Map<String, Object> map) throws Exception;
+	public List<MainSite> listPossibleReservation(Map<String, Object> map) throws Exception;
 	
 	public Map<String, Object> listReservation(Search search, int campNo) throws Exception;
 	
@@ -27,5 +27,7 @@ public interface CampReservationService {
 	public Map<String, Object> listCampReservationStatisticsByMonth(Search search) throws Exception;
 	
 	public CampReservation getReservation(String reservationNo) throws Exception;
+	
+	public void updateReservation(CampReservation campReservation) throws Exception;
 			
 }

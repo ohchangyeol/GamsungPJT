@@ -70,13 +70,13 @@
 		<result property="beforeYearYearCount" 				column="BYYCOUNT" 		  jdbcType="NUMERIC"/>
 	</resultMap>
 	
-	<select id="possibleReservationList" parameterType="map" resultMap="mainSiteSelectMap">
+	<select id="listPossibleReservation" parameterType="map" resultMap="mainSiteSelectMap">
 		<![CDATA[
 		SELECT mainsite_info, mainsite_min_capacity, mainsite_max_capacity, mainsite_no, mainsite_parking_size, mainsite_min_price, 
 			   mainsite_add_price, mainsite_name, mainsite_img1, mainsite_img2, mainsite_img3, mainsite_section, mainsite_size, 
-			   mainsite_type, mainsite_reg_date
+			   mainsite_type, mainsite_reg_date, mainsite_reservation_start, mainsite_reservation_end
 		FROM MAINSITE
-		WHERE camp_no =#{campNo} AND mainsite_reservation_end > #{startDate} AND delete_flag = 'N'
+		WHERE camp_no =#{campNo} AND #{startDate} >= mainsite_reservation_end  AND delete_flag = 'N'
 		]]>
 	</select>
 
@@ -89,20 +89,44 @@
 				#{reservationRequest:VARCHAR}, #{totalPaymentPrice}, #{totalReservationRegCar:NUMERIC}, #{paymentType});
 	</insert>
 
-	<update id="updateMainSiteReservationDate" parameterType="campReservation">
+	<update id="updateReservation" parameterType="campReservation">
+		UPDATE CAMP_RESERVATION 
+		<set>
+			reservation_status = #{reservationStatus}, 
+			reservation_user_name = #{reservationUserName}, 
+			reservation_start_date = #{reservationStartDate}, 
+			reservation_end_date = #{reservationEndDate}, 
+			use_num = #{useNum}, 
+			reservation_user_phone = #{reservationUserPhone}, 
+			reservation_reg_car_num = #{reservationRegCarNum:VARCHAR}, 
+			reservation_request = #{reservationRequest:VARCHAR}, 
+			total_payment_price = #{totalPaymentPrice}, 
+			total_reservation_reg_car = #{totalReservationRegCar:NUMERIC}
+		</set>
+		WHERE reservation_no = #{reservationNo}
+	</update>
+	
+	<update id="updateMainSiteReservation" parameterType="campReservation">
 		UPDATE MAINSITE
 		<set>
-			mainsite_reservation_start = #{reservationStartDate},
-			mainsite_reservation_end = #{reservationEndDate}
+			<if test="deleteFlag != null">
+				<if test='deleteFlag.equals("Y")'>
+				mainsite_reservation_user_name = null, 
+				mainsite_reservation_start = null, 
+				mainsite_reservation_end = null
+				</if>
+			</if>
+			<if test = "deleteFlag == null">
+				mainsite_reservation_user_name = #{reservationUserName},
+				mainsite_reservation_start = #{reservationStartDate},
+				mainsite_reservation_end = #{reservationEndDate}
+			</if>		
 		</set> 
+			mainsite_reservation_user_name = null, 
+			mainsite_reservation_start = null, 
+			mainsite_reservation_end = null
 		WHERE camp_no = #{camp.campNo}
 	</update>
-
-	<select id="getReservationStatus" parameterType="String" resultMap="CampReservationSelectMap">
-		SELECT reservation_status
-		FROM CAMP_RESERVATION
-		WHERE user_id = #{value} AND reservation_status IN (1, 2, 3, 4)
-	</select>
 	
 	<select id="listReservation" parameterType="map" resultMap="CampReservationSelectMap">
 		SELECT r.reservation_no, u.camp_name, m.mainsite_type, r.reservation_status, r.reservation_reg_date, r.reservation_start_date, 
@@ -168,6 +192,20 @@
 			    	AND m.mainsite_type LIKE CONCAT('%',#{search.searchKeyword},'%')
 			 	</if>
 			 </if> ) countTable
+	</select>
+	
+	<select id="getReservation" parameterType="String" resultMap="CampReservationSelectMap">
+		SELECT r.reservation_no, r.camp_no, r.mainsite_no, r.reservation_status, r.reservation_reg_date, r.reservation_user_name, r.reservation_start_date, 
+			   r.reservation_end_date, r.use_num, r.reservation_user_phone, r.reservation_reg_car_num, r.reservation_request, r.total_payment_price, 
+			   r.total_reservation_reg_car, r.delete_flag, r.payment_type, u.camp_name, u.camp_call, m.mainsite_type
+		FROM CAMP_RESERVATION r, USERS u, MAINSITE m, CAMP c
+		WHERE r.camp_no = c.camp_no AND c.user_id = u.user_id AND r.mainsite_no = m.mainsite_no AND r.reservation_no =  #{value};
+	</select>
+
+	<select id="getReservationStatus" parameterType="String" resultMap="CampReservationSelectMap">
+		SELECT reservation_status
+		FROM CAMP_RESERVATION
+		WHERE user_id = #{value} AND reservation_status IN (1, 2, 3, 4)
 	</select>
 	
 	<select id="totalReservationStatistics" resultMap="reservationStatisticsSelectMap" >
@@ -320,14 +358,5 @@
 				</if>
 			  GROUP BY DATE, u.user_id) countTable
 	</select>
-	
-	<select id="getReservation" parameterType="String" resultMap="CampReservationSelectMap">
-		SELECT r.reservation_no, r.camp_no, r.mainsite_no, r.reservation_status, r.reservation_reg_date, r.reservation_user_name, r.reservation_start_date, 
-			   r.reservation_end_date, r.use_num, r.reservation_user_phone, r.reservation_reg_car_num, r.reservation_request, r.total_payment_price, 
-			   r.total_reservation_reg_car, r.delete_flag, r.payment_type, u.camp_name, u.camp_call, m.mainsite_type
-		FROM CAMP_RESERVATION r, USERS u, MAINSITE m, CAMP c
-		WHERE r.camp_no = c.camp_no AND c.user_id = u.user_id AND r.mainsite_no = m.mainsite_no AND r.reservation_no =  #{value};
-	</select>
-	
 	
 </mapper>

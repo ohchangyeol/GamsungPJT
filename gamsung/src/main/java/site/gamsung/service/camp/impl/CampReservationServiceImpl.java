@@ -36,14 +36,14 @@ public class CampReservationServiceImpl implements CampReservationService {
 	}
 
 	@Override
-	public List<MainSite> possibleReservationList(Map<String, Object> map) throws Exception {
-		return campReservationDAO.possibleReservationList(map);
+	public List<MainSite> listPossibleReservation(Map<String, Object> map) throws Exception {
+		return campReservationDAO.listPossibleReservation(map);
 	}
 
 	@Override
 	public void addReservation(CampReservation campReservation) throws Exception {
 		campReservationDAO.addReservation(campReservation);
-		campReservationDAO.updateMainSiteReservationDate(campReservation);
+		campReservationDAO.updateMainSiteReservation(campReservation);
 	}
 
 	@Override
@@ -128,6 +128,26 @@ public class CampReservationServiceImpl implements CampReservationService {
 	public CampReservation getReservation(String reservationNo) throws Exception {
 		return campReservationDAO.getReservation(reservationNo);
 	}
-	
-	
+
+	@Override
+	public void updateReservation(CampReservation campReservation) throws Exception {
+		
+		CampReservation currentCampReservation = campReservationDAO.getReservation(campReservation.getReservationNo());
+		
+		if(currentCampReservation.getReservationStartDate() != campReservation.getReservationStartDate()
+				|| currentCampReservation.getReservationEndDate() != campReservation.getReservationEndDate()
+					|| currentCampReservation.getReservationUserName() != campReservation.getReservationUserName()) {
+			
+			if(currentCampReservation.getMainSite().getMainSiteNo() != campReservation.getMainSite().getMainSiteNo()) {
+				currentCampReservation.setDeleteFlag("Y");
+				campReservationDAO.updateMainSiteReservation(currentCampReservation);
+				campReservationDAO.updateMainSiteReservation(campReservation);
+			}else {
+				campReservationDAO.updateMainSiteReservation(campReservation);
+			}
+		}
+		
+		campReservationDAO.updateReservation(campReservation);
+		
+	}
 }

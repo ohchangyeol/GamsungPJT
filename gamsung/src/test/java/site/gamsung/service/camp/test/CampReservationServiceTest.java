@@ -46,15 +46,15 @@ public class CampReservationServiceTest {
 	int campPageSize;
 	
 	//캠핑장 예약 가능한 주요시설 리스트(O)
-	//@Test
+	@Test
 	public void testPossibleReservationList() throws Exception{
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		map.put("campNo", 10004);
-		map.put("startDate", "2021-12-20");
+		map.put("startDate", "2021-12-25");
 		
-		List<MainSite> list = (List<MainSite>)campReservationService.possibleReservationList(map);
+		List<MainSite> list = (List<MainSite>)campReservationService.listPossibleReservation(map);
 		
 		System.out.println(list);
 		
@@ -192,7 +192,7 @@ public class CampReservationServiceTest {
 	}
 	
 	//예약 정보()
-	@Test
+	//@Test
 	public void testgetReservation() throws Exception{
 		
 		String reservationNo = "R00001";

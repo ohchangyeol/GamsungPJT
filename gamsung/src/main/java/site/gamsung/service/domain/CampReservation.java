@@ -12,7 +12,7 @@ public class CampReservation {
 	private String reservationNo;
 	//(1.예약완료 2.예약변경 3.양도대기 4.취소대기) : 전, (5.양도완료 6.취소완료 7.이용완료) : 후
 	private int reservationStatus;
-	private boolean deleteFlag;
+	private String deleteFlag;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date reservationRegDate;
 	private String reservationUserName;
@@ -80,11 +80,11 @@ public class CampReservation {
 		this.reservationStatus = reservationStatus;
 	}
 
-	public boolean isDeleteFlag() {
+	public String isDeleteFlag() {
 		return deleteFlag;
 	}
 
-	public void setDeleteFlag(boolean deleteFlag) {
+	public void setDeleteFlag(String deleteFlag) {
 		this.deleteFlag = deleteFlag;
 	}
 
