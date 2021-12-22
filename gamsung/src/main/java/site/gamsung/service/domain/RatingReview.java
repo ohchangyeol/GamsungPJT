@@ -49,7 +49,7 @@ public class RatingReview {
 	}
 
 	public void setID(String id) {
-		id = id;
+		this.id = id;
 	}
 
 	public int getRatingReviewNo() {
@@ -180,26 +180,15 @@ public class RatingReview {
 		this.commentDeleteFlag = commentDeleteFlag;
 	}
 
+	@Override
 	public String toString() {
-		return "\n RatingReview -> "
-			+ "[camp] : " + camp
-			+ ",[product] : " + auctionProduct
-			+ ",[ID] : " + id
-			+ ",[ratingReviewNo] : " + ratingReviewNo				
-			+ ",[ratingReviewStatus] : " + ratingReviewStatus
-			+ ",[ratingReviewTitle] : " + ratingReviewTitle 
-			+ ",[ratingReviewContent] : " + ratingReviewContent 
-			+ ",[reviewRegDate] : " + reviewRegDate 
-			+ ",[comment] : " + comment 
-			+ ",[commentRegDate] : " + commentRegDate 
-			+ ",[statusRating] : " + statusRating 
-			+ ",[priceRating] : " + priceRating 
-			+ ",[kindnessRating] : " + kindnessRating
-			+ ",[avgRating] :" + avgRating
-			+ ",[img1] : " + img1
-			+ ",[img2] : " + img2
-			+ ",[img3] : " + img3
-			+ ",[reviewDeleteFlag] : " + reviewDeleteFlag
-			+ ",[commentDeleteFlag] : " + commentDeleteFlag;
+		return "RatingReview [camp=" + camp + ", auctionProduct=" + auctionProduct + ", id=" + id + ", ratingReviewNo="
+				+ ratingReviewNo + ", ratingReviewStatus=" + ratingReviewStatus + ", ratingReviewTitle="
+				+ ratingReviewTitle + ", ratingReviewContent=" + ratingReviewContent + ", reviewRegDate="
+				+ reviewRegDate + ", comment=" + comment + ", commentRegDate=" + commentRegDate + ", statusRating="
+				+ statusRating + ", priceRating=" + priceRating + ", kindnessRating=" + kindnessRating + ", avgRating="
+				+ avgRating + ", img1=" + img1 + ", img2=" + img2 + ", img3=" + img3 + ", reviewDeleteFlag="
+				+ reviewDeleteFlag + ", commentDeleteFlag=" + commentDeleteFlag + "]\n";
 	}
+
 }
