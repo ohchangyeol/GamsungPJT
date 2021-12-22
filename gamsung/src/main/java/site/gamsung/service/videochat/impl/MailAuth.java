@@ -1,4 +1,4 @@
-package site.gamsung.service.domain;
+package site.gamsung.service.videochat.impl;
 
 import javax.mail.Authenticator;
 import javax.mail.PasswordAuthentication;

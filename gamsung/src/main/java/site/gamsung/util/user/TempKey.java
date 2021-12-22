@@ -1,4 +1,4 @@
-package site.gamsung.service.domain;
+package site.gamsung.util.user;
 
 public class TempKey {
 
