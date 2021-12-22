@@ -76,11 +76,27 @@ public class UserController {
 		//Business Logic
 		User dbUser=userService.getUser(user.getId());
 		
-		if( user.getPassword().equals(dbUser.getPassword())){
-			session.setAttribute("user", dbUser);
+		if(user.getPassword().equals(dbUser.getPassword())) {
+			
+			if(user.getDormantConversionDate() != null) {
+				return "휴면회원임.일반으로 전환할건지?.jsp";
+			}else if(user.getSecessionRegDate() != null) {
+				return "탈퇴회원안내.jsp";
+			}else if(user.getSuspensionDate() != null) {
+				return "이용정지된 회원임.jsp";
+			} else {			 
+				if(user.getRole().equals("BUSINESS")) {
+					if(user.getBusinessUserApprovalFlag().equals("Y")) {
+						session.setAttribute("user", dbUser);
+						return "사업자메인.jsp";   
+					}else {
+						return "아직 회원가입 승인안됨.jsp";
+					}
+				  } else {
+					  session.setAttribute("user", dbUser);
+				  }			
+			}
 		}
-		
-		return "redirect:/main.jsp";
+			return "redirect:/main.jsp";
 	}
-
 }

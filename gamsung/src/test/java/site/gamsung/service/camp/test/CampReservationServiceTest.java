@@ -18,6 +18,7 @@ import site.gamsung.service.domain.Camp;
 import site.gamsung.service.domain.CampReservation;
 import site.gamsung.service.domain.MainSite;
 import site.gamsung.service.domain.Payment;
+import site.gamsung.service.domain.ReservationStatistics;
 //import site.gamsung.service.domain.ReservationStatistics;
 import site.gamsung.service.domain.User;
 
@@ -91,7 +92,7 @@ public class CampReservationServiceTest {
 		campReservation.setTotalReservationRegCar(2);
 		campReservation.setPaymentType(3);
 		
-		campReservationService.addReservation(campReservation, payment);
+		campReservationService.addReservation(campReservation);
 		
 	}
 	
@@ -119,10 +120,95 @@ public class CampReservationServiceTest {
 		
 	}
 	
+
 	//캠핑장 예약 통계 :: 일, 주, 월, 년, 전년일, 전년주, 전년월, 전년(O)
 //	@Test
 //	public void testReservationStatistics() throws Exception{
 //		ReservationStatistics reservationStatistics = campReservationService.getReservationStatistics();
 //		System.out.println("콘솔 확인 : " + reservationStatistics);
 //	}
+
+	//캠핑장 예약 통계 :: 총, 일, 주, 월, 년, 전년일, 전년주, 전년월, 전년(O)
+	//@Test
+	public void testReservationStatistics() throws Exception{
+		ReservationStatistics reservationStatistics = campReservationService.getReservationStatistics();
+		System.out.println("콘솔 확인 : " + reservationStatistics);
+	}
+	
+	//캠핑장 별 일일 예약자수(O)
+	//@Test
+	public void testListCampReservationStatisticsByDay() throws Exception{
+		
+		Search search = new Search();
+		search.setCurrentPage(1);
+		search.setPageSize(campPageSize);
+		search.setSearchKeyword("오감");
+		search.setSortCondition("예약자 수 많은 순");
+		
+		Map<String, Object> map = campReservationService.listCampReservationStatisticsByDay(search);
+		
+		List<ReservationStatistics> listCampReservationByDay = (List<ReservationStatistics>)map.get("listCampReservationByDay");
+		
+		System.out.println("콘솔 확인 : " + listCampReservationByDay);
+		
+		Integer totalCampReservationCountByDay = (Integer)map.get("totalCampReservationCountByDay");
+		
+		System.out.println("콘솔 확인 : " + totalCampReservationCountByDay);
+	}
+	
+	//캠핑장 별 주간 예약자수(O)
+	//@Test
+	public void testListCampReservationStatisticsByWeek() throws Exception{
+		
+		Search search = new Search();
+		search.setCurrentPage(1);
+		search.setPageSize(campPageSize);
+		search.setSearchKeyword("오감");
+		search.setSortCondition("예약자 수 많은 순");
+		
+		Map<String, Object> map = campReservationService.listCampReservationStatisticsByWeek(search);
+		
+		List<ReservationStatistics> listCampReservationByWeek = (List<ReservationStatistics>)map.get("listCampReservationByWeek");
+		
+		System.out.println("콘솔 확인 : " + listCampReservationByWeek);
+		
+		Integer totalCampReservationCountByWeek = (Integer)map.get("totalCampReservationCountByWeek");
+		
+		System.out.println("콘솔 확인 : " + totalCampReservationCountByWeek);
+		
+	}
+	
+	//캠핑장 별 월간 예약자수(O)
+	//@Test
+	public void testListCampReservationStatisticsByMonth() throws Exception{
+		
+		Search search = new Search();
+		search.setCurrentPage(1);
+		search.setPageSize(campPageSize);
+		search.setSearchKeyword("오감");
+		search.setSortCondition("예약자 수 많은 순");
+		
+		Map<String, Object> map = campReservationService.listCampReservationStatisticsByMonth(search);
+		
+		List<ReservationStatistics> listCampReservationByMonth = (List<ReservationStatistics>)map.get("listCampReservationByMonth");
+		
+		System.out.println("콘솔 확인 : " + listCampReservationByMonth);
+		
+		Integer totalCampReservationCountByMonth = (Integer)map.get("totalCampReservationCountByMonth");
+		
+		System.out.println("콘솔 확인 : " + totalCampReservationCountByMonth);
+		
+	}
+	
+	//예약 정보()
+	@Test
+	public void testgetReservation() throws Exception{
+		
+		String reservationNo = "R00001";
+		CampReservation campReservation = campReservationService.getReservation(reservationNo);
+		
+		System.out.println("콘솔 확인 : " + campReservation);
+		
+	}
+
 }

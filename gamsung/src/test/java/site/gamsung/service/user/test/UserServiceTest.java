@@ -11,10 +11,10 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import site.gamsung.service.common.Search;
-import site.gamsung.service.domain.MailSend;
 import site.gamsung.service.domain.User;
 import site.gamsung.service.domain.UserWrapper;
 import site.gamsung.service.user.UserService;
+import site.gamsung.util.user.SendMail;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)

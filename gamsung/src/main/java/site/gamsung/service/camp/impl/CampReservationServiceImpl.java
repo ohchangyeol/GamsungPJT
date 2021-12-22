@@ -13,8 +13,9 @@ import site.gamsung.service.common.Search;
 import site.gamsung.service.camp.CampReservationDAO;
 import site.gamsung.service.domain.CampReservation;
 import site.gamsung.service.domain.MainSite;
+
 import site.gamsung.service.domain.Payment;
-//import site.gamsung.service.domain.ReservationStatistics;
+import site.gamsung.service.domain.ReservationStatistics;
 import site.gamsung.service.payment.PaymentDAO;
 
 @Service("campReservationServiceImpl")
@@ -45,9 +46,8 @@ public class CampReservationServiceImpl implements CampReservationService {
 	}
 
 	@Override
-	public void addReservation(CampReservation campReservation, Payment payment) throws Exception {
+	public void addReservation(CampReservation campReservation) throws Exception {
 		campReservationDAO.addReservation(campReservation);
-		//paymentDAO.addMakePayment(payment);
 		campReservationDAO.updateMainSiteReservationDate(campReservation);
 	}
 
@@ -85,10 +85,52 @@ public class CampReservationServiceImpl implements CampReservationService {
 		return responseMap;
 	}
 
-//	@Override
-//	public ReservationStatistics getReservationStatistics() throws Exception {
-//		return campReservationDAO.getReservationStatistics();
-//	}
-//	
+	@Override
+	public ReservationStatistics getReservationStatistics() throws Exception {
+		return campReservationDAO.getReservationStatistics();
+	}
+
+	@Override
+	public Map<String, Object> listCampReservationStatisticsByDay(Search search) throws Exception {
+		
+		List<ReservationStatistics> listCampReservationByDay = campReservationDAO.campReservationStatisticsByDay(search);
+		int totalCampReservationCountByDay = campReservationDAO.getTotalCampReservationCountByDay(search);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("listCampReservationByDay", listCampReservationByDay);
+		map.put("totalCampReservationCountByDay", totalCampReservationCountByDay);
+		
+		return map;
+	}
 	
+	@Override
+	public Map<String, Object> listCampReservationStatisticsByWeek(Search search) throws Exception {
+		
+		List<ReservationStatistics> listCampReservationByWeek = campReservationDAO.campReservationStatisticsByWeek(search);
+		int totalCampReservationCountByWeek = campReservationDAO.getTotalCampReservationCountByWeek(search);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("listCampReservationByWeek", listCampReservationByWeek);
+		map.put("totalCampReservationCountByWeek", totalCampReservationCountByWeek);
+		
+		return map;
+	}
+	
+	@Override
+	public Map<String, Object> listCampReservationStatisticsByMonth(Search search) throws Exception {
+		
+		List<ReservationStatistics> listCampReservationByMonth = campReservationDAO.campReservationStatisticsByMonth(search);
+		int totalCampReservationCountByMonth = campReservationDAO.getTotalCampReservationCountByMonth(search);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("listCampReservationByMonth", listCampReservationByMonth);
+		map.put("totalCampReservationCountByMonth", totalCampReservationCountByMonth);
+		
+		return map;
+	}
+
+	@Override
+	public CampReservation getReservation(String reservationNo) throws Exception {
+		return campReservationDAO.getReservation(reservationNo);
+	}	
 }

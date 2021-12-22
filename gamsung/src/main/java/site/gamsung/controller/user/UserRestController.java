@@ -1,5 +1,7 @@
 package site.gamsung.controller.user;
 
+import java.util.Random;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import site.gamsung.service.domain.TempKey;
 import site.gamsung.service.user.UserService;
+import site.gamsung.util.user.TempKey;
 
 @RestController
 @RequestMapping("/user/*")
@@ -32,9 +34,29 @@ public class UserRestController {
 		TempKey tmp = new TempKey();
 		String key=tmp.generateKey(6);
 			
-		session.setAttribute("id", key);
+		session.setAttribute(id, key);
 		
 		userService.sendEmailAuthNum(id, key);
 
+	}
+	
+	@RequestMapping(value="sendPhoneAuthNum", method=RequestMethod.POST)
+	public void sendPhoneAuthNum(@RequestParam("phone") String phone, HttpSession session) throws Exception{
+		
+		Random rand  = new Random();
+        
+        String numStr = "";
+        
+        for(int i=0; i<4; i++) {
+        	
+            String num = Integer.toString(rand.nextInt(10));
+            
+            numStr += num;
+        }	  
+        
+        session.setAttribute(phone, numStr);
+        
+        userService.sendPhoneAuthNum(phone, numStr);
+		
 	}
 }

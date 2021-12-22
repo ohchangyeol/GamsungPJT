@@ -1,4 +1,4 @@
-package site.gamsung.service.domain;
+package site.gamsung.util.user;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
@@ -13,9 +13,11 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-public class MailSend {
+import site.gamsung.service.videochat.impl.MailAuth;
+
+public class SendMail {
 	
-	public void mailSend(String id, String key) {
+	public void mailSend(String id, String key, String info, String text) {
 
 		Properties prop = System.getProperties();
 		
@@ -55,12 +57,11 @@ public class MailSend {
 			msg.setRecipient(Message.RecipientType.TO, to);
 			
             // 메일의 제목 지정
-			msg.setSubject("인증번호 입니다.", "UTF-8");
+			msg.setSubject(info, "UTF-8");
 			
             // Transport는 메일을 최종적으로 보내는 클래스로 메일을 보내는 부분이다.
-			
-			
-			msg.setText(key);
+						
+			msg.setText(text);
 
 			Transport.send(msg);
 
