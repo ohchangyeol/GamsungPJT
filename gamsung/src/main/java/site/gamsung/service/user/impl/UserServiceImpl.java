@@ -1,18 +1,16 @@
 package site.gamsung.service.user.impl;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import site.gamsung.service.common.Search;
-import site.gamsung.service.domain.MailSend;
-import site.gamsung.service.domain.TempKey;
 import site.gamsung.service.domain.User;
 import site.gamsung.service.domain.UserWrapper;
 import site.gamsung.service.user.UserDAO;
 import site.gamsung.service.user.UserService;
+import site.gamsung.util.user.SendMail;
+import site.gamsung.util.user.SendMessage;
 
 @Service("userServiceImpl")
 public class UserServiceImpl implements UserService{
@@ -58,12 +56,22 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public void sendEmailAuthNum(String id, String key) throws Exception {
 				
-		MailSend mailSend = new MailSend();
-		mailSend.mailSend(id, key);
+		String info = "인증번호 발송";
+		String text = "인증번호는"+key+"입니다.";
+		SendMail mailSend = new SendMail();
+		mailSend.mailSend(id, key, info, text);
 	
 	}
 
+	@Override
+	public void sendPhoneAuthNum(String phone, String phKey) throws Exception {
+		
+		String text = "[감성캠핑] 인증번호는"+phKey+"입니다.";
+		SendMessage sendMessage = new SendMessage();
+		sendMessage.sendMessage(phone, text);
+		
+		  
+	}
 
-	
 
 }

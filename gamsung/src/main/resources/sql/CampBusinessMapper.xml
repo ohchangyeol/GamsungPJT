@@ -6,12 +6,12 @@
 
 <mapper namespace="CampBusinessMapper"> 	
  		
-	<resultMap id="CampSelectMap" type="camp">
+	<resultMap id="campSelectMap" type="camp">
 		<result property="campNo" 						column="camp_no" 		  					jdbcType="NUMERIC"/>
 		<result property="user.id"						column="user_id" 		  					jdbcType="VARCHAR"/>
 		<result property="campTempSave" 				column="tempsave_flag" 	  					jdbcType="CHAR"/>
 		<result property="deleteFlag" 					column="delete_flag"  						jdbcType="CHAR"/>
-		<result property="campSummery" 					column="camp_summery" 			  			jdbcType="NUMERIC"/>
+		<result property="campSummery" 					column="camp_summery" 			  			jdbcType="VARCHAR"/>
 		<result property="campDetail" 					column="camp_detail" 	  					jdbcType="VARCHAR"/>
 		<result property="campMapImg" 					column="camp_map_img" 					 	jdbcType="VARCHAR"/>
 		<result property="campImg1" 					column="camp_img1" 							jdbcType="VARCHAR"/>
@@ -56,7 +56,6 @@
 		<result property="mainSiteImg1" 					column="mainsite_img1" 						jdbcType="VARCHAR"/>
 		<result property="mainSiteImg2" 					column="mainsite_img2" 						jdbcType="VARCHAR"/>
 		<result property="mainSiteImg3" 					column="mainsite_img3" 						jdbcType="VARCHAR"/>
-		<result property="campName" 						column="camp_name" 							jdbcType="VARCHAR"/>		
 	</resultMap>
 	
 	<resultMap id="subSiteSelectMap" type="subSite">
@@ -70,23 +69,145 @@
 		<result property="campName" 			column="camp_name" 				jdbcType="VARCHAR"/>
 	</resultMap>
 	
+	<!-- SQL : TotalCount ################################################################################################################### -->
 	
-	<!-- SQL : INSERT -->
+	<select  id="getTotalCount"  parameterType="search"	 resultType="int">
+	  	SELECT COUNT(*)
+	  	FROM(	SELECT	c.camp_no, c.delete_flag, c.camp_reg_date, u.user_id, u.camp_name, u.camp_call, u.addr,   
+						c.camp_view_count_previous_month, c.camp_view_count_current_month, c.camp_reservation_count, c.camp_rating	
+				
+				FROM CAMP c, USERS u
+				WHERE c.user_id = u.user_id 
+				ORDER BY camp_no ) countTable						
+	</select>
+	
+	
+	<!-- SQL : Camp ################################################################################################################### -->
+
+	<insert id="addCamp"	parameterType="camp" >	
+		INSERT 
+		INTO CAMP ( user_id, tempsave_flag, camp_summery, camp_detail, camp_reg_date,
+					camp_map_img, camp_img1, camp_img2, camp_img3, camp_img4, camp_img5, 
+					camp_theme1, camp_theme2, camp_nature1, camp_nature2, camp_operation1, camp_operation2)			
+		VALUES	 ( #{user.id:VARCHAR}
+					, #{campTempSave :CHAR}
+					, #{campSummery :VARCHAR}
+					, #{campDetail :VARCHAR}
+					, #{campRegDate :DATE}
+					, #{campMapImg :VARCHAR}
+					, #{campImg1 :VARCHAR}
+					, #{campImg2 :VARCHAR}
+					, #{campImg3 :VARCHAR}
+					, #{campImg4 :VARCHAR}
+					, #{campImg5 :VARCHAR}
+					, #{campTheme1 :VARCHAR}
+					, #{campTheme2 :VARCHAR}
+					, #{campNature1 :VARCHAR}
+					, #{campNature2 :VARCHAR}
+					, #{campOperation1 :VARCHAR}
+					, #{campOperation2 :VARCHAR} )
+	</insert>
+
+	<select id="getCamp"	parameterType="int"	resultMap="campSelectMap">
+		SELECT 	*
+		FROM CAMP
+		WHERE camp_no = #{value}
+	</select>
+	
+	<select  id="listCamp"  parameterType="search"	resultMap="campSelectMap">
+	  	SELECT c.camp_no, c.delete_flag, c.camp_reg_date, u.user_id, u.camp_name, u.camp_call, u.addr,   
+				c.camp_view_count_previous_month, c.camp_view_count_current_month, c.camp_reservation_count, c.camp_rating						  		
+		FROM CAMP c, USERS u
+		WHERE c.user_id = u.user_id 
+		ORDER BY camp_no 
+		LIMIT 10 OFFSET 0;			
+	</select>
+	
+	<update	id="deleteCamp"	parameterType="int" >
+	   	UPDATE CAMP
+	   	SET delete_flag = 'T'
+	   	WHERE camp_no = #{value}
+	</update>
+	
+	
+	
+	
+	<!-- SQL : MainSite ################################################################################################################### -->
+	
+	<insert id="addMainSite"	parameterType="mainSite" >	
+		INSERT 
+		INTO MAINSITE ( camp_no, mainsite_type, mainsite_name, mainsite_section, mainsite_size, 
+						mainsite_min_capacity, mainsite_max_capacity, mainsite_min_price, mainsite_add_price, mainsite_parking_size, 
+						mainsite_info, mainsite_reg_date, mainsite_img1, mainsite_img2, mainsite_img3 )	
+		VALUES	 ( #{campNo :NUMERIC}
+					, #{mainSiteType :VARCHAR}
+					, #{mainSiteName :VARCHAR}
+					, #{mainSiteSection :VARCHAR}
+					, #{mainSiteSize :VARCHAR}
+					, #{mainSiteMinCapacity :NUMERIC}
+					, #{mainSiteMaxCapacity :NUMERIC}
+					, #{mainSiteMinPrice :NUMERIC}
+					, #{mainSiteAddPrice :NUMERIC}
+					, #{mainSiteParkingSize :NUMERIC}
+					, #{mainSiteInfo :VARCHAR}
+					, #{mainSiteRegDate :DATE}
+					, #{mainSiteImg1 :VARCHAR}
+					, #{mainSiteImg2 :VARCHAR}
+					, #{mainSiteImg3 :VARCHAR} )
+	</insert>
+
+	<select id="getMainSite"	parameterType="int"	resultMap="mainSiteSelectMap">
+		SELECT 	*
+		FROM MAINSITE
+		WHERE mainsite_no = #{value}
+	</select>
+	
+	<select  id="listMainSite"  parameterType="search"	resultMap="mainSiteSelectMap">
+	  	SELECT  delete_flag, camp_no, mainsite_no, mainsite_type, mainsite_name, mainsite_section,  
+	  			mainsite_reservation_start, mainsite_reservation_end, mainsite_reservation_user_name					  		
+		FROM MAINSITE
+		ORDER BY mainsite_no 
+		LIMIT 10 OFFSET 0;			
+	</select>
+	
+	<update	id="deleteMainSite"	parameterType="int" >
+	   	UPDATE MAINSITE
+	   	SET	delete_flag = 'T'
+	   	WHERE mainsite_no = #{value}
+	</update>
+	
+	
+	
+	
+	<!-- SQL : SubSite ################################################################################################################### -->
+
 	<insert id="addSubSite"	parameterType="subSite" >	
 		INSERT 
-		INTO subsite (camp_no, subsite_type, subsite_reg_date, subsite_name, subsite_info)
+		INTO SUBSITE (camp_no, subsite_type, subsite_reg_date, subsite_name, subsite_info)
 		VALUES	 (	#{campNo:NUMERIC} 
-					, #{subSiteType:VARCHAR} 
-					, #{subSiteRegDate:DATE} 
-					, #{subSiteName:VARCHAR} 
-					, #{subSiteInfo:VARCHAR} )
+					, #{subSiteType :VARCHAR} 
+					, #{subSiteRegDate :DATE} 
+					, #{subSiteName :VARCHAR} 
+					, #{subSiteInfo :VARCHAR} )
 	</insert>
 
 	<select id="getSubSite"	parameterType="int"	resultMap="subSiteSelectMap">
 		SELECT 	*
-		FROM subsite
+		FROM SUBSITE
 		WHERE subsite_no = #{value}
 	</select>
+	
+	<select  id="listSubSite"  parameterType="search"	resultMap="subSiteSelectMap">
+	  	SELECT  camp_no, subsite_no,  subsite_name, subsite_type					  		
+		FROM SUBSITE
+		ORDER BY subsite_no 
+		LIMIT 10 OFFSET 0;			
+	</select>
+	
+	<delete id="deleteSubSite" parameterType="int">
+        DELETE FROM SUBSITE 
+        WHERE subsite_no = #{value}
+    </delete>
 	
 	
 	
