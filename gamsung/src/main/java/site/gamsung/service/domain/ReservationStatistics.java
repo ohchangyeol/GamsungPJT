@@ -2,6 +2,12 @@ package site.gamsung.service.domain;
 
 public class ReservationStatistics {
 
+	private String campID;
+	private String campName;
+	private String date;
+	private String start;
+	private String end;
+	private int totalCount;
 	private int dayCount;
 	private int weekCount;
 	private int monthCount;
@@ -13,6 +19,54 @@ public class ReservationStatistics {
 	
 	public ReservationStatistics() {
 		
+	}
+
+	public String getCampID() {
+		return campID;
+	}
+
+	public void setCampID(String campID) {
+		this.campID = campID;
+	}
+
+	public String getCampName() {
+		return campName;
+	}
+
+	public void setCampName(String campName) {
+		this.campName = campName;
+	}
+
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
+	}
+
+	public String getStart() {
+		return start;
+	}
+
+	public void setStart(String start) {
+		this.start = start;
+	}
+
+	public String getEnd() {
+		return end;
+	}
+
+	public void setEnd(String end) {
+		this.end = end;
+	}
+
+	public int getTotalCount() {
+		return totalCount;
+	}
+
+	public void setTotalCount(int totalCount) {
+		this.totalCount = totalCount;
 	}
 
 	public int getDayCount() {
@@ -81,10 +135,11 @@ public class ReservationStatistics {
 
 	@Override
 	public String toString() {
-		return "ReservationStatistics [dayCount=" + dayCount + ", weekCount=" + weekCount + ", monthCount=" + monthCount
-				+ ", yearCount=" + yearCount + ", beforeYearDayCount=" + beforeYearDayCount + ", beforeYearWeekCount="
-				+ beforeYearWeekCount + ", beforeYearMonthCount=" + beforeYearMonthCount + ", beforeYearYearCount="
-				+ beforeYearYearCount + "]\n";
+		return "ReservationStatistics [campID=" + campID + ", campName=" + campName + ", date=" + date + ", start="
+				+ start + ", end=" + end + ", totalCount=" + totalCount + ", dayCount=" + dayCount + ", weekCount="
+				+ weekCount + ", monthCount=" + monthCount + ", yearCount=" + yearCount + ", beforeYearDayCount="
+				+ beforeYearDayCount + ", beforeYearWeekCount=" + beforeYearWeekCount + ", beforeYearMonthCount="
+				+ beforeYearMonthCount + ", beforeYearYearCount=" + beforeYearYearCount + "]\n";
 	}
 	
 }
