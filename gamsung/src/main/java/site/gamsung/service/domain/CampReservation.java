@@ -176,24 +176,16 @@ public class CampReservation {
 		this.paymentType = paymentType;
 	}
 
+	@Override
 	public String toString() {
-		return "\n CampReservation -> "
-			+ "[camp] : " + camp
-			+ ",[User] : " + user
-			+ ",[mainUnit] : " + mainSite
-			+ ",[reservationNo] : " + reservationNo
-			+ ",[reservationStatus] : " + reservationStatus 
-			+ ",[deleteFlag] : " + deleteFlag 
-			+ ",[reservationRegDate] : " + reservationRegDate 
-			+ ",[reservationUserName] : " + reservationUserName 
-			+ ",[reservationStartDate] : " + reservationStartDate 
-			+ ",[reservationEndDate] : " + reservationEndDate 
-			+ ",[useNum] : " + useNum 
-			+ ",[reservationUserPhone] : " + reservationUserPhone
-			+ ",[reservationRegCarNum] :" + reservationRegCarNum
-			+ ",[reservationRequest] : " + reservationRequest
-			+ ",[totalPaymentPrice] : " + totalPaymentPrice
-			+ ",[totalReservationRegCar] : " + totalReservationRegCar
-			+ ",[paymentType] : " + paymentType;
-	}	
+		return "CampReservation [camp=" + camp + ", user=" + user + ", mainSite=" + mainSite + ", reservationNo="
+				+ reservationNo + ", reservationStatus=" + reservationStatus + ", deleteFlag=" + deleteFlag
+				+ ", reservationRegDate=" + reservationRegDate + ", reservationUserName=" + reservationUserName
+				+ ", reservationStartDate=" + reservationStartDate + ", reservationEndDate=" + reservationEndDate
+				+ ", useNum=" + useNum + ", reservationUserPhone=" + reservationUserPhone + ", reservationRegCarNum="
+				+ reservationRegCarNum + ", reservationRequest=" + reservationRequest + ", totalPaymentPrice="
+				+ totalPaymentPrice + ", totalReservationRegCar=" + totalReservationRegCar + ", paymentType="
+				+ paymentType + "]\n";
+	}
+
 }
