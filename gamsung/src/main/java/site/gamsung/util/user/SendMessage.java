@@ -18,7 +18,6 @@ public class SendMessage {
 		    Message coolsms = new Message(api_key, api_secret);
 
 		    // 4 params(to, from, type, text) are mandatory. must be filled
-		    TempPassword auth = new TempPassword();
 		    HashMap<String, String> params = new HashMap<String, String>();
 			params.put("to", phone);
 			params.put("from", "01045152520");

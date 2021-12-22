@@ -6,11 +6,13 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import site.gamsung.service.domain.User;
 import site.gamsung.service.user.UserService;
 import site.gamsung.util.user.TempKey;
 
@@ -57,6 +59,14 @@ public class UserRestController {
         session.setAttribute(phone, numStr);
         
         userService.sendPhoneAuthNum(phone, numStr);
+	}
+	
+	@RequestMapping(value="checkDuplication", method=RequestMethod.POST)
+	public void checkDuplication(@RequestBody User user) throws Exception{
+		
+		userService.checkDuplication(user);
 		
 	}
+	
+	
 }

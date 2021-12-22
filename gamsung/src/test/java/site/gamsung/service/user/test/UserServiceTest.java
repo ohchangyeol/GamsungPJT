@@ -25,7 +25,7 @@ import site.gamsung.util.user.SendMail;
 public class UserServiceTest {
 	
 	@Autowired
-	BCryptPasswordEncoder passwordEncoder;
+//	BCryptPasswordEncoder passwordEncoder;
 	@Qualifier("userServiceImpl")
 	private UserService userService;
 
@@ -120,6 +120,13 @@ public class UserServiceTest {
 		System.out.println(totalCount);
 	}
 	
-
-
+	@Test
+	public void testCheckDuplication() throws Exception{
+		
+		User user = new User();
+		user.setId("user1@gamsung.com");
+		System.out.println(user);
+		userService.checkDuplication(user);
+	}
+	
 }
