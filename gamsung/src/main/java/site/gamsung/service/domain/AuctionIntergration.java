@@ -2,7 +2,7 @@ package site.gamsung.service.domain;
 
 import site.gamsung.service.common.Search;
 
-public class AuctionList {
+public class AuctionIntergration {
 
 	private String stringData;
 	private User user;
@@ -10,7 +10,7 @@ public class AuctionList {
 	private AuctionProduct auctionProduct;
 	private Search search;
 	
-	public AuctionList() {
+	public AuctionIntergration() {
 		// TODO Auto-generated constructor stub
 	}
 

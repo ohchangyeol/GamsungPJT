@@ -3,6 +3,7 @@ package site.gamsung.service.auction;
 import java.util.List;
 
 import site.gamsung.service.common.Search;
+import site.gamsung.service.domain.AuctionBidInfo;
 import site.gamsung.service.domain.AuctionProduct;
 
 public interface AuctionProductService {
@@ -17,4 +18,11 @@ public interface AuctionProductService {
 	
 	public void addAuctionProduct(AuctionProduct auctionProduct);
 	
+	public String auctionProductBid(AuctionBidInfo auctionBidInfo);
+	
+	public void updateAuctionProductCondition(AuctionBidInfo auctionBidInfo); 
+	
+	public String addMainAuctionProduct(AuctionProduct auctionProduct);
+	
+	public List<AuctionProduct> listMainAuctionProduct();
 }

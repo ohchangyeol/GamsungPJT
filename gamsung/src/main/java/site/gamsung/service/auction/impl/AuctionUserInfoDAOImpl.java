@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import site.gamsung.service.auction.AuctionUserInfoDAO;
 import site.gamsung.service.domain.AuctionBidInfo;
-import site.gamsung.service.domain.AuctionList;
+import site.gamsung.service.domain.AuctionIntergration;
 import site.gamsung.service.domain.AuctionProduct;
 import site.gamsung.service.domain.User;
 
@@ -28,24 +28,54 @@ public class AuctionUserInfoDAOImpl implements AuctionUserInfoDAO{
 	}
 
 	@Override
-	public List<AuctionBidInfo> listBidConcern(AuctionList auctionList) {
+	public List<AuctionBidInfo> listBidConcern(AuctionIntergration auctionIntergration) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList("AuctionUserInfoMapper.listBidConcern",auctionList);
+		return sqlSession.selectList("AuctionUserInfoMapper.listBidConcern",auctionIntergration);
 
 	}
 
 	@Override
-	public List<AuctionProduct> listAuctionProductByRole(AuctionList auctionList) {
+	public List<AuctionProduct> listAuctionProductByRole(AuctionIntergration auctionIntergration) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList("AuctionUserInfoMapper.listAuctionProductByRole",auctionList);
+		return sqlSession.selectList("AuctionUserInfoMapper.listAuctionProductByRole",auctionIntergration);
 	}
 
 	@Override
-	public List<AuctionBidInfo> AuctionHistory(AuctionList auctionList) {
+	public List<AuctionBidInfo> auctionHistory(AuctionIntergration auctionIntergration) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList("AuctionUserInfoMapper.AuctionHistory", auctionList);
+		return sqlSession.selectList("AuctionUserInfoMapper.AuctionHistory", auctionIntergration);
 	}
-	
+
+	@Override
+	public AuctionBidInfo auctionStatusTotalCount(User user) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("AuctionUserInfoMapper.auctionStatusTotalCount",user);
+	}
+
+	@Override
+	public int getUserAuctionGradeInfo(String userId) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("AuctionUserInfoMapper.getUserAuctionGradeInfo",userId);
+	}
+
+	@Override
+	public void updateUserAuctionGrade(User user) {
+		// TODO Auto-generated method stub
+		sqlSession.update("AuctionUserInfoMapper.updateUserAuctionGrade",user);
+	}
+
+	@Override
+	public boolean isSecessionUserAuctionCondition(String userId) {
+		// TODO Auto-generated method stub
+		
+		List<AuctionProduct> list = sqlSession.selectList("AuctionUserInfoMapper.isSecessionUserAuctionCondition", userId);
+		
+		if(list == null) {
+			return true;
+		}
+		
+		return false;
+	}
 	
 
 }

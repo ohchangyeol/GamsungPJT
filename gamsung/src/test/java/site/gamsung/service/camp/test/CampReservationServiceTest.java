@@ -19,6 +19,7 @@ import site.gamsung.service.domain.CampReservation;
 import site.gamsung.service.domain.MainSite;
 import site.gamsung.service.domain.Payment;
 import site.gamsung.service.domain.ReservationStatistics;
+//import site.gamsung.service.domain.ReservationStatistics;
 import site.gamsung.service.domain.User;
 
 /*
@@ -119,6 +120,14 @@ public class CampReservationServiceTest {
 		
 	}
 	
+
+	//캠핑장 예약 통계 :: 일, 주, 월, 년, 전년일, 전년주, 전년월, 전년(O)
+//	@Test
+//	public void testReservationStatistics() throws Exception{
+//		ReservationStatistics reservationStatistics = campReservationService.getReservationStatistics();
+//		System.out.println("콘솔 확인 : " + reservationStatistics);
+//	}
+
 	//캠핑장 예약 통계 :: 총, 일, 주, 월, 년, 전년일, 전년주, 전년월, 전년(O)
 	//@Test
 	public void testReservationStatistics() throws Exception{
@@ -201,4 +210,5 @@ public class CampReservationServiceTest {
 		System.out.println("콘솔 확인 : " + campReservation);
 		
 	}
+
 }

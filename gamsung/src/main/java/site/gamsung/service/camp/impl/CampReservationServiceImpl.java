@@ -13,14 +13,18 @@ import site.gamsung.service.common.Search;
 import site.gamsung.service.camp.CampReservationDAO;
 import site.gamsung.service.domain.CampReservation;
 import site.gamsung.service.domain.MainSite;
+
 import site.gamsung.service.domain.ReservationStatistics;
 import site.gamsung.service.payment.PaymentDAO;
 
 @Service("campReservationServiceImpl")
 public class CampReservationServiceImpl implements CampReservationService {
 
-	@Autowired
-	@Qualifier("campReservationDAOImpl")
+	/*
+	 * @Autowired
+	 * 
+	 * @Qualifier("campReservationDAOImpl")
+	 */
 	private CampReservationDAO campReservationDAO;
 	
 	@Autowired
@@ -150,4 +154,5 @@ public class CampReservationServiceImpl implements CampReservationService {
 		campReservationDAO.updateReservation(campReservation);
 		
 	}
+
 }

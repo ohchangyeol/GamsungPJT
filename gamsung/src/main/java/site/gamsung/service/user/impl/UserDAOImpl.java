@@ -57,15 +57,15 @@ public class UserDAOImpl implements UserDAO{
 	}
 
 	@Override
-	public int checkEmail(String id) throws Exception {
+	public String checkDuplication(User user) throws Exception {
 		
-		return sqlSession.selectOne("UserMapper.getCheckEmail", id);
+		return sqlSession.selectOne("UserMapper.checkDuplication", user);
 	}
 
 	@Override
-	public int checkNickName(String nickName) throws Exception {
+	public void addLoginDate(User user) throws Exception {
 		
-		return sqlSession.selectOne("UserMapper.getNickName", nickName);
+		sqlSession.insert("UserMapper.addLoginDate", user);
 	}
 
 }

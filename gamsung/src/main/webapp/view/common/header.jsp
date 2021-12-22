@@ -35,7 +35,7 @@
                 <div class="collapse navbar-collapse justify-content-end" id="navbar-wd">
                     <ul class="navbar-nav">
                     <c:if test="${sessionScope.user.role != null}">
-	                <li><a href="#">로그아웃</a></li>
+	                <li><a class="nav-link active" href="/user/logout">로그아웃</a></li>
 	                </c:if>
 	                <c:if test="${sessionScope.user.role == null}">
 	                <li><a class="nav-link active" href="/user/login">로 그 인</a></li>

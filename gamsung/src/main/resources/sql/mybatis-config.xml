@@ -31,10 +31,10 @@
 		 <typeAlias alias="siteProfit" type="site.gamsung.service.domain.SiteProfit" />
 		 <typeAlias alias="auctionProduct" type="site.gamsung.service.domain.AuctionProduct" />
 		 <typeAlias alias="auctionBidInfo" type="site.gamsung.service.domain.AuctionBidInfo" />
-		 <typeAlias alias="auctionList" type="site.gamsung.service.domain.AuctionList" />
+		 <typeAlias alias="auctionIntergration" type="site.gamsung.service.domain.AuctionIntergration" />
 		 <typeAlias alias="notice" type="site.gamsung.service.domain.Notice" />
 		 <typeAlias alias="campReservation" type="site.gamsung.service.domain.CampReservation" />
-		 <typeAlias alias="reservationStatistics" type="site.gamsung.service.domain.ReservationStatistics" />
+		<!--  <typeAlias alias="reservationStatistics" type="site.gamsung.service.domain.ReservationStatistics" /> -->
 		
 	</typeAliases>
 	
@@ -47,15 +47,15 @@
  		
  		<mapper resource="sql/NoticeMapper.xml"/>
  		
- 		<mapper resource="sql/CampSearchMapper.xml"/>
+ 		<!-- <mapper resource="sql/CampSearchMapper.xml"/> -->
  		
- 		<mapper resource="sql/CampBusinessMapper.xml"/>
- 		<mapper resource="sql/PaymentMapper.xml"/>
+ 		<!-- <mapper resource="sql/CampBusinessMapper.xml"/>
+ 		<mapper resource="sql/PaymentMapper.xml"/> -->
 		
 		<mapper resource="sql/AuctionProductMapper.xml"/>
 		<mapper resource="sql/AuctionUserInfoMapper.xml"/> 
  		<mapper resource="sql/AuctionRestMapper.xml"/>
-		<mapper resource="sql/CampReservationMapper.xml" />
+		<!-- <mapper resource="sql/CampReservationMapper.xml" /> -->
 	</mappers>
 
 </configuration>

@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 import site.gamsung.service.auction.AuctionProductDAO;
 import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.AuctionBidInfo;
-import site.gamsung.service.domain.AuctionList;
 import site.gamsung.service.domain.AuctionProduct;
 
 @Repository("auctionProductDAO")
@@ -92,6 +91,12 @@ public class AuctionProductDAOImpl implements AuctionProductDAO{
 		sqlSession.update("AuctionProductMapper.updateBidEndTime", auctionProductNo);
 	}
 	
+	@Override
+	public void updateAuctionProductCondition(AuctionBidInfo auctionBidInfo) {
+		// TODO Auto-generated method stub
+		sqlSession.update("AuctionProductMapper.updateAuctionProductCondition", auctionBidInfo);
+	}
+
 	//메인에 표시될 경매 상품정보
 	@Override
 	public void addMainAuctionProduct(AuctionProduct auctionProduct) {
@@ -99,12 +104,18 @@ public class AuctionProductDAOImpl implements AuctionProductDAO{
 		sqlSession.insert("AuctionProductMapper.addMainAuctionProduct",auctionProduct);
 	}
 	
+	@Override
+	public int mainAuctionProductCount(AuctionProduct auctionProduct) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("AuctionProductMapper.mainAuctionProductCount",auctionProduct);
+	}
+
 	//메인 상품 리스트 출력
 	@Override
-	public List<AuctionProduct> listMainAuctionProduct(Search seach) {
+	public List<AuctionProduct> listMainAuctionProduct() {
 		// TODO Auto-generated method stub
 		
-		return sqlSession.selectList("AuctionProductMapper.listMainAuctionProduct", seach);
+		return sqlSession.selectList("AuctionProductMapper.listMainAuctionProduct");
 	}
 
 }

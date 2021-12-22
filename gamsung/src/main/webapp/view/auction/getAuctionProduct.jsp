@@ -70,12 +70,14 @@
 						</div>
 					</div>
 				</div>
-
 			</div>
-			<div class="col-lg-5 col-sm-5 col-xs-12">
-				<div class="submit-button text-center">
-					<img src="/uploadfiles/auctionimg/product/${auctionProduct.auctionProductDatailA}" >
-					<img src="/uploadfiles/auctionimg/product/${auctionProduct.auctionProductDatailB}" >		
+			
+			
+			
+			<div class="col-lg-12 col-sm-12 col-xs-12">
+				<div class="submit-button mx-auto d-block">
+					<img src="/uploadfiles/auctionimg/product/${auctionProduct.auctionProductDatailA}" width="100%">
+					<img src="/uploadfiles/auctionimg/product/${auctionProduct.auctionProductDatailB}" width="100%">		
 				</div>
 			</div>
 		</div>
