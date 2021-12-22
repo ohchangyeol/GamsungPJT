@@ -7,7 +7,7 @@ import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.CampReservation;
 import site.gamsung.service.domain.MainSite;
 import site.gamsung.service.domain.Payment;
-import site.gamsung.service.domain.ReservationStatistics;
+//import site.gamsung.service.domain.ReservationStatistics;
 
 public interface CampReservationService {
 	
@@ -19,6 +19,6 @@ public interface CampReservationService {
 	
 	public Map<String, Object> listMyReservation(Search search, String id) throws Exception;
 	
-	public ReservationStatistics getReservationStatistics() throws Exception;
+//	public ReservationStatistics getReservationStatistics() throws Exception;
 			
 }

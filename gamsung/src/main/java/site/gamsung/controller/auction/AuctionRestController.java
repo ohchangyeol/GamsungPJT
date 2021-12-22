@@ -6,14 +6,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.aspectj.internal.lang.annotation.ajcDeclareAnnotation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -74,7 +71,6 @@ public class AuctionRestController {
 		
 		Search search = new Search();
 		
-//		search.setCurrentPage(Integer.parseInt(currentPage));
 		search.setCurrentPage(currentPage);
 		search.setOffset(auctionPageSize);
 		search.setPageSize(auctionPageSize);

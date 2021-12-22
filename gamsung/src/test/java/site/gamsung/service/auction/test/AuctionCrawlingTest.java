@@ -28,7 +28,7 @@ public class AuctionCrawlingTest {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
-		List<String> uri = new ArrayList<String>();
+		List<String> uri = Collections.synchronizedList(new ArrayList<String>());
 		
 		for(int i=1; i<20; i++) {
 			uri.add("https://www.campingon.co.kr/goods/goods_search.php?page="+i+"&keyword=%EC%BA%A0%ED%95%91&recentCount=10");
@@ -52,7 +52,7 @@ public class AuctionCrawlingTest {
 		String detail2 = null;
 		
 		AuctionProduct auctionProduct = null;
-		List<AuctionProduct> list = new ArrayList<AuctionProduct>();
+		List<AuctionProduct> list = Collections.synchronizedList(new ArrayList<AuctionProduct>());
 		
 		Date date = new Date(System.currentTimeMillis());
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

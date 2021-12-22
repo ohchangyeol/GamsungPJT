@@ -52,7 +52,7 @@
 		SELECT product_no, product_name, product_view_count, start_bid_price, hopeful_bid_price, auction_start_time, auction_end_time,
                timediff(auction_end_time, now()) AS remain_time, hashtag1, hashtag2, hashtag3, product_img1
 			FROM AUCTION_PRODUCT
-			WHERE temp_save_flag = 'N' AND auction_status = 'START' AND delete_flag = 'N'
+			WHERE temp_save_flag = 'N' AND auction_status = 'START' AND delete_flag = 'N'<!--  AND NOW() BETWEEN auction_start_time AND auction_end_time -->
 			<if test="searchKeyword != null">
 				AND product_name LIKE CONCAT_WS(#{searchKeyword},'%','%')
 			</if>

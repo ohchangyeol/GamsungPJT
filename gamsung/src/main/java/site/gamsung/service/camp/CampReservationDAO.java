@@ -5,7 +5,7 @@ import java.util.Map;
 
 import site.gamsung.service.domain.CampReservation;
 import site.gamsung.service.domain.MainSite;
-import site.gamsung.service.domain.ReservationStatistics;
+//import site.gamsung.service.domain.ReservationStatistics;
 
 public interface CampReservationDAO {
 
@@ -21,6 +21,6 @@ public interface CampReservationDAO {
 	
 	public int getTotalCount(Map<String, Object> map) throws Exception;
 	
-	public ReservationStatistics getReservationStatistics() throws Exception;
+//	public ReservationStatistics getReservationStatistics() throws Exception;
 	
 }

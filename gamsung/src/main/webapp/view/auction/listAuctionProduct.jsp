@@ -23,9 +23,6 @@
     <link rel="stylesheet" href="/resources/css/style.css">
     <link rel="stylesheet" href="/resources/css/timeline.css">     
  
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-	
 	<style>
 		.productThumbnails{
 			height : 600px;
@@ -46,11 +43,28 @@
 					</div>
 				</div>
 			</div>
-			<div>
-				<button id="crawling" class="btn btn-common">상품 크롤링하기!</button>			
-			</div>
-			<div>
-				<button id="addProduct" class="btn btn-common">상품 등록</button>			
+			<div class="row">
+				<div class="btn-group col-md-2">
+					<button class="btn btn-secondary btn-sm dropdown-toggle"
+						type="button" data-toggle="dropdown" aria-expanded="false">
+						정렬조건</button>
+					<div class="dropdown-menu">
+						<a class="dropdown-item" >희망 낙찰가 높은 순</a>
+					    <a class="dropdown-item" >희망 낙찰가 낮은 순</a>
+					    <a class="dropdown-item" >조회수 높은 순</a>
+					    <a class="dropdown-item" >경매 입박 순</a>
+					    <a class="dropdown-item" >조회수 순</a>
+					</div>
+				</div>
+				<div class="col-md-7">
+					<input type="text" id="search" name="searchKeyword" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm">
+				</div>
+				<div >
+					<button id="crawling" class="btn btn-common">상품 크롤링하기!</button>
+				</div>
+				<div >
+					<button id="addProduct" class="btn btn-common">상품 등록</button>
+				</div>
 			</div>
 			
 			<div class="row">
@@ -100,6 +114,10 @@
 	<script src="/resources/javascript/responsiveslides.min.js"></script>
 	<script src="/resources/javascript/slider-index.js"></script>
 	<script src="/resources/javascript/smoothscroll.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js"></script>
+	
 	
 	<script type="text/javascript">
 		
@@ -135,9 +153,20 @@
 			window.location.href = '/auction/addAuctionProduct';
 		});	
 		
+		$('.dropdown-item').on("click",function(){
+			window.location.href = '/auction/listAuctionProduct?sortCondition='+encodeURI($(this).text(),"UTF-8");
+		});
+		
+		/* $('#search').on('keyPress',function(e){
+			if(e.keycode == 13){
+				alert("엔터키 입력됨");
+			}
+		}); */
 	});
 	
+	//무한스크롤
 	var page = 2; 
+	
 	$(window).scroll(function() {
 	    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
 	    	$.ajax(
@@ -150,7 +179,6 @@
 						},
 						dataType : "json",
 						success : function(JSONData,status){
-							
 						var str = "";
 							for(var i = 0; i<JSONData.length; i++){
 								
@@ -171,9 +199,11 @@
 									+'</div>';
 							str += stringHtml;
 							}
-							
+
 							$("#append").append('<div class="row">'+str+'</div>');
 							page += 1;
+							alert(page);
+							
 						}
 					});
 	    		}
