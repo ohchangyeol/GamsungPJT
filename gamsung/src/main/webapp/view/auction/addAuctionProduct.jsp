@@ -142,23 +142,28 @@
 		    </div>
 		  </div>
 		  <div id="file">
-			  <div class="filebox"> 
+			  <div class="filebox">
+			  	<img id="productImg1" alt="" src="" width="100%" height="100%" hidden="hidden">
 			  	<label for="ex_file">+</label>
 			  	<input class="previewImg" name="productImg1" type="file" id="ex_file"> 
 			  </div>
 			   <div class="filebox"> 
-			  	<label for="ex_file">+</label> 
+			   	<img id="productImg2" alt="" src="" width="100%" height="100%" hidden="hidden">
+			  	<label for="ex_file">+</label>
 			  	<input class="previewImg" name="productImg2" type="file" id="ex_file"> 
 			  </div>
-			   <div class="filebox"> 
+			   <div class="filebox">
+			  	<img id="productImg3" alt="" src="" width="100%" height="100%" hidden="hidden"> 
 			  	<label for="ex_file">+</label> 
 			  	<input class="previewImg" name="productImg3" type="file" id="ex_file"> 
 			  </div>
 			   <div class="filebox"> 
+			   	<img id="productImg4" alt="" src="" width="100%" height="100%" hidden="hidden">
 			  	<label for="ex_file">+</label> 
 			  	<input class="previewImg" name="productImg4" type="file" id="ex_file"> 
 			  </div>
-			   <div class="filebox"> 
+			   <div class="filebox">
+				<img id="productImg5" alt="" src="" width="100%" height="100%" hidden="hidden">
 			  	<label for="ex_file">+</label>
 			  	<input class="previewImg" name="productImg5" type="file" id="ex_file"> 
 			  </div>
@@ -187,7 +192,6 @@
 	
 	<script src="/resources/javascript/bootstrap.min.js"></script>
 	<script src="/resources/javascript/contact-form-script.js"></script>
-	<script src="/resources/javascript/custom.js"></script>
 	<script src="/resources/javascript/form-validator.min.js"></script>
 	<script src="/resources/javascript/images-loded.min.js"></script>
 	<script src="/resources/javascript/isotope.min.js"></script>
@@ -210,9 +214,52 @@
 			});
 			
 			$(".previewImg").change(function(){
-			
+				$(this).prev().remove();
+				var id = $(this).attr('name');
+				$.ajax(
+						{
+							url : "/auction/rest/previewAuctionProductImageFile",
+							method : "POST",
+							data : JSON.stringify({
+								id : ,
+							}),
+							headers : {
+								"Accept" : "application/json",
+								"Content-Type" : "application/json"
+							},
+							dataType : "json",
+							success : function(JSONData,status){
+							var str = "";
+								for(var i = 0; i<JSONData.length; i++){
+									
+								var stringHtml = 
+										'<div class="col-lg-3 col-sm-6 productThumbnails">'
+										+'<figure class="effect-service">'
+										+	'<div>'
+										+		'<img src="/uploadfiles/auctionimg/product/'+JSONData[i].productImg1+'" width="100%" height="100%"/>'
+										+	'</div>'
+										+	'<p hidden="">'+JSONData[i].auctionProductNo+'</p>'
+										+	'<h4>'+JSONData[i].auctionProductName+'</h4>'
+										+	'<div>Á¶È¸¼ö : '+JSONData[i].productViewCount+'</div>'
+										+	'<div>°æ¸Å ½ÃÀÛ°¡ : '+JSONData[i].startBidPrice+'</div>'
+										+	'<div>Èñ¸Á ³«Âû°¡ : '+JSONData[i].hopefulBidPrice+'</div>'
+										+	'<div>°æ¸Å ÀÜ¿© ½Ã°£ : '+JSONData[i].remainAuctionTime+'</div>'
+										+	'<span>'+JSONData[i].hashtag1+'&nbsp;'+JSONData[i].hashtag2+'&nbsp;'+JSONData[i].hashtag3+'</span>'
+										+'</figure>'
+										+'</div>';
+								str += stringHtml;
+								}
+
+								$("#append").append('<div class="row">'+str+'</div>');
+								page += 1;							
+							}
+						});
+		    		}
 			});
 		});
+			
+		
+		
 		
 		
 	</script>

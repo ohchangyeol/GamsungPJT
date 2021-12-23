@@ -109,7 +109,7 @@ public class CampReservationDAOImpl implements CampReservationDAO {
 
 	@Override
 	public int updateReservation(CampReservation campReservation) throws Exception {
-		return sqlSession.selectOne("CampReservationMapper.updateReservation", campReservation);
+		return sqlSession.update("CampReservationMapper.updateReservation", campReservation);
 	}
 
 }

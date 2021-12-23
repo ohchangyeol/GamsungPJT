@@ -6,6 +6,7 @@ import java.util.Map;
 import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.CampReservation;
 import site.gamsung.service.domain.MainSite;
+import site.gamsung.service.domain.Payment;
 import site.gamsung.service.domain.ReservationStatistics;
 
 public interface CampReservationService {
@@ -29,5 +30,8 @@ public interface CampReservationService {
 	public CampReservation getReservation(String reservationNo) throws Exception;
 	
 	public void updateReservation(CampReservation campReservation) throws Exception;
-			
+	
+	public void cancleReservationApply(CampReservation campReservation) throws Exception;
+	
+	public void cancleReservationDo(Payment payment) throws Exception;
 }

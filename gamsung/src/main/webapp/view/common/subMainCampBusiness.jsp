@@ -45,7 +45,8 @@
    <br>
    <br>
    <h1>Test Camp Business Main</h1>
-
+	
+	<a href="http://gamsung.site">메인화면 입니다.</a>
 
 </body>
 </html>

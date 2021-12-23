@@ -14,9 +14,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import site.gamsung.service.auction.AuctionProductDAO;
 import site.gamsung.service.auction.AuctionProductService;
-import site.gamsung.service.auction.AuctionUserInfoDAO;
+import site.gamsung.service.auction.AuctionInfoDAO;
 import site.gamsung.service.common.Search;
-import site.gamsung.service.domain.AuctionBidInfo;
+import site.gamsung.service.domain.AuctionInfo;
 import site.gamsung.service.domain.AuctionProduct;
 
 @Service("auctionProductService")
@@ -28,8 +28,8 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 	private AuctionProductDAO auctionProductDAO;
 	
 	@Autowired
-	@Qualifier("auctionUserInfoDAO")
-	private AuctionUserInfoDAO auctionUserInfoDao;
+	@Qualifier("auctionInfoDAO")
+	private AuctionInfoDAO auctionInfoDao;
 	
 	public AuctionProductServiceImpl(){
 		// TODO Auto-generated constructor stub
@@ -75,23 +75,23 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 
 	@Override
 	@Transactional(rollbackFor = ParseException.class)
-	public String auctionProductBid(AuctionBidInfo auctionBidInfo) {
+	public String auctionProductBid(AuctionInfo auctionInfo) {
 		// TODO Auto-generated method stub
 		
-		String bidderId = auctionBidInfo.getUser().getId();
+		String bidderId = auctionInfo.getUser().getId();
 		
 		//사용자의 경매 등급을 가져온다.
-		int userGrade = auctionUserInfoDao.getUserAuctionGradeInfo(bidderId);
+		int userGrade = auctionInfoDao.getUserAuctionGradeInfo(bidderId);
 		
 		//경매 정보를 가져온다.
-		AuctionProduct auctionProduct = auctionProductDAO.getAuctionProduct(auctionBidInfo.getAuctionProductNo());
+		AuctionProduct auctionProduct = auctionProductDAO.getAuctionProduct(auctionInfo.getAuctionProductNo());
 		
 		//User와 AuctionProduct가 null이 아닌지 확인
-		if(auctionBidInfo.getUser() != null && auctionProduct != null) {
+		if(auctionInfo.getUser() != null && auctionProduct != null) {
 			
 			//입찰 가능 등급 보다 유저 등급이 높은지 확인
 			if(userGrade >= auctionProduct.getBidableGrade()) {				
-				auctionProductDAO.auctionProductBid(auctionBidInfo);				
+				auctionProductDAO.auctionProductBid(auctionInfo);				
 			}else {
 				return "경매 등급을 확인하세요";
 			}
@@ -108,7 +108,7 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 				SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 				try {				
 					if(dateFormat.parse(auctionProduct.getRemainAuctionTime()).before(dateFormat.parse("00:00:10"))){
-						auctionProductDAO.updateBidEndTime(auctionBidInfo.getAuctionProductNo());
+						auctionProductDAO.updateBidEndTime(auctionInfo.getAuctionProductNo());
 					}
 				} catch (ParseException e) {
 					// TODO Auto-generated catch block
@@ -127,16 +127,16 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 		DecimalFormat decimalFormat = new DecimalFormat("###,###");
 		
 		//입찰 완료 안내
-		String bidInfo = decimalFormat.format(auctionBidInfo.getBidPrice())+"원에 입찰 되었습니다.";
+		String bidInfo = decimalFormat.format(auctionInfo.getBidPrice())+"원에 입찰 되었습니다.";
 		
 		return bidInfo;
 	}
 	
 	//경매 상태 업데이트
 	@Override
-	public void updateAuctionProductCondition(AuctionBidInfo auctionBidInfo) {
+	public void updateAuctionProductCondition(AuctionInfo auctionInfo) {
 		// TODO Auto-generated method stub
-		auctionProductDAO.updateAuctionProductCondition(auctionBidInfo);
+		auctionProductDAO.updateAuctionProductCondition(auctionInfo);
 	}
 
 	//메인에 상품 등록

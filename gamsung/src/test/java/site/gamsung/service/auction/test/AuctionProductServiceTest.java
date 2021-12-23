@@ -10,7 +10,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import site.gamsung.service.auction.AuctionProductService;
 import site.gamsung.service.common.Search;
-import site.gamsung.service.domain.AuctionBidInfo;
+import site.gamsung.service.domain.AuctionInfo;
 import site.gamsung.service.domain.AuctionProduct;
 import site.gamsung.service.domain.User;
 
@@ -128,7 +128,7 @@ public class AuctionProductServiceTest {
 		user.setId("user5@gamsung.com");
 		user.setAuctionGrade(12);
 		
-		AuctionBidInfo auctionBidInfo = new AuctionBidInfo();
+		AuctionInfo auctionBidInfo = new AuctionInfo();
 		auctionBidInfo.setUser(user);
 		auctionBidInfo.setAuctionProductNo("PROD00101");
 		
@@ -142,7 +142,7 @@ public class AuctionProductServiceTest {
 	//@Test
 	public void testUpdateAuctionProductCondition() {
 		
-		AuctionBidInfo auctionBidInfo = new AuctionBidInfo();
+		AuctionInfo auctionBidInfo = new AuctionInfo();
 		auctionBidInfo.setAuctionProductNo("PROD00001");
 		auctionBidInfo.setAuctionStatus("WITHDRAWAL");
 		
