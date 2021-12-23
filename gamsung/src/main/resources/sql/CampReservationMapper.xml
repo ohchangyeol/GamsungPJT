@@ -76,7 +76,8 @@
 			   mainsite_add_price, mainsite_name, mainsite_img1, mainsite_img2, mainsite_img3, mainsite_section, mainsite_size, 
 			   mainsite_type, mainsite_reg_date, mainsite_reservation_start, mainsite_reservation_end
 		FROM MAINSITE
-		WHERE camp_no =#{campNo} AND #{startDate} >= mainsite_reservation_end  AND delete_flag = 'N'
+		WHERE camp_no =#{campNo} AND #{startDate} >= mainsite_reservation_end  AND delete_flag = 'N' 
+			OR (camp_no =#{campNo} AND delete_flag = 'N' AND mainsite_reservation_end is NULL)
 		]]>
 	</select>
 
@@ -91,41 +92,46 @@
 
 	<update id="updateReservation" parameterType="campReservation">
 		UPDATE CAMP_RESERVATION 
-		<set>
-			reservation_status = #{reservationStatus}, 
-			reservation_user_name = #{reservationUserName}, 
-			reservation_start_date = #{reservationStartDate}, 
-			reservation_end_date = #{reservationEndDate}, 
-			use_num = #{useNum}, 
-			reservation_user_phone = #{reservationUserPhone}, 
-			reservation_reg_car_num = #{reservationRegCarNum:VARCHAR}, 
-			reservation_request = #{reservationRequest:VARCHAR}, 
-			total_payment_price = #{totalPaymentPrice}, 
-			total_reservation_reg_car = #{totalReservationRegCar:NUMERIC}
-		</set>
+		set
+			<if test="reservationUserName != null and reservationUserName != ''">
+			reservation_user_name = #{reservationUserName},
+			</if>
+			<if test="reservationStartDate != null">
+			reservation_start_date = #{reservationStartDate},
+			</if>
+			<if test="reservationEndDate != null">
+			reservation_end_date = #{reservationEndDate},
+			</if>		 
+			<if test="useNum != null">
+			use_num = #{useNum},
+			</if> 
+			<if test="reservationUserPhone != null and reservationUserPhone != ''">
+			reservation_user_phone = #{reservationUserPhone},
+			</if> 
+			<if test="reservationRegCarNum != null and reservationRegCarNum != ''">
+			reservation_reg_car_num = #{reservationRegCarNum},
+			</if> 
+			<if test="reservationRequest != null and reservationRequest != ''">
+			reservation_request = #{reservationRequest},
+			</if>
+			<if test="totalPaymentPrice != null">
+			total_payment_price = #{totalPaymentPrice},
+			</if>
+			<if test="totalReservationRegCar != null">
+			total_reservation_reg_car = #{totalReservationRegCar},
+			</if>
+			reservation_status = #{reservationStatus}
 		WHERE reservation_no = #{reservationNo}
 	</update>
 	
 	<update id="updateMainSiteReservation" parameterType="campReservation">
 		UPDATE MAINSITE
 		<set>
-			<if test="deleteFlag != null">
-				<if test='deleteFlag.equals("Y")'>
-				mainsite_reservation_user_name = null, 
-				mainsite_reservation_start = null, 
-				mainsite_reservation_end = null
-				</if>
-			</if>
-			<if test = "deleteFlag == null">
-				mainsite_reservation_user_name = #{reservationUserName},
-				mainsite_reservation_start = #{reservationStartDate},
-				mainsite_reservation_end = #{reservationEndDate}
-			</if>		
+			mainsite_reservation_user_name = #{reservationUserName:VARCHAR},
+			mainsite_reservation_start = #{reservationStartDate},
+			mainsite_reservation_end = #{reservationEndDate}
 		</set> 
-			mainsite_reservation_user_name = null, 
-			mainsite_reservation_start = null, 
-			mainsite_reservation_end = null
-		WHERE camp_no = #{camp.campNo}
+		WHERE camp_no = #{camp.campNo} AND mainsite_no = #{mainSite.mainSiteNo}
 	</update>
 	
 	<select id="listReservation" parameterType="map" resultMap="CampReservationSelectMap">
