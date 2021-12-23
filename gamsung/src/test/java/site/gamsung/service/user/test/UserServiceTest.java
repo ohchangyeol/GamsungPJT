@@ -13,7 +13,6 @@ import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.User;
 import site.gamsung.service.domain.UserWrapper;
 import site.gamsung.service.user.UserService;
-import site.gamsung.util.user.SHA256Util;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
