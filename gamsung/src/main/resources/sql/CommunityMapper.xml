@@ -6,13 +6,13 @@
 
 <mapper namespace="CommunityMapper">
 
-	<resultMap id="PostMapper" type="Post">
+	<resultMap id="postMapper" type="post">
 		<result property="postTile"    		 column="post_title"       jdbcType="VARCHAR"/>
 		<result property="postNo"	   		 column="post_no" 	       jdbcType="NUMERIC" />
 		<result property="postContent"       column="post_content"     jdbcType="VARCHAR" />
-		<result property="writer"  			 column="user_id" 	       jdbcType="VARCHAR" />
+		<result property="writer.id"  		 column="user_id" 	       jdbcType="VARCHAR" />
 		<result property="postType"    		 column="post_type"        jdbcType="NUMERIC" />
-		<result property="postRegdate" 	     column="post_reg_date"    jdbcType="DATETIME" />
+		<result property="postRegdate" 	     column="post_reg_date"    jdbcType="VARCHAR" />
 		<result property="video"    		 column="video" 		   jdbcType="VARCHAR"/>
 		<result property="deleteFlag"	     column="delete_flag" 	   jdbcType="CHAR" />
 		<result property="postImg1"  		 column="post_Img1" 	   jdbcType="VARCHAR" />
@@ -21,188 +21,210 @@
 		<result property="Hashtag1" 	   	 column="post_hashtag1"    jdbcType="VARCHAR" />
 		<result property="Hashtag2" 		 column="post_hashtag2"    jdbcType="VARCHAR" />
 		<result property="Hashtag3"  		 column="post_hashtag3"    jdbcType="VARCHAR" />
-		<result property="concernFlag" 	     column="concern_flag" 	   jdbcType="DATE" />
-<!-- 	<result property="postConcernCount"  column="" 		jdbcType="NUMERIC" /> //게시물추천총수
-		<result property="commentTotalCount" column="" 		jdbcType="NUMERIC" />//게시물댓글총수 -->
+	 	<result property="postConcernCount"  column="con_num" 		   jdbcType="NUMERIC" /> 
+		<result property="commentTotalCount" column="com_num" 		   jdbcType="NUMERIC" />
 	</resultMap>
 	
-	<resultMap id="CommentMapper" type="Comment">
-		<result property="postNo"    	  	 column="post_no" 		   jdbcType="NUMERIC"/>
+	<resultMap id="commentMapper" type="comment">
+		<result property="postNo.postNo"     column="post_no" 		   jdbcType="NUMERIC"/>
 		<result property="commentNo"	  	 column="comment_no" 	   jdbcType="NUMERIC" />
 		<result property="commentContent" 	 column="comment_content"  jdbcType="VARCHAR" />
-		<result property="commentWriter"  	 column="user_id" 		   jdbcType="VARCHAR" />
-		<result property="commentRegdate" 	 column="comment_reg_date" jdbcType="DATE" />
+		<result property="commentWriter.id"  column="user_id" 		   jdbcType="VARCHAR" />
+		<result property="commentRegdate" 	 column="comment_reg_date" jdbcType="VARCHAR" />
+		<result property="deleteFlag"	     column="delete_flag" 	   jdbcType="CHAR" />
 	</resultMap>
 	
-	<resultMap id="PostConcernMapper" type="PostConcern">
+	 <resultMap id="postConcernMapper" type="postConcern">
 		<result property="countNo"    	  	 column="count_no" 		   jdbcType="NUMERIC"/>
-		<result property="concernFlag"	  	 column="concern_flag" 	   jdbcType="VARCHAR" />
-		<result property="userId" 	 		 column="user_id"  		   jdbcType="VARCHAR" />
-		<result property="postNo"  			 column="post_no" 		   jdbcType="NUMERIC" />
-	</resultMap>
+		<result property="concernFlag"	  	 column="concern_flag" 	   jdbcType="CHAR" />
+		<result property="userId.id" 	 	 column="user_id"  		   jdbcType="VARCHAR" />
+		<result property="postNo.postNo"  	 column="post_no" 		   jdbcType="NUMERIC" />
+	 </resultMap> 
 	
 	
 	<!-- SQL : INSERT -->
 	<!-- 게시글 등록 -->
     <insert    id="addPost"      parameterType="post" >
       INSERT 
-      INTO gamsung.post(user_id,post_type,post_title,post_content,post_Img1,post_Img2,post_Img3,post_hashtag1,post_hashtag2,post_hashtag3,video)
-      VALUES    (#{writer}, #{postType}, #{postTile:VARCHAR}, #{postContent:VARCHAR}, #{postImg1:VARCHAR}, #{postImg2:VARCHAR}, #{postImg3:VARCHAR}, #{Hashtag1:VARCHAR}, #{Hashtag2:VARCHAR}, #{Hashtag3:VARCHAR}, #{video:VARCHAR});                                     
+      INTO  GAMSUNG.POST(user_id,post_type,post_title,post_content,post_Img1,post_Img2,post_Img3,post_hashtag1,post_hashtag2,post_hashtag3,video)
+      VALUES    (#{writer.id}, #{postType}, #{postTile:VARCHAR}, #{postContent:VARCHAR}, #{postImg1:VARCHAR}, #{postImg2:VARCHAR}, #{postImg3:VARCHAR}, #{Hashtag1:VARCHAR}, #{Hashtag2:VARCHAR}, #{Hashtag3:VARCHAR}, #{video:VARCHAR})                                     
     </insert>
- 	 
+
 	<!-- 댓글 등록 -->	 
     <insert    id="addComment"      parameterType="comment" >
       INSERT 
-      INTO gamsung.comment(post_no,user_id,comment_content)
-      VALUES    (#{postNo}, #{commentWriter}, #{postContent:VARCHAR});                                      
+      INTO  GAMSUNG.COMMENT(post_no,user_id,comment_content)
+      VALUES    (#{postNo.postNo}, #{commentWriter.id}, #{commentContent:VARCHAR});                                      
     </insert>	 	 
  	 
 	<!-- 추천 등록 -->
-    <insert    id="addConcern"      parameterType="hashmap" >
+  	<insert    id="addConcern"      parameterType="hashmap" >
       INSERT 
-      INTO gamsung.post_concern(user_id, post_no)
+      INTO  GAMSUNG.POST_CONCERN(user_id, post_no)
       VALUES    (#{userId}, #{postNo});                                     
-    </insert> 	 
+    </insert>
  	 
     <!-- SQL : SELECT --> 	 
     <!-- 게시글 상세 조회--> 	 
 
-	 <select 	id="getPost"	parameterType="int"	resultMap="PostMapper">
+	 <select 	id="getPost"	parameterType="int"	resultMap="postMapper">
 	  SELECT
 	  post_no , user_id , post_type , post_title , post_content, post_reg_date, post_Img1, post_Img2, post_Img3, post_hashtag1, post_hashtag2, post_hashtag3, video, delete_flag
-	  FROM gamsung.post 
+	  FROM  GAMSUNG.POST
       WHERE post_no = #{value}
 	 </select>
 	 
     <!-- 게시글 List 조회--> 	 
 	 
-	<select  id="listPost"  parameterType="post"	resultMap="PostMapper">
+	<select  id="listPost"  parameterType="post"	resultMap="postMapper">
 	SELECT S.* 
-	FROM (SELECT @rownum:=@rownum+1 AS R , P.* 
-		FROM (SELECT * FROM POST
-	  		      WHERE delete_flag = 'N' AND post_type = #{postType}
-			      <if test="searchCondition != null">		
+	FROM (SELECT @rownum:= @rownum+1 AS R , P.* 
+		FROM (SELECT p.*,com.com_num,con.con_num 
+			  FROM POST p LEFT JOIN (SELECT post_no, count(*) com_num
+								     FROM comment 
+									 GROUP BY post_no) com
+			  ON p.post_no = com.post_no 
+						  LEFT JOIN (SELECT post_no, count(*) con_num
+									FROM post_concern 
+									GROUP BY post_no) con
+			  ON p.post_no = con.post_no	
+	  		  WHERE p.delete_flag = 'N' AND p.post_type = #{postType}
+			      <if test="search.searchCondition != null">		
 				    <trim prefix="AND">
-						<if test="searchCondition == 0 and searchKeyword !='' "> 
-							<!-- 작성자id -->
-							user_id LIKE CONCAT_WS(#{searchKeyword},'%','%')		
+						<if test="search.searchCondition == 0 and search.searchKeyword !='' "> 
+						<!--작성자id -->
+							p.user_id LIKE CONCAT_WS(#{search.searchKeyword},'%','%')		
 						</if>
-						<if test="searchCondition == 1 and searchKeyword !='' "> 
-							<!-- 게시글 제목 -->
-							MATCH(post_title) AGAINST (concat_ws(#{searchKeyword},'*','*')in boolean mode)
+						<if test="search.searchCondition == 1 and search.searchKeyword !='' "> 
+						<!-- 게시글 제목 -->
+						<!-- 	MATCH(post_title) AGAINST (concat_ws(#{search.searchKeyword},'*','*')in boolean mode) -->
+						    p.post_title LIKE CONCAT_WS(#{search.searchKeyword},'%','%')
 						</if>
-						<if test="searchCondition == 2 and searchKeyword !='' "> 
-							<!-- 게시글 번호 -->
-							post_no = #{searchKeyword}
+						<if test="search.searchCondition == 2 and search.searchKeyword !='' "> 
+						<!-- 게시글 번호 -->
+							p.post_no = #{search.searchKeyword}
 						</if>
-						<if test="searchCondition == 3 and searchKeyword !='' ">
-							<!-- 내용 -->
-							MATCH(post_content) AGAINST (concat_ws(#{searchKeyword},'*','*')in boolean mode)
+						<if test="search.searchCondition == 3 and search.searchKeyword !='' ">
+						<!-- 내용 -->
+							<!-- MATCH(p.post_content) AGAINST (concat_ws(#{search.searchKeyword},'*','*')in boolean mode) -->
+							p.post_content LIKE CONCAT_WS(#{search.searchKeyword},'%','%')
 						</if>
-						<if test="searchCondition == 4 and searchKeyword !='' ">
-							<!-- 해시태그  -->
-							   post_hashtag1 LIKE CONCAT_WS(#{searchKeyword},'%','%')
-	  						OR post_hashtag2 LIKE CONCAT_WS(#{searchKeyword},'%','%')
-	  						OR post_hashtag3 LIKE CONCAT_WS(#{searchKeyword},'%','%')
+						<if test="search.searchCondition == 4 and search.searchKeyword !='' ">
+						<!--해시태그  -->
+							   p.post_hashtag1 LIKE CONCAT_WS(#{search.searchKeyword},'%','%')
+	  						OR p.post_hashtag2 LIKE CONCAT_WS(#{search.searchKeyword},'%','%')
+	  						OR p.post_hashtag3 LIKE CONCAT_WS(#{search.searchKeyword},'%','%')
 						</if>
 					</trim>
 				</if>
-				ORDER BY post_reg_date )P , (select @rownum:= 0) M
-				WHERE @rownum  <![CDATA[ <=]]> #{endRowNum}  ) S
-				WHERE R BETWEEN #{startRowNum} AND #{endRowNum} 
+				ORDER BY p.post_reg_date ) P, (select @rownum:= 0) M
+				WHERE @rownum  <![CDATA[ <=]]> #{search.endRowNum} ) S
+				WHERE R BETWEEN #{search.startRowNum} AND #{search.endRowNum} 
 	 </select>
 	 
     <!-- 댓글 list  조회--> 	 
  	 
-	<select  id="listComment"  parameterType="int"	resultMap="CommentMapper">
+	<select  id="listComment"  parameterType="int"	resultMap="commentMapper">
 	SELECT * 
 	FROM comment
-	WHERE delete_flag = 'N' AND post_no= #{postNo}
+	WHERE delete_flag = 'N' AND post_no= #{value}
 	ORDER BY comment_reg_date;
-	 </select>	 
+	 </select> 
 	 
     <!-- SQL : UPDATE --> 	 
     <!-- 게시물 수정 --> 	 
 
-	 <update	id="updatePost"	parameterType="post" >
+	<update	id="updatePost"	parameterType="post" >
+	UPDATE POST
 	   	<set>
-	   		post_title= #{postTile},
+	   		post_title= #{postTile:VARCHAR},
 	   		post_no= #{postNo},
 	   		post_content= #{postContent},
-	   		user_id= #{writer},
-	   		post_type= #{postType}
+	   		user_id= #{writer.id},
+	   		post_type= #{postType},
 	   		post_reg_date=#{postRegdate},
 	   		video= #{video},
 	   		delete_flag= #{deleteFlag},
-	   		post_Img1= #{postImg1}
+	   		post_Img1= #{postImg1},
 	   		post_Img2= #{postImg2},
 	   		post_Img3= #{postImg3},
 	   		post_hashtag1= #{Hashtag1},
 	   		post_hashtag2= #{Hashtag2},
 	   		post_hashtag3= #{Hashtag3}
-	   		concern_flag= #{concernFlag}
 	   	</set>
 	   	WHERE post_no = #{postNo}
 	 </update>
 	 
-    <!-- 게시물 삭제 그에 딸린 댓글들도 delete_flags를 Y 설정해줘야하는가..? --> 	 
+    <!-- 게시물 삭제 그에 딸린 댓글들도 delete_flags를 Y 설정해줘야한다. 내 댓글 보기에서 안보이게 하려면 --> 	 
 
-	 <update	id="deletePost"	parameterType="int" >
+<!-- 	  <update	id="deletePost"	parameterType="int" >
 	   	UPDATE post
 	   	<set>
 	   		delete_flag= 'Y'
 	   	</set>
-	   	WHERE post_no= #{postNo}
-	 </update>
-	 
+	   	WHERE post_no= #{value}
+	 </update> -->
+
+
+
+
+<!-- 게시물 블라인드 처리 관리자일 경우 가능하다.--> 	 	 
+<!-- 	 <update	id="blindPost"	parameterType="int" >
+	   	UPDATE post
+	   	<set>
+	   		delete_flag= 'X'
+	   	</set>
+	   	WHERE post_no= #{value}
+	 </update> -->
+
 	<!-- 댓글 수정  앞단에서 수정버튼을 user만 보이게끔 설정하기때문에 where 조건에는 댓글번호만 가지고 오면된다. -->	 
 	 
-	 <update	id="updateComment"	parameterType="comment" >
+	 <!-- <update	id="updateComment"	parameterType="comment" >
 	   	<set>
 	   		comment_content= #{commentContent},
 	   	</set>
 	   	WHERE comment_no = #{commentNo}
-	 </update>	 
+	 </update>	  -->
 	 
 	<!-- 댓글 삭제 -->
 	
-	 <update	id="deleteComment"	parameterType="int" >
+	 <!-- <update	id="deleteComment"	parameterType="int" >
 	   	UPDATE comment
 	   	<set>
 	   		delete_flag= 'Y'
 	   	</set>
 	   	WHERE comment_no= #{commentNo}
-	 </update>	 
+	 </update> -->	 
 
 
    <!-- 추천 해제 table에 postNo값이 등록이 되어있어야 헤재도 된다. -->
-	 <update	id="deleteConcern"	parameterType="hashmap" >
+	 <!-- <update	id="deleteConcern"	parameterType="hashmap" >
 	   	UPDATE post_concern
 	   	<set>
 	   		concern_flag= 'Y'
 	   	</set>
-	   	WHERE post_no= #{postNo}
-	 </update>	 
+	   	WHERE post_no= #{postNo.postNo}
+	 </update> -->	 
 
    <!-- 총 추천수 -->
-	<select  id="totalConcern"  parameterType="int"	resultType="int">
+<!-- 	<select  id="totalConcern"  parameterType="int"	resultType="int">
 	SELECT count(*) 
 	FROM post_concern 
-	WHERE post_no= #{postNo} and concern_flag = 'Y';
-	 </select>	 
+	WHERE post_no= #{value} and concern_flag = 'Y';
+	 </select> -->
 
    <!-- 총 댓글수-->
-	<select  id="totalComment"  parameterType="int"	resultType="int">
+<!-- 	<select  id="totalComment"  parameterType="int"	resultType="int">
 	SELECT count(*) 
 	FROM comment
-	WHERE post_no= #{postNo} and delete_flag = 'N';
-	 </select>	 
+	WHERE post_no= #{value} and delete_flag = 'N';
+	 </select>  -->
 	 
 	<!-- 추천 여부-->
-	<select  id="ConcernFlag"  parameterType="int"	resultMap="PostConcernMapper">
+	<!-- <select  id="ConcernFlag"  parameterType="int"	resultMap="postConcernMapper">
 	SELECT user_id 
 	FROM post_concern 
-	WHERE post_no= #{postNo} AND concern_flag = 'N';
-	 </select>	 
+	WHERE post_no= #{postNo.postNo} AND concern_flag = 'N';
+	 </select> -->	 
 	 
 </mapper> 

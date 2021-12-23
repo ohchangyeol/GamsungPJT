@@ -20,7 +20,7 @@ import site.gamsung.service.domain.User;
 public class CommunityController {
 
 	@Autowired
-	@Qualifier("CommunityServiceImpl")
+	@Qualifier("communityServiceImpl")
 	private CommunityService communityService;
 	private static final String FILE_SERVER_PATH = "F:\\Git\\GamsungPJT\\gamsung\\src\\main\\webapp\\uploadfiles\\community\\img";
 			

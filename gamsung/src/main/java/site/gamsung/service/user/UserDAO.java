@@ -15,6 +15,9 @@ public interface UserDAO {
 	//SELECT ONE
 	public User getUser(String id) throws Exception;
 	
+	//salt 값 가져오기
+	public String getSaltById(String id) throws Exception;
+	
 	//UPDATE
 	public void updateUser(User user) throws Exception;
 	

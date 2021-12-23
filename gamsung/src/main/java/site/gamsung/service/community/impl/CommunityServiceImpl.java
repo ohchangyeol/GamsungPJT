@@ -2,6 +2,7 @@ package site.gamsung.service.community.impl;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -15,12 +16,12 @@ import site.gamsung.service.domain.Comment;
 import site.gamsung.service.domain.Post;
 
 
-@Service("CommunityServiceImpl") 
+@Service("communityServiceImpl") 
 //아래 CommunityServiceImpl Class를 (CommunityServiceImpl)의 이름으로 Bean 생성 
 public class CommunityServiceImpl implements CommunityService {	
 	
 	 @Autowired
-	 @Qualifier("CommunityDAOImpl") //@Repository("CommunityDAOImpl")을 호출.
+	 @Qualifier("communityDAOImpl") //@Repository("CommunityDAOImpl")을 호출.
 	 private CommunityDAO communityDAO; // <-여기에 ↑ 대입 
 	 
 	  public void setCommunityDAO(CommunityDAO communityDAO) { 
@@ -39,19 +40,13 @@ public class CommunityServiceImpl implements CommunityService {
 		return communityDAO.addPost(post);
 	}
 
-	public HashMap<String, Object> listPost(Post post) throws Exception {
-		
-		int postNo = post.getPostNo();
+	public Map<String, Object> listPost(Post post) throws Exception {
 		
 		List<Post> list = communityDAO.listPost(post);
-		
-		int totalConcern = communityDAO.totalConcern(postNo);
-		int totalComment = communityDAO.totalComment(postNo);
-		
+			
 		HashMap<String,Object> map = new HashMap<String,Object>();
+		
 		map.put("list",list);
-		map.put("totalConcern",totalConcern);
-		map.put("totalComment",totalComment);
 		
 		return map;
 	}

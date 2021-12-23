@@ -10,6 +10,7 @@ public class Comment {
 	private String commentContent;
 	private User commentWriter;
 	private String commentRegdate;
+	private String deleteFlag;
 
 	
 	//Construtor
@@ -56,6 +57,23 @@ public class Comment {
 
 	public void setCommentRegdate(String commentRegdate) {
 		this.commentRegdate = commentRegdate;
+	}
+
+
+	@Override
+	public String toString() {
+		return "Comment Start [postNo=" + postNo + ", commentNo=" + commentNo + ", commentContent=" + commentContent
+				+ ", commentWriter=" + commentWriter + ", commentRegdate=" + commentRegdate + "END]";
+	}
+
+
+	public String getDeleteFlag() {
+		return deleteFlag;
+	}
+
+
+	public void setDeleteFlag(String deleteFlag) {
+		this.deleteFlag = deleteFlag;
 	}
 	
 }

@@ -68,4 +68,10 @@ public class UserDAOImpl implements UserDAO{
 		sqlSession.insert("UserMapper.addLoginDate", user);
 	}
 
+	@Override
+	public String getSaltById(String id) throws Exception {
+		
+		return sqlSession.selectOne(id);
+	}
+
 }

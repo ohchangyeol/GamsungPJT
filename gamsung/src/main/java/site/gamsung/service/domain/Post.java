@@ -145,6 +145,17 @@ public class Post {
 	public void setConcernType(String concernType) {
 		this.concernType = concernType;
 	}
+	@Override
+	public String toString() {
+		return "Post [postTile=" + postTile + ", postNo=" + postNo + ", postContent=" + postContent + ", writer="
+				+ writer + ", postType=" + postType + ", postConcernCount=" + postConcernCount + ", postRegdate="
+				+ postRegdate + ", video=" + video + ", deleteFlag=" + deleteFlag + ", commentTotalCount="
+				+ commentTotalCount + ", postImg1=" + postImg1 + ", postImg2=" + postImg2 + ", postImg3=" + postImg3
+				+ ", Hashtag1=" + Hashtag1 + ", Hashtag2=" + Hashtag2 + ", Hashtag3=" + Hashtag3 + ", search=" + search
+				+ ", concernFlag=" + concernFlag + ", concernType=" + concernType + "]";
+	}
 	
 
+	
+	
 }

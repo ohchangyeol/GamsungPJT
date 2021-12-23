@@ -15,7 +15,7 @@ import site.gamsung.service.domain.Post;
 import site.gamsung.service.domain.User;
 
 
-@Repository("CommunityDAOImpl")
+@Repository("communityDAOImpl")
 public class CommunityDAOImpl implements CommunityDAO {
 
 	//Field

@@ -8,6 +8,7 @@ public class User {
 	private String role;
 	private String id;
 	private String password;
+	private String salt;
 	private String name;
 	private String nickName;
 	private String campName;
@@ -65,12 +66,18 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
+	public String getSalt() {
+		return salt;
+	}
 
+	public void setSalt(String salt) {
+		this.salt = salt;
+	}
 
 	public String getName() {
 		return name;
 	}
-
 
 	public void setName(String name) {
 		this.name = name;
