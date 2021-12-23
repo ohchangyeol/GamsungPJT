@@ -2,24 +2,26 @@ package site.gamsung.service.auction.test;
 
 
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import site.gamsung.service.auction.AuctionUserInfoDAO;
+import site.gamsung.service.auction.AuctionInfoDAO;
 import site.gamsung.service.common.Search;
-import site.gamsung.service.domain.AuctionBidInfo;
-import site.gamsung.service.domain.AuctionIntergration;
+import site.gamsung.service.domain.AuctionInfo;
 import site.gamsung.service.domain.AuctionProduct;
 import site.gamsung.service.domain.User;
 
 
 /*
- *	FileName :  UserServiceTest.java
+ *	FileName :  AuctionInfoDAOTest.java
  * ㅇ JUnit4 (Test Framework) 과 Spring Framework 통합 Test( Unit Test)
  * ㅇ Spring 은 JUnit 4를 위한 지원 클래스를 통해 스프링 기반 통합 테스트 코드를 작성 할 수 있다.
  * ㅇ @RunWith : Meta-data 를 통한 wiring(생성,DI) 할 객체 구현체 지정
@@ -32,12 +34,54 @@ import site.gamsung.service.domain.User;
 									"classpath:config/context-aspect.xml",
 									"classpath:config/context-mybatis.xml",
 									"classpath:config/context-transaction.xml"})
-public class AuctionUserInfoDAOTest {
+public class AuctionInfoDAOTest {
 
 	//==>@RunWith,@ContextConfiguration 이용 Wiring, Test 할 instance DI
 	@Autowired(required = false)
-	@Qualifier("auctionUserInfoDAO")
-	private AuctionUserInfoDAO auctionUserInfoDAO;
+	@Qualifier("auctionInfoDAO")
+	private AuctionInfoDAO auctionInfoDAO;
+	
+	//응찰 관심 등록 error 발생 확인 필요/////////////////////////////
+	//@Test
+	public void testAddBidConcern() {
+		
+		AuctionInfo auctionBidInfo = new AuctionInfo();
+		User user = new User();
+		user.setId("user1@gamsung.com");
+		auctionBidInfo.setUser(user);
+		auctionBidInfo.setAuctionProductNo("PROD00001");
+		
+		auctionInfoDAO.addBidConcern(auctionBidInfo);
+		
+	}
+	
+	// 응찰 관심 활성화 체크 test
+	//@Test
+	public void testGetBidConcern() {
+		
+		AuctionInfo auctionBidInfo = new AuctionInfo();
+		User user = new User();
+		user.setId("user1@gamsung.com");
+		auctionBidInfo.setUser(user);
+		auctionBidInfo.setAuctionProductNo("PROD00001");
+		
+		int isActive = auctionInfoDAO.getBidConcern(auctionBidInfo);
+		
+		System.out.println(isActive);
+	}
+	
+	// 응찰 관심 삭제 test
+	//@Test
+	public void testDeleteBidConcern() {
+		AuctionInfo auctionBidInfo = new AuctionInfo();
+		User user = new User();
+		user.setId("user1@gamsung.com");
+		auctionBidInfo.setUser(user);
+		auctionBidInfo.setAuctionProductNo("PROD00001");
+		
+		auctionInfoDAO.deleteBidConcern(auctionBidInfo);
+	}
+	
 	
 	//응찰 관심 리스트 출력 test
 	//@Test
@@ -48,12 +92,12 @@ public class AuctionUserInfoDAOTest {
 		search.setOffset(10);
 		search.setPageSize(10);
 		
-		AuctionIntergration auctionList = new AuctionIntergration();
-		auctionList.setStringData("user1@gamsung.com");
-		auctionList.setSearch(search);
-		List<AuctionBidInfo> list = auctionUserInfoDAO.listBidConcern(auctionList);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("id", "user1@gamsung.com");
+		map.put("search", search);
+		List<AuctionInfo> list = auctionInfoDAO.listBidConcern(map);
 		
-		for(AuctionBidInfo auctionBidInfo : list) {
+		for(AuctionInfo auctionBidInfo : list) {
 			System.out.println(auctionBidInfo);
 		}
 		
@@ -72,11 +116,11 @@ public class AuctionUserInfoDAOTest {
 		search.setPageSize(10);
 		search.setOffset(10);
 		
-		AuctionIntergration auctionList = new AuctionIntergration();
-		auctionList.setUser(user);
-		auctionList.setSearch(search);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("user", user);
+		map.put("search", search);
 		
-		List<AuctionProduct> list = auctionUserInfoDAO.listAuctionProductByRole(auctionList);
+		List<AuctionProduct> list = auctionInfoDAO.listAuctionProductByRole(map);
 		
 		for(AuctionProduct auctionProduct : list) {
 			System.out.println(auctionProduct);
@@ -96,17 +140,17 @@ public class AuctionUserInfoDAOTest {
 		search.setPageSize(10);
 		search.setOffset(10);
 		
-		AuctionBidInfo auctionBidInfo = new AuctionBidInfo();
+		AuctionInfo auctionBidInfo = new AuctionInfo();
 		auctionBidInfo.setAuctionProductNo("PROD00001");
+		auctionBidInfo.setUser(user);
 		
-		AuctionIntergration auctionList = new AuctionIntergration();
-		auctionList.setUser(user);
-		auctionList.setSearch(search);
-		auctionList.setAuctionBidInfo(auctionBidInfo);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("auctionBidInfo", auctionBidInfo);
+		map.put("search", search);
 		
-		List<AuctionBidInfo> list = auctionUserInfoDAO.auctionHistory(auctionList);
+		List<AuctionInfo> list = auctionInfoDAO.auctionHistory(map);
 		
-		for(AuctionBidInfo bidInfo : list) {
+		for(AuctionInfo bidInfo : list) {
 			System.out.println(bidInfo);
 		}	
 	}
@@ -120,15 +164,25 @@ public class AuctionUserInfoDAOTest {
 		user.setRole("GENERAL");
 //		user.setRole("ADMIN");
 		
-		AuctionBidInfo auctionBidInfo = auctionUserInfoDAO.auctionStatusTotalCount(user);
+		AuctionInfo auctionBidInfo = auctionInfoDAO.auctionStatusTotalCount(user);
 		System.out.println(auctionBidInfo);
+	}
+	
+	@Test
+	public void testGetYearAuctionStatistics() {
+		
+		List<AuctionInfo> list = auctionInfoDAO.getYearAuctionStatistics();
+		
+		for(AuctionInfo auctionInfo : list) {
+			System.out.println(auctionInfo);
+		}
 	}
 
 	//user 경매 등급 출력 test
 	//@Test
 	public void getUserAuctionGradeInfo() {
 		
-		int userGrade = auctionUserInfoDAO.getUserAuctionGradeInfo("user1@gamsung.com");
+		int userGrade = auctionInfoDAO.getUserAuctionGradeInfo("user1@gamsung.com");
 		
 		if(userGrade != 0) {
 			System.out.println(userGrade); 
@@ -147,7 +201,7 @@ public class AuctionUserInfoDAOTest {
 		user.setId("user1@gamsung.com");
 		user.setAuctionGrade(12);
 		
-		auctionUserInfoDAO.updateUserAuctionGrade(user);
+		auctionInfoDAO.updateUserAuctionGrade(user);
 		
 	}
 	
@@ -155,7 +209,7 @@ public class AuctionUserInfoDAOTest {
 	//@Test
 	public void testIsSecessionUserAuctionCondition() {
 		
-		System.out.println(auctionUserInfoDAO.isSecessionUserAuctionCondition("user1@gamsung.com")); 
+		System.out.println(auctionInfoDAO.isSecessionUserAuctionCondition("user1@gamsung.com")); 
 		
 	}
 	

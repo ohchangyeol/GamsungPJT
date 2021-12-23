@@ -11,7 +11,7 @@ INSERT INTO USERS(user_id, role, nick_name, password, name, phone, entry_reg_dat
 ('businessuser4@gamsung.com', 'BUSINESS', null, '4444', '황현지', '01012345686', SYSDATE(), '아리스', '029384736'),
 ('businessuser5@gamsung.com', 'BUSINESS', null, '5555', '임준희', '01012345687', SYSDATE(), '비너스', '07019283746');
 
-INSERT INTO AUCTION_PRODUCT(registrant_id,product_name,product_detail,start_bid_price,hopeful_bid_price,bid_unit,auction_start_time,auction_end_time,bidable_grade,hashtag1,hashtag2,hashtag3,product_img1) VALUES
+INSERT INTO AUCTION_PRODUCT(registrant_id,product_name,product_detail_a,start_bid_price,hopeful_bid_price,bid_unit,auction_start_time,auction_end_time,bidable_grade,hashtag1,hashtag2,hashtag3,product_img1) VALUES
 ('user1@gamsung.com', '상품1', '너무 좋은 상품이에요', 5100, 110000, 100, '2021-12-17  3:00:00', '2021-12-19  3:00:00', 10, '#상품1', '#상품01', '#상품001', '상품1.jpg'),
 ('user2@gamsung.com', '상품2', '너무 좋은 상품이에요', 5200, 120000, 200, '2021-12-18  3:00:00', '2021-12-21  3:00:00', 20, '#상품2', '#상품02', '#상품002', '상품2.jpg'),
 ('user3@gamsung.com', '상품3', '너무 좋은 상품이에요', 5300, 130000, 300, '2021-12-19  3:00:00', '2021-12-21  3:00:00', 30, '#상품3', '#상품03', '#상품003', '상품3.jpg'),
@@ -24,19 +24,19 @@ INSERT INTO AUCTION_PRODUCT(registrant_id,product_name,product_detail,start_bid_
 ('user5@gamsung.com', '상품10', '너무 좋은 상품이에요', 6000, 200000, 1000, '2021-12-17  3:00:00', '2021-12-21  3:00:00', 100, '#상품10', '#상품10', '#상품010', '상품10.jpg');
 
 
-INSERT INTO CAMP (business_user_id, tempsave_flag, delete_flag, camp_summery, camp_reg_date, camp_theme1, camp_theme2, camp_nature1, camp_nature2, camp_operation1, camp_operation2, camp_view_count_previous_month, camp_view_count_current_month, camp_reservation_count, camp_rating) VALUES
-('businessuser1@gamsung.com', 'n', 'n', '좋은캠핑장1', '1990-01-01', '봄', '겨울', '계곡', '호수', '상시', '여름', 2, 3, 1, 1.1),
-('businessuser2@gamsung.com', 'n', 'n', '좋은캠핑장2', '1990-01-02', '여름', '봄', '호수', '계곡', '봄', '상시', 2, 4, 3, 3.4),
-('businessuser3@gamsung.com', 'n', 'n', '좋은캠핑장3', '1990-01-03', '가을', '여름', '강', '호수', '여름', '봄', 3, 4, 4, 2.4),
-('businessuser4@gamsung.com', 'n', 'n', '좋은캠핑장4', '1990-01-04', '겨울', '가을', '바다', '강', '가을', '여름', 4, 5, 5, 3.3),
-('businessuser5@gamsung.com', 'n', 'n', '좋은캠핑장5', '1990-01-05', '일출', '겨울', '산', '바다', '겨울', '가을', 5, 6, 1, 2.3);
+INSERT INTO CAMP (user_id, tempsave_flag, delete_flag, camp_summery, camp_reg_date, camp_theme1, camp_theme2, camp_nature1, camp_nature2, camp_operation1, camp_operation2, camp_view_count_previous_month, camp_view_count_current_month, camp_reservation_count, camp_rating) VALUES
+('businessuser1@gamsung.com', 'N', 'N', '좋은캠핑장1', '1990-01-01', '봄', '겨울', '계곡', '호수', '상시', '여름', 2, 3, 1, 1.1),
+('businessuser2@gamsung.com', 'N', 'N', '좋은캠핑장2', '1990-01-02', '여름', '봄', '호수', '계곡', '봄', '상시', 2, 4, 3, 3.4),
+('businessuser3@gamsung.com', 'N', 'N', '좋은캠핑장3', '1990-01-03', '가을', '여름', '강', '호수', '여름', '봄', 3, 4, 4, 2.4),
+('businessuser4@gamsung.com', 'N', 'N', '좋은캠핑장4', '1990-01-04', '겨울', '가을', '바다', '강', '가을', '여름', 4, 5, 5, 3.3),
+('businessuser5@gamsung.com', 'N', 'N', '좋은캠핑장5', '1990-01-05', '일출', '겨울', '산', '바다', '겨울', '가을', 5, 6, 1, 2.3);
 
 INSERT INTO MAINSITE (camp_no, mainsite_type, delete_flag, mainsite_name, mainsite_section, mainsite_size, mainsite_min_capacity, mainsite_max_capacity, mainsite_min_price, mainsite_add_price, mainsite_parking_size, mainsite_info, mainsite_reservation_user_name, mainsite_reservation_start, mainsite_reservation_end, mainsite_reg_date) VALUES
-(10000, '오토캠핑', 'n', '하늘1', '구역1', '3m x 6m', 2, 4, 6, 2, 1, '주요시설1', '홍길동1', '1990-01-01', '1990-01-02', '2020-01-01'),
-(10001, '글램핑', 'n', '하늘2', '구역2', '3m x 7m', 3, 5, 7, 2, 2, '주요시설2', '홍길동2', '1990-01-02', '1990-01-03', '2020-01-02'),
-(10002, '카라반', 'n', '하늘3', '구역3', '3m x 8m', 4, 6, 8, 2, 3, '주요시설3', '홍길동3', '1990-01-03', '1990-01-04', '2020-01-03'),
-(10003, '방갈로', 'n', '하늘4', '구역4', '3m x 9m', 5, 7, 9, 2, 4, '주요시설4', '홍길동4', '1990-01-04', '1990-01-05', '2020-01-04'),
-(10004, ' 팬션', 'n', '하늘5', '구역5', '3m x 10m', 6, 8, 10, 2, 5, '주요시설5', '홍길동5', '1990-01-05', '1990-01-06', '2020-01-05');
+(10000, '오토캠핑', 'N', '하늘1', '구역1', '3m x 6m', 2, 4, 6, 2, 1, '주요시설1', '홍길동1', '1990-01-01', '1990-01-02', '2020-01-01'),
+(10001, '글램핑', 'N', '하늘2', '구역2', '3m x 7m', 3, 5, 7, 2, 2, '주요시설2', '홍길동2', '1990-01-02', '1990-01-03', '2020-01-02'),
+(10002, '카라반', 'N', '하늘3', '구역3', '3m x 8m', 4, 6, 8, 2, 3, '주요시설3', '홍길동3', '1990-01-03', '1990-01-04', '2020-01-03'),
+(10003, '방갈로', 'N', '하늘4', '구역4', '3m x 9m', 5, 7, 9, 2, 4, '주요시설4', '홍길동4', '1990-01-04', '1990-01-05', '2020-01-04'),
+(10004, ' 팬션', 'N', '하늘5', '구역5', '3m x 10m', 6, 8, 10, 2, 5, '주요시설5', '홍길동5', '1990-01-05', '1990-01-06', '2020-01-05');
 
 INSERT INTO SUBSITE (camp_no, subsite_type, subsite_reg_date, subsite_name, subsite_info) values
 (10000, '전기', '1990-01-01', '전기1', '최신시설1'),
@@ -99,3 +99,24 @@ INSERT INTO RATING_REVIEW (user_id, product_no, rating_review_content, review_re
 ('user3@gamsung.com', 'PROD00003', 'very good', '2021-12-17', 'very good', '2021-12-17', 5.0, 3.0, 4.0, 'img1'),
 ('user4@gamsung.com', 'PROD00004', 'very good', '2021-12-17', 'very good', '2021-12-17', 4.0, 4.0, 5.0, 'img1'),
 ('user5@gamsung.com', 'PROD00005', 'very good', '2021-12-17', 'very good', '2021-12-17', 3.0, 5.0, 1.0, 'img1');
+
+INSERT INTO PAYMENT_CODE (payment_code, payment_code_range_start, payment_code_range_end, payment_code_info, payment_code_fee) VALUES
+ ('P0', 0, 0, '포인트 관리자', 0),
+ ('P1', 0, 0, '포인트 구매', 0),
+ ('P2', 0, 0, '포인트 출금', 20),
+ ('R0', 0, 0, '캠핑 관리자', 0),
+ ('R1', 0, 0, '캠핑 예약', 8),
+ ('R2', 2, 2, '캠핑 예약환불 2일전', 50),
+ ('R3', 3, 3, '캠핑 예약환불 3일전', 60),
+ ('R4', 4, 4, '캠핑 예약환불 4일전', 70),
+ ('R5', 5, 5, '캠핑 예약환불 5일전', 80),
+ ('R6', 6, 6, '캠핑 예약환불 6일전', 90),
+ ('R7', 7, 7, '캠핑 예약환불 7일전', 100),
+ ('A0', 0, 0, '경매 관리자', 0),
+ ('A1', 100, 0, '경매 낙찰취소/중도철회 A등급', 1),
+ ('A2', 60, 99, '경매 낙찰취소/중도철회 B등급', 2),
+ ('A3', 30, 59, '경매 낙찰취소/중도철회 C등급', 3),
+ ('A4', 10, 29, '경매 낙찰취소/중도철회 D등급', 4),
+ ('A5', 1, 9, '경매 낙찰취소/중도철회 E등급', 5),
+ ('T0', 0, 0, '양도양수 관리자', 0),
+ ('T1', 0, 0, '양도양수', 0);

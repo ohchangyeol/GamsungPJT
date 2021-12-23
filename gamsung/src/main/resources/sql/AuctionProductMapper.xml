@@ -36,7 +36,7 @@
 		<result property="isDelete" column="delete_flag"/>
 	</resultMap>
 	
-	<resultMap id="bidInfo" type="auctionBidInfo">
+	<resultMap id="info" type="auctionInfo">
 		<result property="bidNo" column="bid_no"/>
 		<result property="auctionProductNo" column="product_no"/>
 		<result property="user.id" column="user_id"/>
@@ -135,7 +135,7 @@
 		WHERE product_no = #{value}
 	</update>
 	
-	<select id="auctionProductBidUserInfo" parameterType="String" resultMap="bidInfo">
+	<select id="auctionProductBidUserInfo" parameterType="String" resultMap="info">
 		SELECT user_id, nick_name, auction_grade
 		FROM USERS
 		WHERE user_id = #{value};
@@ -147,12 +147,12 @@
 		WHERE product_no = #{value};
 	</update>
 	
-	<insert id="auctionProductBid" parameterType="auctionBidInfo">
+	<insert id="auctionProductBid" parameterType="auctionInfo">
 		INSERT INTO AUCTION_HISTORY (product_no, bidder_id, bid_price)
 		VALUES(#{auctionProductNo}, #{user.id}, #{bidPrice})
 	</insert>
 	
-	<update id="updateAuctionProductCondition" parameterType="auctionBidInfo">
+	<update id="updateAuctionProductCondition" parameterType="auctionInfo">
 		UPDATE AUCTION_PRODUCT
 		SET auction_status = #{auctionStatus}
 		WHERE product_no = #{auctionProductNo}
@@ -179,7 +179,7 @@
 		WHERE ap.product_no = mah.product_no AND timeout_flag = 'N'
 	</select>
 	
-	<update id="deleteAuctionProductManagement" parameterType="auctionIntergration">
+	<update id="deleteAuctionProductManagement" parameterType="auctionProduct">
 		UPDATE AUCTION_PRODUCT
 		SET delete_flag = 'Y'
 		WHERE product_no = #{auctionProduct.auctionProductNo}
