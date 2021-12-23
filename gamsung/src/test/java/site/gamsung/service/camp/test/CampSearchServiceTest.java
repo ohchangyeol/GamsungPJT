@@ -37,7 +37,7 @@ import site.gamsung.service.domain.SubSite;
 
 public class CampSearchServiceTest {
 
-	@Autowired(required = false)
+	@Autowired
 	@Qualifier("campSearchServiceImpl")
 	private CampSearchService campSearchService;
 	

@@ -32,6 +32,10 @@ public class CampReservationServiceImpl implements CampReservationService {
 		this.campReservationDAO = campReservationDAO;
 	}
 
+	public void setPaymentDAO(PaymentDAO paymentDAO) {
+		this.paymentDAO = paymentDAO;
+	}
+
 	public CampReservationServiceImpl() {
 		System.out.println(this.getClass());
 	}

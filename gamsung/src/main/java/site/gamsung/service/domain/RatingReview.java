@@ -21,8 +21,8 @@ public class RatingReview {
 	private String img1;
 	private String img2;
 	private String img3;
-	private boolean reviewDeleteFlag;
-	private boolean commentDeleteFlag;
+	private String reviewDeleteFlag;
+	private String commentDeleteFlag;
 	
 	public RatingReview() {
 		
@@ -164,20 +164,40 @@ public class RatingReview {
 		this.img3 = img3;
 	}
 
-	public boolean isReviewDeleteFlag() {
+	public String isReviewDeleteFlag() {
 		return reviewDeleteFlag;
 	}
 
-	public void setReviewDeleteFlag(boolean reviewDeleteFlag) {
+	public void setReviewDeleteFlag(String reviewDeleteFlag) {
 		this.reviewDeleteFlag = reviewDeleteFlag;
 	}
 
-	public boolean isCommentDeleteFlag() {
+	public String isCommentDeleteFlag() {
 		return commentDeleteFlag;
 	}
 
-	public void setCommentDeleteFlag(boolean commentDeleteFlag) {
+	public void setCommentDeleteFlag(String commentDeleteFlag) {
 		this.commentDeleteFlag = commentDeleteFlag;
+	}
+
+	public AuctionProduct getAuctionProduct() {
+		return auctionProduct;
+	}
+
+	public void setAuctionProduct(AuctionProduct auctionProduct) {
+		this.auctionProduct = auctionProduct;
+	}
+
+	public String getReviewDeleteFlag() {
+		return reviewDeleteFlag;
+	}
+
+	public String getCommentDeleteFlag() {
+		return commentDeleteFlag;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	@Override

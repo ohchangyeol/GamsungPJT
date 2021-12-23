@@ -80,7 +80,7 @@ public class CampReservation {
 		this.reservationStatus = reservationStatus;
 	}
 
-	public String isDeleteFlag() {
+	public String getDeleteFlag() {
 		return deleteFlag;
 	}
 
