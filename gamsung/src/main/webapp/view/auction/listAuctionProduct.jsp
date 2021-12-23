@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -8,7 +8,7 @@
 	
 	<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 	
-	<title>Áß°í °æ¸Å</title>
+	<title>ì¤‘ê³  ê²½ë§¤</title>
 	
 	<link rel="stylesheet" href="/resources/css/animate.css">
     <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
@@ -22,9 +22,9 @@
     <link rel="stylesheet" href="/resources/css/responsiveslides.css">
     <link rel="stylesheet" href="/resources/css/style.css">
     <link rel="stylesheet" href="/resources/css/timeline.css">     
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js" integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js"></script>
     
     <script src="/resources/javascript/bootstrap.min.js"></script>
 	<script src="/resources/javascript/contact-form-script.js"></script>
@@ -48,9 +48,9 @@
 			window.location.href = '/auction/getAuctionProduct?auctionProductNo='+productNo;
 		});
 	
-		//Å©·Ñ¸µ ¹öÆ°
+		//í¬ë¡¤ë§ ë²„íŠ¼
 		$('#crawling').on("click", function(){
-			alert("Å©·Ñ¸µÀÌ ½ÃÀÛµÇ¾ú½À´Ï´Ù.");
+			alert("í¬ë¡¤ë§ì´ ì‹œì‘ë˜ì—ˆìŠµë‹ˆë‹¤.");
 			$(this).attr('disabled', true);
 			$.ajax( 
 					{
@@ -68,18 +68,19 @@
 				});
 		});	
 		
-		//»óÇ° µî·Ï ¹öÆ°
+		//ìƒí’ˆ ë“±ë¡ ë²„íŠ¼
 		$('#addProduct').on("click", function(){
 			window.location.href = '/auction/addAuctionProduct';
 		});	
 		
 		$('.dropdown-item').on("click",function(){
-			window.location.href = '/auction/listAuctionProduct?sortCondition='+encodeURI($(this).text(),"UTF-8");
+			$('#sortCondition').val($(this).text());
+			$("#searchForm").attr('method','get').attr('action','/auction/listAuctionProduct').submit();
 		});
 		
 		$('#search').keypress(function(e){
 			if(e.keyCode == '13'){
-				window.location.href = '/auction/listAuctionProduct?searchKeyword='+encodeURI($(this).val(),"UTF-8");
+				$("#searchForm").attr('method','get').attr('action','/auction/listAuctionProduct').submit();
 			}
 		});
 		$('#search').keypress(function(){
@@ -87,14 +88,21 @@
 		});
 	});
 	
-	//¹«ÇÑ½ºÅ©·Ñ
+	//ë¬´í•œìŠ¤í¬ë¡¤
 	var page = 2; 
 	$(window).scroll(function() {
+		var sortCondition = $('#sortCondition').val();
+		var searchKeyword = $('#searchKeyword').val();
 	    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
 	    	$.ajax(
 					{
-						url : "/auction/rest/infiniteScroll/"+page,
-						method : "GET",
+						url : "/auction/rest/infiniteScroll",
+						method : "POST",
+						data : JSON.stringify({
+							currentPage : page,
+							sortCondition : sortCondition,
+							searchKeyword : searchKeyword
+						}),
 						headers : {
 							"Accept" : "application/json",
 							"Content-Type" : "application/json"
@@ -112,10 +120,10 @@
 									+	'</div>'
 									+	'<p hidden="">'+JSONData[i].auctionProductNo+'</p>'
 									+	'<h4>'+JSONData[i].auctionProductName+'</h4>'
-									+	'<div>Á¶È¸¼ö : '+JSONData[i].productViewCount+'</div>'
-									+	'<div>°æ¸Å ½ÃÀÛ°¡ : '+JSONData[i].startBidPrice+'</div>'
-									+	'<div>Èñ¸Á ³«Âû°¡ : '+JSONData[i].hopefulBidPrice+'</div>'
-									+	'<div>°æ¸Å ÀÜ¿© ½Ã°£ : '+JSONData[i].remainAuctionTime+'</div>'
+									+	'<div>ì¡°íšŒìˆ˜ : '+JSONData[i].productViewCount+'</div>'
+									+	'<div>ê²½ë§¤ ì‹œì‘ê°€ : '+JSONData[i].startBidPrice+'</div>'
+									+	'<div>í¬ë§ ë‚™ì°°ê°€ : '+JSONData[i].hopefulBidPrice+'</div>'
+									+	'<div>ê²½ë§¤ ì”ì—¬ ì‹œê°„ : '+JSONData[i].remainAuctionTime+'</div>'
 									+	'<span>'+JSONData[i].hashtag1+'&nbsp;'+JSONData[i].hashtag2+'&nbsp;'+JSONData[i].hashtag3+'</span>'
 									+'</figure>'
 									+'</div>';
@@ -155,26 +163,26 @@
 				<div class="btn-group col-md-2">
 					<button class="btn btn-secondary btn-sm dropdown-toggle"
 						type="button" data-toggle="dropdown" aria-expanded="false">
-						Á¤·ÄÁ¶°Ç</button>
+						ì •ë ¬ì¡°ê±´</button>
 					<div class="dropdown-menu">
-						<a class="dropdown-item" >Èñ¸Á ³«Âû°¡ ³ôÀº ¼ø</a>
-					    <a class="dropdown-item" >Èñ¸Á ³«Âû°¡ ³·Àº ¼ø</a>
-					    <a class="dropdown-item" >Á¶È¸¼ö ³ôÀº ¼ø</a>
-					    <a class="dropdown-item" >°æ¸Å ÀÔ¹Ú ¼ø</a>
-					    <a class="dropdown-item" >Á¶È¸¼ö ¼ø</a>
+						<a class="dropdown-item" >í¬ë§ ë‚™ì°°ê°€ ë†’ì€ ìˆœ</a>
+					    <a class="dropdown-item" >í¬ë§ ë‚™ì°°ê°€ ë‚®ì€ ìˆœ</a>
+					    <a class="dropdown-item" >ì¡°íšŒìˆ˜ ë†’ì€ ìˆœ</a>
+					    <a class="dropdown-item" >ê²½ë§¤ ì…ë°• ìˆœ</a>
+					    <a class="dropdown-item" >ì¡°íšŒìˆ˜ ìˆœ</a>
 					</div>
 				</div>
 				<div class="col-md-7">
 				<form id="searchForm">
-					<input type="hidden" name="sortCondition" value="${search.sortCondition}"/>
-					<input type="text" id="search" name="searchKeyword" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm" value="${search.searchKeyword}">
+					<input id="sortCondition" type="hidden" name="sortCondition" value="${search.sortCondition}"/>
+					<input id="searchKeyword" type="text" id="search" name="searchKeyword" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm" value="${search.searchKeyword}">
 				</form>
 				</div>
 				<div >
-					<button id="crawling" class="btn btn-common">»óÇ° Å©·Ñ¸µÇÏ±â!</button>
+					<button id="crawling" class="btn btn-common">ìƒí’ˆ í¬ë¡¤ë§í•˜ê¸°!</button>
 				</div>
 				<div >
-					<button id="addProduct" class="btn btn-common">»óÇ° µî·Ï</button>
+					<button id="addProduct" class="btn btn-common">ìƒí’ˆ ë“±ë¡</button>
 				</div>
 			</div>
 			
@@ -187,10 +195,10 @@
 						</div>
 						<p hidden="">${product.auctionProductNo}</p>
 						<h4>${product.auctionProductName}</h4>
-						<div>Á¶È¸¼ö : ${product.productViewCount }</div>
-						<div>°æ¸Å ½ÃÀÛ°¡ : ${product.startBidPrice }</div>
-						<div>Èñ¸Á ³«Âû°¡ : ${product.hopefulBidPrice }</div>
-						<div>°æ¸Å ÀÜ¿© ½Ã°£ : ${product.remainAuctionTime}</div>
+						<div>ì¡°íšŒìˆ˜ : ${product.productViewCount }</div>
+						<div>ê²½ë§¤ ì‹œì‘ê°€ : ${product.startBidPrice }</div>
+						<div>í¬ë§ ë‚™ì°°ê°€ : ${product.hopefulBidPrice }</div>
+						<div>ê²½ë§¤ ì”ì—¬ ì‹œê°„ : ${product.remainAuctionTime}</div>
 						<span>${product.hashtag1}&nbsp;${product.hashtag2}&nbsp;${product.hashtag2}</span>
 					</figure>
 				</div>

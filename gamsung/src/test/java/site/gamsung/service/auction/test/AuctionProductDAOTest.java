@@ -13,7 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import site.gamsung.service.auction.AuctionProductDAO;
 import site.gamsung.service.common.Search;
-import site.gamsung.service.domain.AuctionBidInfo;
+import site.gamsung.service.domain.AuctionInfo;
 import site.gamsung.service.domain.AuctionProduct;
 import site.gamsung.service.domain.User;
 
@@ -119,7 +119,7 @@ public class AuctionProductDAOTest {
 	//@Test
 	public void testAuctionProductBidUserInfo() {
 		
-		AuctionBidInfo auctionBidInfo = auctionProductDAO.auctionProductBidUserInfo("user2@gamsung.com");
+		AuctionInfo auctionBidInfo = auctionProductDAO.auctionProductBidUserInfo("user2@gamsung.com");
 		System.out.println(auctionBidInfo);
 		
 	}
@@ -136,7 +136,7 @@ public class AuctionProductDAOTest {
 	//@Test
 	public void testAuctionProductBid() {
 		
-		AuctionBidInfo auctionBidInfo = new AuctionBidInfo();
+		AuctionInfo auctionBidInfo = new AuctionInfo();
 		User user = new User();
 		user.setId("user1@gamsung.com");
 		auctionBidInfo.setUser(user);

@@ -19,6 +19,26 @@
     <link rel="stylesheet" href="/resources/css/timeline.css">  
 
 <title>${auctionProduct.auctionProductName}</title>
+
+<style type="text/css">
+	body{
+		margin-top: 50px;
+	}
+	
+	button{
+		width: 60%;
+	}
+	
+	strong{
+		font-size: 20px;
+	}
+	
+	#counter{
+		margin: 30px;
+	}
+</style>
+
+
 </head>
 <body>
 	<jsp:include page="../common/header.jsp"></jsp:include>
@@ -54,8 +74,11 @@
 						<div class="media cont-line">
 							<div class="media-body dit-right">
 								<h4>registrant info</h4>
-								<a href="#">12345 67890</a><br>
-								<a href="#">12345 67890</a>
+								<a>${auctionBidInfo.user.auctionGrade}</a>
+								<a>리뷰평점넣기</a><br>
+								<a>별개수</a><br>
+								<a>경매 확정: ${auctionBidInfo.successfulBidCount} 회</a><br>
+								<a>중도 찰회: ${auctionBidInfo.midwayWithdrawalCount } 회</a>
 							</div>
 						</div>
 						<div class="media cont-line">
@@ -68,10 +91,26 @@
 								<a>입찰 가능 등급 : ${auctionProduct.bidableGrade }</a>								
 							</div>
 						</div>
+						<div class="media cont-line">
+							<div class="media-body dit-right">
+								<strong>현재 입찰가 : ${auctionBidInfo.bidPrice }</strong>				
+							</div>
+						</div>
+						<div class="media cont-line">
+							<div class="media-body dit-right" >
+								<button id="crawling" class="btn btn-success">입찰</button><br>
+								<a>경매 잔여 시간 : ${auctionProduct.remainAuctionTime }</a><br>
+								<a>입찰자 명 중 순위 </a><br>
+								<a>내 입찰가 : ${auctionBidInfo.bidPrice }</a><br>		
+							</div>
+							
+						</div>
 					</div>
 				</div>
 			</div>
-			
+			<div id="counter" class="col-lg-12 col-sm-12 col-xs-12 text-center default">
+				<span >현재 몇명이 조회중</span>	
+			</div>
 			
 			
 			<div class="col-lg-12 col-sm-12 col-xs-12">

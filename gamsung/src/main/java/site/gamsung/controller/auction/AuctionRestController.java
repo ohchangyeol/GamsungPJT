@@ -11,7 +11,9 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -67,16 +69,11 @@ public class AuctionRestController {
 		
 	}
 	
-	@RequestMapping("infiniteScroll/{page}")
-	public List<AuctionProduct> InfiniteScroll(@PathVariable("page") int currentPage){
-		
-		Search search = new Search();
-		
-		search.setCurrentPage(currentPage);
+	@RequestMapping("infiniteScroll")
+	public List<AuctionProduct> InfiniteScroll(@RequestBody Search search){
+	
 		search.setOffset(auctionPageSize);
 		search.setPageSize(auctionPageSize);
-		
-		System.out.println(search);
 		
 		return auctionProductService.listAuctionProduct(search);
 	}

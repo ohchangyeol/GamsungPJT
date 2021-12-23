@@ -3,7 +3,7 @@ package site.gamsung.service.auction;
 import java.util.List;
 
 import site.gamsung.service.common.Search;
-import site.gamsung.service.domain.AuctionBidInfo;
+import site.gamsung.service.domain.AuctionInfo;
 import site.gamsung.service.domain.AuctionProduct;
 
 public interface AuctionProductDAO {
@@ -20,13 +20,13 @@ public interface AuctionProductDAO {
 	
 	public void updateAuctionProductViewCounter(String auctionProductNo);
 	
-	public AuctionBidInfo auctionProductBidUserInfo(String bidderId);
+	public AuctionInfo auctionProductBidUserInfo(String bidderId);
 	
-	public void auctionProductBid(AuctionBidInfo auctionBidInfo);
+	public void auctionProductBid(AuctionInfo auctionInfo);
 
 	public void updateBidEndTime(String auctionProductNo);
 	
-	public void updateAuctionProductCondition(AuctionBidInfo auctionBidInfo);
+	public void updateAuctionProductCondition(AuctionInfo auctionInfo);
 	
 	public void addMainAuctionProduct(AuctionProduct auctionProduct);
 	

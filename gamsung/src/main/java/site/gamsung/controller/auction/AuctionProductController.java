@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import site.gamsung.service.auction.AuctionProductService;
 import site.gamsung.service.common.Search;
@@ -25,11 +26,12 @@ public class AuctionProductController {
 	@Value("#{commonProperties['auctionPageSize']}")
 	int auctionPageSize;
 	
-	
 	@Autowired
 	@Qualifier("auctionProductService")
 	private AuctionProductService auctionProductService;
-	
+
+	@Value("#{commonProperties['path']}")
+	private String PATH;
 	
 	
 	public AuctionProductController() {
@@ -49,7 +51,7 @@ public class AuctionProductController {
 		
 		//받은 상품 목록을 model에 담아 return한다.
 		model.addAttribute("list",list);
-		
+	
 		return "forward:/view/auction/listAuctionProduct.jsp";
 		
 	}
@@ -123,7 +125,9 @@ public class AuctionProductController {
 	
 	//미리보기 페이지 요청시 정보를 그대로 담아 페이지 navigation한다.
 	@RequestMapping(value = "previewAuctionProduct", method = RequestMethod.POST)
-	public String previewAuctionProduct(@ModelAttribute("auctionProduct") AuctionProduct auctionProduct) {
+	public String previewAuctionProduct(@ModelAttribute("auctionProduct") AuctionProduct auctionProduct,
+									 	MultipartHttpServletRequest multipartHttpServletRequest) {
+	
 		
 		return "forward:/view/auction/previewAuctionProduct.jsp";
 	}

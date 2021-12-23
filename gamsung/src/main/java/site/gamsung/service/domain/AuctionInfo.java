@@ -1,11 +1,12 @@
 package site.gamsung.service.domain;
 
-public class AuctionBidInfo {
+public class AuctionInfo {
 	private String bidNo;
 	private String auctionProductNo;
 	private User user; //id, nickname, auctionGrade
 	private int bidPrice;
 	private String bidDateTime;
+	private String concernRegDate;
 	private String auctionStatus;
 	private int addProductCount;
 	private int bidCount;
@@ -45,6 +46,12 @@ public class AuctionBidInfo {
 	}
 	public void setBidDateTime(String bidDateTime) {
 		this.bidDateTime = bidDateTime;
+	}
+	public String getConcernRegDate() {
+		return concernRegDate;
+	}
+	public void setConcernRegDate(String concernRegDate) {
+		this.concernRegDate = concernRegDate;
 	}
 	public String getAuctionStatus() {
 		return auctionStatus;
@@ -102,11 +109,13 @@ public class AuctionBidInfo {
 	}
 	@Override
 	public String toString() {
-		return "AuctionBidInfo [bidNo=" + bidNo + ", auctionProductNo=" + auctionProductNo + ", user=" + user
-				+ ", bidPrice=" + bidPrice + ", bidDateTime=" + bidDateTime + ", auctionStatus=" + auctionStatus
-				+ ", addProductCount=" + addProductCount + ", bidCount=" + bidCount + ", successfulBidCount="
-				+ successfulBidCount + ", auctionConfirmCount=" + auctionConfirmCount + ", midwayWithdrawalCount="
-				+ midwayWithdrawalCount + ", cancelSuccessfulBidCount=" + cancelSuccessfulBidCount + ", topRankCount="
-				+ topRankCount + ", addReviewCount=" + addReviewCount + "]";
+		return "AuctionInfo [bidNo=" + bidNo + ", auctionProductNo=" + auctionProductNo + ", user=" + user
+				+ ", bidPrice=" + bidPrice + ", bidDateTime=" + bidDateTime + ", concernRegDate=" + concernRegDate
+				+ ", auctionStatus=" + auctionStatus + ", addProductCount=" + addProductCount + ", bidCount=" + bidCount
+				+ ", successfulBidCount=" + successfulBidCount + ", auctionConfirmCount=" + auctionConfirmCount
+				+ ", midwayWithdrawalCount=" + midwayWithdrawalCount + ", cancelSuccessfulBidCount="
+				+ cancelSuccessfulBidCount + ", topRankCount=" + topRankCount + ", addReviewCount=" + addReviewCount
+				+ "]";
 	}
+	
 }
