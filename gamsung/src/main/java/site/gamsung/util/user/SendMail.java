@@ -13,12 +13,11 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-import site.gamsung.service.videochat.impl.MailAuth;
-
 public class SendMail {
-	
+		
 	public void mailSend(String id, String key, String info, String text) {
-
+		
+	
 		Properties prop = System.getProperties();
 		
         // 로그인시 TLS를 사용할 것인지 설정
@@ -32,6 +31,14 @@ public class SendMail {
         
 		// TLS의 포트번호는 587이며 SSL의 포트번호는 465이다.
 		prop.put("mail.smtp.port", "587");
+		
+		prop.put("mail.transport.protocol", "smtp");
+		//prop.put("mail.debug", "true");
+		
+		// soket문제와 protocol문제 해결
+		prop.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+//		prop.put("mail.smtp.socketFactory.fallback", "false");
+		prop.put("mail.smtp.ssl.protocols", "TLSv1.2");
 
 		Authenticator auth = new MailAuth();
 
@@ -44,7 +51,7 @@ public class SendMail {
 			msg.setSentDate(new Date());
 
 			// 발송자를 지정한다. 발송자의 메일, 발송자명
-			msg.setFrom(new InternetAddress("muse1264@gmail.com", "감성캠핑"));
+			msg.setFrom(new InternetAddress("hulis1234@gmail.com", "감성캠핑"));
 			
             // 수신자의 메일을 생성한다.
 			InternetAddress to = new InternetAddress(id);
@@ -62,7 +69,7 @@ public class SendMail {
             // Transport는 메일을 최종적으로 보내는 클래스로 메일을 보내는 부분이다.
 						
 			msg.setText(text);
-
+			
 			Transport.send(msg);
 
 		} catch (AddressException ae) {

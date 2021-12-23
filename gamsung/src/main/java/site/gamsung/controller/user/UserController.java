@@ -1,8 +1,6 @@
 package site.gamsung.controller.user;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 import javax.servlet.http.HttpSession;
@@ -18,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import site.gamsung.service.domain.User;
 import site.gamsung.service.user.UserService;
+import site.gamsung.util.user.SHA256Util;
 
 @Controller
 @RequestMapping("/user/*")
@@ -104,9 +103,14 @@ public class UserController {
 			return "이용정지된 회원임.jsp";
 		}
 		
-		String jsp ="";
+		String jsp ="forward:/main.jsp";
+		String pw = user.getPassword();
+		System.out.println("비밀번호"+pw);
+		System.out.println("솔트"+dbUser.getSalt());
+		String newPwd = SHA256Util.getEncrypt(pw, dbUser.getSalt());
+		System.out.println("암호화"+newPwd);
 		
-		if(user.getPassword().equals(dbUser.getPassword())) {
+		if(newPwd.equals(dbUser.getPassword())) {
 			System.out.println("로그인 시작");
 			
 			if(dbUser.getNickName() != null) {
@@ -115,9 +119,8 @@ public class UserController {
 				jsp = "forward:/campbusiness/goSubMainCampBusiness"; 
 		    }else {
 		    	return "아직 회원가입 승인안됨.jsp";
-		    	
-			}
-		}
+		    }
+		} 
 		
 		if(!(currentDate != null && regDate.equals(currentDate.toString()))) {
 			userService.addLoginDate(dbUser);	
