@@ -183,6 +183,17 @@ public class CommunityTest {
 			  		 		
 		}
 	
+		//@Test
+		public void testListComment() throws Exception {
+
+			int postNo = 1;
+			
+			List<Comment> Comment = communityService.listComment(postNo);			
+			
+			System.out.println("Comment::::"+Comment);
+
+		}
+		
 
 }
 

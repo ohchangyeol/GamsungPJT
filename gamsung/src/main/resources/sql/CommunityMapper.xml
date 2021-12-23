@@ -124,12 +124,12 @@
 	 
     <!-- 댓글 list  조회--> 	 
  	 
-	<!-- <select  id="listComment"  parameterType="int"	resultMap="commentMapper">
+	<select  id="listComment"  parameterType="int"	resultMap="commentMapper">
 	SELECT * 
 	FROM comment
-	WHERE delete_flag = 'N' AND post_no= #{postNo.postNo}
+	WHERE delete_flag = 'N' AND post_no= #{value}
 	ORDER BY comment_reg_date;
-	 </select> -->	 
+	 </select> 
 	 
     <!-- SQL : UPDATE --> 	 
     <!-- 게시물 수정 --> 	 
@@ -155,16 +155,28 @@
 	   	WHERE post_no = #{postNo}
 	 </update>
 	 
-    <!-- 게시물 삭제 그에 딸린 댓글들도 delete_flags를 Y 설정해줘야하는가..? --> 	 
+    <!-- 게시물 삭제 그에 딸린 댓글들도 delete_flags를 Y 설정해줘야한다. 내 댓글 보기에서 안보이게 하려면 --> 	 
 
-	 <!-- <update	id="deletePost"	parameterType="int" >
+<!-- 	  <update	id="deletePost"	parameterType="int" >
 	   	UPDATE post
 	   	<set>
 	   		delete_flag= 'Y'
 	   	</set>
-	   	WHERE post_no= #{postNo}
+	   	WHERE post_no= #{value}
 	 </update> -->
-	 
+
+
+
+
+<!-- 게시물 블라인드 처리 관리자일 경우 가능하다.--> 	 	 
+<!-- 	 <update	id="blindPost"	parameterType="int" >
+	   	UPDATE post
+	   	<set>
+	   		delete_flag= 'X'
+	   	</set>
+	   	WHERE post_no= #{value}
+	 </update> -->
+
 	<!-- 댓글 수정  앞단에서 수정버튼을 user만 보이게끔 설정하기때문에 where 조건에는 댓글번호만 가지고 오면된다. -->	 
 	 
 	 <!-- <update	id="updateComment"	parameterType="comment" >
