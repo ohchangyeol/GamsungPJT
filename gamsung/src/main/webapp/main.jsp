@@ -11,7 +11,7 @@ pageEncoding="UTF-8"%>
     Document Title
     =============================================
     -->
-    <title>Titan | Multipurpose HTML5 Template</title>
+    <title>GamsungCamp</title>
     <!--  
     Favicons
     =============================================
@@ -68,7 +68,7 @@ pageEncoding="UTF-8"%>
         <div class="titan-caption">
           <div class="caption-content">
             <div class="font-alt mb-30 titan-title-size-1">Powerful. Multipurpose.</div>
-            <div class="font-alt mb-40 titan-title-size-4">100+ Layouts</div><a class="section-scroll btn btn-border-w btn-round" href="#demos">See Demos</a>
+            <div class="font-alt mb-40 titan-title-size-4">😊보노보노야?😊</div><a class="section-scroll btn btn-border-w btn-round" href="#demos">See Demos</a>
           </div>
         </div>
       </section>
