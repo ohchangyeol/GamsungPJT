@@ -13,18 +13,15 @@ import site.gamsung.service.common.Search;
 import site.gamsung.service.camp.CampReservationDAO;
 import site.gamsung.service.domain.CampReservation;
 import site.gamsung.service.domain.MainSite;
-
+import site.gamsung.service.domain.Payment;
 import site.gamsung.service.domain.ReservationStatistics;
 import site.gamsung.service.payment.PaymentDAO;
 
 @Service("campReservationServiceImpl")
 public class CampReservationServiceImpl implements CampReservationService {
 
-	/*
-	 * @Autowired
-	 * 
-	 * @Qualifier("campReservationDAOImpl")
-	 */
+	@Autowired
+	@Qualifier("campReservationDAOImpl")
 	private CampReservationDAO campReservationDAO;
 	
 	@Autowired
@@ -46,6 +43,8 @@ public class CampReservationServiceImpl implements CampReservationService {
 
 	@Override
 	public void addReservation(CampReservation campReservation) throws Exception {
+		
+		//insert payment(결제 정보) - insert payment(결제 정보) - 포인트, 현금, 카드 여러 형태 처리.
 		campReservationDAO.addReservation(campReservation);
 		campReservationDAO.updateMainSiteReservation(campReservation);
 	}
@@ -136,22 +135,52 @@ public class CampReservationServiceImpl implements CampReservationService {
 	@Override
 	public void updateReservation(CampReservation campReservation) throws Exception {
 		
-		CampReservation currentCampReservation = campReservationDAO.getReservation(campReservation.getReservationNo());
+		//추가 결제 발생 시 insert payment(결제 정보) - 포인트, 현금, 카드 여러 형태 처리.
 		
+		CampReservation currentCampReservation = campReservationDAO.getReservation(campReservation.getReservationNo());
+				
 		if(currentCampReservation.getReservationStartDate() != campReservation.getReservationStartDate()
 				|| currentCampReservation.getReservationEndDate() != campReservation.getReservationEndDate()
 					|| currentCampReservation.getReservationUserName() != campReservation.getReservationUserName()) {
 			
 			if(currentCampReservation.getMainSite().getMainSiteNo() != campReservation.getMainSite().getMainSiteNo()) {
-				currentCampReservation.setDeleteFlag("Y");
+				currentCampReservation.setReservationUserName(null);
+				currentCampReservation.setReservationStartDate(null);
+				currentCampReservation.setReservationEndDate(null);
 				campReservationDAO.updateMainSiteReservation(currentCampReservation);
 				campReservationDAO.updateMainSiteReservation(campReservation);
 			}else {
 				campReservationDAO.updateMainSiteReservation(campReservation);
 			}
 		}
+		campReservationDAO.updateReservation(campReservation);
+		
+	}
+
+	@Override
+	public void cancleReservationApply(CampReservation campReservation) throws Exception {
 		
 		campReservationDAO.updateReservation(campReservation);
+		//get payment(예약번호) - 리스트로 받고 리스트 크기로 반복문 돌려서 결제취소 정보 입력.
+		//insert payment(결제취소정보) - 예약 등록 번호별 결제 유형에 맞게 처리.
+	
+	}
+
+	@Override
+	public void cancleReservationDo(Payment payment) throws Exception {
+	
+		//예약취소 UI에서 결제 취소 진행 후 최종 확인 시 실행.
+		
+		CampReservation campReservation = campReservationDAO.getReservation(payment.getPaymentReferenceNum());
+		campReservation.setReservationStatus(6);
+		
+		campReservationDAO.updateReservation(campReservation);
+		
+		campReservation.setReservationUserName(null);
+		campReservation.setReservationStartDate(null);
+		campReservation.setReservationEndDate(null);
+		
+		campReservationDAO.updateMainSiteReservation(campReservation);
 		
 	}
 

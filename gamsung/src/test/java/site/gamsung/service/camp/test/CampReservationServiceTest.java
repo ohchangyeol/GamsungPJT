@@ -19,7 +19,6 @@ import site.gamsung.service.domain.CampReservation;
 import site.gamsung.service.domain.MainSite;
 import site.gamsung.service.domain.Payment;
 import site.gamsung.service.domain.ReservationStatistics;
-//import site.gamsung.service.domain.ReservationStatistics;
 import site.gamsung.service.domain.User;
 
 /*
@@ -39,7 +38,7 @@ import site.gamsung.service.domain.User;
 
 public class CampReservationServiceTest {
 
-	@Autowired(required = false)
+	@Autowired
 	@Qualifier("campReservationServiceImpl")
 	private CampReservationService campReservationService;
 	
@@ -47,8 +46,8 @@ public class CampReservationServiceTest {
 	int campPageSize;
 	
 	//캠핑장 예약 가능한 주요시설 리스트(O)
-	@Test
-	public void testPossibleReservationList() throws Exception{
+	//@Test
+	public void testListPossibleReservation() throws Exception{
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
@@ -82,8 +81,8 @@ public class CampReservationServiceTest {
 		campReservation.setReservationStatus(1);
 		campReservation.setReservationRegDate(java.sql.Date.valueOf("2021-12-20"));
 		campReservation.setReservationUserName("오감자");
-		campReservation.setReservationStartDate(java.sql.Date.valueOf("2021-12-24"));
-		campReservation.setReservationEndDate(java.sql.Date.valueOf("2021-12-25"));
+		campReservation.setReservationStartDate(java.sql.Date.valueOf("2021-12-27"));
+		campReservation.setReservationEndDate(java.sql.Date.valueOf("2021-12-28"));
 		campReservation.setUseNum(2);
 		campReservation.setReservationUserPhone("01077777777");
 		campReservation.setReservationRegCarNum("77조7777");
@@ -120,13 +119,6 @@ public class CampReservationServiceTest {
 		
 	}
 	
-
-	//캠핑장 예약 통계 :: 일, 주, 월, 년, 전년일, 전년주, 전년월, 전년(O)
-//	@Test
-//	public void testReservationStatistics() throws Exception{
-//		ReservationStatistics reservationStatistics = campReservationService.getReservationStatistics();
-//		System.out.println("콘솔 확인 : " + reservationStatistics);
-//	}
 
 	//캠핑장 예약 통계 :: 총, 일, 주, 월, 년, 전년일, 전년주, 전년월, 전년(O)
 	//@Test
@@ -200,7 +192,7 @@ public class CampReservationServiceTest {
 		
 	}
 	
-	//예약 정보()
+	//예약 정보(O)
 	//@Test
 	public void testgetReservation() throws Exception{
 		
@@ -210,5 +202,58 @@ public class CampReservationServiceTest {
 		System.out.println("콘솔 확인 : " + campReservation);
 		
 	}
-
+	
+	//캠핑장 예약 변경(O), 이전 주요시설 정보 변경(O), 새로운 주요시설 정보 변경(O)
+	//@Test
+	public void testUpdateReservation() throws Exception{
+		
+		CampReservation campReservation = new CampReservation();
+		
+		MainSite mainSite = new MainSite();
+//		mainSite.setMainSiteNo(10004);
+		mainSite.setMainSiteNo(10009);
+		
+		Camp camp = new Camp();
+		camp.setCampNo(10004);
+		
+		campReservation.setCamp(camp);
+		campReservation.setMainSite(mainSite);
+		campReservation.setReservationNo("R00005");
+		campReservation.setReservationStatus(2);
+		campReservation.setReservationUserName("오서방");
+		campReservation.setReservationStartDate(java.sql.Date.valueOf("2022-01-01"));
+		campReservation.setReservationEndDate(java.sql.Date.valueOf("2022-01-03"));
+		campReservation.setUseNum(3);
+		campReservation.setReservationUserPhone("01012345678");
+		campReservation.setReservationRegCarNum("11자1111");
+		campReservation.setReservationRequest("똥마려워요");
+		campReservation.setTotalPaymentPrice(200000);
+		campReservation.setTotalReservationRegCar(1);
+		
+		campReservationService.updateReservation(campReservation);
+		
+	}
+	
+	//예약 취소 신청 : 예약 번호 취소 대기로 변경 및 결제 취소 정보 등록(예약번호로 결제 정보 불러온 후 결제 방법별 취소 정보 등록)
+	//@Test
+	public void testCancleReservationApply() throws Exception{
+		
+		CampReservation campReservation = new CampReservation();
+		campReservation.setReservationStatus(4);
+		campReservation.setReservationNo("R00005");
+		
+		campReservationService.cancleReservationApply(campReservation);
+	}
+	
+	//예약 취소 처리 : 결제 취소 처리 완료 후 최종 확인 누르면 예약 번호 취소 완료로 변경 및 캠핑장 주요 시설 예약정보 삭제 업데이트.
+	@Test
+	public void testcancleReservationDo() throws Exception{
+		
+		Payment payment = new Payment();
+		
+		payment.setPaymentReferenceNum(null);
+		
+		campReservationService.cancleReservationDo(payment);
+			
+	}
 }
