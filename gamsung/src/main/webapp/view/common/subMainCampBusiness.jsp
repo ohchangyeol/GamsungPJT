@@ -38,15 +38,61 @@
 
 <body>
 
-   <!-- ToolBar -->
-   <jsp:include page="/view/common/headerCampBusiness.jsp" />
+      <!-- ToolBar -->
+      <jsp:include page="/view/common/headerCampBusiness.jsp" />
    
-   <br>
-   <br>
-   <br>
-   <h1>Test Camp Business Main</h1>
-	
-	<a href="http://gamsung.site">메인화면 입니다.</a>
+      <br>
+      <br>
+      <div class="container">
 
+         <div class="page-header">
+                <h1 class=" text-info">Test Camp Business Main</h1>
+          </div>
+
+         <!-- Form Start -->
+         <form class="form-horizontal" >
+      
+            <div class="col-sm-2">
+               <a href="/main.jsp">메인</a>
+            </div>
+            
+            <!-- 여기에 입력 시작 -->            
+            
+            <br>
+            <br>                        
+            <div class="col-sm-2">
+               <a href="/view/payment/managePoint.jsp">포인트 관리(구현중)</a>
+            </div>
+            
+            <br>
+            <br>                        
+            <div class="col-sm-2">
+               <a href="test">test1</a>
+            </div>
+            
+            <br>
+            <br>                        
+            <div class="col-sm-2">
+               <a href="test">test2</a>
+            </div>
+            
+            
+            <br>
+            <br>                        
+            <div class="col-sm-2">
+               <a href="test">test3</a>
+            </div>
+         
+         
+         
+         
+         
+         
+         
+         
+            <!-- 여기에 입력 끝-->
+      
+         </form>
+      </div>   
 </body>
 </html>

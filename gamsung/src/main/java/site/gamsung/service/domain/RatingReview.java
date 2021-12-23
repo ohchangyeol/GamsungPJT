@@ -6,7 +6,7 @@ public class RatingReview {
 
 	private Camp camp;
 	private AuctionProduct auctionProduct;
-	private String id;
+	private User user;
 	private int ratingReviewNo;
 	private int ratingReviewStatus;
 	private String ratingReviewTitle;
@@ -44,12 +44,12 @@ public class RatingReview {
 		this.auctionProduct = auctionProduct;
 	}
 
-	public String getId() {
-		return id;
+	public User getUser() {
+		return user;
 	}
 
-	public void setID(String id) {
-		this.id = id;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public int getRatingReviewNo() {
@@ -164,19 +164,12 @@ public class RatingReview {
 		this.img3 = img3;
 	}
 
-	public String isReviewDeleteFlag() {
-		return reviewDeleteFlag;
-	}
-
 	public void setReviewDeleteFlag(String reviewDeleteFlag) {
 		this.reviewDeleteFlag = reviewDeleteFlag;
 	}
 
-	public String isCommentDeleteFlag() {
-		return commentDeleteFlag;
-	}
-
 	public void setCommentDeleteFlag(String commentDeleteFlag) {
+
 		this.commentDeleteFlag = commentDeleteFlag;
 	}
 
@@ -195,14 +188,10 @@ public class RatingReview {
 	public String getCommentDeleteFlag() {
 		return commentDeleteFlag;
 	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
+	
 	@Override
 	public String toString() {
-		return "RatingReview [camp=" + camp + ", auctionProduct=" + auctionProduct + ", id=" + id + ", ratingReviewNo="
+		return "RatingReview [camp=" + camp + ", auctionProduct=" + auctionProduct + ", user=" + user + ", ratingReviewNo="
 				+ ratingReviewNo + ", ratingReviewStatus=" + ratingReviewStatus + ", ratingReviewTitle="
 				+ ratingReviewTitle + ", ratingReviewContent=" + ratingReviewContent + ", reviewRegDate="
 				+ reviewRegDate + ", comment=" + comment + ", commentRegDate=" + commentRegDate + ", statusRating="

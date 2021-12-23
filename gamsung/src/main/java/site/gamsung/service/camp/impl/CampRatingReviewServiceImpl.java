@@ -14,7 +14,7 @@ import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.RatingReview;
 
 @Service("ratingReviewServiceImpl")
-public class RatingReviewServiceImpl implements RatingReviewService {
+public class CampRatingReviewServiceImpl implements RatingReviewService {
 
 	@Autowired
 	@Qualifier("campRatingReviewDAOImpl")
@@ -24,7 +24,7 @@ public class RatingReviewServiceImpl implements RatingReviewService {
 		this.campRatingReviewDAO = campRatingReviewDAO;
 	}
 
-	public RatingReviewServiceImpl() {
+	public CampRatingReviewServiceImpl() {
 		System.out.println(this.getClass());
 	}
 	
