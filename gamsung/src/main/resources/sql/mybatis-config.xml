@@ -14,6 +14,10 @@
 	
 	<!-- FQCN(Full Qualified Class Name) Alias(별칭관리) -->
 	<typeAliases>
+	
+		 <typeAlias alias="map" type="java.util.Map" />
+		 <typeAlias alias="auctionProduct" type="site.gamsung.service.domain.AuctionProduct" />
+		 <typeAlias alias="auctionInfo" type="site.gamsung.service.domain.AuctionInfo" />
 
 		 <typeAlias alias="user" type="site.gamsung.service.domain.User" />
 		 <typeAlias alias="search" type="site.gamsung.service.common.Search" />	
@@ -28,12 +32,12 @@
 		 <typeAlias alias="payment" type="site.gamsung.service.domain.Payment" />
 		 <typeAlias alias="paymentCode" type="site.gamsung.service.domain.PaymentCode" />
 		 <typeAlias alias="siteProfit" type="site.gamsung.service.domain.SiteProfit" />
-		 <typeAlias alias="auctionProduct" type="site.gamsung.service.domain.AuctionProduct" />
-		 <typeAlias alias="auctionBidInfo" type="site.gamsung.service.domain.AuctionBidInfo" />
-		 <typeAlias alias="auctionList" type="site.gamsung.service.domain.AuctionList" />
+		 
 		 <typeAlias alias="notice" type="site.gamsung.service.domain.Notice" />
 		 <typeAlias alias="campReservation" type="site.gamsung.service.domain.CampReservation" />
-		
+		 <typeAlias alias="reservationStatistics" type="site.gamsung.service.domain.ReservationStatistics" />
+		 <typeAlias alias="ratingReview" type="site.gamsung.service.domain.RatingReview" />
+
 	</typeAliases>
 	
 	 <!-- SQL Definition :: file include -->
@@ -51,9 +55,10 @@
  		<mapper resource="sql/PaymentMapper.xml"/>
 		
 		<mapper resource="sql/AuctionProductMapper.xml"/>
-		<mapper resource="sql/AuctionUserInfoMapper.xml"/> 
+		<mapper resource="sql/AuctionInfoMapper.xml"/> 
  		<mapper resource="sql/AuctionRestMapper.xml"/>
 		<mapper resource="sql/CampReservationMapper.xml" />
+		<mapper resource="sql/CampRatingReviewMapper.xml" />
 	</mappers>
 
 </configuration>

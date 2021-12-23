@@ -32,8 +32,6 @@
 
 	<!-- JavaScript -->
 	<script type="text/javascript">
-	
-	
 
 		// 버튼
 		$(function() {
@@ -48,7 +46,8 @@
 			});
 					
 			$("#cancle").on("click" , function() {
-				alert("취소 되었습니다.");	
+				alert("취소 되었습니다.");
+				window.history.back();
 			});
 			
 			$("#resetform").on("click" , function() {
@@ -126,8 +125,7 @@
 				<div class="col-sm-4">
 					<input type="text" class="form-control" id="subSiteInfo" name="subSiteInfo" value="" placeholder="설명을 입력하세요">
 				</div>
-		</div>
-		
+		</div>		
 
 		<div class="form-group">
 			<div class="col-sm-offset-4  col-sm-4 text-center">

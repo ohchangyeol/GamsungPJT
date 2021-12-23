@@ -1,7 +1,6 @@
 package site.gamsung.service.user.test;
 
 import java.util.List;
-import java.util.Map;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,14 +30,17 @@ public class UserServiceTest {
 	public void testAddUser() throws Exception{
 		
 		User user = new User();
-		user.setId("test88@test.com");
-		user.setNickName("닉네임");
-		user.setName("이름");
+		user.setId("test11@nate.com");
+		user.setNickName("임시1");
+		user.setName("비번11");
 		user.setPassword("2222");
 		user.setRole("GENERAL");
-		user.setPhone("01022223333");
-		
+		user.setPhone("01001113333");
+				
 		userService.addUser(user);
+		
+		System.out.println(user.getSalt());
+		System.out.println(user.getPassword());
 		
 		//user=userService.getUser("test1@test.com");
 		
@@ -53,20 +55,20 @@ public class UserServiceTest {
 		System.out.println("########### "+user);
 	}
 	
-	@Test
+	//@Test
 	public void testUpdateUser() throws Exception{
 		
-		User user = userService.getUser("user1@gamsung.com");
-//		User user = userService.getUser("businessuser1@gamsung.com");
+		//User user = userService.getUser("user1@gamsung.com");
+		User user = userService.getUser("test11@nate.com");
 
 		user.setName("이름변경2");
-		user.setBusinessUserApprovalFlag("Y");
+	//	user.setBusinessUserApprovalFlag("Y");
 		
 		userService.updateUser(user);
-
 		//user=userService.getUser("test88@test.com");
 
-		user=userService.getUser("businessuser1@gamsung.com");
+		//user=userService.getUser("businessuser2@gamsung.com");
+		System.out.println(user);
 
 	}
 	
@@ -119,6 +121,36 @@ public class UserServiceTest {
 		System.out.println(totalCount);
 	}
 	
+	//@Test
+	public void testCheckDuplication() throws Exception{
+		
+		User user = new User();
+		user.setId("user1@gamsung.com");
+		System.out.println(user);
+		userService.checkDuplication(user);
+	}
 	
-
+	//@Test
+	public void testUpdatePassword() throws Exception{
+		
+		User user = userService.getUser("test8@test.com");
+		user.setPassword("3333");
+		
+		userService.updateUser(user);
+		
+	}
+	
+	@Test
+	public void testUpdateTempPassword() throws Exception{
+		
+		User user = new User();
+		String id = "muse1264@nate.com";
+		user = userService.getUser(id);
+		
+		System.out.println(user);
+		System.out.println(user.getSalt());
+		
+		userService.updateTempPassword(user);
+	}
+	
 }

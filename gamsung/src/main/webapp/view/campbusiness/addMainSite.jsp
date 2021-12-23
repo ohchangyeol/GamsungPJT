@@ -45,7 +45,8 @@
 			});
 					
 			$("#cancle").on("click" , function() {
-				alert("취소 되었습니다.");	
+				alert("취소 되었습니다.");
+				window.history.back();
 			});
 			
 			$("#resetform").on("click" , function() {
@@ -74,7 +75,7 @@
 		<!-- Form Start -->
 		<form class="form-horizontal" >
 		
-		<input type="hidden" name="campNo" id="campNo" value="1000">
+		<input type="hidden" name="campNo" id="campNo" value="10000">
 		
 		<div class="form-group">
 			<label for="mainSiteRegDate" class="col-sm-offset-1 col-sm-3 control-label">등록 일자</label>
@@ -122,28 +123,28 @@
 		<div class="form-group">
 			<label for="mainSiteMinCapacity" class="col-sm-offset-1 col-sm-3 control-label">기본 사용인원수</label>
 				<div class="col-sm-4">
-					<input type="number" class="form-control" id="mainSiteMinCapacity" name="mainSiteMinCapacity" value="0">
+					<input type="number" class="form-control" id="mainSiteMinCapacity" name="mainSiteMinCapacity" value="1">
 				</div>
 		</div>
 		
 		<div class="form-group">
 			<label for="mainSiteMaxCapacity" class="col-sm-offset-1 col-sm-3 control-label">최대 사용인원수</label>
 				<div class="col-sm-4">
-					<input type="number" class="form-control" id="mainSiteMaxCapacity" name="mainSiteMaxCapacity" value="0">
+					<input type="number" class="form-control" id="mainSiteMaxCapacity" name="mainSiteMaxCapacity" value="1">
 				</div>
 		</div>
 		
 		<div class="form-group">
 			<label for="mainSiteMinPrice" class="col-sm-offset-1 col-sm-3 control-label">기본인원 금액</label>
 				<div class="col-sm-4">
-					<input type="number" class="form-control" id="mainSiteMinPrice" name="mainSiteMinPrice" value="0">
+					<input type="number" class="form-control" id="mainSiteMinPrice" name="mainSiteMinPrice" value="1">
 				</div>
 		</div>
 		
 		<div class="form-group">
 			<label for="mainSiteAddPrice" class="col-sm-offset-1 col-sm-3 control-label">추가인원 금액</label>
 				<div class="col-sm-4">
-					<input type="number" class="form-control" id="mainSiteAddPrice" name="mainSiteAddPrice" value="0">
+					<input type="number" class="form-control" id="mainSiteAddPrice" name="mainSiteAddPrice" value="1">
 				</div>
 		</div>
 		

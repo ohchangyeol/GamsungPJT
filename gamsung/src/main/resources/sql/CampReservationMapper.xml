@@ -8,9 +8,11 @@
 
 	<resultMap id="CampReservationSelectMap" type="campReservation">
 		<result property="camp.campNo"					 	column="camp_no" 							jdbcType="NUMERIC"/>
-		<result property="camp.campName"				 	column="camp_name" 							jdbcType="VARCHAR"/>
+		<result property="user.campName"				 	column="camp_name" 							jdbcType="VARCHAR"/>
 		<result property="user.id" 							column="user_id" 							jdbcType="VARCHAR"/>
+		<result property="user.campCall" 					column="camp_call" 							jdbcType="VARCHAR"/>
 		<result property="mainSite.mainSiteNo"				column="mainsite_no" 						jdbcType="NUMERIC"/>
+		<result property="mainSite.mainSiteName"			column="mainsite_type" 						jdbcType="VARCHAR"/>
 		<result property="reservationNo"					column="reservation_no" 					jdbcType="VARCHAR"/>
 		<result property="reservationStatus" 				column="reservation_status" 				jdbcType="NUMERIC"/>
 		<result property="deleteFlag" 						column="delete_flag" 						jdbcType="CHAR"/>
@@ -51,13 +53,31 @@
 		<result property="campName" 						column="camp_name" 							jdbcType="VARCHAR"/>
 	</resultMap>
 	
-	<select id="possibleReservationList" parameterType="map" resultMap="mainSiteSelectMap">
+	<resultMap id="reservationStatisticsSelectMap" type="reservationStatistics">
+		<result property="campID" 							column="CID" 			  jdbcType="NUMERIC"/>
+		<result property="campName"							column="CNAME" 	   	  	  jdbcType="NUMERIC"/>
+		<result property="date" 							column="DATE" 	  	  	  jdbcType="NUMERIC"/>
+		<result property="start" 							column="START"  		  jdbcType="NUMERIC"/>
+		<result property="end" 								column="END" 			  jdbcType="NUMERIC"/>
+		<result property="totalCount" 						column="ACOUNT" 		  jdbcType="NUMERIC"/>
+		<result property="dayCount" 						column="DCOUNT" 		  jdbcType="NUMERIC"/>
+		<result property="weekCount"						column="WCOUNT" 		  jdbcType="NUMERIC"/>
+		<result property="monthCount" 						column="MCOUNT" 	  	  jdbcType="NUMERIC"/>
+		<result property="yearCount" 						column="YCOUNT"  		  jdbcType="NUMERIC"/>
+		<result property="beforeYearDayCount" 				column="BYDCOUNT" 		  jdbcType="NUMERIC"/>
+		<result property="beforeYearWeekCount" 				column="BYWCOUNT" 	  	  jdbcType="NUMERIC"/>
+		<result property="beforeYearMonthCount" 			column="BYMCOUNT" 		  jdbcType="NUMERIC"/>
+		<result property="beforeYearYearCount" 				column="BYYCOUNT" 		  jdbcType="NUMERIC"/>
+	</resultMap>
+	
+	<select id="listPossibleReservation" parameterType="map" resultMap="mainSiteSelectMap">
 		<![CDATA[
 		SELECT mainsite_info, mainsite_min_capacity, mainsite_max_capacity, mainsite_no, mainsite_parking_size, mainsite_min_price, 
 			   mainsite_add_price, mainsite_name, mainsite_img1, mainsite_img2, mainsite_img3, mainsite_section, mainsite_size, 
-			   mainsite_type, mainsite_reg_date
+			   mainsite_type, mainsite_reg_date, mainsite_reservation_start, mainsite_reservation_end
 		FROM MAINSITE
-		WHERE camp_no =#{campNo} AND mainsite_reservation_end > #{startDate} AND delete_flag = 'N'
+		WHERE camp_no =#{campNo} AND #{startDate} >= mainsite_reservation_end  AND delete_flag = 'N' 
+			OR (camp_no =#{campNo} AND delete_flag = 'N' AND mainsite_reservation_end is NULL)
 		]]>
 	</select>
 
@@ -65,19 +85,128 @@
 		INSERT INTO CAMP_RESERVATION (user_id, camp_no, mainsite_no, reservation_status, reservation_reg_date, reservation_user_name, 
 									  reservation_start_date, reservation_end_date, use_num, reservation_user_phone, reservation_reg_car_num, 
 									  reservation_request, total_payment_price, total_reservation_reg_car, payment_type) 
-		values (#{user.id}, #{camp.campNo}, #{mainSite.mainSiteNo}, #{reservationStatus}, #{reservationRegDate}, #{reservationUserName}, 
+		VALUES (#{user.id}, #{camp.campNo}, #{mainSite.mainSiteNo}, #{reservationStatus}, #{reservationRegDate}, #{reservationUserName}, 
 				#{reservationStartDate}, #{reservationEndDate}, #{useNum}, #{reservationUserPhone}, #{reservationRegCarNum:VARCHAR}, 
 				#{reservationRequest:VARCHAR}, #{totalPaymentPrice}, #{totalReservationRegCar:NUMERIC}, #{paymentType});
 	</insert>
 
-	<update id="updateMainSiteReservationDate" parameterType="campReservation">
+	<update id="updateReservation" parameterType="campReservation">
+		UPDATE CAMP_RESERVATION 
+		set
+			<if test="reservationUserName != null and reservationUserName != ''">
+			reservation_user_name = #{reservationUserName},
+			</if>
+			<if test="reservationStartDate != null">
+			reservation_start_date = #{reservationStartDate},
+			</if>
+			<if test="reservationEndDate != null">
+			reservation_end_date = #{reservationEndDate},
+			</if>		 
+			<if test="useNum != null">
+			use_num = #{useNum},
+			</if> 
+			<if test="reservationUserPhone != null and reservationUserPhone != ''">
+			reservation_user_phone = #{reservationUserPhone},
+			</if> 
+			<if test="reservationRegCarNum != null and reservationRegCarNum != ''">
+			reservation_reg_car_num = #{reservationRegCarNum},
+			</if> 
+			<if test="reservationRequest != null and reservationRequest != ''">
+			reservation_request = #{reservationRequest},
+			</if>
+			<if test="totalPaymentPrice != null">
+			total_payment_price = #{totalPaymentPrice},
+			</if>
+			<if test="totalReservationRegCar != null">
+			total_reservation_reg_car = #{totalReservationRegCar},
+			</if>
+			reservation_status = #{reservationStatus}
+		WHERE reservation_no = #{reservationNo}
+	</update>
+	
+	<update id="updateMainSiteReservation" parameterType="campReservation">
 		UPDATE MAINSITE
 		<set>
+			mainsite_reservation_user_name = #{reservationUserName:VARCHAR},
 			mainsite_reservation_start = #{reservationStartDate},
 			mainsite_reservation_end = #{reservationEndDate}
 		</set> 
-		WHERE camp_no = #{camp.campNo}
+		WHERE camp_no = #{camp.campNo} AND mainsite_no = #{mainSite.mainSiteNo}
 	</update>
+	
+	<select id="listReservation" parameterType="map" resultMap="CampReservationSelectMap">
+		SELECT r.reservation_no, u.camp_name, m.mainsite_type, r.reservation_status, r.reservation_reg_date, r.reservation_start_date, 
+			   r.reservation_end_date, r.total_payment_price, r.camp_no, r.reservation_user_name, r.reservation_user_phone, r.use_num
+		FROM CAMP_RESERVATION r, MAINSITE m, CAMP c, USERS u
+		WHERE r.camp_no = m.camp_no AND m.camp_no = c.camp_no AND c.user_id = u.user_id
+		<if test="id != null">
+			AND r.user_id = #{id}
+		</if>
+		<if test="campNo != null">
+			AND r.camp_no = #{campNo}
+		</if>
+		<if test="search.searchCondition != null">
+			<if test="search.searchCondition == 0 and search.searchKeyword !='' ">
+				AND u.camp_name LIKE CONCAT('%',#{search.searchKeyword},'%')
+			</if>
+			<if test="search.searchCondition == 1 and search.searchKeyword !='' ">
+				AND m.mainsite_type LIKE CONCAT('%',#{search.searchKeyword},'%')
+			</if>
+		</if>
+		<trim prefix="ORDER BY">
+            <if test="search.sortCondition != null ">
+               <if test='search.sortCondition.equals("이용가격 높은순")'>
+                  r.total_payment_price DESC
+               </if>
+               <if test='search.sortCondition.equals("이용가격 낮은순")'>
+                  r.total_payment_price ASC
+               </if>
+               <if test='search.sortCondition.equals("이용 가능순")'>
+                  r.reservation_status ASC
+               </if>
+               <if test='search.sortCondition.equals("이용 불가능순")'>
+                  r.reservation_status DESC
+               </if>
+               <if test='search.sortCondition.equals("예약일자 최근순")'>
+                  r.reservation_reg_date DESC
+               </if>
+               <if test='search.sortCondition.equals("예약일자 오래된순")'>
+                  r.reservation_reg_date ASC
+               </if>
+            </if>
+         </trim>
+		LIMIT #{search.pageSize} OFFSET #{search.offset}
+	</select>
+	
+	<select  id="getTotalCount"  parameterType="map"	 resultType="int">
+		SELECT COUNT(*)
+	  	FROM(SELECT r.reservation_no, u.camp_name, m.mainsite_type, r.reservation_status, r.reservation_reg_date, r.reservation_start_date, 
+			 	    r.reservation_end_date, r.total_payment_price, r.camp_no, r.reservation_user_name, r.reservation_user_phone, r.use_num
+			 FROM CAMP_RESERVATION r, MAINSITE m, CAMP c, USERS u
+			 WHERE r.camp_no = m.camp_no AND m.camp_no = c.camp_no AND c.user_id = u.user_id
+			 <if test="id != null">
+				AND r.user_id = #{id}
+			 </if>
+			 <if test="campNo != null">
+				AND r.camp_no = #{campNo}
+			 </if>
+			 <if test="search.searchCondition != null">
+			 	<if test="search.searchCondition == 0 and search.searchKeyword !='' ">
+			   		AND u.camp_name LIKE CONCAT('%',#{search.searchKeyword},'%')
+			 	</if>
+			 	<if test="search.searchCondition == 1 and search.searchKeyword !='' ">
+			    	AND m.mainsite_type LIKE CONCAT('%',#{search.searchKeyword},'%')
+			 	</if>
+			 </if> ) countTable
+	</select>
+	
+	<select id="getReservation" parameterType="String" resultMap="CampReservationSelectMap">
+		SELECT r.reservation_no, r.camp_no, r.mainsite_no, r.reservation_status, r.reservation_reg_date, r.reservation_user_name, r.reservation_start_date, 
+			   r.reservation_end_date, r.use_num, r.reservation_user_phone, r.reservation_reg_car_num, r.reservation_request, r.total_payment_price, 
+			   r.total_reservation_reg_car, r.delete_flag, r.payment_type, u.camp_name, u.camp_call, m.mainsite_type
+		FROM CAMP_RESERVATION r, USERS u, MAINSITE m, CAMP c
+		WHERE r.camp_no = c.camp_no AND c.user_id = u.user_id AND r.mainsite_no = m.mainsite_no AND r.reservation_no =  #{value};
+	</select>
 
 	<select id="getReservationStatus" parameterType="String" resultMap="CampReservationSelectMap">
 		SELECT reservation_status
@@ -85,79 +214,155 @@
 		WHERE user_id = #{value} AND reservation_status IN (1, 2, 3, 4)
 	</select>
 	
-	<select id="listReservation" parameterType="map" resultMap="CampReservationSelectMap">
-		SELECT r.reservation_no, u.camp_name, m.mainsite_type, r.reservation_status, r.reservation_reg_date, r.reservation_start_date, 
-			   r.reservation_end_date, r.total_payment_price
-		FROM CAMP_RESERVATION r, MAINSITE m, CAMP c, USERS u
-		WHERE r.camp_no = #{campNo} AND r.camp_no = m.camp_no AND m.camp_no = c.camp_no AND c.user_id = u.user_id ;
-		<if test="search.searchCondition != null">
-			<if test="search.searchCondition == 0 and search.searchKeyword !='' ">
-				AND u.camp_name LIKE CONCAT('%',#{search.searchKeyword},'%')
-			</if>
-			<if test="search.searchCondition == 1 and search.searchKeyword !='' ">
-				AND m.mainsite_type LIKE CONCAT('%',#{search.searchKeyword},'%')
-			</if>
-		</if>
-		<trim prefix="ORDER BY">
-            <if test="search.sortCondition != null ">
-               <if test='search.sortCondition.equals("이용가격 높은순")'>
-                  r.total_payment_price DESC
-               </if>
-               <if test='search.sortCondition.equals("이용가격 낮은순")'>
-                  r.total_payment_price ASC
-               </if>
-               <if test='search.sortCondition.equals("이용 가능순")'>
-                  r.reservation_status ASC
-               </if>
-               <if test='search.sortCondition.equals("이용 불가능순")'>
-                  r.reservation_status DESC
-               </if>
-               <if test='search.sortCondition.equals("예약일자 최근순")'>
-                  r.reservation_reg_date DESC
-               </if>
-               <if test='search.sortCondition.equals("예약일자 오래된순")'>
-                  r.reservation_reg_date ASC
-               </if>
-            </if>
-         </trim>
-		LIMIT #{search.pageSize} OFFSET #{search.offset}
+	<select id="totalReservationStatistics" resultMap="reservationStatisticsSelectMap" >
+		SELECT AC.ACOUNT, DC.DCOUNT, WC.WCOUNT, MC.MCOUNT, YC.YCOUNT, BYDC.BYDCOUNT, BYWC.BYWCOUNT, BYMC.BYMCOUNT, BYYC.BYYCOUNT
+		FROM 
+		(SELECT COUNT(reservation_reg_date) ACOUNT
+		FROM CAMP_RESERVATION
+		) AC,
+		(SELECT COUNT(reservation_reg_date) DCOUNT
+		FROM CAMP_RESERVATION
+		WHERE reservation_reg_date BETWEEN DATE_ADD(NOW(),INTERVAL -1 DAY ) AND NOW()
+		) DC,
+		(SELECT COUNT(reservation_reg_date) WCOUNT
+		FROM CAMP_RESERVATION
+		WHERE reservation_reg_date BETWEEN DATE_ADD(NOW(),INTERVAL -1 WEEK ) AND NOW()
+		) WC,
+		(SELECT COUNT(reservation_reg_date) MCOUNT
+		FROM CAMP_RESERVATION
+		WHERE reservation_reg_date BETWEEN DATE_ADD(NOW(),INTERVAL -1 MONTH ) AND NOW()
+		) MC,
+		(SELECT COUNT(reservation_reg_date) YCOUNT
+		FROM CAMP_RESERVATION
+		WHERE reservation_reg_date BETWEEN DATE_ADD(NOW(),INTERVAL -1 YEAR ) AND NOW()
+		) YC,
+		(SELECT COUNT(reservation_reg_date) BYDCOUNT
+		FROM CAMP_RESERVATION
+		WHERE reservation_reg_date BETWEEN DATE_ADD(DATE_ADD(NOW(), INTERVAL -1 YEAR),INTERVAL -1 DAY) AND DATE_ADD(NOW(), INTERVAL -1 year)
+		) BYDC,
+		(SELECT COUNT(reservation_reg_date) BYWCOUNT
+		FROM CAMP_RESERVATION
+		WHERE reservation_reg_date BETWEEN DATE_ADD(DATE_ADD(NOW(), INTERVAL -1 YEAR),INTERVAL -1 WEEK) AND DATE_ADD(NOW(), INTERVAL -1 year)
+		) BYWC,
+		(SELECT COUNT(reservation_reg_date) BYMCOUNT
+		FROM CAMP_RESERVATION
+		WHERE reservation_reg_date BETWEEN DATE_ADD(DATE_ADD(NOW(), INTERVAL -1 YEAR),INTERVAL -1 MONTH) AND DATE_ADD(NOW(), INTERVAL -1 year)
+		) BYMC,
+		(SELECT COUNT(reservation_reg_date) BYYCOUNT
+		FROM CAMP_RESERVATION
+		WHERE reservation_reg_date BETWEEN DATE_ADD(DATE_ADD(NOW(), INTERVAL -1 YEAR),INTERVAL -1 YEAR) AND DATE_ADD(NOW(), INTERVAL -1 year)
+		) BYYC;
 	</select>
 	
-	<select id="listMyReservation" parameterType="map" resultMap="CampReservationSelectMap">
-		SELECT r.reservation_no, u.camp_name, m.mainsite_type, r.reservation_status, r.reservation_reg_date, r.reservation_start_date, 
-			   r.reservation_end_date, r.total_payment_price
-		FROM CAMP_RESERVATION r, MAINSITE m, CAMP c, USERS u
-		WHERE r.user_id = #{id} AND r.camp_no = m.camp_no AND m.camp_no = c.camp_no AND c.user_id = u.user_id ;
-		<if test="search.searchCondition != null">
-			<if test="search.searchCondition == 0 and search.searchKeyword !='' ">
-				AND u.camp_name LIKE CONCAT('%',#{search.searchKeyword},'%')
+	<select id="campReservationStatisticsByDay" parameterType="search" resultMap="reservationStatisticsSelectMap" >
+		SELECT u.user_id CID, u.camp_name CNAME, r.reservation_reg_date DATE, COUNT(r.reservation_reg_date) DCOUNT
+		FROM CAMP_RESERVATION r, USERS u, CAMP c
+		WHERE r.camp_no = c.camp_no AND c.user_id = u.user_id 
+			<if test="searchKeyword != null and searchKeyword !='' ">
+				AND u.camp_name LIKE CONCAT('%',#{searchKeyword},'%')
 			</if>
-			<if test="search.searchCondition == 1 and search.searchKeyword !='' ">
-				AND m.mainsite_type LIKE CONCAT('%',#{search.searchKeyword},'%')
-			</if>
-		</if>
-		<trim prefix="ORDER BY">
-            <if test="search.sortCondition != null ">
-               <if test='search.sortCondition.equals("이용가격 높은순")'>
-                  r.total_payment_price DESC
-               </if>
-               <if test='search.sortCondition.equals("이용가격 낮은순")'>
-                  r.total_payment_price ASC
-               </if>
-               <if test='search.sortCondition.equals("이용 가능순")'>
-                  r.reservation_status ASC
-               </if>
-               <if test='search.sortCondition.equals("이용 불가능순")'>
-                  r.reservation_status DESC
-               </if>
-               <if test='search.sortCondition.equals("예약일자 최근순")'>
-                  r.reservation_reg_date DESC
-               </if>
-               <if test='search.sortCondition.equals("예약일자 오래된순")'>
-                  r.reservation_reg_date ASC
-               </if>
-            </if>
-         </trim>
-		LIMIT #{search.pageSize} OFFSET #{search.offset}
+		GROUP BY r.reservation_reg_date, u.user_id
+			<trim prefix="ORDER BY">
+				<if test="sortCondition == null ">
+					r.reservation_reg_date DESC
+				</if>
+				<if test="sortCondition != null ">
+					<if test='sortCondition.equals("예약자 수 많은 순")'>
+                		DCOUNT DESC
+            		</if>
+            		<if test='sortCondition.equals("예약자 수 적은 순")'>
+                		DCOUNT ASC
+            		</if>
+            	</if>
+			</trim> 
+		LIMIT #{pageSize} OFFSET #{offset}
 	</select>
+	
+	<select id="campReservationStatisticsByWeek" parameterType="search" resultMap="reservationStatisticsSelectMap" >
+		SELECT DATE_FORMAT(DATE_SUB(r.reservation_reg_date, INTERVAL (DAYOFWEEK(r.reservation_reg_date)-1) DAY), '%Y-%m-%d') as START,
+          	   DATE_FORMAT(DATE_SUB(r.reservation_reg_date, INTERVAL (DAYOFWEEK(r.reservation_reg_date)-7) DAY), '%Y-%m-%d') as END,
+          	   u.user_id CID , u.camp_name CNAME, COUNT(r.reservation_no) WCOUNT
+		FROM CAMP_RESERVATION r, USERS u, CAMP c
+		WHERE r.camp_no = c.camp_no and c.user_id = u.user_id
+			<if test="searchKeyword != null and searchKeyword !='' ">
+				AND u.camp_name LIKE CONCAT('%',#{searchKeyword},'%')
+			</if>
+		GROUP BY r.reservation_reg_date, u.user_id
+			<trim prefix="ORDER BY">
+				<if test="sortCondition == null ">
+					r.reservation_reg_date DESC
+				</if>
+				<if test="sortCondition != null ">
+					<if test='sortCondition.equals("예약자 수 많은 순")'>
+                		WCOUNT DESC
+            		</if>
+            		<if test='sortCondition.equals("예약자 수 적은 순")'>
+                		WCOUNT ASC
+            		</if>
+            	</if>
+			</trim> 
+		LIMIT #{pageSize} OFFSET #{offset}
+	</select>
+	
+	<select id="campReservationStatisticsByMonth" parameterType="search" resultMap="reservationStatisticsSelectMap" >
+		SELECT MONTH(r.reservation_reg_date) AS DATE,
+          	   u.user_id CID, u.camp_name CNAME, COUNT(r.reservation_reg_date) MCOUNT
+		FROM CAMP_RESERVATION r, USERS u, CAMP c
+		WHERE r.camp_no = c.camp_no and c.user_id = u.user_id
+			<if test="searchKeyword != null and searchKeyword !='' ">
+				AND u.camp_name LIKE CONCAT('%',#{searchKeyword},'%')
+			</if>
+		GROUP BY DATE, u.user_id
+			<trim prefix="ORDER BY">
+				<if test="sortCondition == null ">
+					r.reservation_reg_date DESC
+				</if>
+				<if test="sortCondition != null ">
+					<if test='sortCondition.equals("예약자 수 많은 순")'>
+                		MCOUNT DESC
+            		</if>
+            		<if test='sortCondition.equals("예약자 수 적은 순")'>
+                		MCOUNT ASC
+            		</if>
+            	</if>
+			</trim>
+		LIMIT #{pageSize} OFFSET #{offset} 
+	</select>
+	
+	<select id="getTotalCampReservationCountByDay" parameterType="search" resultType="int" >
+		SELECT COUNT(*)
+	  	FROM (SELECT u.user_id CID, u.camp_name CNAME, r.reservation_reg_date DATE, COUNT(r.reservation_reg_date) DCOUNT
+			  FROM CAMP_RESERVATION r, USERS u, CAMP c
+			  WHERE r.camp_no = c.camp_no AND c.user_id = u.user_id 
+				<if test="searchKeyword != null and searchKeyword !='' ">
+					AND u.camp_name LIKE CONCAT('%',#{searchKeyword},'%')
+				</if>
+			  GROUP BY r.reservation_reg_date, u.user_id) countTable
+	</select>
+	
+	<select id="getTotalCampReservationCountByWeek" parameterType="search" resultType="int" >
+		SELECT COUNT(*)
+	  	FROM (SELECT DATE_FORMAT(DATE_SUB(r.reservation_reg_date, INTERVAL (DAYOFWEEK(r.reservation_reg_date)-1) DAY), '%Y-%m-%d') as START,
+          	   		 DATE_FORMAT(DATE_SUB(r.reservation_reg_date, INTERVAL (DAYOFWEEK(r.reservation_reg_date)-7) DAY), '%Y-%m-%d') as END,
+          	   		 u.user_id CID , u.camp_name CNAME, COUNT(r.reservation_no) WCOUNT
+			  FROM CAMP_RESERVATION r, USERS u, CAMP c
+			  WHERE r.camp_no = c.camp_no and c.user_id = u.user_id
+				<if test="searchKeyword != null and searchKeyword !='' ">
+					AND u.camp_name LIKE CONCAT('%',#{searchKeyword},'%')
+				</if>
+			  GROUP BY r.reservation_reg_date, u.user_id) countTable
+	</select>
+	
+	<select id="getTotalCampReservationCountByMonth" parameterType="search" resultType="int" >
+		SELECT COUNT(*)
+	  	FROM (SELECT MONTH(r.reservation_reg_date) AS DATE,
+          	   		 u.user_id CID, u.camp_name CNAME, COUNT(r.reservation_reg_date) MCOUNT
+			  FROM CAMP_RESERVATION r, USERS u, CAMP c
+			  WHERE r.camp_no = c.camp_no and c.user_id = u.user_id
+				<if test="searchKeyword != null and searchKeyword !='' ">
+					AND u.camp_name LIKE CONCAT('%',#{searchKeyword},'%')
+				</if>
+			  GROUP BY DATE, u.user_id) countTable
+	</select>
+	
 </mapper>

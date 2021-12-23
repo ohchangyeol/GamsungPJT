@@ -9,8 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import site.gamsung.service.auction.AuctionProductDAO;
 import site.gamsung.service.common.Search;
-import site.gamsung.service.domain.AuctionBidInfo;
-import site.gamsung.service.domain.AuctionList;
+import site.gamsung.service.domain.AuctionInfo;
 import site.gamsung.service.domain.AuctionProduct;
 
 @Repository("auctionProductDAO")
@@ -37,9 +36,9 @@ public class AuctionProductDAOImpl implements AuctionProductDAO{
 
 	//임시 저장 상품 호출
 	@Override
-	public AuctionProduct getTempSaveAuctionProduct(String registrant_id) {
+	public AuctionProduct getTempSaveAuctionProduct(String registrantId) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne("AuctionProductMapper.getTempSaveAuctionProduct", registrant_id);
+		return sqlSession.selectOne("AuctionProductMapper.getTempSaveAuctionProduct", registrantId);
 	}
 	
 	//경매 상품 정보 임시 저장
@@ -73,16 +72,16 @@ public class AuctionProductDAOImpl implements AuctionProductDAO{
 	
 	//회원 경매 정보 호출
 	@Override
-	public AuctionBidInfo auctionProductBidUserInfo(String bidderId) {
+	public AuctionInfo auctionProductBidUserInfo(String bidderId) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("AuctionProductMapper.auctionProductBidUserInfo", bidderId);
 	}
 	
 	//입찰시 경매 내역에 추가
 	@Override
-	public void auctionProductBid(AuctionBidInfo auctionBidInfo) {
+	public void auctionProductBid(AuctionInfo auctionInfo) {
 		// TODO Auto-generated method stub
-		sqlSession.insert("AuctionProductMapper.auctionProductBid", auctionBidInfo);
+		sqlSession.insert("AuctionProductMapper.auctionProductBid", auctionInfo);
 	}
 	
 	//경매 상품 10초 추가
@@ -92,6 +91,12 @@ public class AuctionProductDAOImpl implements AuctionProductDAO{
 		sqlSession.update("AuctionProductMapper.updateBidEndTime", auctionProductNo);
 	}
 	
+	@Override
+	public void updateAuctionProductCondition(AuctionInfo auctionInfo) {
+		// TODO Auto-generated method stub
+		sqlSession.update("AuctionProductMapper.updateAuctionProductCondition", auctionInfo);
+	}
+
 	//메인에 표시될 경매 상품정보
 	@Override
 	public void addMainAuctionProduct(AuctionProduct auctionProduct) {
@@ -99,12 +104,18 @@ public class AuctionProductDAOImpl implements AuctionProductDAO{
 		sqlSession.insert("AuctionProductMapper.addMainAuctionProduct",auctionProduct);
 	}
 	
+	@Override
+	public int mainAuctionProductCount(AuctionProduct auctionProduct) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("AuctionProductMapper.mainAuctionProductCount",auctionProduct);
+	}
+
 	//메인 상품 리스트 출력
 	@Override
-	public List<AuctionProduct> listMainAuctionProduct(Search seach) {
+	public List<AuctionProduct> listMainAuctionProduct() {
 		// TODO Auto-generated method stub
 		
-		return sqlSession.selectList("AuctionProductMapper.listMainAuctionProduct", seach);
+		return sqlSession.selectList("AuctionProductMapper.listMainAuctionProduct");
 	}
 
 }

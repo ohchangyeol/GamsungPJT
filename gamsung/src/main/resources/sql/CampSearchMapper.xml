@@ -8,7 +8,7 @@
 
 	<resultMap id="CampSelectMap" type="camp">
 		<result property="campNo"					 	column="camp_no" 							jdbcType="NUMERIC"/>
-		<result property="user.id" 						column="business_user_id" 					jdbcType="VARCHAR"/>
+		<result property="user.id" 						column="user_id" 							jdbcType="VARCHAR"/>
 		<result property="campTempSave"					column="tempsave_flag" 						jdbcType="CHAR"/>
 		<result property="deleteFlag"					column="delete_flag" 						jdbcType="CHAR"/>
 		<result property="campSummery" 					column="camp_summery" 						jdbcType="VARCHAR"/>
@@ -29,9 +29,9 @@
 		<result property="campNature2" 					column="camp_nature2" 						jdbcType="VARCHAR"/>
 		<result property="campOperation1" 				column="camp_operation1" 					jdbcType="VARCHAR"/>
 		<result property="campOperation2" 				column="camp_operation2" 					jdbcType="VARCHAR"/>
-		<result property="campName" 					column="camp_name" 							jdbcType="VARCHAR"/>
-		<result property="campAddr" 					column="addr" 								jdbcType="VARCHAR"/>
-		<result property="campCall" 					column="camp_call" 							jdbcType="VARCHAR"/>
+		<result property="user.campName" 					column="camp_name" 							jdbcType="VARCHAR"/>
+		<result property="user.addr" 					column="addr" 								jdbcType="VARCHAR"/>
+		<result property="user.campCall" 					column="camp_call" 							jdbcType="VARCHAR"/>
 		<result property="campRate" 					column="camp_rating" 						jdbcType="FLOAT"/>
 	</resultMap>
 	
@@ -203,7 +203,7 @@
 	<select id="getCamp"  parameterType="int"  resultMap="CampSelectMap">
 		SELECT c.camp_no, c.camp_summery, c.camp_detail, c.camp_map_img, c.camp_img1, c.camp_img2, c.camp_img3, c.camp_img4, 
 			   c.camp_img5, c.camp_view_count_previous_month, c.camp_reg_date, c.camp_theme1, c.camp_theme2, c.camp_nature1, 
-			   c.camp_nature2, c.camp_operation1, c.camp_operation2, c.camp_rating, u.camp_name, u.addr, u.camp_call
+			   c.camp_nature2, c.camp_operation1, c.camp_operation2, c.camp_rating, u.camp_name, u.addr, u.camp_call, c.user_id
 		FROM CAMP c, USERS u
 		WHERE c.user_id = u.user_id AND c.camp_no = #{value}
 	</select>

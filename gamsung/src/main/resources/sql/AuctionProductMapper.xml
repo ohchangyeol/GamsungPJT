@@ -5,12 +5,13 @@
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="AuctionProductMapper">
-	<resultMap id="auction" type="auctionProduct">
+		<resultMap id="auction" type="auctionProduct">
 		<result property="auctionProductNo" column="product_no"/>
 		<result property="registrantId" column="registrant_id"/>
 		<result property="successfulBidderId" column="successful_bidder_id"/>
 		<result property="auctionProductName" column="product_name"/>
-		<result property="auctionProductDatail" column="product_detail"/>
+		<result property="auctionProductDatailA" column="product_detail_a"/>
+		<result property="auctionProductDatailB" column="product_detail_b"/>
 		<result property="startBidPrice" column="start_bid_price"/>
 		<result property="hopefulBidPrice" column="hopeful_bid_price"/>
 		<result property="bidUnit" column="bid_unit"/>
@@ -35,7 +36,7 @@
 		<result property="isDelete" column="delete_flag"/>
 	</resultMap>
 	
-	<resultMap id="bidInfo" type="auctionBidInfo">
+	<resultMap id="info" type="auctionInfo">
 		<result property="bidNo" column="bid_no"/>
 		<result property="auctionProductNo" column="product_no"/>
 		<result property="user.id" column="user_id"/>
@@ -49,9 +50,12 @@
 	<!-- //////////////////////////////////////////////////////AuctionProductDAO Mapper////////////////////////////////////////////////////// -->
 	<select id="listAuctionProduct" parameterType="search" resultMap="auction">
 		SELECT product_no, product_name, product_view_count, start_bid_price, hopeful_bid_price, auction_start_time, auction_end_time,
-               timediff(auction_end_time, auction_start_time) AS remain_time, hashtag1, hashtag2, hashtag3, product_img1
+               timediff(auction_end_time, now()) AS remain_time, hashtag1, hashtag2, hashtag3, product_img1
 			FROM AUCTION_PRODUCT
-			WHERE temp_save_flag = 'N' AND auction_status = 'START' AND delete_flag = 'N'
+			WHERE temp_save_flag = 'N'
+			<if test='role != null and role.equals("GENERAL")'>
+				AND auction_status = 'START' AND delete_flag = 'N' AND NOW() BETWEEN auction_start_time AND auction_end_time
+			</if>
 			<if test="searchKeyword != null">
 				AND product_name LIKE CONCAT_WS(#{searchKeyword},'%','%')
 			</if>
@@ -69,30 +73,34 @@
 					<if test='sortCondition.equals("경매 입박 순")'>
 						auction_end_time ASC
 					</if>
+					<if test='sortCondition.equals("조회수 순")'>
+						product_view_count DESC
+					</if> 
 				</if>
 			</trim>
 			LIMIT #{pageSize} OFFSET #{offset}
 	</select>
 	
 	<select id="getTempSaveAuctionProduct" parameterType="String" resultMap="auction">
-		SELECT product_no, product_name, product_detail, start_bid_price, hopeful_bid_price, bid_unit, auction_start_time, auction_end_time, bidable_grade, 
-		       hashtag1, hashtag2, hashtag3, product_img1, product_img2, product_img3, product_img4, product_img5, temp_save_flag
+		SELECT product_no, product_name, product_detail_a, product_detail_b, start_bid_price, hopeful_bid_price, bid_unit, auction_start_time, auction_end_time,
+		       bidable_grade, hashtag1, hashtag2, hashtag3, product_img1, product_img2, product_img3, product_img4, product_img5, temp_save_flag
 		FROM AUCTION_PRODUCT
 		WHERE registrant_id = #{value} AND temp_save_flag = 'Y';
 	</select>
 	
 	<insert id="tempSaveAuctionProduct" parameterType="auctionProduct">
 		INSERT INTO AUCTION_PRODUCT
-		(registrant_id, product_name, product_detail, start_bid_price, hopeful_bid_price, bid_unit, auction_start_time, auction_end_time, bidable_grade, 
+		(registrant_id, product_name, product_detail_a, product_detail_b, start_bid_price, hopeful_bid_price, bid_unit, auction_start_time, auction_end_time, bidable_grade, 
 		 hashtag1, hashtag2, hashtag3, product_img1, product_img2, product_img3, product_img4, product_img5, temp_save_flag) 
-		VALUES (#{registrantId}, #{auctionProductName}, #{auctionProductDatail}, #{startBidPrice}, #{hopefulBidPrice}, #{bidUnit}, #{auctionStartTime}, #{auctionEndTime},
+		VALUES (#{registrantId}, #{auctionProductName}, #{auctionProductDatailA}, #{auctionProductDatailB}, #{startBidPrice}, #{hopefulBidPrice}, #{bidUnit}, #{auctionStartTime}, #{auctionEndTime},
 		        #{bidableGrade},#{hashtag1},#{hashtag2},#{hashtag3},#{productImg1}, #{productImg2}, #{productImg3}, #{productImg4}, #{productImg5}, 'Y');
 	</insert>
 	
 	<insert id="addAuctionProduct" parameterType="auctionProduct">
 		UPDATE AUCTION_PRODUCT
 		SET	product_name = #{auctionProductName}, 
-			product_detail = #{auctionProductDatail}, 
+			product_detail_a = #{auctionProductDatailA},
+			product_detail_b = #{auctionProductDatailB},  
 			start_bid_price = #{startBidPrice}, 
 			hopeful_bid_price = #{hopefulBidPrice}, 
 			bid_unit = #{bidUnit}, 
@@ -110,15 +118,15 @@
 		 	<if test="auctionStatus != null">
 			 	auction_status = #{auctionSatus},
 		 	</if>
-		 	temp_save_flag = 'N
+		 	temp_save_flag = 'N'
 		WHERE product_no = #{auctionProductNo} AND registrant_id = #{registrantId};
 	</insert>
 	
 	<select id="getAuctionProduct" parameterType="String" resultMap="auction">
-		SELECT registrant_id, product_no, product_name, product_detail, start_bid_price , hopeful_bid_price, bid_unit , auction_start_time, auction_end_time, bidable_grade, 
-		 		hashtag1, hashtag2, hashtag3, product_img1, product_img2, product_img3, product_img4, product_img5, product_view_count
+		SELECT registrant_id, product_no, product_name, product_detail_a, product_detail_b  , start_bid_price , hopeful_bid_price, bid_unit , auction_start_time, auction_end_time,
+				timediff(NOW(),auction_end_time) AS remain_time, bidable_grade, hashtag1, hashtag2, hashtag3, product_img1, product_img2, product_img3, product_img4, product_img5, product_view_count
 		FROM AUCTION_PRODUCT
-		WHERE product_no = #{value};
+		WHERE product_no = #{value}
 	</select>
 	
 	<update id="updateAuctionProductViewCounter" parameterType="String">
@@ -127,7 +135,7 @@
 		WHERE product_no = #{value}
 	</update>
 	
-	<select id="auctionProductBidUserInfo" parameterType="String" resultMap="bidInfo">
+	<select id="auctionProductBidUserInfo" parameterType="String" resultMap="info">
 		SELECT user_id, nick_name, auction_grade
 		FROM USERS
 		WHERE user_id = #{value};
@@ -139,21 +147,42 @@
 		WHERE product_no = #{value};
 	</update>
 	
-	<insert id="auctionProductBid" parameterType="auctionBidInfo">
+	<insert id="auctionProductBid" parameterType="auctionInfo">
 		INSERT INTO AUCTION_HISTORY (product_no, bidder_id, bid_price)
 		VALUES(#{auctionProductNo}, #{user.id}, #{bidPrice})
 	</insert>
+	
+	<update id="updateAuctionProductCondition" parameterType="auctionInfo">
+		UPDATE AUCTION_PRODUCT
+		SET auction_status = #{auctionStatus}
+		WHERE product_no = #{auctionProductNo}
+	</update>
 	
 	<select id="addMainAuctionProduct" parameterType="auctionProduct">
 		INSERT INTO MAIN_AUCTION_HISTORY(product_no, main_end_date)
 		VALUES(#{auctionProductNo}, #{auctionEndTime})
 	</select>
 	
+	<select id="mainAuctionProductCount" parameterType="auctionProduct" resultType="int">
+		SELECT COUNT(main_product_no)
+		FROM MAIN_AUCTION_HISTORY
+		WHERE timeout_flag = 'N'
+		<if test='auctionProductNo != null'>
+			AND product_no = #{auctionProductNo}
+		</if>
+		
+	</select>
+	
 	<select id="listMainAuctionProduct" parameterType="search" resultMap="auction">
-		SELECT ap.product_no, ap.product_name, ap.hopeful_bid_price, timediff(mah.main_end_date,mah.main_start_date) AS remain_time
+		SELECT ap.product_no, ap.product_name, ap.hopeful_bid_price, timediff(NOW(), mah.main_end_date) AS remain_time
 		FROM AUCTION_PRODUCT AS ap, MAIN_AUCTION_HISTORY AS mah
 		WHERE ap.product_no = mah.product_no AND timeout_flag = 'N'
-		LIMIT #{pageSize} OFFSET #{offset}
 	</select>
+	
+	<update id="deleteAuctionProductManagement" parameterType="auctionProduct">
+		UPDATE AUCTION_PRODUCT
+		SET delete_flag = 'Y'
+		WHERE product_no = #{auctionProduct.auctionProductNo}
+	</update>
 
 </mapper>

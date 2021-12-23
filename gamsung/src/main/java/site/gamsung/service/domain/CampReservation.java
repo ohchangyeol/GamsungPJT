@@ -3,17 +3,16 @@ package site.gamsung.service.domain;
 import java.sql.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.bind.annotation.RequestParam;
 
 public class CampReservation {
 
 	private Camp camp;
 	private User user;
 	private MainSite mainSite;
-	private int reservationNo;
+	private String reservationNo;
 	//(1.예약완료 2.예약변경 3.양도대기 4.취소대기) : 전, (5.양도완료 6.취소완료 7.이용완료) : 후
 	private int reservationStatus;
-	private boolean deleteFlag;
+	private String deleteFlag;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date reservationRegDate;
 	private String reservationUserName;
@@ -65,11 +64,11 @@ public class CampReservation {
 		this.user = user;
 	}
 
-	public int getReservationNo() {
+	public String getReservationNo() {
 		return reservationNo;
 	}
 
-	public void setReservationNo(int reservationNo) {
+	public void setReservationNo(String reservationNo) {
 		this.reservationNo = reservationNo;
 	}
 
@@ -81,11 +80,11 @@ public class CampReservation {
 		this.reservationStatus = reservationStatus;
 	}
 
-	public boolean isDeleteFlag() {
+	public String getDeleteFlag() {
 		return deleteFlag;
 	}
 
-	public void setDeleteFlag(boolean deleteFlag) {
+	public void setDeleteFlag(String deleteFlag) {
 		this.deleteFlag = deleteFlag;
 	}
 
@@ -177,24 +176,16 @@ public class CampReservation {
 		this.paymentType = paymentType;
 	}
 
+	@Override
 	public String toString() {
-		return "\n CampReservation -> "
-			+ "[camp] : " + camp
-			+ ",[User] : " + user
-			+ ",[mainUnit] : " + mainSite
-			+ ",[reservationNo] : " + reservationNo
-			+ ",[reservationStatus] : " + reservationStatus 
-			+ ",[deleteFlag] : " + deleteFlag 
-			+ ",[reservationRegDate] : " + reservationRegDate 
-			+ ",[reservationUserName] : " + reservationUserName 
-			+ ",[reservationStartDate] : " + reservationStartDate 
-			+ ",[reservationEndDate] : " + reservationEndDate 
-			+ ",[useNum] : " + useNum 
-			+ ",[reservationUserPhone] : " + reservationUserPhone
-			+ ",[reservationRegCarNum] :" + reservationRegCarNum
-			+ ",[reservationRequest] : " + reservationRequest
-			+ ",[totalPaymentPrice] : " + totalPaymentPrice
-			+ ",[totalReservationRegCar] : " + totalReservationRegCar
-			+ ",[paymentType] : " + paymentType;
-	}	
+		return "CampReservation [camp=" + camp + ", user=" + user + ", mainSite=" + mainSite + ", reservationNo="
+				+ reservationNo + ", reservationStatus=" + reservationStatus + ", deleteFlag=" + deleteFlag
+				+ ", reservationRegDate=" + reservationRegDate + ", reservationUserName=" + reservationUserName
+				+ ", reservationStartDate=" + reservationStartDate + ", reservationEndDate=" + reservationEndDate
+				+ ", useNum=" + useNum + ", reservationUserPhone=" + reservationUserPhone + ", reservationRegCarNum="
+				+ reservationRegCarNum + ", reservationRequest=" + reservationRequest + ", totalPaymentPrice="
+				+ totalPaymentPrice + ", totalReservationRegCar=" + totalReservationRegCar + ", paymentType="
+				+ paymentType + "]\n";
+	}
+
 }

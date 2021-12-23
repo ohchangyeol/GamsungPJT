@@ -57,15 +57,21 @@ public class UserDAOImpl implements UserDAO{
 	}
 
 	@Override
-	public int checkEmail(String id) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+	public String checkDuplication(User user) throws Exception {
+		
+		return sqlSession.selectOne("UserMapper.checkDuplication", user);
 	}
 
 	@Override
-	public int checkNickName(String nickName) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+	public void addLoginDate(User user) throws Exception {
+		
+		sqlSession.insert("UserMapper.addLoginDate", user);
+	}
+
+	@Override
+	public String getSaltById(String id) throws Exception {
+		
+		return sqlSession.selectOne(id);
 	}
 
 }

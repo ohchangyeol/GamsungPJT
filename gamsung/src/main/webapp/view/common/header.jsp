@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!-- Start header -->
 <head>
 	<meta charset="euc-kr">
 </head>
 	<header class="top-header">
 		<nav class="navbar header-nav navbar-expand-lg">
-            <div class="container">
+            <div class="container-fluid">
 				<a class="navbar-brand" href="/main.jsp"><img src="/resources/images/감성캠핑.png" alt="image" width="100px" height="10	0px"></a>
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-wd" aria-controls="navbar-wd" aria-expanded="false" aria-label="Toggle navigation">
 					<span></span>
@@ -17,7 +18,7 @@
                     <ul class="navbar-nav">
                         <li><a class="nav-link" href="#home">캠핑</a></li>
                         <li></li>
-                        <li><a id="auction-header" class="nav-link" href="view/common/subMainCampBusiness.jsp">캠핑 사업자</a></li>
+                        <li><a id="auction-header" class="nav-link" href="view/common/subMainCampBusiness.jsp">캠핑사업자</a></li>
                         <li></li>
                         <li><a id="auction-header" class="nav-link" href="/auction/listAuctionProduct">경매</a></li>
                         <li></li>
@@ -33,10 +34,15 @@
                 </div>
                 <div class="collapse navbar-collapse justify-content-end" id="navbar-wd">
                     <ul class="navbar-nav">
-                        <li><a class="nav-link active" href="#home">로그인</a></li>
+                    <c:if test="${sessionScope.user.role != null}">
+	                <li><a class="nav-link active" href="/gamsung/user/logout">로그아웃</a></li>
+	                </c:if>
+	                <c:if test="${sessionScope.user.role == null}">
+	                <li><a class="nav-link active" href="/gamsung/user/login">로 그 인</a></li>
+	                 </c:if>
                     </ul>
                 </div>
             </div>
         </nav>
 	</header>
-<!-- End header -->r -->
+<!-- End header -->

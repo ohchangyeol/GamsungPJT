@@ -4,7 +4,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-
+ 
 	<groupId>site</groupId>
 	<artifactId>gamsung</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
@@ -14,7 +14,7 @@
 	<!-- FIXME change it to the project's website -->
 	<url>http://www.example.com</url>
 
-	<properties>
+	<properties> 
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.7</maven.compiler.source>
 		<maven.compiler.target>1.7</maven.compiler.target>
@@ -182,8 +182,8 @@
 		
 		<!-- javax.mail/javax.mail-api -->
 		<dependency>
-		    <groupId>javax.mail</groupId>
-		    <artifactId>javax.mail-api</artifactId>
+		    <groupId>com.sun.mail</groupId>
+		    <artifactId>javax.mail</artifactId>
 		    <version>1.6.2</version>
 		</dependency>
 		
@@ -281,6 +281,25 @@
 		    <version>1.13.1</version>
 		</dependency>
 		
+		<dependency>
+		    <groupId>javax.activation</groupId>
+		    <artifactId>activation</artifactId>
+		    <version>1.1.1</version>
+		</dependency>
+		
+		<dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        
+        <!-- 문자 인증관련 라이브러리 --> 
+        <dependency> 
+	        <groupId>net.nurigo</groupId> 
+	        <artifactId>javaSDK</artifactId> 
+	        <version>2.2</version> 
+        </dependency>
+
 	</dependencies>
 			
 	<build>
@@ -288,7 +307,7 @@
 		<pluginManagement><!-- lock down plugins versions to avoid using Maven 
 				defaults (may be moved to parent pom) -->
 			<plugins>
-				<plugin>
+				<plugin>              
 					<artifactId>maven-clean-plugin</artifactId>
 					<version>3.1.0</version>
 				</plugin>

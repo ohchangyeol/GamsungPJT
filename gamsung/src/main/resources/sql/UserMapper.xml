@@ -11,6 +11,7 @@
 		<result property="role"							column="role" 							jdbcType="VARCHAR" />
 		<result property="nickName" 					column="nick_name" 						jdbcType="VARCHAR" />
 		<result property="password" 					column="password" 						jdbcType="VARCHAR" />
+		<result property="salt" 						column="salt" 							jdbcType="VARCHAR" />
 		<result property="name" 						column="name" 							jdbcType="VARCHAR" />
 		<result property="phone" 						column="phone" 							jdbcType="VARCHAR" />
 		<result property="addr" 						column="addr" 							jdbcType="VARCHAR" />
@@ -34,11 +35,11 @@
 	</resultMap>
 	
 		<!-- SQL : INSERT -->
-	<insert 	id="addUser"		parameterType="user" >
+	<insert 	id="addUser"	parameterType="user" >
 	 	INSERT
-		INTO USERS( user_id , role , nick_name , password , name, phone, addr, entry_reg_date , bank , account_holder, entry_approval_flag,
+		INTO USERS( user_id , role , nick_name , password , salt, name, phone, addr, entry_reg_date , bank , account_holder, entry_approval_flag,
 		account_num, camp_name, camp_call, receive_ban_end_date, dormant_reg_date, secession_reg_date, suspension_reg_date, tourism_business_num, suspension_content) 
-		VALUES	 (#{id} , #{role} , #{nickName:VARCHAR} , #{password} , #{name} , #{phone} , #{addr:VARCHAR} , SYSDATE() , #{bank:VARCHAR}, #{accountHolder:VARCHAR},
+		VALUES	 (#{id} , #{role} , #{nickName:VARCHAR} , #{password} , #{salt:VARCHAR},  #{name} , #{phone} , #{addr:VARCHAR} , SYSDATE() , #{bank:VARCHAR}, #{accountHolder:VARCHAR},
 		#{businessUserApprovalFlag:CHAR}, #{accountNum:VARCHAR}, #{campName:VARCHAR}, #{campCall:VARCHAR} , #{receiveProhibitionEndDate:DATE}, #{dormantConversionDate:DATE} , #{secessionRegDate:DATE} ,
 		#{suspensionDate:DATE}, #{tourismBusinessNum:VARCHAR}, #{suspensionContent:VARCHAR})
 	 </insert>
@@ -46,12 +47,12 @@
 	 <!-- SQL : SELECT ONE -->
 	 <select 	id="getUser"	parameterType="string"	resultMap="userSelectMap">
 		SELECT
-		user_id , role , nick_name , password , name, phone, addr, entry_reg_date , bank , account_holder, 
-		account_num, having_point, camp_name, camp_call, entry_approval_flag, receive_cancel_total_count, 
-		receive_ban_end_date, dormant_reg_date, secession_reg_date, suspension_reg_date, tourism_business_num, suspension_content,
-		auction_grade
-		FROM USERS 
-		WHERE user_id = #{value}
+		u.user_id , u.role , u.nick_name , u.password ,u.salt, u.name, u.phone, u.addr, u.entry_reg_date , u.bank , u.account_holder, 
+		u.account_num, u.having_point, u.camp_name, u.camp_call, u.entry_approval_flag, u.receive_cancel_total_count, 
+		u.receive_ban_end_date, u.dormant_reg_date, u.secession_reg_date, u.suspension_reg_date, u.tourism_business_num, u.suspension_content,
+		u.auction_grade, h.login_reg_date
+		FROM USERS u left outer join (SELECT * from LOGIN_HISTORY where (user_id, login_reg_date) in (select user_id, max(login_reg_date) as date from login_history group by user_id)) h
+		on u.user_id = h.user_id where u.user_id = #{value}
 	 </select>
 	 
 	 <!-- SQL : UPDATE -->
@@ -67,10 +68,25 @@
 			camp_call = #{campCall:VARCHAR},
 			bank = #{bank:VARCHAR},
 			account_holder = #{accountHolder:VARCHAR},
-			account_num = #{accountNum:VARCHAR}
+			account_num = #{accountNum:VARCHAR},
+			entry_approval_flag = #{businessUserApprovalFlag:VARCHAR}
 	   	</set>
 	   	WHERE user_id = #{id}
 	 </update>
+	 
+	 <!-- SQL : ADD LOGIN DATE -->
+	 <insert	id="addLoginDate"	parameterType="user" >
+	   	INSERT INTO LOGIN_HISTORY(user_id, login_reg_date)
+	   	VALUES (#{id}, SYSDATE())
+	 </insert>
+	 
+	  <select  id="getSaltById"  parameterType="String"	resultMap="userSelectMap">
+	  SELECT
+	  user_id, salt
+	  FROM USERS
+	  where user_id = #{id}
+	  </select>
+	 
 	 
 	 <!-- SQL : SELECT LIST -->
 	 <select  id="listUser"  parameterType="search"	resultMap="userSelectMap">
@@ -114,11 +130,21 @@
 						</if> ) countTable						
 	 </select>
 	 
-	 <!-- SQL : CHECK E-MAIL -->
-	 <select id="checkEmail" parameterType="String"	resultType="int">
-		 SELECT COUNT(*)
+	 <!-- SQL : CHECK duplication -->
+	 <select id="checkDuplication" parameterType="user" resultType="String">
+		 SELECT user_id, nick_name, phone
 		 FROM USERS
-		 WHERE user_id like ('%',#{value},'%')
+		 WHERE 
+		 	<if test="id != null">
+				user_id = #{id}
+			</if>
+			<if test="nickName != null">
+				nick_name = #{nickName}
+			</if>
+			<if test="phone != null">
+				phone = #{phone}
+			</if>
 	 </select>
+		
 
 </mapper>

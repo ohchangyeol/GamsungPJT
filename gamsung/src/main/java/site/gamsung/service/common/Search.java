@@ -19,10 +19,9 @@ public class Search {
 	private List<String> price;
 	private int currentPage;
 	private int pageSize;
-	private int endRowNum;
-	private int offset;
-	
 	private int startRowNum;
+	private int endRowNum;	
+	private int offset;	
 
 	///Constructor
 	public Search() {
@@ -77,6 +76,7 @@ public class Search {
 	public int getOffset() {
 		return (getCurrentPage()-1)*getPageSize();
 	}
+	
 	public String getSortCondition() {
 		return sortCondition;
 	}
@@ -85,51 +85,51 @@ public class Search {
 		this.sortCondition = sortCondition;
 	}
 
-	public List getCampAddr() {
+	public List<String> getCampAddr() {
 		return campAddr;
 	}
 
-	public void setCampAddr(List campAddr) {
+	public void setCampAddr(List<String> campAddr) {
 		this.campAddr = campAddr;
 	}
 
-	public List getCircumstance() {
+	public List<String> getCircumstance() {
 		return circumstance;
 	}
 
-	public void setCircumstance(List circumstance) {
+	public void setCircumstance(List<String> circumstance) {
 		this.circumstance = circumstance;
 	}
 
-	public List getMainSite() {
+	public List<String> getMainSite() {
 		return mainSite;
 	}
 
-	public void setMainSite(List mainSite) {
+	public void setMainSite(List<String> mainSite) {
 		this.mainSite = mainSite;
 	}
 
-	public List getSubSite() {
+	public List<String> getSubSite() {
 		return subSite;
 	}
 
-	public void setSubSite(List subSite) {
+	public void setSubSite(List<String> subSite) {
 		this.subSite = subSite;
 	}
 
-	public List getTheme() {
+	public List<String> getTheme() {
 		return theme;
 	}
 
-	public void setTheme(List theme) {
+	public void setTheme(List<String> theme) {
 		this.theme = theme;
 	}
 
-	public List getPrice() {
+	public List<String> getPrice() {
 		return price;
 	}
 
-	public void setPrice(List price) {
+	public void setPrice(List<String> price) {
 		this.price = price;
 	}
 

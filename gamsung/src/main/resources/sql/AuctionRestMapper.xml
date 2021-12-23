@@ -10,7 +10,8 @@
 		<result property="registrantId" column="registrant_id"/>
 		<result property="successfulBidderId" column="successful_bidder_id"/>
 		<result property="auctionProductName" column="product_name"/>
-		<result property="auctionProductDatail" column="product_detail"/>
+		<result property="auctionProductDatailA" column="product_detail_a"/>
+		<result property="auctionProductDatailB" column="product_detail_b"/>
 		<result property="startBidPrice" column="start_bid_price"/>
 		<result property="hopefulBidPrice" column="hopeful_bid_price"/>
 		<result property="bidUnit" column="bid_unit"/>
@@ -34,7 +35,7 @@
 		<result property="isDelete" column="delete_flag"/>
 	</resultMap>
 	
-	<resultMap id="bidInfo" type="auctionBidInfo">
+	<resultMap id="iInfo" type="auctionInfo">
 		<result property="bidNo" column="bid_no"/>
 		<result property="auctionProductNo" column="product_no"/>
 		<result property="user.id" column="user_id"/>
@@ -46,13 +47,27 @@
 	</resultMap>
 	
 	<insert id ="crawlingData" parameterType="java.util.List">
-		INSERT INTO AUCTION_PRODUCT (registrant_id, product_img1, product_name, hopeful_bid_price) VALUES
-		
+		INSERT INTO gamsung.auction_product (registrant_id, product_name, product_detail_a,product_detail_b, start_bid_price, hopeful_bid_price, bid_unit, auction_start_time, auction_end_time, 
+											bidable_grade, hashtag1, hashtag2, hashtag3, product_img1, product_img2, product_img3, product_img4, product_img5) VALUES
 		<foreach collection="list" item="item" separator=",">
-		(        #{item.registrantId}
+		(         #{item.registrantId}
+				, #{item.auctionProductName}
+				, #{item.auctionProductDatailA}
+				, #{item.auctionProductDatailB}
+				, #{item.startBidPrice}
+				, #{item.hopefulBidPrice}
+				, #{item.bidUnit}
+				, #{item.auctionStartTime}
+				, #{item.auctionEndTime}
+				, #{item.bidableGrade}
+				, #{item.hashtag1}
+				, #{item.hashtag2}
+				, #{item.hashtag3}
 		        , #{item.productImg1}
-		        , #{item.auctionProductName}
-		        , #{item.hopefulBidPrice}
+		        , #{item.productImg2}
+		        , #{item.productImg3}
+		        , #{item.productImg4}
+		        , #{item.productImg5}
 		)
 	  	</foreach>
 	</insert>

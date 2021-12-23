@@ -21,6 +21,8 @@ public class CampGeneralController {
 	@Qualifier("campSearchServiceImpl")
 	private CampSearchService campSearchService;
 	
+	@Autowired
+	@Qualifier("campReservationServiceImpl")
 	private CampReservationService campReservationService;
 	
 	private NoticeService noticeService;

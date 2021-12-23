@@ -24,10 +24,10 @@
 	<script src="/javascript/bootstrap-dropdownhover.min.js"></script>
 	
 	<!-- CSS -->
-	<style>
+	<style>	
 		body > div.container{
 			margin-top: 70px;
-		}
+		}	
     </style>
 
 	<!-- JavaScript -->
@@ -52,7 +52,8 @@
 			});
 			
 			$("#cancle").on("click" , function() {
-				alert("취소 되었습니다.");	
+				alert("취소 되었습니다.");
+				window.history.back();			
 			});
 			
 			$("#resetform").on("click" , function() {
@@ -91,9 +92,9 @@
 		</div>
 	
 		<div class="form-group">
-			<label for="camp.user.id" class="col-sm-offset-1 col-sm-3 control-label">사업자회원ID</label>
+			<label for="userId" class="col-sm-offset-1 col-sm-3 control-label">사업자회원ID</label>
 				<div class="col-sm-4">
-					<input type="text" class="form-control" id="camp.user.id" name="camp.user.id" value="${user.id}" readonly>
+					<input type="text" class="form-control" id="userId" name="userId" value="businessuser1@gamsung.com" readonly>
 				</div>
 		</div>
 
@@ -272,16 +273,19 @@
 					<input type="text" class="form-control" id="campDetail" name="campDetail" value="" placeholder="상세소개를 입력하세요">
 				</div>
 		</div>
-
+		
+		<br>
+		<br>
+	
 		<div class="form-group">
 			<div class="col-sm-offset-4  col-sm-4 text-center">
-				<button id="resetform" type="button" class="btn btn-primary">양식 초기화</button>
 				<button id="cancle" type="button" class="btn btn-primary">취소</button>
+				<button id="resetform" type="button" class="btn btn-primary">양식 초기화</button>				
 				<button id="tempsave" type="button" class="btn btn-primary">임시저장</button>
 				<button id="save" type="button" class="btn btn-primary">저장</button>
 			</div>
-		</div>
-
+		</div> 
+		
 		</form>
 		<!-- Form End -->
 		

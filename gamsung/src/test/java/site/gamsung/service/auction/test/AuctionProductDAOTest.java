@@ -13,7 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import site.gamsung.service.auction.AuctionProductDAO;
 import site.gamsung.service.common.Search;
-import site.gamsung.service.domain.AuctionBidInfo;
+import site.gamsung.service.domain.AuctionInfo;
 import site.gamsung.service.domain.AuctionProduct;
 import site.gamsung.service.domain.User;
 
@@ -83,7 +83,7 @@ public class AuctionProductDAOTest {
 		auctionProduct.setAuctionProductNo("PROD00015");
 		auctionProduct.setRegistrantId("user1@gamsung.com");
 		auctionProduct.setAuctionProductName("텐트");
-		auctionProduct.setAuctionProductDatail("너무 좋아요");
+		auctionProduct.setAuctionProductDatailA("너무 좋아요");
 		auctionProduct.setAuctionStartTime("2021-12-23 15:00:00");
 		auctionProduct.setAuctionEndTime("2021-12-25 15:00:00");
 		auctionProduct.setHashtag1("1111");
@@ -119,7 +119,7 @@ public class AuctionProductDAOTest {
 	//@Test
 	public void testAuctionProductBidUserInfo() {
 		
-		AuctionBidInfo auctionBidInfo = auctionProductDAO.auctionProductBidUserInfo("user2@gamsung.com");
+		AuctionInfo auctionBidInfo = auctionProductDAO.auctionProductBidUserInfo("user2@gamsung.com");
 		System.out.println(auctionBidInfo);
 		
 	}
@@ -136,7 +136,7 @@ public class AuctionProductDAOTest {
 	//@Test
 	public void testAuctionProductBid() {
 		
-		AuctionBidInfo auctionBidInfo = new AuctionBidInfo();
+		AuctionInfo auctionBidInfo = new AuctionInfo();
 		User user = new User();
 		user.setId("user1@gamsung.com");
 		auctionBidInfo.setUser(user);
@@ -163,12 +163,7 @@ public class AuctionProductDAOTest {
 	//@Test
 	public void listMainAuctionProduct() {
 		
-		Search search = new Search();
-		search.setCurrentPage(1);
-		search.setPageSize(12);
-		search.setOffset(10);
-		
-		List<AuctionProduct> list = auctionProductDAO.listMainAuctionProduct(search);
+		List<AuctionProduct> list = auctionProductDAO.listMainAuctionProduct();
 		
 		for(AuctionProduct auctionProduct : list) {
 			System.out.println(auctionProduct);

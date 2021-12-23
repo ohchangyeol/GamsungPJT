@@ -6,6 +6,7 @@ CREATE TABLE `USERS` (
     `role` VARCHAR(20)  NOT NULL,
     `nick_name` VARCHAR(30),
     `password` VARCHAR(500) NOT NULL,
+    `salt` VARCHAR(100),
     `name` VARCHAR(20) NOT NULL,
     `phone` VARCHAR(11) NOT NULL,
     `addr` VARCHAR(100),
@@ -30,7 +31,7 @@ CREATE TABLE `USERS` (
 );
 
 CREATE TABLE `LOGIN_HISTORY` (
-    `login_history_no` INT NOT NULL,
+    `login_history_no` INT NOT NULL AUTO_INCREMENT,
     `user_id` VARCHAR(50) NOT NULL,
     `login_reg_date` DATE NOT NULL,
     PRIMARY KEY (`login_history_no`)
@@ -52,7 +53,8 @@ CREATE TABLE `AUCTION_PRODUCT` (
     `registrant_id` VARCHAR(50) NOT NULL,
     `successful_bidder_id` VARCHAR(50),
     `product_name` VARCHAR(200),
-    `product_detail` VARCHAR(4000),
+    `product_detail_a` VARCHAR(2000),
+    `product_detail_b` VARCHAR(2000),
     `start_bid_price` INT,
     `hopeful_bid_price` INT,
     `bid_unit` INT,
@@ -93,7 +95,7 @@ CREATE TABLE `AUCTION_HISTORY` (
     `product_no` CHAR(9) NOT NULL,
     `bidder_id` VARCHAR(50) NOT NULL,
     `bid_price` INT NOT NULL,
-    `bid_datetime` DATETIME NOT NULL DEFAULT NOW(),
+    `bid_date_time` DATETIME NOT NULL DEFAULT NOW(),
     `auction_status` VARCHAR(10) NOT NULL DEFAULT 'START',
     PRIMARY KEY (`bid_no`)
 );
@@ -112,7 +114,7 @@ DELIMITER ;
 
 CREATE TABLE `BID_CONCERN` (
     `bid_concern_no` CHAR(9) NOT NULL,
-    `auciton_user_id` VARCHAR(50) NOT NULL,
+    `user_id` VARCHAR(50) NOT NULL,
     `product_no` CHAR(9) NOT NULL,
     `concern_reg_date` DATETIME NOT NULL DEFAULT NOW(),
     PRIMARY KEY (`bid_concern_no`)
@@ -125,13 +127,14 @@ FOR EACH ROW
 BEGIN
 	DECLARE con_id INT;
 	SET con_id = (SELECT COUNT(bid_concern_no) FROM BID_CONCERN);
-	SET NEW.bid_concern_no = CONCAT('CON',LPAD(prod_id+1, 5, '0'));
+	SET NEW.bid_concern_no = CONCAT('CON',LPAD(con_id+1, 5, '0'));
 END $$
 DELIMITER ;
 
 CREATE TABLE `MAIN_AUCTION_HISTORY` (
     `main_product_no` CHAR(9) NOT NULL,
     `product_no` CHAR(9) NOT NULL,
+    `main_end_date` DATETIME NOT NULL,
     `main_reg_date` DATETIME NOT NULL DEFAULT NOW(),
     `timeout_flag` CHAR(1) NOT NULL DEFAULT 'N',
     PRIMARY KEY (`main_product_no`)
@@ -152,7 +155,7 @@ DELIMITER ;
 
 CREATE TABLE `CAMP` (
     `camp_no` INT NOT NULL AUTO_INCREMENT,
-    `business_user_id` VARCHAR(50) NOT NULL,
+    `user_id` VARCHAR(50) NOT NULL,
     `tempsave_flag` CHAR(1) NOT NULL DEFAULT 'N',
     `delete_flag` CHAR(1) NOT NULL DEFAULT 'N',
     `camp_summery` VARCHAR(200),
@@ -174,7 +177,8 @@ CREATE TABLE `CAMP` (
     `camp_view_count_current_month` INT,
     `camp_reservation_count` INT,
     `camp_rating` FLOAT,
-    PRIMARY KEY (`camp_no`)
+    PRIMARY KEY (`camp_no`),
+    UNIQUE (`user_id`)
 );
 
 ALTER TABLE CAMP AUTO_INCREMENT=10000;
@@ -193,9 +197,9 @@ CREATE TABLE `MAINSITE` (
     `mainsite_add_price` INT NOT NULL,
     `mainsite_parking_size` INT,
     `mainsite_info` VARCHAR(800),
-    `mainsite_reservation_user_name` VARCHAR(20) NOT NULL,
-    `mainsite_reservation_start` DATE NOT NULL,
-    `mainsite_reservation_end` DATE NOT NULL,
+    `mainsite_reservation_user_name` VARCHAR(20),
+    `mainsite_reservation_start` DATE,
+    `mainsite_reservation_end` DATE,
     `mainsite_reg_date` DATE NOT NULL,
     `mainsite_img1` VARCHAR(100),
     `mainsite_img2` VARCHAR(100),
@@ -221,16 +225,18 @@ ALTER TABLE SUBSITE AUTO_INCREMENT=10000;
 CREATE TABLE `PAYMENT` (
     `payment_no` VARCHAR(10) NOT NULL,
     `payment_sender` VARCHAR(50) NOT NULL,
-    `payment_receiver` VARCHAR(50) NOT NULL,
-    `payment_code` VARCHAR(20) NOT NULL,
+    `payment_receiver` VARCHAR(50) NOT NULL,  
+    `payment_code` VARCHAR(20) NOT NULL,    
+    `payment_refund_code` VARCHAR(20) NOT NULL,  
     `payment_reference_num` VARCHAR(20) NOT NULL,
     `payment_refund_reference_num` VARCHAR(20) NOT NULL,
-    `payment_method` INT NOT NULL,
+    `payment_method` INT NOT NULL,   
     `payment_reg_time` VARCHAR(20) NOT NULL,
     `payment_price_total` INT NOT NULL,
     `payment_price_pay` INT NOT NULL,
     `payment_price_fee` INT NOT NULL,
     `payment_reference_fee` INT NOT NULL,
+    `payment_refund_reg_time` VARCHAR(20) NOT NULL,
     `payment_refund_price_total` INT,
     `payment_refund_price_pay` INT,
     `payment_refund_price_fee` INT,
@@ -474,10 +480,10 @@ ALTER TABLE `AUCTION_PRODUCT` ADD FOREIGN KEY (`registrant_id`) REFERENCES `USER
 ALTER TABLE `AUCTION_PRODUCT` ADD FOREIGN KEY (`successful_bidder_id`) REFERENCES `USERS`(`user_id`);
 ALTER TABLE `AUCTION_HISTORY` ADD FOREIGN KEY (`product_no`) REFERENCES `AUCTION_PRODUCT`(`product_no`);
 ALTER TABLE `BID_CONCERN` ADD FOREIGN KEY (`product_no`) REFERENCES `AUCTION_PRODUCT`(`product_no`);
-ALTER TABLE `BID_CONCERN` ADD FOREIGN KEY (`auciton_user_id`) REFERENCES `USERS`(`user_id`);
+ALTER TABLE `BID_CONCERN` ADD FOREIGN KEY (`user_id`) REFERENCES `USERS`(`user_id`);
 ALTER TABLE `LOGIN_HISTORY` ADD FOREIGN KEY (`user_id`) REFERENCES `USERS`(`user_id`);
 ALTER TABLE `MAIN_AUCTION_HISTORY` ADD FOREIGN KEY (`product_no`) REFERENCES `AUCTION_PRODUCT`(`product_no`);
-ALTER TABLE `CAMP` ADD FOREIGN KEY (`business_user_id`) REFERENCES `USERS`(`user_id`);
+ALTER TABLE `CAMP` ADD FOREIGN KEY (`user_id`) REFERENCES `USERS`(`user_id`);
 ALTER TABLE `RATING_REVIEW` ADD FOREIGN KEY (`camp_no`) REFERENCES `CAMP`(`camp_no`);
 ALTER TABLE `RATING_REVIEW` ADD FOREIGN KEY (`user_id`) REFERENCES `USERS`(`user_id`);
 ALTER TABLE `RATING_REVIEW` ADD FOREIGN KEY (`product_no`) REFERENCES `AUCTION_PRODUCT`(`product_no`);
@@ -487,5 +493,6 @@ ALTER TABLE `CAMP_RESERVATION` ADD FOREIGN KEY (`user_id`) REFERENCES `USERS`(`u
 ALTER TABLE `CAMP_RESERVATION` ADD FOREIGN KEY (`mainsite_no`) REFERENCES `MAINSITE`(`mainsite_no`);
 ALTER TABLE `CAMP_RESERVATION` ADD FOREIGN KEY (`camp_no`) REFERENCES `CAMP`(`camp_no`);
 ALTER TABLE `PAYMENT` ADD FOREIGN KEY (`payment_code`) REFERENCES `PAYMENT_CODE`(`payment_code`);
+ALTER TABLE `PAYMENT` ADD FOREIGN KEY (`payment_refund_code`) REFERENCES `PAYMENT_CODE`(`payment_code`);
 ALTER TABLE `NOTICE` ADD FOREIGN KEY (`camp_no`) REFERENCES `CAMP`(`camp_no`);
 ALTER TABLE `QNA` ADD FOREIGN KEY (`camp_no`) REFERENCES `CAMP`(`camp_no`);

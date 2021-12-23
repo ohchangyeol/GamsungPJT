@@ -21,8 +21,8 @@ public class RatingReview {
 	private String img1;
 	private String img2;
 	private String img3;
-	private boolean reviewDeleteFlag;
-	private boolean commentDeleteFlag;
+	private String reviewDeleteFlag;
+	private String commentDeleteFlag;
 	
 	public RatingReview() {
 		
@@ -49,7 +49,7 @@ public class RatingReview {
 	}
 
 	public void setID(String id) {
-		id = id;
+		this.id = id;
 	}
 
 	public int getRatingReviewNo() {
@@ -164,42 +164,51 @@ public class RatingReview {
 		this.img3 = img3;
 	}
 
-	public boolean isReviewDeleteFlag() {
+	public String isReviewDeleteFlag() {
 		return reviewDeleteFlag;
 	}
 
-	public void setReviewDeleteFlag(boolean reviewDeleteFlag) {
+	public void setReviewDeleteFlag(String reviewDeleteFlag) {
 		this.reviewDeleteFlag = reviewDeleteFlag;
 	}
 
-	public boolean isCommentDeleteFlag() {
+	public String isCommentDeleteFlag() {
 		return commentDeleteFlag;
 	}
 
-	public void setCommentDeleteFlag(boolean commentDeleteFlag) {
+	public void setCommentDeleteFlag(String commentDeleteFlag) {
 		this.commentDeleteFlag = commentDeleteFlag;
 	}
 
-	public String toString() {
-		return "\n RatingReview -> "
-			+ "[camp] : " + camp
-			+ ",[product] : " + auctionProduct
-			+ ",[ID] : " + id
-			+ ",[ratingReviewNo] : " + ratingReviewNo				
-			+ ",[ratingReviewStatus] : " + ratingReviewStatus
-			+ ",[ratingReviewTitle] : " + ratingReviewTitle 
-			+ ",[ratingReviewContent] : " + ratingReviewContent 
-			+ ",[reviewRegDate] : " + reviewRegDate 
-			+ ",[comment] : " + comment 
-			+ ",[commentRegDate] : " + commentRegDate 
-			+ ",[statusRating] : " + statusRating 
-			+ ",[priceRating] : " + priceRating 
-			+ ",[kindnessRating] : " + kindnessRating
-			+ ",[avgRating] :" + avgRating
-			+ ",[img1] : " + img1
-			+ ",[img2] : " + img2
-			+ ",[img3] : " + img3
-			+ ",[reviewDeleteFlag] : " + reviewDeleteFlag
-			+ ",[commentDeleteFlag] : " + commentDeleteFlag;
+	public AuctionProduct getAuctionProduct() {
+		return auctionProduct;
 	}
+
+	public void setAuctionProduct(AuctionProduct auctionProduct) {
+		this.auctionProduct = auctionProduct;
+	}
+
+	public String getReviewDeleteFlag() {
+		return reviewDeleteFlag;
+	}
+
+	public String getCommentDeleteFlag() {
+		return commentDeleteFlag;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	@Override
+	public String toString() {
+		return "RatingReview [camp=" + camp + ", auctionProduct=" + auctionProduct + ", id=" + id + ", ratingReviewNo="
+				+ ratingReviewNo + ", ratingReviewStatus=" + ratingReviewStatus + ", ratingReviewTitle="
+				+ ratingReviewTitle + ", ratingReviewContent=" + ratingReviewContent + ", reviewRegDate="
+				+ reviewRegDate + ", comment=" + comment + ", commentRegDate=" + commentRegDate + ", statusRating="
+				+ statusRating + ", priceRating=" + priceRating + ", kindnessRating=" + kindnessRating + ", avgRating="
+				+ avgRating + ", img1=" + img1 + ", img2=" + img2 + ", img3=" + img3 + ", reviewDeleteFlag="
+				+ reviewDeleteFlag + ", commentDeleteFlag=" + commentDeleteFlag + "]\n";
+	}
+
 }
