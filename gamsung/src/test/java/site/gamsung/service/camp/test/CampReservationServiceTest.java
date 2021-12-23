@@ -56,7 +56,7 @@ public class CampReservationServiceTest {
 		
 		List<MainSite> list = (List<MainSite>)campReservationService.listPossibleReservation(map);
 		
-		System.out.println(list);
+		System.out.println("콘솔 확인 : "+list);
 		
 	}
 	
@@ -103,11 +103,11 @@ public class CampReservationServiceTest {
 		search.setCurrentPage(1);
 		search.setPageSize(campPageSize);
 		
-//		String id = "user1@gamsung.com";
-//		Map<String, Object> map = campReservationService.listMyReservation(search, id);
+		String id = "user1@gamsung.com";
+		Map<String, Object> map = campReservationService.listMyReservation(search, id);
 
-		int campNo = 10000;
-		Map<String, Object> map = campReservationService.listReservation(search, campNo);
+//		int campNo = 10000;
+//		Map<String, Object> map = campReservationService.listReservation(search, campNo);
 		
 		List<CampReservation> list = (List<CampReservation>)map.get("list");
 		
@@ -246,7 +246,7 @@ public class CampReservationServiceTest {
 	}
 	
 	//예약 취소 처리 : 결제 취소 처리 완료 후 최종 확인 누르면 예약 번호 취소 완료로 변경 및 캠핑장 주요 시설 예약정보 삭제 업데이트.
-	@Test
+	//@Test
 	public void testcancleReservationDo() throws Exception{
 		
 		Payment payment = new Payment();

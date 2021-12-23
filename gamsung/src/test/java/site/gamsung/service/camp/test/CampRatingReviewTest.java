@@ -40,7 +40,8 @@ public class CampRatingReviewTest {
 	@Value("#{commonProperties['campPageSize']}")
 	int campPageSize;
 	
-	@Test
+	//캠핑장 별 리뷰 목록(o)
+	//@Test
 	public void testListRatingReview() throws Exception{
 		Search search = new Search();
 		search.setCurrentPage(1);

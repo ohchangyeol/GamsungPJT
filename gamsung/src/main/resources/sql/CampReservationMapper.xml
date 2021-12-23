@@ -135,8 +135,8 @@
 	</update>
 	
 	<select id="listReservation" parameterType="map" resultMap="CampReservationSelectMap">
-		SELECT r.reservation_no, u.camp_name, m.mainsite_type, r.reservation_status, r.reservation_reg_date, r.reservation_start_date, 
-			   r.reservation_end_date, r.total_payment_price, r.camp_no, r.reservation_user_name, r.reservation_user_phone, r.use_num
+		SELECT DISTINCT r.reservation_no, u.camp_name, m.mainsite_type, r.reservation_status, r.reservation_reg_date, r.reservation_start_date, 
+			  			r.reservation_end_date, r.total_payment_price, r.camp_no, r.reservation_user_name, r.reservation_user_phone, r.use_num
 		FROM CAMP_RESERVATION r, MAINSITE m, CAMP c, USERS u
 		WHERE r.camp_no = m.camp_no AND m.camp_no = c.camp_no AND c.user_id = u.user_id
 		<if test="id != null">
@@ -180,8 +180,8 @@
 	
 	<select  id="getTotalCount"  parameterType="map"	 resultType="int">
 		SELECT COUNT(*)
-	  	FROM(SELECT r.reservation_no, u.camp_name, m.mainsite_type, r.reservation_status, r.reservation_reg_date, r.reservation_start_date, 
-			 	    r.reservation_end_date, r.total_payment_price, r.camp_no, r.reservation_user_name, r.reservation_user_phone, r.use_num
+	  	FROM(SELECT DISTINCT r.reservation_no, u.camp_name, m.mainsite_type, r.reservation_status, r.reservation_reg_date, r.reservation_start_date, 
+			 	    		 r.reservation_end_date, r.total_payment_price, r.camp_no, r.reservation_user_name, r.reservation_user_phone, r.use_num
 			 FROM CAMP_RESERVATION r, MAINSITE m, CAMP c, USERS u
 			 WHERE r.camp_no = m.camp_no AND m.camp_no = c.camp_no AND c.user_id = u.user_id
 			 <if test="id != null">

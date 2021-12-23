@@ -49,15 +49,15 @@ public class CampSearchServiceTest {
 	public void testListCamp() throws Exception{
 		
 		Search search = new Search();
-		search.setCurrentPage(3);
+		search.setCurrentPage(1);
 		search.setPageSize(campPageSize);
-//		search.setSearchKeyword("감자");
+		search.setSearchKeyword("감자");
 		search.setSortCondition("평점 높은순");
 		
-//		List mainSite = new ArrayList();
-//		mainSite.add("오토캠핑");
-//		mainSite.add("글램핑");
-//		search.setMainSite(mainSite);
+		List mainSite = new ArrayList();
+		mainSite.add("오토캠핑");
+		mainSite.add("글램핑");
+		search.setMainSite(mainSite);
 		
 		List price = new ArrayList();
 		price.add(0);
@@ -100,7 +100,7 @@ public class CampSearchServiceTest {
 	}
 	
 	//메인화면 :: 조회수(O), 평점(O), 예약수(O) 별 탑 캠핑장 검색.
-	//@Test
+	@Test
 	public void testGetTopCamp() throws Exception{
 		
 		Map<String, Object> map = campSearchService.getTopCamp();

@@ -71,8 +71,8 @@
 	</resultMap>
 	
 	<select id="listCamp"  parameterType="search"  resultMap="CampSelectMap">
-		SELECT c.camp_no, c.camp_img1, c.camp_img2, c.camp_img3, c.camp_img4, c.camp_img5, c.camp_reg_date, c.camp_rating, 
-		       c.camp_view_count_previous_month, c.camp_summery, u.camp_name, u.addr, u.camp_call 
+		SELECT DISTINCT c.camp_no, c.camp_img1, c.camp_img2, c.camp_img3, c.camp_img4, c.camp_img5, c.camp_reg_date, c.camp_rating, 
+		       			c.camp_view_count_previous_month, c.camp_summery, u.camp_name, u.addr, u.camp_call 
 		FROM CAMP c, MAINSITE m, SUBSITE s, USERS u
 		WHERE c.user_id = u.user_id and c.camp_no = m.camp_no and c.camp_no = s.camp_no AND c.delete_flag = 'N' 
 			<if test="searchKeyword !=null and searchKeyword !=''">
@@ -144,7 +144,7 @@
 	
 	<select  id="getTotalCount"  parameterType="search"	 resultType="int">
 	  	SELECT COUNT(*)
-	  	FROM(	SELECT c.camp_no
+	  	FROM(	SELECT DISTINCT c.camp_no
 					FROM CAMP c, MAINSITE m, SUBSITE s, USERS u
 					WHERE c.user_id = u.user_id and c.camp_no = m.camp_no and c.camp_no = s.camp_no AND c.delete_flag = 'N' 
 					<if test="searchKeyword !=null and searchKeyword !=''">
@@ -231,7 +231,7 @@
 	</update>
 	
 	<select id="getTopRatingCamp" resultMap="CampSelectMap">
-		SELECT c.camp_no, c.camp_rating, u.camp_name, u.addr
+		SELECT c.camp_no, u.camp_name, c.camp_rating, c.camp_img1, u.camp_name, u.addr
 		FROM CAMP c, USERS u
 		WHERE c.user_id = u.user_id AND c.delete_flag = 'N'
 		ORDER BY c.camp_rating DESC
@@ -239,7 +239,7 @@
 	</select>
 	
 	<select id="getTopViewCamp" resultMap="CampSelectMap">
-		SELECT c.camp_no, c.camp_view_count_previous_month, u.camp_name, u.addr
+		SELECT c.camp_no, c.camp_view_count_previous_month, u.camp_name, u.addr, c.camp_img1
 		FROM CAMP c, USERS u
 		WHERE c.user_id = u.user_id AND c.delete_flag = 'N'
 		ORDER BY c.camp_view_count_previous_month DESC
@@ -247,7 +247,7 @@
 	</select>
 	
 	<select id="getTopReservationCamp" resultMap="CampSelectMap">
-		SELECT c.camp_no, c.camp_reservation_count, u.camp_name, u.addr
+		SELECT c.camp_no, c.camp_reservation_count, u.camp_name, u.addr, c.camp_img1
 		FROM CAMP c, USERS u, CAMP_RESERVATION r
 		WHERE c.user_id = u.user_id AND c.camp_no = r.camp_no AND c.delete_flag = 'N'
 		GROUP BY r.camp_no

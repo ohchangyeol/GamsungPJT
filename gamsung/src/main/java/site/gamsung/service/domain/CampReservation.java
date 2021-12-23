@@ -27,7 +27,7 @@ public class CampReservation {
 	private int totalPaymentPrice;
 	private int totalReservationRegCar;
 	private int paymentType;
-				
+
 	public CampReservation() {
 		
 	}
@@ -79,7 +79,7 @@ public class CampReservation {
 	public void setReservationStatus(int reservationStatus) {
 		this.reservationStatus = reservationStatus;
 	}
-
+	
 	public String getDeleteFlag() {
 		return deleteFlag;
 	}
