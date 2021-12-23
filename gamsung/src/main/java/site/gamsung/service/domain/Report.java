@@ -102,6 +102,6 @@ public class Report {
 		return "Report [reportNo=" + reportNo + ", reportType=" + reportType + ", reportContent=" + reportContent
 				+ ", deleteFlag=" + deleteFlag + ", reportStatus=" + reportStatus + ", sender=" + sender + ", receiver="
 				+ receiver + ", regDate=" + regDate + ", campName=" + campName + ", reportImgFile1=" + reportImgFile1
-				+ ", reportImgFile2=" + reportImgFile2 + ", reportImgFile3=" + reportImgFile3 + "]";
+				+ ", reportImgFile2=" + reportImgFile2 + ", reportImgFile3=" + reportImgFile3 + "]\n";
 	}
 }

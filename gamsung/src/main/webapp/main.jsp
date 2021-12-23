@@ -1,451 +1,160 @@
-	<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
-<!-- <html>
-<body>
-<h2>Hello World!</h2>
-
- 	<br>
- 	<br>
- 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
- 	<a href="./view/campbusiness/campBusinessMain.jsp">Camping Business Test Main</a>
-
-</body>
-</html> -->
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
-<html>
-<head>
-	<meta charset="euc-kr">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">   
-   
-    <!-- Mobile Metas -->
-    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
- 
-     <!-- Site Metas -->
-    <title>GAMSUNG CAMP</title>  
-    <meta name="keywords" content="">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <!-- Site Icons -->
-    <link rel="shortcut icon" href="#" type="image/x-icon" />
-    <link rel="apple-touch-icon" href="#" />
-
-	<link rel="stylesheet" href="resources/css/animate.css">
-    <link rel="stylesheet" href="resources/css/bootstrap.min.css">
-    <link rel="stylesheet" href="resources/css/custom.css">
-    <link rel="stylesheet" href="resources/css/flashy.min.css">
-    <link rel="stylesheet" href="resources/css/flaticon.css">
-    <link rel="stylesheet" href="resources/css/font-awesome.min.css">
-    <link rel="stylesheet" href="resources/css/magnific-popup.css">
-    <link rel="stylesheet" href="resources/css/pogo-slider.min.css">
-    <link rel="stylesheet" href="resources/css/responsive.css">
-    <link rel="stylesheet" href="resources/css/responsiveslides.css">
-    <link rel="stylesheet" href="resources/css/style.css">
-    <link rel="stylesheet" href="resources/css/timeline.css">  
-    
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>   
-	
-</head>
-<body id="home" data-spy="scroll" data-target="#navbar-wd" data-offset="98">
-
-	<!-- LOADER -->
-   <!-- 
-   <div id="preloader">
-		<div class="loader">
-			<div class="box"></div>
-			<div class="box"></div>
-		</div>
-    </div>
+<html lang="en-US" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--  
+    Document Title
+    =============================================
     -->
-    <!-- END LOADER -->
-	
-	<jsp:include page="view/common/header.jsp"></jsp:include>
-	
-	<!-- Start Banner -->
-	<div class="ulockd-home-slider">
-		<div class="container-fluid">
-			<div class="row">
-				<div class="pogoSlider" id="js-main-slider">
-					<div class="pogoSlider-slide" style="background-image:url(resources/images/감성캠핑.png);"></div>
-					<div class="pogoSlider-slide" style="background-image:url(resources/images/감성캠핑.png);"></div>
-				</div><!-- .pogoSlider -->
-			</div>
-		</div>
-	</div>
-	<!-- End Banner -->
-	
-	<!-- wish -->
-	<div id="wish" class="about-box" style="padding-bottom: 0;">
-		<div class="about-a1">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-12">
-						<div class="title-box">
-							<h2>Camp</h2>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-lg-12 col-md-12 col-sm-12">
-						<div class="row align-items-center about-main-info">
-							
-							<div class="col-lg-6 col-md-6 col-sm-12 text_align_center">
-						      <div class="full">
-						      	  <img class="img-responsive" src="resources/images/w1.png" alt="#" />
-						      </div>
-							</div>
-
-                              <div class="col-lg-6 col-md-6 col-sm-12">
-								<h2><img style="width: 60px;" src="resources/images/head_s.png" alt="#" /> 여기 캠핑장 구역</h2>
-								<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the when an unknown..</p>
-								<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi.</p>
-								<a href="#" class="hvr-radial-out button-theme">Read More</a>
-							</div>
-
-						</div>
-					</div>
-				</div>
-			</div>
-		</div> 
-		<div class="about-a1" style="background:#f7f7f7;margin-top: 50px;padding-top: 75px;padding-bottom: 50px;">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-12 col-md-12 col-sm-12">
-						<div class="row align-items-center about-main-info">
-						
-                            <div class="col-lg-6 col-md-6 col-sm-12">
-								<h2><img style="width: 60px;" src="resources/images/head_s.png" alt="#" />Q&A</h2>
-								<a href="#" class="hvr-radial-out button-theme">목록보기</a>
-							</div>
-
-							<div class="col-lg-6 col-md-6 col-sm-12 text_align_center">
-						        <h2><img style="width: 60px;" src="resources/images/head_s.png" alt="#" />공지사항</h2>
-						        <a href="#" class="hvr-radial-out button-theme">목록보기</a>
-							</div>
-
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- wish us -->
-	
-	<!-- best deals -->
-	<div id="b-deals" class="services-box main-timeline-box">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="title-box">
-						<h2>Auction</h2>
-					</div>
-				</div>
-			</div>
-			
-			<div class="row">
-				<div class="col-lg-6 col-sm-6">
-					<figure class="effect-service">
-						<img src="resources/images/d1.png" alt="" />
-						<figcaption>
-							<h2>Deal One</h2>
-							<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-							<a href="#">View more</a>
-						</figcaption>
-					</figure>
-				</div>
-				<div class="col-lg-6 col-sm-6">
-					<figure class="effect-service">
-						<img src="resources/images/d2.png" alt="" />
-						<figcaption>
-							<h2>Deal Two</h2>
-							<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-							<a href="#">View more</a>
-						</figcaption>
-					</figure>
-				</div>
-				<div class="col-lg-6 col-sm-6">
-					<figure class="effect-service">
-						<img src="resources/images/d3.png" alt="" />
-						<figcaption>
-							<h2>Deal Three</h2>
-							<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-							<a href="#">View more</a>
-						</figcaption>
-					</figure>
-				</div>
-				<div class="col-lg-6 col-sm-6">
-					<figure class="effect-service">
-						<img src="resources/images/d4.png" alt="" />
-						<figcaption>
-							<h2>Deal Four</h2>
-							<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-							<a href="#">View more</a>
-						</figcaption>
-					</figure>
-				</div>
-				
-			</div>
-			
-		</div>
-	</div>
-	<!-- best deals -->
-
-	<!-- donate -->
-	<div id="donate" class="gallery-box" style="background: #f7f7f7;"> 
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="title-box">
-						<h2>Community</h2>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<ul class="popup-gallery clearfix">
-					<li>
-						<a href="resources/images/d1.png">
-							<img class="img-fluid" src="resources/images/d1.png" alt="single image">
-							<span class="overlay"><i class="fa fa-picture-o" aria-hidden="true"></i></span>
-						</a>
-					</li>
-					<li>
-						<a href="resources/images/d2.png">
-							<img class="img-fluid" src="resources/images/d2.png" alt="single image">
-							<span class="overlay"><i class="fa fa-picture-o" aria-hidden="true"></i></span>
-						</a>
-					</li>
-					<li>
-						<a href="resources/images/d3.png">
-							<img class="img-fluid" src="resources/images/d3.png" alt="single image">
-							<span class="overlay"><i class="fa fa-picture-o" aria-hidden="true"></i></span>
-						</a>
-					</li>
-					<li>
-						<a href="resources/images/d4.png">
-							<img class="img-fluid" src="resources/images/d4.png" alt="single image">
-							<span class="overlay"><i class="fa fa-picture-o" aria-hidden="true"></i></span>
-						</a>
-					</li>
-					<li>
-						<a href="resources/images/d1.png">
-							<img class="img-fluid" src="resources/images/d1.png" alt="single image">
-							<span class="overlay"><i class="fa fa-picture-o" aria-hidden="true"></i></span>
-						</a>
-					</li>
-					<li>
-						<a href="resources/images/d2.png">
-							<img class="img-fluid" src="resources/images/d2.png" alt="single image">
-							<span class="overlay"><i class="fa fa-picture-o" aria-hidden="true"></i></span>
-						</a>
-					</li>
-					<li>
-						<a href="images/d3.png">
-							<img class="img-fluid" src="resources/images/d3.png" alt="single image">
-							<span class="overlay"><i class="fa fa-picture-o" aria-hidden="true"></i></span>
-						</a>
-					</li>
-					<li>
-						<a href="images/d4.png">
-							<img class="img-fluid" src="resources/images/d4.png" alt="single image">
-							<span class="overlay"><i class="fa fa-picture-o" aria-hidden="true"></i></span>
-						</a>
-					</li>
-					<li>
-						<a href="images/d1.png">
-							<img class="img-fluid" src="resources/images/d1.png" alt="single image">
-							<span class="overlay"><i class="fa fa-picture-o" aria-hidden="true"></i></span>
-						</a>
-					</li>
-				</ul>
-			</div>
-		</div>
-	</div>
-	<!-- end donate -->
-	
-	<!-- testimonial -->
-	<div id="testi" class="gallery-box">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="title-box">
-						<h2>Testimonial</h2>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-8 offset-md-2 col-10 offset-1 testimonial_slider">
-                    <div id="client_slider" class="carousel slide" data-ride="carousel">
-                      <ol class="carousel-indicators">
-                        <li data-target="#client_slider" data-slide-to="0" class="active"></li>
-                        <li data-target="#client_slider" data-slide-to="1"></li>
-                      </ol>
-                      <div class="carousel-inner">
-                        <div class="carousel-item text-center active">
-                            <div class="testimonial_img">
-                                <img width="150" height="150" class="d-block rounded-circle" src="http://nicesnippets.com/demo/profile-1.jpg" alt="First slide">
-                            </div>
-                            <h5 class="mt-4 mb-0"><strong class="text-uppercase" style="color: #e91327;padding-bottom: 0;">Harry Mike</strong></h5>
-                            <p class="m-0 pt-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu sem tempor, varius quam at, luctus dui. Mauris magna metus, dapibus nec turpis vel, semper malesuada ante. Idac bibendum scelerisque non non purus. Suspendisse varius nibh non aliquet.</p>
-                        </div>
-                        <div class="carousel-item text-center">
-                            <div class="testimonial_img">
-                                <img width="150" height="150" class="d-block rounded-circle" src="http://nicesnippets.com/demo/profile-3.jpg" alt="First slide">
-                            </div>
-                            <h5 class="mt-4 mb-0"><strong class="text-uppercase" style="color: #e91327;padding-bottom: 0;">Jonh Max</strong></h5>
-                            <p class="m-0 pt-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu sem tempor, varius quam at, luctus dui. Mauris magna metus, dapibus nec turpis vel, semper malesuada ante. Idac bibendum scelerisque non non purus. Suspendisse varius nibh non aliquet.</p>
-                        </div>
-                      </div>
-                    </div>
-                </div>  
-			</div>
-		</div>
-	</div>
-	<!-- end testimonial -->
-	
-	
-	<!-- contact -->
-	<div id="contact" class="contact-box" style="background: #f7f7f7;">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="title-box">
-						<h2>Contact us</h2>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				
-				<div class="col-lg-7 col-sm-7 col-xs-12">
-				  <div class="contact-block">
-					<form id="contactForm">
-					  <div class="row">
-						<div class="col-md-6">
-							<div class="form-group">
-								<input type="text" class="form-control" id="name" name="name" placeholder="Your Name" required data-error="Please enter your name">
-								<div class="help-block with-errors"></div>
-							</div>                                 
-						</div>
-						<div class="col-md-6">
-							<div class="form-group">
-								<input type="text" placeholder="Your Email" id="email" class="form-control" name="name" required data-error="Please enter your email">
-								<div class="help-block with-errors"></div>
-							</div> 
-						</div>
-						<div class="col-md-12">
-							<div class="form-group">
-								<input type="text" placeholder="Your number" id="number" class="form-control" name="number" required data-error="Please enter your number">
-								<div class="help-block with-errors"></div>
-							</div> 
-						</div>
-						<div class="col-md-12">
-							<div class="form-group"> 
-								<textarea class="form-control" id="message" placeholder="Your Message" rows="8" data-error="Write your message" required></textarea>
-								<div class="help-block with-errors"></div>
-							</div>
-							<div class="submit-button text-center">
-								<button class="btn btn-common" id="submit" type="submit">Send Message</button>
-								<div id="msgSubmit" class="h3 text-center hidden"></div> 
-								<div class="clearfix"></div> 
-							</div>
-						</div>
-					  </div>            
-					</form>
-				  </div>
-				</div>
-
-
-				<div class="col-lg-5 col-sm-5 col-xs-12">
-					<div class="left-contact">
-						<div class="media cont-line">
-							<div class="media-left icon-b">
-								<i class="fa fa-location-arrow" aria-hidden="true"></i>
-							</div>
-							<div class="media-body dit-right">
-								<h4>Address</h4>
-								<p>Fleming 196 Woodside Circle Mobile, FL 36602</p>
-							</div>
-						</div>
-						<div class="media cont-line">
-							<div class="media-left icon-b">
-								<i class="fa fa-envelope" aria-hidden="true"></i>
-							</div>
-							<div class="media-body dit-right">
-								<h4>Email</h4>
-								<a href="#">demoinfo@gmail.com</a><br>
-								<a href="#">demoinfo@gmail.com</a>
-							</div>
-						</div>
-						<div class="media cont-line">
-							<div class="media-left icon-b">
-								<i class="fa fa-volume-control-phone" aria-hidden="true"></i>
-							</div>
-							<div class="media-body dit-right">
-								<h4>Phone Number</h4>
-								<a href="#">12345 67890</a><br>
-								<a href="#">12345 67890</a>
-							</div>
-						</div>
-					</div>
-				</div>
-
-
-			</div>
-		</div>
-	</div>
-	<!-- end contact -->
-	
-	<!-- Start Subscribe -->
-	<div class="subscribe-box">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="subscribe-inner text-center clearfix">
-						<h2>Subscribe</h2>
-						<form action="#" method="post">
-							<div class="form-group">
-								<input class="form-control-1" id="email-1" name="email" placeholder="Email Address" required="" type="text">
-							</div>
-							<div class="form-group">
-								<button type="submit" class="hvr-radial-out">
-									Subscribe
-								</button>
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- End Subscribe -->
-	
-	<!-- Start Footer -->
-	<footer class="footer-box">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12">
-					<p class="footer-company-name">All Rights Reserved. &copy; 2018 <a href="#">Evento Christmas</a> Design By : <a href="https://html.design/">html design</a></p>
-				</div>
-			</div>
-		</div>
-	</footer>
-	<!-- End Footer -->
-	
-	<a href="#" id="scroll-to-top" class="hvr-radial-out"><i class="fa fa-angle-up"></i></a>
+    <title>Titan | Multipurpose HTML5 Template</title>
+    <!--  
+    Favicons
+    =============================================
+    -->
+    <link rel="apple-touch-icon" sizes="57x57" href="resources/images/favicons/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="resources/images/favicons/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="resources/images/favicons/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="resources/images/favicons/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="resources/images/favicons/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="resources/images/favicons/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="resources/images/favicons/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="resources/images/favicons/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="resources/images/favicons/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="resources/images/favicons/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="resources/images/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="resources/images/favicons/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="resources/images/favicons/favicon-16x16.png">
+    <!-- <link rel="manifest" href="/manifest.json"> -->
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="resources/images/favicons/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+    <!--  
+    Stylesheets
+    =============================================
     
-   	<script src="resources/javascript/bootstrap.min.js"></script>
-	<script src="resources/javascript/contact-form-script.js"></script>
-	<script src="resources/javascript/custom.js"></script>
-	<script src="resources/javascript/form-validator.min.js"></script>
-	<script src="resources/javascript/images-loded.min.js"></script>
-	<script src="resources/javascript/isotope.min.js"></script>
-	<script src="resources/javascript/jquery.magnific-popup.min.js"></script>
-	<script src="resources/javascript/jquery.min.js"></script>
-	<script src="resources/javascript/jquery.pogo-slider.min.js"></script>
-	<script src="resources/javascript/popper.min.js"></script>
-	<script src="resources/javascript/responsiveslides.min.js"></script>
-	<script src="resources/javascript/slider-index.js"></script>
-	<script src="resources/javascript/smoothscroll.js"></script>
-</body>
+    -->
+    <!-- Default stylesheets-->
+    <link href="resources/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Template specific stylesheets-->
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Volkhov:400i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
+    <link href="resources/lib/animate.css/animate.css" rel="stylesheet">
+    <link href="resources/lib/components-font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="resources/lib/et-line-font/et-line-font.css" rel="stylesheet">
+    <link href="resources/lib/flexslider/flexslider.css" rel="stylesheet">
+    <link href="resources/lib/owl.carousel/dist/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="resources/lib/owl.carousel/dist/assets/owl.theme.default.min.css" rel="stylesheet">
+    <link href="resources/lib/magnific-popup/magnific-popup.css" rel="stylesheet">
+    <link href="resources/lib/simple-text-rotator/simpletextrotator.css" rel="stylesheet">
+    <!-- Main stylesheet and color file-->
+    <link href="resources/css/style.css" rel="stylesheet">
+    <link id="color-scheme" href="resources/css/colors/default.css" rel="stylesheet">
+  </head>
+  <body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
+    <main>
+      <div class="page-loader">
+        <div class="loader">Loading...</div>
+      </div>
+      <!-- header -->
+      <jsp:include page="./view/common/header.jsp"/>
+      <!-- header End -->
+      <section class="bg-dark-30 showcase-page-header module parallax-bg" data-background="resources/images/showcase_bg.jpg">
+        <div class="titan-caption">
+          <div class="caption-content">
+            <div class="font-alt mb-30 titan-title-size-1">Powerful. Multipurpose.</div>
+            <div class="font-alt mb-40 titan-title-size-4">100+ Layouts</div><a class="section-scroll btn btn-border-w btn-round" href="#demos">See Demos</a>
+          </div>
+        </div>
+      </section>
+      <div class="main showcase-page">
+        <section class="module-extra-small bg-dark">
+          <div class="container">
+            <div class="row">
+              <div class="col-sm-6 col-md-8 col-lg-9">
+                <div class="callout-text font-alt">
+                  <h4 style="margin-top: 0px;">Start Creating Beautiful Websites</h4>
+                  <p style="margin-bottom: 0px;">Download Titan Free today!</p>
+                </div>
+              </div>
+              <div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="callout-btn-box"><a class="btn btn-border-w btn-circle" href="https://themewagon.com/themes/titan/">Downlaod Free</a></div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="module-medium" id="demos">
+          <div class="container">
+            <div class="row multi-columns-row">
+              <div class="col-md-4 col-sm-6 col-xs-12"><a class="content-box" href="index_mp_fullscreen_video_background.html">
+                  <div class="content-box-image"><img src="resources/images/screenshots/main_demo.jpg" alt="Main Demo"></div>
+                  <h3 class="content-box-title font-serif">Main Demo</h3></a></div>
+              <div class="col-md-4 col-sm-6 col-xs-12"><a class="content-box" href="index_agency.html">
+                  <div class="content-box-image"><img src="resources/images/screenshots/agency.jpg" alt="Agency"></div>
+                  <h3 class="content-box-title font-serif">Agency</h3></a></div>
+              <div class="col-md-4 col-sm-6 col-xs-12"><a class="content-box" href="index_portfolio.html">
+                  <div class="content-box-image"><img src="resources/images/screenshots/portfolio.jpg" alt="Portfolio"></div>
+                  <h3 class="content-box-title font-serif">Portfolio</h3></a></div>
+              <div class="col-md-4 col-sm-6 col-xs-12"><a class="content-box" href="index_restaurant.html">
+                  <div class="content-box-image"><img src="resources/images/screenshots/restaurant.jpg" alt="Restaurant"></div>
+                  <h3 class="content-box-title font-serif">Restaurant</h3></a></div>
+              <div class="col-md-4 col-sm-6 col-xs-12"><a class="content-box" href="index_finance.html">
+                  <div class="content-box-image"><img src="resources/images/screenshots/finance.jpg" alt="Finance"></div>
+                  <h3 class="content-box-title font-serif">Finance</h3></a></div>
+              <div class="col-md-4 col-sm-6 col-xs-12"><a class="content-box" href="index_landing.html">
+                  <div class="content-box-image"><img src="resources/images/screenshots/landing.jpg" alt="Landing"></div>
+                  <h3 class="content-box-title font-serif">Landing</h3></a></div>
+              <div class="col-md-4 col-sm-6 col-xs-12"><a class="content-box" href="index_photography.html">
+                  <div class="content-box-image"><img src="resources/images/screenshots/photography.jpg" alt="Photography"></div>
+                  <h3 class="content-box-title font-serif">Photography</h3></a></div>
+              <div class="col-md-4 col-sm-6 col-xs-12"><a class="content-box" href="index_shop.html">
+                  <div class="content-box-image"><img src="resources/images/screenshots/shop.jpg" alt="Shop"></div>
+                  <h3 class="content-box-title font-serif">Shop</h3></a></div>
+              <div class="col-md-4 col-sm-6 col-xs-12"><a class="content-box" href="index_op_fullscreen_gradient_overlay.html">
+                  <div class="content-box-image"><img src="resources/images/screenshots/one_page.jpg" alt="One Page"></div>
+                  <h3 class="content-box-title font-serif">One Page</h3></a></div>
+            </div>
+          </div>
+        </section>
+        <section class="module-extra-small bg-dark">
+          <div class="container">
+            <div class="row">
+              <div class="col-sm-6 col-md-8 col-lg-9">
+                <div class="callout-text font-alt">
+                  <h4 style="margin-top: 0px;">Start Creating Beautiful Websites</h4>
+                  <p style="margin-bottom: 0px;">Download Titan Free today!</p>
+                </div>
+              </div>
+              <div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="callout-btn-box"><a class="btn btn-border-w btn-circle" href="https://themewagon.com/themes/titan/">Downlaod Free</a></div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+      <div class="scroll-up"><a href="#totop"><i class="fa fa-angle-double-up"></i></a></div>
+    </main>
+    <!--  
+    JavaScripts
+    =============================================
+    -->
+    <script src="resources/lib/jquery/jquery.js"></script>
+    <script src="resources/lib/bootstrap/js/bootstrap.min.js"></script>
+    <script src="resources/lib/wow/wow.js"></script>
+    <script src="resources/lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js"></script>
+    <script src="resources/lib/isotope/isotope.pkgd.js"></script>
+    <script src="resources/lib/imagesloaded/imagesloaded.pkgd.js"></script>
+    <script src="resources/lib/flexslider/jquery.flexslider.js"></script>
+    <script src="resources/lib/owl.carousel/dist/owl.carousel.min.js"></script>
+    <script src="resources/lib/smoothscroll.js"></script>
+    <script src="resources/lib/magnific-popup/magnific-popup.js"></script>
+    <script src="resources/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script>
+    <script src="resources/js/plugins.js"></script>
+    <script src="resources/js/main.js"></script>
+  </body>
 </html>

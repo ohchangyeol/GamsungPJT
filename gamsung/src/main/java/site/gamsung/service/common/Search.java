@@ -21,7 +21,9 @@ public class Search {
 	private int pageSize;
 	private int startRowNum;
 	private int endRowNum;	
-	private int offset;	
+	private int offset;
+	private int campNo;
+	private String campName;
 
 	///Constructor
 	public Search() {
@@ -152,6 +154,22 @@ public class Search {
 
 	public void setOffset(int offset) {
 		this.offset = offset;
+	}
+
+	public int getCampNo() {
+		return campNo;
+	}
+
+	public void setCampNo(int campNo) {
+		this.campNo = campNo;
+	}
+
+	public String getCampName() {
+		return campName;
+	}
+
+	public void setCampName(String campName) {
+		this.campName = campName;
 	}
 
 	@Override
