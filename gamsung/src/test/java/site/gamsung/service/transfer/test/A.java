@@ -1,4 +1,4 @@
-package service.receive.test;
+package site.gamsung.service.transfer.test;
 
 public class A {
 

@@ -17,11 +17,10 @@
 
 		 <typeAlias alias="user" type="site.gamsung.service.domain.User" />
 		 <typeAlias alias="search" type="site.gamsung.service.common.Search" />	
-		 <typeAlias alias="Post" type="site.gamsung.service.domain.Post" />		 
-		 <typeAlias alias="Comment" type="site.gamsung.service.domain.Comment" />		 
-		 <typeAlias alias="PostConcern" type="site.gamsung.service.domain.PostConcern" />		
-		 <typeAlias alias="Receive" type="site.gamsung.service.domain.Receive" />		
-		 <typeAlias alias="Transfer" type="site.gamsung.service.domain.Transfer" />		
+		 <typeAlias alias="post" type="site.gamsung.service.domain.Post" />		 
+		 <typeAlias alias="comment" type="site.gamsung.service.domain.Comment" />		 
+		 <typeAlias alias="postConcern" type="site.gamsung.service.domain.PostConcern" />		
+		 <typeAlias alias="transfer" type="site.gamsung.service.domain.Transfer" />		
 		
 		 <typeAlias alias="camp" type="site.gamsung.service.domain.Camp" />
 		 <typeAlias alias="mainSite" type="site.gamsung.service.domain.MainSite" />
@@ -39,10 +38,10 @@
 	
 	 <!-- SQL Definition :: file include -->
 	<mappers>
- 		<!-- <mapper resource="sql/TransferMapper.xml"/>
- 		<mapper resource="sql/CommunityMapper.xml"/>-->
+ 		<!-- <mapper resource="sql/TransferMapper.xml"/> -->
+ 		<mapper resource="sql/CommunityMapper.xml"/>
 		
-	 <mapper resource="sql/UserMapper.xml"/>
+	 	<mapper resource="sql/UserMapper.xml"/>
  		
  		<mapper resource="sql/NoticeMapper.xml"/>
  		
