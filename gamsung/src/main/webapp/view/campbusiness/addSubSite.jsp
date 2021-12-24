@@ -75,8 +75,8 @@
 
 		<!-- Form Start -->
 		<form class="form-horizontal" >
-		 	
-		<input type="hidden" name="campNo" id="campNo" value="10000">
+		
+		<input type="hidden" name="campNo" id="campNo" value="${campSession.campNo}">
 			
 		<div class="form-group">
 			<label for="subSiteRegDate" class="col-sm-offset-1 col-sm-3 control-label">등록 일자</label>
@@ -108,7 +108,6 @@
 					<input type="text" class="form-control" id="subSiteName" name="subSiteName" value="" placeholder="이름을 입력하세요">
 				</div>
 		</div>
-
 		
 		<!-- 
 		<div class="form-group">

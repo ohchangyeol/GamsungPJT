@@ -8,8 +8,10 @@ public class Camp {
 	캠핑장등록번호
 	회원ID
 	임시저장 유무
-		Y-임시저장
-		N-일반저장
+		0-등록번호 발급 미완료
+		1-등록번호 발급 완료 
+		2-임시저장
+		3-저장완료
 
 	블라인드 유무
 	캠핑장 요약정보
@@ -30,16 +32,13 @@ public class Camp {
 	자연2
 	운영1
 	운영2
-	캠핑장 명
-	캠핑장 주소
-	캠핑장 전화번호
 	캠핑장 평점
 	 */
 	
 	/// Field
 	private int campNo;
 	private User user;
-	private boolean campTempSave;
+	private int campTempSave;
 	private boolean deleteFlag;
 	private String campSummery;
 	private String campDetail;
@@ -59,9 +58,6 @@ public class Camp {
 	private String campNature2;
 	private String campOperation1;
 	private String campOperation2;
-	private String campName;
-	private String campAddr;
-	private String campCall;
 	private double campRate;
 	
 	/// Default Constructor
@@ -78,7 +74,7 @@ public class Camp {
 		this.campNo = campNo;
 	}
 	
-	public User getBusinessUser() {
+	public User getUser() {
 		return user;
 	}
 	
@@ -86,11 +82,11 @@ public class Camp {
 		this.user = user;
 	}
 	
-	public boolean isCampTempSave() {
+	public int getCampTempSave() {
 		return campTempSave;
 	}
 	
-	public void setCampTempSave(boolean campTempSave) {
+	public void setCampTempSave(int campTempSave) {
 		this.campTempSave = campTempSave;
 	}
 	
@@ -244,30 +240,7 @@ public class Camp {
 	public void setCampOperation2(String campOperation2) {
 		this.campOperation2 = campOperation2;
 	}
-	
-	public String getCampName() {
-		return campName;
-	}
-	
-	public void setCampName(String campName) {
-		this.campName = campName;
-	}
-	
-	public String getCampAddr() {
-		return campAddr;
-	}
-	
-	public void setCampAddr(String campAddr) {
-		this.campAddr = campAddr;
-	}
-	
-	public String getCampCall() {
-		return campCall;
-	}
-	
-	public void setCampCall(String campCall) {
-		this.campCall = campCall;
-	}
+		
 	public double getCampRate() {
 		return campRate;
 	}
@@ -275,7 +248,7 @@ public class Camp {
 	public void setCampRate(double campRate) {
 		this.campRate = campRate;
 	}
-	
+
 	// Override toString
 	public String toString() {
 		return "\n -- Camp --"
@@ -292,8 +265,8 @@ public class Camp {
 			+ "\n [campImg4] : " + campImg4 
 			+ "\n [campImg5] : " + campImg5 
 			+ "\n [campViewCountCurrentMonth] : " + campViewCountCurrentMonth
-			+ "\n [campViewCountPreviousMonth] :" + campViewCountPreviousMonth
-			+ "\n [campReservationCount] :" + campReservationCount
+			+ "\n [campViewCountPreviousMonth] : " + campViewCountPreviousMonth
+			+ "\n [campReservationCount] : " + campReservationCount
 			+ "\n [campViewCountPreviousMonth] : " + campViewCountPreviousMonth
 			+ "\n [campRegDate] : " + campRegDate
 			+ "\n [campTheme1] : " + campTheme1
@@ -302,9 +275,6 @@ public class Camp {
 			+ "\n [campNature2] : " + campNature2 
 			+ "\n [campOperation1] : " + campOperation1 
 			+ "\n [campOperation2] : " + campOperation2 
-			+ "\n [campName] : " + campName 
-			+ "\n [campAddr] : " + campAddr 
-			+ "\n [campCall] : " + campCall 
 			+ "\n [campRate] : " + campRate 
 			+ "\n ---------------- \n";
 	}	

@@ -75,7 +75,7 @@
 		<!-- Form Start -->
 		<form class="form-horizontal" >
 		
-		<input type="hidden" name="campNo" id="campNo" value="10000">
+		<input type="hidden" name="campNo" id="campNo" value="${campSession.campNo}">
 		
 		<div class="form-group">
 			<label for="mainSiteRegDate" class="col-sm-offset-1 col-sm-3 control-label">등록 일자</label>

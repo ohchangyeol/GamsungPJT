@@ -86,12 +86,18 @@
 		
 			<div class="col-md-6 text-right">
 				<form class="form-inline" name="detailForm">
+				<input type="hidden" name="campNo" value="${campSession.campNo}">
+				<input type="hidden" name="role" value="${campSession.user.role}">
 			    
 					<div class="form-group">
 						<select class="form-control" name="searchCondition" >
-							<option value="0" ${! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>주요시설명</option>
-							<option value="1" ${! empty search.searchCondition && search.searchCondition==1 ? "selected" : "" }></option>
-							<option value="2" ${! empty search.searchCondition && search.searchCondition==2 ? "selected" : "" }></option>
+							<c:if test="${ campSession.user.role eq 'ADMIN' }">
+            					<option value="0" ${! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>캠핑장명</option>
+            				</c:if> 
+							<option value="1" ${! empty search.searchCondition && search.searchCondition==1 ? "selected" : "" }>주요시설명</option>
+							<option value="2" ${! empty search.searchCondition && search.searchCondition==2 ? "selected" : "" }>유형</option>
+							<option value="3" ${! empty search.searchCondition && search.searchCondition==3 ? "selected" : "" }>구역번호</option>
+							<option value="4" ${! empty search.searchCondition && search.searchCondition==4 ? "selected" : "" }>예약자명</option>
 						</select>
 					</div>
 					  
@@ -112,14 +118,14 @@
 	    </div>
 	    
 		<!-- 하단 -->
-		<table class="table table-hover table-striped" >
-		
-		
+		<table class="table table-hover table-striped" >		
       
 			<thead>
 				<tr>
             		<th align="left">No</th>
-            		<th align="left">캠핑장명</th>
+            		<c:if test="${ campSession.user.role eq 'ADMIN' }">
+            			<th align="left">캠핑장명</th>
+            		</c:if>
             		<th align="left">이름</th>
             		<th align="left">유형</th>
           			<th align="left">구역번호</th>
@@ -135,7 +141,9 @@
 					<c:set var="i" value="${ i+1 }" />
 					<tr>
 			  			<td align="left">${ i }</td>
-			  			<td align="left" data-campNo="${camp.campNo}">${camp.campName}</td>		  				
+			  			<c:if test="${ campSession.user.role eq 'ADMIN' }">
+			  				<td align="left" data-campNo="${mainSite.campNo}">${mainSite.campName}</td>	
+			  			</c:if>  			
 			  			<td align="left" data-mainSiteNo="${mainSite.mainSiteNo}">${mainSite.mainSiteName}</td>
 			  			<td align="left">${mainSite.mainSiteType}</td>
           				<td align="left">${mainSite.mainSiteSection}</td>

@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=EUC-KR" %>
 
+
 <!DOCTYPE html>
 
 <html lang="ko">
@@ -41,14 +42,14 @@
 			
 			$("#save").on("click" , function() {
 				alert("캠핑장정보가 등록 되었습니다.");
-				document.getElementById('campTempSave').value = "false";
-				$("form").attr("method" , "POST").attr("action" , "/campBusiness/addCamp").submit();
+				document.getElementById('campTempSave').value = "3";
+				$("form").attr("method" , "POST").attr("action" , "/campBusiness/updateCamp").attr("enctype","multipart/form-data").submit();
 			});
 			
 			$("#tempsave").on("click" , function() {
 				alert("임시등록 되었습니다.");
-				document.getElementById('campTempSave').value = "true";
-				$("form").attr("method" , "POST").attr("action" , "/campBusiness/addCamp").submit();
+				document.getElementById('campTempSave').value = "2";				
+				$("form").attr("method" , "POST").attr("action" , "/campBusiness/updateCamp").attr("enctype","multipart/form-data").submit();
 			});
 			
 			$("#cancle").on("click" , function() {
@@ -61,13 +62,15 @@
 				$("form")[0].reset();				
 			});
 		
-		});	
+		});			 
 
-</script>		
+	</script>		
 
 </head>
 
 <body>
+
+	
 
 	<!-- ToolBar -->
 	<jsp:include page="/view/common/headerCampBusiness.jsp" />
@@ -85,6 +88,20 @@
 		<input type="hidden" name="campTempSave" id="campTempSave" value="">
 		
 		<div class="form-group">
+			<label for="campNo" class="col-sm-offset-1 col-sm-3 control-label">등록상태</label>	
+				<c:if test="${ empty campSession.campTempSave || campSession.campTempSave != '3' }">	
+					<div class="col-xs-8 col-md-4"> 미등록 상태입니다. 등록을 완료하세요</div>
+				</c:if>
+		</div>
+		
+		<div class="form-group">
+			<label for="campNo" class="col-sm-offset-1 col-sm-3 control-label">등록번호</label>
+				<div class="col-sm-4">
+					<input type="text" class="form-control" id="campNo" name="campNo" value="${camp.campNo}" readonly>
+				</div>
+		</div>
+		
+		<div class="form-group">
 			<label for="campRegDate" class="col-sm-offset-1 col-sm-3 control-label">등록 일자</label>
 				<div class="col-sm-4">
 					<input type="text" class="form-control" id="campRegDate" name="campRegDate" value="" readonly>
@@ -92,9 +109,9 @@
 		</div>
 	
 		<div class="form-group">
-			<label for="userId" class="col-sm-offset-1 col-sm-3 control-label">사업자회원ID</label>
+			<label for="user.id" class="col-sm-offset-1 col-sm-3 control-label">사업자회원ID</label>
 				<div class="col-sm-4">
-					<input type="text" class="form-control" id="userId" name="userId" value="businessuser1@gamsung.com" readonly>
+					<input type="text" class="form-control" id="user.id" name="user.id" value="${camp.user.id}">
 				</div>
 		</div>
 
@@ -156,7 +173,7 @@
 					<option value="호수">호수</option>
 					<option value="강">강</option>
 					<option value="바다">바다</option>
-					<option value="산"selected="selected">산</option>
+					<option value="산" selected="selected">산</option>
 					<option value="숲">숲</option>
 					<option value="도시">도시</option>
 					<option value="섬">섬</option>
@@ -168,11 +185,11 @@
 			<label for="campOperation1" class="col-sm-offset-1 col-sm-3 control-label">운영 유형1</label>
 			<div class="col-sm-4">
 				<select name="campOperation1" class="form-control" >
-					<option value="상시">상시</option>
-					<option value="봄(3월~5월)" selected="selected">봄 (3월~5월)</option>
-					<option value="여름(6월~8월)">여름 (6월~8월)</option>
-					<option value="가을(9월~11월)">가을 (9월~11월)</option>
-					<option value="겨울(12월~2월)">겨울 (12월~2월)</option>
+					<option value="상시" selected="selected">상시</option>
+					<option value="봄">봄 (3월~5월)</option>
+					<option value="여름">여름 (6월~8월)</option>
+					<option value="가을">가을 (9월~11월)</option>
+					<option value="겨울">겨울 (12월~2월)</option>
 					<option value="주중">주중</option>
 					<option value="주말">주말</option>
 				</select>
@@ -184,10 +201,10 @@
 			<div class="col-sm-4">
 				<select name="campOperation2" class="form-control" >
 					<option value="상시">상시</option>
-					<option value="봄(3월~5월)">봄 (3월~5월)</option>
-					<option value="여름(6월~8월)">여름 (6월~8월)</option>
-					<option value="가을(9월~11월)">가을 (9월~11월)</option>
-					<option value="겨울(12월~2월)">겨울 (12월~2월)</option>
+					<option value="봄">봄 (3월~5월)</option>
+					<option value="여름">여름 (6월~8월)</option>
+					<option value="가을">가을 (9월~11월)</option>
+					<option value="겨울">겨울 (12월~2월)</option>
 					<option value="주중" selected="selected">주중</option>
 					<option value="주말">주말</option>
 				</select>
@@ -196,69 +213,45 @@
 		
 		
 		<div class="form-group">
-			<label for="campName" class="col-sm-offset-1 col-sm-3 control-label">캠핑장 이름</label>
+			<label for="camp.user.campName" class="col-sm-offset-1 col-sm-3 control-label">캠핑장 이름</label>
 				<div class="col-sm-4">
-					<input type="text" class="form-control" id="campName" name="campName" value="${user.campName}" readonly>
+					<input type="text" class="form-control" id="user.campName" name="camp.user.campName" value="${campSession.user.campName}" readonly>
 				</div>
 		</div>
 
 		<div class="form-group">
-			<label for="campCall" class="col-sm-offset-1 col-sm-3 control-label">캠핑장 전화번호</label>
+			<label for="camp.user.campCall" class="col-sm-offset-1 col-sm-3 control-label">캠핑장 전화번호</label>
 				<div class="col-sm-4">
-					<input type="text" class="form-control" id="campCall" name="campCall" value="${user.campCall}" readonly>
+					<input type="text" class="form-control" id="user.campCall" name="camp.user.campCall" value="${campSession.user.campCall}" readonly>
 				</div>
 		</div>
 		
 		<div class="form-group">
-			<label for="campAddr" class="col-sm-offset-1 col-sm-3 control-label">캠핑장 주소</label>
+			<label for="camp.user.addr" class="col-sm-offset-1 col-sm-3 control-label">캠핑장 주소</label>
 				<div class="col-sm-4">
-					<input type="text" class="form-control" id="campAddr" name="campAddr" value="${user.addr}" readonly>
+					<input type="text" class="form-control" id="camp.user.addr" name="camp.user.addr" value="${campSession.user.addr}" readonly>
 				</div>
 		</div>
+		
+		<br>
+		<br>
 
-		<!-- 
 		<div class="form-group">
-			<label for="campMapImg" class="col-sm-offset-1 col-sm-3 control-label">캠핑장 지도사진</label>
+			<label for="campMapImg" class="col-sm-offset-1 col-sm-3 control-label">캠핑장 지도이미지 </label>				
 				<div class="col-sm-4">
-					<input type="file"  id="campMapImg" name="campMapImg">
+					<input type="file"  id="campMapImg" name="campMapImg" >			
 				</div>
 		</div>
 		
 		<div class="form-group">
-			<label for="campImg1" class="col-sm-offset-1 col-sm-3 control-label">캠핑장 전경사진1</label>
+			<label for="campImg1" class="col-sm-offset-1 col-sm-3 control-label">캠핑장 전경이미지(5개) </label>				
 				<div class="col-sm-4">
-					<input type="campImg1"  id="file" name="campImg1">
+					<input multiple="multiple" type="file"  id="campImg1" name="campImg1" >	
 				</div>
-		</div>
-		
-		<div class="form-group">
-			<label for="campImg2" class="col-sm-offset-1 col-sm-3 control-label">캠핑장 전경사진2</label>
-				<div class="col-sm-4">
-					<input type="file"  id="campImg2" name="campImg2">
-				</div>
-		</div>
-		
-		<div class="form-group">
-			<label for="campImg3" class="col-sm-offset-1 col-sm-3 control-label">캠핑장 전경사진3</label>
-				<div class="col-sm-4">
-					<input type="file"  id="campImg3" name="campImg3">
-				</div>
-		</div>
-		
-		<div class="form-group">
-			<label for="campImg4" class="col-sm-offset-1 col-sm-3 control-label">캠핑장 전경사진4</label>
-				<div class="col-sm-4">
-					<input type="file"  id="campImg4" name="campImg4">
-				</div>
-		</div>
-		
-		<div class="form-group">
-			<label for="campImg5" class="col-sm-offset-1 col-sm-3 control-label">캠핑장 전경사진5</label>
-				<div class="col-sm-4">
-					<input type="file"  id="campImg5" name="campImg5">
-				</div>
-		</div>		
-		-->
+		</div>			
+
+		<br>
+		<br>
 		
 		<div class="form-group">
 			<label for="campSummery" class="col-sm-offset-1 col-sm-3 control-label">캠핑장 요약소개</label>
