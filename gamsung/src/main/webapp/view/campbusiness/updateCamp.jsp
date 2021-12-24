@@ -38,8 +38,7 @@
 			
 			$("#update").on("click" , function() {
 				alert("캠핑장정보를 수정합니다.");
-				$("form").attr("method" , "POST").attr("action" , "/campBusiness/updateCamp").submit();
-				/* $("form").attr("method" , "POST").attr("action" , "/campBusiness/updateCamp").attr("enctype","multipart/form-data").submit(); */
+				$("form").attr("method" , "POST").attr("action" , "/campBusiness/updateCamp").attr("enctype","multipart/form-data").submit();
 			});
 			
 			$("#cancle").on("click" , function() {
@@ -67,8 +66,11 @@
 
 		<!-- Form Start -->
 		<form class="form-horizontal" >
-		
 		<input type="hidden" name="campNo" id="campNo" value="${campSession.campNo}">
+		
+		<!-- 
+		
+		
 		<input type="hidden" name="campTempSave" id="campTempSave" value="3">
 					
 		<div class="form-group">
@@ -210,7 +212,7 @@
 					<img src="/uploadFiles/campimg/campbusiness/camp/${camp.campMapImg}" />
 					<span>변경하기<input type="file"  id="campMapImg" name="campMapImg" ></span>			
 				</div>
-		</div>
+		</div> -->
 		
 		<div class="form-group">
 			<label for="campImg1" class="col-sm-offset-1 col-sm-3 control-label">캠핑장 전경이미지(5개) </label>				
@@ -220,7 +222,7 @@
 				</div>
 		</div>
 								
-		<div class="form-group">
+		<!-- <div class="form-group">
 			<label for="campSummery" class="col-sm-offset-1 col-sm-3 control-label">캠핑장 요약소개</label>
 				<div class="col-sm-4">
 					<input type="text" class="form-control" id="campSummery" name="campSummery" value="${camp.campSummery}">
@@ -235,7 +237,7 @@
 		</div>
 		
 		<br>
-		<br>
+		<br> -->
 		
 		<div class="form-group">
 			<div class="col-sm-offset-4  col-sm-4 text-center">

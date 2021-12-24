@@ -9,10 +9,17 @@
       <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#custom-collapse"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="/">Gamsung</a>
     </div>
     <div class="collapse navbar-collapse" id="custom-collapse">
-      <ul class="nav navbar-nav navbar-right">
+      <ul class="nav navbar-nav navbar-right">    
+      
+      	<li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">MilkyWay</a>
+          <ul class="dropdown-menu">
+           	<li><a href="/campBusiness/goSubMainCampBusiness">CampBusinessMain</a></li>
+            <li><a href="index_op_fullscreen_gradient_overlay.html">Payment</a></li>
+          </ul>
+        </li>
         <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Home</a>
           <ul class="dropdown-menu">
-          	<li><a href="/campBusiness/goSubMainCampBusiness">Ä·ÇÎ»ç¾÷ÀÚ</a></li>
+        
             <li><a href="index_mp_fullscreen_video_background.html">Default</a></li>
             <li><a href="index_op_fullscreen_gradient_overlay.html">One Page</a></li>
             <li><a href="index_agency.html">Agency</a></li>
@@ -22,7 +29,6 @@
             <li><a href="index_landing.html">Landing Page</a></li>
             <li><a href="index_photography.html">Photography</a></li>
             <li><a href="index_shop.html">Shop</a></li>
-            <li><a href="/campBusiness/goSubMainCampBusiness">Ä·ÇÎ»ç¾÷ÀÚ</a></li>
           </ul>
         </li>
         <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Headers</a>
