@@ -131,13 +131,17 @@
 					<c:set var="i" value="${ i+1 }" />
 					<tr>
 			  			<td align="left">${ i }</td>				
-			  			<td align="left" data-campNo="${camp.campNo}">${camp.campName}</td>
+			  			<td align="left" data-campNo="${camp.campNo}">${camp.user.campName}</td>
           				<td align="left">${camp.campRate}</td>
           				<td align="left">${camp.campReservationCount}</td>
           				<td align="left">${camp.campViewCountCurrentMonth}</td>
           				<td align="left">${camp.campViewCountPreviousMonth}</td>
 	           			<td align="left">${camp.campRegDate}</td>
-	           			<td align="left">${camp.deleteFlag}</td>  
+	           			<td align="left">
+	 						<c:if test="${ empty camp.deleteFlag || camp.deleteFlag == 'true'}">		
+								T
+							</c:if>	
+	           			</td> 
 					</tr>
           		</c:forEach>
         	</tbody>

@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=EUC-KR" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>	
 
 <!DOCTYPE html>
 
@@ -26,7 +27,7 @@
 	<!-- CSS -->
 	<style>
 		body > div.container{
-			margin-top: 70px;
+			margin-top: 90px;
 		}
     </style>
 
@@ -37,7 +38,7 @@
 		$(function() {
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			$("#confirm").on("click" , function() {
-				window.self.location = "/campBusiness/main";
+				window.self.location = "/campBusiness/goSubMainCampBusiness";
 			});
 			
 			$("#update").on("click" , function() {
@@ -65,10 +66,15 @@
 	<jsp:include page="/view/common/headerCampBusiness.jsp" />
 
 	<!-- Page Start -->
-	<div class="container">	
 	<form>	
-	    <input type="hidden" name="campNo" value="${camp.campNo}">	
+	<div class="container">	
 	
+	    <input type="hidden" name="campNo" value="${camp.campNo}">	
+	    	
+	 
+	    <br>
+	    <br>
+	    <br>	
 		<div class="page-header">
 	       <h3 class=" text-info">캠핑장 상세정보</h3>
 	    </div>
@@ -82,28 +88,28 @@
 		
 		<div class="row">
 	  		<div class="col-xs-4 col-md-2"><strong>사업자회원ID</strong></div>
-			<div class="col-xs-8 col-md-4"></div>
+			<div class="col-xs-8 col-md-4">${campSession.user.id}</div>
 		</div>
 		
 		<hr/>
 		
 		<div class="row">
 	  		<div class="col-xs-4 col-md-2"><strong>캠핑장 이름</strong></div>
-			<div class="col-xs-8 col-md-4">${camp.campName}</div>
+			<div class="col-xs-8 col-md-4">${campSession.user.campName}</div>
 		</div>
 		
 		<hr/>
 		
 		<div class="row">
 	  		<div class="col-xs-4 col-md-2"><strong>캠핑장 주소</strong></div>
-			<div class="col-xs-8 col-md-4">${camp.campAddr}</div>
+			<div class="col-xs-8 col-md-4">${campSession.user.addr}</div>
 		</div>
 		
 		<hr/>
 		
 		<div class="row">
 	  		<div class="col-xs-4 col-md-2"><strong>캠핑장 전화번호</strong></div>
-			<div class="col-xs-8 col-md-4">${camp.campCall}</div>
+			<div class="col-xs-8 col-md-4">${campSession.user.campCall}</div>
 		</div>
 		
 		<hr/>							
@@ -187,18 +193,64 @@
 		
 		<div class="row">
 	  		<div class="col-xs-4 col-md-2"><strong>캠핑장 운영1</strong></div>
-			<div class="col-xs-8 col-md-4">${camp.campOperation1}</div>
+			<div class="col-xs-8 col-md-4">
+				<c:choose>
+					<c:when test="${ empty camp.campOperation1 || camp.campOperation1 == '상시'}"> 
+						상시
+					</c:when>
+					<c:when test="${ empty camp.campOperation1 || camp.campOperation1 == '봄'}"> 
+						봄 (3월~5월)
+					</c:when>
+					<c:when test="${ empty camp.campOperation1 || camp.campOperation1 == '여름'}"> 
+						여름 (6월~8월)
+					</c:when>
+					<c:when test="${ empty camp.campOperation1 || camp.campOperation1 == '가을'}"> 
+						가을 (9월~11월)
+					</c:when>
+					<c:when test="${ empty camp.campOperation1 || camp.campOperation1 == '겨울'}"> 
+						겨울 (12월~2월)
+					</c:when>
+					<c:when test="${ empty camp.campOperation1 || camp.campOperation1 == '주중'}"> 
+						주중
+					</c:when>
+					<c:otherwise>
+						주말
+					</c:otherwise>
+				</c:choose>	
+			</div>
 		</div>
 		
 		<hr/>
 		
 		<div class="row">
 	  		<div class="col-xs-4 col-md-2"><strong>캠핑장 운영2</strong></div>
-			<div class="col-xs-8 col-md-4">${camp.campOperation2}</div>
+				<c:choose>
+					<c:when test="${ empty camp.campOperation2 || camp.campOperation2 == '상시'}"> 
+						상시
+					</c:when>
+					<c:when test="${ empty camp.campOperation2 || camp.campOperation2 == '봄'}"> 
+						봄 (3월~5월)
+					</c:when>
+					<c:when test="${ empty camp.campOperation2 || camp.campOperation2 == '여름'}"> 
+						여름 (6월~8월)
+					</c:when>
+					<c:when test="${ empty camp.campOperation2 || camp.campOperation2 == '가을'}"> 
+						가을 (9월~11월)
+					</c:when>
+					<c:when test="${ empty camp.campOperation2 || camp.campOperation2 == '겨울'}"> 
+						겨울 (12월~2월)
+					</c:when>
+					<c:when test="${ empty camp.campOperation2 || camp.campOperation2 == '주중'}"> 
+						주중
+					</c:when>
+					<c:otherwise>
+						주말
+					</c:otherwise>
+				</c:choose>	
 		</div>
 		
 		<hr/>
-		
+	
 		<div class="row">
 	  		<div class="col-xs-4 col-md-2"><strong>캠핑장 지도이미지</strong></div>
 			<img src="/uploadFiles/campimg/campbusiness/camp/${camp.campMapImg}" />
@@ -239,10 +291,10 @@
 				<button id="confirm" type="button" class="btn btn-primary">확인</button>
 			</div>
 		</div>
-		  	
-	</form>  	
- 	</div>
-
+		
+		
+		</div>
+	</form>  
 </body>
 
 </html>
