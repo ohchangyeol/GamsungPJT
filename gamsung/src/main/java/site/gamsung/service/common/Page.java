@@ -20,9 +20,9 @@ public class Page {
 		this.totalCount = totalCount;
 		this.pageUnit = pageUnit;
 		this.pageSize = pageSize;
-		
+	
 		this.maxPage = (pageSize == 0) ? totalCount :  (totalCount-1)/pageSize +1;
-		this.currentPage = ( currentPage > maxPage) ? maxPage : currentPage;
+		this.currentPage = ( currentPage >= maxPage) ? maxPage : currentPage;
 		
 		this.beginUnitPage = ( (currentPage-1) / pageUnit ) * pageUnit +1 ;
 		

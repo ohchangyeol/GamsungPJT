@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=EUC-KR" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>	
 
 <!DOCTYPE html>
 
@@ -67,7 +68,7 @@
 		<!-- Form Start -->
 		<form class="form-horizontal" >
 		 	
-		<input type="hidden" name="campNo" id="campNo" value="${subSite.campNo}">
+		<input type="hidden" name="campNo" id="campNo" value="${mainSiteNo.campNo}">
 		<input type="hidden" name="subSiteNo" id="subSiteNo" value="${subSite.subSiteNo}">
 			
 		<div class="form-group">

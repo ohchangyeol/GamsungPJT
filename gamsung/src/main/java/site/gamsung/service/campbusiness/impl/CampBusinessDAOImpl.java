@@ -27,13 +27,28 @@ public class CampBusinessDAOImpl implements CampBusinessDAO{
 	
 	public CampBusinessDAOImpl() {
 		System.out.println(this.getClass());
-	}
+	}	
 	
-	
+	/*
+	 * Camp
+	 */	
 	public int getTotalCount(Search search) throws Exception {
-		return sqlSession.selectOne("CampBusinessMapper.getTotalCount", search);
+				
+		if(search.getSearchItemType().equals("Camp")) {
+			return sqlSession.selectOne("CampBusinessMapper.getTotalCountCamp", search);
+		}
+		
+		if(search.getSearchItemType().equals("MainSite")) {
+			return sqlSession.selectOne("CampBusinessMapper.getTotalCountMainSite", search);
+		}
+		
+		if(search.getSearchItemType().equals("SubSite")) {
+			return sqlSession.selectOne("CampBusinessMapper.getTotalCountSubSite", search);
+		}
+		
+		return 0;
 	}
-	
+			
 	
 	/*
 	 * Camp
@@ -61,6 +76,29 @@ public class CampBusinessDAOImpl implements CampBusinessDAO{
 	@Override
 	public void deleteCamp(int campNo) throws Exception {
 		sqlSession.update("CampBusinessMapper.deleteCamp", campNo);		
+	}
+	
+	@Override
+	public int getCampNoById(String id) throws Exception{
+		if(sqlSession.selectOne("CampBusinessMapper.getCampNoById", id) == null) {
+			return 0;
+		} else {
+			return sqlSession.selectOne("CampBusinessMapper.getCampNoById", id);
+		}
+	}
+	
+	@Override
+	public int getCampTempSaveById(String id) throws Exception{
+		if(sqlSession.selectOne("CampBusinessMapper.getCampTempSaveById", id) == null) {
+			return 0;
+		} else {
+			return sqlSession.selectOne("CampBusinessMapper.getCampTempSaveById", id);
+		}
+	}
+	
+	public int getRegNum(Camp camp) throws Exception{
+		sqlSession.selectOne("CampBusinessMapper.getRegNumIn", camp);
+		return sqlSession.selectOne("CampBusinessMapper.getRegNumOut", camp);		
 	}
 
 	
@@ -91,7 +129,6 @@ public class CampBusinessDAOImpl implements CampBusinessDAO{
 	public void deleteMainSite(int mainSiteNo) throws Exception {
 		sqlSession.update("CampBusinessMapper.deleteMainSite", mainSiteNo);		
 	}
-
 	
 	
 	/*
@@ -121,6 +158,5 @@ public class CampBusinessDAOImpl implements CampBusinessDAO{
 	public void deleteSubSite(int subSiteNo) throws Exception {
 		sqlSession.delete("CampBusinessMapper.deleteSubSite", subSiteNo);		
 	}
-
 	
 }

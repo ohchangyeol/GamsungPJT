@@ -18,7 +18,7 @@
                     <ul class="navbar-nav">
                         <li><a class="nav-link" href="#home">Ä·ÇÎ</a></li>
                         <li></li>
-                        <li><a id="auction-header" class="nav-link" href="view/common/subMainCampBusiness.jsp">Ä·ÇÎ»ç¾÷ÀÚ</a></li>
+                        <li><a id="auction-header" class="nav-link" href="/campBusiness/goSubMainCampBusiness">Ä·ÇÎ»ç¾÷ÀÚ</a></li>
                         <li></li>
                         <li><a id="auction-header" class="nav-link" href="/auction/listAuctionProduct">°æ¸Å</a></li>
                         <li></li>

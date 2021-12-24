@@ -248,6 +248,7 @@ public class MainSite {
 			+ "\n [mainSiteImg1] : " + mainSiteImg1 
 			+ "\n [mainSiteImg2] : " + mainSiteImg2 
 			+ "\n [mainSiteImg3] : " + mainSiteImg3
+			+ "\n [campName] : " + campName
 			+ "\n ---------------- \n";
 	}
 
