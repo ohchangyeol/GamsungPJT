@@ -13,7 +13,7 @@ import site.gamsung.service.common.RatingReviewService;
 import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.RatingReview;
 
-@Service("ratingReviewServiceImpl")
+@Service("campRatingReviewServiceImpl")
 public class CampRatingReviewServiceImpl implements RatingReviewService {
 
 	@Autowired
@@ -31,8 +31,22 @@ public class CampRatingReviewServiceImpl implements RatingReviewService {
 
 	@Override
 	public void addRatingReview(RatingReview ratingReview) throws Exception {
-	
+		campRatingReviewDAO.addCampRatingReview(ratingReview);
+		int campNo = ratingReview.getCamp().getCampNo();
+		List<Double> ratingList = campRatingReviewDAO.getCampRating(campNo);
+		double avgRating = 0;
 		
+		for (Double rl : ratingList) {
+			avgRating += rl;
+		}
+		
+		avgRating /= ratingList.size();
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("campNo", campNo);
+		map.put("avgRating", avgRating);
+		
+		campRatingReviewDAO.updateCampAvgRating(map);
 	}
 
 	@Override

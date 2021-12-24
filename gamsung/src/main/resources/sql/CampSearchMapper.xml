@@ -74,7 +74,7 @@
 		SELECT DISTINCT c.camp_no, c.camp_img1, c.camp_img2, c.camp_img3, c.camp_img4, c.camp_img5, c.camp_reg_date, c.camp_rating, 
 		       			c.camp_view_count_previous_month, c.camp_summery, u.camp_name, u.addr, u.camp_call 
 		FROM CAMP c, MAINSITE m, SUBSITE s, USERS u
-		WHERE c.user_id = u.user_id and c.camp_no = m.camp_no and c.camp_no = s.camp_no AND c.delete_flag = 'N' 
+		WHERE c.user_id = u.user_id and c.camp_no = m.camp_no and c.camp_no = s.camp_no AND c.delete_flag = 'N' AND tempsave_flag = 3
 			<if test="searchKeyword !=null and searchKeyword !=''">
 	 			AND u.camp_name LIKE CONCAT('%',#{searchKeyword},'%')
 			</if>
