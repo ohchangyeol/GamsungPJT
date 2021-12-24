@@ -28,6 +28,11 @@ public class CampRatingReviewDAOImpl implements CampRatingReviewDAO {
 	}
 
 	@Override
+	public int addCampRatingReview(RatingReview ratingReview) throws Exception {
+		return sqlSession.insert("CampRatingReviewMapper.addCampRatingReview", ratingReview);
+	}
+	
+	@Override
 	public List<RatingReview> listCampRatingReview(Map<String, Object> map) throws Exception {
 		return sqlSession.selectList("CampRatingReviewMapper.listCampRatingReview", map);
 	}
@@ -35,6 +40,21 @@ public class CampRatingReviewDAOImpl implements CampRatingReviewDAO {
 	@Override
 	public int getTotalCount(Map<String, Object> map) throws Exception {
 		return sqlSession.selectOne("CampRatingReviewMapper.getTotalCount", map);
+	}
+
+	@Override
+	public List<Double> getCampRating(int campNo) throws Exception {
+		return sqlSession.selectList("CampRatingReviewMapper.getCampRating", campNo);
+	}
+
+	@Override
+	public int updateCampAvgRating(Map<String, Object> map) throws Exception {
+		return sqlSession.update("CampRatingReviewMapper.updateCampAvgRating", map);
+	}
+
+	@Override
+	public int updateCampRatingReview(RatingReview ratingReview) throws Exception {
+		return sqlSession.update("CampRatingReviewMapper.updateCampRatingReview", ratingReview);
 	}
 	
 }
