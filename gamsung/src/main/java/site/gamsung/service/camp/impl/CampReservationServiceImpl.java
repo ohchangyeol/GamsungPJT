@@ -51,6 +51,7 @@ public class CampReservationServiceImpl implements CampReservationService {
 		//insert payment(결제 정보) - insert payment(결제 정보) - 포인트, 현금, 카드 여러 형태 처리.
 		campReservationDAO.addReservation(campReservation);
 		campReservationDAO.updateMainSiteReservation(campReservation);
+		
 	}
 
 	@Override

@@ -134,6 +134,12 @@
 		WHERE camp_no = #{camp.campNo} AND mainsite_no = #{mainSite.mainSiteNo}
 	</update>
 	
+	<update id="updateCampReservation" parameterType="int">
+		UPDATE Camp
+		SET camp_reservation_count = camp_reservation_count+1 
+		WHERE camp_no = #{value}
+	</update>
+	
 	<select id="listReservation" parameterType="map" resultMap="CampReservationSelectMap">
 		SELECT DISTINCT r.reservation_no, u.camp_name, m.mainsite_type, r.reservation_status, r.reservation_reg_date, r.reservation_start_date, 
 			  			r.reservation_end_date, r.total_payment_price, r.camp_no, r.reservation_user_name, r.reservation_user_phone, r.use_num
