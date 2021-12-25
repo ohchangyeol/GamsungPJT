@@ -36,6 +36,25 @@ public class ReportServiceImpl implements ReportService {
 	public ReportWrapper listReport(Search search) throws Exception {
 		return new ReportWrapper( reportDAO.listReport(search),reportDAO.getTotalCount(search) );
 	}
+
+	@Override
+	public void deleteReport(int reportNo) throws Exception{
+		reportDAO.deleteReport(reportNo);
+	}
+
+	@Override
+	public int notTotalCountReport() throws Exception{
+		
+		return reportDAO.notTotalCountReport();
+	}
+
+	@Override
+	public void updateCodeReport(Report report) {
+		reportDAO.updateCodeReport(report);
+		
+	}
+	
+	
 	
 	
 	

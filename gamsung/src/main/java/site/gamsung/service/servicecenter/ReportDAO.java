@@ -15,4 +15,10 @@ public interface ReportDAO {
 
 	// TOTALCOUNT
 	public int getTotalCount(Search search) throws Exception ;
+
+	public void deleteReport(int reportNo) throws Exception;
+
+	public int notTotalCountReport() throws Exception;
+
+	public void updateCodeReport(Report report);
 }

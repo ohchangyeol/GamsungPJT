@@ -70,7 +70,7 @@ public class ReportServiceTest {
 		System.out.println("==> report : "+ report);
 	}
 	
-	@Test
+	//@Test
 	public void listReportServiceTest() throws Exception {
 		Search search = new Search();
 		
@@ -89,6 +89,30 @@ public class ReportServiceTest {
 		System.out.println("==> report wrapper : "+ wrapper);
 	}
 	
+	//@Test
+	public void deleteReportServiceTest() throws Exception {
+		int reportNo = 15;
+		reportService.deleteReport(reportNo);
+	}
+	
+//	@Test
+	public void notTotalCountServiceTest() throws Exception {
+		int notTotalCount = reportService.notTotalCountReport();
+		System.out.println("==> not report : "+ notTotalCount);
+	}
+	
+	@Test
+	public void updateCodeServiceTest() throws Exception {
+		Report report = new Report();
+		report.setReportNo(2);
+		// 신고 처리 완료
+		report.setReportStatus(1);
+		
+		// 신고 처리 거부
+//		report.setReportStatus(2);
+		
+		reportService.updateCodeReport(report);
+	}
 	
 	
 	

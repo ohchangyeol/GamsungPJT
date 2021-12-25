@@ -11,4 +11,10 @@ public interface ReportService {
 	public Report getReport (int reportNo) throws Exception;
 
 	public ReportWrapper listReport(Search search) throws Exception ;
+
+	public void deleteReport(int reportNo) throws Exception;
+
+	public int notTotalCountReport() throws Exception;
+
+	public void updateCodeReport(Report report);
 }

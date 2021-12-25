@@ -50,6 +50,7 @@
 		</choose>
 	</insert>
 	
+	<!-- 신고 상세 조회 -->
 	<select id="getReport"	parameterType="_int" resultMap="reportDomain">
 		SELECT 	r.report_no, r.sender_id, r.receiver_id, r.report_status, r.report_type, r.delete_flag, r.receiver_camp_name, r.report_content, r.report_reg_date, r.report_Img1, r.report_Img2, r.report_img3 , 
 				rt.report_name ,
@@ -63,6 +64,7 @@
 		AND r.report_no = #{value};
 	</select>
 	
+	<!-- 신고 목록 조회 -->
 	<select id="listReport" parameterType="search" resultMap="reportDomain">
 		SELECT 	r.report_no, r.sender_id, r.receiver_id, r.report_status, r.report_type, r.delete_flag, r.receiver_camp_name, r.report_content, r.report_reg_date, r.report_Img1, r.report_Img2, r.report_img3 , 
 				rt.report_name ,
@@ -99,6 +101,7 @@
 		LIMIT #{offset} , #{pageSize}
 	</select>
 	
+	<!-- 신고 개수 -->
 	<select  id="getTotalCount"  parameterType="search"	 resultType="int">
 		SELECT COUNT(*)
 	  	FROM(	SELECT 	r.report_no, r.sender_id, r.receiver_id, r.report_status, r.report_type, r.delete_flag, r.receiver_camp_name, r.report_content, r.report_reg_date, r.report_Img1, r.report_Img2, r.report_img3 , 
@@ -134,5 +137,29 @@
 				</if>
 				r.report_reg_date) countTable
 	</select>
+	
+	<!-- 신고 삭제 -->
+	<update id="deleteReport">
+		UPDATE REPORT
+		<set>
+			delete_flag = 'Y'
+		</set>
+		WHERE report_no = #{value}
+	</update>
+	
+	<!-- 처리하지 않은 신고수 -->
+	<select id="notTotalcount"	resultType="int">
+		SELECT count(*)
+		FROM REPORT 
+		WHERE report_status = 1 
+		AND delete_flag = 'N';
+	</select>
+	
+	<!-- 신고 처리 -->
+	<update id="updateCode" parameterType="report">
+		UPDATE report
+		SET report_status = #{reportStatus}
+		WHERE report_no = #{reportNo}
+	</update>
 	
 </mapper>

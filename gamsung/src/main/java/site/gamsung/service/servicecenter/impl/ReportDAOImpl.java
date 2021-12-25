@@ -49,5 +49,20 @@ public class ReportDAOImpl implements ReportDAO {
 		return sqlSession.selectOne("ReportMapper.getTotalCount",search);
 		
 	}
+
+	@Override
+	public void deleteReport(int reportNo) throws Exception {
+		sqlSession.update("ReportMapper.deleteReport",reportNo);
+	}
+
+	@Override
+	public int notTotalCountReport() throws Exception {
+		return sqlSession.selectOne("ReportMapper.notTotalcount");
+	}
+
+	@Override
+	public void updateCodeReport(Report report) {
+		sqlSession.selectOne("ReportMapper.updateCode",report);
+	}
 	
 }
