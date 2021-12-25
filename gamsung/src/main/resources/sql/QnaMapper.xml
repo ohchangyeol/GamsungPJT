@@ -99,6 +99,9 @@
 		FROM QNA q LEFT JOIN users u 
 		ON q.sender_id = u.user_id
 		WHERE delete_flag = 'N'
+		<if test='id != null and id != ""'>
+			AND q.sender_id = #{id}
+		</if>
 		<trim prefix="AND">
 			<choose>
 				<when test = "campNo != null and campNo != 0 ">
@@ -109,7 +112,7 @@
 				</otherwise>
 			</choose>
 		</trim>
-		<if test="searchCondition != null">
+		<if test="searchCondition != null searchCondition != ''">
 			<trim prefix="AND">
 				<if test="searchKeyword !='' and searchKeyword != null"> 
 					<!-- 제목 + 내용 -->
@@ -138,6 +141,9 @@
 				FROM QNA q LEFT JOIN users u 
 				ON q.sender_id = u.user_id
 				WHERE delete_flag = 'N'
+				<if test='id != null and id != ""'>
+					AND q.sender_id = #{id}
+				</if>
 				<trim prefix="AND">
 					<choose>
 						<when test = "campNo != null and campNo != 0 ">

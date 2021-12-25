@@ -6,9 +6,133 @@
 
 <mapper namespace="ReportMapper">
 
-	<resultMap id="noticeDomain" type="notice">
+	<resultMap id="reportDomain" type="report">
+		<result property="reportNo"      column="report_no" 	 jdbcType="NUMERIC"/>
+		<result property="sender.id"     column="sender_id" 		 jdbcType="VARCHAR"/>
+		<result property="receiver.id"    column="receiver_id" 	 jdbcType="VARCHAR"/>
+		<result property="reportStatus"   column="report_status"   jdbcType="NUMERIC"/>
+		<result property="reportType" column="report_type" jdbcType="NUMERIC"/>
+		<result property="deleteFlag" column="delete_flag" jdbcType="CHAR"/>
+		<result property="receiverCampName" column="receiver_camp_name" jdbcType="VARCHAR"/>
+		<result property="reportContent" column="report_content" jdbcType="VARCHAR"/>
+		<result property="regDate" column="report_reg_date" jdbcType="VARCHAR"/>
+		<result property="reportImgFile1" column="report_Img1" jdbcType="VARCHAR"/>
+		<result property="reportImgFile2" column="report_Img2" jdbcType="VARCHAR"/>
+		<result property="reportImgFile3" column="report_Img3" jdbcType="VARCHAR"/>
+		<result property="reportTypeName" column="report_name" jdbcType="VARCHAR"/>
 		
+		<association property="sender" javaType="user">
+			<id property="id"			column="sender_id"        jdbcType="VARCHAR"/>
+			<result property="nickName" column="sender_nick_name" jdbcType="VARCHAR" />
+			<result property="role" column="sender_role" jdbcType="VARCHAR" />
+			<result property="campName" column="sender_camp_name" jdbcType="VARCHAR" />
+		</association>
+		
+		<association property="receiver" javaType="user">
+			<id property="id"			column="receiver_id"        jdbcType="VARCHAR"/>
+			<result property="nickName" column="receiver_nick_name" jdbcType="VARCHAR" />
+			<result property="role" column="receiver_role" jdbcType="VARCHAR" />
+			<result property="campName" column="receiver_camp_name" jdbcType="VARCHAR" />
+		</association>
 	</resultMap>
 	
+	<!-- 신고 등록 -->
+	<insert id="addReport" parameterType="report" >
+		<choose>
+			<when test='sender.role != "BUSINESS"'>
+				INSERT INTO REPORT (sender_id, receiver_id,report_type , report_content,report_Img1,report_Img2,report_img3,receiver_camp_name)
+				VALUE 	(#{sender.id}, #{receiver.id}, #{reportType:NUMERIC},#{reportContent} , #{reportImgFile1:VARCHAR}, #{reportImgFile2:VARCHAR} ,#{reportImgFile3:VARCHAR}, #{receiverCampName} )
+			</when>
+			<otherwise>
+				INSERT INTO REPORT (sender_id, receiver_id,report_type , report_content,report_Img1,report_Img2,report_img3)
+				VALUE 	(#{sender.id}, #{receiver.id}, #{reportType:NUMERIC},#{reportContent} , #{reportImgFile1:VARCHAR}, #{reportImgFile2:VARCHAR} ,#{reportImgFile3:VARCHAR})
+			</otherwise>
+		</choose>
+	</insert>
+	
+	<select id="getReport"	parameterType="_int" resultMap="reportDomain">
+		SELECT 	r.report_no, r.sender_id, r.receiver_id, r.report_status, r.report_type, r.delete_flag, r.receiver_camp_name, r.report_content, r.report_reg_date, r.report_Img1, r.report_Img2, r.report_img3 , 
+				rt.report_name ,
+				su.nick_name sender_nick_name, su.role sender_role, su.camp_name sender_camp_name,
+		        ru.nick_name receiver_nick_name,ru.role receiver_role, ru.camp_name receiver_camp_name
+		FROM REPORT r 
+		LEFT JOIN REPORT_TABLE rt ON r.report_type = rt.report_type 
+		LEFT JOIN USERS su ON r.sender_id = su.user_id
+		LEFT JOIN USERS ru ON r.receiver_id = ru.user_id
+		WHERE delete_flag = 'N'
+		AND r.report_no = #{value};
+	</select>
+	
+	<select id="listReport" parameterType="search" resultMap="reportDomain">
+		SELECT 	r.report_no, r.sender_id, r.receiver_id, r.report_status, r.report_type, r.delete_flag, r.receiver_camp_name, r.report_content, r.report_reg_date, r.report_Img1, r.report_Img2, r.report_img3 , 
+				rt.report_name ,
+				su.nick_name sender_nick_name, su.role sender_role, su.camp_name sender_camp_name,
+		        ru.nick_name receiver_nick_name,ru.role receiver_role
+		FROM REPORT r 
+		LEFT JOIN REPORT_TABLE rt ON r.report_type = rt.report_type 
+		LEFT JOIN USERS su ON r.sender_id = su.user_id
+		LEFT JOIN USERS ru ON r.receiver_id = ru.user_id
+		WHERE delete_flag = 'N'
+		<if test='id != "admin" and id != null and id != ""'>
+		AND r.sender_id = #{id}
+		</if>
+		<if test="searchCondition != null and searchCondition != ''">
+			<trim prefix="AND">
+				<choose>
+					<when test="searchCondition == 1">r.report_type = 1</when>
+					<when test="searchCondition == 2">r.report_type = 2</when>
+					<when test="searchCondition == 3">r.report_type = 3</when>
+					<when test="searchCondition == 4">r.report_type = 4</when>
+					<when test="searchCondition == 5">r.report_type = 5</when>
+					<otherwise></otherwise>
+				</choose>
+			</trim>
+		</if>
+		ORDER BY
+		<if test="sortCondition != null and sortCondition != '' ">
+			<choose>
+				<when test='sortCondition.equals("status")'>r.report_status asc,</when>
+				<otherwise>r.report_status desc,</otherwise>
+			</choose>
+		</if>
+		r.report_reg_date
+		LIMIT #{offset} , #{pageSize}
+	</select>
+	
+	<select  id="getTotalCount"  parameterType="search"	 resultType="int">
+		SELECT COUNT(*)
+	  	FROM(	SELECT 	r.report_no, r.sender_id, r.receiver_id, r.report_status, r.report_type, r.delete_flag, r.receiver_camp_name, r.report_content, r.report_reg_date, r.report_Img1, r.report_Img2, r.report_img3 , 
+						rt.report_name ,
+						su.nick_name sender_nick_name, su.role sender_role, su.camp_name sender_camp_name,
+				        ru.nick_name receiver_nick_name,ru.role receiver_role
+				FROM REPORT r 
+				LEFT JOIN REPORT_TABLE rt ON r.report_type = rt.report_type 
+				LEFT JOIN USERS su ON r.sender_id = su.user_id
+				LEFT JOIN USERS ru ON r.receiver_id = ru.user_id
+				WHERE delete_flag = 'N'
+				<if test='id != "admin" and id != null and id != ""'>
+				AND r.sender_id = #{id}
+				</if>
+				<if test="searchCondition != null and searchCondition != ''">
+					<trim prefix="AND">
+						<choose>
+							<when test="searchCondition == 1">r.report_type = 1</when>
+							<when test="searchCondition == 2">r.report_type = 2</when>
+							<when test="searchCondition == 3">r.report_type = 3</when>
+							<when test="searchCondition == 4">r.report_type = 4</when>
+							<when test="searchCondition == 5">r.report_type = 5</when>
+							<otherwise></otherwise>
+						</choose>
+					</trim>
+				</if>
+				ORDER BY
+				<if test="sortCondition != null and sortCondition != '' ">
+					<choose>
+						<when test='sortCondition.equals("status")'>r.report_status asc,</when>
+						<otherwise>r.report_status desc,</otherwise>
+					</choose>
+				</if>
+				r.report_reg_date) countTable
+	</select>
 	
 </mapper>
