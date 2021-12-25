@@ -109,5 +109,14 @@
     	<property name="defaultEncoding" value="utf-8" />
 	</bean>
 	
+	<!--  websocket handler -->
+	<!-- <websocket:handlers>
+		<websocket:mapping handler="auctionHandler" path="/auctionHandler"/>
+		<websocket:handshake-interceptors>
+			 <bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/>
+		</websocket:handshake-interceptors>
+	</websocket:handlers>
+	
+	<bean id="auctionHandler" class="site.gamsung.util.auction.AuctionHandler"></bean>  -->
 </beans>
 
