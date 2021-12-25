@@ -140,7 +140,7 @@ public class UserServiceTest {
 		
 	}
 	
-	@Test
+	//@Test
 	public void testUpdateTempPassword() throws Exception{
 		
 		User user = new User();

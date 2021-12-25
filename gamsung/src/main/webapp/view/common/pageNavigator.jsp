@@ -17,10 +17,10 @@
 			<c:if test="${ resultPage.currentPage > resultPage.pageUnit }">
 				<li>
 			</c:if>
-		      <a href="javascript:fncGetList('${ resultPage.currentPage-1}')" aria-label="Previous">
-		        <span aria-hidden="true">&laquo;</span>
-		      </a>
-		    </li>
+		   			<a href="javascript:fncGetList('${ resultPage.currentPage-1}')" aria-label="Previous">
+		        		<span aria-hidden="true">&laquo;</span>
+		      		</a>
+				</li>
 		    
 		    <!--  醞懈  -->
 			<c:forEach var="i"  begin="${resultPage.beginUnitPage}" end="${resultPage.endUnitPage}" step="1">
@@ -39,17 +39,19 @@
 				</c:if>
 			</c:forEach>
 		    
-		     <!--  辦難 nav==>> -->
-		     <c:if test="${ resultPage.endUnitPage >= resultPage.maxPage }">
-		  		<li class="disabled">
-			</c:if>
-			<c:if test="${ resultPage.endUnitPage < resultPage.maxPage }">
+		    
+		    <!--  辦難 nav==>> -->
+		    <c:if test="${ resultPage.currentPage >= resultPage.maxPage }">
+		 		<li class="disabled">
+		   	</c:if>
+			<c:if test="${ resultPage.currentPage < resultPage.maxPage }">
 				<li>
 			</c:if>
-		      <a href="javascript:fncGetList('${resultPage.endUnitPage+1}')" aria-label="Next">
-		        <span aria-hidden="true">&raquo;</span>
-		      </a>
-		    </li>
+			     	<a href="javascript:fncGetList('${resultPage.currentPage+1}')" aria-label="Next">
+		        		<span aria-hidden="true">&raquo;</span>
+		      		</a>
+		      	</li>
+
 		  </ul>
 		</nav>
 		

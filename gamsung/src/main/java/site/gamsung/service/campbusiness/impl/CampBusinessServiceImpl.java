@@ -7,6 +7,9 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import site.gamsung.service.campbusiness.CampBusinessDAO;
 import site.gamsung.service.campbusiness.CampBusinessService;
@@ -18,6 +21,7 @@ import site.gamsung.service.domain.SubSite;
 
 
 @Service("campBusinessServiceImpl")
+@EnableTransactionManagement
 public class CampBusinessServiceImpl implements CampBusinessService{
 	
 	///Field
@@ -32,6 +36,12 @@ public class CampBusinessServiceImpl implements CampBusinessService{
 	public CampBusinessServiceImpl() {
 		System.out.println(this.getClass());
 	}
+	
+	
+	/*
+	 *  Common	
+	 */
+
 
 	
 	/*
@@ -68,7 +78,23 @@ public class CampBusinessServiceImpl implements CampBusinessService{
 	public void deleteCamp(int campNo) throws Exception {
 		campBusinessDAO.deleteCamp(campNo);
 	}
-
+	
+	@Override
+	public int getCampNoById(String id) throws Exception{
+		return campBusinessDAO.getCampNoById(id);
+	}
+	
+	@Override
+	public int getCampTempSaveById(String id) throws Exception {
+		return campBusinessDAO.getCampTempSaveById(id);
+	}
+	
+	@Override
+	@Transactional(propagation=Propagation.REQUIRES_NEW)	
+	public int getRegNum(Camp camp) throws Exception{
+		return campBusinessDAO.getRegNum(camp);
+	}
+	
 	
 	/*
 	 *  MainSite

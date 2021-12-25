@@ -7,6 +7,10 @@ import site.gamsung.service.domain.AuctionInfo;
 import site.gamsung.service.domain.AuctionProduct;
 
 public interface AuctionProductService {
+	
+	public List<AuctionProduct> listCrawlingAuctionProduct(Search search);
+	
+	public AuctionProduct getCrawlingAuctionProductNo(AuctionProduct auctionProduct);
 
 	public List<AuctionProduct> listAuctionProduct(Search search);
 	

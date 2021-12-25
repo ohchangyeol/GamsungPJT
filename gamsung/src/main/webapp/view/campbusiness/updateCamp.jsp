@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=EUC-KR" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>	
 
 <!DOCTYPE html>
 
@@ -37,7 +38,7 @@
 			
 			$("#update").on("click" , function() {
 				alert("캠핑장정보를 수정합니다.");
-				$("form").attr("method" , "POST").attr("action" , "/campBusiness/updateCamp").submit();
+				$("form").attr("method" , "POST").attr("action" , "/campBusiness/updateCamp").attr("enctype","multipart/form-data").submit();
 			});
 			
 			$("#cancle").on("click" , function() {
@@ -65,13 +66,17 @@
 
 		<!-- Form Start -->
 		<form class="form-horizontal" >
+		<input type="hidden" name="campNo" id="campNo" value="${campSession.campNo}">
 		
-		<input type="hidden" name="campNo" id="campNo" value="${camp.campNo}">
-			
+		<!-- 
+		
+		
+		<input type="hidden" name="campTempSave" id="campTempSave" value="3">
+					
 		<div class="form-group">
-			<label for="userId" class="col-sm-offset-1 col-sm-3 control-label">사업자회원ID</label>
+			<label for="user.id" class="col-sm-offset-1 col-sm-3 control-label">사업자회원ID</label>
 				<div class="col-sm-4">
-					<input type="text" class="form-control" id="userId" name="userId" value="${camp.campNo}" readonly>
+					<input type="text" class="form-control" id="user.id" name="user.id" value="${user.id}" readonly>
 				</div>
 		</div>
 
@@ -146,10 +151,10 @@
 			<div class="col-sm-4">
 				<select name="campOperation1" class="form-control" >
 					<option value="상시" ${! empty camp.campOperation1 && camp.campOperation1 eq '상시' ? "selected" : "" }>상시</option>
-					<option value="봄(3월~5월)" ${! empty camp.campOperation1 && camp.campOperation1 eq '봄(3월~5월)' ? "selected" : "" }>봄 (3월~5월)</option>
-					<option value="여름(6월~8월)" ${! empty camp.campOperation1 && camp.campOperation1 eq '여름(6월~8월)' ? "selected" : "" }>여름 (6월~8월)</option>
-					<option value="가을(9월~11월)" ${! empty camp.campOperation1 && camp.campOperation1 eq '가을(9월~11월)' ? "selected" : "" }>가을 (9월~11월)</option>
-					<option value="겨울(12월~2월)" ${! empty camp.campOperation1 && camp.campOperation1 eq '겨울(12월~2월)' ? "selected" : "" }>겨울 (12월~2월)</option>
+					<option value="봄" ${! empty camp.campOperation1 && camp.campOperation1 eq '봄' ? "selected" : "" }>봄 (3월~5월)</option>
+					<option value="여름" ${! empty camp.campOperation1 && camp.campOperation1 eq '여름' ? "selected" : "" }>여름 (6월~8월)</option>
+					<option value="가을" ${! empty camp.campOperation1 && camp.campOperation1 eq '가을' ? "selected" : "" }>가을 (9월~11월)</option>
+					<option value="겨울" ${! empty camp.campOperation1 && camp.campOperation1 eq '겨울' ? "selected" : "" }>겨울 (12월~2월)</option>
 					<option value="주중" ${! empty camp.campOperation1 && camp.campOperation1 eq '주중' ? "selected" : "" }>주중</option>
 					<option value="주말" ${! empty camp.campOperation1 && camp.campOperation1 eq '주말' ? "selected" : "" }>주말</option>
 				</select>
@@ -161,10 +166,10 @@
 			<div class="col-sm-4">
 				<select name="campOperation2" class="form-control" >
 					<option value="상시" ${! empty camp.campOperation2 && camp.campOperation2 eq '상시' ? "selected" : "" }>상시</option>
-					<option value="봄(3월~5월)" ${! empty camp.campOperation2 && camp.campOperation2 eq '봄(3월~5월)' ? "selected" : "" }>봄 (3월~5월)</option>
-					<option value="여름(6월~8월)" ${! empty camp.campOperation2 && camp.campOperation2 eq '여름(6월~8월)' ? "selected" : "" }>여름 (6월~8월)</option>
-					<option value="가을(9월~11월)" ${! empty camp.campOperation2 && camp.campOperation2 eq '가을(9월~11월)' ? "selected" : "" }>가을 (9월~11월)</option>
-					<option value="겨울(12월~2월)" ${! empty camp.campOperation2 && camp.campOperation2 eq '겨울(12월~2월)' ? "selected" : "" }>겨울 (12월~2월)</option>
+					<option value="봄" ${! empty camp.campOperation2 && camp.campOperation2 eq '봄' ? "selected" : "" }>봄 (3월~5월)</option>
+					<option value="여름" ${! empty camp.campOperation2 && camp.campOperation2 eq '여름' ? "selected" : "" }>여름 (6월~8월)</option>
+					<option value="가을" ${! empty camp.campOperation2 && camp.campOperation2 eq '가을' ? "selected" : "" }>가을 (9월~11월)</option>
+					<option value="겨울" ${! empty camp.campOperation2 && camp.campOperation2 eq '겨울' ? "selected" : "" }>겨울 (12월~2월)</option>
 					<option value="주중" ${! empty camp.campOperation2 && camp.campOperation2 eq '주중' ? "selected" : "" }>주중</option>
 					<option value="주말" ${! empty camp.campOperation2 && camp.campOperation2 eq '주말' ? "selected" : "" }>주말</option>
 				</select>
@@ -175,69 +180,49 @@
 		<div class="form-group">
 			<label for="campName" class="col-sm-offset-1 col-sm-3 control-label">캠핑장 이름</label>
 				<div class="col-sm-4">
-					<input type="text" class="form-control" id="campName" name="campName" value="${user.campName}" readonly>
+					<input type="text" class="form-control" id="campName" name="campName" value="${campSession.user.campName}" readonly>
 				</div>
 		</div>
 
 		<div class="form-group">
 			<label for="campCall" class="col-sm-offset-1 col-sm-3 control-label">캠핑장 전화번호</label>
 				<div class="col-sm-4">
-					<input type="text" class="form-control" id="campCall" name="campCall" value="${user.campCall}" readonly>
+					<input type="text" class="form-control" id="campCall" name="campCall" value="${campSession.user.campCall}" readonly>
 				</div>
 		</div>
 		
 		<div class="form-group">
 			<label for="campAddr" class="col-sm-offset-1 col-sm-3 control-label">캠핑장 주소</label>
 				<div class="col-sm-4">
-					<input type="text" class="form-control" id="campAddr" name="campAddr" value="${user.addr}" readonly>
-				</div>
-		</div>
-
-		<!-- 
-		<div class="form-group">
-			<label for="campMapImg" class="col-sm-offset-1 col-sm-3 control-label">캠핑장 지도사진</label>
-				<div class="col-sm-4">
-					<input type="file"  id="campMapImg" name="campMapImg">
+					<input type="text" class="form-control" id="campAddr" name="campAddr" value="${campSession.user.addr}" readonly>
 				</div>
 		</div>
 		
 		<div class="form-group">
-			<label for="campImg1" class="col-sm-offset-1 col-sm-3 control-label">캠핑장 전경사진1</label>
+			<label for="campRegDate" class="col-sm-offset-1 col-sm-3 control-label">캠핑장 등록일자</label>
 				<div class="col-sm-4">
-					<input type="campImg1"  id="file" name="campImg1">
+					<input type="text" class="form-control" id="campRegDate" name="campRegDate" value="${camp.campRegDate}" readonly>
 				</div>
 		</div>
 		
+		
 		<div class="form-group">
-			<label for="campImg2" class="col-sm-offset-1 col-sm-3 control-label">캠핑장 전경사진2</label>
+			<label for="campMapImg" class="col-sm-offset-1 col-sm-3 control-label">캠핑장 지도이미지 </label>				
 				<div class="col-sm-4">
-					<input type="file"  id="campImg2" name="campImg2">
+					<img src="/uploadFiles/campimg/campbusiness/camp/${camp.campMapImg}" />
+					<span>변경하기<input type="file"  id="campMapImg" name="campMapImg" ></span>			
+				</div>
+		</div> -->
+		
+		<div class="form-group">
+			<label for="campImg1" class="col-sm-offset-1 col-sm-3 control-label">캠핑장 전경이미지(5개) </label>				
+				<div class="col-sm-4">
+					<img src="/uploadFiles/campimg/campbusiness/camp/${camp.campImg1}" />
+					<span>변경하기<input multiple="multiple" type="file"  id="campImg1" name="campImg1" ></span>			
 				</div>
 		</div>
-		
-		<div class="form-group">
-			<label for="campImg3" class="col-sm-offset-1 col-sm-3 control-label">캠핑장 전경사진3</label>
-				<div class="col-sm-4">
-					<input type="file"  id="campImg3" name="campImg3">
-				</div>
-		</div>
-		
-		<div class="form-group">
-			<label for="campImg4" class="col-sm-offset-1 col-sm-3 control-label">캠핑장 전경사진4</label>
-				<div class="col-sm-4">
-					<input type="file"  id="campImg4" name="campImg4">
-				</div>
-		</div>
-		
-		<div class="form-group">
-			<label for="campImg5" class="col-sm-offset-1 col-sm-3 control-label">캠핑장 전경사진5</label>
-				<div class="col-sm-4">
-					<input type="file"  id="campImg5" name="campImg5">
-				</div>
-		</div>		
-		-->
-		
-		<div class="form-group">
+								
+		<!-- <div class="form-group">
 			<label for="campSummery" class="col-sm-offset-1 col-sm-3 control-label">캠핑장 요약소개</label>
 				<div class="col-sm-4">
 					<input type="text" class="form-control" id="campSummery" name="campSummery" value="${camp.campSummery}">
@@ -252,7 +237,7 @@
 		</div>
 		
 		<br>
-		<br>
+		<br> -->
 		
 		<div class="form-group">
 			<div class="col-sm-offset-4  col-sm-4 text-center">

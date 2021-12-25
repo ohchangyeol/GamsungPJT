@@ -83,7 +83,7 @@ public class AuctionProductDAOTest {
 		auctionProduct.setAuctionProductNo("PROD00015");
 		auctionProduct.setRegistrantId("user1@gamsung.com");
 		auctionProduct.setAuctionProductName("텐트");
-		auctionProduct.setAuctionProductDatailA("너무 좋아요");
+		auctionProduct.setAuctionProductDatail("너무 좋아요");
 		auctionProduct.setAuctionStartTime("2021-12-23 15:00:00");
 		auctionProduct.setAuctionEndTime("2021-12-25 15:00:00");
 		auctionProduct.setHashtag1("1111");

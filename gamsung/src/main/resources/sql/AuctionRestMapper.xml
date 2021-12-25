@@ -5,18 +5,19 @@
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="AuctionRestMapper">
-	<resultMap id="auction" type="auctionProduct">
+		<resultMap id="auction" type="auctionProduct">
 		<result property="auctionProductNo" column="product_no"/>
 		<result property="registrantId" column="registrant_id"/>
 		<result property="successfulBidderId" column="successful_bidder_id"/>
 		<result property="auctionProductName" column="product_name"/>
-		<result property="auctionProductDatailA" column="product_detail_a"/>
-		<result property="auctionProductDatailB" column="product_detail_b"/>
+		<result property="auctionProductDatail" column="product_detail"/>
+		<result property="auctionProductSubDatail" column="product_sub_detail"/>
 		<result property="startBidPrice" column="start_bid_price"/>
 		<result property="hopefulBidPrice" column="hopeful_bid_price"/>
 		<result property="bidUnit" column="bid_unit"/>
 		<result property="auctionStartTime" column="auction_start_time"/>
 		<result property="auctionEndTime" column="auction_end_time"/>
+		<result property="remainAuctionTime" column="remain_time"/>
 		<result property="bidableGrade" column="bidable_grade"/>
 		<result property="hashtag1" column="hashtag1"/>
 		<result property="hashtag2" column="hashtag2"/>
@@ -35,7 +36,7 @@
 		<result property="isDelete" column="delete_flag"/>
 	</resultMap>
 	
-	<resultMap id="iInfo" type="auctionInfo">
+	<resultMap id="info" type="auctionInfo">
 		<result property="bidNo" column="bid_no"/>
 		<result property="auctionProductNo" column="product_no"/>
 		<result property="user.id" column="user_id"/>
@@ -47,13 +48,13 @@
 	</resultMap>
 	
 	<insert id ="crawlingData" parameterType="java.util.List">
-		INSERT INTO gamsung.auction_product (registrant_id, product_name, product_detail_a,product_detail_b, start_bid_price, hopeful_bid_price, bid_unit, auction_start_time, auction_end_time, 
+		INSERT INTO gamsung.auction_product (registrant_id, product_name, product_detail,product_sub_detail, start_bid_price, hopeful_bid_price, bid_unit, auction_start_time, auction_end_time, 
 											bidable_grade, hashtag1, hashtag2, hashtag3, product_img1, product_img2, product_img3, product_img4, product_img5) VALUES
 		<foreach collection="list" item="item" separator=",">
 		(         #{item.registrantId}
 				, #{item.auctionProductName}
-				, #{item.auctionProductDatailA}
-				, #{item.auctionProductDatailB}
+				, #{item.auctionProductDatail}
+				, #{item.auctionProductSubDatail}
 				, #{item.startBidPrice}
 				, #{item.hopefulBidPrice}
 				, #{item.bidUnit}

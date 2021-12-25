@@ -1,16 +1,26 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+pageEncoding="UTF-8"%>
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
 </head>
+
 <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
       <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#custom-collapse"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="/">Gamsung</a>
     </div>
     <div class="collapse navbar-collapse" id="custom-collapse">
-      <ul class="nav navbar-nav navbar-right">
+      <ul class="nav navbar-nav navbar-right">    
+      
+      	<li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">MilkyWay</a>
+          <ul class="dropdown-menu">
+           	<li><a href="/campBusiness/goSubMainCampBusiness">CampBusinessMain</a></li>
+            <li><a href="index_op_fullscreen_gradient_overlay.html">Payment</a></li>
+          </ul>
+        </li>
         <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Home</a>
           <ul class="dropdown-menu">
+        
             <li><a href="index_mp_fullscreen_video_background.html">Default</a></li>
             <li><a href="index_op_fullscreen_gradient_overlay.html">One Page</a></li>
             <li><a href="index_agency.html">Agency</a></li>
@@ -22,9 +32,9 @@
             <li><a href="index_shop.html">Shop</a></li>
           </ul>
         </li>
-        <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Headers</a>
+        <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">중고 거래</a>
           <ul class="dropdown-menu">
-            <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Static Image Header</a>
+            <li class="dropdown"><a class="dropdown-toggle" href="/auction/listWaitAuctionProduct" data-toggle="dropdown">경매 진행 전</a>
               <ul class="dropdown-menu">
                 <li><a href="index_mp_fullscreen_static.html">Fulscreen</a></li>
                 <li><a href="index_mp_classic_static.html">Classic</a></li>
@@ -299,3 +309,5 @@
     </div>
   </div>
 </nav>
+
+
