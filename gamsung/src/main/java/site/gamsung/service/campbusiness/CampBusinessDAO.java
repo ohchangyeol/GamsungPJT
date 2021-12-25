@@ -9,12 +9,15 @@ import site.gamsung.service.domain.SubSite;
 
 public interface CampBusinessDAO {
 	
+	/*
+	 * Common
+	 */	
 	public int getTotalCount(Search search) throws Exception ;
 	
+		
 	/*
 	 * Camp
-	 */
-	
+	 */	
 	public void addCamp(Camp camp) throws Exception;
 
 	public Camp getCamp(int campNo) throws Exception;
@@ -24,12 +27,17 @@ public interface CampBusinessDAO {
 	public List<Camp> listCamp(Search search) throws Exception;
 	
 	public void deleteCamp(int campNo) throws Exception;
-
+	
+	public int getCampNoById(String id) throws Exception;
+	
+	public int getCampTempSaveById(String id) throws Exception;
+	
+	public int getRegNum(Camp camp) throws Exception;
+	
 	
 	/*
 	 * MainSite
-	 */	
-	
+	 */		
 	public void addMainSite(MainSite mainSite) throws Exception;
 	
 	public MainSite getMainSite(int mainSiteNo) throws Exception;
@@ -43,8 +51,7 @@ public interface CampBusinessDAO {
 	
 	/*
 	 * SubSite
-	 */
-	
+	 */	
 	public void addSubSite(SubSite subSite) throws Exception;
 
 	public SubSite getSubSite(int subSiteNo) throws Exception;
