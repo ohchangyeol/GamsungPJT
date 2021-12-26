@@ -56,7 +56,7 @@ public class AuctionRestController {
 			session.setAttribute("crawling", "true");	
 					
 			map.put("isCrawl", isCrawl);
-			map.put("isSuccess", auctionRestService.crawlingData(PATH));
+			
 			
 			return map;
 			
@@ -70,12 +70,12 @@ public class AuctionRestController {
 	}
 	
 	@RequestMapping("infiniteScroll")
-	public List<AuctionProduct> InfiniteScroll(@RequestBody Search search){
+	public synchronized List<AuctionProduct> InfiniteScroll(@RequestBody Search search){
 	
 		search.setOffset(auctionPageSize);
 		search.setPageSize(auctionPageSize);
 		
-		return auctionProductService.listAuctionProduct(search);
+		return auctionProductService.listCrawlingAuctionProduct(search);
 	}
 	
 	@RequestMapping("previewAuctionProductImageFile")

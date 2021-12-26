@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="QnaMapper">
+
+	<resultMap id="QnaDomain" type="qna">
+		<result property="qnaNo" 			column="qna_no" 			jdbcType="NUMERIC"/>
+		<result property="sender.id" 		column="sender_id" 			jdbcType="VARCHAR"/>
+		<result property="receiver.id" 	   	column="receiver_id" 		jdbcType="VARCHAR"/>
+		<result property="deleteFlag" 	   	column="delete_flag" 		jdbcType="CHAR"/>
+		<result property="questionTitle"   	column="question_title" 	jdbcType="VARCHAR"/>
+		<result property="questionContent" 	column="question_content" 	jdbcType="VARCHAR"/>
+		<result property="questionRegDate" 	column="question_rag_date" 	jdbcType="VARCHAR"/>
+		<result property="viewCount" 		column="view_count" 		jdbcType="NUMERIC"/>
+		<result property="answerContent" 	column="answer_content" 	jdbcType="VARCHAR"/>
+		<result property="answerRegDate" 	column="answer_reg_date" 	jdbcType="VARCHAR"/>
+		<result property="campNo" 			column="camp_no" 			jdbcType="NUMERIC"/>
+		<result property="campName" 		column="camp_name" 			jdbcType="VARCHAR"/>
+		
+		<association property="sender" javaType="user">
+			<id property="id"			column="sender_id"        jdbcType="VARCHAR"/>
+			<result property="nickName" column="sender_nick_name" jdbcType="VARCHAR" />
+		</association>
+		
+		<association property="receiver" javaType="user">
+			<id property="id"			column="receiver_id"        jdbcType="VARCHAR"/>
+			<result property="nickName" column="receiver_nick_name" jdbcType="VARCHAR" />
+		</association>
+	</resultMap>
+
+	<!-- QnA 등록 -->
+	<insert id="addQuestion" parameterType="qna">
+		<choose>
+			<when test="campNo != 0 and campNo != null">
+				INSERT INTO QNA (sender_id, question_title, question_content, camp_no, camp_name)
+				VALUE	(#{sender.id}, #{questionTitle},#{questionContent},#{campNo:NUMERIC},#{campName:VARCHAR})	
+			</when>
+			<otherwise>
+				INSERT INTO QNA (sender_id, question_title, question_content)
+				VALUE	(#{sender.id}, #{questionTitle},#{questionContent})
+			</otherwise>
+		</choose>
+	</insert>
+	
+	<!-- QnA 답변 등록 -->
+	<update id="addAnswer" parameterType="qna">
+		UPDATE QNA
+		<set>
+			receiver_id = #{receiver.id},
+			answer_content = #{answerContent},
+		    answer_reg_date = CURRENT_TIMESTAMP
+		</set>
+		WHERE qna_no = #{qnaNo}
+	</update>
+	
+	<!-- QnA 상세조회 -->
+	<select id="getQna"	parameterType="_int" resultMap="QnaDomain">
+		SELECT q.* , s.nick_name sender_nick_name , r.nick_name receiver_nick_name
+		FROM QNA q JOIN USERS s 
+		ON q.sender_id = s.user_id
+		LEFT JOIN USERS r
+		ON q.receiver_id = r.user_id
+		WHERE qna_no = #{value}
+	</select>
+	
+	<!-- QnA 조회수 증가 -->
+	<update id="viewCount" parameterType="_int">
+		UPDATE QNA
+		<set>
+			view_count = view_count + 1
+		</set>
+		WHERE qna_no = #{value}
+	</update>
+	
+	<!-- QnA 삭제 -->
+	<update id="deleteQna" parameterType="_int">
+		UPDATE QNA
+		<set>
+			delete_flag = 'Y'
+		</set>
+		WHERE qna_no = #{value}
+	</update>
+	
+	<!-- 답변 되지 않은 QnA 수 -->
+	<select id="notTotalcount"	resultType="int">
+		SELECT count(*)
+		FROM QNA 
+		WHERE camp_no IS NULL 
+		AND answer_content IS NULL 
+		AND delete_flag = 'N';
+	</select>
+	
+	<!-- QnA 목록 조회 -->
+	<select id="listQna" parameterType="search" resultMap="QnaDomain">
+		SELECT q.*, u.nick_name 
+		FROM QNA q LEFT JOIN users u 
+		ON q.sender_id = u.user_id
+		WHERE delete_flag = 'N'
+		<if test='id != null and id != ""'>
+			AND q.sender_id = #{id}
+		</if>
+		<trim prefix="AND">
+			<choose>
+				<when test = "campNo != null and campNo != 0 ">
+					q.camp_no = #{campNo}
+				</when>
+				<otherwise>
+					q.camp_no IS NULL
+				</otherwise>
+			</choose>
+		</trim>
+		<if test="searchCondition != null searchCondition != ''">
+			<trim prefix="AND">
+				<if test="searchKeyword !='' and searchKeyword != null"> 
+					<!-- 제목 + 내용 -->
+					<if test="searchCondition == 0">
+						MATCH (question_title, question_content) AGAINST (concat_ws(#{searchKeyword},'*','*') in boolean mode)
+					</if>
+					<!-- 제목 -->
+					<if test="searchCondition == 1">
+						MATCH (question_title) AGAINST (concat_ws(#{searchKeyword},'*','*') in boolean mode) 
+					</if>
+					<!-- 내용 -->
+					<if test="searchCondition == 2">
+						MATCH (question_content) AGAINST (concat_ws(#{searchKeyword},'*','*') in boolean mode) 
+					</if>
+				</if>
+			</trim>
+		</if>
+		ORDER BY q.question_reg_date
+		LIMIT #{offset} , #{pageSize}
+	</select>
+	
+	<!-- QnA 목록 개수 -->
+	<select  id="getTotalCount"  parameterType="search"	 resultType="int">
+	  	SELECT COUNT(*)
+	  	FROM(	SELECT q.*, u.nick_name 
+				FROM QNA q LEFT JOIN users u 
+				ON q.sender_id = u.user_id
+				WHERE delete_flag = 'N'
+				<if test='id != null and id != ""'>
+					AND q.sender_id = #{id}
+				</if>
+				<trim prefix="AND">
+					<choose>
+						<when test = "campNo != null and campNo != 0 ">
+							q.camp_no = #{campNo}
+						</when>
+						<otherwise>
+							q.camp_no IS NULL
+						</otherwise>
+					</choose>
+				</trim>
+				<if test="searchCondition != null">
+					<trim prefix="AND">
+						<if test="searchKeyword !='' and searchKeyword != null"> 
+							<!-- 제목 + 내용 -->
+							<if test="searchCondition == 0">
+								MATCH (question_title, question_content) AGAINST (concat_ws(#{searchKeyword},'*','*') in boolean mode)
+							</if>
+							<!-- 제목 -->
+							<if test="searchCondition == 1">
+								MATCH (question_title) AGAINST (concat_ws(#{searchKeyword},'*','*') in boolean mode) 
+							</if>
+							<!-- 내용 -->
+							<if test="searchCondition == 2">
+								MATCH (question_content) AGAINST (concat_ws(#{searchKeyword},'*','*') in boolean mode) 
+							</if>
+						</if>
+					</trim>
+				</if>
+				ORDER BY q.question_reg_date) countTable						
+	 </select>
+	
+</mapper>

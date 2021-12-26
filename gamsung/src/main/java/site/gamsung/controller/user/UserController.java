@@ -183,6 +183,7 @@ public class UserController {
         JSONObject kakaoInfo =  new JSONObject(userInfo);
         model.addAttribute("kakaoInfo", kakaoInfo);
         
+       // if(userInfo.get("email").equals(userService.getUser()))
         return "forward:/addUser.jsp";
 	}
 

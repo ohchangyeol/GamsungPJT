@@ -30,12 +30,53 @@ public class AuctionProductController {
 	@Qualifier("auctionProductService")
 	private AuctionProductService auctionProductService;
 
-	@Value("#{commonProperties['path']}")
-	private String PATH;
+	@Value("#{commonProperties['crawlingURL']}")
+	private String crawlingURL;
 	
 	
 	public AuctionProductController() {
 		System.out.println(this.getClass());
+	}
+	
+	//경매 진행 중인 상품 최초 8개 조회
+	@RequestMapping(value = "listWaitAuctionProduct")
+	public String listCrawlingAuctionProduct(HttpSession httpSession, Model model, @ModelAttribute("search") Search search) {
+		
+		//출력할 개수을 commonProperties로 부터 받아오며, 1페이지가 고정값으로 들어간다.
+		search.setPageSize(auctionPageSize);
+		search.setCurrentPage(1);
+		
+		//조건에 맞는 상위 8개의 상품 목록을 리스트로 받는다.
+		List<AuctionProduct> list = auctionProductService.listCrawlingAuctionProduct(search);
+		
+		//받은 상품 목록을 model에 담아 return한다.
+		model.addAttribute("list",list);
+	
+		return "forward:/view/auction/listAuctionProduct.jsp";
+		
+	}
+	
+	//상품 상세 조회 페이지 출력
+	@RequestMapping(value = "getAuctionProduct", method = RequestMethod.GET)
+	public String getAuctionProduct(String auctionProductNo, Model model) {
+			
+		//조회수를 1증가 시키며, 상품 번호에 대한 상세정보를 받아온다.
+		AuctionProduct auctionProduct = auctionProductService.getAuctionProduct(auctionProductNo);
+			
+		//받은 상품정보를 model에 담아 return한다.
+		model.addAttribute(auctionProduct);
+			
+		return "forward:/view/auction/getAuctionProduct.jsp";
+	}
+	
+	//상품 상세 조회 페이지 출력
+	@RequestMapping(value = "getAuctionProduct", method = RequestMethod.POST)
+	public String getCrawlingAuctionProductNo(@ModelAttribute("auctionProduct") AuctionProduct auctionProduct, 
+											Model model) {
+		
+		auctionProduct = auctionProductService.getCrawlingAuctionProductNo(auctionProduct);
+		
+		return "redirect:./getAuctionProduct?auctionProductNo="+auctionProduct.getAuctionProductNo();
 	}
 	
 	//경매 진행 중인 상품 최초 8개 조회
@@ -54,19 +95,6 @@ public class AuctionProductController {
 	
 		return "forward:/view/auction/listAuctionProduct.jsp";
 		
-	}
-	
-	//상품 상세 조회 페이지 출력
-	@RequestMapping(value = "getAuctionProduct")
-	public String getAuctionProduct(String auctionProductNo, Model model) {
-		
-		//조회수를 1증가 시키며, 상품 번호에 대한 상세정보를 받아온다.
-		AuctionProduct auctionProduct = auctionProductService.getAuctionProduct(auctionProductNo);
-		
-		//받은 상품정보를 model에 담아 return한다.
-		model.addAttribute(auctionProduct);
-		
-		return "forward:/view/auction/getAuctionProduct.jsp";
 	}
 	
 	//상품 등록 페이지 navigation

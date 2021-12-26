@@ -26,7 +26,7 @@
 		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
 		<init-param>
 			<param-name>encoding</param-name>
-			<param-value>euc-kr</param-value>
+			<param-value>UTF-8</param-value>
 		</init-param>
 	</filter>
 	
@@ -36,16 +36,14 @@
 	</filter-mapping>
 	
 	<servlet>
-		    <servlet-name>gamsung</servlet-name>
-		    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-		    
-		    <init-param>
-		      <param-name>contextConfigLocation</param-name>
-		      <param-value>/config/springMVC/common-servlet.xml</param-value>
-		      <!-- Servlet Meta-data / Spring Meta-data 위치 분리함 -->
-		    </init-param>
-		    
-		    <load-on-startup>1</load-on-startup>
+		<servlet-name>gamsung</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+	    <!-- Servlet Meta-data / Spring Meta-data 위치 분리함 -->
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+		    <param-value>/config/springMVC/common-servlet.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
   </servlet>
   
 	<!-- 	URI : / 형식  Servlet Mapping -->

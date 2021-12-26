@@ -1,6 +1,5 @@
 package site.gamsung.service.servicecenter.test;
 
-import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,8 +11,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.Notice;
+import site.gamsung.service.domain.NoticeWrapper;
 import site.gamsung.service.domain.User;
-import site.gamsung.service.servicecenter.NoticeDAO;
+import site.gamsung.service.servicecenter.NoticeService;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -24,8 +24,8 @@ import site.gamsung.service.servicecenter.NoticeDAO;
 public class NoticeServiceTest {
 
 	@Autowired
-	@Qualifier("noticeDAOImpl")
-	private NoticeDAO noticeDAO;
+	@Qualifier("noticeServiceImpl")
+	private NoticeService noticeService;
 	
 	@Value("#{commonProperties['pageSize']}")
 	int pageSize;	
@@ -38,15 +38,20 @@ public class NoticeServiceTest {
 		
 		user.setId("admin");
 		notice.setWriter(user);
-		notice.setNoticeTitle("JUnit Test 제목 입니다.");
+		notice.setNoticeTitle("camp가 null 들어가는지 test");
 		notice.setNoticeContent("JUnit Test 내용 입니다.");
 		
-		noticeDAO.addNotice(notice);
+		noticeService.addNotice(notice);
 	}
 	
-	//@Test
+	@Test
+	//@Transactional(readOnly = false)
 	public void getNoticeServiceTest() throws Exception {
-		Notice notice = noticeDAO.getNotice(2);
+		
+		noticeService.updateViewCount(2);
+		Notice notice = noticeService.getNotice(2);
+		
+		
 		System.out.println("==> "+ notice);
 	}
 	
@@ -54,32 +59,50 @@ public class NoticeServiceTest {
 	public void listNoticeServiceTest() throws Exception {
 		Search search = new Search();
 		
-		 search.setCurrentPage(1); 
-		 search.setPageSize(pageSize);
+		search.setCurrentPage(1); 
+		search.setPageSize(pageSize);
 		 
-		 //제목 + 내용 검색
-//		 search.setSearchCondition("0");
-//		 search.setSearchKeyword("내용");
+		//제목 + 내용 검색
+//		search.setSearchCondition("0");
+//		search.setSearchKeyword("내용");
 		 
-		 // 제목 
-//		 search.setSearchCondition("1");
-//		 search.setSearchKeyword("테이블");
+		// 제목 
+//		search.setSearchCondition("1");
+//		search.setSearchKeyword("테이블");
+		
+		// 내용
+//		search.setSearchCondition("2");
+//		search.setSearchKeyword("내용");
+		
+		//캠핑장일 경우
+//		search.setCampNo(10002);
 		 
-		 // 내용
-		 search.setSearchCondition("2");
-		 search.setSearchKeyword("가나다");
-		 
-		 System.out.println("==> Search : " + search);
-		 
-		 List<Notice> list = noticeDAO.listProductList(search);
-		 
-		 System.out.println(list);
+		System.out.println("==> Search : " + search);
+		
+		NoticeWrapper wrapper = noticeService.listNotice(search);
+		
+		System.out.println(wrapper);
+		
 	}
-	@Test
+	
+	//@Test
 	public void updateNoticeServiceTest() throws Exception {
-		Notice notice = noticeDAO.getNotice(5);
-//		notice.set
+		Notice notice = noticeService.getNotice(5);
+		
+		notice.setNoticeTitle("존나 짜증나는 상태입니다.");
+		notice.setNoticeContent("mySQL은 재밌지만 오류는 짜증이 납니다");
+		
+		noticeService.updateNotice(notice);
+		
+		notice = noticeService.getNotice(5);
+		
 		System.out.println("==> "+ notice);
 	}
+	
+	//@Test
+	public void deleteNoticeServiceTest() throws Exception {
+		noticeService.deleteNotice(5);
+	}
+	
 
 }

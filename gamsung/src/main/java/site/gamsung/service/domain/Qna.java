@@ -6,7 +6,7 @@ public class Qna {
 	private int qnaNo;
 	private User sender;
 	private User receiver;
-	private boolean deleteFlag;
+	private String deleteFlag;
 	private String questionTitle;
 	private String questionContent;
 	private String questionRegDate;
@@ -15,7 +15,7 @@ public class Qna {
 	private String answerRegDate;
 	private int campNo;
 	private String campName;
-	
+
 	// Constructor
 	public Qna() {
 		// TODO Auto-generated constructor stub
@@ -30,7 +30,7 @@ public class Qna {
 	public User getReceiver() {
 		return receiver;
 	}
-	public boolean isDeleteFlag() {
+	public String getDeleteFlag() {
 		return deleteFlag;
 	}
 	public String getQuestionTitle() {
@@ -68,7 +68,7 @@ public class Qna {
 	public void setReceiver(User receiver) {
 		this.receiver = receiver;
 	}
-	public void setDeleteFlag(boolean deleteFlag) {
+	public void setDeleteFlag(String deleteFlag) {
 		this.deleteFlag = deleteFlag;
 	}
 	public void setQuestionTitle(String questionTitle) {
@@ -101,7 +101,7 @@ public class Qna {
 		return "Qna [qnaNo=" + qnaNo + ", sender=" + sender + ", receiver=" + receiver + ", deleteFlag=" + deleteFlag
 				+ ", questionTitle=" + questionTitle + ", questionContent=" + questionContent + ", questionRegDate="
 				+ questionRegDate + ", viewCount=" + viewCount + ", answerContent=" + answerContent + ", answerRegDate="
-				+ answerRegDate + ", campNo=" + campNo + ", campName=" + campName + "]";
+				+ answerRegDate + ", campNo=" + campNo + ", campName=" + campName + "] \n";
 	}
 	
 }
