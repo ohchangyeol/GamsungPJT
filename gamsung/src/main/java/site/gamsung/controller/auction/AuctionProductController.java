@@ -58,7 +58,7 @@ public class AuctionProductController {
 	
 	//상품 상세 조회 페이지 출력
 	@RequestMapping(value = "getAuctionProduct", method = RequestMethod.GET)
-		public String getAuctionProduct(String auctionProductNo, Model model) {
+	public String getAuctionProduct(String auctionProductNo, Model model) {
 			
 		//조회수를 1증가 시키며, 상품 번호에 대한 상세정보를 받아온다.
 		AuctionProduct auctionProduct = auctionProductService.getAuctionProduct(auctionProductNo);

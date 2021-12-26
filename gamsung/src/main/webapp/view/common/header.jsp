@@ -305,9 +305,11 @@ pageEncoding="UTF-8"%>
             <li><a href="documentation.html#changelog">Changelog</a></li>
           </ul>
         </li>
+        <li><a href="/view/user/tempLogin.jsp">
+	       <button class="btn btn-border-w btn-round btn-xs" type="button">LOGIN</button>
+        </a>
+        </li>
       </ul>
     </div>
   </div>
 </nav>
-
-
