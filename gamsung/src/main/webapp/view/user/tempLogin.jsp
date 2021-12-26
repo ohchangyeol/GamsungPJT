@@ -21,19 +21,11 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
-	
-	<!--  ///////////////////////// CSS ////////////////////////// -->
-	<style>
-    	 body >  div.container{ 
-        	border: 3px solid #D6CDB7;
-            margin-top: 10px;
-        }
-    </style>
     
     <!--  ///////////////////////// JavaScript ////////////////////////// -->
 	<script type="text/javascript">
-
-		//============= "로그인"  Event 연결 =============
+	
+//============= "로그인"  Event 연결 =============
 			
  //카카오로그인
   function kakaoLogin() {
@@ -67,14 +59,7 @@
   });  
 		$( function() {
 			
-			$("#userId").focus();
-			
-			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-			//$("#kakao").on("click", function(){
-				//alert("eieiei");
-				//location.href("https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=5069ddcbe63e1882c2df7cc176f1a96f&redirect_uri=http%3A%2F%2Fkimcoder.kro.kr%3A8080%2FreceiveAC");
-			//	self.location="getKakaoAuthUrl"
-			//});
+			$("#id").focus();
 			$("button:contains(Login)").on("click" , function() {
 				//alert("gkgkgkgk");
 				var id=$("input:text").val();
@@ -82,7 +67,7 @@
 				
 				if(id == null || id.length <1) {
 					alert('ID 를 입력하지 않으셨습니다.');
-					$("#userId").focus();
+					$("#id").focus();
 					return;
 				}
 				
@@ -92,7 +77,7 @@
 					return;
 				}
 				
-				$("form").attr("method","POST").attr("action","/gamsung/user/login").attr("target","_parent").submit();
+				$("form").attr("method","POST").attr("action","/gamsung/user/login").submit();
 			});
 		});	
 		
@@ -171,13 +156,13 @@
                 <hr class="divider-w mb-10">
                 <form class="form">
                   <div class="form-group">
-                    <input class="form-control" id="username" type="text" name="username" placeholder="Username"/>
+                    <input type="text" class="form-control" name="id" id="id"  placeholder="아이디" >
                   </div>
                   <div class="form-group">
-                    <input class="form-control" id="password" type="password" name="password" placeholder="Password"/>
+                    <input type="password" class="form-control" name="password" id="password" placeholder="패스워드" >
                   </div>
                   <div class="form-group">
-                    <button class="btn btn-round btn-b">Login</button>
+                    <button type="button" class="btn btn-round btn-b" id="login">Login</button>
                   </div>
                   <div>
                   <ul>
