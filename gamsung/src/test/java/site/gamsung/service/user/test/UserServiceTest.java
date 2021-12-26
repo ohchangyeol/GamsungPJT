@@ -1,6 +1,7 @@
 package site.gamsung.service.user.test;
 
 import java.util.List;
+import java.util.Random;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -140,7 +141,7 @@ public class UserServiceTest {
 		
 	}
 	
-	@Test
+	//@Test
 	public void testUpdateTempPassword() throws Exception{
 		
 		User user = new User();
@@ -151,6 +152,27 @@ public class UserServiceTest {
 		System.out.println(user.getSalt());
 		
 		userService.updateTempPassword(user);
+	}
+	
+	//@Test
+	public void testSendPhoneAuthNum() throws Exception{
+		
+		User user = new User();
+		user=userService.getUser("muse1264@nate.com");
+		
+		Random rand  = new Random();
+        
+        String numStr = "";
+        
+        for(int i=0; i<4; i++) {
+        	
+            String num = Integer.toString(rand.nextInt(10));
+            
+            numStr += num;
+        }	   
+        
+        userService.sendPhoneAuthNum(user.getPhone(), numStr);
+		
 	}
 	
 }

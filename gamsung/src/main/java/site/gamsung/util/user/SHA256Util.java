@@ -28,8 +28,8 @@ public class SHA256Util {
 		byte[] bytes = new byte[a.length + salt.length];
 		//System.arraycopy Method 배열의 복사
 		//System.arraycopy(이전배열이름, 이전배열 시작 인덱스, 새배열이름, 새배열시작인덱스, 복사할 개수);
-	//	System.arraycopy(a, 0, bytes, 0, a.length);
-	//	System.arraycopy(salt, 0, bytes, a.length, salt.length); 
+		System.arraycopy(a, 0, bytes, 0, a.length);
+		System.arraycopy(salt, 0, bytes, a.length, salt.length); 
 		
 		try { 
 			// 암호화 방식 지정 메소드
