@@ -11,6 +11,8 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 import site.gamsung.service.auction.AuctionProductService;
 import site.gamsung.service.auction.AuctionRestService;
 import site.gamsung.service.common.Search;
+import site.gamsung.service.domain.AuctionInfo;
 import site.gamsung.service.domain.AuctionProduct;
 
 @RequestMapping("auction/rest/*")
@@ -98,4 +101,20 @@ public class AuctionRestController {
 		
 	}
 	
+	@MessageMapping("/join")
+	@SendTo("/topic/join")
+	public Map<String,Object> auctionJoin(AuctionProduct auctionProduct) {
+		System.out.println("접속함");
+		
+		return null;
+	}
+	
+	@MessageMapping("/bid")
+	@SendTo("/topic/bid")
+	public AuctionInfo auctionBid(AuctionInfo auctionInfo) {
+		System.out.println("입찰함 ");
+		
+		auctionProductService.auctionProductBid(auctionInfo);
+		return auctionInfo;
+	}
 }
