@@ -89,13 +89,40 @@
 		    <version>${spring.version}</version>
 		</dependency>
 		
+		<dependency>
+		    <groupId>org.springframework.integration</groupId>
+		    <artifactId>spring-integration-stomp</artifactId>
+		    <version>${spring.version}</version>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.webjars/stomp-websocket -->
+		<dependency>
+		    <groupId>org.webjars</groupId>
+		    <artifactId>stomp-websocket</artifactId>
+		    <version>2.3.3</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.webjars/sockjs-client -->
+		<dependency>
+		    <groupId>org.webjars</groupId>
+		    <artifactId>sockjs-client</artifactId>
+		    <version>1.1.2</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.webjars/webjars-locator-core -->
+		<dependency>
+		    <groupId>org.webjars</groupId>
+		    <artifactId>webjars-locator-core</artifactId>
+		    <version>0.35</version>
+		</dependency>
+		
 		<!-- org.springframework.security/spring-security-core -->
 		<dependency>
 		    <groupId>org.springframework.security</groupId>
 		    <artifactId>spring-security-core</artifactId>
 		    <version>${spring.version}</version>
 		</dependency>
-				
+		
 		<!-- org.springframework.security/spring-security-web -->
 		<dependency>
 		    <groupId>org.springframework.security</groupId>
@@ -183,22 +210,6 @@
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi</artifactId>
 			<version>4.1.2</version>
-		</dependency>
-
-
-		
-		<!--org.webjars/sockjs-client -->
-		<dependency>
-		    <groupId>org.webjars</groupId>
-		    <artifactId>sockjs-client</artifactId>
-		    <version>1.5.1</version>
-		</dependency>
-		
-		<!-- org.webjars/stomp-websocket -->
-		<dependency>
-		    <groupId>org.webjars</groupId>
-		    <artifactId>stomp-websocket</artifactId>
-		    <version>2.3.4</version>
 		</dependency>
 		
 		<!-- javax.mail/javax.mail-api -->

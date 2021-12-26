@@ -15,6 +15,7 @@
 		<result property="startBidPrice" column="start_bid_price"/>
 		<result property="hopefulBidPrice" column="hopeful_bid_price"/>
 		<result property="bidUnit" column="bid_unit"/>
+		<result property="currentBidPrice" column="bid_price"/>
 		<result property="auctionStartTime" column="auction_start_time"/>
 		<result property="auctionEndTime" column="auction_end_time"/>
 		<result property="remainAuctionTime" column="remain_time"/>
@@ -138,10 +139,12 @@
 	</insert>
 	
 	<select id="getAuctionProduct" parameterType="String" resultMap="auction">
-		SELECT registrant_id, product_no, product_name, product_detail, product_sub_detail  , start_bid_price , hopeful_bid_price, bid_unit , auction_start_time, auction_end_time,
-				timediff(NOW(),auction_end_time) AS remain_time, bidable_grade, hashtag1, hashtag2, hashtag3, product_img1, product_img2, product_img3, product_img4, product_img5, product_view_count
-		FROM AUCTION_PRODUCT
-		WHERE product_no = #{value}
+		SELECT registrant_id, ap.product_no AS product_no, product_name, product_detail, product_sub_detail  , start_bid_price , hopeful_bid_price, bid_unit , auction_start_time, auction_end_time,
+				ah.bid_price AS bid,timediff(NOW(),auction_end_time) AS remain_time, bidable_grade, hashtag1, hashtag2, hashtag3, product_img1, product_img2, product_img3, product_img4, product_img5, product_view_count
+		FROM AUCTION_PRODUCT AS ap
+		LEFT OUTER JOIN AUCTION_HISTORY AS ah ON ap.product_no AND ah.product_no 
+		WHERE ap.product_no = #{value}
+		ORDER BY bid_date_time DESC
 	</select>
 	
 	<update id="updateAuctionProductViewCounter" parameterType="String">
