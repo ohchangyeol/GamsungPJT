@@ -16,11 +16,8 @@
     =============================================
     -->
     
-    <!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
+    <!--  ///////////////////////// jQuery CDN ////////////////////////// -->
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
     
     <!--  ///////////////////////// JavaScript ////////////////////////// -->
 	<script type="text/javascript">
@@ -31,7 +28,7 @@
   function kakaoLogin() {
 
     $.ajax({
-        url: '/gamsung/user/getKakaoAuthUrl',
+        url: '/user/getKakaoAuthUrl',
         type: 'get',
         async: false,
         dataType: 'text',
@@ -77,7 +74,7 @@
 					return;
 				}
 				
-				$("form").attr("method","POST").attr("action","/gamsung/user/login").submit();
+				$("form").attr("method","POST").attr("action","/user/login").submit();
 			});
 		});	
 		

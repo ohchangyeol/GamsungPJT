@@ -143,8 +143,9 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public String getAccessToken (String code) {
-        String access_Token = "";
-        String refresh_Token = "";
+        String accessToken = "";
+        String refreshToken = "";
+        String snsId="";
         String reqURL = "https://kauth.kakao.com/oauth/token";
 
         try {
@@ -161,7 +162,7 @@ public class UserServiceImpl implements UserService{
             StringBuilder sb = new StringBuilder();
             sb.append("grant_type=authorization_code");
             sb.append("&client_id=5069ddcbe63e1882c2df7cc176f1a96f");  				//발급받은 key
-            sb.append("&redirect_uri=http://localhost:8080/gamsung/user/kakao_callback");     //설정해 놓은 경로
+            sb.append("&redirect_uri=http://localhost:8080/user/kakaoCallback");     //설정해 놓은 경로
             sb.append("&code=" + code);
             bw.write(sb.toString());
             bw.flush();
@@ -171,7 +172,7 @@ public class UserServiceImpl implements UserService{
             System.out.println("responseCode : " + responseCode);
 
             //    요청을 통해 얻은 JSON타입의 Response 메세지 읽어오기
-            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(),"UTF-8"));
             String line = "";
             String result = "";
 
@@ -184,11 +185,11 @@ public class UserServiceImpl implements UserService{
             JsonParser parser = new JsonParser();
             JsonElement element = parser.parse(result);
 
-            access_Token = element.getAsJsonObject().get("access_token").getAsString();
-            refresh_Token = element.getAsJsonObject().get("refresh_token").getAsString();
-
-            System.out.println("access_token : " + access_Token);
-            System.out.println("refresh_token : " + refresh_Token);
+            accessToken = element.getAsJsonObject().get("access_token").getAsString();
+            refreshToken = element.getAsJsonObject().get("refresh_token").getAsString();
+            
+            System.out.println("access_token : " + accessToken);
+            System.out.println("refresh_token : " + refreshToken);
 
             br.close();
             bw.close();
@@ -199,13 +200,13 @@ public class UserServiceImpl implements UserService{
         	e.printStackTrace();
         }
 
-        return access_Token;
+        return accessToken;
     }
 	
 	 //유저정보조회
     public HashMap<String, Object> getUserInfo (String accessToken) {
 
-        //    요청하는 클라이언트마다 가진 정보가 다를 수 있기에 HashMap타입으로 선언
+        //  요청하는 클라이언트마다 가진 정보가 다를 수 있기에 HashMap타입으로 선언
         HashMap<String, Object> userInfo = new HashMap<String, Object>();
         String reqURL = "https://kapi.kakao.com/v2/user/me";
         try {
@@ -219,7 +220,7 @@ public class UserServiceImpl implements UserService{
             int responseCode = conn.getResponseCode();
             System.out.println("responseCode : " + responseCode);
 
-            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(),"UTF-8"));
 
             String line = "";
             String result = "";
@@ -233,16 +234,19 @@ public class UserServiceImpl implements UserService{
             JsonElement element = parser.parse(result);
 
             JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
-            JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
+            JsonObject kakaoAccount = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
 
             String nickname = properties.getAsJsonObject().get("nickname").getAsString();
-            String email = kakao_account.getAsJsonObject().get("email").getAsString();
+            String email = kakaoAccount.getAsJsonObject().get("email").getAsString();
+            String kakaoId=element.getAsJsonObject().get("id").getAsString();
             
             userInfo.put("accessToken", accessToken);
             userInfo.put("nickname", nickname);
             userInfo.put("email", email);
+            userInfo.put("snsId", kakaoId);
 
         } catch (IOException ioe) {
+        	
             // TODO Auto-generated catch block
             ioe.printStackTrace();
         } catch(Exception e) {

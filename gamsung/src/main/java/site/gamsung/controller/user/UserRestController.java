@@ -30,6 +30,7 @@ public class UserRestController {
 //	@RequestMapping(value="checkEmail", method=RequestMethod.GET)
 //	public 
 	
+	//@RequestMapping(value = "json/sendEmailAuthNum/{inputEmail:.+}", method = RequestMethod.GET)
 	@RequestMapping(value="sendEmailAuthNum", method=RequestMethod.GET)
 	public void sendEmailAuthNum(@RequestParam("id") String id, HttpSession session) throws Exception{
 		

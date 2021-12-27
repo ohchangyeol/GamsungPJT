@@ -1,7 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
+
+<!--  ///////////////////////// JSTL  ////////////////////////// -->
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<!--  /////////////////////////jQuery CDN ////////////////////////// -->
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8"> 
 </head>
 
 <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
@@ -305,11 +312,28 @@ pageEncoding="UTF-8"%>
             <li><a href="documentation.html#changelog">Changelog</a></li>
           </ul>
         </li>
-        <li><a href="/gamsung/view/user/tempLogin.jsp">
+      
+         <c:if test="${sessionScope.user.role!=null}">
+	      <li><a href="#"><button class="btn btn-border-w btn-round btn-xs" type="button" id="logout">LOGOUT</button></a></li>
+	    </c:if>
+	     <c:if test="${sessionScope.user.role==null}">
+        <li><a href="/view/user/tempLogin.jsp">
 	       <button class="btn btn-border-w btn-round btn-xs" type="button">LOGIN</button>
         </a>
         </li>
-      </ul>
+        </c:if>
+        </ul>
     </div>
   </div>
 </nav>
+
+ <script type="text/javascript">
+    //============= logout Event  贸府 =============	
+		 $(function() {
+			//==> DOM Object GET 3啊瘤 规过 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+		 	$("#logout").on("click" , function() {
+		 		//$(self.location).attr("href","/user/logout");
+				self.location = "/user/logout"
+			}); 
+		 });	
+</script> 
