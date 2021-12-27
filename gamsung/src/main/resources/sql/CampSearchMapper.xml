@@ -248,10 +248,9 @@
 	
 	<select id="getTopReservationCamp" resultMap="CampSelectMap">
 		SELECT c.camp_no, c.camp_reservation_count, u.camp_name, u.addr, c.camp_img1
-		FROM CAMP c, USERS u, CAMP_RESERVATION r
-		WHERE c.user_id = u.user_id AND c.camp_no = r.camp_no AND c.delete_flag = 'N'
-		GROUP BY r.camp_no
-		ORDER BY camp_reservation_count DESC
+		FROM CAMP c, USERS u
+		WHERE c.user_id = u.user_id AND c.delete_flag = 'N'
+		ORDER BY c.camp_reservation_count DESC
 		LIMIT 1
 	</select>
 	
@@ -279,4 +278,5 @@
 				</foreach>
 			</if>
 		</select>
+
 </mapper>

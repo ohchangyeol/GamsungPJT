@@ -60,8 +60,8 @@ public class CampReservationServiceTest {
 		
 	}
 	
-	//캠핑장 예약 :: 등록(O), 주요시설 예약일 입력(O) 
-	//@Test
+	//캠핑장 예약 :: 등록(O), 주요시설 예약일 입력(O), 캠핑장 예약자 수 카운트 증가()
+	@Test
 	public void testAddReservation() throws Exception{
 		
 		CampReservation campReservation = new CampReservation();
@@ -69,20 +69,19 @@ public class CampReservationServiceTest {
 		Camp camp = new Camp();
 		MainSite mainSite = new MainSite();
 		
-		Payment payment = new Payment();
+		//Payment payment = new Payment();
 				
 		user.setId("user5@gamsung.com");
-		camp.setCampNo(10004);
-		mainSite.setMainSiteNo(10004);
+		camp.setCampNo(10000);
+		mainSite.setMainSiteNo(10000);
 		
 		campReservation.setUser(user);
 		campReservation.setCamp(camp);
 		campReservation.setMainSite(mainSite);
 		campReservation.setReservationStatus(1);
-		campReservation.setReservationRegDate(java.sql.Date.valueOf("2021-12-20"));
 		campReservation.setReservationUserName("오감자");
-		campReservation.setReservationStartDate(java.sql.Date.valueOf("2021-12-27"));
-		campReservation.setReservationEndDate(java.sql.Date.valueOf("2021-12-28"));
+		campReservation.setReservationStartDate(java.sql.Date.valueOf("2022-07-07"));
+		campReservation.setReservationEndDate(java.sql.Date.valueOf("2022-07-08"));
 		campReservation.setUseNum(2);
 		campReservation.setReservationUserPhone("01077777777");
 		campReservation.setReservationRegCarNum("77조7777");

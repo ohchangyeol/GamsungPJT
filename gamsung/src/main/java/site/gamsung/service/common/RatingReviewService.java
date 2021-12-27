@@ -12,7 +12,7 @@ public interface RatingReviewService {
 	
 	public RatingReview getRatingReview(int ratingReviewNo) throws Exception;
 	
-	public void updateRatingReview(int ratingReviewNo) throws Exception;
+	public void updateRatingReview(RatingReview ratingReviewNo) throws Exception;
 	
 	public void deleteRatingReview(int ratingReviewNo) throws Exception;
 }
