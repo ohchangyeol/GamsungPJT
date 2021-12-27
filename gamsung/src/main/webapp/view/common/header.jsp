@@ -29,12 +29,12 @@ pageEncoding="UTF-8"%>
             <li><a href="index_finance.html">Finance</a></li>
             <li><a href="index_landing.html">Landing Page</a></li>
             <li><a href="index_photography.html">Photography</a></li>
-            <li><a href="index_shop.html">Shop</a></li>
+            <li><a href="/servicecenter/home">Í≥†Í∞ùÏÑºÌÑ∞</a></li>
           </ul>
         </li>
-        <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">¡ﬂ∞Ì ∞≈∑°</a>
+        <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Ï§ëÍ≥† Í±∞Îûò</a>
           <ul class="dropdown-menu">
-            <li class="dropdown"><a class="dropdown-toggle" href="/auction/listWaitAuctionProduct" data-toggle="dropdown">∞Ê∏≈ ¡¯«‡ ¿¸</a>
+            <li class="dropdown"><a class="dropdown-toggle" href="/auction/listWaitAuctionProduct" data-toggle="dropdown">Í≤ΩÎß§ ÏßÑÌñâ Ï†Ñ</a>
               <ul class="dropdown-menu">
                 <li><a href="index_mp_fullscreen_static.html">Fulscreen</a></li>
                 <li><a href="index_mp_classic_static.html">Classic</a></li>
@@ -236,7 +236,7 @@ pageEncoding="UTF-8"%>
             <li><a href="typography.html"><i class="fa fa-font"></i> Typography</a></li>
           </ul>
         </li>
-        <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Shop</a>
+        <li class="dropdown"><a class="dropdown-toggle" href="/servicecenter/home" data-toggle="dropdown">Í≥†Í∞ùÏÑºÌÑ∞</a>
           <ul class="dropdown-menu" role="menu">
             <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Product</a>
               <ul class="dropdown-menu">
