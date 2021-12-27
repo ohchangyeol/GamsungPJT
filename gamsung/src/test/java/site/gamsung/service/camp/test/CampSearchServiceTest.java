@@ -100,7 +100,7 @@ public class CampSearchServiceTest {
 	}
 	
 	//메인화면 :: 조회수(O), 평점(O), 예약수(O) 별 탑 캠핑장 검색.
-	@Test
+	//@Test
 	public void testGetTopCamp() throws Exception{
 		
 		Map<String, Object> map = campSearchService.getTopCamp();

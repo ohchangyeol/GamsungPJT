@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import site.gamsung.service.camp.CampReservationService;
 import site.gamsung.service.common.Search;
 import site.gamsung.service.camp.CampReservationDAO;
+import site.gamsung.service.domain.Camp;
 import site.gamsung.service.domain.CampReservation;
 import site.gamsung.service.domain.MainSite;
 import site.gamsung.service.domain.Payment;
@@ -51,6 +52,11 @@ public class CampReservationServiceImpl implements CampReservationService {
 		//insert payment(결제 정보) - insert payment(결제 정보) - 포인트, 현금, 카드 여러 형태 처리.
 		campReservationDAO.addReservation(campReservation);
 		campReservationDAO.updateMainSiteReservation(campReservation);
+		
+		Camp camp = new Camp();
+		camp.setCampNo(10000);
+		
+		campReservationDAO.updateCampReservationCount(camp.getCampNo());
 		
 	}
 
