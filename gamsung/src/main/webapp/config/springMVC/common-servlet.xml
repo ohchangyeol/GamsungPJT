@@ -3,6 +3,8 @@
 <beans 	xmlns="http://www.springframework.org/schema/beans"
 		xmlns:context="http://www.springframework.org/schema/context"
 		xmlns:websocket="http://www.springframework.org/schema/websocket"
+		xmlns:int="http://www.springframework.org/schema/integration"
+ 		xmlns:int-websocket="http://www.springframework.org/schema/integration/websocket"
 		xmlns:mvc="http://www.springframework.org/schema/mvc"
 		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		xsi:schemaLocation=
@@ -16,7 +18,11 @@
 				http://www.springframework.org/schema/mvc/spring-mvc.xsd
 				
 				http://www.springframework.org/schema/websocket
-       			http://www.springframework.org/schema/websocket/spring-websocket.xsd">
+       			http://www.springframework.org/schema/websocket/spring-websocket.xsd
+       			http://www.springframework.org/schema/integration
+			    https://www.springframework.org/schema/integration/spring-integration.xsd
+			    http://www.springframework.org/schema/integration/websocket
+			    https://www.springframework.org/schema/integration/websocket/spring-integration-websocket.xsd">
     
    <!-- :: 공통적인 사항을 설정한 common-servlet.xml 사용. -->
        
@@ -111,9 +117,20 @@
 	
 	<websocket:message-broker application-destination-prefix="/app">
        <websocket:stomp-endpoint path="/realtime">
+            <websocket:handshake-interceptors>
+            	<bean class="site.gamsung.util.auction.HttpHandshakeInterceptor"></bean>
+            </websocket:handshake-interceptors>
             <websocket:sockjs/>
        </websocket:stomp-endpoint>
        <websocket:simple-broker prefix="/queue, /topic"/>
+       <websocket:client-inbound-channel>
+        	<websocket:interceptors>
+           		<bean id="webSocketInterceptor" class="site.gamsung.util.auction.WebSocketInterceptor"/>
+        	</websocket:interceptors>
+    	</websocket:client-inbound-channel>
 	</websocket:message-broker>
+	
 
+	 
+	
 </beans>
