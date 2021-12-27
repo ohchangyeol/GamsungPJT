@@ -1,6 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+pageEncoding="UTF-8"%>
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
 </head>
 
 <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
@@ -31,9 +32,9 @@
             <li><a href="index_shop.html">Shop</a></li>
           </ul>
         </li>
-        <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Headers</a>
+        <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">중고 거래</a>
           <ul class="dropdown-menu">
-            <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Static Image Header</a>
+            <li class="dropdown"><a class="dropdown-toggle" href="/auction/listWaitAuctionProduct" data-toggle="dropdown">경매 진행 전</a>
               <ul class="dropdown-menu">
                 <li><a href="index_mp_fullscreen_static.html">Fulscreen</a></li>
                 <li><a href="index_mp_classic_static.html">Classic</a></li>
@@ -304,9 +305,11 @@
             <li><a href="documentation.html#changelog">Changelog</a></li>
           </ul>
         </li>
+        <li><a href="/gamsung/view/user/tempLogin.jsp">
+	       <button class="btn btn-border-w btn-round btn-xs" type="button">LOGIN</button>
+        </a>
+        </li>
       </ul>
     </div>
   </div>
 </nav>
-
-

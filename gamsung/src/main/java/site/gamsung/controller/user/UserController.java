@@ -2,9 +2,12 @@ package site.gamsung.controller.user;
 
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.HashMap;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,6 +16,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import site.gamsung.service.domain.User;
 import site.gamsung.service.user.UserService;
@@ -73,6 +78,15 @@ public class UserController {
 		return "forward:/view/user/loginView.jsp";
 	}
 	
+//	@RequestMapping( value="loginWithKakao", method=RequestMethod.GET )
+//	public String loginWithKakao() throws Exception{
+//		
+//		System.out.println("/user/logon : GET");
+//
+//		return "forward:/view/user/loginWithKakao.jsp";
+//	}
+//	
+
 	@RequestMapping(value="login", method=RequestMethod.POST)
 	public String login(@ModelAttribute("user") User user, HttpSession session) throws Exception{
 		
@@ -129,9 +143,10 @@ public class UserController {
 		session.setAttribute("user", dbUser);
 		return jsp;
 	}
-		
+	
 	@RequestMapping(value="logout", method=RequestMethod.GET)
 	public String logout(HttpSession session) throws Exception{
+		
 		
 		System.out.println("/user/logout : GET");
 		
@@ -140,4 +155,37 @@ public class UserController {
 		return "redirect:/main.jsp";
 		
 	}
-}
+	
+
+	@RequestMapping(value = "getKakaoAuthUrl", method= RequestMethod.GET)
+	public @ResponseBody String getKakaoAuthUrl(HttpServletRequest request) throws Exception {
+		String reqUrl = 
+				"https://kauth.kakao.com/oauth/authorize"
+				+ "?client_id=5069ddcbe63e1882c2df7cc176f1a96f"
+				+ "&redirect_uri=http://localhost:8080/gamsung/user/kakao_callback"
+				+ "&response_type=code";
+		
+		return reqUrl;
+	}
+	
+	// 카카오 연동정보 조회
+	@RequestMapping(value = "kakao_callback")
+	public String oauthKakao(@RequestParam(value = "code", required = false) String code, Model model) throws Exception {
+		System.out.println("#########" + code);
+        String accessToken = userService.getAccessToken(code);
+        System.out.println("###access_Token#### : " + accessToken);
+        
+        HashMap<String, Object> userInfo = userService.getUserInfo(accessToken);
+        System.out.println("###access_Token#### : " + accessToken);
+        System.out.println("###userInfo#### : " + userInfo.get("email"));
+        System.out.println("###nickname#### : " + userInfo.get("nickname"));
+       
+        JSONObject kakaoInfo =  new JSONObject(userInfo);
+        model.addAttribute("kakaoInfo", kakaoInfo);
+        
+       // if(userInfo.get("email").equals(userService.getUser()))
+        return "forward:/addUser.jsp";
+	}
+
+ }
+

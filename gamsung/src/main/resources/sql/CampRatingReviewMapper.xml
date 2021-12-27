@@ -86,4 +86,5 @@
 		</trim>		
 		WHERE rating_review_no = #{ratingReviewNo}
 	</update>
+
 </mapper>

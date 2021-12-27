@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="CampRatingReviewMapper">
+	
+	<resultMap id="RatingReviewSelectMap" type="ratingReview">
+		<result property="camp.campNo"					 	column="camp_no" 					jdbcType="NUMERIC"/>
+		<result property="auctionProduct.auctionProductNo"	column="product_no" 				jdbcType="CHAR"/>
+		<result property="user.id" 							column="user_id" 					jdbcType="VARCHAR"/>
+		<result property="user.role" 						column="role"	 					jdbcType="VARCHAR"/>
+		<result property="ratingReviewNo" 					column="rating_review_no" 			jdbcType="NUMERIC"/>
+		<result property="ratingReviewStatus"				column="rating_review_status" 		jdbcType="NUMERIC"/>
+		<result property="ratingReviewTitle"				column="rating_review_title" 		jdbcType="VARCHAR"/>
+		<result property="ratingReviewContent"				column="rating_review_content" 		jdbcType="VARCHAR"/>
+		<result property="reviewRegDate" 					column="review_reg_date" 			jdbcType="DATE"/>
+		<result property="comment" 							column="comment" 					jdbcType="VARCHAR"/>
+		<result property="commentRegDate"					column="comment_reg_date" 			jdbcType="DATE"/>
+		<result property="statusRating" 					column="status_rating" 				jdbcType="FLOAT"/>
+		<result property="priceRating" 						column="price_rating" 				jdbcType="FLOAT"/>
+		<result property="kindnessRating" 					column="kindness_rating" 			jdbcType="FLOAT"/>
+		<result property="avgRating" 						column="avg_rating" 				jdbcType="FLOAT"/>
+		<result property="img1" 							column="review_img1" 				jdbcType="VARCHAR"/>
+		<result property="img2" 							column="review_img2" 				jdbcType="VARCHAR"/>
+		<result property="img3" 							column="review_img3" 				jdbcType="VARCHAR"/>
+		<result property="reviewDeleteFlag" 				column="review_delete_flag" 		jdbcType="CHAR"/>
+		<result property="commentDeleteFlag" 				column="comment_delete_flag" 		jdbcType="CHAR"/>
+	</resultMap>
+	
+	<insert id="addCampRatingReview" parameterType="ratingReview" >
+		INSERT INTO RATING_REVIEW
+					(user_id, camp_no, product_no, rating_review_status, rating_review_title, rating_review_content, review_reg_date, 
+					 status_rating, review_img1, review_img2, review_img3)
+		VALUES(#{user.id}, #{camp.campNo:NUMERIC}, #{auctionProduct.auctionProductNo:CHAR}, #{ratingReviewStatus}, #{ratingReviewTitle:VARCHAR}, 
+		       #{ratingReviewContent}, NOW(), #{statusRating}, #{img1:VARCHAR}, #{img2:VARCHAR}, #{img3:VARCHAR});
+	</insert>
+	
+	<select id="listCampRatingReview" parameterType="map" resultMap="RatingReviewSelectMap">
+		SELECT rating_review_no, user_id, camp_no, product_no, rating_review_status, rating_review_title, rating_review_content, 
+			   review_reg_date, comment, comment_reg_date, status_rating, review_img1, review_img2, review_img3
+		FROM RATING_REVIEW
+		WHERE camp_no = #{campNo} AND review_delete_flag = 'N' AND comment_delete_flag = 'N'
+		LIMIT #{search.pageSize} offset #{search.offset}
+	</select>
+	
+	<select  id="getTotalCount"  parameterType="map"	 resultType="int">
+		SELECT COUNT(*)
+		FROM(SELECT rating_review_no
+			 FROM RATING_REVIEW
+			 WHERE camp_no = #{campNo} AND review_delete_flag = 'N' AND comment_delete_flag = 'N') countTable
+	</select>
+		
+	<select id="getCampRating" parameterType="int" resultType="Double">
+		SELECT status_rating
+		FROM RATING_REVIEW
+		WHERE camp_no = #{value} AND review_delete_flag = 'N'
+	</select>
+	
+ 	<update id="updateCampAvgRating" parameterType="map">
+		UPDATE CAMP
+		SET camp_rating= #{avgRating}
+		WHERE camp_no = #{campNo};
+	</update>
+	
+	<update id="updateCampRatingReview" parameterType="ratingReview">
+		UPDATE RATING_REVIEW
+		<set>
+			<if test="reviewDeleteFlag != null">
+				review_delete_flag = #{reviewDeleteFlag},
+			</if>
+			<if test="commentDeleteFlag != null">
+				comment_delete_flag = #{commentDeleteFlag},
+			</if> 
+			rating_review_title = #{ratingReviewTitle}, 
+			rating_review_content = #{ratingReviewContent},  
+			comment = #{comment},  
+			comment_reg_date = #{commentRegDate}
+		</set>
+	</update>
+</mapper>

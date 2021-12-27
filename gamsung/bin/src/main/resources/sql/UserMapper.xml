@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+		
+<mapper namespace="UserMapper">
+
+	<resultMap id="userSelectMap" type="user">
+		<result property="id" 							column="user_id" 						jdbcType="VARCHAR"/>
+		<result property="role"							column="role" 							jdbcType="VARCHAR" />
+		<result property="nickName" 					column="nick_name" 						jdbcType="VARCHAR" />
+		<result property="password" 					column="password" 						jdbcType="VARCHAR" />
+		<result property="salt" 						column="salt" 							jdbcType="VARCHAR" />
+		<result property="name" 						column="name" 							jdbcType="VARCHAR" />
+		<result property="phone" 						column="phone" 							jdbcType="VARCHAR" />
+		<result property="addr" 						column="addr" 							jdbcType="VARCHAR" />
+		<result property="addUserRegDate" 				column="entry_reg_date" 				jdbcType="DATE"  />
+		<result property="bank" 						column="bank" 							jdbcType="VARCHAR" />
+		<result property="accountHolder" 				column="account_holder" 				jdbcType="VARCHAR" />
+		<result property="accountNum" 					column="account_num" 					jdbcType="VARCHAR" />
+		<result property="havingPoint" 					column="having_point" 					jdbcType="NUMERIC" />
+		<result property="campName" 					column="camp_name" 						jdbcType="VARCHAR" />
+		<result property="campCall" 					column="camp_call" 						jdbcType="VARCHAR" />
+		<result property="businessUserApprovalFlag" 	column="entry_approval_flag" 			jdbcType="CHAR" />
+		<result property="countCancelReceive" 			column="receive_cancel_total_count" 	jdbcType="NUMERIC" />
+		<result property="receiveProhibitionEndDate" 	column="receive_ban_end_date" 			jdbcType="DATE" />
+		<result property="dormantConversionDate" 		column="dormant_reg_date" 				jdbcType="DATE" />
+		<result property="secessionRegDate" 			column="secession_reg_date" 			jdbcType="DATE" />
+		<result property="suspensionDate" 				column="suspension_reg_date" 			jdbcType="DATE" />
+		<result property="tourismBusinessNum" 			column="tourism_business_num" 			jdbcType="VARCHAR" />
+		<result property="suspensionContent" 			column="suspension_content" 			jdbcType="VARCHAR" />
+		<result property="auctionGrade" 				column="auction_grade" 					jdbcType="SMALLINT" />
+		<result property="currentLoginRegDate" 			column="login_reg_date" 				jdbcType="DATE" />
+	</resultMap>
+	
+		<!-- SQL : INSERT -->
+	<insert 	id="addUser"	parameterType="user" >
+	 	INSERT
+		INTO USERS( user_id , role , nick_name , password , salt, name, phone, addr, entry_reg_date , bank , account_holder, entry_approval_flag,
+		account_num, camp_name, camp_call, receive_ban_end_date, dormant_reg_date, secession_reg_date, suspension_reg_date, tourism_business_num, suspension_content) 
+		VALUES	 (#{id} , #{role} , #{nickName:VARCHAR} , #{password} , #{salt:VARCHAR},  #{name} , #{phone} , #{addr:VARCHAR} , SYSDATE() , #{bank:VARCHAR}, #{accountHolder:VARCHAR},
+		#{businessUserApprovalFlag:CHAR}, #{accountNum:VARCHAR}, #{campName:VARCHAR}, #{campCall:VARCHAR} , #{receiveProhibitionEndDate:DATE}, #{dormantConversionDate:DATE} , #{secessionRegDate:DATE} ,
+		#{suspensionDate:DATE}, #{tourismBusinessNum:VARCHAR}, #{suspensionContent:VARCHAR})
+	 </insert>
+	 
+	 <!-- SQL : SELECT ONE -->
+	 <select 	id="getUser"	parameterType="string"	resultMap="userSelectMap">
+		SELECT
+		u.user_id , u.role , u.nick_name , u.password ,u.salt, u.name, u.phone, u.addr, u.entry_reg_date , u.bank , u.account_holder, 
+		u.account_num, u.having_point, u.camp_name, u.camp_call, u.entry_approval_flag, u.receive_cancel_total_count, 
+		u.receive_ban_end_date, u.dormant_reg_date, u.secession_reg_date, u.suspension_reg_date, u.tourism_business_num, u.suspension_content,
+		u.auction_grade, h.login_reg_date
+		FROM USERS u left outer join (SELECT * from LOGIN_HISTORY where (user_id, login_reg_date) in (select user_id, max(login_reg_date) as date from login_history group by user_id)) h
+		on u.user_id = h.user_id where u.user_id = #{value}
+	 </select>
+	 
+	 <!-- SQL : UPDATE -->
+	 <update	id="updateUser"	parameterType="user" >
+	   	UPDATE USERS
+	   	<set>
+	   		password = #{password:VARCHAR} ,
+			nick_name = #{nickName:VARCHAR},
+			phone = #{phone:VARCHAR} ,
+			name =	#{name:VARCHAR},
+			addr = #{addr:VARCHAR},
+			camp_name = #{campName:VARCHAR},
+			camp_call = #{campCall:VARCHAR},
+			bank = #{bank:VARCHAR},
+			account_holder = #{accountHolder:VARCHAR},
+			account_num = #{accountNum:VARCHAR},
+			entry_approval_flag = #{businessUserApprovalFlag:VARCHAR}
+	   	</set>
+	   	WHERE user_id = #{id}
+	 </update>
+	 
+	 <!-- SQL : ADD LOGIN DATE -->
+	 <insert	id="addLoginDate"	parameterType="user" >
+	   	INSERT INTO LOGIN_HISTORY(user_id, login_reg_date)
+	   	VALUES (#{id}, SYSDATE())
+	 </insert>
+	 
+	  <select  id="getSaltById"  parameterType="String"	resultMap="userSelectMap">
+	  SELECT
+	  user_id, salt
+	  FROM USERS
+	  where user_id = #{id}
+	  </select>
+	 
+	 
+	 <!-- SQL : SELECT LIST -->
+	 <select  id="listUser"  parameterType="search"	resultMap="userSelectMap">
+		SELECT u.role, u.user_id, u.name, u.nick_name, u.camp_name, u.entry_reg_date, u.suspension_reg_date, 
+		u.secession_reg_date, u.dormant_reg_date, u.entry_approval_flag, h.login_reg_date
+		FROM USERS u left outer join (SELECT * from LOGIN_HISTORY where (user_id, login_reg_date) in (select user_id, max(login_reg_date) as date from login_history group by user_id)) h
+		on u.user_id = h.user_id 
+			<if test="searchCondition != null">
+				<where>
+					<if test='searchCondition != "3"'>
+						u.role = #{searchCondition}
+					</if>
+					<if test="searchKeyword !='' and searchKeyword !=null">
+						AND u.user_id LIKE CONCAT('%',#{searchKeyword},'%')
+					</if>
+					<if test='searchCondition == "3"'>
+						u.role ='business' AND u.entry_approval_flag is null
+					</if>
+				</where>
+			</if>
+         LIMIT #{pageSize} OFFSET #{offset}
+	 </select>
+	 
+	 <!-- SQL : SELECT ROW Count -->	 
+	 <select  id="getTotalCount"  parameterType="search"  resultType="int">
+	  	SELECT COUNT(*)
+	  	FROM(	SELECT user_id , name
+						FROM USERS
+						<if test="searchCondition != null">
+							<where>
+								<if test='searchCondition != "3"'>
+									role = #{searchCondition}
+								</if>
+								<if test="searchKeyword !='' and searchKeyword !=null">
+									AND user_id LIKE CONCAT('%',#{searchKeyword},'%')
+								</if>
+								<if test='searchCondition == "3"'>
+									role ='business' AND entry_approval_flag is null
+								</if>
+							</where>
+						</if> ) countTable						
+	 </select>
+	 
+	 <!-- SQL : CHECK duplication -->
+	 <select id="checkDuplication" parameterType="user" resultType="String">
+		 SELECT user_id, nick_name, phone
+		 FROM USERS
+		 WHERE 
+		 	<if test="id != null">
+				user_id = #{id}
+			</if>
+			<if test="nickName != null">
+				nick_name = #{nickName}
+			</if>
+			<if test="phone != null">
+				phone = #{phone}
+			</if>
+	 </select>
+		
+
+</mapper>

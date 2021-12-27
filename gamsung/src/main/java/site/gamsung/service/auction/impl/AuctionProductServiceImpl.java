@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Propagation;
@@ -18,6 +19,7 @@ import site.gamsung.service.auction.AuctionInfoDAO;
 import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.AuctionInfo;
 import site.gamsung.service.domain.AuctionProduct;
+import site.gamsung.util.auction.CrawlingData;
 
 @Service("auctionProductService")
 @EnableTransactionManagement //관리자 권한 획득
@@ -31,27 +33,65 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 	@Qualifier("auctionInfoDAO")
 	private AuctionInfoDAO auctionInfoDao;
 	
+	@Autowired
+	@Qualifier("crawlingData")
+	private CrawlingData crawlingData;
+	
+	@Value("#{commonProperties['PATH']}")
+	private String PATH;
+	
 	public AuctionProductServiceImpl(){
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
-	public List<AuctionProduct> listAuctionProduct(Search search) {
+	public List<AuctionProduct> listCrawlingAuctionProduct(Search search) {
 		// TODO Auto-generated method stub
-			
-		return auctionProductDAO.listAuctionProduct(search);
+	
+		return crawlingData.crawlingList(search);
 	}
  
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW ) //get* read-only가 설정되어 있어 예외로 새로운 트렌젝션을 탈수 있도록 설정
-	public AuctionProduct getAuctionProduct(String auctionProductNo) {
+	public AuctionProduct getCrawlingAuctionProductNo(AuctionProduct auctionProduct) {
 		// TODO Auto-generated method stub
+		
+		String existNo = auctionProductDAO.getCrawlingAuctionProductNo(auctionProduct.getAuctionProductSubDatail());
+		
+		if(existNo != null) {
+			return auctionProductDAO.getAuctionProduct(existNo);
+		}
+		
+		auctionProduct = crawlingData.crawling(auctionProduct);
+		
+		auctionProduct.setBidableGrade(2);
+		String allhashtag = auctionProduct.getAllhashtag();
+		String [] hashtags = allhashtag.split(" ");
+		auctionProduct.setHashtag1(hashtags[0]);
+		auctionProduct.setHashtag1(hashtags[1]);
+		auctionProduct.setHashtag1(hashtags[2]);
+		
+		
+		auctionProductDAO.addCrawlingAuctionProduct(auctionProduct);
+		
+		String auctionProductNo = auctionProductDAO.getCrawlingAuctionProductNo(auctionProduct.getAuctionProductSubDatail());
 		
 		auctionProductDAO.updateAuctionProductViewCounter(auctionProductNo);
 		
-		AuctionProduct auctionProduct = auctionProductDAO.getAuctionProduct(auctionProductNo);
 		
-		return auctionProduct;
+		return auctionProductDAO.getAuctionProduct(auctionProductNo);
+	}
+
+	@Override
+	public List<AuctionProduct> listAuctionProduct(Search search) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public AuctionProduct getAuctionProduct(String auctionProductNo) {
+		// TODO Auto-generated method stub
+		return auctionProductDAO.getAuctionProduct(auctionProductNo);
 	}
 
 	@Override

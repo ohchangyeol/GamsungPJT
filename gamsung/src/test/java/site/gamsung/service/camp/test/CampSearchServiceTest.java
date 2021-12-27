@@ -11,8 +11,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import site.gamsung.service.camp.CampSearchService;
 import site.gamsung.service.common.Search;
@@ -118,3 +116,4 @@ public class CampSearchServiceTest {
 		System.out.println("콘솔 확인 : " + topReservation);
 	}
 }
+
