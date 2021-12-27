@@ -136,8 +136,8 @@
 							<div class="row mb-20">
 								<div class="col-sm-12">
 									<div class="product_meta">
-										Categories:<a href="#"> Man, </a><a href="#">Clothing, </a><a
-											href="#">T-shirts</a>
+										<span>${user.nickName}</span>
+										<input type="hidden" id="userId" value="${user.id}"/>
 									</div>
 								</div>
 							</div>
@@ -145,6 +145,7 @@
 					</div>
 					<div class="row mt-70">
 						<div class="col-sm-12">
+						<div class="well well-lg"><strong id="realTimeViewCount"></strong></div>
 							<ul class="nav nav-tabs font-alt" role="tablist">
 								<li class="active"><a href="#description" data-toggle="tab"><span
 										class="icon-tools-2"></span>Description</a></li>
@@ -274,13 +275,11 @@
 												</div>
 												<div class="col-sm-12">
 													<div class="form-group">
-														<textarea class="form-control" id="" name="" rows="4"
-															placeholder="Review"></textarea>
+														<textarea class="form-control" id="" name="" rows="4" placeholder="Review"></textarea>
 													</div>
 												</div>
 												<div class="col-sm-12">
-													<button class="btn btn-round btn-d" type="submit">Submit
-														Review</button>
+													<button class="btn btn-round btn-d" type="submit">Submit Review</button>
 												</div>
 											</div>
 										</form>
@@ -592,6 +591,7 @@
 	function connect(){
 		
 		var auctionProductNo = $('#auctionProductNo').val();
+		var userId = $('#userId').val(); 
 		
 		var sock = new SockJS("/realtime");
 		stompClient = Stomp.over(sock);
@@ -602,35 +602,74 @@
 			
 			stompClient.subscribe('/topic/join',function(response){
 				var joinInfo = JSON.parse(response.body);
+				if(auctionProductNo == joinInfo.auctionProductNo){
+					$("#realTimeViewCount").text(joinInfo.realTimeViewCount);					
+				}
 			});
 			
 			stompClient.subscribe('/topic/bid',function(response){
 				var bidInfo = JSON.parse(response.body)
-				$('#currentPrice').text(bidInfo.bidPrice);
+				if(auctionProductNo == bidInfo.auctionProductNo){
+					$('#currentPrice').text(bidInfo.bidPrice);					
+				}
 			});
 			
-			
-			stompClient.send('/app/join',{},JSON.stringify({auctionProductNo : auctionProductNo}));
+			stompClient.subscribe('/topic/exit',function(response){
+				var exitInfo = JSON.parse(response.body)
+				if(auctionProductNo == exitInfo.auctionProductNo){
+					$("#realTimeViewCount").text(exitInfo.realTimeViewCount);					
+				}
+			});
+						
+			stompClient.send('/app/join',{},JSON.stringify({
+				auctionProductNo : auctionProductNo
+			}));
 		});
-	}
-		
-	$('#bidBtn').on('click',function(event){
-		
-		var bidUnit = $('#bidUnit').val();
-		var bidPrice = $('#bidPrice').val();
-		if(bidPrice%bidUnit != 0){
-			$('.alert-danger').children('strong').text('입찰 단위를 확인해 주세요.');
-			$('.alert-danger').attr('hidden',false);
-		}else{
-			$('.alert-success').children('strong').text('입찰 성공하셨습니다.');
-			$('.alert-danger').attr('hidden',true);
-			$('.alert-success').attr('hidden',false);
-			console.log('sending');
+	
+		$('#bidBtn').on('click',function(event){
 			
-			stompClient.send('/app/bid',{},JSON.stringify({bidPrice : bidPrice}));
-		}
-		
-	});
+			var bidUnit = $('#bidUnit').val();
+			var bidPrice = $('#bidPrice').val();
+			if(bidPrice%bidUnit != 0){
+				$('.alert-danger').children('strong').text('입찰 단위를 확인해 주세요.');
+				$('.alert-danger').attr('hidden',false);
+			}else{
+				$('.alert-success').children('strong').text('입찰 성공하셨습니다.');
+				$('.alert-danger').attr('hidden',true);
+				$('.alert-success').attr('hidden',false);
+				console.log('sending');
+				
+				stompClient.send('/app/bid',{},JSON.stringify({
+					auctionProductNo : auctionProductNo,
+					bidPrice : bidPrice
+				}));
+			}
+			
+		});
+	
+	}
+	
+	
+	window.onbeforeunload = function(e){
+		stompClient.send('/app/exit',{},JSON.stringify({
+			auctionProductNo : auctionProductNo
+		}));
+		setTimeout(disconnect(),3000);
+	}
+	
+	
+	
+	
+	function disconnect() {
+	    if (stompClient !== null) {
+	        stompClient.disconnect(function(){
+	        	stompClient.send('/app/exit',{},JSON.stringify({
+	        		auctionProductNo : auctionProductNo
+	    		}));
+	        });
+	    }
+	}
+
 	
 	</script>
 </body>

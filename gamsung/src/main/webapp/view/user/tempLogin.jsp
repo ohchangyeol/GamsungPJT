@@ -77,7 +77,7 @@
 					return;
 				}
 				
-				$("form").attr("method","POST").attr("action","/gamsung/user/login").submit();
+				$("form").attr("method","POST").attr("action","/user/login").submit();
 			});
 		});	
 		

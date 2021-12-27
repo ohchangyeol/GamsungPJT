@@ -40,7 +40,7 @@ pageEncoding="UTF-8"%>
                 <li><a href="index_mp_classic_static.html">Classic</a></li>
               </ul>
             </li>
-            <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Flexslider Header</a>
+            <li class="dropdown"><a class="dropdown-toggle" href="/auction/addAuctionProduct" data-toggle="dropdown">Flexslider Header</a>
               <ul class="dropdown-menu">
                 <li><a href="index_mp_fullscreen_flexslider.html">Fulscreen</a></li>
                 <li><a href="index_mp_classic_flexslider.html">Classic</a></li>
@@ -305,7 +305,7 @@ pageEncoding="UTF-8"%>
             <li><a href="documentation.html#changelog">Changelog</a></li>
           </ul>
         </li>
-        <li><a href="/gamsung/view/user/tempLogin.jsp">
+        <li><a href="/view/user/tempLogin.jsp">
 	       <button class="btn btn-border-w btn-round btn-xs" type="button">LOGIN</button>
         </a>
         </li>

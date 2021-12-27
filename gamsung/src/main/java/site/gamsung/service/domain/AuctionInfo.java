@@ -1,10 +1,15 @@
 package site.gamsung.service.domain;
 
+import java.util.UUID;
+
 public class AuctionInfo {
+	private String infoId;
+	private String infoName;
 	private String bidNo;
 	private String auctionProductNo;
 	private User user; //id, nickname, auctionGrade
 	private int bidPrice;
+	private int realTimeViewCount;
 	private String bidDateTime;
 	private String concernRegDate;
 	private String auctionStatus;
@@ -40,6 +45,12 @@ public class AuctionInfo {
 	}
 	public void setBidPrice(int bidPrice) {
 		this.bidPrice = bidPrice;
+	}
+	public int getRealTimeViewCount() {
+		return realTimeViewCount;
+	}
+	public void setRealTimeViewCount(int realTimeViewCount) {
+		this.realTimeViewCount = realTimeViewCount;
 	}
 	public String getBidDateTime() {
 		return bidDateTime;
@@ -107,15 +118,32 @@ public class AuctionInfo {
 	public void setAddReviewCount(int addReviewCount) {
 		this.addReviewCount = addReviewCount;
 	}
+	public String getInfoId() {
+		return infoId;
+	}
+	public void setInfoId(String infoId) {
+		this.infoId = infoId;
+	}
+	public String getInfoName() {
+		return infoName;
+	}
+	public void setInfoName(String infoName) {
+		this.infoName = infoName;
+	}
+	public static AuctionInfo create(String infoName) {
+		AuctionInfo auctionInfo = new AuctionInfo();
+		auctionInfo.infoId = UUID.randomUUID().toString();
+		auctionInfo.infoName = infoName;
+		return auctionInfo;
+	}
 	@Override
 	public String toString() {
 		return "AuctionInfo [bidNo=" + bidNo + ", auctionProductNo=" + auctionProductNo + ", user=" + user
-				+ ", bidPrice=" + bidPrice + ", bidDateTime=" + bidDateTime + ", concernRegDate=" + concernRegDate
-				+ ", auctionStatus=" + auctionStatus + ", addProductCount=" + addProductCount + ", bidCount=" + bidCount
-				+ ", successfulBidCount=" + successfulBidCount + ", auctionConfirmCount=" + auctionConfirmCount
-				+ ", midwayWithdrawalCount=" + midwayWithdrawalCount + ", cancelSuccessfulBidCount="
-				+ cancelSuccessfulBidCount + ", topRankCount=" + topRankCount + ", addReviewCount=" + addReviewCount
-				+ "]";
+				+ ", bidPrice=" + bidPrice + ", realTimeViewCount=" + realTimeViewCount + ", bidDateTime=" + bidDateTime
+				+ ", concernRegDate=" + concernRegDate + ", auctionStatus=" + auctionStatus + ", addProductCount="
+				+ addProductCount + ", bidCount=" + bidCount + ", successfulBidCount=" + successfulBidCount
+				+ ", auctionConfirmCount=" + auctionConfirmCount + ", midwayWithdrawalCount=" + midwayWithdrawalCount
+				+ ", cancelSuccessfulBidCount=" + cancelSuccessfulBidCount + ", topRankCount=" + topRankCount
+				+ ", addReviewCount=" + addReviewCount + "]";
 	}
-	
 }

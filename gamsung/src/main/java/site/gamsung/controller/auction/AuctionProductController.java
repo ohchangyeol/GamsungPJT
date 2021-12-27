@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import site.gamsung.service.auction.AuctionProductService;
 import site.gamsung.service.common.Search;
+import site.gamsung.service.domain.AuctionInfo;
 import site.gamsung.service.domain.AuctionProduct;
 import site.gamsung.service.domain.User;
 
@@ -59,7 +60,7 @@ public class AuctionProductController {
 	//상품 상세 조회 페이지 출력
 	@RequestMapping(value = "getAuctionProduct", method = RequestMethod.GET)
 	public String getAuctionProduct(String auctionProductNo, Model model) {
-			
+
 		//조회수를 1증가 시키며, 상품 번호에 대한 상세정보를 받아온다.
 		AuctionProduct auctionProduct = auctionProductService.getAuctionProduct(auctionProductNo);
 			
@@ -72,9 +73,15 @@ public class AuctionProductController {
 	//상품 상세 조회 페이지 출력
 	@RequestMapping(value = "getAuctionProduct", method = RequestMethod.POST)
 	public String getCrawlingAuctionProductNo(@ModelAttribute("auctionProduct") AuctionProduct auctionProduct, 
-											Model model) {
+											Model model, HttpSession session) {
 		
 		auctionProduct = auctionProductService.getCrawlingAuctionProductNo(auctionProduct);
+		
+		AuctionInfo auctionInfo = (AuctionInfo) session.getAttribute(auctionProduct.getAuctionProductNo());
+		
+		if(auctionInfo == null) {
+			session.setAttribute(auctionProduct.getAuctionProductNo(), new AuctionInfo());
+		}
 		
 		return "redirect:./getAuctionProduct?auctionProductNo="+auctionProduct.getAuctionProductNo();
 	}
