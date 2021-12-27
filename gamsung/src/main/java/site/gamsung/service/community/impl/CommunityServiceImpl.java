@@ -14,6 +14,7 @@ import site.gamsung.service.community.CommunityDAO;
 import site.gamsung.service.community.CommunityService;
 import site.gamsung.service.domain.Comment;
 import site.gamsung.service.domain.Post;
+import site.gamsung.service.domain.PostConcern;
 
 
 @Service("communityServiceImpl") 
@@ -40,15 +41,11 @@ public class CommunityServiceImpl implements CommunityService {
 		return communityDAO.addPost(post);
 	}
 
-	public Map<String, Object> listPost(Post post) throws Exception {
+	public List<Post> listPost(HashMap<String, Object> map) throws Exception {
 		
-		List<Post> list = communityDAO.listPost(post);
-			
-		HashMap<String,Object> map = new HashMap<String,Object>();
+		List<Post> list = communityDAO.listPost(map);
 		
-		map.put("list",list);
-		
-		return map;
+		return list;
 	}
 
 	public Post getPost(int postNo) throws Exception {
@@ -63,6 +60,10 @@ public class CommunityServiceImpl implements CommunityService {
 		return communityDAO.deletePost(postNo);
 	}
 
+	public int blindPost(int postNo) throws Exception {
+		return communityDAO.blindPost(postNo);
+	}
+	
 	public int addComment(Comment comment) throws Exception {	
 		return communityDAO.addComment(comment);
 	}
@@ -79,15 +80,21 @@ public class CommunityServiceImpl implements CommunityService {
 		return communityDAO.deleteComment(CommentNo);
 	}
 	
-	public int updateConcern(int postNo, String userId, String concernFlag, String concernType) throws Exception {
+	public int blindComment(int CommentNo) throws Exception {	
+		return communityDAO.blindComment(CommentNo);
+	}
+	
+	public int updateConcern(int postNo, String userId, String concernType) throws Exception {
 			HashMap<String,Object> map = new HashMap<String,Object>();
 		
 		map.put("postNo", postNo);
 		map.put("userId", userId);
-		map.put("concernFlag", concernFlag);
 		map.put("concernType", concernType);
 		
 		return communityDAO.updateConcern(map);
 	}
 
+	public PostConcern Concernflag(PostConcern postConcern) throws Exception {	
+		return communityDAO.Concernflag(postConcern);
+	}
 }

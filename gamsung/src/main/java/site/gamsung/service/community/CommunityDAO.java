@@ -1,11 +1,13 @@
 package site.gamsung.service.community;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 
 import site.gamsung.service.domain.Comment;
 import site.gamsung.service.domain.Post;
+import site.gamsung.service.domain.PostConcern;
 
 public interface CommunityDAO {
 	
@@ -13,7 +15,7 @@ public interface CommunityDAO {
 	
 	public int addPost(Post post)throws Exception;
 	
-	public List<Post> listPost(Post post)throws Exception;
+	public List<Post> listPost(HashMap<String, Object> map)throws Exception;
 	
 	public Post getPost(int postNo)throws Exception;
 
@@ -21,9 +23,7 @@ public interface CommunityDAO {
 	
 	public int deletePost(int postNo)throws Exception;
 	
-	public int totalConcern(int postNo) throws Exception;
-	
-	public int totalComment(int postNo) throws Exception;
+	public int blindPost(int postNo)throws Exception;
 	
 	//댓글
 
@@ -34,10 +34,11 @@ public interface CommunityDAO {
 	public int updateComment(Comment comment)throws Exception;
 	
 	public int deleteComment(int CommentNo)throws Exception;
+	public int blindComment(int CommentNo)throws Exception;
 	
 	//추천
 	
 	public int updateConcern(Map<String,Object> Map) throws Exception ;
 	
-
+	public PostConcern Concernflag(PostConcern postConcern) throws Exception ;
 }

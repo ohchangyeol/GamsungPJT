@@ -1,5 +1,6 @@
 package site.gamsung.service.community.impl;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +13,7 @@ import site.gamsung.service.common.Search;
 import site.gamsung.service.community.CommunityDAO;
 import site.gamsung.service.domain.Comment;
 import site.gamsung.service.domain.Post;
+import site.gamsung.service.domain.PostConcern;
 import site.gamsung.service.domain.User;
 
 
@@ -42,8 +44,8 @@ public class CommunityDAOImpl implements CommunityDAO {
 	}
 
 	@Override
-	public List<Post>listPost(Post post) throws Exception {
-		return sqlSession.selectList("CommunityMapper.listPost", post);
+	public List<Post> listPost(HashMap<String, Object> map) throws Exception {
+		return sqlSession.selectList("CommunityMapper.listPost", map);
 	}
 
 	@Override
@@ -60,6 +62,12 @@ public class CommunityDAOImpl implements CommunityDAO {
 	public int deletePost(int postNo) throws Exception {
 		return sqlSession.update("CommunityMapper.deletePost", postNo);
 	}
+	
+	@Override
+	public int blindPost(int postNo) throws Exception {
+		return sqlSession.update("CommunityMapper.blindPost", postNo);
+	}
+	
 
 	@Override
 	public int addComment(Comment comment) throws Exception {
@@ -80,9 +88,14 @@ public class CommunityDAOImpl implements CommunityDAO {
 	public int deleteComment(int CommentNo) throws Exception {
 		return sqlSession.update("CommunityMapper.deleteComment", CommentNo);
 	}
+	
+	@Override
+	public int blindComment(int CommentNo) throws Exception {
+		return sqlSession.update("CommunityMapper.blindComment", CommentNo);
+	}
 
 
-	public int updateConcern( Map<String,Object> Map) throws Exception {
+	public int updateConcern(Map<String,Object> Map) throws Exception {
 		
 		String concernType = (String) Map.get("concernType");// 동작 insert / delete
 		
@@ -94,22 +107,11 @@ public class CommunityDAOImpl implements CommunityDAO {
 		
 	}
 
-	@Override
-	public int totalConcern(int postNo) throws Exception {
-		return sqlSession.selectOne("CommunityMapper.totalConcern", postNo);
-	}
 
 	@Override
-	public int totalComment(int postNo) throws Exception {
-		return sqlSession.selectOne("CommunityMapper.totalComment", postNo);
+	public PostConcern Concernflag(PostConcern postConcern) throws Exception {
+		return sqlSession.selectOne("CommunityMapper.ConcernFlag", postConcern);
 	}
-	
-	
-	
-	
-	
-	
-	
 	
 	
 }
