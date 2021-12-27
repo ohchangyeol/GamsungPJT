@@ -2925,3 +2925,16 @@ Google map
     width: 100%;
   }
 }
+
+
+/* Ãß°¡ */
+
+.report-and-qna .btn-block {
+  position: relative;
+  display: inline-block;
+  width: 49%;
+  margin-top: 0;
+}
+.service-center-home .features-item{
+  height: 220px;
+}
