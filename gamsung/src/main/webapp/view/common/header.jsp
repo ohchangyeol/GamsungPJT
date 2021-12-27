@@ -18,25 +18,17 @@ pageEncoding="UTF-8"%>
             <li><a href="index_op_fullscreen_gradient_overlay.html">Payment</a></li>
           </ul>
         </li>
-        <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Home</a>
+        <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Camping</a>
           <ul class="dropdown-menu">
-        
-            <li><a href="index_mp_fullscreen_video_background.html">Default</a></li>
-            <li><a href="index_op_fullscreen_gradient_overlay.html">One Page</a></li>
-            <li><a href="index_agency.html">Agency</a></li>
-            <li><a href="index_portfolio.html">Portfolio</a></li>
-            <li><a href="index_restaurant.html">Restaurant</a></li>
-            <li><a href="index_finance.html">Finance</a></li>
-            <li><a href="index_landing.html">Landing Page</a></li>
-            <li><a href="index_photography.html">Photography</a></li>
-            <li><a href="index_shop.html">Shop</a></li>
+            <li><a href="/campGeneral/campSearch" >Camping Search</a></li>
+            <li><a href="/campGeneral/campDetailSearch" >Camping DetailSearch</a></li>
           </ul>
         </li>
         <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">중고 거래</a>
           <ul class="dropdown-menu">
             <li class="dropdown"><a class="dropdown-toggle" href="/auction/listWaitAuctionProduct" data-toggle="dropdown">경매 진행 전</a>
               <ul class="dropdown-menu">
-                <li><a href="index_mp_fullscreen_static.html">Fulscreen</a></li>
+                <li><a href="index_mp_fullscreen_static.html">Fullscreen</a></li>
                 <li><a href="index_mp_classic_static.html">Classic</a></li>
               </ul>
             </li>
@@ -305,7 +297,7 @@ pageEncoding="UTF-8"%>
             <li><a href="documentation.html#changelog">Changelog</a></li>
           </ul>
         </li>
-        <li><a href="/gamsung/view/user/tempLogin.jsp">
+        <li><a href="/view/user/tempLogin.jsp">
 	       <button class="btn btn-border-w btn-round btn-xs" type="button">LOGIN</button>
         </a>
         </li>
