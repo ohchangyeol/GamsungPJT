@@ -239,10 +239,10 @@
 	</select>
 	
 	<select id="getTopViewCamp" resultMap="CampSelectMap">
-		SELECT c.camp_no, c.camp_view_count_previous_month, u.camp_name, u.addr, c.camp_img1
+		SELECT c.camp_no, c.camp_view_count_current_month, u.camp_name, u.addr, c.camp_img1
 		FROM CAMP c, USERS u
 		WHERE c.user_id = u.user_id AND c.delete_flag = 'N'
-		ORDER BY c.camp_view_count_previous_month DESC
+		ORDER BY c.camp_view_count_current_month DESC
 		LIMIT 1
 	</select>
 	

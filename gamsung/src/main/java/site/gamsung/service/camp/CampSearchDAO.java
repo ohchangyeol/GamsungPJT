@@ -9,24 +9,24 @@ import site.gamsung.service.domain.SubSite;
 
 public interface CampSearchDAO {
 
-	public List<Camp> listCamp(Search search) throws Exception;
+	public List<Camp> listCamp(Search search);
 
-	public int getTotalCount(Search search) throws Exception;
+	public int getTotalCount(Search search);
 	
-	public Camp getCamp(int campNo) throws Exception;
+	public Camp getCamp(int campNo);
 	
-	public List<MainSite> getMainSite(int campNo) throws Exception;
+	public List<MainSite> getMainSite(int campNo);
 	
-	public List<SubSite> getSubSite(int campNo) throws Exception;
+	public List<SubSite> getSubSite(int campNo);
 	
-	public int updateViewCount(int campNo) throws Exception;
+	public int updateViewCount(int campNo);
 	
-	public List<Camp> getEventCamp(Search search) throws Exception;
+	public List<Camp> getEventCamp(Search search);
 	
-	public Camp getTopRatingCamp() throws Exception;
+	public Camp getTopRatingCamp();
 	
-	public Camp getTopViewCamp() throws Exception;
+	public Camp getTopViewCamp();
 	
-	public Camp getTopReservationCamp() throws Exception;
+	public Camp getTopReservationCamp();
 	
 }
