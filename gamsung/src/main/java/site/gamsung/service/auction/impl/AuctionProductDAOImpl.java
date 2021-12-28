@@ -104,9 +104,9 @@ public class AuctionProductDAOImpl implements AuctionProductDAO{
 	}
 	
 	@Override
-	public void updateAuctionProductCondition(AuctionInfo auctionInfo) {
+	public void updateAuctionProductCondition(AuctionProduct auctionProduct) {
 		// TODO Auto-generated method stub
-		sqlSession.update("AuctionProductMapper.updateAuctionProductCondition", auctionInfo);
+		sqlSession.update("AuctionProductMapper.updateAuctionProductCondition", auctionProduct);
 	}
 
 	//메인에 표시될 경매 상품정보
