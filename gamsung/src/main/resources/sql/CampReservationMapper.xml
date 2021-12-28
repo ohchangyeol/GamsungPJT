@@ -384,5 +384,9 @@
 		FROM CAMP c , CAMP_RESERVATION r, USERS u, MAINSITE m 
 		WHERE c.camp_no = r.camp_no and c.user_id = u.user_id and r.mainsite_no = m.mainsite_no and r.reservation_start_date-1 =  DATE(NOW())
 	</select>
-		
+	
+	<update id="resetCount">
+		UPDATE CAMP
+		SET camp_view_count_current_month=0, camp_reservation_count=0		
+	</update>	
 </mapper>
