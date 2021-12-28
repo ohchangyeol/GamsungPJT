@@ -624,7 +624,8 @@
 			stompClient.subscribe('/topic/bid',function(response){
 				var bidInfo = JSON.parse(response.body)
 				if(auctionProductNo == bidInfo.auctionProductNo){
-					$('#currentPrice').text(bidInfo.bidPrice);					
+					$('#currentPrice').text(bidInfo.bidPrice);
+					alert(bidInfo.info);
 				}
 			});
 			

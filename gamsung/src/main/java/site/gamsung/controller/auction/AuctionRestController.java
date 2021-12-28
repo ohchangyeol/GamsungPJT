@@ -134,8 +134,8 @@ public class AuctionRestController {
 		auctionInfo.setUser(user);
 		System.out.println(auctionInfo);
 		
-		auctionProductService.auctionProductBid(auctionInfo);
-		
+		String info = auctionProductService.auctionProductBid(auctionInfo);
+		auctionInfo.setInfo(info);
 		return auctionInfo;
 	}
 	
