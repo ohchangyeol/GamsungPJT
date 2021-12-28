@@ -2,10 +2,11 @@
 
 <beans 	xmlns="http://www.springframework.org/schema/beans"
 		xmlns:context="http://www.springframework.org/schema/context"
+		xmlns:mvc="http://www.springframework.org/schema/mvc"
+		xmlns:task="http://www.springframework.org/schema/task"
 		xmlns:websocket="http://www.springframework.org/schema/websocket"
 		xmlns:int="http://www.springframework.org/schema/integration"
  		xmlns:int-websocket="http://www.springframework.org/schema/integration/websocket"
-		xmlns:mvc="http://www.springframework.org/schema/mvc"
 		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		xsi:schemaLocation=
 				"http://www.springframework.org/schema/beans 
@@ -19,10 +20,15 @@
 				
 				http://www.springframework.org/schema/websocket
        			http://www.springframework.org/schema/websocket/spring-websocket.xsd
+       			
        			http://www.springframework.org/schema/integration
-			    https://www.springframework.org/schema/integration/spring-integration.xsd
+			    http://www.springframework.org/schema/integration/spring-integration.xsd
+			    
 			    http://www.springframework.org/schema/integration/websocket
-			    https://www.springframework.org/schema/integration/websocket/spring-integration-websocket.xsd">
+			    http://www.springframework.org/schema/integration/websocket/spring-integration-websocket.xsd			    
+			    
+			    http://www.springframework.org/schema/task
+			    http://www.springframework.org/schema/task/spring-task.xsd">
     
    <!-- :: 공통적인 사항을 설정한 common-servlet.xml 사용. -->
        
@@ -115,6 +121,13 @@
     	<property name="defaultEncoding" value="utf-8" />
 	</bean>
 	
+	<!-- spring scheduler -->
+	<context:component-scan base-package="site.gamsung.service.*.impl"/>
+	<task:annotation-driven executor="executor" scheduler="scheduler"/>
+	<task:scheduler id="scheduler" pool-size="10"/>
+	<task:executor id="executor" pool-size="10"/>
+	
+	<!-- STOMP Message Broker -->
 	<websocket:message-broker application-destination-prefix="/app">
        <websocket:stomp-endpoint path="/realtime">
             <websocket:handshake-interceptors>
@@ -123,12 +136,14 @@
             <websocket:sockjs/>
        </websocket:stomp-endpoint>
        <websocket:simple-broker prefix="/queue, /topic"/>
-       <websocket:client-inbound-channel>
+     	<websocket:client-inbound-channel>
         	<websocket:interceptors>
            		<bean id="webSocketInterceptor" class="site.gamsung.util.auction.WebSocketInterceptor"/>
         	</websocket:interceptors>
     	</websocket:client-inbound-channel>
 	</websocket:message-broker>
+	
+	<bean id="auctionRepository" class="site.gamsung.util.auction.AuctionRepository"></bean>
 	
 
 	 

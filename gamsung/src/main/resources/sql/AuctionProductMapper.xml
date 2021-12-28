@@ -9,6 +9,7 @@
 		<result property="auctionProductNo" column="product_no"/>
 		<result property="registrantId" column="registrant_id"/>
 		<result property="successfulBidderId" column="successful_bidder_id"/>
+		<result property="successfulBidderId" column="bidder_id"/>
 		<result property="auctionProductName" column="product_name"/>
 		<result property="auctionProductDatail" column="product_detail"/>
 		<result property="auctionProductSubDatail" column="product_sub_detail"/>
@@ -68,9 +69,9 @@
 		SELECT product_no, product_name, product_detail ,product_view_count, start_bid_price, hopeful_bid_price, auction_start_time, auction_end_time,
                timediff(auction_end_time, now()) AS remain_time, hashtag1, hashtag2, hashtag3, product_img1
 			FROM AUCTION_PRODUCT
-			WHERE temp_save_flag = 'N'
+			WHERE temp_save_flag = 'N' AND auction_status = 'START' 
 			<if test='role != null and role.equals("GENERAL")'>
-				AND auction_status = 'START' AND delete_flag = 'N' AND NOW() BETWEEN auction_start_time AND auction_end_time
+				AND delete_flag = 'N' AND NOW() BETWEEN auction_start_time AND auction_end_time
 			</if>
 			<if test="searchKeyword != null">
 				AND product_name LIKE CONCAT_WS(#{searchKeyword},'%','%')
@@ -94,7 +95,9 @@
 					</if> 
 				</if>
 			</trim>
-			LIMIT #{pageSize} OFFSET #{offset}
+			<if test="pageSize != 0 and offset != 0">
+				LIMIT #{pageSize} OFFSET #{offset}
+			</if>
 	</select>
 	
 	<select id="getTempSaveAuctionProduct" parameterType="String" resultMap="auction">
@@ -140,11 +143,12 @@
 	
 	<select id="getAuctionProduct" parameterType="String" resultMap="auction">
 		SELECT registrant_id, ap.product_no AS product_no, product_name, product_detail, product_sub_detail  , start_bid_price , hopeful_bid_price, bid_unit , auction_start_time, auction_end_time,
-				ah.bid_price AS bid,timediff(NOW(),auction_end_time) AS remain_time, bidable_grade, hashtag1, hashtag2, hashtag3, product_img1, product_img2, product_img3, product_img4, product_img5, product_view_count
+				ah.bid_price AS bid_price, ah.bidder_id AS bidder_id, timediff(NOW(),auction_end_time) AS remain_time, bidable_grade, hashtag1, hashtag2, hashtag3, product_img1, product_img2, product_img3, product_img4, product_img5, product_view_count
 		FROM AUCTION_PRODUCT AS ap
-		LEFT OUTER JOIN AUCTION_HISTORY AS ah ON ap.product_no AND ah.product_no 
+		LEFT OUTER JOIN AUCTION_HISTORY AS ah ON ap.product_no = ah.product_no 
 		WHERE ap.product_no = #{value}
 		ORDER BY bid_date_time DESC
+		LIMIT 1
 	</select>
 	
 	<update id="updateAuctionProductViewCounter" parameterType="String">
@@ -170,9 +174,10 @@
 		VALUES(#{auctionProductNo}, #{user.id}, #{bidPrice})
 	</insert>
 	
-	<update id="updateAuctionProductCondition" parameterType="auctionInfo">
+	<update id="updateAuctionProductCondition" parameterType="auctionProduct">
 		UPDATE AUCTION_PRODUCT
-		SET auction_status = #{auctionStatus}
+		SET auction_status = #{auctionStatus},
+			successful_bidder_id = #{successfulBidderId}
 		WHERE product_no = #{auctionProductNo}
 	</update>
 	

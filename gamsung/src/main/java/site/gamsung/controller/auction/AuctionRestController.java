@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
@@ -15,7 +16,6 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +29,8 @@ import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.AuctionInfo;
 import site.gamsung.service.domain.AuctionProduct;
 import site.gamsung.service.domain.User;
+import site.gamsung.util.auction.AuctionRepository;
+import site.gamsung.util.auction.AuctionRoom;
 
 @RequestMapping("auction/rest/*")
 @RestController
@@ -48,6 +50,10 @@ public class AuctionRestController {
 	
 	@Value("#{commonProperties['path']}")
 	private String PATH;
+	
+	@Autowired
+	@Qualifier("auctionRepository")
+	private AuctionRepository auctionRepository;
 	
 	@RequestMapping("crawling")
 	public Map<String,String> crawlingData(HttpSession session) {

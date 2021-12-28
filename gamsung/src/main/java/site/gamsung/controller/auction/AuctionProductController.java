@@ -53,7 +53,7 @@ public class AuctionProductController {
 		//받은 상품 목록을 model에 담아 return한다.
 		model.addAttribute("list",list);
 	
-		return "forward:/view/auction/listAuctionProduct.jsp";
+		return "forward:/view/auction/listWaitAuctionProduct.jsp";
 		
 	}
 	

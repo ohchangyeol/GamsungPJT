@@ -32,26 +32,11 @@ pageEncoding="UTF-8"%>
             <li><a href="index_shop.html">Shop</a></li>
           </ul>
         </li>
-        <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Áß°í °Å·¡</a>
+        <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">ì¤‘ê³ ìƒí’ˆ</a>
           <ul class="dropdown-menu">
-            <li class="dropdown"><a class="dropdown-toggle" href="/auction/listWaitAuctionProduct" data-toggle="dropdown">°æ¸Å ÁøÇà Àü</a>
-              <ul class="dropdown-menu">
-                <li><a href="index_mp_fullscreen_static.html">Fulscreen</a></li>
-                <li><a href="index_mp_classic_static.html">Classic</a></li>
-              </ul>
-            </li>
-            <li class="dropdown"><a class="dropdown-toggle" href="/auction/addAuctionProduct" data-toggle="dropdown">Flexslider Header</a>
-              <ul class="dropdown-menu">
-                <li><a href="index_mp_fullscreen_flexslider.html">Fulscreen</a></li>
-                <li><a href="index_mp_classic_flexslider.html">Classic</a></li>
-              </ul>
-            </li>
-            <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Video Background Header</a>
-              <ul class="dropdown-menu">
-                <li><a href="index_mp_fullscreen_video_background.html">Fulscreen</a></li>
-                <li><a href="index_mp_classic_video_background.html">Classic</a></li>
-              </ul>
-            </li>
+            <li><a href="/auction/addAuctionProduct" >ìƒí’ˆ ë“±ë¡</a></li>
+            <li><a href="/auction/listWaitAuctionProduct" >ê²½ë§¤ ì§„í–‰ ì „</a></li>
+            <li><a href="/auction/listAuctionProduct" >ê²½ë§¤ ì§„í–‰ ì¤‘</a></li>
             <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Text Rotator Header</a>
               <ul class="dropdown-menu">
                 <li><a href="index_mp_fullscreen_text_rotator.html">Fulscreen</a></li>

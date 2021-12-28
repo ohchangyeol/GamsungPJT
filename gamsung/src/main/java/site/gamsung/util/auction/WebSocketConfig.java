@@ -44,10 +44,11 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 		messageBrokerRegistry.setApplicationDestinationPrefixes("/app");
 	}
 
+	
 	@Override
-	public void configureClientInboundChannel(ChannelRegistration registration) {
-		// TODO Auto-generated method stub
+	public void configureClientInboundChannel(ChannelRegistration registration) { // TODO Auto-generated method stub
 		registration.interceptors(webSocketInterceptor);
 	}
+	 
 
 }

@@ -133,6 +133,16 @@
 									<input type="hidden" id="auctionProductNo" value="${auctionProduct.auctionProductNo}">
 								</div>
 							</div>
+							<div class="font15 time-title">금일 마감까지 남은 시간</div>
+							<div class="time font40">
+							<span id="auctionStartTime" hidden="hidden">${auctionProduct.auctionStartTime}</span>
+							<span id="auctionEndTime" hidden="hidden">${auctionProduct.auctionEndTime}</span>
+							  <span class="hours"></span>
+							  <span class="col">:</span>
+							  <span class="minutes"></span>
+							  <span class="col">:</span>
+							  <span class="seconds"></span>
+							</div>
 							<div class="row mb-20">
 								<div class="col-sm-12">
 									<div class="product_meta">
@@ -140,7 +150,8 @@
 										<input type="hidden" id="userId" value="${user.id}"/>
 									</div>
 								</div>
-							</div>
+							</div>							
+						</div>
 						</div>
 					</div>
 					<div class="row mt-70">
@@ -582,6 +593,7 @@
 	<script src="../../resources/js/stomp.min.js"></script>
 	
 	<script>
+
 	document.addEventListener("DOMContentLoaded",function(){
 		connect();
 	});
@@ -601,7 +613,9 @@
 			console.log('connected: '+frame);
 			
 			stompClient.subscribe('/topic/join',function(response){
+				
 				var joinInfo = JSON.parse(response.body);
+				console.log(joinInfo)
 				if(auctionProductNo == joinInfo.auctionProductNo){
 					$("#realTimeViewCount").text(joinInfo.realTimeViewCount);					
 				}
@@ -628,21 +642,34 @@
 	
 		$('#bidBtn').on('click',function(event){
 			
+			if($('#bidBtn').attr('disabled') == 'disabled'){
+				return;
+			}
+			
+			var currentPrice = $('#currentPrice').text();
 			var bidUnit = $('#bidUnit').val();
 			var bidPrice = $('#bidPrice').val();
-			if(bidPrice%bidUnit != 0){
-				$('.alert-danger').children('strong').text('입찰 단위를 확인해 주세요.');
-				$('.alert-danger').attr('hidden',false);
-			}else{
-				$('.alert-success').children('strong').text('입찰 성공하셨습니다.');
-				$('.alert-danger').attr('hidden',true);
-				$('.alert-success').attr('hidden',false);
-				console.log('sending');
+			if(currentPrice < bidPrice){
 				
-				stompClient.send('/app/bid',{},JSON.stringify({
-					auctionProductNo : auctionProductNo,
-					bidPrice : bidPrice
-				}));
+				if(bidPrice%bidUnit != 0){
+					$('.alert-danger').children('strong').text('입찰 단위를 확인해 주세요.');
+					$('.alert-danger').attr('hidden',false);
+				}else{
+					$('.alert-success').children('strong').text('입찰 성공하셨습니다.');
+					$('.alert-danger').attr('hidden',true);
+					$('.alert-success').attr('hidden',false);
+					console.log('sending');
+					
+					stompClient.send('/app/bid',{},JSON.stringify({
+						auctionProductNo : auctionProductNo,
+						bidPrice : bidPrice
+					}));
+				}
+				
+			}else{
+				$('.alert-danger').children('strong').text('현재 입찰가 보다 낮은 가격이 입력 되었습니다.');
+				$('.alert-success').attr('hidden',true);
+				$('.alert-danger').attr('hidden',false);
 			}
 			
 		});
@@ -669,6 +696,62 @@
 	        });
 	    }
 	}
+	
+	function remaindTime() {
+		var startTime = $('#auctionStartTime').text();
+		var endTime = $('#auctionEndTime').text();
+	    var now = new Date();
+	    var open = new Date(startTime);
+	    var end = new Date(endTime);
+	   
+	    var nt = now.getTime();
+	    var ot = open.getTime();
+	    var et = end.getTime();
+	    
+	  
+	   if(nt<ot){
+			 $('#bidBtn').attr('disabled',true);
+		     $(".time").fadeIn();
+		     $("div.time-title").html("경매 시작까지 남은 시간");
+		     sec =parseInt(ot - nt) / 1000;
+		     day  = parseInt(sec/60/60/24);
+		     sec = (sec - (day * 60 * 60 * 24));
+		     hour = parseInt(sec/60/60);
+		     sec = (sec - (hour*60*60));
+		     min = parseInt(sec/60);
+		     sec = parseInt(sec-(min*60));
+		     if(hour<10){hour="0"+hour;}
+		     if(min<10){min="0"+min;}
+		     if(sec<10){sec="0"+sec;}
+		     $(".hours").html(hour);
+		     $(".minutes").html(min);
+		     $(".seconds").html(sec);
+	   }else if(nt>et){
+		   
+		   	$('#bidBtn').attr('disabled',true);
+		   	
+	   		$("div.time-title").html("경매 마감");
+	    	$(".time").fadeOut();
+	   }else {
+		     $(".time").fadeIn();
+		     $("div.time-title").html("경매 마감까지 남은 시간");
+		     $('#bidBtn').attr('disabled',false);
+		     sec =parseInt(et - nt) / 1000;
+		     day  = parseInt(sec/60/60/24);
+		     sec = (sec - (day * 60 * 60 * 24));
+		     hour = parseInt(sec/60/60);
+		     sec = (sec - (hour*60*60));
+		     min = parseInt(sec/60);
+		     sec = parseInt(sec-(min*60));
+		     if(hour<10){hour="0"+hour;}
+		     if(min<10){min="0"+min;}
+		     if(sec<10){sec="0"+sec;}
+		     $(".hours").html(hour);
+		     $(".minutes").html(min);
+		     $(".seconds").html(sec);
+	   }
+	 }
+	 setInterval(remaindTime,1000);
 
 	
 	</script>
