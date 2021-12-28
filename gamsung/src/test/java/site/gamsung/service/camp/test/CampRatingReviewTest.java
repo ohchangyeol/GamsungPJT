@@ -54,9 +54,9 @@ public class CampRatingReviewTest {
 		
 		ratingReview.setUser(user);
 		ratingReview.setCamp(camp);
-		ratingReview.setRatingReviewStatus(1);
-//		ratingReview.setRatingReviewStatus(2);
-//		ratingReview.setRatingReviewTitle("test");
+//		ratingReview.setRatingReviewStatus(1);
+		ratingReview.setRatingReviewStatus(2);
+		ratingReview.setRatingReviewTitle("test");
 		ratingReview.setRatingReviewContent("testtest");
 		ratingReview.setStatusRating(4.5);
 		ratingReview.setImg1("imgTest");
@@ -85,4 +85,18 @@ public class CampRatingReviewTest {
 		System.out.println("콘솔 확인 : " + totalcount);
 	}
 	
+	//캠핑장 답글 등록(), 캠핑장 리뷰 내용수정(), 캠핑장 리뷰 & 답글 블라인드()
+	//@Test
+	public void testUpdateCampRatingReview() throws Exception{
+		
+		RatingReview ratingReview = new RatingReview();
+		ratingReview.setRatingReviewNo(11);
+//		ratingReview.setRatingReviewTitle("수정테스트제목333");
+//		ratingReview.setRatingReviewContent("수정테스트본문");
+//		ratingReview.setComment("답글 테스트");
+//		ratingReview.setReviewDeleteFlag("Y");
+		ratingReview.setCommentDeleteFlag("Y");
+		
+		ratingReviewService.updateRatingReview(ratingReview);
+	}
 }

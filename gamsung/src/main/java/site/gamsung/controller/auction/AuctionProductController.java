@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import site.gamsung.service.auction.AuctionProductService;
 import site.gamsung.service.common.Search;
+import site.gamsung.service.domain.AuctionInfo;
 import site.gamsung.service.domain.AuctionProduct;
 import site.gamsung.service.domain.User;
 
@@ -52,14 +53,17 @@ public class AuctionProductController {
 		//받은 상품 목록을 model에 담아 return한다.
 		model.addAttribute("list",list);
 	
-		return "forward:/view/auction/listAuctionProduct.jsp";
+		return "forward:/view/auction/listWaitAuctionProduct.jsp";
 		
 	}
 	
 	//상품 상세 조회 페이지 출력
 	@RequestMapping(value = "getAuctionProduct", method = RequestMethod.GET)
-	public String getAuctionProduct(String auctionProductNo, Model model) {
-			
+	public String getAuctionProduct(String auctionProductNo, Model model, HttpSession session) {
+		
+		//세션에서 유저 정보를 가져온다.
+		User user = (User)session.getAttribute("user");
+	
 		//조회수를 1증가 시키며, 상품 번호에 대한 상세정보를 받아온다.
 		AuctionProduct auctionProduct = auctionProductService.getAuctionProduct(auctionProductNo);
 			
@@ -71,8 +75,7 @@ public class AuctionProductController {
 	
 	//상품 상세 조회 페이지 출력
 	@RequestMapping(value = "getAuctionProduct", method = RequestMethod.POST)
-	public String getCrawlingAuctionProductNo(@ModelAttribute("auctionProduct") AuctionProduct auctionProduct, 
-											Model model) {
+	public String getCrawlingAuctionProductNo(@ModelAttribute("auctionProduct") AuctionProduct auctionProduct) {
 		
 		auctionProduct = auctionProductService.getCrawlingAuctionProductNo(auctionProduct);
 		

@@ -25,8 +25,12 @@ pageEncoding="UTF-8"%>
             <li><a href="index_op_fullscreen_gradient_overlay.html">Payment</a></li>
           </ul>
         </li>
-        <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Home</a>
+        <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Camping</a>
           <ul class="dropdown-menu">
+
+            <li><a href="/campGeneral/campSearch" >Camping Search</a></li>
+            <li><a href="/campGeneral/campDetailSearch" >Camping DetailSearch</a></li>
+
         
             <li><a href="index_mp_fullscreen_video_background.html">Default</a></li>
             <li><a href="index_op_fullscreen_gradient_overlay.html">One Page</a></li>
@@ -36,29 +40,16 @@ pageEncoding="UTF-8"%>
             <li><a href="index_finance.html">Finance</a></li>
             <li><a href="index_landing.html">Landing Page</a></li>
             <li><a href="index_photography.html">Photography</a></li>
-            <li><a href="index_shop.html">Shop</a></li>
+            <li><a href="/servicecenter/home">Í≥†Í∞ùÏÑºÌÑ∞</a></li>
+
           </ul>
         </li>
-        <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">¡ﬂ∞Ì ∞≈∑°</a>
+        <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Ï§ëÍ≥†ÏÉÅÌíà</a>
+
           <ul class="dropdown-menu">
-            <li class="dropdown"><a class="dropdown-toggle" href="/auction/listWaitAuctionProduct" data-toggle="dropdown">∞Ê∏≈ ¡¯«‡ ¿¸</a>
-              <ul class="dropdown-menu">
-                <li><a href="index_mp_fullscreen_static.html">Fulscreen</a></li>
-                <li><a href="index_mp_classic_static.html">Classic</a></li>
-              </ul>
-            </li>
-            <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Flexslider Header</a>
-              <ul class="dropdown-menu">
-                <li><a href="index_mp_fullscreen_flexslider.html">Fulscreen</a></li>
-                <li><a href="index_mp_classic_flexslider.html">Classic</a></li>
-              </ul>
-            </li>
-            <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Video Background Header</a>
-              <ul class="dropdown-menu">
-                <li><a href="index_mp_fullscreen_video_background.html">Fulscreen</a></li>
-                <li><a href="index_mp_classic_video_background.html">Classic</a></li>
-              </ul>
-            </li>
+            <li><a href="/auction/addAuctionProduct" >ÏÉÅÌíà Îì±Î°ù</a></li>
+            <li><a href="/auction/listWaitAuctionProduct" >Í≤ΩÎß§ ÏßÑÌñâ Ï†Ñ</a></li>
+            <li><a href="/auction/listAuctionProduct" >Í≤ΩÎß§ ÏßÑÌñâ Ï§ë</a></li>
             <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Text Rotator Header</a>
               <ul class="dropdown-menu">
                 <li><a href="index_mp_fullscreen_text_rotator.html">Fulscreen</a></li>
@@ -243,7 +234,7 @@ pageEncoding="UTF-8"%>
             <li><a href="typography.html"><i class="fa fa-font"></i> Typography</a></li>
           </ul>
         </li>
-        <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Shop</a>
+        <li class="dropdown"><a class="dropdown-toggle" href="/servicecenter/home" data-toggle="dropdown">Í≥†Í∞ùÏÑºÌÑ∞</a>
           <ul class="dropdown-menu" role="menu">
             <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Product</a>
               <ul class="dropdown-menu">
@@ -312,7 +303,7 @@ pageEncoding="UTF-8"%>
             <li><a href="documentation.html#changelog">Changelog</a></li>
           </ul>
         </li>
-      
+    
          <c:if test="${sessionScope.user.role!=null}">
 	      <li><a href="#"><button class="btn btn-border-w btn-round btn-xs" type="button" id="logout">LOGOUT</button></a></li>
 	    </c:if>
@@ -328,9 +319,9 @@ pageEncoding="UTF-8"%>
 </nav>
 
  <script type="text/javascript">
-    //============= logout Event  √≥∏Æ =============	
+    //============= logout Event  √≥ÔøΩÔøΩ =============	
 		 $(function() {
-			//==> DOM Object GET 3∞°¡ˆ πÊπ˝ ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+			//==> DOM Object GET 3ÔøΩÔøΩÔøΩÔøΩ ÔøΩÔøΩÔøΩ ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 		 	$("#logout").on("click" , function() {
 		 		//$(self.location).attr("href","/user/logout");
 				self.location = "/user/logout"

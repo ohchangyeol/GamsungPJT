@@ -85,7 +85,7 @@
 		INSERT INTO CAMP_RESERVATION (user_id, camp_no, mainsite_no, reservation_status, reservation_reg_date, reservation_user_name, 
 									  reservation_start_date, reservation_end_date, use_num, reservation_user_phone, reservation_reg_car_num, 
 									  reservation_request, total_payment_price, total_reservation_reg_car, payment_type) 
-		VALUES (#{user.id}, #{camp.campNo}, #{mainSite.mainSiteNo}, #{reservationStatus}, #{reservationRegDate}, #{reservationUserName}, 
+		VALUES (#{user.id}, #{camp.campNo}, #{mainSite.mainSiteNo}, #{reservationStatus}, NOW(), #{reservationUserName}, 
 				#{reservationStartDate}, #{reservationEndDate}, #{useNum}, #{reservationUserPhone}, #{reservationRegCarNum:VARCHAR}, 
 				#{reservationRequest:VARCHAR}, #{totalPaymentPrice}, #{totalReservationRegCar:NUMERIC}, #{paymentType});
 	</insert>
@@ -134,7 +134,7 @@
 		WHERE camp_no = #{camp.campNo} AND mainsite_no = #{mainSite.mainSiteNo}
 	</update>
 	
-	<update id="updateCampReservation" parameterType="int">
+	<update id="updateCampReservationCount" parameterType="int">
 		UPDATE Camp
 		SET camp_reservation_count = camp_reservation_count+1 
 		WHERE camp_no = #{value}
@@ -144,7 +144,7 @@
 		SELECT DISTINCT r.reservation_no, u.camp_name, m.mainsite_type, r.reservation_status, r.reservation_reg_date, r.reservation_start_date, 
 			  			r.reservation_end_date, r.total_payment_price, r.camp_no, r.reservation_user_name, r.reservation_user_phone, r.use_num
 		FROM CAMP_RESERVATION r, MAINSITE m, CAMP c, USERS u
-		WHERE r.camp_no = m.camp_no AND m.camp_no = c.camp_no AND c.user_id = u.user_id
+		WHERE c.user_id = u.user_id AND c.camp_no = r.camp_no AND r.mainsite_no = m.mainsite_no
 		<if test="id != null">
 			AND r.user_id = #{id}
 		</if>
@@ -181,15 +181,17 @@
                </if>
             </if>
          </trim>
-		LIMIT #{search.pageSize} OFFSET #{search.offset}
+         <if test="search.pageSize != null and search.offset">
+		 LIMIT #{search.pageSize} OFFSET #{search.offset}
+		 </if>
 	</select>
 	
 	<select  id="getTotalCount"  parameterType="map"	 resultType="int">
 		SELECT COUNT(*)
 	  	FROM(SELECT DISTINCT r.reservation_no, u.camp_name, m.mainsite_type, r.reservation_status, r.reservation_reg_date, r.reservation_start_date, 
-			 	    		 r.reservation_end_date, r.total_payment_price, r.camp_no, r.reservation_user_name, r.reservation_user_phone, r.use_num
+			  				 r.reservation_end_date, r.total_payment_price, r.camp_no, r.reservation_user_name, r.reservation_user_phone, r.use_num
 			 FROM CAMP_RESERVATION r, MAINSITE m, CAMP c, USERS u
-			 WHERE r.camp_no = m.camp_no AND m.camp_no = c.camp_no AND c.user_id = u.user_id
+			 WHERE c.user_id = u.user_id AND c.camp_no = r.camp_no AND r.mainsite_no = m.mainsite_no
 			 <if test="id != null">
 				AND r.user_id = #{id}
 			 </if>
@@ -369,6 +371,12 @@
 					AND u.camp_name LIKE CONCAT('%',#{searchKeyword},'%')
 				</if>
 			  GROUP BY DATE, u.user_id) countTable
+	</select>
+	
+	<select id="sendMessageInfo" resultType="reservationStatisticsSelectMap">
+		SELECT u.camp_name, m.mainsite_type, r.reservation_user_name, r.reservation_user_phone, r.reservation_start_date, r.reservation_end_date, r.reservation_reg_date
+		FROM CAMP c , CAMP_RESERVATION r, USERS u, MAINSITE m 
+		WHERE c.camp_no = r.camp_no and c.user_id = u.user_id and r.mainsite_no = m.mainsite_no and r.reservation_start_date-1 =  date(now())
 	</select>
 	
 </mapper>

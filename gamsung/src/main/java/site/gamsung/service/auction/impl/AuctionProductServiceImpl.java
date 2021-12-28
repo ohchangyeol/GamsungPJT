@@ -8,6 +8,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Propagation;
@@ -56,26 +57,44 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 	public AuctionProduct getCrawlingAuctionProductNo(AuctionProduct auctionProduct) {
 		// TODO Auto-generated method stub
 		
+		//저장된 서브 정보를 가지고 있는 상품이 있는지 확인 
 		String existNo = auctionProductDAO.getCrawlingAuctionProductNo(auctionProduct.getAuctionProductSubDatail());
 		
+		//있다면 해당 데이터를 반환한다.
 		if(existNo != null) {
 			return auctionProductDAO.getAuctionProduct(existNo);
 		}
 		
+		//없다면 상세 정보에 해당하는 서브 정보를 크롤링하여 객체를 반환 받는다.
 		auctionProduct = crawlingData.crawling(auctionProduct);
 		
-		auctionProduct.setBidableGrade(2);
+		//입찰 가능 등급을 1~10사이의 무작위 숫자를 적용한다.
+		int bidableGrade = (int) (Math.random()*9) + 1;
+		auctionProduct.setBidableGrade(bidableGrade);
+		
+		//받은 모든 해시태그를 공백
 		String allhashtag = auctionProduct.getAllhashtag();
-		String [] hashtags = allhashtag.split(" ");
-		auctionProduct.setHashtag1(hashtags[0]);
-		auctionProduct.setHashtag1(hashtags[1]);
-		auctionProduct.setHashtag1(hashtags[2]);
+		String [] hashtags = allhashtag.split("#");
 		
+		//#기준으로 파싱하여 해시태그 재정의
+		if(hashtags.length == 2) {
+			auctionProduct.setHashtag1("#"+hashtags[1].trim());			
+		}else if(hashtags.length <=3) {
+			auctionProduct.setHashtag1("#"+hashtags[1].trim());	
+			auctionProduct.setHashtag1("#"+hashtags[2].trim());			
+		}else if(hashtags.length > 3) {
+			auctionProduct.setHashtag1("#"+hashtags[1].trim());	
+			auctionProduct.setHashtag1("#"+hashtags[2].trim());	
+			auctionProduct.setHashtag1("#"+hashtags[3].trim());			
+		}
 		
+		//데이터를 저장한다. 등록자는 관리자가 Default이다.
 		auctionProductDAO.addCrawlingAuctionProduct(auctionProduct);
 		
+		//저장한 크롤링 데이터의 상품 번호를 가져온다.
 		String auctionProductNo = auctionProductDAO.getCrawlingAuctionProductNo(auctionProduct.getAuctionProductSubDatail());
 		
+		//조회수를 1 증가 시킨다.
 		auctionProductDAO.updateAuctionProductViewCounter(auctionProductNo);
 		
 		
@@ -85,7 +104,7 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 	@Override
 	public List<AuctionProduct> listAuctionProduct(Search search) {
 		// TODO Auto-generated method stub
-		return null;
+		return auctionProductDAO.listAuctionProduct(search);
 	}
 
 	@Override
@@ -142,6 +161,7 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 			}
 			
 			String remainTime = auctionProduct.getRemainAuctionTime();
+			System.out.println(remainTime);
 			System.out.println(remainTime.indexOf("-"));
 			if(remainTime != null && remainTime.indexOf("-") == -1) {
 				
@@ -174,9 +194,30 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 	
 	//경매 상태 업데이트
 	@Override
-	public void updateAuctionProductCondition(AuctionInfo auctionInfo) {
+	@Scheduled(cron = "*/1 * * * * *")
+	public void updateAuctionProductCondition() {
 		// TODO Auto-generated method stub
-		auctionProductDAO.updateAuctionProductCondition(auctionInfo);
+		
+		SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+		AuctionInfo auctionInfo = new AuctionInfo();
+		auctionInfo.setAuctionStatus("WAIT");
+		List<AuctionProduct> list = auctionProductDAO.listAuctionProduct(new Search());
+		for(AuctionProduct auctionProduct : list) {
+		
+			String auctionProductNo = auctionProduct.getAuctionProductNo();
+			
+			auctionProduct = auctionProductDAO.getAuctionProduct(auctionProductNo);
+			
+			try {
+				boolean isEnd = dateFormat.parse(auctionProduct.getRemainAuctionTime()).before(dateFormat.parse("00:00:00"));
+				if(isEnd) {
+					auctionProductDAO.updateAuctionProductCondition(auctionProduct);
+				}
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 
 	//메인에 상품 등록

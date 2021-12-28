@@ -3,64 +3,60 @@ package site.gamsung.service.transfer.impl;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 
 import site.gamsung.service.domain.Receive;
 import site.gamsung.service.domain.Transfer;
 import site.gamsung.service.transfer.ReceiveDAO;
-import site.gamsung.service.transfer.ReceiveService;
-import site.gamsung.service.transfer.TransferDAO;
 
-@Service("receiveServiceImpl") 
-public class ReceiveServiceImpl implements ReceiveService {
-
+@Repository("receiveDAOImpl")
+public class ReceiveDAOImpl implements ReceiveDAO {
 	
-
-	 @Autowired
-	 @Qualifier("receiveDAOImpl") //@Repository("transferDAOImpl")을 호출.
-	 private ReceiveDAO receiveDAO; // <-여기에 ↑ 대입 
-	 
-	  public void setReceiveDAO(ReceiveDAO receiveDAO) { 
-	  this.receiveDAO = receiveDAO; 
-	 }
-	  
-	public ReceiveServiceImpl() {
+	@Autowired
+	@Qualifier("sqlSessionTemplate")
+	private SqlSession sqlSession;
+	public void setSqlSession(SqlSession sqlSession) {
+		System.out.println("sqlSessions"+sqlSession);
+		this.sqlSession = sqlSession;
+	}	
+	
+	public ReceiveDAOImpl() {
 		System.out.println(this.getClass());
 	}
 
 	@Override
 	public int addReceive(Receive receive) throws Exception {
-		return receiveDAO.addReceive(receive);
+		return sqlSession.insert("ReceiveMapper.addReceive", receive);
 	}
 
 	@Override
 	public List<Transfer> listReceive(HashMap<String, Object> map) throws Exception {
-		
-		List<Transfer> list = receiveDAO.listReceive(map);
-		
-		return list;
+		return sqlSession.selectList("ReceiveMapper.listReceive", map);
 	}
 
 	@Override
 	public Transfer getReceive(int receiveNo) throws Exception {
-		return receiveDAO.getReceive(receiveNo);
+		return sqlSession.selectOne("ReceiveMapper.getReceive", receiveNo);
 	}
 
 	@Override
 	public int updateReceive(Receive receive) throws Exception {
-		return receiveDAO.updateReceive(receive);
+		return sqlSession.update("ReceiveMapper.updateReceive", receive);	
 	}
 
 	@Override
 	public int deleteReceive(int receiveNo) throws Exception {
-		return receiveDAO.deleteReceive(receiveNo);
+		return sqlSession.update("ReceiveMapper.deleteReceive", receiveNo);
 	}
 
 	@Override
 	public int blindReceive(int receiveNo) throws Exception {
-		return receiveDAO.blindReceive(receiveNo);
+		return sqlSession.update("ReceiveMapper.blindReceive", receiveNo);
 	}
 
-} 
+	
+	
+}

@@ -4,13 +4,13 @@ public class PostConcern {
 
 
 private int countNo;
-private String concernFlag;
+private String deleteFlag ;
 private User userId;
 private Post postNo;
 
 
 	public PostConcern() {
-		// TODO Auto-generated constructor stub
+
 	}
 
 
@@ -23,15 +23,6 @@ private Post postNo;
 		this.countNo = countNo;
 	}
 
-
-	public String getConcernFlag() {
-		return concernFlag;
-	}
-
-
-	public void setConcernFlag(String concernFlag) {
-		this.concernFlag = concernFlag;
-	}
 
 
 	public User getUserId() {
@@ -51,6 +42,16 @@ private Post postNo;
 
 	public void setPostNo(Post postNo) {
 		this.postNo = postNo;
+	}
+
+
+	public String getDeleteFlag() {
+		return deleteFlag;
+	}
+
+
+	public void setDeleteFlag(String deleteFlag) {
+		this.deleteFlag = deleteFlag;
 	}
 
 }

@@ -146,7 +146,7 @@ public class AuctionProductServiceTest {
 		auctionBidInfo.setAuctionProductNo("PROD00001");
 		auctionBidInfo.setAuctionStatus("WITHDRAWAL");
 		
-		auctionProductService.updateAuctionProductCondition(auctionBidInfo);
+		auctionProductService.updateAuctionProductCondition();
 		
 	}
 	

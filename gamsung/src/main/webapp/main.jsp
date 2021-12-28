@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html lang="en-US" dir="ltr">
@@ -62,15 +63,11 @@ pageEncoding="UTF-8"%>
         <div class="loader">Loading...</div>
       </div>
       <!-- header -->
-      <jsp:include page="./view/common/header.jsp"/>
+      <jsp:include page="/view/common/header.jsp"/>
       <!-- header End -->
-      <section class="bg-dark-30 showcase-page-header module parallax-bg" data-background="resources/images/showcase_bg.jpg">
-        <div class="titan-caption">
-          <div class="caption-content">
-            <div class="font-alt mb-30 titan-title-size-1">Powerful. Multipurpose.</div>
-            <div class="font-alt mb-40 titan-title-size-4">😊보노보노야?😊</div><a class="section-scroll btn btn-border-w btn-round" href="#demos">See Demos</a>
-          </div>
-        </div>
+      <!-- Search -->
+      <jsp:include page="/view/camp/campSearch.jsp"/>
+      <!-- Search End -->
       </section>
       <div class="main showcase-page">
         <section class="module-extra-small bg-dark">
