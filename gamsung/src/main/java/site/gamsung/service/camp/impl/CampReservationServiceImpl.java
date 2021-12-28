@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import site.gamsung.service.camp.CampReservationService;
@@ -17,6 +18,7 @@ import site.gamsung.service.domain.MainSite;
 import site.gamsung.service.domain.Payment;
 import site.gamsung.service.domain.ReservationStatistics;
 import site.gamsung.service.payment.PaymentDAO;
+import site.gamsung.util.user.SendMessage;
 
 @Service("campReservationServiceImpl")
 public class CampReservationServiceImpl implements CampReservationService {
@@ -196,14 +198,34 @@ public class CampReservationServiceImpl implements CampReservationService {
 	}
 
 	@Override
+	@Scheduled(cron="0 0 12 * * *")
 	public void sendMessage() {
 		
 		List<CampReservation> list = campReservationDAO.sendMessageInfo();
+		SendMessage sendmessage = new SendMessage();
 		
-		System.out.println(list);
+		for (int i = 0; i < list.size(); i++) {
+			
+			String text = "안녕하세요.\n"+
+						  "감성캠핑 사이트 입니다.\n"+
+						  list.get(i).getReservationUserName()+"님은\n"+
+						  list.get(i).getUser().getCampName()+"캠핑장에\n"+
+						  list.get(i).getReservationStartDate()+" 부터 "+
+						  list.get(i).getReservationEndDate()+" 까지 예약되어 있습니다.\n"+
+						  "이용에 참고 하시기 바랍니다.";
+			
+			sendmessage.sendMessage(list.get(i).getReservationUserPhone(), text);
+		}		
+	}
+
+	@Override
+	@Scheduled(cron="0 0 16 * * *")
+	public void reservationCompleteUse() {
+		
+		CampReservation campReservation = new CampReservation();
+		campReservation.setReservationStatus(7);
+		campReservationDAO.updateReservation(campReservation);
 		
 	}
 	
-	
-
 }
