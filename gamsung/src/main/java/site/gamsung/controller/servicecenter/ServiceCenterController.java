@@ -12,9 +12,14 @@ public class ServiceCenterController {
 		System.out.println("@Controller :: " + this.getClass());
 	}
 	
+	@RequestMapping(value = "home")
+	public String serviceCenterHome() {
+		return "redirect:/view/servicecenter/serviceCeneterHome.jsp";
+	}
+	
 	@RequestMapping(value = "notice", method = RequestMethod.GET)
 	public void addNotice() {
 		
-
 	}
+	
 }
