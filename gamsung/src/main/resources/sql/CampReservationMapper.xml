@@ -85,7 +85,7 @@
 		INSERT INTO CAMP_RESERVATION (user_id, camp_no, mainsite_no, reservation_status, reservation_reg_date, reservation_user_name, 
 									  reservation_start_date, reservation_end_date, use_num, reservation_user_phone, reservation_reg_car_num, 
 									  reservation_request, total_payment_price, total_reservation_reg_car, payment_type) 
-		VALUES (#{user.id}, #{camp.campNo}, #{mainSite.mainSiteNo}, #{reservationStatus}, #{reservationRegDate}, #{reservationUserName}, 
+		VALUES (#{user.id}, #{camp.campNo}, #{mainSite.mainSiteNo}, #{reservationStatus}, NOW(), #{reservationUserName}, 
 				#{reservationStartDate}, #{reservationEndDate}, #{useNum}, #{reservationUserPhone}, #{reservationRegCarNum:VARCHAR}, 
 				#{reservationRequest:VARCHAR}, #{totalPaymentPrice}, #{totalReservationRegCar:NUMERIC}, #{paymentType});
 	</insert>
@@ -134,6 +134,12 @@
 		WHERE camp_no = #{camp.campNo} AND mainsite_no = #{mainSite.mainSiteNo}
 	</update>
 	
+	<update id="updateCampReservationCount" parameterType="int">
+		UPDATE Camp
+		SET camp_reservation_count = camp_reservation_count+1 
+		WHERE camp_no = #{value}
+	</update>
+	
 	<select id="listReservation" parameterType="map" resultMap="CampReservationSelectMap">
 		SELECT DISTINCT r.reservation_no, u.camp_name, m.mainsite_type, r.reservation_status, r.reservation_reg_date, r.reservation_start_date, 
 			  			r.reservation_end_date, r.total_payment_price, r.camp_no, r.reservation_user_name, r.reservation_user_phone, r.use_num
@@ -175,7 +181,9 @@
                </if>
             </if>
          </trim>
-		LIMIT #{search.pageSize} OFFSET #{search.offset}
+         <if test="search != null">
+		 LIMIT #{search.pageSize} OFFSET #{search.offset}
+		 </if>
 	</select>
 	
 	<select  id="getTotalCount"  parameterType="map"	 resultType="int">

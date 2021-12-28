@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="NoticeMapper">
+
+	<resultMap id="noticeDomain" type="notice">
+		<result property="noticeNo"      column="notice_no" 	 jdbcType="NUMERIC"/>
+		<result property="writer.id"     column="user_id" 		 jdbcType="VARCHAR"/>
+		<result property="deleteFlag"    column="delete_flag" 	 jdbcType="CHAR"/>
+		<result property="noticeTitle"   column="notice_title"   jdbcType="VARCHAR"/>
+		<result property="noticeContent" column="notice_content" jdbcType="VARCHAR"/>
+		<result property="viewCount"     column="view_count" 	 jdbcType="NUMERIC"/>
+		<result property="regDate" 		 column="reg_date" 	     jdbcType="VARCHAR"/>
+		<result property="campNo" 		 column="camp_no" 	     jdbcType="NUMERIC"/>
+		<result property="campName" 	 column="camp_name" 	 jdbcType="VARCHAR"/>
+		<result property="noticeFile1" 	 column="notice_file1" 	 jdbcType="VARCHAR"/>
+		<result property="noticeFile2" 	 column="notice_file1" 	 jdbcType="VARCHAR"/>
+		<result property="noticeFile3" 	 column="notice_file1" 	 jdbcType="VARCHAR"/>
+		
+		<association property="writer" javaType="user">
+		      <id property="id"						       column="user_id"                    jdbcType="VARCHAR"/>
+		      <result property="role"  					   column="role"                       jdbcType="VARCHAR" />
+		      <result property="nickName"                  column="nick_name"                  jdbcType="VARCHAR" />
+		      <result property="password"                  column="password"                   jdbcType="VARCHAR" />
+		      <result property="name"                      column="name"                       jdbcType="VARCHAR" />
+		      <result property="phone"                     column="phone"                      jdbcType="VARCHAR" />
+		      <result property="addr"                      column="addr"                       jdbcType="VARCHAR" />
+		      <result property="addUserRegDate"            column="entry_reg_date"             jdbcType="DATE"  />
+		      <result property="bank"                      column="bank"                       jdbcType="VARCHAR" />
+		      <result property="accountHolder"             column="account_holder"             jdbcType="VARCHAR" />
+		      <result property="accountNum"                column="account_num"                jdbcType="VARCHAR" />
+		      <result property="havingPoint"               column="having_point"               jdbcType="NUMERIC" />
+		      <result property="campName"                  column="camp_name"                  jdbcType="VARCHAR" />
+		      <result property="campCall" 				   column="camp_call"                  jdbcType="VARCHAR" />
+		      <result property="businessUserApprovalFlag"  column="entry_approval_flag"        jdbcType="CHAR" />
+		      <result property="countCancelReceive" 	   column="receive_cancel_total_count" jdbcType="NUMERIC" />
+		      <result property="receiveProhibitionEndDate" column="receive_ban_end_date"       jdbcType="DATE" />
+		      <result property="dormantConversionDate"     column="dormant_reg_date"           jdbcType="DATE" />
+		      <result property="secessionRegDate"          column="secession_reg_date"         jdbcType="DATE" />
+		      <result property="suspensionDate"            column="suspension_reg_date"        jdbcType="DATE" />
+		      <result property="tourismBusinessNum"        column="tourism_business_num"       jdbcType="VARCHAR" />
+		      <result property="suspensionContent"         column="suspension_content"         jdbcType="VARCHAR" />
+		      <result property="auctionGrade"              column="auction_grade"              jdbcType="SMALLINT" />
+		</association>
+	</resultMap>
+	
+	<!-- 공지사항 등록 -->
+	<insert id="addNotice" parameterType="notice">
+		INSERT INTO NOTICE (user_id, notice_title, notice_content, notice_file1, notice_file2,notice_file3, camp_no, camp_name)
+		VALUE (#{writer.id}, #{noticeTitle:VARCHAR}, #{noticeContent:VARCHAR}, #{noticeFile1:VARCHAR},#{noticeFile2:VARCHAR},#{noticeFile3:VARCHAR},#{campNo:NUMERIC},#{campName:VARCHAR})
+	</insert>
+	
+	<!-- 공지사항 상세조회 -->
+	<select id="getNotice"	parameterType="_int" resultMap="noticeDomain">
+		SELECT * 
+		FROM NOTICE AS n JOIN USERS AS u
+		ON n.user_id = u.user_id 
+		WHERE n.notice_no = #{value};
+	</select>
+	
+	<!-- 조회수 증가 -->
+	<update id="viewCount" parameterType="_int">
+		UPDATE NOTICE
+		<set>
+			view_count = view_count + 1
+		</set>
+		WHERE notice_no = #{value}
+	</update>
+	
+	<!-- 공지사항 목록 조회 -->
+	<select id="listNotice"	parameterType="search" resultMap="noticeDomain">
+		SELECT 	n.notice_no, n.user_id, n.delete_flag, n.notice_title, n.notice_content, n.view_count, n.reg_date, n.camp_no, n.camp_name, n.notice_file1, n.notice_file2, n.notice_file3,
+						u.role, u.nick_name, u.password, u.name, u.addr, u.phone, u.entry_reg_date, u.bank, u.account_holder, u.account_num, u.having_point, u.camp_call, u.entry_approval_flag, u.receive_cancel_total_count, u.receive_ban_end_date, u.dormant_reg_date, u.secession_reg_date, u.suspension_reg_date, u.tourism_business_num, u.suspension_content, u.auction_grade
+		FROM NOTICE n JOIN USERS u
+		ON n.user_id = u.user_id 
+		WHERE n.delete_flag = 'N'
+		<trim prefix="AND">
+			<choose>
+				<when test = "campNo != null and campNo != 0 ">
+					n.camp_no = #{campNo}
+				</when>
+				<otherwise>
+					n.camp_no IS NULL
+				</otherwise>
+			</choose>
+		</trim>
+		<if test="searchCondition != null">
+			<trim prefix="AND">
+				<if test="searchKeyword !='' and searchKeyword != null"> 
+					<!-- 제목 + 내용 -->
+					<if test="searchCondition == 0">
+						MATCH (notice_title,notice_content) AGAINST (concat_ws(#{searchKeyword},'*','*') in boolean mode)
+					</if>
+					<!-- 제목 -->
+					<if test="searchCondition == 1">
+						MATCH (notice_title) AGAINST (concat_ws(#{searchKeyword},'*','*') in boolean mode) 
+					</if>
+					<!-- 내용 -->
+					<if test="searchCondition == 2">
+						MATCH (notice_content) AGAINST (concat_ws(#{searchKeyword},'*','*') in boolean mode) 
+					</if>
+				</if>
+			</trim>
+		</if>
+		ORDER BY n.reg_date
+		LIMIT #{offset} , #{pageSize}
+	</select>
+	
+	<!-- 공지사항 수정 -->
+	<update id="updateNotice" parameterType="notice">
+		UPDATE NOTICE
+		<set>
+			notice_title=#{noticeTitle},
+			notice_content=#{noticeContent}, 
+		    notice_file1=#{noticeFile1:VARCHAR}, 
+		    notice_file2=#{noticeFile2:VARCHAR},
+		    notice_file3=#{noticeFile3:VARCHAR}
+		</set>
+		WHERE notice_no = #{noticeNo}
+	</update>
+	
+	<!-- 공지사항 수정 -->
+	<update id="deleteNotice" parameterType="_int">
+		UPDATE NOTICE 
+		SET delete_flag = 'Y'
+		WHERE notice_no = #{value};
+	</update>
+	
+	<!-- 공지사항 목록 개수 -->
+	<select  id="getTotalCount"  parameterType="search"	 resultType="int">
+	  	SELECT COUNT(*)
+	  	FROM(	SELECT 	n.notice_no, n.user_id, n.delete_flag, n.notice_title, n.notice_content, n.view_count, n.reg_date, n.camp_no, n.camp_name, n.notice_file1, n.notice_file2, n.notice_file3,
+								u.role, u.nick_name, u.password, u.name, u.addr, u.phone, u.entry_reg_date, u.bank, u.account_holder, u.account_num, u.having_point, u.camp_call, u.entry_approval_flag, u.receive_cancel_total_count, u.receive_ban_end_date, u.dormant_reg_date, u.secession_reg_date, u.suspension_reg_date, u.tourism_business_num, u.suspension_content, u.auction_grade
+				FROM NOTICE n JOIN USERS u
+				ON n.user_id = u.user_id 
+				WHERE n.delete_flag = 'N'
+				<trim prefix="AND">
+					<choose>
+						<when test = "campNo != null and campNo != 0 ">
+							n.camp_no = #{campNo}
+						</when>
+						<otherwise>
+							n.camp_no IS NULL
+						</otherwise>
+					</choose>
+				</trim>
+				<if test="searchCondition != null">
+					<trim prefix="AND">
+						<if test="searchKeyword !='' and searchKeyword != null"> 
+							<!-- 제목 + 내용 -->
+							<if test="searchCondition == 0">
+								MATCH (notice_title,notice_content) AGAINST (concat_ws(#{searchKeyword},'*','*') in boolean mode)
+							</if>
+							<!-- 제목 -->
+							<if test="searchCondition == 1">
+								MATCH (notice_title) AGAINST (concat_ws(#{searchKeyword},'*','*') in boolean mode) 
+							</if>
+							<!-- 내용 -->
+							<if test="searchCondition == 2">
+								MATCH (notice_content) AGAINST (concat_ws(#{searchKeyword},'*','*') in boolean mode) 
+							</if>
+						</if>
+					</trim>
+				</if>
+				ORDER BY n.reg_date) countTable						
+	 </select>
+</mapper>

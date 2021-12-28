@@ -84,6 +84,10 @@ public class CommunityServiceImpl implements CommunityService {
 		return communityDAO.blindComment(CommentNo);
 	}
 	
+	
+	
+	
+	
 	public int updateConcern(int postNo, String userId, String concernType) throws Exception {
 			HashMap<String,Object> map = new HashMap<String,Object>();
 		

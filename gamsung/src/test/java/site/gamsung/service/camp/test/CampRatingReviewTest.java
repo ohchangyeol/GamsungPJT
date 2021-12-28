@@ -13,7 +13,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import site.gamsung.service.common.RatingReviewService;
 import site.gamsung.service.common.Search;
+import site.gamsung.service.domain.Camp;
 import site.gamsung.service.domain.RatingReview;
+import site.gamsung.service.domain.User;
 
 
 /*
@@ -34,11 +36,34 @@ import site.gamsung.service.domain.RatingReview;
 public class CampRatingReviewTest {
 
 	@Autowired
-	@Qualifier("ratingReviewServiceImpl")
+	@Qualifier("campRatingReviewServiceImpl")
 	private RatingReviewService ratingReviewService;
 	
 	@Value("#{commonProperties['campPageSize']}")
 	int campPageSize;
+	
+	//캠핑장 리뷰 등록(O), 캠핑장 평점 리스트 가져와서 평균평점 계산 후 캠핑장 평균평점 등록(O)
+	//@Test
+	public void testAddRatingReview() throws Exception{
+
+		RatingReview ratingReview = new RatingReview();
+		User user = new User();
+		user.setId("user1@gamsung.com");
+		Camp camp = new Camp();
+		camp.setCampNo(10000);
+		
+		ratingReview.setUser(user);
+		ratingReview.setCamp(camp);
+//		ratingReview.setRatingReviewStatus(1);
+		ratingReview.setRatingReviewStatus(2);
+		ratingReview.setRatingReviewTitle("test");
+		ratingReview.setRatingReviewContent("testtest");
+		ratingReview.setStatusRating(4.5);
+		ratingReview.setImg1("imgTest");
+		
+		ratingReviewService.addRatingReview(ratingReview);
+				
+	}
 	
 	//캠핑장 별 리뷰 목록(o)
 	//@Test
@@ -60,4 +85,18 @@ public class CampRatingReviewTest {
 		System.out.println("콘솔 확인 : " + totalcount);
 	}
 	
+	//캠핑장 답글 등록(), 캠핑장 리뷰 내용수정(), 캠핑장 리뷰 & 답글 블라인드()
+	//@Test
+	public void testUpdateCampRatingReview() throws Exception{
+		
+		RatingReview ratingReview = new RatingReview();
+		ratingReview.setRatingReviewNo(11);
+//		ratingReview.setRatingReviewTitle("수정테스트제목333");
+//		ratingReview.setRatingReviewContent("수정테스트본문");
+//		ratingReview.setComment("답글 테스트");
+//		ratingReview.setReviewDeleteFlag("Y");
+		ratingReview.setCommentDeleteFlag("Y");
+		
+		ratingReviewService.updateRatingReview(ratingReview);
+	}
 }

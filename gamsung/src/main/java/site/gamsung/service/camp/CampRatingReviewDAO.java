@@ -11,4 +11,12 @@ public interface CampRatingReviewDAO {
 	
 	public int getTotalCount(Map<String, Object> map) throws Exception;
 	
+	public int addCampRatingReview(RatingReview ratingReview) throws Exception;
+	
+	public List<Double> getCampRating(int campNo) throws Exception;
+	
+	public int updateCampAvgRating (Map<String, Object> map) throws Exception;
+	
+	public int updateCampRatingReview (RatingReview ratingReview) throws Exception;
+	
 }

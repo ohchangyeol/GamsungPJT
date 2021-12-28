@@ -94,7 +94,6 @@ public class CommunityDAOImpl implements CommunityDAO {
 		return sqlSession.update("CommunityMapper.blindComment", CommentNo);
 	}
 
-
 	public int updateConcern(Map<String,Object> Map) throws Exception {
 		
 		String concernType = (String) Map.get("concernType");// 동작 insert / delete
@@ -106,7 +105,6 @@ public class CommunityDAOImpl implements CommunityDAO {
 		}
 		
 	}
-
 
 	@Override
 	public PostConcern Concernflag(PostConcern postConcern) throws Exception {

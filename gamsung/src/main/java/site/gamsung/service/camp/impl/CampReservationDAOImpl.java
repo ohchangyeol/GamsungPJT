@@ -45,6 +45,11 @@ public class CampReservationDAOImpl implements CampReservationDAO {
 	}
 
 	@Override
+	public int updateCampReservationCount(int campNo) throws Exception {
+		return sqlSession.update("CampReservationMapper.updateCampReservationCount", campNo);
+	}
+
+	@Override
 	public boolean isSecessionUserReservationCondition(String id) throws Exception {
 		
 		List<CampReservation> list= sqlSession.selectList("CampReservationMapper.getReservationStatus", id);

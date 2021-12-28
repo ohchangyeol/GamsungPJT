@@ -93,6 +93,7 @@ public class QnaServiceTest {
 		search.setCurrentPage(1); 
 		search.setPageSize(pageSize);
 		 
+		search.setId("user5@gamsung.com");
 		//제목 + 내용 검색
 //		search.setSearchCondition("0");
 //		search.setSearchKeyword("내용");

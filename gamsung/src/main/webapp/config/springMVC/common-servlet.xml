@@ -2,8 +2,8 @@
 
 <beans 	xmlns="http://www.springframework.org/schema/beans"
 		xmlns:context="http://www.springframework.org/schema/context"
-		xmlns:mvc="http://www.springframework.org/schema/mvc"
 		xmlns:websocket="http://www.springframework.org/schema/websocket"
+		xmlns:mvc="http://www.springframework.org/schema/mvc"
 		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		xsi:schemaLocation=
 				"http://www.springframework.org/schema/beans 
@@ -16,7 +16,7 @@
 				http://www.springframework.org/schema/mvc/spring-mvc.xsd
 				
 				http://www.springframework.org/schema/websocket
-				http://www.springframework.org/schema/websocket/spring-websocket-4.3.xsd">
+       			http://www.springframework.org/schema/websocket/spring-websocket.xsd">
     
    <!-- :: 공통적인 사항을 설정한 common-servlet.xml 사용. -->
        
@@ -109,5 +109,11 @@
     	<property name="defaultEncoding" value="utf-8" />
 	</bean>
 	
-</beans>
+	<websocket:message-broker application-destination-prefix="/app">
+       <websocket:stomp-endpoint path="/realtime">
+            <websocket:sockjs/>
+       </websocket:stomp-endpoint>
+       <websocket:simple-broker prefix="/queue, /topic"/>
+	</websocket:message-broker>
 
+</beans>

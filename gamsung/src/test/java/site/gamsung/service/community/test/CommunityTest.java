@@ -101,7 +101,7 @@ public class CommunityTest {
 
 	}
 
-	 @Test
+	@Test
 	public void testListPost() throws Exception {
 
 		HashMap<String, Object> map = new HashMap<String, Object>();

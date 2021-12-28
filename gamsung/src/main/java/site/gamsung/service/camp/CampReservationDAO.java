@@ -16,6 +16,8 @@ public interface CampReservationDAO {
 	
 	public int updateMainSiteReservation(CampReservation campReservation) throws Exception;
 	
+	public int updateCampReservationCount(int campNo) throws Exception;
+	
 	public boolean isSecessionUserReservationCondition(String id) throws Exception;
 	
 	public List<CampReservation> listReservation(Map<String, Object> map) throws Exception;

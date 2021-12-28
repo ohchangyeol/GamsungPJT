@@ -23,7 +23,7 @@ public class AuctionReviewDAOImpl implements RatingReviewService{
 	}
 
 	@Override
-	public void updateRatingReview(int ratingReviewNo) throws Exception {
+	public void updateRatingReview(RatingReview ratingReview) throws Exception {
 			
 	}
 

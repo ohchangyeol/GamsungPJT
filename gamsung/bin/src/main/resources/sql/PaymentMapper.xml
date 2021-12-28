@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="PaymentMapper"> 	
+ 	
+	<resultMap id="paymentSelectMap" type="payment">
+		<result property="paymentNo" 						column="payment_no" 		  				jdbcType="VARCHAR"/>
+		<result property="paymentSender"					column="payment_sender" 		  			jdbcType="VARCHAR"/>
+		<result property="paymentReceiver" 					column="payment_receiver" 	  				jdbcType="VARCHAR"/>
+		<result property="paymentMethod" 					column="payment_method"  					jdbcType="NUMERIC"/>
+		<result property="paymentRegTime" 					column="payment_reg_time" 				  	jdbcType="VARCHAR"/>
+		<result property="paymentCode" 						column="payment_code" 	  					jdbcType="VARCHAR"/>
+		<result property="paymentPriceTotal" 				column="payment_price_total" 			 	jdbcType="NUMERIC"/>
+		<result property="paymentPricePay" 					column="payment_price_pay" 					jdbcType="NUMERIC"/>
+		<result property="paymentPriceFee" 					column="payment_price_fee" 		 		 	jdbcType="NUMERIC"/>
+		<result property="paymentReferenceNum"				column="payment_reference_num" 		 	 	jdbcType="VARCHAR"/>
+		<result property="paymentReferenceFee" 				column="payment_reference_fee"				jdbcType="NUMERIC"/>
+		<result property="paymentRefundPriceTotal" 			column="payment_refund_price_total"  		jdbcType="NUMERIC"/>
+		<result property="paymentRefundPricePay" 			column="payment_refund_price_pay" 			jdbcType="NUMERIC"/>
+		<result property="paymentRefundPriceFee" 			column="payment_refund_price_fee" 	  		jdbcType="NUMERIC"/>
+		<result property="paymentRefundReferenceNum" 		column="payment_refund_reference_num"		jdbcType="VARCHAR"/>
+		<result property="paymentRefundReferenceFee"		column="payment_refund_reference_fee" 		jdbcType="NUMERIC"/>
+	</resultMap>
+	
+	<resultMap id="paymentCodeSelectMap" type="paymentCode">
+		<result property="paymentCode" 					column="payment_code" 		 	 		jdbcType="VARCHAR"/>
+		<result property="paymentCodeRangeStart"		column="payment_code_range_start"		jdbcType="NUMERIC"/>
+		<result property="paymentCodeRangeEnd" 			column="payment_code_range_end" 	  	jdbcType="NUMERIC"/>
+		<result property="paymentCodeInfo" 				column="payment_code_info"  			jdbcType="VARCHAR"/>
+		<result property="paymentCodeFee" 				column="payment_code_fee" 			  	jdbcType="NUMERIC"/>
+	</resultMap>
+	
+	<resultMap id="siteProfitSelectMap" type="siteProfit">
+		<result property="profitRegDate" 				column="profit_reg_date" 		jdbcType="DATE"/>
+		<result property="profitPoint"					column="profit_point" 		  	jdbcType="NUMERIC"/>
+		<result property="profitCash" 					column="profit_cash" 	  		jdbcType="NUMERIC"/>
+		<result property="profitCreditcard" 			column="profit_creditcard"		jdbcType="NUMERIC"/>
+		<result property="profitSimplePay" 				column="profit_simplepay" 		jdbcType="NUMERIC"/>
+	</resultMap>
+		
+	
+	
+
+</mapper>

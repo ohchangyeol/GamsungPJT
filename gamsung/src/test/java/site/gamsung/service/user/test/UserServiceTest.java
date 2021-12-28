@@ -1,6 +1,7 @@
 package site.gamsung.service.user.test;
 
 import java.util.List;
+import java.util.Random;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,16 +27,16 @@ public class UserServiceTest {
 	@Qualifier("userServiceImpl")
 	private UserService userService;
 
-	//@Test
+	@Test
 	public void testAddUser() throws Exception{
 		
 		User user = new User();
-		user.setId("test11@nate.com");
-		user.setNickName("임시1");
-		user.setName("비번11");
-		user.setPassword("2222");
+		user.setId("test44@nate.com");
+		user.setNickName("임시4");
+		user.setName("비번14");
+		user.setPassword("4444");
 		user.setRole("GENERAL");
-		user.setPhone("01001113333");
+		user.setPhone("01001153333");
 				
 		userService.addUser(user);
 		
@@ -140,7 +141,7 @@ public class UserServiceTest {
 		
 	}
 	
-	@Test
+	//@Test
 	public void testUpdateTempPassword() throws Exception{
 		
 		User user = new User();
@@ -154,3 +155,4 @@ public class UserServiceTest {
 	}
 	
 }
+

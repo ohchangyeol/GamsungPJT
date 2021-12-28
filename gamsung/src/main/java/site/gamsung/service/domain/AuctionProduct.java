@@ -1,18 +1,16 @@
 package site.gamsung.service.domain;
 
-import java.sql.Timestamp;
-import java.util.List;
-
 public class AuctionProduct {
 	private String auctionProductNo;
 	private String auctionProductName;
-	private String auctionProductDatailA;
-	private String auctionProductDatailB;
+	private String auctionProductDatail;
+	private String auctionProductSubDatail;
 	private String registrantId;
 	private String successfulBidderId;
 	private int startBidPrice;
 	private int hopefulBidPrice;
 	private int bidUnit;
+	private int currentBidPrice;
 	private String auctionStartTime;
 	private String auctionEndTime;
 	private String remainAuctionTime;
@@ -27,39 +25,35 @@ public class AuctionProduct {
 	private String productImg4;
 	private String productImg5;
 	private int productViewCount;
-	private Timestamp productRegDate;
+	private String productRegDate;
 	private String auctionStatus;
 	private String isConfirm;
 	private String isTempSave;
 	private String isDelete;
-	
-	
-	public String getAuctionProductName() {
-		return auctionProductName;
-	}
-	public void setAuctionProductName(String auctionProductName) {
-		this.auctionProductName = auctionProductName;
-	}
-
-	public String getAuctionProductDatailA() {
-		return auctionProductDatailA;
-	}
-	public void setAuctionProductDatailA(String auctionProductDatailA) {
-		this.auctionProductDatailA = auctionProductDatailA;
-	}
-	public String getAuctionProductDatailB() {
-		return auctionProductDatailB;
-	}
-	public void setAuctionProductDatailB(String auctionProductDatailB) {
-		this.auctionProductDatailB = auctionProductDatailB;
-	}
 	public String getAuctionProductNo() {
 		return auctionProductNo;
 	}
 	public void setAuctionProductNo(String auctionProductNo) {
 		this.auctionProductNo = auctionProductNo;
 	}
-	
+	public String getAuctionProductName() {
+		return auctionProductName;
+	}
+	public void setAuctionProductName(String auctionProductName) {
+		this.auctionProductName = auctionProductName;
+	}
+	public String getAuctionProductDatail() {
+		return auctionProductDatail;
+	}
+	public void setAuctionProductDatail(String auctionProductDatail) {
+		this.auctionProductDatail = auctionProductDatail;
+	}
+	public String getAuctionProductSubDatail() {
+		return auctionProductSubDatail;
+	}
+	public void setAuctionProductSubDatail(String auctionProductSubDatail) {
+		this.auctionProductSubDatail = auctionProductSubDatail;
+	}
 	public String getRegistrantId() {
 		return registrantId;
 	}
@@ -90,6 +84,12 @@ public class AuctionProduct {
 	public void setBidUnit(int bidUnit) {
 		this.bidUnit = bidUnit;
 	}
+	public int getCurrentBidPrice() {
+		return currentBidPrice;
+	}
+	public void setCurrentBidPrice(int currentBidPrice) {
+		this.currentBidPrice = currentBidPrice;
+	}
 	public String getAuctionStartTime() {
 		return auctionStartTime;
 	}
@@ -114,14 +114,12 @@ public class AuctionProduct {
 	public void setBidableGrade(int bidableGrade) {
 		this.bidableGrade = bidableGrade;
 	}
-	
 	public String getAllhashtag() {
 		return allhashtag;
 	}
 	public void setAllhashtag(String allhashtag) {
 		this.allhashtag = allhashtag;
 	}
-	
 	public String getHashtag1() {
 		return hashtag1;
 	}
@@ -176,13 +174,12 @@ public class AuctionProduct {
 	public void setProductViewCount(int productViewCount) {
 		this.productViewCount = productViewCount;
 	}
-	public Timestamp getProductRegDate() {
+	public String getProductRegDate() {
 		return productRegDate;
 	}
-	public void setProductRegDate(Timestamp productRegDate) {
+	public void setProductRegDate(String productRegDate) {
 		this.productRegDate = productRegDate;
 	}
-	
 	public String getAuctionStatus() {
 		return auctionStatus;
 	}
@@ -210,16 +207,16 @@ public class AuctionProduct {
 	@Override
 	public String toString() {
 		return "AuctionProduct [auctionProductNo=" + auctionProductNo + ", auctionProductName=" + auctionProductName
-				+ ", auctionProductDatailA=" + auctionProductDatailA + ", auctionProductDatailB="
-				+ auctionProductDatailB + ", registrantId=" + registrantId + ", successfulBidderId="
+				+ ", auctionProductDatail=" + auctionProductDatail + ", auctionProductSubDatail="
+				+ auctionProductSubDatail + ", registrantId=" + registrantId + ", successfulBidderId="
 				+ successfulBidderId + ", startBidPrice=" + startBidPrice + ", hopefulBidPrice=" + hopefulBidPrice
-				+ ", bidUnit=" + bidUnit + ", auctionStartTime=" + auctionStartTime + ", auctionEndTime="
-				+ auctionEndTime + ", remainAuctionTime=" + remainAuctionTime + ", bidableGrade=" + bidableGrade
-				+ ", allhashtag=" + allhashtag + ", hashtag1=" + hashtag1 + ", hashtag2=" + hashtag2 + ", hashtag3="
-				+ hashtag3 + ", productImg1=" + productImg1 + ", productImg2=" + productImg2 + ", productImg3="
-				+ productImg3 + ", productImg4=" + productImg4 + ", productImg5=" + productImg5 + ", productViewCount="
-				+ productViewCount + ", productRegDate=" + productRegDate + ", auctionStatus=" + auctionStatus
-				+ ", isConfirm=" + isConfirm + ", isTempSave=" + isTempSave + ", isDelete=" + isDelete + "]";
+				+ ", bidUnit=" + bidUnit + ", currentBidPrice=" + currentBidPrice + ", auctionStartTime="
+				+ auctionStartTime + ", auctionEndTime=" + auctionEndTime + ", remainAuctionTime=" + remainAuctionTime
+				+ ", bidableGrade=" + bidableGrade + ", allhashtag=" + allhashtag + ", hashtag1=" + hashtag1
+				+ ", hashtag2=" + hashtag2 + ", hashtag3=" + hashtag3 + ", productImg1=" + productImg1
+				+ ", productImg2=" + productImg2 + ", productImg3=" + productImg3 + ", productImg4=" + productImg4
+				+ ", productImg5=" + productImg5 + ", productViewCount=" + productViewCount + ", productRegDate="
+				+ productRegDate + ", auctionStatus=" + auctionStatus + ", isConfirm=" + isConfirm + ", isTempSave="
+				+ isTempSave + ", isDelete=" + isDelete + "]";
 	}
-		
 }
