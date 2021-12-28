@@ -123,11 +123,6 @@
 								</div>
 							</div>
 							<div class="row mb-20">
-								<div class="col-sm-8 mb-sm-20">
-									<input id="bidPrice" class="form-control input-lg" type="number" name="" value="1" max="40" min="1" required="required" width="100%"/>
-								</div>
-							</div>
-							<div class="row mb-20">
 								<div class="col-sm-8">
 									<a id="bidBtn" class="btn btn-lg btn-block btn-round btn-b">입찰</a>
 									<input type="hidden" id="auctionProductNo" value="${auctionProduct.auctionProductNo}">
@@ -146,8 +141,14 @@
 							<div class="row mb-20">
 								<div class="col-sm-12">
 									<div class="product_meta">
-										<span>${user.nickName}</span>
+										<span id = "userInfo">
+											<c:if test="${!empty auctionInfo}">
+												${user.nickName}님은 ${auctionInfo.bidderCount}명 중 ${auctionInfo.bidderRank}등 입니다.'
+											</c:if>
+										
+										</span>
 										<input type="hidden" id="userId" value="${user.id}"/>
+										<input type="hidden" id="nickName" value="${user.nickName}"/>
 									</div>
 								</div>
 							</div>							
@@ -604,6 +605,7 @@
 		
 		var auctionProductNo = $('#auctionProductNo').val();
 		var userId = $('#userId').val(); 
+		var nickName = $('#nickName').val();
 		
 		var sock = new SockJS("/realtime");
 		stompClient = Stomp.over(sock);
@@ -623,9 +625,31 @@
 			
 			stompClient.subscribe('/topic/bid',function(response){
 				var bidInfo = JSON.parse(response.body)
+				console.log(bidInfo);
 				if(auctionProductNo == bidInfo.auctionProductNo){
 					$('#currentPrice').text(bidInfo.bidPrice);
-					alert(bidInfo.info);
+				}
+				if(userId == bidInfo.user.id){
+					var info = nickName+'님은 '+bidInfo.bidderCount+'명 중 '+bidInfo.bidderRank+'등 입니다.';
+					$('#userInfo').text(info);
+				}else{
+					
+					$.ajax({
+  						url : "/auction/rest/getBidderRanking",
+  						method : "POST",
+  						data : JSON.stringify({
+  							auctionProductNo : auctionProductNo
+  						}),
+  						headers : {
+  							"Accept" : "application/json",
+  							"Content-Type" : "application/json"
+  						},
+  						dataType : "json",
+  						success : function(JSONData, status) {
+  							var info = nickName+'님은 '+JSONData.bidderCount+'명 중 '+JSONData.bidderRank+'등 입니다.';
+  							$('#userInfo').text(info);
+  						}
+					});
 				}
 			});
 			
@@ -650,28 +674,17 @@
 			var currentPrice = $('#currentPrice').text();
 			var bidUnit = $('#bidUnit').val();
 			var bidPrice = $('#bidPrice').val();
-			if(currentPrice < bidPrice){
-				
-				if(bidPrice%bidUnit != 0){
-					$('.alert-danger').children('strong').text('입찰 단위를 확인해 주세요.');
-					$('.alert-danger').attr('hidden',false);
-				}else{
-					$('.alert-success').children('strong').text('입찰 성공하셨습니다.');
-					$('.alert-danger').attr('hidden',true);
-					$('.alert-success').attr('hidden',false);
-					console.log('sending');
-					
-					stompClient.send('/app/bid',{},JSON.stringify({
-						auctionProductNo : auctionProductNo,
-						bidPrice : bidPrice
-					}));
-				}
-				
-			}else{
-				$('.alert-danger').children('strong').text('현재 입찰가 보다 낮은 가격이 입력 되었습니다.');
-				$('.alert-success').attr('hidden',true);
-				$('.alert-danger').attr('hidden',false);
-			}
+			
+			$('.alert-success').children('strong').text('입찰 성공하셨습니다.');
+			$('.alert-danger').attr('hidden',true);
+			$('.alert-success').attr('hidden',false);
+			console.log('sending');
+			
+			stompClient.send('/app/bid',{},JSON.stringify({
+				auctionProductNo : auctionProductNo,
+				bidPrice : 1*currentPrice + 1*bidUnit
+			}));
+		
 			
 		});
 	
