@@ -66,12 +66,23 @@
 
 		<!-- Form Start -->
 		<form class="form-horizontal" >
-		<input type="hidden" name="campNo" id="campNo" value="${campSession.campNo}">
 		
-		<!-- 
-		
-		
+		<input type="hidden" name="campNo" id="campNo" value="${campSession.campNo}">	
 		<input type="hidden" name="campTempSave" id="campTempSave" value="3">
+		
+		<div class="form-group">
+			<label for="campNo" class="col-sm-offset-1 col-sm-3 control-label">등록 번호</label>
+				<div class="col-sm-4">
+					<input type="text" class="form-control" id="campNo" name="campNo" value="${camp.campNo}" readonly>
+				</div>
+		</div>		
+		
+		<div class="form-group">
+			<label for="campRegDate" class="col-sm-offset-1 col-sm-3 control-label">등록 일자</label>
+				<div class="col-sm-4">
+					<input type="text" class="form-control" id="campRegDate" name="campRegDate" value="${camp.campRegDate}" readonly>
+				</div>
+		</div>
 					
 		<div class="form-group">
 			<label for="user.id" class="col-sm-offset-1 col-sm-3 control-label">사업자회원ID</label>
@@ -197,32 +208,56 @@
 					<input type="text" class="form-control" id="campAddr" name="campAddr" value="${campSession.user.addr}" readonly>
 				</div>
 		</div>
-		
+				
 		<div class="form-group">
-			<label for="campRegDate" class="col-sm-offset-1 col-sm-3 control-label">캠핑장 등록일자</label>
-				<div class="col-sm-4">
-					<input type="text" class="form-control" id="campRegDate" name="campRegDate" value="${camp.campRegDate}" readonly>
-				</div>
-		</div>
-		
-		
-		<div class="form-group">
-			<label for="campMapImg" class="col-sm-offset-1 col-sm-3 control-label">캠핑장 지도이미지 </label>				
+			<label for="campMapFile" class="col-sm-offset-1 col-sm-3 control-label">캠핑장 지도이미지 </label>				
 				<div class="col-sm-4">
 					<img src="/uploadFiles/campimg/campbusiness/camp/${camp.campMapImg}" />
-					<span>변경하기<input type="file"  id="campMapImg" name="campMapImg" ></span>			
+					<span>변경하기<input type="file"  id="campMapFile" name="campMapFile" ></span>			
 				</div>
-		</div> -->
-		
+		</div> 
+				
 		<div class="form-group">
-			<label for="campImg1" class="col-sm-offset-1 col-sm-3 control-label">캠핑장 전경이미지(5개) </label>				
+			<label for="campImgFile1" class="col-sm-offset-1 col-sm-3 control-label">캠핑장 전경이미지(1/5)</label>				
 				<div class="col-sm-4">
 					<img src="/uploadFiles/campimg/campbusiness/camp/${camp.campImg1}" />
-					<span>변경하기<input multiple="multiple" type="file"  id="campImg1" name="campImg1" ></span>			
+					<span>변경하기<input type="file"  id="campImgFile1" name="campImgFile1" ></span>			
 				</div>
 		</div>
-								
-		<!-- <div class="form-group">
+		
+		<div class="form-group">
+			<label for="campImgFile2" class="col-sm-offset-1 col-sm-3 control-label">캠핑장 전경이미지(2/5)</label>				
+				<div class="col-sm-4">
+					<img src="/uploadFiles/campimg/campbusiness/camp/${camp.campImg2}" />
+					<span>변경하기<input type="file"  id="campImgFile2" name="campImgFile2" ></span>			
+				</div>
+		</div>
+		
+		<div class="form-group">
+			<label for="campImgFile3" class="col-sm-offset-1 col-sm-3 control-label">캠핑장 전경이미지(3/5)</label>				
+				<div class="col-sm-4">
+					<img src="/uploadFiles/campimg/campbusiness/camp/${camp.campImg3}" />
+					<span>변경하기<input type="file"  id="campImgFile3" name="campImgFile3" ></span>			
+				</div>
+		</div>
+
+		<div class="form-group">
+			<label for="campImgFile4" class="col-sm-offset-1 col-sm-3 control-label">캠핑장 전경이미지(4/5)</label>				
+				<div class="col-sm-4">
+					<img src="/uploadFiles/campimg/campbusiness/camp/${camp.campImg4}" />
+					<span>변경하기<input type="file"  id="campImgFile4" name="campImgFile4" ></span>			
+				</div>
+		</div>	
+
+		<div class="form-group">
+			<label for="campImgFile5" class="col-sm-offset-1 col-sm-3 control-label">캠핑장 전경이미지(5/5)</label>				
+				<div class="col-sm-4">
+					<img src="/uploadFiles/campimg/campbusiness/camp/${camp.campImg5}" />
+					<span>변경하기<input type="file"  id="campImgFile5" name="campImgFile5" ></span>			
+				</div>
+		</div>
+										
+		<div class="form-group">
 			<label for="campSummery" class="col-sm-offset-1 col-sm-3 control-label">캠핑장 요약소개</label>
 				<div class="col-sm-4">
 					<input type="text" class="form-control" id="campSummery" name="campSummery" value="${camp.campSummery}">
@@ -237,7 +272,7 @@
 		</div>
 		
 		<br>
-		<br> -->
+		<br>
 		
 		<div class="form-group">
 			<div class="col-sm-offset-4  col-sm-4 text-center">

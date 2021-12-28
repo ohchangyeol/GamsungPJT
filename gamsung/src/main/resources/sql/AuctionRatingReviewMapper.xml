@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="AuctionRatingReviewMapper">
+	<resultMap id="RatingReviewSelectMap" type="ratingReview">
+		<result property="auctionProduct.auctionProductNo"		column="product_no" 				jdbcType="CHAR"/>
+		<result property="auctionProduct.successfulBidderId" 	column="user_id" 					jdbcType="VARCHAR"/>
+		<result property="user.role" 							column="role"	 					jdbcType="VARCHAR"/>
+		<result property="ratingReviewNo" 						column="rating_review_no" 			jdbcType="NUMERIC"/>
+		<result property="ratingReviewStatus"					column="rating_review_status" 		jdbcType="NUMERIC"/>
+		<result property="ratingReviewTitle"					column="rating_review_title" 		jdbcType="VARCHAR"/>
+		<result property="ratingReviewContent"					column="rating_review_content" 		jdbcType="VARCHAR"/>
+		<result property="reviewRegDate" 						column="review_reg_date" 			jdbcType="DATE"/>
+		<result property="comment" 								column="comment" 					jdbcType="VARCHAR"/>
+		<result property="commentRegDate"						column="comment_reg_date" 			jdbcType="DATE"/>
+		<result property="statusRating" 						column="status_rating" 				jdbcType="FLOAT"/>
+		<result property="priceRating" 							column="price_rating" 				jdbcType="FLOAT"/>
+		<result property="kindnessRating" 						column="kindness_rating" 			jdbcType="FLOAT"/>
+		<result property="avgRating" 							column="avg_rating" 				jdbcType="FLOAT"/>
+		<result property="img1" 								column="review_img1" 				jdbcType="VARCHAR"/>
+		<result property="reviewDeleteFlag" 					column="review_delete_flag" 		jdbcType="CHAR"/>
+		<result property="commentDeleteFlag" 					column="comment_delete_flag" 		jdbcType="CHAR"/>
+	</resultMap>
+	
+	<insert id="addAuctionRatingReview" parameterType="ratingReview" >
+		INSERT INTO RATING_REVIEW
+		(user_id, product_no, rating_review_content, review_reg_date, status_rating, priceRating, kindnessRating, review_img1)
+		VALUES
+		(#{auctionProduct.successfulBidderId}, #{auctionProduct.auctionProductNo}, #{ratingReviewContent}, NOW(), #{statusRating}, #{priceRating}, #{kindnessRating}, #{img1});
+	</insert>
+	
+	<select id="listAuctionRatingReview" parameterType="map" resultMap="RatingReviewSelectMap">
+		SELECT user_id, product_no, rating_review_status  rating_review_content, review_reg_date, comment, comment_reg_date, status_rating, priceRating, kindnessRating, review_img1
+		FROM RATING_REVIEW
+		WHERE product_no = #{auctionProduct.auctionProductNo} AND review_delete_flag = 'N'
+		LIMIT #{search.pageSize} offset #{search.offset}
+	</select>
+	
+	<select  id="getTotalCount"  parameterType="map"	 resultType="int">
+		SELECT COUNT(*)
+		FROM(SELECT rating_review_no
+			 FROM RATING_REVIEW
+			 WHERE product_no IS NOT NULL AND review_delete_flag = 'N') countTable
+	</select>
+	
+</mapper>

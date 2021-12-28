@@ -7,21 +7,13 @@
 <head>
 	<meta charset="EUC-KR">
 
-	<!-- 참조 : http://getbootstrap.com/css/   참조 -->
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
 	<!-- Bootstrap, jQuery CDN -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
-	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
-
-	<!-- Bootstrap Dropdown Hover CSS -->
-	<link href="/css/animate.min.css" rel="stylesheet">
-	<link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
-   
-	<!-- Bootstrap Dropdown Hover JS -->
-	<script src="/javascript/bootstrap-dropdownhover.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >	
+	
+	<script src="../../resources/lib/jquery/jquery.js"></script>
+    <script src="../../resources/lib/bootstrap/js/bootstrap.min.js"></script>
+  	<script src="../../resources/lib/imagesloaded/imagesloaded.pkgd.js"></script>
 	
 	<!-- CSS -->
 	<style>
@@ -41,7 +33,7 @@
 			
 			$("#save").on("click" , function() {
 				alert("주요시설이 등록 되었습니다.");
-				$("form").attr("method" , "POST").attr("action" , "/campBusiness/addMainSite").submit();
+				$("form").attr("method" , "POST").attr("action" , "/campBusiness/updateMainSite").attr("enctype","multipart/form-data").submit();
 			});
 					
 			$("#cancle").on("click" , function() {
@@ -76,6 +68,13 @@
 		<form class="form-horizontal" >
 		
 		<input type="hidden" name="campNo" id="campNo" value="${campSession.campNo}">
+		
+		<div class="form-group">
+			<label for="mainSiteNo" class="col-sm-offset-1 col-sm-3 control-label">등록 번호</label>
+				<div class="col-sm-4">
+					<input type="text" class="form-control" id="mainSiteNo" name="mainSiteNo" value="${mainSite.mainSiteNo}" readonly>
+				</div>
+		</div>	
 		
 		<div class="form-group">
 			<label for="mainSiteRegDate" class="col-sm-offset-1 col-sm-3 control-label">등록 일자</label>
@@ -123,70 +122,65 @@
 		<div class="form-group">
 			<label for="mainSiteMinCapacity" class="col-sm-offset-1 col-sm-3 control-label">기본 사용인원수</label>
 				<div class="col-sm-4">
-					<input type="number" class="form-control" id="mainSiteMinCapacity" name="mainSiteMinCapacity" value="1">
+					<input type="number" class="form-control" id="mainSiteMinCapacity" name="mainSiteMinCapacity" value="1" min="0">
 				</div>
 		</div>
 		
 		<div class="form-group">
 			<label for="mainSiteMaxCapacity" class="col-sm-offset-1 col-sm-3 control-label">최대 사용인원수</label>
 				<div class="col-sm-4">
-					<input type="number" class="form-control" id="mainSiteMaxCapacity" name="mainSiteMaxCapacity" value="1">
+					<input type="number" class="form-control" id="mainSiteMaxCapacity" name="mainSiteMaxCapacity" value="1" min="0">
 				</div>
 		</div>
 		
 		<div class="form-group">
 			<label for="mainSiteMinPrice" class="col-sm-offset-1 col-sm-3 control-label">기본인원 금액</label>
 				<div class="col-sm-4">
-					<input type="number" class="form-control" id="mainSiteMinPrice" name="mainSiteMinPrice" value="1">
+					<input type="number" class="form-control" id="mainSiteMinPrice" name="mainSiteMinPrice" value="1" min="0">
 				</div>
 		</div>
 		
 		<div class="form-group">
 			<label for="mainSiteAddPrice" class="col-sm-offset-1 col-sm-3 control-label">추가인원 금액</label>
 				<div class="col-sm-4">
-					<input type="number" class="form-control" id="mainSiteAddPrice" name="mainSiteAddPrice" value="1">
+					<input type="number" class="form-control" id="mainSiteAddPrice" name="mainSiteAddPrice" value="1" min="0">
 				</div>
 		</div>
 		
 		<div class="form-group">
 			<label for="mainSiteParkingSize" class="col-sm-offset-1 col-sm-3 control-label">주차가능 대수</label>
 				<div class="col-sm-4">
-					<input type="number" class="form-control" id="mainSiteParkingSize" name="mainSiteParkingSize" value="0">
+					<input type="number" class="form-control" id="mainSiteParkingSize" name="mainSiteParkingSize" value="0" min="0">
 				</div>
 		</div>
 
-
-		<!-- 
 		<div class="form-group">
-			<label for="mainSiteImg1" class="col-sm-offset-1 col-sm-3 control-label">주요시설 사진1</label>
+			<label for="mainSiteImgFile1" class="col-sm-offset-1 col-sm-3 control-label">주요시설 이미지(1/3)</label>				
 				<div class="col-sm-4">
-					<input type="mainSiteImg1"  id="file" name="mainSiteImg1">
+					<input type="file"  id="mainSiteImgFile1" name="mainSiteImgFile1">	
 				</div>
 		</div>
 		
 		<div class="form-group">
-			<label for="mainSiteImg2" class="col-sm-offset-1 col-sm-3 control-label">주요시설 사진2</label>
+			<label for="mainSiteImgFile2" class="col-sm-offset-1 col-sm-3 control-label">주요시설 이미지(2/3)</label>				
 				<div class="col-sm-4">
-					<input type="file"  id="mainSiteImg2" name="mainSiteImg2">
+					<input type="file"  id="mainSiteImgFile2" name="mainSiteImgFile2">	
 				</div>
 		</div>
 		
 		<div class="form-group">
-			<label for="mainSiteImg3" class="col-sm-offset-1 col-sm-3 control-label">주요시설 사진3</label>
+			<label for="mainSiteImgFile3" class="col-sm-offset-1 col-sm-3 control-label">주요시설 이미지(3/3)</label>				
 				<div class="col-sm-4">
-					<input type="file"  id="mainSiteImg3" name="mainSiteImg3">
+					<input type="file"  id="mainSiteImgFile3" name="mainSiteImgFile3">	
 				</div>
 		</div>
-			
-		-->
 		
 		<div class="form-group">
 			<label for="mainSiteInfo" class="col-sm-offset-1 col-sm-3 control-label">주요시설 설명</label>
 				<div class="col-sm-4">
 					<input type="text" class="form-control" id="mainSiteInfo" name="mainSiteInfo" value="" placeholder="주요시설 설명을 입력하세요">
 				</div>
-		</div>
-		
+		</div>		
 
 		<div class="form-group">
 			<div class="col-sm-offset-4  col-sm-4 text-center">
