@@ -24,7 +24,7 @@
 		 <typeAlias alias="post" type="site.gamsung.service.domain.Post" />		 
 		 <typeAlias alias="comment" type="site.gamsung.service.domain.Comment" />		 
 		 <typeAlias alias="postConcern" type="site.gamsung.service.domain.PostConcern" />		
-		 <typeAlias alias="transfer" type="site.gamsung.service.domain.Transfer" />		
+	<!-- 	 <typeAlias alias="transfer" type="site.gamsung.service.domain.Transfer" />		 -->
 		
 		 <typeAlias alias="camp" type="site.gamsung.service.domain.Camp" />
 		 <typeAlias alias="mainSite" type="site.gamsung.service.domain.MainSite" />
@@ -47,8 +47,8 @@
 	 
 	<mappers>
 	
-	<!-- <mapper resource="sql/TransferMapper.xml"/> -->
-		
+<!-- 		<mapper resource="sql/TransferMapper.xml"/> -->
+<!-- 		<mapper resource="sql/ReceiveMapper.xml"/>		 -->
 		
 		<mapper resource="sql/CommunityMapper.xml"/>
 	 	<mapper resource="sql/UserMapper.xml"/>

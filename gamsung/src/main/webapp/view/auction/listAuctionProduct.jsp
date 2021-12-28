@@ -106,7 +106,7 @@
           <div class="container">
             <div class="row">
               <div class="col-sm-6 col-sm-offset-3">
-                <h2 class="module-title font-alt">캠핑전 상품</h2>
+                <h2 class="module-title font-alt">경매 진행 중 상품</h2>
               </div>
             </div>
             <div class="row multi-columns-row">
@@ -189,7 +189,7 @@
     <script src="../../resources/js/main.js"></script>
     
    	<script type="text/javascript">
-   	$(function(){
+   	/* $(function(){
    		   		
   		var page = 2;
   		$(window).scroll(function() {
@@ -279,7 +279,7 @@
 	   		});
   	});
    	
-   	$(document).ready
+   	$(document).ready */
   		  	
   	</script>    
   </body>
