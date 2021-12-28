@@ -11,9 +11,9 @@ public interface CampBusinessService {
 	
 	/*
 	 * Common
-	 */	
-	
-	
+	 */		
+	public int getRegNum(String type, Object obj) throws Exception;
+		
 		
 	/*
 	 * Camp
@@ -30,9 +30,7 @@ public interface CampBusinessService {
 	
 	public int getCampNoById(String id) throws Exception;
 	
-	public int getCampTempSaveById(String id) throws Exception;
-	
-	public int getRegNum(Camp camp) throws Exception;
+	public int getCampTempSaveById(String id) throws Exception;	
 			
 	
 	/*

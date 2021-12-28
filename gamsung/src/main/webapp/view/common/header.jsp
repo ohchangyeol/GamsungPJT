@@ -13,10 +13,10 @@
       
       	<li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">MilkyWay</a>
           <ul class="dropdown-menu">
-           	<li><a href="/campBusiness/goSubMainCampBusiness">CampBusinessMain</a></li>
-            <li><a href="index_op_fullscreen_gradient_overlay.html">Payment</a></li>
+           	<li><a href="/campBusiness/goSubMainCampBusiness">CampBusinessMain</a></li>      
           </ul>
-        </li>
+        </li>        
+        
         <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Home</a>
           <ul class="dropdown-menu">
         

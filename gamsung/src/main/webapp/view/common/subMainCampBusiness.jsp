@@ -1,68 +1,123 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
-<html>
-<head>
-   <meta charset="EUC-KR">
-
-   <!-- 참조 : http://getbootstrap.com/css/   참조 -->
-   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-   <!-- Bootstrap, jQuery CDN -->
-   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
-   <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
-
-   <!-- Bootstrap Dropdown Hover CSS -->
-   <link href="/css/animate.min.css" rel="stylesheet">
-   <link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
+<html lang="en-US" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Document Title -->
+    <title>GamsungCamp</title>
+    
+    <script src="../../resources/lib/jquery/jquery.js"></script>
+    
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" sizes="57x57" href="resources/images/favicons/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="resources/images/favicons/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="resources/images/favicons/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="resources/images/favicons/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="resources/images/favicons/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="resources/images/favicons/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="resources/images/favicons/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="resources/images/favicons/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="resources/images/favicons/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="resources/images/favicons/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="resources/images/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="resources/images/favicons/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="resources/images/favicons/favicon-16x16.png">  
    
-   <!-- Bootstrap Dropdown Hover JS -->
-   <script src="/javascript/bootstrap-dropdownhover.min.js"></script>
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="../../resources/images/favicons/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
    
-   <!-- CSS -->
-   <style>
-      body > div.container{
-         margin-top: 70px;
-      }
+    <!-- Stylesheets -->
+    
+    <!-- Default stylesheets-->
+    <link href="../../resources/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Template specific stylesheets-->
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Volkhov:400i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
+    <link href="../../resources/lib/animate.css/animate.css" rel="stylesheet">
+    <link href="../../resources/lib/components-font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../../resources/lib/et-line-font/et-line-font.css" rel="stylesheet">
+    <link href="../../resources/lib/flexslider/flexslider.css" rel="stylesheet">
+    <link href="../../resources/lib/owl.carousel/dist/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="../../resources/lib/owl.carousel/dist/assets/owl.theme.default.min.css" rel="stylesheet">
+    <link href="../../resources/lib/magnific-popup/magnific-popup.css" rel="stylesheet">
+    <link href="../../resources/lib/simple-text-rotator/simpletextrotator.css" rel="stylesheet">
+    
+    <!-- Main stylesheet and color file-->
+    <link href="../../resources/css/style.css" rel="stylesheet">
+    <link id="color-scheme" href="../../resources/css/colors/default.css" rel="stylesheet">  
+        
+  </head>
+  <body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
+    <main>
+
+
+	<jsp:include page="headerCampBusiness.jsp" />
+
+	 
+	 <br>
+	 <br>
+	 <br>
+	 <br>
+	 <br>
+	 
+	 
+	 <h1 align="center">Test Business Main</h1>
+	 
+	 	<br>
+	 	<br>
+	 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 	 
+	 	<a href="/payment/managePoint">ManagePoint</a>
+	 
+	 	<br>
+		<br>       
+    	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  		<a href="/payment/listPaymentCode">PaymentCode</a>
+     
+    	<br>
+	 	<br>   	
+    	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+   		<a href="/payment/addMakePayment">MakePayment</a>
+     
+     	<br>
+		<br>
+	 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  		<a href="/payment/addRefundPayment">RefundPayment</a>
+     
+     	<br>
+	 	<br>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  		<a href="/payment/listPayment">listPayment</a>
       
-      h1 { text-align: center; }
-    </style>
+     	<br>
+	 	<br>   
+      	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<a href="/payment/listSiteProfit">SiteProfit</a>
+	 
+ 
+     
 
-   <!-- JavaScript -->
-   <script type="text/javascript">
-   
-   </script>      
-   
-</head>
-
-<body>
-
-  	 <!-- ToolBar -->
-  	 <jsp:include page="/view/common/headerCampBusiness.jsp" />
-
-      <br>
-      <br>
-      <div class="container">
-
-			<div class="page-header">
-	       		<h1 class=" text-info">Test Camp Business Main</h1>
-	    	</div>
-
-			<!-- Form Start -->
-			<form class="form-horizontal" >
-		
-				<div class="col-sm-2">
-					<a href="/main.jsp">메인</a>
-				</div>
-				
-				<!-- 여기에 입력 시작 -->				
-				
-			
-				<!-- 여기에 입력 끝-->
-		
-			</form>
-		</div>	
-
-</body>
+    </main>
+    <!-- JavaScripts -->
+    <script src="../../resources/lib/jquery/jquery.js"></script>
+    <script src="../../resources/lib/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../../resources/lib/wow/wow.js"></script>
+    <script src="../../resources/lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js"></script>
+    <script src="../../resources/lib/isotope/isotope.pkgd.js"></script>
+    <script src="../../resources/lib/imagesloaded/imagesloaded.pkgd.js"></script>
+    <script src="../../resources/lib/flexslider/jquery.flexslider.js"></script>
+    <script src="../../resources/lib/owl.carousel/dist/owl.carousel.min.js"></script>
+    <script src="../../resources/lib/smoothscroll.js"></script>
+    <script src="../../resources/lib/magnific-popup/magnific-popup.js"></script>
+    <script src="../../resources/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script>
+    <script src="../../resources/js/plugins.js"></script>
+    <script src="../../resources/js/main.js"></script>
+      
+  </body>
 </html>

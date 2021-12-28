@@ -1,6 +1,5 @@
 <%@ page contentType="text/html; charset=EUC-KR" %>
 
-
 <!DOCTYPE html>
 
 <html lang="ko">
@@ -8,21 +7,13 @@
 <head>
 	<meta charset="EUC-KR">
 
-	<!-- 참조 : http://getbootstrap.com/css/   참조 -->
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
 	<!-- Bootstrap, jQuery CDN -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
-	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
-
-	<!-- Bootstrap Dropdown Hover CSS -->
-	<link href="/css/animate.min.css" rel="stylesheet">
-	<link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
-   
-	<!-- Bootstrap Dropdown Hover JS -->
-	<script src="/javascript/bootstrap-dropdownhover.min.js"></script>
+	
+	<script src="../../resources/lib/jquery/jquery.js"></script>
+    <script src="../../resources/lib/bootstrap/js/bootstrap.min.js"></script>
+  	<script src="../../resources/lib/imagesloaded/imagesloaded.pkgd.js"></script>
 	
 	<!-- CSS -->
 	<style>	
@@ -88,14 +79,14 @@
 		<input type="hidden" name="campTempSave" id="campTempSave" value="">
 		
 		<div class="form-group">
-			<label for="campNo" class="col-sm-offset-1 col-sm-3 control-label">등록상태</label>	
+			<label for="campNo" class="col-sm-offset-1 col-sm-3 control-label">등록 상태</label>	
 				<c:if test="${ empty campSession.campTempSave || campSession.campTempSave != '3' }">	
 					<div class="col-xs-8 col-md-4"> 미등록 상태입니다. 등록을 완료하세요</div>
 				</c:if>
 		</div>
 		
 		<div class="form-group">
-			<label for="campNo" class="col-sm-offset-1 col-sm-3 control-label">등록번호</label>
+			<label for="campNo" class="col-sm-offset-1 col-sm-3 control-label">등록 번호</label>
 				<div class="col-sm-4">
 					<input type="text" class="form-control" id="campNo" name="campNo" value="${camp.campNo}" readonly>
 				</div>
@@ -237,18 +228,46 @@
 		<br>
 
 		<div class="form-group">
-			<label for="campMapImg" class="col-sm-offset-1 col-sm-3 control-label">캠핑장 지도이미지 </label>				
+			<label for="campMapFile" class="col-sm-offset-1 col-sm-3 control-label">캠핑장 지도이미지 </label>				
 				<div class="col-sm-4">
-					<input type="file"  id="campMapImg" name="campMapImg" >			
+					<input type="file"  id="campMapFile" name="campMapFile" >	
+				</div>
+		</div> 
+				
+		<div class="form-group">
+			<label for="campImgFile1" class="col-sm-offset-1 col-sm-3 control-label">캠핑장 전경이미지(1/5)</label>				
+				<div class="col-sm-4">
+					<input type="file"  id="campImgFile1" name="campImgFile1">	
 				</div>
 		</div>
 		
 		<div class="form-group">
-			<label for="campImg1" class="col-sm-offset-1 col-sm-3 control-label">캠핑장 전경이미지(5개) </label>				
+			<label for="campImgFile2" class="col-sm-offset-1 col-sm-3 control-label">캠핑장 전경이미지(2/5)</label>				
 				<div class="col-sm-4">
-					<input multiple="multiple" type="file"  id="campImg1" name="campImg1" >	
+					<input type="file"  id="campImgFile2" name="campImgFile2">	
 				</div>
-		</div>			
+		</div>
+		
+		<div class="form-group">
+			<label for="campImgFile3" class="col-sm-offset-1 col-sm-3 control-label">캠핑장 전경이미지(3/5)</label>				
+				<div class="col-sm-4">
+					<input type="file"  id="campImgFile3" name="campImgFile3">	
+				</div>
+		</div>
+
+		<div class="form-group">
+			<label for="campImgFile4" class="col-sm-offset-1 col-sm-3 control-label">캠핑장 전경이미지(4/5)</label>				
+				<div class="col-sm-4">
+					<input type="file"  id="campImgFile4" name="campImgFile4">		
+				</div>
+		</div>	
+
+		<div class="form-group">
+			<label for="campImgFile5" class="col-sm-offset-1 col-sm-3 control-label">캠핑장 전경이미지(5/5)</label>				
+				<div class="col-sm-4">
+					<input type="file"  id="campImgFile5" name="campImgFile5">
+				</div>
+		</div>	
 
 		<br>
 		<br>
