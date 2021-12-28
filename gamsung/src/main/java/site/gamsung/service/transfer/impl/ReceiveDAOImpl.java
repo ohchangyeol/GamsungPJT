@@ -57,4 +57,6 @@ public class ReceiveDAOImpl implements ReceiveDAO {
 		return sqlSession.update("ReceiveMapper.blindReceive", receiveNo);
 	}
 
+	
+	
 }

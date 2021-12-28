@@ -60,4 +60,6 @@ public class TransferDAOImpl implements TransferDAO {
 		return sqlSession.update("TransferMapper.blindTransfer", transferNo);
 	}
 
+	
+	
 }
