@@ -8,6 +8,10 @@ import site.gamsung.service.domain.AuctionProduct;
 
 public interface AuctionProductDAO {
 	
+	public void addCrawlingAuctionProduct(AuctionProduct auctionProduct);
+	
+	public String getCrawlingAuctionProductNo(String auctionProductSubDatail);
+	
 	public List<AuctionProduct> listAuctionProduct(Search search);
 	
 	public void tempSaveAuctionProduct(AuctionProduct auctionProduct);
@@ -26,7 +30,7 @@ public interface AuctionProductDAO {
 
 	public void updateBidEndTime(String auctionProductNo);
 	
-	public void updateAuctionProductCondition(AuctionInfo auctionInfo);
+	public void updateAuctionProductCondition(AuctionProduct auctionProduct);
 	
 	public void addMainAuctionProduct(AuctionProduct auctionProduct);
 	

@@ -1,223 +1,286 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="EUC-KR">
-	
-	<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-	
-	<title>중고 경매</title>
-	
-	<link rel="stylesheet" href="/resources/css/animate.css">
-    <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/resources/css/custom.css">
-    <link rel="stylesheet" href="/resources/css/flashy.min.css">
-    <link rel="stylesheet" href="/resources/css/flaticon.css">
-    <link rel="stylesheet" href="/resources/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/resources/css/magnific-popup.css">
-    <link rel="stylesheet" href="/resources/css/pogo-slider.min.css">
-    <link rel="stylesheet" href="/resources/css/responsive.css">
-    <link rel="stylesheet" href="/resources/css/responsiveslides.css">
-    <link rel="stylesheet" href="/resources/css/style.css">
-    <link rel="stylesheet" href="/resources/css/timeline.css">     
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js"></script>
+<html lang="" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     
-    <script src="/resources/javascript/bootstrap.min.js"></script>
-	<script src="/resources/javascript/contact-form-script.js"></script>
-	<script src="/resources/javascript/form-validator.min.js"></script>
-	<script src="/resources/javascript/images-loded.min.js"></script>
-	<script src="/resources/javascript/isotope.min.js"></script>
-	<script src="/resources/javascript/jquery.magnific-popup.min.js"></script>
-	<script src="/resources/javascript/jquery.min.js"></script>
-	<script src="/resources/javascript/jquery.pogo-slider.min.js"></script>
-	<script src="/resources/javascript/popper.min.js"></script>
-	<script src="/resources/javascript/responsiveslides.min.js"></script>
-	<script src="/resources/javascript/slider-index.js"></script>
-	<script src="/resources/javascript/smoothscroll.js"></script>
+    <title>중고 경매</title>
     
-    <script type="text/javascript">
-		
-	$(function(){
-		
-		$(document).on('click', '.effect-service', function(){
-			const productNo = $(this).children('p').text();
-			window.location.href = '/auction/getAuctionProduct?auctionProductNo='+productNo;
-		});
-	
-		//크롤링 버튼
-		$('#crawling').on("click", function(){
-			alert("크롤링이 시작되었습니다.");
-			$(this).attr('disabled', true);
-			$.ajax( 
-					{
-						url : "/auction/rest/crawling",
-						method : "GET" ,
-						dataType : "json",
-						headers : {
-							"Accept" : "application/json",
-							"Content-Type" : "application/json"
-						},
-						success : function(JSONData , status) {
-							alert(JSONData.isSuccess);
-							$(this).attr('disabled', false);
-						}
-				});
-		});	
-		
-		//상품 등록 버튼
-		$('#addProduct').on("click", function(){
-			window.location.href = '/auction/addAuctionProduct';
-		});	
-		
-		$('.dropdown-item').on("click",function(){
-			$('#sortCondition').val($(this).text());
-			$("#searchForm").attr('method','get').attr('action','/auction/listAuctionProduct').submit();
-		});
-		
-		$('#search').keypress(function(e){
-			if(e.keyCode == '13'){
-				$("#searchForm").attr('method','get').attr('action','/auction/listAuctionProduct').submit();
-			}
-		});
-		$('#search').keypress(function(){
-			
-		});
-	});
-	
-	//무한스크롤
-	var page = 2; 
-	$(window).scroll(function() {
-		var sortCondition = $('#sortCondition').val();
-		var searchKeyword = $('#searchKeyword').val();
-	    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-	    	$.ajax(
-					{
-						url : "/auction/rest/infiniteScroll",
-						method : "POST",
-						data : JSON.stringify({
-							currentPage : page,
-							sortCondition : sortCondition,
-							searchKeyword : searchKeyword
-						}),
-						headers : {
-							"Accept" : "application/json",
-							"Content-Type" : "application/json"
-						},
-						dataType : "json",
-						success : function(JSONData,status){
-						var str = "";
-							for(var i = 0; i<JSONData.length; i++){
-								
-							var stringHtml = 
-									'<div class="col-lg-3 col-sm-6 productThumbnails">'
-									+'<figure class="effect-service">'
-									+	'<div>'
-									+		'<img src="/uploadfiles/auctionimg/product/'+JSONData[i].productImg1+'" width="100%" height="100%"/>'
-									+	'</div>'
-									+	'<p hidden="">'+JSONData[i].auctionProductNo+'</p>'
-									+	'<h4>'+JSONData[i].auctionProductName+'</h4>'
-									+	'<div>조회수 : '+JSONData[i].productViewCount+'</div>'
-									+	'<div>경매 시작가 : '+JSONData[i].startBidPrice+'</div>'
-									+	'<div>희망 낙찰가 : '+JSONData[i].hopefulBidPrice+'</div>'
-									+	'<div>경매 잔여 시간 : '+JSONData[i].remainAuctionTime+'</div>'
-									+	'<span>'+JSONData[i].hashtag1+'&nbsp;'+JSONData[i].hashtag2+'&nbsp;'+JSONData[i].hashtag3+'</span>'
-									+'</figure>'
-									+'</div>';
-							str += stringHtml;
-							}
-
-							$("#append").append('<div class="row">'+str+'</div>');
-							page += 1;							
-						}
-					});
-	    		}
-		});
-		
-	</script>
-	
-	<style>
-		.productThumbnails{
-			height : 600px;
-		}
-	</style>
-	
-</head>
-<body id="home" data-spy="scroll" data-target="#navbar-wd" data-offset="98">
-
-	<jsp:include page="../common/header.jsp"></jsp:include>
-	
-	<div id="b-deals" class="services-box main-timeline-box">
-		<div class="container col-lg-9">
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="title-box">
-						<h2>Auction</h2>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="btn-group col-md-2">
-					<button class="btn btn-secondary btn-sm dropdown-toggle"
-						type="button" data-toggle="dropdown" aria-expanded="false">
-						정렬조건</button>
-					<div class="dropdown-menu">
-						<a class="dropdown-item" >희망 낙찰가 높은 순</a>
-					    <a class="dropdown-item" >희망 낙찰가 낮은 순</a>
-					    <a class="dropdown-item" >조회수 높은 순</a>
-					    <a class="dropdown-item" >경매 입박 순</a>
-					    <a class="dropdown-item" >조회수 순</a>
-					</div>
-				</div>
-				<div class="col-md-7">
-				<form id="searchForm">
-					<input id="sortCondition" type="hidden" name="sortCondition" value="${search.sortCondition}"/>
-					<input id="searchKeyword" type="text" id="search" name="searchKeyword" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm" value="${search.searchKeyword}">
-				</form>
-				</div>
-				<div >
-					<button id="crawling" class="btn btn-common">상품 크롤링하기!</button>
-				</div>
-				<div >
-					<button id="addProduct" class="btn btn-common">상품 등록</button>
-				</div>
-			</div>
-			
-			<div class="row">
-			<c:forEach var="product" items="${list}">
-				<div class="col-lg-3 col-sm-6 productThumbnails">
-					<figure class="effect-service">
-						<div>
-							<img src="/uploadfiles/auctionimg/product/${product.productImg1}" width="100%" height="100%"/>
-						</div>
-						<p hidden="">${product.auctionProductNo}</p>
-						<h4>${product.auctionProductName}</h4>
-						<div>조회수 : ${product.productViewCount }</div>
-						<div>경매 시작가 : ${product.startBidPrice }</div>
-						<div>희망 낙찰가 : ${product.hopefulBidPrice }</div>
-						<div>경매 잔여 시간 : ${product.remainAuctionTime}</div>
-						<span>${product.hashtag1}&nbsp;${product.hashtag2}&nbsp;${product.hashtag2}</span>
-					</figure>
-				</div>
-			</c:forEach>			
-			</div>
-			
-			<div id="append"></div>
-		</div>
-		<div class="col-lg-3"></div>
-	</div>	
-	
-	<footer class="footer-box">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12">
-					<p class="footer-company-name">All Rights Reserved. &copy; 2018 <a href="#">Evento Christmas</a> Design By : <a href="https://html.design/">html design</a></p>
-				</div>
-			</div>
-		</div>
-	</footer>
-</body>
+    <link rel="apple-touch-icon" sizes="57x57" href="../../resources/images/favicons/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="../../resources/images/favicons/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="../../resources/images/favicons/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="../../resources/images/favicons/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="../../resources/images/favicons/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="../../resources/images/favicons/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="../../resources/images/favicons/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="../../resources/images/favicons/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../../resources/images/favicons/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../../resources/images/favicons/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../resources/images/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="../../resources/images/favicons/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../resources/images/favicons/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="../../resources/images/favicons/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+    
+    <link href="../../resources/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Template specific stylesheets-->
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Volkhov:400i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
+    <link href="../../resources/lib/animate.css/animate.css" rel="stylesheet">
+    <link href="../../resources/lib/components-font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../../resources/lib/et-line-font/et-line-font.css" rel="stylesheet">
+    <link href="../../resources/lib/flexslider/flexslider.css" rel="stylesheet">
+    <link href="../../resources/lib/owl.carousel/dist/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="../../resources/lib/owl.carousel/dist/assets/owl.theme.default.min.css" rel="stylesheet">
+    <link href="../../resources/lib/magnific-popup/magnific-popup.css" rel="stylesheet">
+    <link href="../../resources/lib/simple-text-rotator/simpletextrotator.css" rel="stylesheet">
+    <!-- Main stylesheet and color file-->
+    <link href="../../resources/css/style.css" rel="stylesheet">
+    <link id="color-scheme" href="../../resources/css/colors/default.css" rel="stylesheet">
+  
+  
+  
+  </head>
+  <body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
+    <main>
+      <div class="page-loader">
+        <div class="loader">Loading...</div>
+      </div>
+  	<jsp:include page="../common/header.jsp"></jsp:include>
+    <div class="main">
+      <section class="module bg-dark-60 shop-page-header" data-background="../../resources/images/shop/product-page-bg.jpg">
+          <div class="container">
+            <div class="row">
+              <div class="col-sm-6 col-sm-offset-3">
+                <h2 class="module-title font-alt">Shop Products</h2>
+                <div class="module-subtitle font-serif">A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart.</div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="module-small">
+          <div class="container">
+            <form class="row">
+              <div class="col-sm-4 mb-sm-20">
+                <select class="form-control">
+                  <option selected="selected">Default Sorting</option>
+                  <option>Popular</option>
+                  <option>Latest</option>
+                  <option>Average Price</option>
+                  <option>High Price</option>
+                  <option>Low Price</option>
+                </select>
+              </div>
+              <div class="col-sm-2 mb-sm-20">
+                <select class="form-control">
+                  <option selected="selected">Woman</option>
+                  <option>Man</option>
+                </select>
+              </div>
+              <div class="col-sm-3 mb-sm-20">
+                <select class="form-control">
+                  <option selected="selected">All</option>
+                  <option>Coats</option>
+                  <option>Jackets</option>
+                  <option>Dresses</option>
+                  <option>Jumpsuits</option>
+                  <option>Tops</option>
+                  <option>Trousers</option>
+                </select>
+              </div>
+              <div class="col-sm-3">
+                <button class="btn btn-block btn-round btn-g" type="submit">Apply</button>
+              </div>
+            </form>
+          </div>
+        </section>
+        <hr class="divider-w">
+        <section class="module-small">
+          <div class="container">
+            <div class="row">
+              <div class="col-sm-6 col-sm-offset-3">
+                <h2 class="module-title font-alt">경매 진행 중 상품</h2>
+              </div>
+            </div>
+            <div class="row multi-columns-row">
+          </div>
+          <div id="latest" class="container">
+            <c:forEach var="product" items="${list}" begin="0" step="1" end="3">
+              <div class="col-sm-6 col-md-3 col-lg-3">
+                <div class="shop-item">
+                  <div class="shop-item-image">
+                  	<img src="${product.productImg1}" alt="Accessories Pack"/>
+                    <div class="shop-item-detail">
+	                  	<span hidden="hidden">${product.auctionProductSubDatail}</span>
+                    	<a class="btn btn-round btn-b">경매 시작하기!</a>
+                    </div>
+                  </div>
+                  <h4 class="shop-item-title font-alt"><a href="#">${product.auctionProductName}</a></h4>
+                  <span>${product.hashtag1} ${product.hashtag2} ${product.hashtag2}</span>			
+                </div>
+              </div>
+            </c:forEach>
+          </div>
+           <div id="latest" class="container">
+            <c:forEach var="product" items="${list}" begin="4" step="1" end="7">
+              <div class="col-sm-6 col-md-3 col-lg-3">
+                <div class="shop-item">
+                  <div class="shop-item-image"><img src="${product.productImg1}" alt="Accessories Pack"/>
+                  	<div class="shop-item-detail">
+	                  	<span hidden="hidden">${product.auctionProductSubDatail}</span>
+                    	<a class="btn btn-round btn-b">경매 시작하기!</a>
+                    </div>
+                  </div>
+                  <h4 class="shop-item-title font-alt"><a href="#">${product.auctionProductName}</a></h4>
+                  <span>${product.hashtag1} ${product.hashtag2} ${product.hashtag2}</span>			
+                </div>
+              </div>
+            </c:forEach>
+          </div>
+          <span id="append"></span>
+         </div>
+        </section>
+        
+        <hr class="divider-d">
+        <footer class="footer bg-dark">
+          <div class="container">
+            <div class="row">
+              <div class="col-sm-6">
+                <p class="copyright font-alt">&copy; 2017&nbsp;<a href="index.html">TitaN</a>, All Rights Reserved</p>
+              </div>
+              <div class="col-sm-6">
+                <div class="footer-social-links"><a href="#"><i class="fa fa-facebook"></i></a><a href="#"><i class="fa fa-twitter"></i></a><a href="#"><i class="fa fa-dribbble"></i></a><a href="#"><i class="fa fa-skype"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </footer>
+      </div>
+      <div class="scroll-up"><a href="#totop"><i class="fa fa-angle-double-up"></i></a></div>
+      <form>
+      	<input type="hidden" id="auctionProductSubDatail" name="auctionProductSubDatail"/>
+      	<input type="hidden" id="auctionProductName" name="auctionProductName"/>
+      	<input type="hidden" id="allhashtag"name="allhashtag"/>
+      </form>
+    </main>
+    <!--  
+    JavaScripts
+    =============================================
+    -->
+    <script src="../../resources/lib/jquery/jquery.js"></script>
+    <script src="../../resources/lib/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../../resources/lib/wow/wow.js"></script>
+    <script src="../../resources/lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js"></script>
+    <script src="../../resources/lib/isotope/isotope.pkgd.js"></script>
+    <script src="../../resources/lib/imagesloaded/imagesloaded.pkgd.js"></script>
+    <script src="../../resources/lib/flexslider/jquery.flexslider.js"></script>
+    <script src="../../resources/lib/owl.carousel/dist/owl.carousel.min.js"></script>
+    <script src="../../resources/lib/smoothscroll.js"></script>
+    <script src="../../resources/lib/magnific-popup/jquery.magnific-popup.js"></script>
+    <script src="../../resources/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script>
+    <script src="../../resources/js/plugins.js"></script>
+    <script src="../../resources/js/main.js"></script>
+    
+   	<script type="text/javascript">
+   	/* $(function(){
+   		   		
+  		var page = 2;
+  		$(window).scroll(function() {
+  			var sortCondition = $('#sortCondition').val();
+  			var searchKeyword = $('#searchKeyword').val();
+  			if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight/2) {
+  				 console.log("실행");
+  				$.ajax({
+  						url : "/auction/rest/infiniteScroll",
+  						method : "POST",
+  						async: false,
+  						data : JSON.stringify({
+  							currentPage : page,
+  							sortCondition : sortCondition,
+  							searchKeyword : searchKeyword
+  						}),
+  						headers : {
+  							"Accept" : "application/json",
+  							"Content-Type" : "application/json"
+  						},
+  						dataType : "json",
+  						success : function(JSONData, status) {
+	  						var str = '<div class="container">';
+	  						for (var i = 0; i < JSONData.length-4; i++) {
+								var stringHtml = '<div class="col-sm-6 col-md-3 col-lg-3">'
+					              				+ '<div class="shop-item"> <div class="shop-item-image">'
+					              				+ '<img src="'
+					              				+ JSONData[i].productImg1
+				              					+ '" alt="Accessories Pack"/>'
+				                  				+ '<div class="shop-item-detail"><span hidden="hidden">'
+				                  				+ JSONData[i].auctionProductSubDatail
+				                  				+ '</span><a class="btn btn-round btn-b">경매 시작하기!</a></div></div>'
+				                  				+ '</span><h4 class="shop-item-title font-alt"><a href="#">'
+				                   				+ JSONData[i].auctionProductName
+				                   				+ '</a></h4> <span>'
+				                   				+ JSONData[i].hashtag1
+	  											+ ' '
+	  											+ JSONData[i].hashtag2
+	  											+ ' '
+	  											+ JSONData[i].hashtag3
+	  											+ '</span>'
+	  											+ '</div></div>'
+				                  
+				                 			str += stringHtml;
+	  						}
+							str += '</div><div class="container">'
+	  						
+	  						for (var i = 4; i < JSONData.length; i++) {
+								var stringHtml = '<div class="col-sm-6 col-md-3 col-lg-3">'
+					              				+ '<div class="shop-item"> <div class="shop-item-image">'
+					              				+ '<img src="'
+					              				+ JSONData[i].productImg1
+				              					+ '" alt="Accessories Pack"/>'
+				              					+ '<div class="shop-item-detail"><span hidden="hidden">'
+				                  				+ JSONData[i].auctionProductSubDatail
+				                  				+ '</span><a class="btn btn-round btn-b">경매 시작하기!</a></div></div>'
+				                  				+ '<h4 class="shop-item-title font-alt"><a href="#">'
+				                   				+ JSONData[i].auctionProductName
+				                   				+ '</a></h4> <span>'
+				                   				+ JSONData[i].hashtag1
+	  											+ ' '
+	  											+ JSONData[i].hashtag2
+	  											+ ' '
+	  											+ JSONData[i].hashtag3
+	  											+ '</span>'
+	  											+ '</div></div>'
+				                  
+	  					                 		str += stringHtml;
+	  		  									
+	  						}
+							str += '</div>'
+	  						$("#append").append(str);
+	  						page += 1;
+  						}
+  					});
+  				}
+  			});
+  		
+	  		$('.btn-b').on('click',function(){
+	   			var auctionProductSubDatail = $(this).prev().text();
+	   			var auctionProductName = $(this).parent().parent().next().text();
+	   			var allhashtag = $(this).parent().parent().next().next().text();
+	   			$("#auctionProductSubDatail").val(auctionProductSubDatail);
+	   			$("#auctionProductName").val(auctionProductName);
+	   			$("#allhashtag").val(allhashtag);
+	   			$('form').attr('method','post').attr('action','/auction/getAuctionProduct').submit();
+	   		});
+  	});
+   	
+   	$(document).ready */
+  		  	
+  	</script>    
+  </body>
 </html>

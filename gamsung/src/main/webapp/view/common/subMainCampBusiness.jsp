@@ -101,8 +101,7 @@ pageEncoding="UTF-8"%>
 		<a href="/payment/listSiteProfit">SiteProfit</a>
 	 
  
-     
-
+    
     </main>
     <!-- JavaScripts -->
     <script src="../../resources/lib/jquery/jquery.js"></script>

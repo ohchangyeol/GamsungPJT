@@ -30,12 +30,49 @@
 	<script type="text/javascript">
 
 		//============= "로그인"  Event 연결 =============
+			
+ //카카오로그인
+  function kakaoLogin() {
+
+    $.ajax({
+        url: '/gamsung/user/getKakaoAuthUrl',
+        type: 'get',
+        async: false,
+        dataType: 'text',
+        success: function (res) {
+            location.href = res;
+        }
+    });
+
+  }
+
+  $(document).ready(function() {
+
+      var kakaoInfo = '${kakaoInfo}';
+
+      if(kakaoInfo != ""){
+          var data = JSON.parse(kakaoInfo);
+
+          alert("카카오로그인 성공 \n accessToken : " + data['accessToken']);
+          alert(
+          "user : \n" + "email : "
+          + data['email']  
+          + "\n nickname : " 
+          + data['nickname']);
+      }
+  });  
 		$( function() {
 			
 			$("#userId").focus();
 			
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-			$("button").on("click" , function() {
+			//$("#kakao").on("click", function(){
+				//alert("eieiei");
+				//location.href("https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=5069ddcbe63e1882c2df7cc176f1a96f&redirect_uri=http%3A%2F%2Fkimcoder.kro.kr%3A8080%2FreceiveAC");
+			//	self.location="getKakaoAuthUrl"
+			//});
+			$("button:contains(로그인)").on("click" , function() {
+				//alert("gkgkgkgk");
 				var id=$("input:text").val();
 				var pw=$("input:password").val();
 				
@@ -73,7 +110,7 @@
 	<!-- ToolBar Start /////////////////////////////////////-->
 	<div class="navbar  navbar-default">
         <div class="container">
-        	<a class="navbar-brand" href="/index.jsp">Model2 MVC Shop</a>
+        	<a class="navbar-brand" href="/index.jsp">감성캠핑</a>
    		</div>
    	</div>
    	<!-- ToolBar End /////////////////////////////////////-->	
@@ -112,8 +149,15 @@
 					  
 					  <div class="form-group">
 					    <div class="col-sm-offset-4 col-sm-6 text-center">
-					      <button type="button" class="btn btn-primary"  >로 &nbsp;그 &nbsp;인</button>
+					      <button type="button" class="btn btn-primary"  >로그인</button>
 					      <a class="btn btn-primary btn" href="#" role="button">회 &nbsp;원 &nbsp;가 &nbsp;입</a>
+					     <ul>
+					      <li onclick="kakaoLogin();">
+					        <a href="javascript:void(0)">
+					            <span>카카오 로그인</span>
+					        </a>
+					      </li></ul>
+					       
 					    </div>
 					  </div>
 			

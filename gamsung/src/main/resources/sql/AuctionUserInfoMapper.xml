@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="AuctionUserInfoMapper">
+	<resultMap id="auction" type="auctionProduct">
+		<result property="auctionProductNo" column="product_no"/>
+		<result property="registrantId" column="registrant_id"/>
+		<result property="successfulBidderId" column="successful_bidder_id"/>
+		<result property="auctionProductName" column="product_name"/>
+		<result property="auctionProductDatail" column="product_detail"/>
+		<result property="startBidPrice" column="start_bid_price"/>
+		<result property="hopefulBidPrice" column="hopeful_bid_price"/>
+		<result property="bidUnit" column="bid_unit"/>
+		<result property="auctionStartTime" column="auction_start_time"/>
+		<result property="auctionEndTime" column="auction_end_time"/>
+		<result property="bidableGrade" column="bidable_grade"/>
+		<result property="hashtag1" column="hashtag1"/>
+		<result property="hashtag2" column="hashtag2"/>
+		<result property="hashtag3" column="hashtag3"/>
+		<result property="productImg1" column="product_img1"/>
+		<result property="productImg2" column="product_img2"/>
+		<result property="productImg3" column="product_img3"/>
+		<result property="productImg4" column="product_img4"/>
+		<result property="productImg5" column="product_img5"/>
+		<result property="productViewCount" column="product_view_count"/>
+		<result property="productRegDate" column="product_reg_date"/>
+		<result property="isConfirm" column="registrant_confirm_flag"/>
+		<result property="isConfirm" column="successful_bidder_confirm_flag"/>
+		<result property="auctionStatus" column="auction_status"/>
+		<result property="isTempSave" column="temp_save_flag"/>
+		<result property="isDelete" column="delete_flag"/>
+	</resultMap>
+	
+	<resultMap id="bidInfo" type="auctionBidInfo">
+		<result property="bidNo" column="bid_no"/>
+		<result property="auctionProductNo" column="product_no"/>
+		<result property="user.id" column="user_id"/>
+		<result property="user.nickName" column="nick_name"/>
+		<result property="user.auctionGrade" column="auction_grade"/>
+		<result property="bidPrice" column="bid_price"/>
+		<result property="bidDateTime" column="bid_date_time"/>
+		<result property="auctionStatus" column="auction_status"/>
+		<result property="addProductCount" column="add_product_count"/>
+		<result property="bidCount" column="bid_count"/>
+		<result property="successfulBidCount" column="successful_bid_count"/>
+		<result property="midwayWithdrawalCount" column="midway_withdrawal_count"/>
+		<result property="cancelSuccessfulBidCount" column="cancel_successful_bid_count"/>
+		<result property="auctionConfirmCount" column="auction_confirm_count"/>
+		<result property="topRankCount" column="top_rank_count"/>
+		<result property="addReviewCount" column="add_Review_Count"/>
+	</resultMap>
+	
+	<!-- //////////////////////////////////////////////////////AuctoinInfoDAO Mapper////////////////////////////////////////////////////// -->
+	<select id="listBidConcern" parameterType="auctionIntergration" resultMap="bidInfo">
+		SELECT bid_concern_no, product_no, concern_reg_date
+		FROM BID_CONCERN
+		WHERE auction_user_id = #{stringData}
+		LIMIT #{search.pageSize} OFFSET #{search.offset}
+	</select>
+	
+	<select id="listAuctionProductByRole" parameterType="auctionIntergration" resultMap="auction">
+		SELECT product_no, product_name, start_bid_price, hopeful_bid_price, auction_start_time, auction_end_time, product_view_count, product_reg_date, auction_status
+		FROM AUCTION_PRODUCT
+		WHERE temp_save_flag = 'N'
+		<if test='user.role.equals("GENERAL")'>
+			AND registrant_id = #{user.id}
+		</if>
+		LIMIT #{search.pageSize} OFFSET #{search.offset}
+	</select>
+	
+	
+	<select id="AuctionHistory" parameterType="auctionIntergration" resultMap="bidInfo">
+		SELECT bid_no, product_no, bidder_id, bid_price, bid_date_time, auction_status
+		FROM AUCTION_HISTORY
+		WHERE bidder_id = #{user.id}
+		<if test="auctionBidInfo.auctionProductNo != null">
+			AND product_no = #{auctionBidInfo.auctionProductNo}
+		</if>
+		LIMIT #{search.pageSize} OFFSET #{search.offset}
+	</select>
+	
+	<select id="auctionStatusTotalCount" parameterType="user" resultMap = "bidInfo">
+		SELECT 	APC.add_product_count AS add_product_count, BC.bid_count AS bid_count, SBC.successful_bid_count AS successful_bid_count, MWC.midway_withdrawal_count AS midway_withdrawal_count, 
+				RRC.add_Review_Count AS add_Review_Count, ACC.auction_confirm_count AS auction_confirm_count, TRC.top_rank_count AS top_rank_count, CSBC.cancel_successful_bid_count AS cancel_successful_bid_count 
+		FROM 
+		(	SELECT COUNT(product_no) AS add_product_count
+			FROM AUCTION_PRODUCT
+			<if test='role.equals("GENERAL")'>
+				WHERE registrant_id = #{id}
+			</if>
+		)AS APC,
+		
+		(	SELECT COUNT(bid_no) AS bid_count
+			FROM AUCTION_HISTORY
+			<if test='role.equals("GENERAL")'>
+				WHERE bidder_id = #{id}
+			</if>
+		) AS BC,
+		
+		(	SELECT COUNT(product_no) AS successful_bid_count
+			FROM AUCTION_PRODUCT
+			WHERE auction_status = 'WAIT'
+			<if test='role.equals("GENERAL")'>
+				AND successful_bidder_id = #{id}
+			</if>
+		) AS SBC,
+		
+		(	SELECT COUNT(product_no) AS midway_withdrawal_count
+			FROM AUCTION_PRODUCT
+			WHERE auction_status = 'WITHDRAWAL'
+			<if test='role.equals("GENERAL")'>
+				AND registrant_id = #{id}
+			</if>
+		) AS MWC,
+		
+		(	SELECT COUNT(product_no) AS cancel_successful_bid_count
+			FROM AUCTION_PRODUCT
+			WHERE auction_status = 'CANCEL'
+			<if test='role.equals("GENERAL")'>
+				AND successful_bidder_id = #{id}
+			</if>
+		) AS CSBC,
+		
+		(	SELECT COUNT(product_no) AS auction_confirm_count
+			FROM AUCTION_PRODUCT
+			WHERE auction_status = 'CONFIRM'
+			<if test='role.equals("GENERAL")'>
+				AND successful_bidder_id = #{id}
+			</if>
+		) AS ACC,
+		
+		(	SELECT COUNT(rating_review_no) AS add_Review_Count
+			FROM rating_review
+			WHERE user_id = #{id}
+		) AS RRC,
+		
+		(	SELECT COUNT(pbr.prodrank) AS top_rank_count
+			FROM (		SELECT ah.*, pc.prodcount tcount, 
+						(	CASE @prodno 
+							WHEN ah.product_no 
+							THEN @rownum := @rownum + 1 
+							ELSE @rownum := 1 
+							END) prodrank, 
+						(@prodno := ah.product_no) as prodno
+						FROM AUCTION_HISTORY ah, (	SELECT 	@prodno :='',
+															@rownum := 0 
+															FROM DUAL
+												 ) as rownum,
+												 (	SELECT product_no, COUNT(product_no) AS prodcount
+												 	FROM AUCTION_HISTORY
+												 	GROUP BY product_no) AS pc
+
+						WHERE ah.product_no = pc.product_no						 	
+						ORDER BY ah.product_no
+				 ) AS pbr
+				
+			
+			WHERE bidder_id = #{id} AND pbr.prodrank BETWEEN (pbr.tcount-2) AND (pbr.tcount-1)
+		) AS TRC
+	</select>
+	
+	<select id="getUserAuctionGradeInfo" parameterType="String" resultType="int">
+		SELECT auction_grade
+		FROM USERS
+		WHERE user_id = #{value}
+	</select>
+	
+	<update id="updateUserAuctionGrade" parameterType="user">
+		UPDATE USERS
+		SET	auction_grade = #{auctionGrade}
+		WHERE	user_id = #{id}
+	</update>
+	
+	<select id="isSecessionUserAuctionCondition" parameterType="String" resultMap="auction">
+		SELECT registrant_id, auction_status
+		FROM AUCTION_PRODUCT
+		WHERE 	( (auction_status = 'START' OR auction_status = 'WAIT') AND registrant_id = #{id} ) OR
+				( (auction_status = 'START' OR auction_status = 'WAIT') AND successful_bidder_id = #{id} )
+	</select>
+	
+	<update id=""></update>
+	
+</mapper>

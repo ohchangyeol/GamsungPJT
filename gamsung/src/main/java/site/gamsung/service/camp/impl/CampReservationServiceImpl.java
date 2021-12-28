@@ -6,16 +6,19 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import site.gamsung.service.camp.CampReservationService;
 import site.gamsung.service.common.Search;
 import site.gamsung.service.camp.CampReservationDAO;
+import site.gamsung.service.domain.Camp;
 import site.gamsung.service.domain.CampReservation;
 import site.gamsung.service.domain.MainSite;
 import site.gamsung.service.domain.Payment;
 import site.gamsung.service.domain.ReservationStatistics;
 import site.gamsung.service.payment.PaymentDAO;
+import site.gamsung.util.user.SendMessage;
 
 @Service("campReservationServiceImpl")
 public class CampReservationServiceImpl implements CampReservationService {
@@ -41,21 +44,26 @@ public class CampReservationServiceImpl implements CampReservationService {
 	}
 
 	@Override
-	public List<MainSite> listPossibleReservation(Map<String, Object> map) throws Exception {
+	public List<MainSite> listPossibleReservation(Map<String, Object> map){
 		return campReservationDAO.listPossibleReservation(map);
 	}
 
 	@Override
-	public void addReservation(CampReservation campReservation) throws Exception {
+	public void addReservation(CampReservation campReservation){
 		
 		//insert payment(결제 정보) - insert payment(결제 정보) - 포인트, 현금, 카드 여러 형태 처리.
 		campReservationDAO.addReservation(campReservation);
 		campReservationDAO.updateMainSiteReservation(campReservation);
 		
+		Camp camp = new Camp();
+		camp.setCampNo(10000);
+		
+		campReservationDAO.updateCampReservationCount(camp.getCampNo());
+		
 	}
 
 	@Override
-	public Map<String, Object> listReservation(Search search, int campNo) throws Exception {
+	public Map<String, Object> listReservation(Search search, int campNo){
 		
 		Map<String, Object> requestMap = new HashMap<String, Object>();
 		requestMap.put("search", search);
@@ -72,7 +80,7 @@ public class CampReservationServiceImpl implements CampReservationService {
 	}
 
 	@Override
-	public Map<String, Object> listMyReservation(Search search, String id) throws Exception {
+	public Map<String, Object> listMyReservation(Search search, String id){
 		
 		Map<String, Object> requestMap = new HashMap<String, Object>();
 		requestMap.put("search", search);
@@ -89,12 +97,12 @@ public class CampReservationServiceImpl implements CampReservationService {
 	}
 
 	@Override
-	public ReservationStatistics getReservationStatistics() throws Exception {
+	public ReservationStatistics getReservationStatistics(){
 		return campReservationDAO.getReservationStatistics();
 	}
 
 	@Override
-	public Map<String, Object> listCampReservationStatisticsByDay(Search search) throws Exception {
+	public Map<String, Object> listCampReservationStatisticsByDay(Search search){
 		
 		List<ReservationStatistics> listCampReservationByDay = campReservationDAO.campReservationStatisticsByDay(search);
 		int totalCampReservationCountByDay = campReservationDAO.getTotalCampReservationCountByDay(search);
@@ -107,7 +115,7 @@ public class CampReservationServiceImpl implements CampReservationService {
 	}
 	
 	@Override
-	public Map<String, Object> listCampReservationStatisticsByWeek(Search search) throws Exception {
+	public Map<String, Object> listCampReservationStatisticsByWeek(Search search){
 		
 		List<ReservationStatistics> listCampReservationByWeek = campReservationDAO.campReservationStatisticsByWeek(search);
 		int totalCampReservationCountByWeek = campReservationDAO.getTotalCampReservationCountByWeek(search);
@@ -120,7 +128,7 @@ public class CampReservationServiceImpl implements CampReservationService {
 	}
 	
 	@Override
-	public Map<String, Object> listCampReservationStatisticsByMonth(Search search) throws Exception {
+	public Map<String, Object> listCampReservationStatisticsByMonth(Search search){
 		
 		List<ReservationStatistics> listCampReservationByMonth = campReservationDAO.campReservationStatisticsByMonth(search);
 		int totalCampReservationCountByMonth = campReservationDAO.getTotalCampReservationCountByMonth(search);
@@ -133,12 +141,12 @@ public class CampReservationServiceImpl implements CampReservationService {
 	}
 
 	@Override
-	public CampReservation getReservation(String reservationNo) throws Exception {
+	public CampReservation getReservation(String reservationNo){
 		return campReservationDAO.getReservation(reservationNo);
 	}
 
 	@Override
-	public void updateReservation(CampReservation campReservation) throws Exception {
+	public void updateReservation(CampReservation campReservation){
 		
 		//추가 결제 발생 시 insert payment(결제 정보) - 포인트, 현금, 카드 여러 형태 처리.
 		
@@ -163,7 +171,7 @@ public class CampReservationServiceImpl implements CampReservationService {
 	}
 
 	@Override
-	public void cancleReservationApply(CampReservation campReservation) throws Exception {
+	public void cancleReservationApply(CampReservation campReservation){
 		
 		campReservationDAO.updateReservation(campReservation);
 		//get payment(예약번호) - 리스트로 받고 리스트 크기로 반복문 돌려서 결제취소 정보 입력.
@@ -172,7 +180,7 @@ public class CampReservationServiceImpl implements CampReservationService {
 	}
 
 	@Override
-	public void cancleReservationDo(Payment payment) throws Exception {
+	public void cancleReservationDo(Payment payment){
 	
 		//예약취소 UI에서 결제 취소 진행 후 최종 확인 시 실행.
 		
@@ -189,4 +197,35 @@ public class CampReservationServiceImpl implements CampReservationService {
 		
 	}
 
+	@Override
+	@Scheduled(cron="0 0 12 * * *")
+	public void sendMessage() {
+		
+		List<CampReservation> list = campReservationDAO.sendMessageInfo();
+		SendMessage sendmessage = new SendMessage();
+		
+		for (int i = 0; i < list.size(); i++) {
+			
+			String text = "안녕하세요.\n"+
+						  "감성캠핑 사이트 입니다.\n"+
+						  list.get(i).getReservationUserName()+"님은\n"+
+						  list.get(i).getUser().getCampName()+"캠핑장에\n"+
+						  list.get(i).getReservationStartDate()+" 부터 "+
+						  list.get(i).getReservationEndDate()+" 까지 예약되어 있습니다.\n"+
+						  "이용에 참고 하시기 바랍니다.";
+			
+			sendmessage.sendMessage(list.get(i).getReservationUserPhone(), text);
+		}		
+	}
+
+	@Override
+	@Scheduled(cron="0 0 16 * * *")
+	public void reservationCompleteUse() {
+		
+		CampReservation campReservation = new CampReservation();
+		campReservation.setReservationStatus(7);
+		campReservationDAO.updateReservation(campReservation);
+		
+	}
+	
 }

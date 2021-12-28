@@ -27,7 +27,7 @@ public class RatingReview {
 	public RatingReview() {
 		
 	}
-	
+
 	public Camp getCamp() {
 		return camp;
 	}
@@ -36,11 +36,11 @@ public class RatingReview {
 		this.camp = camp;
 	}
 
-	public AuctionProduct getProduct() {
+	public AuctionProduct getAuctionProduct() {
 		return auctionProduct;
 	}
 
-	public void setProduct(AuctionProduct auctionProduct) {
+	public void setAuctionProduct(AuctionProduct auctionProduct) {
 		this.auctionProduct = auctionProduct;
 	}
 
@@ -164,40 +164,31 @@ public class RatingReview {
 		this.img3 = img3;
 	}
 
-	public void setReviewDeleteFlag(String reviewDeleteFlag) {
-		this.reviewDeleteFlag = reviewDeleteFlag;
-	}
-
-	public void setCommentDeleteFlag(String commentDeleteFlag) {
-
-		this.commentDeleteFlag = commentDeleteFlag;
-	}
-
-	public AuctionProduct getAuctionProduct() {
-		return auctionProduct;
-	}
-
-	public void setAuctionProduct(AuctionProduct auctionProduct) {
-		this.auctionProduct = auctionProduct;
-	}
-
 	public String getReviewDeleteFlag() {
 		return reviewDeleteFlag;
+	}
+
+	public void setReviewDeleteFlag(String reviewDeleteFlag) {
+		this.reviewDeleteFlag = reviewDeleteFlag;
 	}
 
 	public String getCommentDeleteFlag() {
 		return commentDeleteFlag;
 	}
-	
-	@Override
-	public String toString() {
-		return "RatingReview [camp=" + camp + ", auctionProduct=" + auctionProduct + ", user=" + user + ", ratingReviewNo="
-				+ ratingReviewNo + ", ratingReviewStatus=" + ratingReviewStatus + ", ratingReviewTitle="
-				+ ratingReviewTitle + ", ratingReviewContent=" + ratingReviewContent + ", reviewRegDate="
-				+ reviewRegDate + ", comment=" + comment + ", commentRegDate=" + commentRegDate + ", statusRating="
-				+ statusRating + ", priceRating=" + priceRating + ", kindnessRating=" + kindnessRating + ", avgRating="
-				+ avgRating + ", img1=" + img1 + ", img2=" + img2 + ", img3=" + img3 + ", reviewDeleteFlag="
-				+ reviewDeleteFlag + ", commentDeleteFlag=" + commentDeleteFlag + "]\n";
+
+	public void setCommentDeleteFlag(String commentDeleteFlag) {
+		this.commentDeleteFlag = commentDeleteFlag;
 	}
 
+	@Override
+	public String toString() {
+		return "RatingReview [camp=" + camp + ", auctionProduct=" + auctionProduct + ", user=" + user
+				+ ", ratingReviewNo=" + ratingReviewNo + ", ratingReviewStatus=" + ratingReviewStatus
+				+ ", ratingReviewTitle=" + ratingReviewTitle + ", ratingReviewContent=" + ratingReviewContent
+				+ ", reviewRegDate=" + reviewRegDate + ", comment=" + comment + ", commentRegDate=" + commentRegDate
+				+ ", statusRating=" + statusRating + ", priceRating=" + priceRating + ", kindnessRating="
+				+ kindnessRating + ", avgRating=" + avgRating + ", img1=" + img1 + ", img2=" + img2 + ", img3=" + img3
+				+ ", reviewDeleteFlag=" + reviewDeleteFlag + ", commentDeleteFlag=" + commentDeleteFlag + "]";
+	}
+	
 }

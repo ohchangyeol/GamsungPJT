@@ -1,6 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+pageEncoding="UTF-8"%>
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
 </head>
 
 <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
@@ -15,10 +16,13 @@
           <ul class="dropdown-menu">
            	<li><a href="/campBusiness/goSubMainCampBusiness">CampBusinessMain</a></li>      
           </ul>
-        </li>        
-        
-        <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Home</a>
+        </li>
+        <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Camping</a>
           <ul class="dropdown-menu">
+
+            <li><a href="/campGeneral/campSearch" >Camping Search</a></li>
+            <li><a href="/campGeneral/campDetailSearch" >Camping DetailSearch</a></li>
+
         
             <li><a href="index_mp_fullscreen_video_background.html">Default</a></li>
             <li><a href="index_op_fullscreen_gradient_overlay.html">One Page</a></li>
@@ -28,29 +32,16 @@
             <li><a href="index_finance.html">Finance</a></li>
             <li><a href="index_landing.html">Landing Page</a></li>
             <li><a href="index_photography.html">Photography</a></li>
-            <li><a href="index_shop.html">Shop</a></li>
+            <li><a href="/servicecenter/home">고객센터</a></li>
+
           </ul>
         </li>
-        <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Headers</a>
+        <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">중고상품</a>
+
           <ul class="dropdown-menu">
-            <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Static Image Header</a>
-              <ul class="dropdown-menu">
-                <li><a href="index_mp_fullscreen_static.html">Fulscreen</a></li>
-                <li><a href="index_mp_classic_static.html">Classic</a></li>
-              </ul>
-            </li>
-            <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Flexslider Header</a>
-              <ul class="dropdown-menu">
-                <li><a href="index_mp_fullscreen_flexslider.html">Fulscreen</a></li>
-                <li><a href="index_mp_classic_flexslider.html">Classic</a></li>
-              </ul>
-            </li>
-            <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Video Background Header</a>
-              <ul class="dropdown-menu">
-                <li><a href="index_mp_fullscreen_video_background.html">Fulscreen</a></li>
-                <li><a href="index_mp_classic_video_background.html">Classic</a></li>
-              </ul>
-            </li>
+            <li><a href="/auction/addAuctionProduct" >상품 등록</a></li>
+            <li><a href="/auction/listWaitAuctionProduct" >경매 진행 전</a></li>
+            <li><a href="/auction/listAuctionProduct" >경매 진행 중</a></li>
             <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Text Rotator Header</a>
               <ul class="dropdown-menu">
                 <li><a href="index_mp_fullscreen_text_rotator.html">Fulscreen</a></li>
@@ -235,7 +226,7 @@
             <li><a href="typography.html"><i class="fa fa-font"></i> Typography</a></li>
           </ul>
         </li>
-        <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Shop</a>
+        <li class="dropdown"><a class="dropdown-toggle" href="/servicecenter/home" data-toggle="dropdown">고객센터</a>
           <ul class="dropdown-menu" role="menu">
             <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Product</a>
               <ul class="dropdown-menu">
@@ -304,9 +295,11 @@
             <li><a href="documentation.html#changelog">Changelog</a></li>
           </ul>
         </li>
+        <li><a href="/view/user/tempLogin.jsp">
+	       <button class="btn btn-border-w btn-round btn-xs" type="button">LOGIN</button>
+        </a>
+        </li>
       </ul>
     </div>
   </div>
 </nav>
-
-

@@ -23,6 +23,7 @@
 		<result property="Hashtag3"  		 column="post_hashtag3"    jdbcType="VARCHAR" />
 	 	<result property="postConcernCount"  column="con_num" 		   jdbcType="NUMERIC" /> 
 		<result property="commentTotalCount" column="com_num" 		   jdbcType="NUMERIC" />
+		<result property="conDeleteFlag"	 column="con_deleteFlag"   jdbcType="NUMERIC" />		
 	</resultMap>
 	
 	<resultMap id="commentMapper" type="comment">
@@ -36,7 +37,7 @@
 	
 	 <resultMap id="postConcernMapper" type="postConcern">
 		<result property="countNo"    	  	 column="count_no" 		   jdbcType="NUMERIC"/>
-		<result property="concernFlag"	  	 column="concern_flag" 	   jdbcType="CHAR" />
+		<result property="deleteFlag"	  	 column="delete_flag"  	   jdbcType="CHAR" />
 		<result property="userId.id" 	 	 column="user_id"  		   jdbcType="VARCHAR" />
 		<result property="postNo.postNo"  	 column="post_no" 		   jdbcType="NUMERIC" />
 	 </resultMap> 
@@ -54,16 +55,20 @@
     <insert    id="addComment"      parameterType="comment" >
       INSERT 
       INTO  GAMSUNG.COMMENT(post_no,user_id,comment_content)
-      VALUES    (#{postNo.postNo}, #{commentWriter.id}, #{commentContent:VARCHAR});                                      
+      VALUES    (#{postNo.postNo}, #{commentWriter.id}, #{commentContent:VARCHAR})                                      
     </insert>	 	 
  	 
-	<!-- 추천 등록 -->
+	<!-- 추천 등록 중복된 값이 있을 경우 INSERT되지않는다. -->
   	<insert    id="addConcern"      parameterType="hashmap" >
-      INSERT 
-      INTO  GAMSUNG.POST_CONCERN(user_id, post_no)
-      VALUES    (#{userId}, #{postNo});                                     
+    INSERT INTO POST_CONCERN (post_no, user_id)
+	SELECT #{postNo}, #{userId}
+	FROM dual
+	WHERE NOT EXISTS (SELECT post_no, user_id 
+					  FROM post_concern 
+					  WHERE post_no = #{postNo}
+					  AND user_id = #{userId} )                                   
     </insert>
- 	 
+    	 
     <!-- SQL : SELECT --> 	 
     <!-- 게시글 상세 조회--> 	 
 
@@ -74,21 +79,31 @@
       WHERE post_no = #{value}
 	 </select>
 	 
-    <!-- 게시글 List 조회--> 	 
-	 
-	<select  id="listPost"  parameterType="post"	resultMap="postMapper">
+    <!-- 게시글 List 조회 list를 가지고 올때 해당 user_id에 대한 post_no 값이 concern table에 있으면 하트를 컬러로 표출한다.--> 	 
+    
+	<select  id="listPost"  parameterType="hashmap"	resultMap="postMapper">
 	SELECT S.* 
 	FROM (SELECT @rownum:= @rownum+1 AS R , P.* 
-		FROM (SELECT p.*,com.com_num,con.con_num 
+		FROM (SELECT p.*,com.com_num,con.con_num, CASE WHEN cop.flag = 'Y' THEN 'Y'
+		                                          WHEN cop.flag = 'N' THEN 'N'
+		                                          ELSE 'Y' END AS con_deleteFlag
 			  FROM POST p LEFT JOIN (SELECT post_no, count(*) com_num
 								     FROM comment 
-									 GROUP BY post_no) com
+									 GROUP BY post_no) com <!-- 게시물당 코멘트 총 수  -->
 			  ON p.post_no = com.post_no 
 						  LEFT JOIN (SELECT post_no, count(*) con_num
 									FROM post_concern 
-									GROUP BY post_no) con
+									GROUP BY post_no) con <!-- 게시물당 추천 총 수  -->
 			  ON p.post_no = con.post_no	
-	  		  WHERE p.delete_flag = 'N' AND p.post_type = #{postType}
+			  			 LEFT JOIN (SELECT post_no, delete_flag flag
+						            FROM post_concern pc
+						            WHERE pc.user_id =#{userId}
+						          	) cop  <!-- 회원의 게시물 추천 유무 Y는 빈하트 표출   -->
+			   ON p.post_no = cop.post_no			            								
+	  		  WHERE p.delete_flag = 'N' 
+	  		  <if test="postType != null">		
+	  		  AND p.post_type = #{post.postType}
+	  		  </if>
 			      <if test="search.searchCondition != null">		
 				    <trim prefix="AND">
 						<if test="search.searchCondition == 0 and search.searchKeyword !='' "> 
@@ -120,7 +135,16 @@
 				ORDER BY p.post_reg_date ) P, (select @rownum:= 0) M
 				WHERE @rownum  <![CDATA[ <=]]> #{search.endRowNum} ) S
 				WHERE R BETWEEN #{search.startRowNum} AND #{search.endRowNum} 
-	 </select>
+	 </select> 	 
+	 
+	 	<!-- 추천 여부-->
+	<select  id="ConcernFlag"  parameterType="postConcern"	resultMap="postConcernMapper">
+		SELECT delete_flag
+		FROM post_concern
+		WHERE post_no= #{postNo.postNo} AND user_id = #{userId.id}
+	</select> 
+	 
+	 
 	 
     <!-- 댓글 list  조회--> 	 
  	 
@@ -128,7 +152,7 @@
 	SELECT * 
 	FROM comment
 	WHERE delete_flag = 'N' AND post_no= #{value}
-	ORDER BY comment_reg_date;
+	ORDER BY comment_reg_date
 	 </select> 
 	 
     <!-- SQL : UPDATE --> 	 
@@ -156,61 +180,69 @@
 	 </update>
 	 
     <!-- 게시물 삭제 그에 딸린 댓글들도 delete_flags를 Y 설정해줘야한다. 내 댓글 보기에서 안보이게 하려면 --> 	 
+ 	<update	id="deletePost"	parameterType="int" >
+	 UPDATE POST P RIGHT JOIN COMMENT C
+	 ON (P.post_no = C.post_no ) 
+		<set> 
+	 		P.delete_flag = 'Y', C.delete_flag = 'Y' 
+		</set>
+		WHERE P.post_no = #{value}
+	 </update>
 
-<!-- 	  <update	id="deletePost"	parameterType="int" >
-	   	UPDATE post
-	   	<set>
-	   		delete_flag= 'Y'
-	   	</set>
-	   	WHERE post_no= #{value}
-	 </update> -->
-
-
-
-
-<!-- 게시물 블라인드 처리 관리자일 경우 가능하다.--> 	 	 
-<!-- 	 <update	id="blindPost"	parameterType="int" >
-	   	UPDATE post
-	   	<set>
-	   		delete_flag= 'X'
-	   	</set>
-	   	WHERE post_no= #{value}
-	 </update> -->
+	<!-- 게시물 블라인드 처리 관리자일 경우 가능하다.--> 	 	 
+	<update	id="blindPost"	parameterType="int" >
+	 UPDATE POST P RIGHT JOIN COMMENT C
+	 ON (P.post_no = C.post_no )  
+		<set> 
+	 		P.delete_flag = 'X', C.delete_flag = 'X' 
+		</set>
+		WHERE P.post_no = #{value}
+	 </update>
 
 	<!-- 댓글 수정  앞단에서 수정버튼을 user만 보이게끔 설정하기때문에 where 조건에는 댓글번호만 가지고 오면된다. -->	 
 	 
-	 <!-- <update	id="updateComment"	parameterType="comment" >
+	<update	id="updateComment"	parameterType="comment" >
+		 UPDATE COMMENT
 	   	<set>
 	   		comment_content= #{commentContent},
 	   	</set>
 	   	WHERE comment_no = #{commentNo}
-	 </update>	  -->
+	 </update>
 	 
-	<!-- 댓글 삭제 -->
+	<!-- 댓글 삭제-->
 	
-	 <!-- <update	id="deleteComment"	parameterType="int" >
-	   	UPDATE comment
+    <update	id="deleteComment"	parameterType="int" >
+	   	UPDATE COMMENT
 	   	<set>
 	   		delete_flag= 'Y'
 	   	</set>
 	   	WHERE comment_no= #{commentNo}
-	 </update> -->	 
+	 </update>
+	 
+	<!-- 댓글 블라인드 처리 관리자일 경우 가능하다. -->
+	<update	id="blindComment"	parameterType="int" >
+	   	UPDATE COMMENT
+	   	<set>
+	   		delete_flag= 'X'
+	   	</set>
+	   	WHERE comment_no= #{commentNo}s
+	</update>
 
 
-   <!-- 추천 해제 table에 postNo값이 등록이 되어있어야 헤재도 된다. -->
-	 <!-- <update	id="deleteConcern"	parameterType="hashmap" >
+   <!-- 추천 해제 table에 postNo값이 등록이 되어있어야 헤재도 된다. -->   
+	<update	id="deleteConcern"	parameterType="hashmap" >
 	   	UPDATE post_concern
 	   	<set>
-	   		concern_flag= 'Y'
+	   		delete_flag = 'Y'
 	   	</set>
-	   	WHERE post_no= #{postNo.postNo}
-	 </update> -->	 
-
+	   	WHERE post_no= #{postNo} AND user_id = #{userId}
+	 </update> 
+	 
    <!-- 총 추천수 -->
 <!-- 	<select  id="totalConcern"  parameterType="int"	resultType="int">
 	SELECT count(*) 
 	FROM post_concern 
-	WHERE post_no= #{value} and concern_flag = 'Y';
+	WHERE post_no= #{value} and delete_flag  = 'Y';
 	 </select> -->
 
    <!-- 총 댓글수-->
@@ -220,11 +252,5 @@
 	WHERE post_no= #{value} and delete_flag = 'N';
 	 </select>  -->
 	 
-	<!-- 추천 여부-->
-	<!-- <select  id="ConcernFlag"  parameterType="int"	resultMap="postConcernMapper">
-	SELECT user_id 
-	FROM post_concern 
-	WHERE post_no= #{postNo.postNo} AND concern_flag = 'N';
-	 </select> -->	 
 	 
 </mapper> 

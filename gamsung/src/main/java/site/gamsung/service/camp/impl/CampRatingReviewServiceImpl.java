@@ -68,20 +68,17 @@ public class CampRatingReviewServiceImpl implements RatingReviewService {
 
 	@Override
 	public RatingReview getRatingReview(int ratingReviewNo) throws Exception {
-
 		return null;
 	}
 
 	@Override
-	public void updateRatingReview(int ratingReviewNo) throws Exception {
-
-		
+	public void updateRatingReview(RatingReview ratingReviewNo) throws Exception {
+		campRatingReviewDAO.updateCampRatingReview(ratingReviewNo);
 	}
 
 	@Override
 	public void deleteRatingReview(int ratingReviewNo) throws Exception {
-
-		
+	
 	}
 	
 }

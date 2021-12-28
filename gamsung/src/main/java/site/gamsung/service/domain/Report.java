@@ -3,17 +3,18 @@ package site.gamsung.service.domain;
 public class Report {
 	// Field
 	private int reportNo;
-	private String reportType;
+	private int reportType;
 	private String reportContent;
 	private String deleteFlag;
-	private String reportStatus;
+	private int reportStatus;
 	private User sender;
 	private User receiver;
 	private String regDate;
-	private String campName;
+	private String receiverCampName;
 	private String reportImgFile1;
 	private String reportImgFile2;
 	private String reportImgFile3;
+	private String reportTypeName;
 	
 	
 	// Constructor
@@ -25,7 +26,7 @@ public class Report {
 	public int getReportNo() {
 		return reportNo;
 	}
-	public String getReportType() {
+	public int getReportType() {
 		return reportType;
 	}
 	public String getReportContent() {
@@ -34,7 +35,7 @@ public class Report {
 	public String getDeleteFlag() {
 		return deleteFlag;
 	}
-	public String getReportStatus() {
+	public int getReportStatus() {
 		return reportStatus;
 	}
 	public User getSender() {
@@ -46,8 +47,8 @@ public class Report {
 	public String getRegDate() {
 		return regDate;
 	}
-	public String getCampName() {
-		return campName;
+	public String getReceiverCampName() {
+		return receiverCampName;
 	}
 	public String getReportImgFile1() {
 		return reportImgFile1;
@@ -58,12 +59,15 @@ public class Report {
 	public String getReportImgFile3() {
 		return reportImgFile3;
 	}
-
+	public String getReportTypeName() {
+		return reportTypeName;
+	}
+	
 	//Setter
 	public void setReportNo(int reportNo) {
 		this.reportNo = reportNo;
 	}
-	public void setReportType(String reportType) {
+	public void setReportType(int reportType) {
 		this.reportType = reportType;
 	}
 	public void setReportContent(String reportContent) {
@@ -72,7 +76,7 @@ public class Report {
 	public void setDeleteFlag(String deleteFlag) {
 		this.deleteFlag = deleteFlag;
 	}
-	public void setReportStatus(String reportStatus) {
+	public void setReportStatus(int reportStatus) {
 		this.reportStatus = reportStatus;
 	}
 	public void setSender(User sender) {
@@ -84,8 +88,8 @@ public class Report {
 	public void setRegDate(String regDate) {
 		this.regDate = regDate;
 	}
-	public void setCampName(String campName) {
-		this.campName = campName;
+	public void setReceiverCampName(String receiverCampName) {
+		this.receiverCampName = receiverCampName;
 	}
 	public void setReportImgFile1(String reportImgFile1) {
 		this.reportImgFile1 = reportImgFile1;
@@ -96,12 +100,17 @@ public class Report {
 	public void setReportImgFile3(String reportImgFile3) {
 		this.reportImgFile3 = reportImgFile3;
 	}
+	public void setReportTypeName(String reportTypeName) {
+		this.reportTypeName = reportTypeName;
+	}
 
+	
 	@Override
 	public String toString() {
 		return "Report [reportNo=" + reportNo + ", reportType=" + reportType + ", reportContent=" + reportContent
 				+ ", deleteFlag=" + deleteFlag + ", reportStatus=" + reportStatus + ", sender=" + sender + ", receiver="
-				+ receiver + ", regDate=" + regDate + ", campName=" + campName + ", reportImgFile1=" + reportImgFile1
-				+ ", reportImgFile2=" + reportImgFile2 + ", reportImgFile3=" + reportImgFile3 + "]\n";
+				+ receiver + ", regDate=" + regDate + ", receiverCampName=" + receiverCampName + ", reportImgFile1="
+				+ reportImgFile1 + ", reportImgFile2=" + reportImgFile2 + ", reportImgFile3=" + reportImgFile3
+				+ ", reportTypeName=" + reportTypeName + "]\n";
 	}
 }

@@ -10,25 +10,45 @@
 	
 	<title>상품 등록</title>
 	
-	<link rel="stylesheet" href="/resources/css/animate.css">
-    <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/resources/css/custom.css">
-    <link rel="stylesheet" href="/resources/css/flashy.min.css">
-    <link rel="stylesheet" href="/resources/css/flaticon.css">
-    <link rel="stylesheet" href="/resources/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/resources/css/magnific-popup.css">
-    <link rel="stylesheet" href="/resources/css/pogo-slider.min.css">
-    <link rel="stylesheet" href="/resources/css/responsive.css">
-    <link rel="stylesheet" href="/resources/css/responsiveslides.css">
-    <link rel="stylesheet" href="/resources/css/style.css">
-    <link rel="stylesheet" href="/resources/css/timeline.css">   
-    <link rel="stylesheet" href="/resources/css/dropzone.css">   
+	<link rel="apple-touch-icon" sizes="57x57" href="../../resources/images/favicons/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="../../resources/images/favicons/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="../../resources/images/favicons/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="../../resources/images/favicons/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="../../resources/images/favicons/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="../../resources/images/favicons/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="../../resources/images/favicons/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="../../resources/images/favicons/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../../resources/images/favicons/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../../resources/images/favicons/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../resources/images/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="../../resources/images/favicons/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../resources/images/favicons/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="../../resources/images/favicons/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+    
+    <link href="../../resources/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Template specific stylesheets-->
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Volkhov:400i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
+    <link href="../../resources/lib/animate.css/animate.css" rel="stylesheet">
+    <link href="../../resources/lib/components-font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../../resources/lib/et-line-font/et-line-font.css" rel="stylesheet">
+    <link href="../../resources/lib/flexslider/flexslider.css" rel="stylesheet">
+    <link href="../../resources/lib/owl.carousel/dist/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="../../resources/lib/owl.carousel/dist/assets/owl.theme.default.min.css" rel="stylesheet">
+    <link href="../../resources/lib/magnific-popup/magnific-popup.css" rel="stylesheet">
+    <link href="../../resources/lib/simple-text-rotator/simpletextrotator.css" rel="stylesheet">
+    <!-- Main stylesheet and color file-->
+    <link href="../../resources/css/style.css" rel="stylesheet">
+    <link id="color-scheme" href="../../resources/css/colors/default.css" rel="stylesheet">
  
  	<style>
  	
 		.filebox label { 
 		display: inline-block; 
-		padding: 80px 80px; 
+		padding: 60px 60px; 
 		color: #999; 
 		font-size: inherit; 
 		line-height: normal; 
@@ -70,116 +90,191 @@
 
 	
 </head>
-<body id="home" data-spy="scroll" data-target="#navbar-wd" data-offset="98">
-
-	<jsp:include page="../common/header.jsp"></jsp:include>
-	
-	<div id="b-deals" class="services-box main-timeline-box">
-		<div class="container col-lg-12">
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="title-box">
-						<h2>add Product</h2>
+<body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
+   <main>
+		<div class="page-loader">
+       		<div class="loader">Loading...</div>
+     	</div>
+  		<jsp:include page="../common/header.jsp"></jsp:include>
+<div class="main">
+        <section class="module bg-dark-30 about-page-header" data-background="assets/images/about_bg.jpg">
+          <div class="container">
+            <div class="row">
+              <div class="col-sm-6 col-sm-offset-3">
+                <h1 class="module-title font-alt mb-0">Forms</h1>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="module">
+          <div class="container">
+            <div class="row">
+              <div class="col-sm-8 col-sm-offset-2">
+                <h4 class="font-alt mb-0">상품 등록</h4>
+                <hr class="divider-w mt-10 mb-20">
+                <form class="form" role="form">
+                  <div class="form-group">
+                  	<label for=auctionProductName class="col-sm-offset-1 col-sm-3 control-label">상품명</label>
+                    <input id="auctionProductName" name="auctionProductName" class="form-control" type="text" placeholder="상품명을 입력하세요."/>
+                  </div>
+                  <div class="form-group">
+                  	<label for="startBidPrice" class="col-sm-offset-1 col-sm-3 control-label">경매 시작가</label>
+                    <input id="startBidPrice" name="startBidPrice" class="form-control" type="text" placeholder="경매 시작가를 입력하세요."/>
+                  </div>
+                  <div id="startBidPriceDiv" class="alert alert-danger" role="alert" hidden="hidden">
+	                 <button class="close" type="button" data-dismiss="alert" aria-hidden="true">&times;</button><i class="icon-sad"></i><strong id="startBidPriceStrong"></strong>
+	              </div>                 
+                  <div class="form-group">
+                  	<label for="hopefulBidPrice" class="col-sm-offset-1 col-sm-3 control-label">희망 낙찰가</label>
+                    <input id="hopefulBidPrice" name="hopefulBidPrice" class="form-control" type="text" placeholder="희망 낙찰가를 입력하세요."/>
+                  </div>
+                  <div id="hopefulBidPriceDiv" class="alert alert-danger" role="alert" hidden="hidden">
+	                 <button class="close" type="button" data-dismiss="alert" aria-hidden="true">&times;</button><i class="icon-sad"></i><strong id="hopefulBidPriceStrong"></strong>
+	              </div>  
+                  <div class="form-group">
+                  	<label for="bidUnit" class="col-sm-offset-1 col-sm-3 control-label">입찰 단위</label>
+                    <input id="bidUnit" name="bidUnit" class="form-control" type="text" placeholder="입찰 단위를 입력하세요."/>
+                  </div>
+                   <div class="alert alert-danger" role="alert" hidden="hidden">
+	                 <button class="close" type="button" data-dismiss="alert" aria-hidden="true">&times;</button><i class="icon-sad"></i><strong class="bidUnit"></strong>
+	              </div>
+                  <div class="form-group">
+                  	<label for="auctionStartTime" class="col-sm-offset-1 col-sm-3 control-label">경매 시작 시간</label>
+                    <input id="auctionStartTime" name="auctionStartTime" class="form-control" type="text" placeholder="경매 시작 시간을 입력하세요."/>
+                  </div>
+                   <div class="alert alert-danger" role="alert" hidden="hidden">
+	                 <button class="close" type="button" data-dismiss="alert" aria-hidden="true">&times;</button><i class="icon-sad"></i><strong class="auctionStartTime"></strong>
+	              </div>
+                  <div class="form-group">
+                  	<label for="auctionEndTime" class="col-sm-offset-1 col-sm-3 control-label">경매 종료 시간</label>
+                    <input id="auctionEndTime" name="auctionEndTime" class="form-control" type="text" placeholder="경매 종료 시간을 입력하세요."/>
+                  </div>
+                   <div class="alert alert-danger" role="alert" hidden="hidden">
+	                 <button class="close" type="button" data-dismiss="alert" aria-hidden="true">&times;</button><i class="icon-sad"></i><strong class="auctionEndTime"></strong>
+	              </div>
+                  <div class="form-group">
+                  	<label for="bidableGrade" class="col-sm-offset-1 col-sm-3 control-label">입찰 가능 등급</label>
+                    <input id="bidableGrade" name="bidableGrade" class="form-control" type="text" placeholder="입찰 가능 등급을 입력하세요."/>
+                  </div>
+                   <div class="alert alert-danger" role="alert" hidden="hidden">
+	                 <button class="close" type="button" data-dismiss="alert" aria-hidden="true">&times;</button><i class="icon-sad"></i><strong class="bidableGrade"></strong>
+	              </div>
+                  <div id="file">
+					  <div class="filebox">
+					  	<img id="productImg1" alt="" src="" width="100%" height="100%" hidden="hidden">
+					  	<label for="ex_file">+</label>
+					  	<input class="previewImg" name="productImg1" type="file" id="ex_file"> 
+					  </div>
+					   <div class="filebox"> 
+					   	<img id="productImg2" alt="" src="" width="100%" height="100%" hidden="hidden">
+					  	<label for="ex_file">+</label>
+					  	<input class="previewImg" name="productImg2" type="file" id="ex_file"> 
+					  </div>
+					   <div class="filebox">
+					  	<img id="productImg3" alt="" src="" width="100%" height="100%" hidden="hidden"> 
+					  	<label for="ex_file">+</label> 
+					  	<input class="previewImg" name="productImg3" type="file" id="ex_file"> 
+					  </div>
+					   <div class="filebox"> 
+					   	<img id="productImg4" alt="" src="" width="100%" height="100%" hidden="hidden">
+					  	<label for="ex_file">+</label> 
+					  	<input class="previewImg" name="productImg4" type="file" id="ex_file"> 
+					  </div>
+					   <div class="filebox">
+						<img id="productImg5" alt="" src="" width="100%" height="100%" hidden="hidden">
+					  	<label for="ex_file">+</label>
+					  	<input class="previewImg" name="productImg5" type="file" id="ex_file"> 
+					  </div>
 					</div>
-				</div>
-			</div>
-		</div>
-	</div>	
-	
-	<div class="container col-lg-3"></div>
-	<div class="container col-lg-6">
-		<form class="form-horizontal">
-		
-		  <div class="form-group">
-		    <label for=auctionProductName class="col-sm-offset-1 col-sm-3 control-label">상품명</label>
-		    <div class="col-sm-8">
-		      <input type="text" name="auctionProductName" class="form-control" width="100%">
-		    </div>
-		  </div>
-		
-		  <div class="form-group">
-		    <label for="startBidPrice" class="col-sm-offset-1 col-sm-3 control-label">경매 시작가</label>
-		    <div class="col-sm-4">
-		      <input type="text" name="startBidPrice" class="form-control" maxLength="50" minLength="6"/>
-		    </div>
-		  </div>
-		  
-		  <div class="form-group">
-		    <label for="hopefulBidPrice" class="col-sm-offset-1 col-sm-3 control-label">희망 낙찰가</label>
-		    <div class="col-sm-4">
-		    	<input type="text" name="hopefulBidPrice" class="form-control" /> 
-		    </div>
-		  </div>
-		  
-		  <div class="form-group">
-		    <label for="bidUnit" class="col-sm-offset-1 col-sm-3 control-label">입찰 단위</label>
-		    <div class="col-sm-4">
-		    	<input type="text" name="bidUnit" class="form-control" maxLength="7">  
-		    </div>
-		  </div>
-		  
-		  <div class="form-group">
-		    <label for="auctionStartTime" class="col-sm-offset-1 col-sm-3 control-label">경매 시작 시간</label>
-		    <div class="col-sm-8 time">
-		    	<input type="text" name="auctionStartTime" class="form-control" maxLength="10">  
-		    	<input type="text" name="auctionStartTime" class="form-control" maxLength="8"> 
-		    </div>
-		  </div>
-
-		
-		<div class="form-group">
-		    <label for="auctionEndTime" class="col-sm-offset-1 col-sm-3 control-label">경매 종료 시간</label>
-		    <div class="col-sm-8 time">
-		    	<input type="text" name="auctionEndTime" class="form-control" maxLength="10">  
-		    	<input type="text" name="auctionEndTime" class="form-control" maxLength="8"> 
-		  </div>	
-		    </div>
-		
-		<div class="form-group">
-		    <label for="bidableGrade" class="col-sm-offset-1 col-sm-3 control-label">입찰 가능 등급</label>
-		    <div class="col-sm-4">
-		    	<input type="text" name="bidableGrade" class="form-control" maxLength="7">
-		    </div>
-		  </div>
-		  <div id="file">
-			  <div class="filebox">
-			  	<img id="productImg1" alt="" src="" width="100%" height="100%" hidden="hidden">
-			  	<label for="ex_file">+</label>
-			  	<input class="previewImg" name="productImg1" type="file" id="ex_file"> 
-			  </div>
-			   <div class="filebox"> 
-			   	<img id="productImg2" alt="" src="" width="100%" height="100%" hidden="hidden">
-			  	<label for="ex_file">+</label>
-			  	<input class="previewImg" name="productImg2" type="file" id="ex_file"> 
-			  </div>
-			   <div class="filebox">
-			  	<img id="productImg3" alt="" src="" width="100%" height="100%" hidden="hidden"> 
-			  	<label for="ex_file">+</label> 
-			  	<input class="previewImg" name="productImg3" type="file" id="ex_file"> 
-			  </div>
-			   <div class="filebox"> 
-			   	<img id="productImg4" alt="" src="" width="100%" height="100%" hidden="hidden">
-			  	<label for="ex_file">+</label> 
-			  	<input class="previewImg" name="productImg4" type="file" id="ex_file"> 
-			  </div>
-			   <div class="filebox">
-				<img id="productImg5" alt="" src="" width="100%" height="100%" hidden="hidden">
-			  	<label for="ex_file">+</label>
-			  	<input class="previewImg" name="productImg5" type="file" id="ex_file"> 
-			  </div>
-		</div>
-		<div class="container col-lg-3"></div>  	  
-		  <div class="form-group">
-		    <div class="col-sm-offset-4  col-sm-12 text-center">
-		      <button id="cancel" type="button" class="btn btn-primary">취소</button>
-		      <button id="previewBtn" type="button" class="btn btn-primary">미리보기</button>
-			</div>
-		  </div>
-		</form>
- 	</div>
-	
-	
-	
+                  <textarea class="form-control" rows="7" placeholder="상품 정보를 입력 하세요.."></textarea>
+                </form>
+                <div class="col-sm-4 col-sm-offset-2"></div>
+                <div class="col-sm-4 col-sm-offset-2">
+                <div class="row">
+	                <button id="cancel" class="btn btn-border-d btn-circle" type="button">취소</button>
+	                <button id="previewBtn" class="btn btn-border-d btn-circle" type="button">미리보기</button>                
+                </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <div class="module-small bg-dark">
+          <div class="container">
+            <div class="row">
+              <div class="col-sm-3">
+                <div class="widget">
+                  <h5 class="widget-title font-alt">About Titan</h5>
+                  <p>The languages only differ in their grammar, their pronunciation and their most common words.</p>
+                  <p>Phone: +1 234 567 89 10</p>Fax: +1 234 567 89 10
+                  <p>Email:<a href="#">somecompany@example.com</a></p>
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="widget">
+                  <h5 class="widget-title font-alt">Recent Comments</h5>
+                  <ul class="icon-list">
+                    <li>Maria on <a href="#">Designer Desk Essentials</a></li>
+                    <li>John on <a href="#">Realistic Business Card Mockup</a></li>
+                    <li>Andy on <a href="#">Eco bag Mockup</a></li>
+                    <li>Jack on <a href="#">Bottle Mockup</a></li>
+                    <li>Mark on <a href="#">Our trip to the Alps</a></li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="widget">
+                  <h5 class="widget-title font-alt">Blog Categories</h5>
+                  <ul class="icon-list">
+                    <li><a href="#">Photography - 7</a></li>
+                    <li><a href="#">Web Design - 3</a></li>
+                    <li><a href="#">Illustration - 12</a></li>
+                    <li><a href="#">Marketing - 1</a></li>
+                    <li><a href="#">Wordpress - 16</a></li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="widget">
+                  <h5 class="widget-title font-alt">Popular Posts</h5>
+                  <ul class="widget-posts">
+                    <li class="clearfix">
+                      <div class="widget-posts-image"><a href="#"><img src="assets/images/rp-1.jpg" alt="Post Thumbnail"/></a></div>
+                      <div class="widget-posts-body">
+                        <div class="widget-posts-title"><a href="#">Designer Desk Essentials</a></div>
+                        <div class="widget-posts-meta">23 january</div>
+                      </div>
+                    </li>
+                    <li class="clearfix">
+                      <div class="widget-posts-image"><a href="#"><img src="assets/images/rp-2.jpg" alt="Post Thumbnail"/></a></div>
+                      <div class="widget-posts-body">
+                        <div class="widget-posts-title"><a href="#">Realistic Business Card Mockup</a></div>
+                        <div class="widget-posts-meta">15 February</div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr class="divider-d">
+        <footer class="footer bg-dark">
+          <div class="container">
+            <div class="row">
+              <div class="col-sm-6">
+                <p class="copyright font-alt">&copy; 2017&nbsp;<a href="index.html">TitaN</a>, All Rights Reserved</p>
+              </div>
+              <div class="col-sm-6">
+                <div class="footer-social-links"><a href="#"><i class="fa fa-facebook"></i></a><a href="#"><i class="fa fa-twitter"></i></a><a href="#"><i class="fa fa-dribbble"></i></a><a href="#"><i class="fa fa-skype"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </footer>
+      </div>
+      <div class="scroll-up"><a href="#totop"><i class="fa fa-angle-double-up"></i></a></div>
+    </main>
 	<footer class="footer-box">
 		<div class="container">
 			<div class="row">
@@ -189,19 +284,22 @@
 			</div>
 		</div>
 	</footer>
+</body>
 	
-	<script src="/resources/javascript/bootstrap.min.js"></script>
-	<script src="/resources/javascript/contact-form-script.js"></script>
-	<script src="/resources/javascript/form-validator.min.js"></script>
-	<script src="/resources/javascript/images-loded.min.js"></script>
-	<script src="/resources/javascript/isotope.min.js"></script>
-	<script src="/resources/javascript/jquery.magnific-popup.min.js"></script>
-	<script src="/resources/javascript/jquery.min.js"></script>
-	<script src="/resources/javascript/jquery.pogo-slider.min.js"></script>
-	<script src="/resources/javascript/popper.min.js"></script>
-	<script src="/resources/javascript/responsiveslides.min.js"></script>
-	<script src="/resources/javascript/slider-index.js"></script>
-	<script src="/resources/javascript/smoothscroll.js"></script>
+	
+    <script src="../../resources/lib/jquery/jquery.js"></script>
+    <script src="../../resources/lib/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../../resources/lib/wow/wow.js"></script>
+    <script src="../../resources/lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js"></script>
+    <script src="../../resources/lib/isotope/isotope.pkgd.js"></script>
+    <script src="../../resources/lib/imagesloaded/imagesloaded.pkgd.js"></script>
+    <script src="../../resources/lib/flexslider/jquery.flexslider.js"></script>
+    <script src="../../resources/lib/owl.carousel/dist/owl.carousel.min.js"></script>
+    <script src="../../resources/lib/smoothscroll.js"></script>
+    <script src="../../resources/lib/magnific-popup/jquery.magnific-popup.js"></script>
+    <script src="../../resources/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script>
+    <script src="../../resources/js/plugins.js"></script>
+    <script src="../../resources/js/main.js"></script>
 	
 	<script>
 		$(function(){
@@ -210,52 +308,22 @@
 			});
 			
 			$("#previewBtn").on('click',function(){
-				$("form").attr("method","post").attr("action","/auction/previewAuctionProduct").submit();
+				if( !$.isNumeric( $('#startBidPrice').val() ) ){
+					$('#startBidPrice').focus();
+					$('#startBidPriceDiv').attr('hidden',false)
+					$('#startBidPriceStrong').text('경매 시작가가 숫자가 아닙니다.').css('color','red');
+					return;
+				}
+				
+				if( !$.isNumeric( $('#hopefulBidPrice').val() ) ){
+					$('#hopefulBidPrice').focus();
+					$('#hopefulBidPriceDiv').attr('hidden',false)
+					$('#hopefulBidPriceStrong').text('희망 낙찰가가 숫자가 아닙니다.').css('color','red');
+					return;
+				}
 			});
 			
-			$(".previewImg").change(function(){
-				$(this).prev().remove();
-				var id = $(this).attr('name');
-				$.ajax(
-						{
-							url : "/auction/rest/previewAuctionProductImageFile",
-							method : "POST",
-							data : JSON.stringify({
-								id : ,
-							}),
-							headers : {
-								"Accept" : "application/json",
-								"Content-Type" : "application/json"
-							},
-							dataType : "json",
-							success : function(JSONData,status){
-							var str = "";
-								for(var i = 0; i<JSONData.length; i++){
-									
-								var stringHtml = 
-										'<div class="col-lg-3 col-sm-6 productThumbnails">'
-										+'<figure class="effect-service">'
-										+	'<div>'
-										+		'<img src="/uploadfiles/auctionimg/product/'+JSONData[i].productImg1+'" width="100%" height="100%"/>'
-										+	'</div>'
-										+	'<p hidden="">'+JSONData[i].auctionProductNo+'</p>'
-										+	'<h4>'+JSONData[i].auctionProductName+'</h4>'
-										+	'<div>조회수 : '+JSONData[i].productViewCount+'</div>'
-										+	'<div>경매 시작가 : '+JSONData[i].startBidPrice+'</div>'
-										+	'<div>희망 낙찰가 : '+JSONData[i].hopefulBidPrice+'</div>'
-										+	'<div>경매 잔여 시간 : '+JSONData[i].remainAuctionTime+'</div>'
-										+	'<span>'+JSONData[i].hashtag1+'&nbsp;'+JSONData[i].hashtag2+'&nbsp;'+JSONData[i].hashtag3+'</span>'
-										+'</figure>'
-										+'</div>';
-								str += stringHtml;
-								}
-
-								$("#append").append('<div class="row">'+str+'</div>');
-								page += 1;							
-							}
-						});
-		    		}
-			});
+			
 		});
 			
 		

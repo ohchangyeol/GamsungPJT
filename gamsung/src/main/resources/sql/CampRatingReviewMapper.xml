@@ -66,17 +66,25 @@
 	
 	<update id="updateCampRatingReview" parameterType="ratingReview">
 		UPDATE RATING_REVIEW
-		<set>
+		<trim prefix="SET" suffixOverrides=",">
 			<if test="reviewDeleteFlag != null">
 				review_delete_flag = #{reviewDeleteFlag},
 			</if>
 			<if test="commentDeleteFlag != null">
 				comment_delete_flag = #{commentDeleteFlag},
 			</if> 
-			rating_review_title = #{ratingReviewTitle}, 
-			rating_review_content = #{ratingReviewContent},  
-			comment = #{comment},  
-			comment_reg_date = #{commentRegDate}
-		</set>
+			<if test="comment != null and comment != ''">
+				comment = #{comment:VARCHAR},
+				comment_reg_date = NOW(),
+			</if>
+			<if test="ratingReviewTitle != null and ratingReviewTitle != ''">
+				rating_review_title = #{ratingReviewTitle:VARCHAR},
+			</if>
+			<if test="ratingReviewContent != null and ratingReviewContent != ''">
+				rating_review_content = #{ratingReviewContent:VARCHAR},
+			</if>
+		</trim>		
+		WHERE rating_review_no = #{ratingReviewNo}
 	</update>
+
 </mapper>

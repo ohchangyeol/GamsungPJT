@@ -25,6 +25,18 @@ public class AuctionProductDAOImpl implements AuctionProductDAO{
 	public AuctionProductDAOImpl() {
 		// TODO Auto-generated method stub
 	}
+	
+	@Override
+	public void addCrawlingAuctionProduct(AuctionProduct auctionProduct) {
+		// TODO Auto-generated method stub
+		sqlSession.insert("AuctionProductMapper.addCrawlingAuctionProduct",auctionProduct);
+	}
+
+	@Override
+	public String getCrawlingAuctionProductNo(String auctionProductSubDatail) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("AuctionProductMapper.getCrawlingAuctionProductNo",auctionProductSubDatail);
+	}
 
 	//경매 상품 리스트
 	@Override
@@ -92,9 +104,9 @@ public class AuctionProductDAOImpl implements AuctionProductDAO{
 	}
 	
 	@Override
-	public void updateAuctionProductCondition(AuctionInfo auctionInfo) {
+	public void updateAuctionProductCondition(AuctionProduct auctionProduct) {
 		// TODO Auto-generated method stub
-		sqlSession.update("AuctionProductMapper.updateAuctionProductCondition", auctionInfo);
+		sqlSession.update("AuctionProductMapper.updateAuctionProductCondition", auctionProduct);
 	}
 
 	//메인에 표시될 경매 상품정보

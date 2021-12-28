@@ -40,14 +40,14 @@ public class AuctionProductDAOTest {
 	private AuctionProductDAO auctionProductDAO;
 
 	//경매 상품 list 호출 테스트
-	//@Test
+	@Test
 	public void testListAuctionProduct() {
 		
 		Search auctionSearch = new Search();
-		auctionSearch.setSearchKeyword("텐");
-		auctionSearch.setPageSize(8);
-		auctionSearch.setCurrentPage(1);
-		auctionSearch.setSortCondition("희망 낙찰가 낮은 순");
+//		auctionSearch.setSearchKeyword("텐");
+//		auctionSearch.setPageSize(8);
+//		auctionSearch.setCurrentPage(1);
+//		auctionSearch.setSortCondition("희망 낙찰가 낮은 순");
 		List<AuctionProduct> list = auctionProductDAO.listAuctionProduct(auctionSearch);
 		for(AuctionProduct auctionProduct : list) {
 			System.out.println(auctionProduct);
@@ -83,7 +83,7 @@ public class AuctionProductDAOTest {
 		auctionProduct.setAuctionProductNo("PROD00015");
 		auctionProduct.setRegistrantId("user1@gamsung.com");
 		auctionProduct.setAuctionProductName("텐트");
-		auctionProduct.setAuctionProductDatailA("너무 좋아요");
+		auctionProduct.setAuctionProductDatail("너무 좋아요");
 		auctionProduct.setAuctionStartTime("2021-12-23 15:00:00");
 		auctionProduct.setAuctionEndTime("2021-12-25 15:00:00");
 		auctionProduct.setHashtag1("1111");

@@ -1,6 +1,6 @@
 package site.gamsung.service.user;
 
-import java.sql.Date;
+import java.util.HashMap;
 
 import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.User;
@@ -39,5 +39,11 @@ public interface UserService {
 	
 	//임시비밀번호 발송
 	public void updateTempPassword(User user) throws Exception;
+	
+	//카카오 로그인 토큰 얻기
+	public String getAccessToken(String code);
+	
+	//카카오 유저 정보 조회
+	public HashMap<String, Object> getUserInfo (String accessToken);
 
 }

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html lang="en-US" dir="ltr">
@@ -62,15 +63,11 @@ pageEncoding="UTF-8"%>
         <div class="loader">Loading...</div>
       </div>
       <!-- header -->
-      <jsp:include page="./view/common/header.jsp"/>
+      <jsp:include page="/view/common/header.jsp"/>
       <!-- header End -->
-      <section class="bg-dark-30 showcase-page-header module parallax-bg" data-background="resources/images/showcase_bg.jpg">
-        <div class="titan-caption">
-          <div class="caption-content">
-            <div class="font-alt mb-30 titan-title-size-1">Powerful. Multipurpose.</div>
-            <div class="font-alt mb-40 titan-title-size-4">😊보노보노야?😊</div><a class="section-scroll btn btn-border-w btn-round" href="#demos">See Demos</a>
-          </div>
-        </div>
+      <!-- Search -->
+      <jsp:include page="/view/camp/campSearch.jsp"/>
+      <!-- Search End -->
       </section>
       <div class="main showcase-page">
         <section class="module-extra-small bg-dark">
@@ -121,6 +118,64 @@ pageEncoding="UTF-8"%>
             </div>
           </div>
         </section>
+        <hr class="divider-w">
+         <section class="module">
+          <div class="container">
+            <div class="row">
+              <div class="col-sm-6 col-sm-offset-3">
+                <h2 class="module-title font-alt">추천 경매 상품</h2>
+                <div class="module-subtitle font-serif">선착순 12개의 상품이 올라옵니다.</div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="owl-carousel text-center" data-items="5" data-pagination="false" data-navigation="false">
+                <div class="owl-item">
+                  <div class="col-sm-12">
+                    <div class="ex-product"><a href="#"><img src="../../resources/images/shop/product-1.jpg" alt="Leather belt"/></a>
+                      <h4 class="shop-item-title font-alt"><a href="#">Leather belt</a></h4>£12.00
+                    </div>
+                  </div>
+                </div>
+                <div class="owl-item">
+                  <div class="col-sm-12">
+                    <div class="ex-product"><a href="#"><img src="../../resources/images/shop/product-2.jpg" alt="Derby shoes"/></a>
+                      <h4 class="shop-item-title font-alt"><a href="#">Derby shoes</a></h4>£54.00
+                    </div>
+                  </div>
+                </div>
+                <div class="owl-item">
+                  <div class="col-sm-12">
+                    <div class="ex-product"><a href="#"><img src="../../resources/images/shop/product-3.jpg" alt="Leather belt"/></a>
+                      <h4 class="shop-item-title font-alt"><a href="#">Leather belt</a></h4>£19.00
+                    </div>
+                  </div>
+                </div>
+                <div class="owl-item">
+                  <div class="col-sm-12">
+                    <div class="ex-product"><a href="#"><img src="../../resources/images/shop/product-4.jpg" alt="Leather belt"/></a>
+                      <h4 class="shop-item-title font-alt"><a href="#">Leather belt</a></h4>£14.00
+                    </div>
+                  </div>
+                </div>
+                <div class="owl-item">
+                  <div class="col-sm-12">
+                    <div class="ex-product"><a href="#"><img src="../../resources/images/shop/product-5.jpg" alt="Chelsea boots"/></a>
+                      <h4 class="shop-item-title font-alt"><a href="#">Chelsea boots</a></h4>£44.00
+                    </div>
+                  </div>
+                </div>
+                <div class="owl-item">
+                  <div class="col-sm-12">
+                    <div class="ex-product"><a href="#"><img src="../../resources/images/shop/product-6.jpg" alt="Leather belt"/></a>
+                      <h4 class="shop-item-title font-alt"><a href="#">Leather belt</a></h4>£19.00
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <hr class="divider-w">
         <section class="module-extra-small bg-dark">
           <div class="container">
             <div class="row">
@@ -136,6 +191,7 @@ pageEncoding="UTF-8"%>
             </div>
           </div>
         </section>
+        
       </div>
       <div class="scroll-up"><a href="#totop"><i class="fa fa-angle-double-up"></i></a></div>
     </main>
