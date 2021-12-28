@@ -11,88 +11,49 @@
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script type="text/javascript">
 $(function() {
-	$('span:contains("로그인")')
-			.on(
-					'click',
-					function() {
-						$('#loginModal').on('show.bs.modal');
-						$('button:contains("LOGIN")').click(
-								function() {
-									var id = $('#modalId').val();
-									var pwd = $('#modalPwd').val();
-									if (id.length == 0) {
-										alert("아이디를 입력해 주세요.");
-										return;
-									}
-									if (pwd.length == 0) {
-										alert("패스워드를 입력해 주세요.");
-										return;
-									}
-									$('#loginForm').attr('method', 'post')
-											.attr('action', '/user/login')
-											.submit();
-								});
-						$("#kakao-png")
-								.on(
-										"click",
-										function() {
-											Kakao
-													.init('b3bed223fd618abc07f64c2103ca9659');
-											console.log(Kakao
-													.isInitialized());
-											Kakao.Auth
-													.login({
-														success : function(
-																authObj) {
-															Kakao.API
-																	.request({
-																		url : '/v2/user/me',
-																		success : function(
-																				result) {
-																			console
-																					.log(result);
-																			$(
-																					'#kakaoId')
-																					.val(
-																							result.kakao_account.profile.nickname);
-																			$(
-																					'#kakaoName')
-																					.val(
-																							result.kakao_account.profile.nickname);
-																			$(
-																					'#kakaoEmail')
-																					.val(
-																							result.kakao_account.email);
-																			$(
-																					'#kakaoImage')
-																					.val(
-																							result.kakao_account.profile.thumbnail_image_url);
-																			$(
-																					'#addKakao')
-																					.attr(
-																							'method',
-																							'post')
-																					.attr(
-																							'action',
-																							'/user/kakaoUser')
-																					.submit();
-																		}
-																	});
-															//$(self.location).attr("href","/user/login/pass");
-														},
-														fail : function(err) {
-															console
-																	.log(JSON
-																			.stringify(err))
-														},
-													})
-										});
-						$("#logout").on("click", function() {
-							if (Kakao.Auth.getAccessToken()) {
-								Kakao.Auth.logout();
-							}
-						});
-					});
+	$('span:contains("로그인")').on('click',	function() {
+		$('#loginModal').on('show.bs.modal');
+		$('button:contains("LOGIN")').click(function() {
+			var id = $('#modalId').val();
+			var pwd = $('#modalPwd').val();
+			if (id.length == 0) {
+			alert("아이디를 입력해 주세요.");
+			return;
+			}
+			if (pwd.length == 0) {
+			alert("패스워드를 입력해 주세요.");
+			return;
+			}
+		$('#loginForm').attr('method', 'post').attr('action', '/user/login').submit();
+	});
+		$("#kakao-png").on("click",function() {
+			Kakao.init('b3bed223fd618abc07f64c2103ca9659');
+			console.log(Kakao.isInitialized());
+			Kakao.Auth.login({
+			success : function(authObj) {
+			Kakao.API.request({
+			url : '/v2/user/me',
+			success : function(result) {
+			console.log(result);
+			$('#kakaoId').val(result.kakao_account.profile.nickname);
+			$('#kakaoName').val(result.kakao_account.profile.nickname);
+			$('#kakaoEmail').val(result.kakao_account.email);
+			$('#kakaoImage').val(result.kakao_account.profile.thumbnail_image_url);
+			$('#addKakao').attr('method','post').attr('action','/user/kakaoUser').submit();
+			}
+		});
+			//$(self.location).attr("href","/user/login/pass");
+		},
+			fail : function(err) {console.log(JSON.stringify(err))
+		},
+	})
+});
+			$("#logout").on("click", function() {
+			if (Kakao.Auth.getAccessToken()) {
+				Kakao.Auth.logout();
+			}
+		});
+	});
 	$('span:contains("회원가입")').on('click', function() {
 		$('addModal').on('show.bs.modal');
 	});

@@ -14,8 +14,10 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 public class SendMail {
+	
+	public void sendMail() {}
 		
-	public void mailSend(String id, String key, String info, String text) {
+	public void sendMail(String id, String info, String text) {
 		
 	
 		Properties prop = System.getProperties();

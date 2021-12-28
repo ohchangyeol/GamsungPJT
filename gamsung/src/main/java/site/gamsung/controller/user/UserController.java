@@ -84,7 +84,7 @@ public class UserController {
 		
 		System.out.println("/user/login : POST");
 		//Business Logic
-		User dbUser=userService.getUser(user.getId());
+		User dbUser=userService.checkIdPassword(user);
 		
 		if(dbUser == null) {
 			return "forward:/main.jsp";
@@ -110,13 +110,14 @@ public class UserController {
 		}
 		
 		String jsp ="forward:/main.jsp";
-		String pw = user.getPassword();
-		System.out.println("비밀번호"+pw);
-		System.out.println("솔트"+dbUser.getSalt());
-		String newPwd = SHA256Util.getEncrypt(pw, dbUser.getSalt());
-		System.out.println("암호화"+newPwd);
+//		String pw = user.getPassword();
+//		System.out.println("비밀번호"+pw);
+//		System.out.println("솔트"+dbUser.getSalt());
+//		String newPwd = SHA256Util.getEncrypt(pw, dbUser.getSalt());
+//		System.out.println("암호화"+newPwd);
 		
-		if(newPwd.equals(dbUser.getPassword())) {
+	
+		if(dbUser != null) {
 			System.out.println("로그인 시작");
 			
 			if(dbUser.getNickName() != null) {
@@ -191,12 +192,13 @@ public class UserController {
 	        	} else {
 	        		//우리 회원임
 	        		return "redirect:/view/user/login.jsp";
-	        	}
-	        	
+	        	} 	
 	        } 
         }
         return "forward:/view/user/addUser.jsp";
 	}
+	
+
 	
 }
 
