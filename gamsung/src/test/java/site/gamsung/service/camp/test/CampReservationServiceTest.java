@@ -61,7 +61,7 @@ public class CampReservationServiceTest {
 	}
 	
 	//캠핑장 예약 :: 등록(O), 주요시설 예약일 입력(O), 캠핑장 예약자 수 카운트 증가()
-	@Test
+	//@Test
 	public void testAddReservation() throws Exception{
 		
 		CampReservation campReservation = new CampReservation();
@@ -97,10 +97,10 @@ public class CampReservationServiceTest {
 	//캠핑장 예약 리스트 :: 캠핑장업체 별 예약(O), 일반회원 별 예약(O)
 	//@Test
 	public void testlistReservation() throws Exception {
-		
+//		
 		Search search = new Search();
-		search.setCurrentPage(1);
-		search.setPageSize(campPageSize);
+//		search.setCurrentPage(1);
+//		search.setPageSize(campPageSize);
 		
 		String id = "user1@gamsung.com";
 		Map<String, Object> map = campReservationService.listMyReservation(search, id);

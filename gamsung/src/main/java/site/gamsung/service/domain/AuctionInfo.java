@@ -1,10 +1,14 @@
 package site.gamsung.service.domain;
 
+import java.util.UUID;
+
 public class AuctionInfo {
+	private String info;
 	private String bidNo;
 	private String auctionProductNo;
 	private User user; //id, nickname, auctionGrade
 	private int bidPrice;
+	private int realTimeViewCount;
 	private String bidDateTime;
 	private String concernRegDate;
 	private String auctionStatus;
@@ -40,6 +44,12 @@ public class AuctionInfo {
 	}
 	public void setBidPrice(int bidPrice) {
 		this.bidPrice = bidPrice;
+	}
+	public int getRealTimeViewCount() {
+		return realTimeViewCount;
+	}
+	public void setRealTimeViewCount(int realTimeViewCount) {
+		this.realTimeViewCount = realTimeViewCount;
 	}
 	public String getBidDateTime() {
 		return bidDateTime;
@@ -107,15 +117,20 @@ public class AuctionInfo {
 	public void setAddReviewCount(int addReviewCount) {
 		this.addReviewCount = addReviewCount;
 	}
+	public String getInfo() {
+		return info;
+	}
+	public void setInfo(String info) {
+		this.info = info;
+	}
 	@Override
 	public String toString() {
-		return "AuctionInfo [bidNo=" + bidNo + ", auctionProductNo=" + auctionProductNo + ", user=" + user
-				+ ", bidPrice=" + bidPrice + ", bidDateTime=" + bidDateTime + ", concernRegDate=" + concernRegDate
-				+ ", auctionStatus=" + auctionStatus + ", addProductCount=" + addProductCount + ", bidCount=" + bidCount
-				+ ", successfulBidCount=" + successfulBidCount + ", auctionConfirmCount=" + auctionConfirmCount
-				+ ", midwayWithdrawalCount=" + midwayWithdrawalCount + ", cancelSuccessfulBidCount="
-				+ cancelSuccessfulBidCount + ", topRankCount=" + topRankCount + ", addReviewCount=" + addReviewCount
-				+ "]";
+		return "AuctionInfo [info=" + info + ", bidNo=" + bidNo + ", auctionProductNo=" + auctionProductNo + ", user="
+				+ user + ", bidPrice=" + bidPrice + ", realTimeViewCount=" + realTimeViewCount + ", bidDateTime="
+				+ bidDateTime + ", concernRegDate=" + concernRegDate + ", auctionStatus=" + auctionStatus
+				+ ", addProductCount=" + addProductCount + ", bidCount=" + bidCount + ", successfulBidCount="
+				+ successfulBidCount + ", auctionConfirmCount=" + auctionConfirmCount + ", midwayWithdrawalCount="
+				+ midwayWithdrawalCount + ", cancelSuccessfulBidCount=" + cancelSuccessfulBidCount + ", topRankCount="
+				+ topRankCount + ", addReviewCount=" + addReviewCount + "]";
 	}
-	
 }

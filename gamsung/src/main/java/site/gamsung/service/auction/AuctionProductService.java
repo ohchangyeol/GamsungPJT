@@ -24,7 +24,7 @@ public interface AuctionProductService {
 	
 	public String auctionProductBid(AuctionInfo auctionInfo);
 	
-	public void updateAuctionProductCondition(AuctionInfo auctionInfo); 
+	public void updateAuctionProductCondition(); 
 	
 	public String addMainAuctionProduct(AuctionProduct auctionProduct);
 	

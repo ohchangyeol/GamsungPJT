@@ -37,26 +37,12 @@ pageEncoding="UTF-8"%>
 
           </ul>
         </li>
-        <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">중고 거래</a>
+        <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">중고상품</a>
+
           <ul class="dropdown-menu">
-            <li class="dropdown"><a class="dropdown-toggle" href="/auction/listWaitAuctionProduct" data-toggle="dropdown">경매 진행 전</a>
-              <ul class="dropdown-menu">
-                <li><a href="index_mp_fullscreen_static.html">Fullscreen</a></li>
-                <li><a href="index_mp_classic_static.html">Classic</a></li>
-              </ul>
-            </li>
-            <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Flexslider Header</a>
-              <ul class="dropdown-menu">
-                <li><a href="index_mp_fullscreen_flexslider.html">Fulscreen</a></li>
-                <li><a href="index_mp_classic_flexslider.html">Classic</a></li>
-              </ul>
-            </li>
-            <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Video Background Header</a>
-              <ul class="dropdown-menu">
-                <li><a href="index_mp_fullscreen_video_background.html">Fulscreen</a></li>
-                <li><a href="index_mp_classic_video_background.html">Classic</a></li>
-              </ul>
-            </li>
+            <li><a href="/auction/addAuctionProduct" >상품 등록</a></li>
+            <li><a href="/auction/listWaitAuctionProduct" >경매 진행 전</a></li>
+            <li><a href="/auction/listAuctionProduct" >경매 진행 중</a></li>
             <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Text Rotator Header</a>
               <ul class="dropdown-menu">
                 <li><a href="index_mp_fullscreen_text_rotator.html">Fulscreen</a></li>

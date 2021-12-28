@@ -8,6 +8,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Propagation;
@@ -85,7 +86,7 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 	@Override
 	public List<AuctionProduct> listAuctionProduct(Search search) {
 		// TODO Auto-generated method stub
-		return null;
+		return auctionProductDAO.listAuctionProduct(search);
 	}
 
 	@Override
@@ -142,6 +143,7 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 			}
 			
 			String remainTime = auctionProduct.getRemainAuctionTime();
+			System.out.println(remainTime);
 			System.out.println(remainTime.indexOf("-"));
 			if(remainTime != null && remainTime.indexOf("-") == -1) {
 				
@@ -174,9 +176,32 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 	
 	//경매 상태 업데이트
 	@Override
-	public void updateAuctionProductCondition(AuctionInfo auctionInfo) {
+	@Scheduled(cron = "*/1 * * * * *")
+	public void updateAuctionProductCondition() {
 		// TODO Auto-generated method stub
-		auctionProductDAO.updateAuctionProductCondition(auctionInfo);
+		
+		SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+		AuctionInfo auctionInfo = new AuctionInfo();
+		auctionInfo.setAuctionStatus("WAIT");
+		List<AuctionProduct> list = auctionProductDAO.listAuctionProduct(new Search());
+		for(AuctionProduct auctionProduct : list) {
+		
+			String auctionProductNo = auctionProduct.getAuctionProductNo();
+			
+			auctionProduct = auctionProductDAO.getAuctionProduct(auctionProductNo);
+			
+			System.out.println(auctionProductNo+"-remainTime : "+auctionProduct.getRemainAuctionTime());
+			try {
+				boolean isEnd = dateFormat.parse(auctionProduct.getRemainAuctionTime()).before(dateFormat.parse("00:00:00"));
+				if(isEnd) {
+					System.out.println(isEnd);
+					auctionProductDAO.updateAuctionProductCondition(auctionProduct);
+				}
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 
 	//메인에 상품 등록

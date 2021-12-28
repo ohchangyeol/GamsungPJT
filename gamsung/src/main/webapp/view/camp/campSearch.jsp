@@ -1,197 +1,455 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
 
-<!DOCTYPE html>
-<html lang="en-US" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!--  
-    Document Title
-    =============================================
-    -->
-    <title>campSearch</title>
-    <!--  
-    Favicons
-    =============================================
-    -->
-    <link rel="apple-touch-icon" sizes="57x57" href="../../resources/images/favicons/apple-icon-57x57.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="../../resources/images/favicons/apple-icon-60x60.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="../../resources/images/favicons/apple-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="../../resources/images/favicons/apple-icon-76x76.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="../../resources/images/favicons/apple-icon-114x114.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="../../resources/images/favicons/apple-icon-120x120.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="../../resources/images/favicons/apple-icon-144x144.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="../../resources/images/favicons/apple-icon-152x152.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="../../resources/images/favicons/apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="../../resources/images/favicons/android-icon-192x192.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="../../resources/images/favicons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="../../resources/images/favicons/favicon-96x96.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="../../resources/images/favicons/favicon-16x16.png">
-    <!-- <link rel="manifest" href="/manifest.json"> -->
-    <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="msapplication-TileImage" content="resources/images/favicons/ms-icon-144x144.png">
-    <meta name="theme-color" content="#ffffff">
-    <!--  
-    Stylesheets
-    =============================================
+<script src="resources/lib/jquery/jquery.js"></script>
+<script type="text/javascript">
+  $( function() {
     
-    -->
-    <!-- Default stylesheets-->
-    <link href="../../resources/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Template specific stylesheets-->
-    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Volkhov:400i" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
-    <link href="../../resources/lib/animate.css/animate.css" rel="stylesheet">
-    <link href="../../resources/lib/components-font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <link href="../../resources/lib/et-line-font/et-line-font.css" rel="stylesheet">
-    <link href="../../resources/lib/flexslider/flexslider.css" rel="stylesheet">
-    <link href="../../resources/lib/owl.carousel/dist/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="../../resources/lib/owl.carousel/dist/assets/owl.theme.default.min.css" rel="stylesheet">
-    <link href="../../resources/lib/magnific-popup/magnific-popup.css" rel="stylesheet">
-    <link href="../../resources/lib/simple-text-rotator/simpletextrotator.css" rel="stylesheet">
-    <!-- Main stylesheet and color file-->
-    <link href="../../resources/css/style.css" rel="stylesheet">
-    <link id="color-scheme" href="../../resources/css/colors/default.css" rel="stylesheet">
-  </head>
+          $("#sido").on("propertychange change keyup paste input", function(){
 
-  
-  <body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
-    <main>
-      <div class="page-loader">
-        <div class="loader">Loading...</div>
-      </div>
-      <!-- header -->
-      <jsp:include page="/view/common/header.jsp"/>
-      <!-- header End -->
-      <section class="bg-dark-30 showcase-page-header module parallax-bg" data-background="../../resources/images/showcase_bg.jpg">
-        <class class="titan-caption">
-          <div class="col-md-5"></div>
-          <h2 class="col-md-3" style="margin-bottom: 20px;">캠핑장을 검색해 주세요!</h2>
-          <div class="col-md-4"></div>
-          <div class="panel-body">
+            var sido = $("#sido").val();
+           
+            if(sido == '서울'){
+              $("#sigungu option").remove();
+              $("#sigungu").append("<option value='강남'>강남구</option>");
+              $("#sigungu").append("<option value='강동'>강동구</option>");
+              $("#sigungu").append("<option value='강북'>강북구</option>");
+              $("#sigungu").append("<option value='강서'>강서구</option>");
+              $("#sigungu").append("<option value='관악'>관악구</option>");
+              $("#sigungu").append("<option value='광진'>광진구</option>");
+              $("#sigungu").append("<option value='구로'>구로구</option>");
+              $("#sigungu").append("<option value='금천'>금천구</option>");
+              $("#sigungu").append("<option value='노원'>노원구</option>");
+              $("#sigungu").append("<option value='도봉'>도봉구</option>");
+              $("#sigungu").append("<option value='동대문'>동대문구</option>");
+              $("#sigungu").append("<option value='동작'>동작구</option>");
+              $("#sigungu").append("<option value='마포'>마포구</option>");
+              $("#sigungu").append("<option value='서대문'>서대문구</option>");
+              $("#sigungu").append("<option value='서초'>서초구</option>");
+              $("#sigungu").append("<option value='성동'>성동구</option>");
+              $("#sigungu").append("<option value='성북'>성북구</option>");
+              $("#sigungu").append("<option value='송파'>송파구</option>");
+              $("#sigungu").append("<option value='양천'>양천구</option>");
+              $("#sigungu").append("<option value='영등포'>영등포구</option>");
+              $("#sigungu").append("<option value='용산'>용산구</option>");
+              $("#sigungu").append("<option value='은평'>은평구</option>");
+              $("#sigungu").append("<option value='종로'>종로구</option>");
+              $("#sigungu").append("<option value='중구'>중구</option>");
+              $("#sigungu").append("<option value='중랑'>중랑구</option>");
+            };
+
+            if(sido == '부산'){
+              $("#sigungu option").remove();
+              $("#sigungu").append("<option value='강서'>강서구</option>");
+              $("#sigungu").append("<option value='금정'>금정구</option>");
+              $("#sigungu").append("<option value='기장'>기장군</option>");
+              $("#sigungu").append("<option value='남구'>남구</option>");
+              $("#sigungu").append("<option value='동구'>동구</option>");
+              $("#sigungu").append("<option value='동래'>동래구</option>");
+              $("#sigungu").append("<option value='부산진'>부산진구</option>");
+              $("#sigungu").append("<option value='북구'>북구</option>");
+              $("#sigungu").append("<option value='사상'>사상구</option>");
+              $("#sigungu").append("<option value='사하'>사하구</option>");
+              $("#sigungu").append("<option value='서구'>서구</option>");
+              $("#sigungu").append("<option value='수영'>수영구</option>");
+              $("#sigungu").append("<option value='연제'>연제구</option>");
+              $("#sigungu").append("<option value='영도'>영도구</option>");
+              $("#sigungu").append("<option value='중구'>중구</option>");
+              $("#sigungu").append("<option value='해운대'>해운대구</option>");
+            };
+
+            if(sido == '대구'){
+              $("#sigungu option").remove();
+              $("#sigungu").append("<option value='남구'>남구</option>");
+              $("#sigungu").append("<option value='달서'>달서구</option>");
+              $("#sigungu").append("<option value='달성'>달성군</option>");
+              $("#sigungu").append("<option value='동구'>동구</option>");
+              $("#sigungu").append("<option value='북구'>북구</option>");
+              $("#sigungu").append("<option value='상주'>상주</option>");
+              $("#sigungu").append("<option value='서구'>서구</option>");
+              $("#sigungu").append("<option value='수성'>수성구</option>");
+              $("#sigungu").append("<option value='중구'>중구</option>");
+            };
+
+            if(sido == '인천'){
+              $("#sigungu option").remove();
+              $("#sigungu").append("<option value='강화'>강화군</option>");
+              $("#sigungu").append("<option value='계양'>계양구</option>");
+              $("#sigungu").append("<option value='남구'>남구</option>");
+              $("#sigungu").append("<option value='남동'>남동구</option>");
+              $("#sigungu").append("<option value='동구'>동구</option>");
+              $("#sigungu").append("<option value='부평'>부평구</option>");
+              $("#sigungu").append("<option value='서구'>서구</option>");
+              $("#sigungu").append("<option value='연수'>연수구</option>");
+              $("#sigungu").append("<option value='옹진'>옹진구</option>");
+              $("#sigungu").append("<option value='중구'>중구</option>");
+            };
             
-            <form class="form-horizontal form-bordered">
-              <div class="form-group">
-                <div class="col-md-6" ></div>
-                <div class="col-md-1" ></div>
-                <div class="col-md-1" >
-                  <div class="input-group mb-md">
-                    <div class="input-group-btn">
-                      <button class="btn btn-success control-label" type="button" style="padding: 3px;">상세검색+</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              <div class="form-group">
-                <label class="col-md-5 control-label">키워드 검색</label>
-                <div class="col-md-4">
-                  <div class="input-group mb-md">
-                    <input type="text" class="col-md-4" style="width: 408px;">
-                  </div>
-                </div>
-              </div>
-    
-              <div class="form-group">
-                <label class="col-md-5 control-label">지역별</label>
-                <div class="col-md-4">
-                  <div class="input-group mb-md">
-                    <div class="input-group-btn">
-                      <select name="sido" id="sido" class="btn btn-primary dropdown-toggle"  >
-                        <option value="">전체/도</option>
-                        <option value="1">서울</option>
-                        <option value="2">부산</option>
-                        <option value="3">대구</option>
-                        <option value="4">인천</option>
-                        <option value="5">광주</option>
-                        <option value="6">대전</option>
-                        <option value="7">울산</option>
-                        <option value="8">세종</option>
-                        <option value="9">경기</option>
-                        <option value="10">강원</option>
-                        <option value="11">충북</option>
-                        <option value="12">충남</option>
-                        <option value="13">전북</option>
-                        <option value="14">전남</option>
-                        <option value="15">경북</option>
-                        <option value="16">경남</option>
-                        <option value="17">제주</option>
-                      </select>
-                      
-                      <select name="signgu" id="signgu" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                        <option value="">전체/시/군</option>
-                        <option value="1">강남구</option>
-                        <option value="2">강동구</option>
-                        <option value="3">강북구</option>
-                        <option value="4">강서구</option>
-                        <option value="5">관악구</option>
-                        <option value="6">광진구</option>
-                        <option value="7">구로구</option>
-                        <option value="8">금천구</option>
-                        <option value="9">노원구</option>
-                        <option value="10">도봉구</option>
-                        <option value="11">동대문구</option>
-                        <option value="12">동작구</option>
-                        <option value="13">마포구</option>
-                        <option value="14">서대문구</option>
-                        <option value="15">서초구</option>
-                        <option value="16">성동구</option>
-                        <option value="17">성북구</option>
-                        <option value="18">송파구</option>
-                        <option value="19">양천구</option>
-                        <option value="20">영등포구</option>
-                        <option value="21">용산구</option>
-                        <option value="22">은평구</option>
-                        <option value="23">종로구</option>
-                        <option value="24">중구</option>
-                        <option value="25">중랑구</option>
-                      </select>
+            if(sido == '광주'){
+              $("#sigungu option").remove();
+              $("#sigungu").append("<option value='광산'>광산구</option>");
+              $("#sigungu").append("<option value='남구'>남구</option>");
+              $("#sigungu").append("<option value='동구'>동구</option>");
+              $("#sigungu").append("<option value='북구'>북구</option>");
+              $("#sigungu").append("<option value='서구'>서구</option>");
+            };
 
-                      <button class="btn btn-success" type="button">검색</button>
-                      
-                    </div>
-                    
+            if(sido == '대전'){
+              $("#sigungu option").remove();
+              $("#sigungu").append("<option value='대덕'>대덕구</option>");
+              $("#sigungu").append("<option value='동구'>동구</option>");
+              $("#sigungu").append("<option value='서구'>서구</option>");
+              $("#sigungu").append("<option value='유성'>유성구</option>");
+              $("#sigungu").append("<option value='중구'>중구</option>");
+            };
+
+            if(sido == '울산'){
+              $("#sigungu option").remove();
+              $("#sigungu").append("<option value='남구'>남구</option>");
+              $("#sigungu").append("<option value='동구'>동구</option>");
+              $("#sigungu").append("<option value='북구'>북구</option>");
+              $("#sigungu").append("<option value='율주'>율주군</option>");
+              $("#sigungu").append("<option value='중구'>중구</option>");
+            };
+
+            if(sido == '세종'){
+              $("#sigungu option").remove();
+              $("#sigungu").append("<option value='금남'>금남면</option>");
+              $("#sigungu").append("<option value='세종'>세종시</option>");
+              $("#sigungu").append("<option value='소정'>소정면</option>");
+              $("#sigungu").append("<option value='연서'>연서면</option>");
+              $("#sigungu").append("<option value='전동'>전동면</option>");
+            };
+
+            if(sido == '경기'){
+              $("#sigungu option").remove();
+              $("#sigungu").append("<option value='가평'>가평군</option>");
+              $("#sigungu").append("<option value='고양'>고양시</option>");
+              $("#sigungu").append("<option value='과천'>과천시</option>");
+              $("#sigungu").append("<option value='광명'>광명시</option>");
+              $("#sigungu").append("<option value='광주'>광주시</option>");
+              $("#sigungu").append("<option value='구리'>구리시</option>");
+              $("#sigungu").append("<option value='군포'>군포시</option>");
+              $("#sigungu").append("<option value='김포'>김포시</option>");
+              $("#sigungu").append("<option value='남양주'>남양주시</option>");
+              $("#sigungu").append("<option value='동두천'>동두천시</option>");
+              $("#sigungu").append("<option value='부천'>부천시</option>");
+              $("#sigungu").append("<option value='성남'>성남시</option>");
+              $("#sigungu").append("<option value='수원'>수원시</option>");
+              $("#sigungu").append("<option value='시흥'>시흥시</option>");
+              $("#sigungu").append("<option value='안산'>안산시</option>");
+              $("#sigungu").append("<option value='안성'>안성시</option>");
+              $("#sigungu").append("<option value='안양'>안양시</option>");
+              $("#sigungu").append("<option value='양주'>양주시</option>");
+              $("#sigungu").append("<option value='양평'>양평군</option>");
+              $("#sigungu").append("<option value='여주'>여주시</option>");
+              $("#sigungu").append("<option value='연천'>연천군</option>");
+              $("#sigungu").append("<option value='오산'>오산시</option>");
+              $("#sigungu").append("<option value='용인'>용인시</option>");
+              $("#sigungu").append("<option value='의왕'>의왕시</option>");
+              $("#sigungu").append("<option value='의정부'>의정부시</option>");
+              $("#sigungu").append("<option value='이천'>이천시</option>");
+              $("#sigungu").append("<option value='파주'>파주시</option>");
+              $("#sigungu").append("<option value='평택'>평택시</option>");
+              $("#sigungu").append("<option value='포천'>포천시</option>");
+              $("#sigungu").append("<option value='하남'>하남시</option>");
+              $("#sigungu").append("<option value='화성'>화성시</option>");
+            };
+
+            if(sido == '강원'){
+              $("#sigungu option").remove();
+              $("#sigungu").append("<option value='강릉'>강릉시</option>");
+              $("#sigungu").append("<option value='고성'>고성군</option>");
+              $("#sigungu").append("<option value='동해'>동해시</option>");
+              $("#sigungu").append("<option value='삼척'>삼청시</option>");
+              $("#sigungu").append("<option value='속초'>속초시</option>");
+              $("#sigungu").append("<option value='양구'>양구군</option>");
+              $("#sigungu").append("<option value='양양'>양양군</option>");
+              $("#sigungu").append("<option value='영월'>영월군</option>");
+              $("#sigungu").append("<option value='원주'>원주시</option>");
+              $("#sigungu").append("<option value='인제'>인제군</option>");
+              $("#sigungu").append("<option value='정선'>정선군</option>");
+              $("#sigungu").append("<option value='철원'>철원군</option>");
+              $("#sigungu").append("<option value='춘천'>춘천시</option>");
+              $("#sigungu").append("<option value='태백'>태백시</option>");
+              $("#sigungu").append("<option value='평창'>평창군</option>");
+              $("#sigungu").append("<option value='홍천'>홍천군</option>");
+              $("#sigungu").append("<option value='화천'>화천군</option>");
+              $("#sigungu").append("<option value='횡성'>횡성군</option>");
+            };
+
+            if(sido == '충북'){
+              $("#sigungu option").remove();
+              $("#sigungu").append("<option value='괴산'>괴산군</option>");
+              $("#sigungu").append("<option value='단양'>단양군</option>");
+              $("#sigungu").append("<option value='보은'>보은군</option>");
+              $("#sigungu").append("<option value='영동'>영동군</option>");
+              $("#sigungu").append("<option value='옥천'>옥천군</option>");
+              $("#sigungu").append("<option value='음성'>음성군</option>");
+              $("#sigungu").append("<option value='제천'>제천시</option>");
+              $("#sigungu").append("<option value='증평'>증평군</option>");
+              $("#sigungu").append("<option value='진천'>진천군</option>");
+              $("#sigungu").append("<option value='청원'>청원군</option>");
+              $("#sigungu").append("<option value='청주'>청주시</option>");
+              $("#sigungu").append("<option value='충주'>충주시</option>");
+            };
+
+            if(sido == '충남'){
+              $("#sigungu option").remove();
+              $("#sigungu").append("<option value='계룡'>계룡시</option>");
+              $("#sigungu").append("<option value='공주'>공주시</option>");
+              $("#sigungu").append("<option value='금산'>금산군</option>");
+              $("#sigungu").append("<option value='논산'>논산시</option>");
+              $("#sigungu").append("<option value='당진'>당진시</option>");
+              $("#sigungu").append("<option value='보령'>보령시</option>");
+              $("#sigungu").append("<option value='부여'>부여군</option>");
+              $("#sigungu").append("<option value='서산'>서산시</option>");
+              $("#sigungu").append("<option value='서천'>서천군</option>");
+              $("#sigungu").append("<option value='아산'>아산시</option>");
+              $("#sigungu").append("<option value='예산'>예산군</option>");
+              $("#sigungu").append("<option value='천안'>천안시</option>");
+              $("#sigungu").append("<option value='청양'>청양군</option>");
+              $("#sigungu").append("<option value='태안'>태안군</option>");
+              $("#sigungu").append("<option value='홍성'>홍성군</option>");
+            };
+
+            if(sido == '전북'){
+              $("#sigungu option").remove();
+              $("#sigungu").append("<option value='고창'>고창군</option>");
+              $("#sigungu").append("<option value='군산'>군산시</option>");
+              $("#sigungu").append("<option value='김제'>김제시</option>");
+              $("#sigungu").append("<option value='남원'>남원시</option>");
+              $("#sigungu").append("<option value='무주'>무주군</option>");
+              $("#sigungu").append("<option value='부안'>부안군</option>");
+              $("#sigungu").append("<option value='순창'>순창군</option>");
+              $("#sigungu").append("<option value='완주'>완주군</option>");
+              $("#sigungu").append("<option value='익산'>익산시</option>");
+              $("#sigungu").append("<option value='임실'>임실군</option>");
+              $("#sigungu").append("<option value='장수'>장수군</option>");
+              $("#sigungu").append("<option value='전주'>전주시</option>");
+              $("#sigungu").append("<option value='정읍'>정읍시</option>");
+              $("#sigungu").append("<option value='진안'>진안군</option>");
+            };
+            
+            if(sido == '전남'){
+              $("#sigungu option").remove();
+              $("#sigungu").append("<option value='강진'>강진군</option>");
+              $("#sigungu").append("<option value='고흥'>고흥군</option>");
+              $("#sigungu").append("<option value='곡성'>곡성군</option>");
+              $("#sigungu").append("<option value='광양'>광양시</option>");
+              $("#sigungu").append("<option value='구례'>구례군</option>");
+              $("#sigungu").append("<option value='나주'>나주시</option>");
+              $("#sigungu").append("<option value='담양'>담양군</option>");
+              $("#sigungu").append("<option value='목포'>목포시</option>");
+              $("#sigungu").append("<option value='무안'>무안군</option>");
+              $("#sigungu").append("<option value='보성'>보성군</option>");
+              $("#sigungu").append("<option value='순천'>순천시</option>");
+              $("#sigungu").append("<option value='신안'>신안군</option>");
+              $("#sigungu").append("<option value='여수'>여수시</option>");
+              $("#sigungu").append("<option value='영광'>영광군</option>");
+              $("#sigungu").append("<option value='영암'>영암군</option>");
+              $("#sigungu").append("<option value='완도'>완도군</option>");
+              $("#sigungu").append("<option value='장성'>장성군</option>");
+              $("#sigungu").append("<option value='장흥'>장흥군</option>");
+              $("#sigungu").append("<option value='진도'>진도군</option>");
+            };
+
+            if(sido == '전남'){
+              $("#sigungu option").remove();
+              $("#sigungu").append("<option value='강진'>강진군</option>");
+              $("#sigungu").append("<option value='고흥'>고흥군</option>");
+              $("#sigungu").append("<option value='곡성'>곡성군</option>");
+              $("#sigungu").append("<option value='광양'>광양시</option>");
+              $("#sigungu").append("<option value='구례'>구례군</option>");
+              $("#sigungu").append("<option value='나주'>나주시</option>");
+              $("#sigungu").append("<option value='담양'>담양군</option>");
+              $("#sigungu").append("<option value='목포'>목포시</option>");
+              $("#sigungu").append("<option value='무안'>무안군</option>");
+              $("#sigungu").append("<option value='보성'>보성군</option>");
+              $("#sigungu").append("<option value='순천'>순천시</option>");
+              $("#sigungu").append("<option value='신안'>신안군</option>");
+              $("#sigungu").append("<option value='여수'>여수시</option>");
+              $("#sigungu").append("<option value='영광'>영광군</option>");
+              $("#sigungu").append("<option value='영암'>영암군</option>");
+              $("#sigungu").append("<option value='완도'>완도군</option>");
+              $("#sigungu").append("<option value='장성'>장성군</option>");
+              $("#sigungu").append("<option value='장흥'>장흥군</option>");
+              $("#sigungu").append("<option value='진도'>진도군</option>");
+              $("#sigungu").append("<option value='함평'>함평군</option>");
+              $("#sigungu").append("<option value='해남'>해남군</option>");
+              $("#sigungu").append("<option value='화순'>화순군</option>");
+            };
+
+            if(sido == '경북'){
+              $("#sigungu option").remove();
+              $("#sigungu").append("<option value='경산'>경산시</option>");
+              $("#sigungu").append("<option value='경주'>경주시</option>");
+              $("#sigungu").append("<option value='고령'>고령군</option>");
+              $("#sigungu").append("<option value='구미'>구미시</option>");
+              $("#sigungu").append("<option value='군위'>군위군</option>");
+              $("#sigungu").append("<option value='김천'>김천시</option>");
+              $("#sigungu").append("<option value='문경'>문경시</option>");
+              $("#sigungu").append("<option value='봉화'>봉화군</option>");
+              $("#sigungu").append("<option value='상주'>상주시</option>");
+              $("#sigungu").append("<option value='성주'>성주군</option>");
+              $("#sigungu").append("<option value='안동'>안동시</option>");
+              $("#sigungu").append("<option value='영덕'>영덕군</option>");
+              $("#sigungu").append("<option value='영양'>영양군</option>");
+              $("#sigungu").append("<option value='영주'>영주시</option>");
+              $("#sigungu").append("<option value='영천'>영천시</option>");
+              $("#sigungu").append("<option value='예천'>예천군</option>");
+              $("#sigungu").append("<option value='울릉'>울릉군</option>");
+              $("#sigungu").append("<option value='울진'>울진군</option>");
+              $("#sigungu").append("<option value='의성'>의성군</option>");
+              $("#sigungu").append("<option value='청도'>청도군</option>");
+              $("#sigungu").append("<option value='청송'>청송군</option>");
+              $("#sigungu").append("<option value='칠곡'>칠곡군</option>");
+              $("#sigungu").append("<option value='포항'>포항시</option>");
+            };
+
+            if(sido == '경남'){
+              $("#sigungu option").remove();
+              $("#sigungu").append("<option value='거제'>거제시</option>");
+              $("#sigungu").append("<option value='거창'>거창군</option>");
+              $("#sigungu").append("<option value='고성'>고성군</option>");
+              $("#sigungu").append("<option value='김해'>김해시</option>");
+              $("#sigungu").append("<option value='남해'>남해군</option>");
+              $("#sigungu").append("<option value='밀양'>밀양시</option>");
+              $("#sigungu").append("<option value='사천'>사천시</option>");
+              $("#sigungu").append("<option value='산청'>산청군</option>");
+              $("#sigungu").append("<option value='양산'>양산시</option>");
+              $("#sigungu").append("<option value='의령'>의령군</option>");
+              $("#sigungu").append("<option value='진주'>진주시</option>");
+              $("#sigungu").append("<option value='창녕'>창년군</option>");
+              $("#sigungu").append("<option value='창원'>창원시</option>");
+              $("#sigungu").append("<option value='통영'>통영시</option>");
+              $("#sigungu").append("<option value='하동'>하동군</option>");
+              $("#sigungu").append("<option value='함안'>함안군</option>");
+              $("#sigungu").append("<option value='함양'>함양군</option>");
+              $("#sigungu").append("<option value='합천'>합천군</option>");
+            };
+
+            if(sido == '제주'){
+              $("#sigungu option").remove();
+              $("#sigungu").append("<option value='서귀포'>서귀포시</option>");
+              $("#sigungu").append("<option value='제주'>제주시</option>");
+            };
+            
+          }); 
+
+          $("#search").focus();
+
+          $("button:contains(search)").on("click" , function() {
+              
+              var keyword=$("#keyword").val();
+              var addr = $("#addr1").val() + $("#addr2").val();
+                  
+              $("form").attr("method","POST").attr("action","/campGeneral/login").submit();
+          });
+          
+      });	
+</script>	
+
+<section class="bg-dark-30 showcase-page-header module parallax-bg" data-background="../../resources/images/showcase_bg.jpg">
+  <div class="titan-caption">
+    <div class="row">
+      <div class="col-md-4 col-lg-offset-4" style="text-align: center;">
+        <h2  style="margin-bottom: 20px;">캠핑장을 검색해 주세요!</h2>
+        <div class="row">
+          <div class="row">
+            <div style="text-align: end; padding-right: 15px;">
+              <a class="btn btn-success control-label" href="#modalForm" style="padding: 5px;">상세검색+</a>
+              <div id="modalForm" class="modal-block modal-block-primary mfp-hide">
+                <section class="panel">
+                  <header class="panel-heading">
+                    <h2 class="panel-title">Registration Form</h2>
+                  </header>
+                  <div class="panel-body">
+                    <form id="demo-form" class="form-horizontal mb-lg" novalidate="novalidate">
+                      <div class="form-group mt-lg">
+                        <label class="col-sm-3 control-label">Name</label>
+                        <div class="col-sm-9">
+                          <input type="text" name="name" class="form-control" placeholder="Type your name..." required/>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-3 control-label">Email</label>
+                        <div class="col-sm-9">
+                          <input type="email" name="email" class="form-control" placeholder="Type your email..." required/>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-3 control-label">URL</label>
+                        <div class="col-sm-9">
+                          <input type="url" name="url" class="form-control" placeholder="Type an URL..." />
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-3 control-label">Comment</label>
+                        <div class="col-sm-9">
+                          <textarea rows="5" class="form-control" placeholder="Type your comment..." required></textarea>
+                        </div>
+                      </div>
+                    </form>
                   </div>
-               </div>
+                  <footer class="panel-footer">
+                    <div class="row">
+                      <div class="col-md-12 text-right">
+                        <button class="btn btn-primary modal-confirm">Submit</button>
+                        <button class="btn btn-default modal-dismiss">Cancel</button>
+                      </div>
+                    </div>
+                  </footer>
+                </section>
               </div>
-            </form>
-          </div>         
-        </class>
-      </section>
-     </main>
-    <!--  
-    JavaScripts
-    =============================================
-    -->
-    <script src="../../resources/lib/jquery/jquery.js"></script>
-    <script src="../../resources/lib/bootstrap/js/bootstrap.min.js"></script>
-    <script src="../../resources/lib/wow/wow.js"></script>
-    <script src="../../resources/lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js"></script>
-    <script src="../../resources/lib/isotope/isotope.pkgd.js"></script>
-    <script src="../../resources/lib/imagesloaded/imagesloaded.pkgd.js"></script>
-    <script src="../../resources/lib/flexslider/jquery.flexslider.js"></script>
-    <script src="../../resources/lib/owl.carousel/dist/owl.carousel.min.js"></script>
-    <script src="../../resources/lib/smoothscroll.js"></script>
-    <script src="../../resources/lib/magnific-popup/magnific-popup.js"></script>
-    <script src="../../resources/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script>
-    <script src="../../resources/js/plugins.js"></script>
-    <script src="../../resources/js/main.js"></script>
-    <script type="text/javascript">
-        $( function() {
-                
-                $("#search").focus();
-    
-                $("button:contains(search)").on("click" , function() {
-                    
-                    var keyword=$("#keyword").val();
-                    var addr = $("#addr1").val() + $("#addr2").val();
-                        
-                    $("form").attr("method","POST").attr("action","/campGeneral/login").submit();
-                });
-            });	
-    </script>	
-  </body>
-</html>
+            </div>
+          </div>
+          
+          <div class="row" style="margin-bottom: 15px;">
+            <div class="form-group">
+              <label class="col-sm-3 control-label">키워드</label>
+              <div class="col-sm-9">
+                <input type="text" name="name" class="form-control">
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="row">
+              <label class="col-md-3 control-label">지역별</label>
+              <div class="col-md-3">
+                <select class="form-control" id="sido">
+                  <option value="">전체/도</option>
+                  <option value="서울">서울시</option>
+                  <option value="부산">부산시</option>
+                  <option value="대구">대구시</option>
+                  <option value="인천">인천시</option>
+                  <option value="광주">광주시</option>
+                  <option value="대전">대전시</option>
+                  <option value="울산">울산시</option>
+                  <option value="세종">세종시</option>
+                  <option value="경기">경기도</option>
+                  <option value="강원">강원도</option>
+                  <option value="충북">충청북도</option>
+                  <option value="충남">충청남도</option>
+                  <option value="전북">전라북도</option>
+                  <option value="전남">전라남도</option>
+                  <option value="경북">경상북도</option>
+                  <option value="경남">경상남도</option>
+                  <option value="제주">제주도</option>
+                </select>
+              </div>
+              <div class="col-md-3" style="text-align: start; padding-left: 0px;" >
+                <select class="form-control" id="sigungu">
+                    <option value="">전체/시/군</option>
+                </select>
+              </div>
+              <div class="col-md-3" style="text-align: end;">
+                <button class="btn btn-success btn-round" type="button">검색</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
