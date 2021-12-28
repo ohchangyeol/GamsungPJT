@@ -36,4 +36,6 @@ public interface CampReservationService {
 	public void cancleReservationDo(Payment payment);
 	
 	public void sendMessage();
+	
+	public void reservationCompleteUse();
 }

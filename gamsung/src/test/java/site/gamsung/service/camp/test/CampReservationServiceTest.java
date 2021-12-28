@@ -262,4 +262,10 @@ public class CampReservationServiceTest {
 		campReservationService.sendMessage();
 		
 	}
+	
+	//예약일 종료후 이용완료로 전환
+	//@Test
+	public void testReservationCompleteUse() {
+		campReservationService.reservationCompleteUse();
+	}
 }
