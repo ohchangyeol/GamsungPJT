@@ -255,4 +255,11 @@ public class CampReservationServiceTest {
 		campReservationService.cancleReservationDo(payment);
 			
 	}
+	
+	//예약일자 하루전 예약 확인 메세지 전송
+	//@Test
+	public void testSendMessage() {
+		campReservationService.sendMessage();
+		
+	}
 }

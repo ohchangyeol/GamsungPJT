@@ -11,27 +11,29 @@ import site.gamsung.service.domain.ReservationStatistics;
 
 public interface CampReservationService {
 	
-	public void addReservation(CampReservation campReservation) throws Exception;
+	public void addReservation(CampReservation campReservation);
 	
-	public List<MainSite> listPossibleReservation(Map<String, Object> map) throws Exception;
+	public List<MainSite> listPossibleReservation(Map<String, Object> map);
 	
-	public Map<String, Object> listReservation(Search search, int campNo) throws Exception;
+	public Map<String, Object> listReservation(Search search, int campNo);
 	
-	public Map<String, Object> listMyReservation(Search search, String id) throws Exception;
+	public Map<String, Object> listMyReservation(Search search, String id);
 	
-	public ReservationStatistics getReservationStatistics() throws Exception;
+	public ReservationStatistics getReservationStatistics();
 	
-	public Map<String, Object> listCampReservationStatisticsByDay(Search search) throws Exception; 
+	public Map<String, Object> listCampReservationStatisticsByDay(Search search); 
 	
-	public Map<String, Object> listCampReservationStatisticsByWeek(Search search) throws Exception;
+	public Map<String, Object> listCampReservationStatisticsByWeek(Search search);
 	
-	public Map<String, Object> listCampReservationStatisticsByMonth(Search search) throws Exception;
+	public Map<String, Object> listCampReservationStatisticsByMonth(Search search);
 	
-	public CampReservation getReservation(String reservationNo) throws Exception;
+	public CampReservation getReservation(String reservationNo);
 	
-	public void updateReservation(CampReservation campReservation) throws Exception;
+	public void updateReservation(CampReservation campReservation);
 	
-	public void cancleReservationApply(CampReservation campReservation) throws Exception;
+	public void cancleReservationApply(CampReservation campReservation);
 	
-	public void cancleReservationDo(Payment payment) throws Exception;
+	public void cancleReservationDo(Payment payment);
+	
+	public void sendMessage();
 }
