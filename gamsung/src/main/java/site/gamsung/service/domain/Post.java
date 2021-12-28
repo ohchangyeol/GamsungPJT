@@ -25,9 +25,8 @@ public class Post {
 	private String Hashtag2; //해시태그2
 	private String Hashtag3; //해시태그3
 	private Search search; // searchCondition,searchKeyword  controller에서 처리.
-	private String concernFlag; // 추천 등록삭제 확인여부
+	private String conDeleteFlag; // 추천 등록삭제 확인여부
 	private String concernType; // 추천 등록해제
-	
 	
 	//method
 	
@@ -133,17 +132,19 @@ public class Post {
 	public void setHashtag3(String hashtag3) {
 		Hashtag3 = hashtag3;
 	}
-	public String getConcernFlag() {
-		return concernFlag;
-	}
-	public void setConcernFlag(String concernFlag) {
-		this.concernFlag = concernFlag;
-	}
+
 	public String getConcernType() {
 		return concernType;
 	}
 	public void setConcernType(String concernType) {
 		this.concernType = concernType;
+	}
+
+	public String getConDeleteFlag() {
+		return conDeleteFlag;
+	}
+	public void setConDeleteFlag(String conDeleteFlag) {
+		this.conDeleteFlag = conDeleteFlag;
 	}
 	@Override
 	public String toString() {
@@ -152,7 +153,7 @@ public class Post {
 				+ postRegdate + ", video=" + video + ", deleteFlag=" + deleteFlag + ", commentTotalCount="
 				+ commentTotalCount + ", postImg1=" + postImg1 + ", postImg2=" + postImg2 + ", postImg3=" + postImg3
 				+ ", Hashtag1=" + Hashtag1 + ", Hashtag2=" + Hashtag2 + ", Hashtag3=" + Hashtag3 + ", search=" + search
-				+ ", concernFlag=" + concernFlag + ", concernType=" + concernType + "]";
+				+ ", conDeleteFlag=" + conDeleteFlag + ", concernType=" + concernType + "]";
 	}
 	
 

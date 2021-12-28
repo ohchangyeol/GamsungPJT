@@ -45,12 +45,14 @@ public class CampGeneralController {
 	@Value("#{commonProperties['pageSize']}")
 	int pageSize;
 	
+	@RequestMapping(value = "campSearch")
 	public String campSearch() throws Exception{
 		System.out.println("/campGeneral/campSearch : GET");
 		
 		return "redirect:/view/camp/campSearch.jsp";
 	}
 	
+	@RequestMapping(value = "campDetailSearch")
 	public String campDetailSearch() throws Exception{
 		System.out.println("/campGeneral/campDetailSearch : GET");
 		

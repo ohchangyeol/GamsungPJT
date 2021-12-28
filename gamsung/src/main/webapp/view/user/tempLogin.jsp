@@ -31,7 +31,7 @@
   function kakaoLogin() {
 
     $.ajax({
-        url: '/gamsung/user/getKakaoAuthUrl',
+        url: '/user/getKakaoAuthUrl',
         type: 'get',
         async: false,
         dataType: 'text',
