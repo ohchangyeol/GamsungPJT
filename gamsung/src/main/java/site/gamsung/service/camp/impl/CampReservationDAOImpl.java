@@ -122,5 +122,10 @@ public class CampReservationDAOImpl implements CampReservationDAO {
 		return sqlSession.selectList("CampReservationMapper.sendMessageInfo");
 	}
 
+	@Override
+	public void resetCount() {
+		sqlSession.update("CampReservationMapper.resetCount");		
+	}
+	
 }
 

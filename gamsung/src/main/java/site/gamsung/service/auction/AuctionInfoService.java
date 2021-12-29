@@ -18,4 +18,8 @@ public interface AuctionInfoService {
 	public List<AuctionInfo> auctionHistory(Map<String, Object> map);
 	
 	public AuctionInfo getAuctionTotalStatistics(User user);
+	
+	public void checkAndUpdateUserAuctionGrade(User user);
+	
+	public AuctionInfo getBidderRanking(AuctionInfo auctionInfo);
 }
