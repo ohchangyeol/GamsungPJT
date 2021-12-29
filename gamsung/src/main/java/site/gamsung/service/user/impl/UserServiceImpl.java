@@ -11,7 +11,6 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -338,44 +337,37 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	@Scheduled(cron="*/1 * * * * *")
+	@Scheduled(cron="0 0 12 * * *")
 	public void addDormantUser() throws Exception{
 		
 		System.out.println("배치 도는지");
 		List<User> list=userDAO.listUser(new Search());
-		LocalDate now = LocalDate.now();
-		String regDate=now.toString();
-		Date nowDate = new SimpleDateFormat("yyyy-mm-dd").parse(regDate);
 		
-		//밀리초로 변환
-		long today = nowDate.getTime();
-		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.YEAR , -1);
+		cal.add(Calendar.DAY_OF_MONTH, +1);
+		String TobeConvertedDate = sdf.format(cal.getTime());
 		
 		for(User user : list) {
-			user = userDAO.getUser(user.getId());
-			Date currentDate=user.getCurrentLoginRegDate();
-			long loginDate = currentDate.getTime();
+			System.out.println("for문이 도는지");
+			System.out.println(user);
 			
-			if(loginDate > 0 && today > 0) {
-	            // 두 날짜가 기준일(1970년 1월1일)에서 양수일 경우
-	            long sumMs = today - loginDate;
-	            long days = sumMs / (1000 * 60 * 60 * 24) + 1;
-	            System.out.println(nowDate + " ~ " + currentDate + " 은 " + days + "일 차이입니다.");
-	            if(days==359) {
-	            	String info = "[감성캠핑] 휴면전환 안내 메일입니다.";
-	            	String text = "안녕하세요 "+user.getNickName()+"님~ 휴면회원으로 전환되기 7일 전입니다."+
-	            	"\n전환을 원치 않으시면 사이트 방문 후 로그인 부탁드립니다.";
-	            	SendMail mail = new SendMail();
-	            	mail.sendMail(user.getId(), info, text);   	
+			Date currentDate=user.getCurrentLoginRegDate();
+			
+			if(currentDate == null) {
+				continue;
+			}
+				String loginDate=currentDate.toString();
+				
+				System.out.println("들어오나");
+			if(user.getSecessionRegDate()==null&&user.getSuspensionDate()==null&&user.getDormantConversionDate()==null&&sdf.parse(TobeConvertedDate).after(sdf.parse(loginDate))) {
+	            userDAO.addDormantUser(user);
 	            }
-	            if(days>=366) {
-	            	userDAO.addDormantUser(user);
-	            }
+			}
+			return; 
 		}
-				return; 
-        }
-	}
-
+			
 	@Override
 	public void updateDormantGeneralUserConvert(String id) throws Exception {
 		userDAO.updateDormantGeneralUserConver(id);

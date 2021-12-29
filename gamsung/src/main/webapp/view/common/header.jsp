@@ -5,11 +5,97 @@ pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!--  /////////////////////////jQuery CDN ////////////////////////// -->
-<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script> -->
 
 <head>
-    <meta charset="UTF-8"> 
+    <meta charset="UTF-8">
+    
+   <!-- Web Fonts  -->
+		<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Shadows+Into+Light" rel="stylesheet" type="text/css">
+
+		<!-- Vendor CSS -->
+		<link rel="stylesheet" href="../../resources/lib/bootstrap/css/bootstrap.css" />
+		<link rel="stylesheet" href="../../resources/lib/font-awesome/css/font-awesome.css" />
+		<link rel="stylesheet" href="../../resources/lib/magnific-popup/magnific-popup.css" />
+		<link rel="stylesheet" href="../../resources/lib/bootstrap-datepicker/css/datepicker3.css" />
+
+		<!-- Specific Page Vendor CSS -->
+		<link rel="stylesheet" href="../../resources/lib/pnotify/pnotify.custom.css" />
+
+		<!-- Theme CSS -->
+		<link rel="stylesheet" href="../../resources/css/theme.css" />
+
+		<!-- Skin CSS -->
+		<link rel="stylesheet" href="../../resources/css/skins/default.css" />
+
+		<!-- Theme Custom CSS -->
+		<link rel="stylesheet" href="../../resources/css/theme-custom.css">
+
+		<!-- Head Libs -->
+		<script src="../../resources/lib/modernizr/modernizr.js"></script>
+		
+		  <!-- Vendor -->
+		 
+		<script src="../../resources/lib/flot/jquery.js"></script>
+		<script src="../../resources/lib/jquery-browser-mobile/jquery.browser.mobile.js"></script>
+		<script src="../../resources/lib/bootstrap/js/bootstrap.js"></script>
+		<script src="../../resources/lib/nanoscroller/nanoscroller.js"></script>
+		<script src="../../resources/lib/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+		<script src="../../resources/lib/magnific-popup/magnific-popup.js"></script>
+		<script src="../../resources/lib/jquery-placeholder/jquery.placeholder.js"></script>
+		<!-- Specific Page Vendor -->
+		<script src="../../resources/lib/pnotify/pnotify.custom.js"></script>
+		<!-- Theme Base, Components and Settings -->
+		<script src="../../resources/js/theme.js"></script>
+		<!-- Theme Custom -->
+		<script src="../../resources/js/theme.custom.js"></script>
+		<!-- Theme Initialization Files -->
+		<script src="../../resources/js/theme.init.js"></script>
+		<!-- Examples -->
+		<script src="../../resources/js/ui-elements/examples.modals.js"></script>
+		
+		 
+		 
+		<script src="../../resources/lib/bootStrap/js/bootstrap.js"></script>
+		<script src="../../resources/lib/jquery/jquery.js"></script>
+		<script src="../../resources/lib/bootstrap/js/bootstrap.min.js"></script>
+		<script src="../../resources/lib/wow/wow.js"></script>
+		<script src="../../resources/lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js"></script>
+		<script src="../../resources/lib/isotope/isotope.pkgd.js"></script>
+		<script src="../../resources/lib/imagesloaded/imagesloaded.pkgd.js"></script>
+		<script src="../../resources/lib/flexslider/jquery.flexslider.js"></script>
+		<script src="../../resources/lib/owl.carousel/dist/owl.carousel.min.js"></script>
+		<script src="../../resources/lib/smoothscroll.js"></script>
+		<script src="../../resources/lib/magnific-popup/magnific-popup.js"></script>
+		<script src="../../resources/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script>
+		<script src="../../resources/js/plugins.js"></script>
+		<script src="../../resources/js/main.js"></script>
+		
+		<script src="../../resources/lib/jquery-browser-mobile/jquery.browser.mobile.js"></script>
+		<script src="../../resources/lib/bootStrap/js/bootstrap.js"></script>		
+		<script src="../../resources/lib/nanoscroller/nanoscroller.js"></script>
+		<script src="../../resources/lib/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+		<script src="../../resources/lib/magnific-popup/magnific-popup.js"></script>
+		<script src="../../resources/lib/jquery-placeholder/jquery.placeholder.js"></script>
+		<script src="../../resources/lib/pnotify/pnotify.custom.js"></script>
+		<script src="../../resources/js/theme.js"></script>
+		<script src="../../resources/js/theme.custom.js"></script>
+		<script src="../../resources/js/theme.init.js"></script>
+		<script src="../../resources/js/ui-elements/examples.modals.js"></script>
+     
 </head>
+
+ <script type="text/javascript">
+    //============= logout Event =============	
+		 $(function() {
+			//==> DOM Object GET 3���� ��� ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+		 	$("#logout").on("click" , function() {
+		 		//$(self.location).attr("href","/user/logout");
+				self.location = "/user/logout"
+			}); 
+		 });	
+   
+</script> 
 
 <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
   <div class="container">
@@ -308,23 +394,80 @@ pageEncoding="UTF-8"%>
 	      <li><a href="#"><button class="btn btn-border-w btn-round btn-xs" type="button" id="logout">LOGOUT</button></a></li>
 	    </c:if>
 	     <c:if test="${sessionScope.user.role==null}">
-        <li><a href="/view/user/tempLogin.jsp">
-	       <button class="btn btn-border-w btn-round btn-xs" type="button">LOGIN</button>
-        </a>
-        </li>
+        <!-- <li><a href="/view/user/tempLogin.jsp"> -->
+	       <a class="mb-xs mt-xs mr-xs modal-basic btn btn-default" href="#modalBasic">LOGIN</a>
+        <!-- </a> </li> -->
         </c:if>
         </ul>
     </div>
   </div>
 </nav>
+<div id="modalBasic" class="modal-block modal-block-primary mfp mfp-hide">
+	<section class="panel">
+		<header class="panel-heading">
+			<h2 class="panel-title">Are you sure?</h2>
+		</header>
+			<div class="panel-body">
+			<div class="modal-wrapper">
+			<div class="modal-text">
+				<p>Are you sure that you want to delete this image?</p>
+			</div>
+	</div>
+</div>
+		<footer class="panel-footer">
+		<div class="row">
+			<div class="col-md-12 text-right">
+				<button class="btn btn-primary modal-confirm">Confirm</button>
+				<button class="btn btn-default modal-dismiss">Cancel</button>
+			</div>
+		</div>
+		</footer>
+	</section>
+</div>
+<!--  
+<div id="modalMD" class="modal-block modal-block-md" hidden="hidden">
+<div class="modal-dialog modal-dialog-centered">
+<div class="mfp-content">
+<div class="modal-dialog">
+<section class="panel">
+<header class="panel-heading">
+	</header>
+	<div class="panel-body" >
+	<form action="" class="was-validated">
+	<button class="close" data-dismiss="modal">&times;</button>
+		<div class="form-group">
+			<label for="userId">아이디 </label>
+			<input type="text" class="form-control" id="userId" placeholder="아이디를 입력하세요." name="userId" required>
+			<div class="valid-feedback">Valid.</div>
+			<div class="invalid-feedback">Please fill out this field.</div>
+		</div>
+		<div class="form-group">
+			<label for="userPw">비밀번호 </label>
+			<input type="password" class="form-control" id="userPw" placeholder="비밀번호를 입력하세요." name="userPw" required>
+			<div class="valid-feedback">Valid.</div>
+			<div class="invalid-feedback">Please fill out this field.</div>
+		</div>
+		<button type="submit" class="btn btn-primary" style="margin-left:50%;">로그인</button>
+		<button type="button" class="btn btn-secondary">회원가입</button>
+		<img src="../../resources/images/kakao_login_small.png"/>
+	</form>
+		</div>
+			<footer class="panel-footer">
+				<div class="row">
+					<div class="col-md-12 text-right">
+						<button class="btn btn-primary modal-confirm">아이디 찾기</button>
+						<button class="btn btn-default modal-dismiss">비밀번호 찾기</button>
+					</div>
+				</div>
+			</footer>
+		</section>
+		</div>
+	</div>
+	</div>
+	</div>
+-->
 
- <script type="text/javascript">
-    //============= logout Event  ó�� =============	
-		 $(function() {
-			//==> DOM Object GET 3���� ��� ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-		 	$("#logout").on("click" , function() {
-		 		//$(self.location).attr("href","/user/logout");
-				self.location = "/user/logout"
-			}); 
-		 });	
-</script> 
+
+
+
+
