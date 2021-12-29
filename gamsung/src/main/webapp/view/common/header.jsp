@@ -31,14 +31,7 @@ pageEncoding="UTF-8"%>
            	<li><a href="/payment/listSiteProfit">SiteProfit</a></li>          	      
           </ul>
         </li>
-     
-        <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Camping</a>
-          <ul class="dropdown-menu">
-            <li><a href="/campGeneral/campSearch" >Camping Search</a></li>
-            <li><a href="/campGeneral/campDetailSearch" >Camping DetailSearch</a></li>           
-          </ul>
-        </li>
-       
+      
         <li class="dropdown"><a class="dropdown-toggle" href="/servicecenter/home" data-toggle="dropdown">고객센터</a>
         	<ul class="dropdown-menu">
 				<li><a href="/servicecenter/home">고객센터</a></li>

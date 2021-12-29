@@ -1,5 +1,6 @@
 package site.gamsung.service.camp.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,7 +45,7 @@ public class CampSearchServiceImpl implements CampSearchService{
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list);
 		map.put("totalCount", new Integer(totalCount));
-		
+	
 		return map;
 	}
 
