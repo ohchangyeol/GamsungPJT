@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=EUC-KR" %>
+<%@ page contentType="text/html; charset=utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>	
 
 <!DOCTYPE html>
@@ -6,44 +6,68 @@
 <html lang="ko">
 
 <head>
-	<meta charset="EUC-KR">
-
-	<!-- ÂüÁ¶ : http://getbootstrap.com/css/   ÂüÁ¶ -->
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta charset="utf-8">
 
 	<!-- Bootstrap, jQuery CDN -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
-	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
-
-	<!-- Bootstrap Dropdown Hover CSS -->
-	<link href="/css/animate.min.css" rel="stylesheet">
-	<link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
+	<meta name="viewport" content="width=device-width, initial-scale=1">	
+	<script src="/resources/lib/jquery/jquery.js"></script>
+    <script src="/resources/lib/bootstrap/js/bootstrap.min.js"></script>
+  	<script src="/resources/lib/imagesloaded/imagesloaded.pkgd.js"></script>
+  	<link rel="stylesheet" href="/resources/lib/bootstrap/css/bootstrap.min.css"></link>  	
+  	
+  	
+  	<!-- ### headerCampBusiness resources Start ### -->
+  	<script src="/resources/lib/jquery/jquery.js"></script>
+    
+    <!-- Favicons -->
+    <meta name="msapplication-TileImage" content="/resources/images/favicons/ms-icon-144x144.png">    
+    <meta name="msapplication-TileColor" content="#ffffff">  
+    <meta name="theme-color" content="#ffffff">
    
-	<!-- Bootstrap Dropdown Hover JS -->
-	<script src="/javascript/bootstrap-dropdownhover.min.js"></script>
+    <!-- Stylesheets -->
+    
+    <!-- Default stylesheets-->
+    <link href="/resources/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Template specific stylesheets-->
+    <link href="/resources/lib/animate.css/animate.css" rel="stylesheet">
+    <link href="/resources/lib/components-font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/resources/lib/et-line-font/et-line-font.css" rel="stylesheet">
+    <link href="/resources/lib/flexslider/flexslider.css" rel="stylesheet">
+    <link href="/resources/lib/owl.carousel/dist/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="/resources/lib/owl.carousel/dist/assets/owl.theme.default.min.css" rel="stylesheet">
+    <link href="/resources/lib/magnific-popup/magnific-popup.css" rel="stylesheet">
+    <link href="/resources/lib/simple-text-rotator/simpletextrotator.css" rel="stylesheet">       
+    
+    <!-- Main stylesheet and color file-->
+    <link href="/resources/css/style.css" rel="stylesheet">
+    <link id="color-scheme" href="/resources/css/colors/default.css" rel="stylesheet">  
+  	<!-- ### headerCampBusiness resources End ### -->
 	
 	<!-- CSS -->
 	<style>
 		body > div.container{
-			margin-top: 70px;
+			margin-top: 30px;
+		}
+		
+		.form-horizontal .control-label{
+    		text-align: left;
 		}
     </style>
 
 	<!-- JavaScript -->
 	<script type="text/javascript">
 	
-	// ¹öÆ°
+	// ë²„íŠ¼
 	$(function() {
 		
 		$("#update").on("click" , function() {
-			alert("Ä·ÇÎÀåÁ¤º¸¸¦ ¼öÁ¤ÇÕ´Ï´Ù.");
+			alert("ë¶€ê°€ì‹œì„¤ ì •ë³´ë¥¼ ìˆ˜ì •í•©ë‹ˆë‹¤.");
 			$("form").attr("method" , "POST").attr("action" , "/campBusiness/updateSubSite").attr("enctype","multipart/form-data").submit();
 		});
 		
 		$("#cancle").on("click" , function() {
-			alert("¼öÁ¤ÀÌ Ãë¼Ò µÇ¾ú½À´Ï´Ù.");
+			alert("ìˆ˜ì •ì´ ì·¨ì†Œ ë˜ì—ˆìŠµë‹ˆë‹¤.");
 			history.go(-1);
 		});			
 
@@ -60,9 +84,12 @@
 
 	<!-- Page Start -->
 	<div class="container">
+	
+	<div class="col-sm-2"></div>
+		<div class="col-sm-10">
 
 		<div class="page-header">
-	       <h1 class=" text-info">ºÎ°¡½Ã¼³ ¼öÁ¤</h1>
+	       <h1 class=" text-info">ë¶€ê°€ì‹œì„¤ ìˆ˜ì •</h1>
 	    </div>
 
 		<!-- Form Start -->
@@ -71,38 +98,38 @@
 		<input type="hidden" name="campNo" id="campNo" value="${campSession.campNo}">
 		
 		<div class="form-group">
-			<label for="subSiteNo" class="col-sm-offset-1 col-sm-3 control-label">µî·Ï ¹øÈ£</label>
+			<label for="subSiteNo" class="col-sm-offset-1 col-sm-3 control-label">ë“±ë¡ ë²ˆí˜¸</label>
 				<div class="col-sm-4">
 					<input type="text" class="form-control" id="subSiteNo" name="subSiteNo" value="${subSite.subSiteNo}" readonly>
 				</div>
 		</div>
 		
 		<div class="form-group">
-			<label for="subSiteRegDate" class="col-sm-offset-1 col-sm-3 control-label">µî·Ï ÀÏÀÚ</label>
+			<label for="subSiteRegDate" class="col-sm-offset-1 col-sm-3 control-label">ë“±ë¡ ì¼ìž</label>
 				<div class="col-sm-4">
 					<input type="text" class="form-control" id="subSiteRegDate" name="subSiteRegDate" value="${subSite.subSiteRegDate}" readonly>
 				</div>
 		</div>
 			
 		<div class="form-group">
-			<label for="subSiteType" class="col-sm-offset-1 col-sm-3 control-label">ºÎ°¡½Ã¼³ À¯Çü</label>
+			<label for="subSiteType" class="col-sm-offset-1 col-sm-3 control-label">ë¶€ê°€ì‹œì„¤ ìœ í˜•</label>
 			<div class="col-sm-4">
 				<select name="subSiteType" class="form-control" >
-					<option value="Àü±â" ${! empty subSite.subSiteType && subSite.subSiteType eq 'Àü±â' ? "selected" : "" }>Àü±â</option>
-					<option value="¿Â¼ö" ${! empty subSite.subSiteType && subSite.subSiteType eq '¿Â¼ö' ? "selected" : "" }>¿Â¼ö</option>
-					<option value="¸ÅÁ¡" ${! empty subSite.subSiteType && subSite.subSiteType eq '¸ÅÁ¡' ? "selected" : "" }>¸ÅÁ¡</option>
-					<option value="È­Àå½Ç" ${! empty subSite.subSiteType && subSite.subSiteType eq 'È­Àå½Ç' ? "selected" : "" }>È­Àå½Ç</option>
-					<option value="¹°³îÀÌÀå" ${! empty subSite.subSiteType && subSite.subSiteType eq '¹°³îÀÌÀå' ? "selected" : "" }>¹°³îÀÌÀå</option>
-					<option value="Æ®·¥Æú¸°" ${! empty subSite.subSiteType && subSite.subSiteType eq 'Æ®·¥Æú¸°' ? "selected" : "" }>Æ®·¥Æú¸°</option>
-					<option value="¹«¼±ÀÎÅÍ³Ý" ${! empty subSite.subSiteType && subSite.subSiteType eq '¹«¼±ÀÎÅÍ³Ý' ? "selected" : "" }>¹«¼±ÀÎÅÍ³Ý</option>
-					<option value="»êÃ¥·Î" ${! empty subSite.subSiteType && subSite.subSiteType eq '»êÃ¥·Î' ? "selected" : "" }>»êÃ¥·Î</option>
+					<option value="ì „ê¸°" ${! empty subSite.subSiteType && subSite.subSiteType eq 'ì „ê¸°' ? "selected" : "" }>ì „ê¸°</option>
+					<option value="ì˜¨ìˆ˜" ${! empty subSite.subSiteType && subSite.subSiteType eq 'ì˜¨ìˆ˜' ? "selected" : "" }>ì˜¨ìˆ˜</option>
+					<option value="ë§¤ì " ${! empty subSite.subSiteType && subSite.subSiteType eq 'ë§¤ì ' ? "selected" : "" }>ë§¤ì </option>
+					<option value="í™”ìž¥ì‹¤" ${! empty subSite.subSiteType && subSite.subSiteType eq 'í™”ìž¥ì‹¤' ? "selected" : "" }>í™”ìž¥ì‹¤</option>
+					<option value="ë¬¼ë†€ì´ìž¥" ${! empty subSite.subSiteType && subSite.subSiteType eq 'ë¬¼ë†€ì´ìž¥' ? "selected" : "" }>ë¬¼ë†€ì´ìž¥</option>
+					<option value="íŠ¸ëž¨í´ë¦°" ${! empty subSite.subSiteType && subSite.subSiteType eq 'íŠ¸ëž¨í´ë¦°' ? "selected" : "" }>íŠ¸ëž¨í´ë¦°</option>
+					<option value="ë¬´ì„ ì¸í„°ë„·" ${! empty subSite.subSiteType && subSite.subSiteType eq 'ë¬´ì„ ì¸í„°ë„·' ? "selected" : "" }>ë¬´ì„ ì¸í„°ë„·</option>
+					<option value="ì‚°ì±…ë¡œ" ${! empty subSite.subSiteType && subSite.subSiteType eq 'ì‚°ì±…ë¡œ' ? "selected" : "" }>ì‚°ì±…ë¡œ</option>
 				</select>
 			</div>
 		</div>
 		
 		
 		<div class="form-group">
-			<label for="subSiteName" class="col-sm-offset-1 col-sm-3 control-label">ºÎ°¡½Ã¼³ ÀÌ¸§</label>
+			<label for="subSiteName" class="col-sm-offset-1 col-sm-3 control-label">ë¶€ê°€ì‹œì„¤ ì´ë¦„</label>
 				<div class="col-sm-4">
 					<input type="text" class="form-control" id="subSiteName" name="subSiteName" value="${subSite.subSiteName}">
 				</div>
@@ -110,30 +137,38 @@
 
 		
 		<div class="form-group">
-			<label for="subSiteImgFile" class="col-sm-offset-1 col-sm-3 control-label">ºÎ°¡½Ã¼³ ÀÌ¹ÌÁö</label>				
+			<label for="subSiteImgFile" class="col-sm-offset-1 col-sm-3 control-label">ë¶€ê°€ì‹œì„¤ ì´ë¯¸ì§€</label>				
 				<div class="col-sm-4">
 					<img src="/uploadFiles/campimg/campbusiness/subSite/${subSite.subSiteImg}" />
-					<span>º¯°æÇÏ±â<input type="file"  id="subSiteImgFile" name="subSiteImgFile" ></span>			
+					<span>ë³€ê²½í•˜ê¸°<input type="file"  id="subSiteImgFile" name="subSiteImgFile" ></span>			
 				</div>
 		</div>
 		
 		<div class="form-group">
-			<label for="subSiteInfo" class="col-sm-offset-1 col-sm-3 control-label">ºÎ°¡½Ã¼³ ¼³¸í</label>
+			<label for="subSiteInfo" class="col-sm-offset-1 col-sm-3 control-label">ë¶€ê°€ì‹œì„¤ ì„¤ëª…</label>
 				<div class="col-sm-4">
 					<input type="text" class="form-control" id="subSiteInfo" name="subSiteInfo" value="${subSite.subSiteInfo}">
 				</div>
 		</div>
 		
-		<div class="form-group">
-			<div class="col-sm-offset-4  col-sm-4 text-center">
-				<button id="cancle" type="button" class="btn btn-primary">Ãë¼Ò</button>
-				<button id="update" type="button" class="btn btn-primary">¼öÁ¤</button>
-			</div>
-		</div> 
-
 		</form>
 		<!-- Form End -->
 		
+		<br>
+		<div class="row">
+			<div class="form-group">		
+				<div class="col-xs-1 col-xs-offset-1">
+					<button id="cancle" type="button" class="btn btn-danger">ì·¨ì†Œ</button>
+				</div>
+				
+				<div class="col-xs-1 col-xs-offset-5">
+					<button id="update" type="button" class="btn btn-primary">ìˆ˜ì •</button>
+				</div>			
+			</div>
+		</div>	
+		
+	</div>
+	
  	</div>
 	<!-- Page End -->
 

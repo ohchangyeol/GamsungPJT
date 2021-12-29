@@ -1,49 +1,82 @@
-<%@ page contentType="text/html; charset=EUC-KR" %>
+<%@ page contentType="text/html; charset=utf-8" %>
 
 <!DOCTYPE html>
 
 <html lang="ko">
 
 <head>
-	<meta charset="EUC-KR">
+	<meta charset="utf-8">
 
 	<!-- Bootstrap, jQuery CDN -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
-	
-	<script src="../../resources/lib/jquery/jquery.js"></script>
-    <script src="../../resources/lib/bootstrap/js/bootstrap.min.js"></script>
-  	<script src="../../resources/lib/imagesloaded/imagesloaded.pkgd.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1">	
+	<script src="/resources/lib/jquery/jquery.js"></script>
+    <script src="/resources/lib/bootstrap/js/bootstrap.min.js"></script>
+  	<script src="/resources/lib/imagesloaded/imagesloaded.pkgd.js"></script>
+  	<link rel="stylesheet" href="/resources/lib/bootstrap/css/bootstrap.min.css"></link>  	
+  	
+  	
+  	<!-- ### headerCampBusiness resources Start ### -->
+  	<script src="/resources/lib/jquery/jquery.js"></script>
+    
+    <!-- Favicons -->
+    <meta name="msapplication-TileImage" content="/resources/images/favicons/ms-icon-144x144.png">    
+    <meta name="msapplication-TileColor" content="#ffffff">  
+    <meta name="theme-color" content="#ffffff">
+   
+    <!-- Stylesheets -->
+    
+    <!-- Default stylesheets-->
+    <link href="/resources/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Template specific stylesheets-->
+    <link href="/resources/lib/animate.css/animate.css" rel="stylesheet">
+    <link href="/resources/lib/components-font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/resources/lib/et-line-font/et-line-font.css" rel="stylesheet">
+    <link href="/resources/lib/flexslider/flexslider.css" rel="stylesheet">
+    <link href="/resources/lib/owl.carousel/dist/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="/resources/lib/owl.carousel/dist/assets/owl.theme.default.min.css" rel="stylesheet">
+    <link href="/resources/lib/magnific-popup/magnific-popup.css" rel="stylesheet">
+    <link href="/resources/lib/simple-text-rotator/simpletextrotator.css" rel="stylesheet">       
+    
+    <!-- Main stylesheet and color file-->
+    <link href="/resources/css/style.css" rel="stylesheet">
+    <link id="color-scheme" href="/resources/css/colors/default.css" rel="stylesheet">  
+  	<!-- ### headerCampBusiness resources End ### -->
 	
 	<!-- CSS -->
 	<style>
-		body > div.container{
-			margin-top: 70px;
-		}
-    </style>
+	    body > div.container{
+	        margin-top: 30px;
+	    }
+	    
+	    .form-horizontal .control-label{
+	        text-align: left;
+	    }
+	
+	</style>
 
 	<!-- JavaScript -->
 	<script type="text/javascript">
 
-		// ¹öÆ°
+		// ë²„íŠ¼
 		$(function() {
-			//==> DOM Object GET 3°¡Áö ¹æ¹ı ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+			//==> DOM Object GET 3ê°€ì§€ ë°©ë²• ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			
-			//µî·ÏÀÏÀÚ ÇöÀç³â¿ùÀÏ ¹Ş¾Æ¿À±â	
+			//ë“±ë¡ì¼ì í˜„ì¬ë…„ì›”ì¼ ë°›ì•„ì˜¤ê¸°	
 			document.getElementById('subSiteRegDate').value = new Date().toISOString().substring(0, 10);;
 			
 			$("#save").on("click" , function() {
-				alert("ºÎ°¡½Ã¼³ÀÌ µî·Ï µÇ¾ú½À´Ï´Ù.");			
+				alert("ë¶€ê°€ì‹œì„¤ì´ ë“±ë¡ ë˜ì—ˆìŠµë‹ˆë‹¤.");			
 				$("form").attr("method" , "POST").attr("action" , "/campBusiness/updateSubSite").attr("enctype","multipart/form-data").submit();
 			});
 					
 			$("#cancle").on("click" , function() {
-				alert("Ãë¼Ò µÇ¾ú½À´Ï´Ù.");
+				alert("ì·¨ì†Œ ë˜ì—ˆìŠµë‹ˆë‹¤.");
 				window.history.back();
 			});
 			
 			$("#resetform").on("click" , function() {
-				alert("ÃÊ±âÈ­ µÇ¾ú½À´Ï´Ù.");				
+				alert("ì´ˆê¸°í™” ë˜ì—ˆìŠµë‹ˆë‹¤.");				
 				$("form")[0].reset();				
 			});
 		
@@ -62,7 +95,7 @@
 	<div class="container">
 
 		<div class="page-header">
-	       <h1 class=" text-info">ºÎ°¡½Ã¼³ µî·Ï</h1>
+	       <h1 class=" text-info">ë¶€ê°€ì‹œì„¤ ë“±ë¡</h1>
 	    </div>
 
 		<!-- Form Start -->
@@ -71,67 +104,77 @@
 		<input type="hidden" name="campNo" id="campNo" value="${campSession.campNo}">
 		
 		<div class="form-group">
-			<label for="subSiteNo" class="col-sm-offset-1 col-sm-3 control-label">µî·Ï ¹øÈ£</label>
+			<label for="subSiteNo" class="col-sm-offset-1 col-sm-3 control-label">ë“±ë¡ ë²ˆí˜¸</label>
 				<div class="col-sm-4">
 					<input type="text" class="form-control" id="subSiteNo" name="subSiteNo" value="${subSite.subSiteNo}" readonly>
 				</div>
 		</div>
 			
 		<div class="form-group">
-			<label for="subSiteRegDate" class="col-sm-offset-1 col-sm-3 control-label">µî·Ï ÀÏÀÚ</label>
+			<label for="subSiteRegDate" class="col-sm-offset-1 col-sm-3 control-label">ë“±ë¡ ì¼ì</label>
 				<div class="col-sm-4">
 					<input type="text" class="form-control" id="subSiteRegDate" name="subSiteRegDate" value="" readonly>
 				</div>
 		</div>
 
 		<div class="form-group">
-			<label for="subSiteType" class="col-sm-offset-1 col-sm-3 control-label">ºÎ°¡½Ã¼³ À¯Çü</label>
+			<label for="subSiteType" class="col-sm-offset-1 col-sm-3 control-label">ë¶€ê°€ì‹œì„¤ ìœ í˜•</label>
 			<div class="col-sm-4">
 				<select name="subSiteType" class="form-control" >
-					<option value="Àü±â" selected="selected">Àü±â</option>
-					<option value="¿Â¼ö">¿Â¼ö</option>
-					<option value="¸ÅÁ¡">¸ÅÁ¡</option>
-					<option value="È­Àå½Ç">È­Àå½Ç</option>
-					<option value="¹°³îÀÌÀå">¹°³îÀÌÀå</option>
-					<option value="Æ®·¥Æú¸°">Æ®·¥Æú¸°</option>
-					<option value="¹«¼±ÀÎÅÍ³İ">¹«¼±ÀÎÅÍ³İ</option>
-					<option value="»êÃ¥·Î">»êÃ¥·Î</option>
+					<option value="ì „ê¸°" selected="selected">ì „ê¸°</option>
+					<option value="ì˜¨ìˆ˜">ì˜¨ìˆ˜</option>
+					<option value="ë§¤ì ">ë§¤ì </option>
+					<option value="í™”ì¥ì‹¤">í™”ì¥ì‹¤</option>
+					<option value="ë¬¼ë†€ì´ì¥">ë¬¼ë†€ì´ì¥</option>
+					<option value="íŠ¸ë¨í´ë¦°">íŠ¸ë¨í´ë¦°</option>
+					<option value="ë¬´ì„ ì¸í„°ë„·">ë¬´ì„ ì¸í„°ë„·</option>
+					<option value="ì‚°ì±…ë¡œ">ì‚°ì±…ë¡œ</option>
 				</select>
 			</div>
 		</div>
 		
 		
 		<div class="form-group">
-			<label for="subSiteName" class="col-sm-offset-1 col-sm-3 control-label">ºÎ°¡½Ã¼³ ÀÌ¸§</label>
+			<label for="subSiteName" class="col-sm-offset-1 col-sm-3 control-label">ë¶€ê°€ì‹œì„¤ ì´ë¦„</label>
 				<div class="col-sm-4">
-					<input type="text" class="form-control" id="subSiteName" name="subSiteName" value="" placeholder="ÀÌ¸§À» ÀÔ·ÂÇÏ¼¼¿ä">
+					<input type="text" class="form-control" id="subSiteName" name="subSiteName" value="" placeholder="ì´ë¦„ì„ ì…ë ¥í•˜ì„¸ìš”">
 				</div>
 		</div>
 		
 		<div class="form-group">
-			<label for="subSiteImgFile" class="col-sm-offset-1 col-sm-3 control-label">ºÎ°¡½Ã¼³ ÀÌ¹ÌÁö</label>				
+			<label for="subSiteImgFile" class="col-sm-offset-1 col-sm-3 control-label">ë¶€ê°€ì‹œì„¤ ì´ë¯¸ì§€</label>				
 				<div class="col-sm-4">
 					<input type="file"  id="subSiteImgFile" name="subSiteImgFile">	
 				</div>
 		</div>
 		
 		<div class="form-group">
-			<label for="subSiteInfo" class="col-sm-offset-1 col-sm-3 control-label">ºÎ°¡½Ã¼³ ¼³¸í</label>
+			<label for="subSiteInfo" class="col-sm-offset-1 col-sm-3 control-label">ë¶€ê°€ì‹œì„¤ ì„¤ëª…</label>
 				<div class="col-sm-4">
-					<input type="text" class="form-control" id="subSiteInfo" name="subSiteInfo" value="" placeholder="¼³¸íÀ» ÀÔ·ÂÇÏ¼¼¿ä">
+					<input type="text" class="form-control" id="subSiteInfo" name="subSiteInfo" value="" placeholder="ì„¤ëª…ì„ ì…ë ¥í•˜ì„¸ìš”">
 				</div>
 		</div>		
 
-		<div class="form-group">
-			<div class="col-sm-offset-4  col-sm-4 text-center">
-				<button id="resetform" type="button" class="btn btn-primary">¾ç½Ä ÃÊ±âÈ­</button>
-				<button id="cancle" type="button" class="btn btn-primary">Ãë¼Ò</button>
-				<button id="save" type="button" class="btn btn-primary">ÀúÀå</button>
-			</div>
-		</div>
-
 		</form>
 		<!-- Form End -->
+		
+		<br>
+		<div class="row">
+		    <div class="form-group">
+		        <div class="col-xs-2 col-xs-offset-1">
+		            <button id="resetform" type="button" class="btn btn-secondary">ì–‘ì‹ ì´ˆê¸°í™”</button>
+		        </div>
+		        
+		        <div class="col-xs-1">
+		            <button id="cancle" type="button" class="btn btn-danger">ì·¨ì†Œ</button>
+		        </div>
+		        
+		        <div class="col-xs-1 col-xs-offset-3">
+		            <button id="save" type="button" class="btn btn-primary">ì €ì¥</button>
+		        </div>			
+		    </div>
+		</div>
+		
 		
  	</div>
 	<!-- Page End -->

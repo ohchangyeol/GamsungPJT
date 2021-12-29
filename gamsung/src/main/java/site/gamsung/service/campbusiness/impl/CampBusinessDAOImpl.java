@@ -38,9 +38,8 @@ public class CampBusinessDAOImpl implements CampBusinessDAO{
 		
 		if(type.equals("Camp")) {
 			if (sqlSession.selectOne("CampBusinessMapper.getRegNumOutCamp", (Camp)obj)==null) {
-				sqlSession.selectOne("CampBusinessMapper.getRegNumInMainSite", (MainSite)obj);
-			}
-			sqlSession.selectOne("CampBusinessMapper.getRegNumInCamp", (Camp)obj);
+				sqlSession.selectOne("CampBusinessMapper.getRegNumInCamp", (Camp)obj);
+			}			
 			return sqlSession.selectOne("CampBusinessMapper.getRegNumOutCamp", (Camp)obj);
 		}
 		
