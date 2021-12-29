@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import site.gamsung.service.campbusiness.CampBusinessDAO;
 import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.Camp;
+import site.gamsung.service.domain.CampReservation;
 import site.gamsung.service.domain.MainSite;
 import site.gamsung.service.domain.SubSite;
 
@@ -29,9 +30,37 @@ public class CampBusinessDAOImpl implements CampBusinessDAO{
 		System.out.println(this.getClass());
 	}	
 	
+	
 	/*
-	 * Camp
+	 * Common
 	 */	
+	public int getRegNum(String type, Object obj) throws Exception{
+		
+		if(type.equals("Camp")) {
+			if (sqlSession.selectOne("CampBusinessMapper.getRegNumOutCamp", (Camp)obj)==null) {
+				sqlSession.selectOne("CampBusinessMapper.getRegNumInMainSite", (MainSite)obj);
+			}
+			sqlSession.selectOne("CampBusinessMapper.getRegNumInCamp", (Camp)obj);
+			return sqlSession.selectOne("CampBusinessMapper.getRegNumOutCamp", (Camp)obj);
+		}
+		
+		if(type.equals("MainSite")) {
+			if (sqlSession.selectOne("CampBusinessMapper.getRegNumOutMainSite", (MainSite)obj)==null) {
+				sqlSession.selectOne("CampBusinessMapper.getRegNumInMainSite", (MainSite)obj);
+			}
+			return sqlSession.selectOne("CampBusinessMapper.getRegNumOutMainSite", (MainSite)obj);
+		}
+		
+		if(type.equals("SubSite")) {
+			if(sqlSession.selectOne("CampBusinessMapper.getRegNumOutSubSite", (SubSite)obj)==null) {
+				sqlSession.selectOne("CampBusinessMapper.getRegNumInSubSite", (SubSite)obj);
+			}
+			return sqlSession.selectOne("CampBusinessMapper.getRegNumOutSubSite", (SubSite)obj);
+		}
+		return 0;		
+				
+	}
+	
 	public int getTotalCount(Search search) throws Exception {
 				
 		if(search.getSearchItemType().equals("Camp")) {
@@ -96,9 +125,19 @@ public class CampBusinessDAOImpl implements CampBusinessDAO{
 		}
 	}
 	
-	public int getRegNum(Camp camp) throws Exception{
-		sqlSession.selectOne("CampBusinessMapper.getRegNumIn", camp);
-		return sqlSession.selectOne("CampBusinessMapper.getRegNumOut", camp);		
+	@Override
+	public boolean isSecessionCampReservationCondition(String id) throws Exception {
+		
+		int tempCampNo = sqlSession.selectOne("CampBusinessMapper.getCampNoById", id);		
+		int reservationCount = sqlSession.selectOne("CampBusinessMapper.getCampReservationCount", tempCampNo);
+		
+		// 리턴 값이 있으면 회원 탈퇴 불가 : flag false. 
+		// 리턴 값이 없으면 회원 탈퇴 가능 : flag true.
+		if(reservationCount != 0) {
+			return false;
+		}else {
+			return true;
+		}
 	}
 
 	

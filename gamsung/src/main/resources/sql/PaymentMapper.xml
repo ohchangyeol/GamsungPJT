@@ -40,6 +40,43 @@
 		<result property="profitCreditcard" 			column="profit_creditcard"		jdbcType="NUMERIC"/>
 		<result property="profitSimplePay" 				column="profit_simplepay" 		jdbcType="NUMERIC"/>
 	</resultMap>
+	
+	<!-- SQL : Point ################################################################################################################### -->
+	
+	
+	<!-- SQL : Payment ################################################################################################################### -->
+	
+	
+	<!-- SQL : PaymentCode ################################################################################################################### -->
+	
+	<insert id="addPaymentCode" parameterType="paymentCode">
+		INSERT
+		INTO PAYMENT_CODE(payment_code, payment_code_range_start, payment_code_range_end, payment_code_info, payment_code_fee)
+		VALUES ( #{paymentCode}
+				, #{paymentCodeRangeStart :NUMERIC}
+				, #{paymentCodeRangeEnd :NUMERIC}
+				, #{paymentCodeInfo :VARCHAR}
+				, #{paymentCodeFee}	)	
+	</insert>
+	
+	<update	id="updatePaymentCode" parameterType="paymentCode" >
+	   	UPDATE PAYMENT_CODE
+	   	SET	payment_code_range_start = #{paymentCodeRangeStart}
+			, payment_code_range_end = #{paymentCodeRangeEnd}
+			, payment_code_info = #{paymentCodeInfo}
+			, payment_code_fee = #{paymentCodeFee}
+	   	WHERE payment_code = #{paymentCode}
+	</update>
+	
+	<select id="listPaymentCode" resultMap="paymentCodeSelectMap">
+  		SELECT payment_code, payment_code_range_start, payment_code_range_end, payment_code_info, payment_code_fee
+		FROM PAYMENT_CODE			
+		ORDER BY payment_code	
+	</select>
+	
+	
+	<!-- SQL : SiteProfit ################################################################################################################### -->
+	
 		
 	
 	

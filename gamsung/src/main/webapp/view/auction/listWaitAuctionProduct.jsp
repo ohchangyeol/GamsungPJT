@@ -268,7 +268,7 @@
   				}
   			});
   		
-	  		$('.btn-b').on('click',function(){
+	  		$('body').on('click','.btn-b',function(){
 	   			var auctionProductSubDatail = $(this).prev().text();
 	   			var auctionProductName = $(this).parent().parent().next().text();
 	   			var allhashtag = $(this).parent().parent().next().next().text();

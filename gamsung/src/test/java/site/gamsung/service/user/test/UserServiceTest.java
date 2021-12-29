@@ -31,10 +31,10 @@ public class UserServiceTest {
 	public void testAddUser() throws Exception{
 		
 		User user = new User();
-		user.setId("test66@nate.com");
-		user.setNickName("임시6");
+		user.setId("test55@nate.com");
+		user.setNickName("임시5");
 		user.setName("비번14");
-		user.setPassword("6666");
+		user.setPassword("5555");
 		user.setRole("GENERAL");
 		user.setPhone("01001153333");
 				

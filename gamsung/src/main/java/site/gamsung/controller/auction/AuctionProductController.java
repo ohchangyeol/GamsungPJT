@@ -1,6 +1,7 @@
 package site.gamsung.controller.auction;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -59,29 +60,27 @@ public class AuctionProductController {
 	
 	//상품 상세 조회 페이지 출력
 	@RequestMapping(value = "getAuctionProduct", method = RequestMethod.GET)
-	public String getAuctionProduct(String auctionProductNo, Model model) {
-
+	public String getAuctionProduct(AuctionInfo auctionInfo, HttpSession httpSession, Model model) {
+		
+		User user = (User)httpSession.getAttribute("user");
+		auctionInfo.setUser(user);
+		
 		//조회수를 1증가 시키며, 상품 번호에 대한 상세정보를 받아온다.
-		AuctionProduct auctionProduct = auctionProductService.getAuctionProduct(auctionProductNo);
+		Map<String, Object> map = auctionProductService.getAuctionProduct(auctionInfo);
 			
 		//받은 상품정보를 model에 담아 return한다.
-		model.addAttribute(auctionProduct);
+		model.addAttribute("auctionProduct",map.get("auctionProduct"));
+		model.addAttribute("auctionInfo", map.get("auctionInfo"));
+		model.addAttribute("registrantInfo", map.get("registrantInfo"));
 			
 		return "forward:/view/auction/getAuctionProduct.jsp";
 	}
 	
 	//상품 상세 조회 페이지 출력
 	@RequestMapping(value = "getAuctionProduct", method = RequestMethod.POST)
-	public String getCrawlingAuctionProductNo(@ModelAttribute("auctionProduct") AuctionProduct auctionProduct, 
-											Model model, HttpSession session) {
+	public String getCrawlingAuctionProductNo(@ModelAttribute("auctionProduct") AuctionProduct auctionProduct) {
 		
 		auctionProduct = auctionProductService.getCrawlingAuctionProductNo(auctionProduct);
-		
-		AuctionInfo auctionInfo = (AuctionInfo) session.getAttribute(auctionProduct.getAuctionProductNo());
-		
-		if(auctionInfo == null) {
-			session.setAttribute(auctionProduct.getAuctionProductNo(), new AuctionInfo());
-		}
 		
 		return "redirect:./getAuctionProduct?auctionProductNo="+auctionProduct.getAuctionProductNo();
 	}

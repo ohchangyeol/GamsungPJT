@@ -6,52 +6,63 @@
 
 <mapper namespace="AuctionInfoMapper">
 	<resultMap id="auction" type="auctionProduct">
-		<result property="auctionProductNo" column="product_no"/>
-		<result property="registrantId" column="registrant_id"/>
-		<result property="successfulBidderId" column="successful_bidder_id"/>
-		<result property="auctionProductName" column="product_name"/>
-		<result property="auctionProductDatail" column="product_detail"/>
-		<result property="startBidPrice" column="start_bid_price"/>
-		<result property="hopefulBidPrice" column="hopeful_bid_price"/>
-		<result property="bidUnit" column="bid_unit"/>
-		<result property="auctionStartTime" column="auction_start_time"/>
-		<result property="auctionEndTime" column="auction_end_time"/>
-		<result property="bidableGrade" column="bidable_grade"/>
-		<result property="hashtag1" column="hashtag1"/>
-		<result property="hashtag2" column="hashtag2"/>
-		<result property="hashtag3" column="hashtag3"/>
-		<result property="productImg1" column="product_img1"/>
-		<result property="productImg2" column="product_img2"/>
-		<result property="productImg3" column="product_img3"/>
-		<result property="productImg4" column="product_img4"/>
-		<result property="productImg5" column="product_img5"/>
-		<result property="productViewCount" column="product_view_count"/>
-		<result property="productRegDate" column="product_reg_date"/>
-		<result property="isConfirm" column="registrant_confirm_flag"/>
-		<result property="isConfirm" column="successful_bidder_confirm_flag"/>
-		<result property="auctionStatus" column="auction_status"/>
-		<result property="isTempSave" column="temp_save_flag"/>
-		<result property="isDelete" column="delete_flag"/>
+		<result property="auctionProductNo" 		column="product_no"/>
+		<result property="registrantId" 			column="registrant_id"/>
+		<result property="successfulBidderId" 		column="successful_bidder_id"/>
+		<result property="auctionProductName" 		column="product_name"/>
+		<result property="auctionProductDatail" 	column="product_detail"/>
+		<result property="startBidPrice" 			column="start_bid_price"/>
+		<result property="hopefulBidPrice" 			column="hopeful_bid_price"/>
+		<result property="bidUnit" 					column="bid_unit"/>
+		<result property="auctionStartTime" 		column="auction_start_time"/>
+		<result property="auctionEndTime" 			column="auction_end_time"/>
+		<result property="bidableGrade" 			column="bidable_grade"/>
+		<result property="hashtag1" 				column="hashtag1"/>
+		<result property="hashtag2" 				column="hashtag2"/>
+		<result property="hashtag3" 				column="hashtag3"/>
+		<result property="productImg1" 				column="product_img1"/>
+		<result property="productImg2" 				column="product_img2"/>
+		<result property="productImg3" 				column="product_img3"/>
+		<result property="productImg4" 				column="product_img4"/>
+		<result property="productImg5" 				column="product_img5"/>
+		<result property="productViewCount" 		column="product_view_count"/>
+		<result property="productRegDate" 			column="product_reg_date"/>
+		<result property="isConfirm" 				column="registrant_confirm_flag"/>
+		<result property="isConfirm" 				column="successful_bidder_confirm_flag"/>
+		<result property="auctionStatus" 			column="auction_status"/>
+		<result property="isTempSave" 				column="temp_save_flag"/>
+		<result property="isDelete" 				column="delete_flag"/>
 	</resultMap>
 	
 	<resultMap id="info" type="auctionInfo">
-		<result property="bidNo" column="bid_no"/>
-		<result property="auctionProductNo" column="product_no"/>
-		<result property="user.id" column="user_id"/>
-		<result property="user.nickName" column="nick_name"/>
-		<result property="user.auctionGrade" column="auction_grade"/>
-		<result property="bidPrice" column="bid_price"/>
-		<result property="bidDateTime" column="bid_date_time"/>
-		<result property="concernRegDate" column="concern_reg_date"/>
-		<result property="auctionStatus" column="auction_status"/>
-		<result property="addProductCount" column="add_product_count"/>
-		<result property="bidCount" column="bid_count"/>
-		<result property="successfulBidCount" column="successful_bid_count"/>
-		<result property="midwayWithdrawalCount" column="midway_withdrawal_count"/>
+		<result property="bidNo" 					column="bid_no"/>
+		<result property="auctionProductNo" 		column="product_no"/>
+		<result property="user.id" 					column="user_id"/>
+		<result property="user.id" 					column="bidder_id"/>
+		<result property="bidderCount" 				column="bidder_count"/>
+		<result property="bidderRank" 				column="bidder_rank"/>
+		<result property="user.nickName" 			column="nick_name"/>
+		<result property="user.auctionGrade" 		column="auction_grade"/>
+		<result property="bidPrice" 				column="bid_price"/>
+		<result property="bidDateTime" 				column="bid_date_time"/>
+		<result property="concernRegDate" 			column="concern_reg_date"/>
+		<result property="auctionStatus" 			column="auction_status"/>
+		<result property="addProductCount" 			column="add_product_count"/>
+		<result property="bidCount" 				column="bid_count"/>
+		<result property="successfulBidCount" 		column="successful_bid_count"/>
+		<result property="midwayWithdrawalCount" 	column="midway_withdrawal_count"/>
 		<result property="cancelSuccessfulBidCount" column="cancel_successful_bid_count"/>
-		<result property="auctionConfirmCount" column="auction_confirm_count"/>
-		<result property="topRankCount" column="top_rank_count"/>
-		<result property="addReviewCount" column="add_Review_Count"/>
+		<result property="auctionConfirmCount" 		column="auction_confirm_count"/>
+		<result property="topRankCount" 			column="top_rank_count"/>
+		<result property="addReviewCount" 			column="add_Review_Count"/>
+	</resultMap>
+	
+	<resultMap id="paymentCodeSelectMap" type="paymentCode">
+		<result property="paymentCode" 					column="payment_code" 		 	 		jdbcType="VARCHAR"/>
+		<result property="paymentCodeRangeStart"		column="payment_code_range_start"		jdbcType="NUMERIC"/>
+		<result property="paymentCodeRangeEnd" 			column="payment_code_range_end" 	  	jdbcType="NUMERIC"/>
+		<result property="paymentCodeInfo" 				column="payment_code_info"  			jdbcType="VARCHAR"/>
+		<result property="paymentCodeFee" 				column="payment_code_fee" 			  	jdbcType="NUMERIC"/>
 	</resultMap>
 	
 	<!-- //////////////////////////////////////////////////////AuctoinInfoDAO Mapper////////////////////////////////////////////////////// -->
@@ -228,6 +239,28 @@
 		
 	</select>
 	
+	<select id="getBidderRanking" parameterType="auctionInfo" resultMap="info">
+		SELECT rk.ranking AS bidder_rank, rk.product_no AS product_no, rk.id AS bidder_id, COUNT(ck.id) AS bidder_count
+		FROM(	SELECT rank() over(order by mx.maxprice desc) AS ranking, mx.bidder_id AS id, mx.product_no AS product_no, mx.maxPrice AS maxprice 
+				FROM(	SELECT bidder_id, product_no, MAX(bid_price) AS maxPrice
+						FROM AUCTION_HISTORY ah
+						WHERE product_no = #{auctionProductNo}
+						GROUP BY bidder_id, product_no
+					) AS mx 
+			) as rk, 
+					
+			(	SELECT rank() over(order by mx.maxprice desc) AS ranking, mx.bidder_id AS id, mx.product_no AS product_no, mx.maxPrice AS maxprice 
+				FROM(	SELECT bidder_id, product_no, MAX(bid_price) AS maxPrice
+						FROM AUCTION_HISTORY ah
+						WHERE product_no = #{auctionProductNo}
+						GROUP BY bidder_id, product_no
+					) AS mx 
+			) as ck
+		WHERE rk.id = #{user.id}
+		GROUP BY bidder_rank, rk.id, rk.product_no
+		
+	</select>
+	
 	<select id="getUserAuctionGradeInfo" parameterType="String" resultType="int">
 		SELECT auction_grade
 		FROM USERS
@@ -246,5 +279,6 @@
 		WHERE 	( (auction_status = 'START' OR auction_status = 'WAIT') AND registrant_id = #{id} ) OR
 				( (auction_status = 'START' OR auction_status = 'WAIT') AND successful_bidder_id = #{id} );
 	</select>
+	
 	
 </mapper>

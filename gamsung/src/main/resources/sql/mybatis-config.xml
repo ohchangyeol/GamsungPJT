@@ -64,6 +64,7 @@
 		<mapper resource="sql/AuctionProductMapper.xml"/>
 		<mapper resource="sql/AuctionInfoMapper.xml"/> 
  		<mapper resource="sql/AuctionRestMapper.xml"/>
+ 		<mapper resource="sql/AuctionRatingReviewMapper.xml"/>
 		<mapper resource="sql/CampReservationMapper.xml" />
 		<mapper resource="sql/CampRatingReviewMapper.xml" />
 		

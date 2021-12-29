@@ -255,4 +255,23 @@ public class CampReservationServiceTest {
 		campReservationService.cancleReservationDo(payment);
 			
 	}
+	
+	//예약일자 하루전 예약 확인 메세지 전송
+	//@Test
+	public void testSendMessage() {
+		campReservationService.sendMessage();
+		
+	}
+	
+	//예약일 종료후 이용완료로 전환
+	//@Test
+	public void testReservationCompleteUse() {
+		campReservationService.reservationCompleteUse();
+	}
+	
+	//매월 첫째날 조회수, 예약자수 초기화
+	//@Test
+	public void testResetCount() {
+		campReservationService.resetCount();
+	}
 }

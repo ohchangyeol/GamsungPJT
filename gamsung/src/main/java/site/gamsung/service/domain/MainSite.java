@@ -2,6 +2,8 @@ package site.gamsung.service.domain;
 
 import java.sql.Date;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class MainSite {
 
 	/*
@@ -50,6 +52,10 @@ public class MainSite {
 	private String mainSiteImg2;
 	private String mainSiteImg3;
 	private String campName;
+	private MultipartFile mainSiteImgFile1;
+	private MultipartFile mainSiteImgFile2;
+	private MultipartFile mainSiteImgFile3;	
+	
 	
 	/// Default Constructor
 	public MainSite() {
@@ -225,6 +231,30 @@ public class MainSite {
 		this.campName = campName;
 	}
 	
+	public MultipartFile getMainSiteImgFile1() {
+		return mainSiteImgFile1;
+	}
+
+	public void setMainSiteImgFile1(MultipartFile mainSiteImgFile1) {
+		this.mainSiteImgFile1 = mainSiteImgFile1;
+	}
+
+	public MultipartFile getMainSiteImgFile2() {
+		return mainSiteImgFile2;
+	}
+
+	public void setMainSiteImgFile2(MultipartFile mainSiteImgFile2) {
+		this.mainSiteImgFile2 = mainSiteImgFile2;
+	}
+
+	public MultipartFile getMainSiteImgFile3() {
+		return mainSiteImgFile3;
+	}
+
+	public void setMainSiteImgFile3(MultipartFile mainSiteImgFile3) {
+		this.mainSiteImgFile3 = mainSiteImgFile3;
+	}
+
 	// Override toString
 	public String toString() {
 		return "\n -- MainSite --"
@@ -249,6 +279,9 @@ public class MainSite {
 			+ "\n [mainSiteImg2] : " + mainSiteImg2 
 			+ "\n [mainSiteImg3] : " + mainSiteImg3
 			+ "\n [campName] : " + campName
+			+ "\n [mainSiteImgFile1] : " + mainSiteImgFile1
+			+ "\n [mainSiteImgFile2] : " + mainSiteImgFile2
+			+ "\n [mainSiteImgFile3] : " + mainSiteImgFile3
 			+ "\n ---------------- \n";
 	}
 

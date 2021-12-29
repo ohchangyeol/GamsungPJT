@@ -39,7 +39,7 @@
 			
 			$("#update").on("click" , function() {
 				alert("캠핑장정보를 수정합니다.");
-				$("form").attr("method" , "POST").attr("action" , "/campBusiness/updateMainSite").submit();
+				$("form").attr("method" , "POST").attr("action" , "/campBusiness/updateMainSite").attr("enctype","multipart/form-data").submit();
 			});
 			
 			$("#cancle").on("click" , function() {
@@ -69,7 +69,6 @@
 		<form class="form-horizontal" >
 		
 		<input type="hidden" name="campNo" id="campNo" value="${campSession.campNo}">
-		<input type="hidden" name="mainSiteNo" id="mainSiteNo" value="${mainSite.mainSiteNo}">
 		
 		<div class="form-group">
 			<label for="mainSiteType" class="col-sm-offset-1 col-sm-3 control-label">주요시설 유형</label>
@@ -83,6 +82,20 @@
 					<option value="자동차야영장" ${! empty mainSite.mainSiteType && mainSite.mainSiteType eq '자동차야영장' ? "selected" : "" }>자동차야영장</option>
 				</select>
 			</div>
+		</div>
+		
+		<div class="form-group">
+			<label for="mainSiteNo" class="col-sm-offset-1 col-sm-3 control-label">등록 번호</label>
+				<div class="col-sm-4">
+					<input type="text" class="form-control" id="mainSiteNo" name="mainSiteNo" value="${mainSite.mainSiteNo}">
+				</div>
+		</div>
+		
+		<div class="form-group">
+			<label for="mainSiteRegDate" class="col-sm-offset-1 col-sm-3 control-label">등록 일자</label>
+				<div class="col-sm-4">
+					<input type="text" class="form-control" id="mainSiteRegDate" name="mainSiteRegDate" value="${mainSite.mainSiteRegDate}" readonly>
+				</div>
 		</div>		
 		
 		<div class="form-group">
@@ -140,31 +153,30 @@
 					<input type="number" class="form-control" id="mainSiteParkingSize" name="mainSiteParkingSize" value="${mainSite.mainSiteParkingSize}">
 				</div>
 		</div>
-
-
-		<!-- 
+		
 		<div class="form-group">
-			<label for="mainSiteImg1" class="col-sm-offset-1 col-sm-3 control-label">주요시설 사진1</label>
+			<label for="mainSiteImgFile1" class="col-sm-offset-1 col-sm-3 control-label">주요시설 이미지(1/3)</label>				
 				<div class="col-sm-4">
-					<input type="mainSiteImg1"  id="file" name="mainSiteImg1">
+					<img src="/uploadFiles/campimg/campbusiness/mainSite/${mainSite.mainSiteImg1}" />
+					<span>변경하기<input type="file"  id="mainSiteImgFile1" name="mainSiteImgFile1" ></span>			
 				</div>
 		</div>
 		
 		<div class="form-group">
-			<label for="mainSiteImg2" class="col-sm-offset-1 col-sm-3 control-label">주요시설 사진2</label>
+			<label for="mainSiteImgFile2" class="col-sm-offset-1 col-sm-3 control-label">주요시설 이미지(2/3)</label>				
 				<div class="col-sm-4">
-					<input type="file"  id="mainSiteImg2" name="mainSiteImg2">
+					<img src="/uploadFiles/campimg/campbusiness/mainSite/${mainSite.mainSiteImg2}" />
+					<span>변경하기<input type="file"  id="mainSiteImgFile2" name="mainSiteImgFile2" ></span>			
 				</div>
 		</div>
 		
 		<div class="form-group">
-			<label for="mainSiteImg3" class="col-sm-offset-1 col-sm-3 control-label">주요시설 사진3</label>
+			<label for="mainSiteImgFile3" class="col-sm-offset-1 col-sm-3 control-label">주요시설 이미지(3/3)</label>				
 				<div class="col-sm-4">
-					<input type="file"  id="mainSiteImg3" name="mainSiteImg3">
+					<img src="/uploadFiles/campimg/campbusiness/mainSite/${mainSite.mainSiteImg3}" />
+					<span>변경하기<input type="file"  id="mainSiteImgFile3" name="mainSiteImgFile3" ></span>			
 				</div>
 		</div>
-			
-		-->
 		
 		<div class="form-group">
 			<label for="mainSiteInfo" class="col-sm-offset-1 col-sm-3 control-label">주요시설 설명</label>

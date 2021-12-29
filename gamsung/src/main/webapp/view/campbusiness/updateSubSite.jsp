@@ -39,7 +39,7 @@
 		
 		$("#update").on("click" , function() {
 			alert("캠핑장정보를 수정합니다.");
-			$("form").attr("method" , "POST").attr("action" , "/campBusiness/updateSubSite").submit();
+			$("form").attr("method" , "POST").attr("action" , "/campBusiness/updateSubSite").attr("enctype","multipart/form-data").submit();
 		});
 		
 		$("#cancle").on("click" , function() {
@@ -68,8 +68,21 @@
 		<!-- Form Start -->
 		<form class="form-horizontal" >
 		 	
-		<input type="hidden" name="campNo" id="campNo" value="${mainSiteNo.campNo}">
-		<input type="hidden" name="subSiteNo" id="subSiteNo" value="${subSite.subSiteNo}">
+		<input type="hidden" name="campNo" id="campNo" value="${campSession.campNo}">
+		
+		<div class="form-group">
+			<label for="subSiteNo" class="col-sm-offset-1 col-sm-3 control-label">등록 번호</label>
+				<div class="col-sm-4">
+					<input type="text" class="form-control" id="subSiteNo" name="subSiteNo" value="${subSite.subSiteNo}" readonly>
+				</div>
+		</div>
+		
+		<div class="form-group">
+			<label for="subSiteRegDate" class="col-sm-offset-1 col-sm-3 control-label">등록 일자</label>
+				<div class="col-sm-4">
+					<input type="text" class="form-control" id="subSiteRegDate" name="subSiteRegDate" value="${subSite.subSiteRegDate}" readonly>
+				</div>
+		</div>
 			
 		<div class="form-group">
 			<label for="subSiteType" class="col-sm-offset-1 col-sm-3 control-label">부가시설 유형</label>
@@ -96,15 +109,13 @@
 		</div>
 
 		
-		<!-- 
 		<div class="form-group">
-			<label for="subSiteImg" class="col-sm-offset-1 col-sm-3 control-label">부가시설 사진</label>
+			<label for="subSiteImgFile" class="col-sm-offset-1 col-sm-3 control-label">부가시설 이미지</label>				
 				<div class="col-sm-4">
-					<input type="file"  id="subSiteImg" name="subSiteImg">
+					<img src="/uploadFiles/campimg/campbusiness/subSite/${subSite.subSiteImg}" />
+					<span>변경하기<input type="file"  id="subSiteImgFile" name="subSiteImgFile" ></span>			
 				</div>
 		</div>
-			
-		-->
 		
 		<div class="form-group">
 			<label for="subSiteInfo" class="col-sm-offset-1 col-sm-3 control-label">부가시설 설명</label>
