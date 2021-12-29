@@ -3,45 +3,46 @@
 		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<!-- <mapper namespace="TransferMapper">
+	<mapper namespace="TransferMapper">
 
 	<resultMap id="transferMapper" type="transfer">
-		<result property="transferNo"    		 column="transfer_no"     	    jdbcType="VARCHAR"/>
-		<result property="transferOr.id"	   	 column="user_id" 	       		jdbcType="NUMERIC" />
-		<result property="transferRegdate"       column="transfer_reg_date"     jdbcType="VARCHAR" />
-		<result property="transferTitle"  		 column="transfer_title" 	    jdbcType="VARCHAR" />
-		<result property="transferArea"    		 column="transfer_camp_area"    jdbcType="NUMERIC" />
-		<result property="transferName" 	     column="transfer_camp_name"    jdbcType="VARCHAR" />
-		<result property="transferCall"    		 column="transfer_camp_call"    jdbcType="VARCHAR"/>
-		<result property="transferStartDate"	 column="transfer_start_date"   jdbcType="CHAR" />
-		<result property="transferEndDate"  	 column="transfer_end_date" 	jdbcType="VARCHAR" />
-		<result property="transferPrice"    	 column="transfer_price" 	    jdbcType="VARCHAR" />
-		<result property="transferContent" 	   	 column="transfer_content" 	    jdbcType="VARCHAR" />
-		<result property="transferAddition" 	 column="transfer_add_content"  jdbcType="VARCHAR" />
-		<result property="transferUserNum" 		 column="transfer_use_num"      jdbcType="VARCHAR" />
-		<result property="Hashtag1"  		     column="transfer_hashtag1"     jdbcType="VARCHAR" />
-	 	<result property="Hashtag2"  			 column="transfer_hashtag2" 	jdbcType="NUMERIC" /> 
-		<result property="Hashtag3" 		     column="transfer_hashtag3" 	jdbcType="NUMERIC" />
-		<result property="paymentImg"			 column="transfer_payment_img"  jdbcType="NUMERIC" />		
-		<result property="transferApprovalFlag"	 column=""   					jdbcType="NUMERIC" /> 양도승인flag	
-		<result property="transferEndFlag"	 	 column=""   					jdbcType="NUMERIC" /> 양도완료flag 
-		<result property="deleteFlag"			 column="delete_flag"   		jdbcType="NUMERIC" />		
-		<result property="transReservationNo"	 column="reservation_no"   		jdbcType="NUMERIC" />		
-		<result property=""	 					 column="transfer_status" 		jdbcType="NUMERIC" />		
-		
-	</resultMap> -->
+		<result property="transferNo"    		 			   column="transfer_no"     	   jdbcType="NUMERIC"/>
+		<result property="transferOr.id"	   	 			   column="user_id" 	       	   jdbcType="VARCHAR"/>
+		<result property="transferRegdate"       			   column="transfer_reg_date"      jdbcType="VARCHAR"/>
+		<result property="transferTitle"  		 			   column="transfer_title" 	       jdbcType="VARCHAR"/>
+		<result property="transferArea"    		 			   column="transfer_camp_area"     jdbcType="VARCHAR"/>
+		<result property="transferCampname" 	 			   column="transfer_camp_name"     jdbcType="VARCHAR"/>
+		<result property="transferMainsiteType"  			   column="transfer_mainsite_type" jdbcType="VARCHAR"/>
+		<result property="transferCampCall"		 			   column="transfer_camp_call"     jdbcType="VARCHAR"/>
+		<result property="transferStartDate"	 			   column="transfer_start_date"    jdbcType="VARCHAR"/>
+		<result property="transferEndDate"  	 			   column="transfer_end_date" 	   jdbcType="VARCHAR"/>
+		<result property="transferPrice"    	 			   column="transfer_price" 	       jdbcType="NUMERIC"/>
+		<result property="transferContent" 	   	 			   column="transfer_content" 	   jdbcType="VARCHAR"/>
+		<result property="transferAddContent" 	 			   column="transfer_add_content"   jdbcType="VARCHAR"/>
+		<result property="transferUserNum" 		 			   column="transfer_use_num"       jdbcType="NUMERIC"/>
+		<result property="hashtag1"  		     			   column="transfer_hashtag1"      jdbcType="VARCHAR"/>
+	 	<result property="hashtag2"  						   column="transfer_hashtag2" 	   jdbcType="VARCHAR"/> 
+		<result property="hashtag3" 		     			   column="transfer_hashtag3" 	   jdbcType="VARCHAR"/>
+		<result property="paymentImg"						   column="transfer_payment_img"   jdbcType="VARCHAR"/>		
+		<result property="transferStatus"	     			   column="transfer_status"   	   jdbcType="NUMERIC"/>
+		<result property="deleteFlag"			 			   column="delete_flag"   		   jdbcType="CHAR"/>		
+		<result property="transferReservationNo.reservationNo" column="reservation_no"   	   jdbcType="VARCHAR"/>		
+			
+	</resultMap> 
 		<!-- SQL : INSERT -->
 	<!-- 게시글 등록 -->
-<!--     <insert    id="addPost"      parameterType="post" >
+	<insert    id="addTransfer"      parameterType="transfer" >
       INSERT 
-      INTO  GAMSUNG.POST(user_id,post_type,post_title,post_content,post_Img1,post_Img2,post_Img3,post_hashtag1,post_hashtag2,post_hashtag3,video)
-      VALUES    (#{writer.id}, #{postType}, #{postTile:VARCHAR}, #{postContent:VARCHAR}, #{postImg1:VARCHAR}, #{postImg2:VARCHAR}, #{postImg3:VARCHAR}, #{Hashtag1:VARCHAR}, #{Hashtag2:VARCHAR}, #{Hashtag3:VARCHAR}, #{video:VARCHAR})                                     
-    </insert> -->
+      INTO  GAMSUNG.TRANSFER(transfer_title,transfer_camp_name,transfer_mainsite_type,transfer_start_date,transfer_end_date,transfer_camp_call,transfer_use_num,transfer_price,transfer_content,transfer_add_content,transfer_payment_img,transfer_hashtag1,transfer_hashtag2,transfer_hashtag3,user_id,reservation_no)
+      VALUES    (#{transferTitle:VARCHAR}, #{transferCampname:VARCHAR}, #{transferMainsiteType:VARCHAR}, 
+      #{transferStartDate:VARCHAR}, #{transferEndDate:VARCHAR}, #{transferCampCall:VARCHAR}, #{transferUserNum:NUMERIC},
+       #{transferPrice:NUMERIC}, #{transferContent:VARCHAR}, #{transferAddContent:VARCHAR}, #{paymentImg:VARCHAR},#{hashtag1:VARCHAR},#{hashtag2:VARCHAR},#{hashtag3:VARCHAR},#{transferOr.id},#{transferReservationNo.reservationNo:VARCHAR})                                     
+    </insert>
 
 	<!-- 댓글 등록 -->	 
 <!--     <insert    id="addComment"      parameterType="comment" >
-      INSERT 
-      INTO  GAMSUNG.COMMENT(post_no,user_id,comment_content)
+      INSERT ,
+      INTO  GAMSUNG.COMMENT(p,ost_no,user_id,comment_content)
       VALUES    (#{postNo.postNo}, #{commentWriter.id}, #{commentContent:VARCHAR})                                      
     </insert>	 	 --> 
  	 
@@ -242,4 +243,4 @@
 	 
 
 	 
-	<!--  </mapper> -->
+</mapper> 

@@ -21,21 +21,13 @@ public class Post {
 	private String postImg1; //게시물이미지
 	private String postImg2; //게시물이미지1
 	private String postImg3; //게시물이미지2
-	private String Hashtag1; //해시태그1
-	private String Hashtag2; //해시태그2
-	private String Hashtag3; //해시태그3
+	private String hashtag1; //해시태그1
+	private String hashtag2; //해시태그2
+	private String hashtag3; //해시태그3
 	private Search search; // searchCondition,searchKeyword  controller에서 처리.
 	private String conDeleteFlag; // 추천 등록삭제 확인여부
-	private String concernType; // 추천 등록해제
+	private String concernType;
 	
-	//method
-	
-	public Search getSearch() {
-		return search;
-	}
-	public void setSearch(Search search) {
-		this.search = search;
-	}
 	public String getPostTile() {
 		return postTile;
 	}
@@ -78,6 +70,24 @@ public class Post {
 	public void setPostRegdate(String postRegdate) {
 		this.postRegdate = postRegdate;
 	}
+	public String getVideo() {
+		return video;
+	}
+	public void setVideo(String video) {
+		this.video = video;
+	}
+	public String getDeleteFlag() {
+		return deleteFlag;
+	}
+	public void setDeleteFlag(String deleteFlag) {
+		this.deleteFlag = deleteFlag;
+	}
+	public int getCommentTotalCount() {
+		return commentTotalCount;
+	}
+	public void setCommentTotalCount(int commentTotalCount) {
+		this.commentTotalCount = commentTotalCount;
+	}
 	public String getPostImg1() {
 		return postImg1;
 	}
@@ -96,67 +106,50 @@ public class Post {
 	public void setPostImg3(String postImg3) {
 		this.postImg3 = postImg3;
 	}
-	public String getvideo() {
-		return video;
-	}
-	public void setvideo(String video) {
-		video = video;
-	}
-	public String getDeleteFlag() {
-		return deleteFlag;
-	}
-	public void setDeleteFlag(String deleteFlag) {
-		this.deleteFlag = deleteFlag;
-	}
-	public int getCommentTotalCount() {
-		return commentTotalCount;
-	}
-	public void setCommentTotalCount(int commentTotalCount) {
-		this.commentTotalCount = commentTotalCount;
-	}
 	public String getHashtag1() {
-		return Hashtag1;
+		return hashtag1;
 	}
 	public void setHashtag1(String hashtag1) {
-		Hashtag1 = hashtag1;
+		this.hashtag1 = hashtag1;
 	}
 	public String getHashtag2() {
-		return Hashtag2;
+		return hashtag2;
 	}
 	public void setHashtag2(String hashtag2) {
-		Hashtag2 = hashtag2;
+		this.hashtag2 = hashtag2;
 	}
 	public String getHashtag3() {
-		return Hashtag3;
+		return hashtag3;
 	}
 	public void setHashtag3(String hashtag3) {
-		Hashtag3 = hashtag3;
+		this.hashtag3 = hashtag3;
 	}
-
-	public String getConcernType() {
-		return concernType;
+	public Search getSearch() {
+		return search;
 	}
-	public void setConcernType(String concernType) {
-		this.concernType = concernType;
+	public void setSearch(Search search) {
+		this.search = search;
 	}
-
 	public String getConDeleteFlag() {
 		return conDeleteFlag;
 	}
 	public void setConDeleteFlag(String conDeleteFlag) {
 		this.conDeleteFlag = conDeleteFlag;
 	}
+	public String getConcernType() {
+		return concernType;
+	}
+	public void setConcernType(String concernType) {
+		this.concernType = concernType;
+	}
 	@Override
 	public String toString() {
-		return "Post [postTile=" + postTile + ", postNo=" + postNo + ", postContent=" + postContent + ", writer="
-				+ writer + ", postType=" + postType + ", postConcernCount=" + postConcernCount + ", postRegdate="
-				+ postRegdate + ", video=" + video + ", deleteFlag=" + deleteFlag + ", commentTotalCount="
-				+ commentTotalCount + ", postImg1=" + postImg1 + ", postImg2=" + postImg2 + ", postImg3=" + postImg3
-				+ ", Hashtag1=" + Hashtag1 + ", Hashtag2=" + Hashtag2 + ", Hashtag3=" + Hashtag3 + ", search=" + search
-				+ ", conDeleteFlag=" + conDeleteFlag + ", concernType=" + concernType + "]";
+		return "DomainPost : postTile=[" + postTile + "], postNo=[" + postNo + "], postContent=[" + postContent + "], writer=["
+				+ writer + "], postType=[" + postType + "], postConcernCount=[" + postConcernCount + "], postRegdate=["
+				+ postRegdate + "], video=[" + video + "], deleteFlag=[" + deleteFlag + "], commentTotalCount=["
+				+ commentTotalCount + "], postImg1=[" + postImg1 + "], postImg2=[" + postImg2 + "], postImg3=[" + postImg3
+				+ "], hashtag1=[" + hashtag1 + "], hashtag2=[" + hashtag2 + "], hashtag3=[" + hashtag3 + "], search=[" + search
+				+ "], conDeleteFlag=[" + conDeleteFlag + "], concernType=[" + concernType + "]";
 	}
-	
-
-	
-	
 }
+	//method

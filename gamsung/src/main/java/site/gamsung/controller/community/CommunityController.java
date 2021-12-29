@@ -55,7 +55,7 @@ public class CommunityController {
 		post.setHashtag1("#1");
 		post.setHashtag2("#2");
 		post.setHashtag3("#3");
-		post.setvideo("video");
+		post.setVideo("video");
 		
 				
 		System.out.println("post:"+post.getPostRegdate());

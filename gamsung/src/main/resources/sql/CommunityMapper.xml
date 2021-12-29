@@ -18,9 +18,9 @@
 		<result property="postImg1"  		 column="post_Img1" 	   jdbcType="VARCHAR" />
 		<result property="postImg2"    		 column="post_Img2" 	   jdbcType="VARCHAR" />
 		<result property="postImg3" 	   	 column="post_Img3" 	   jdbcType="VARCHAR" />
-		<result property="Hashtag1" 	   	 column="post_hashtag1"    jdbcType="VARCHAR" />
-		<result property="Hashtag2" 		 column="post_hashtag2"    jdbcType="VARCHAR" />
-		<result property="Hashtag3"  		 column="post_hashtag3"    jdbcType="VARCHAR" />
+		<result property="hashtag1" 	   	 column="post_hashtag1"    jdbcType="VARCHAR" />
+		<result property="hashtag2" 		 column="post_hashtag2"    jdbcType="VARCHAR" />
+		<result property="hashtag3"  		 column="post_hashtag3"    jdbcType="VARCHAR" />
 	 	<result property="postConcernCount"  column="con_num" 		   jdbcType="NUMERIC" /> 
 		<result property="commentTotalCount" column="com_num" 		   jdbcType="NUMERIC" />
 		<result property="conDeleteFlag"	 column="con_deleteFlag"   jdbcType="NUMERIC" />		
@@ -48,7 +48,7 @@
     <insert    id="addPost"      parameterType="post" >
       INSERT 
       INTO  GAMSUNG.POST(user_id,post_type,post_title,post_content,post_Img1,post_Img2,post_Img3,post_hashtag1,post_hashtag2,post_hashtag3,video)
-      VALUES    (#{writer.id}, #{postType}, #{postTile:VARCHAR}, #{postContent:VARCHAR}, #{postImg1:VARCHAR}, #{postImg2:VARCHAR}, #{postImg3:VARCHAR}, #{Hashtag1:VARCHAR}, #{Hashtag2:VARCHAR}, #{Hashtag3:VARCHAR}, #{video:VARCHAR})                                     
+      VALUES    (#{writer.id}, #{postType}, #{postTile:VARCHAR}, #{postContent:VARCHAR}, #{postImg1:VARCHAR}, #{postImg2:VARCHAR}, #{postImg3:VARCHAR}, #{hashtag1:VARCHAR}, #{hashtag2:VARCHAR}, #{hashtag3:VARCHAR}, #{video:VARCHAR})                                     
     </insert>
 
 	<!-- 댓글 등록 -->	 
@@ -172,9 +172,9 @@
 	   		post_Img1= #{postImg1},
 	   		post_Img2= #{postImg2},
 	   		post_Img3= #{postImg3},
-	   		post_hashtag1= #{Hashtag1},
-	   		post_hashtag2= #{Hashtag2},
-	   		post_hashtag3= #{Hashtag3}
+	   		post_hashtag1= #{hashtag1},
+	   		post_hashtag2= #{hashtag2},
+	   		post_hashtag3= #{hashtag3}
 	   	</set>
 	   	WHERE post_no = #{postNo}
 	 </update>
