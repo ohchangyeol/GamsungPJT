@@ -11,8 +11,15 @@ pageEncoding="UTF-8"%>
     </div>
     <div class="collapse navbar-collapse" id="custom-collapse">
       <ul class="nav navbar-nav navbar-right">    
-      
-      	<li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">CampBusiness</a>
+          
+        <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Camping</a>
+          <ul class="dropdown-menu">
+            <li><a href="/campGeneral/campSearch" >Camping Search</a></li>
+            <li><a href="/campGeneral/campDetailSearch" >Camping DetailSearch</a></li>           
+          </ul>
+        </li>
+        
+        <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">CampBusiness</a>
           <ul class="dropdown-menu">
            	<li><a href="/campBusiness/goSubMainCampBusiness">CampBusinessMain</a></li>        	      
           </ul>
@@ -31,13 +38,7 @@ pageEncoding="UTF-8"%>
            	<li><a href="/payment/listSiteProfit">SiteProfit</a></li>          	      
           </ul>
         </li>
-      
-        <li class="dropdown"><a class="dropdown-toggle" href="/servicecenter/home" data-toggle="dropdown">고객센터</a>
-        	<ul class="dropdown-menu">
-				<li><a href="/servicecenter/home">고객센터</a></li>
-			</ul>
-        </li>
-     
+
         <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">중고상품</a>
 
           <ul class="dropdown-menu">
@@ -45,6 +46,12 @@ pageEncoding="UTF-8"%>
             <li><a href="/auction/listWaitAuctionProduct" >경매 진행 전</a></li>
             <li><a href="/auction/listAuctionProduct" >경매 진행 중</a></li>
           </ul>
+        </li>
+        
+        <li class="dropdown"><a class="dropdown-toggle" href="/servicecenter/home" data-toggle="dropdown">고객센터</a>
+        	<ul class="dropdown-menu">
+				<li><a href="/servicecenter/home">고객센터</a></li>
+			</ul>
         </li>
     
         <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Portfolio</a>

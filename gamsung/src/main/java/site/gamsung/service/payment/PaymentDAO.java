@@ -29,6 +29,7 @@ public interface PaymentDAO {
 	
 	public List<PaymentCode> listPaymentCode() throws Exception;	
 	
+	public int getFeeByPaymentCode(String paymentCodeLetter) throws Exception;
 	
 	/*
 	 *  SiteProfit

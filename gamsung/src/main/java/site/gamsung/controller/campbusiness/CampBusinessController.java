@@ -65,14 +65,14 @@ public class CampBusinessController {
 	 */
 	@RequestMapping(value = "goSubMainCampBusiness", method = RequestMethod.GET)
 	public String goSubMainCampBusiness(HttpSession httpSession) throws Exception {
-
+			
 		/////////////////////////////////////////////////////////////////////// Session 완료시 삭제
 		User tempSessionUser = new User();
 		
-		tempSessionUser.setId("businessuser1@gamsung.com"); // TS -3 저장
+		//tempSessionUser.setId("businessuser1@gamsung.com"); // TS -3 저장
 		//tempSessionUser.setId("businessuser6@gamsung.com"); // TS -2 임시저장
 		//tempSessionUser.setId("businessuser9@gamsung.com"); // TS -1 발급 완료
-		//tempSessionUser.setId("businessuser11@gamsung.com");  // TS -0 발급 미완료
+		tempSessionUser.setId("businessuser11@gamsung.com");  // TS -0 발급 미완료
 		//tempSessionUser.setId("admin");					  // admin
 		
 		httpSession.setAttribute("user", tempSessionUser);
@@ -172,10 +172,9 @@ public class CampBusinessController {
 		search.setPageSize(pageSize);
 		search.setSearchItemType("Camp");
 		Map<String, Object> map = campBusinessService.listCamp(search);
-
-		Page resultPage = new Page(search.getCurrentPage(), ((Integer) map.get("totalCount")).intValue(), pageUnit, pageSize);
-		System.out.println(resultPage);
-
+		Page resultPage = 
+				new Page(search.getCurrentPage(), ((Integer) map.get("totalCount")).intValue(), pageUnit, pageSize);
+		
 		model.addAttribute("list", map.get("list"));
 		model.addAttribute("resultPage", resultPage);
 		model.addAttribute("search", search);
@@ -308,7 +307,6 @@ public class CampBusinessController {
 		tempMainSite.setMainSiteAddPrice(0);		
 		tempMainSite.setMainSiteRegDate(Date.valueOf("1111-11-11"));		
 		
-		// 등록번호 발급
 		int tempRegNum = campBusinessService.getRegNum("MainSite", tempMainSite);		
 		tempMainSite.setMainSiteNo(tempRegNum);
 		model.addAttribute("mainSite", tempMainSite);			
@@ -328,11 +326,9 @@ public class CampBusinessController {
 		search.setPageSize(pageSize);
 		search.setSearchItemType("MainSite");
 		Map<String, Object> map = campBusinessService.listMainSite(search);
-
-		Page resultPage = new Page(search.getCurrentPage(), ((Integer) map.get("totalCount")).intValue(), pageUnit,
-				pageSize);
-		System.out.println(resultPage);
-
+		Page resultPage = 
+				new Page(search.getCurrentPage(), ((Integer) map.get("totalCount")).intValue(), pageUnit,	pageSize);
+	
 		model.addAttribute("list", map.get("list"));
 		model.addAttribute("resultPage", resultPage);
 		model.addAttribute("search", search);
@@ -368,8 +364,7 @@ public class CampBusinessController {
 		if(mainSite.getMainSiteImgFile1() != null) {			
 			originfileName = mainSite.getMainSiteImgFile1().getOriginalFilename().trim();
 			
-			if(!(originfileName.equals(""))) {
-				
+			if(!(originfileName.equals(""))) {				
 				extension = originfileName.split("\\.")[1];		
 				newfileName = mainSite.getCampNo()+"-" + mainSite.getMainSiteNo() +"_1" + "." + extension;
 				mainSite.setMainSiteImg1(newfileName);
@@ -443,10 +438,8 @@ public class CampBusinessController {
 		search.setPageSize(pageSize);
 		search.setSearchItemType("SubSite");
 		Map<String, Object> map = campBusinessService.listSubSite(search);
-
-		Page resultPage = new Page(search.getCurrentPage(), ((Integer) map.get("totalCount")).intValue(), pageUnit,
-				pageSize);
-		System.out.println(resultPage);
+		Page resultPage = 
+				new Page(search.getCurrentPage(), ((Integer) map.get("totalCount")).intValue(), pageUnit,	pageSize);
 
 		model.addAttribute("list", map.get("list"));
 		model.addAttribute("resultPage", resultPage);

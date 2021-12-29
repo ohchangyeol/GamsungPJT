@@ -74,6 +74,11 @@
 		ORDER BY payment_code	
 	</select>
 	
+	<select id="getFeeByPaymentCode" parameterType="String" resultType="int">
+  		SELECT payment_code_fee
+		FROM PAYMENT_CODE			
+		WHERE LOWER(payment_code) = LOWER(#{value})	
+	</select>	
 	
 	<!-- SQL : SiteProfit ################################################################################################################### -->
 	

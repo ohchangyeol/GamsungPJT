@@ -99,7 +99,7 @@ public class AuctionInfoServiceImpl implements AuctionInfoService{
 	@Override
 	public AuctionInfo getBidderRanking(AuctionInfo auctionInfo) {
 		// TODO Auto-generated method stub
-		return auctionInfoDAO.getBidderRanking(auctionInfo);
+		return auctionInfoDAO.getBidderRanking(auctionInfo).get(0);
 	}
 	
 	
