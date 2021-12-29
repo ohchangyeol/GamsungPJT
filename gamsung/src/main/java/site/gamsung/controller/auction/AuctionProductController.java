@@ -1,6 +1,7 @@
 package site.gamsung.controller.auction;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -59,16 +60,18 @@ public class AuctionProductController {
 	
 	//상품 상세 조회 페이지 출력
 	@RequestMapping(value = "getAuctionProduct", method = RequestMethod.GET)
-	public String getAuctionProduct(String auctionProductNo, Model model, HttpSession session) {
+	public String getAuctionProduct(AuctionInfo auctionInfo, HttpSession httpSession, Model model) {
 		
-		//세션에서 유저 정보를 가져온다.
-		User user = (User)session.getAttribute("user");
-	
+		User user = (User)httpSession.getAttribute("user");
+		auctionInfo.setUser(user);
+		
 		//조회수를 1증가 시키며, 상품 번호에 대한 상세정보를 받아온다.
-		AuctionProduct auctionProduct = auctionProductService.getAuctionProduct(auctionProductNo);
+		Map<String, Object> map = auctionProductService.getAuctionProduct(auctionInfo);
 			
 		//받은 상품정보를 model에 담아 return한다.
-		model.addAttribute(auctionProduct);
+		model.addAttribute("auctionProduct",map.get("auctionProduct"));
+		model.addAttribute("auctionInfo", map.get("auctionInfo"));
+		model.addAttribute("registrantInfo", map.get("registrantInfo"));
 			
 		return "forward:/view/auction/getAuctionProduct.jsp";
 	}

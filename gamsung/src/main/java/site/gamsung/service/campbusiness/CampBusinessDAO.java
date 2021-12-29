@@ -12,6 +12,8 @@ public interface CampBusinessDAO {
 	/*
 	 * Common
 	 */	
+	public int getRegNum(String type, Object obj) throws Exception;
+	
 	public int getTotalCount(Search search) throws Exception ;
 	
 		
@@ -32,8 +34,8 @@ public interface CampBusinessDAO {
 	
 	public int getCampTempSaveById(String id) throws Exception;
 	
-	public int getRegNum(Camp camp) throws Exception;
-	
+	public boolean isSecessionCampReservationCondition(String id) throws Exception;
+		
 	
 	/*
 	 * MainSite

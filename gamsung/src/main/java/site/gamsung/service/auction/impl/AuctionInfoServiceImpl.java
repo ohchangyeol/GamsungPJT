@@ -75,4 +75,33 @@ public class AuctionInfoServiceImpl implements AuctionInfoService{
 		return auctionInfoDAO.auctionStatusTotalCount(user);
 	}
 
+	@Override
+	public void checkAndUpdateUserAuctionGrade(User user) {
+		// TODO Auto-generated method stub
+		
+		AuctionInfo auctionInfo = auctionInfoDAO.auctionStatusTotalCount(user);
+		
+		int addProductCount = auctionInfo.getAddProductCount()/2;
+		int addReviewCount = auctionInfo.getAddReviewCount()/4;
+		int auctionConfirmCount = auctionInfo.getAuctionConfirmCount()/2;
+		int topRankCount = auctionInfo.getTopRankCount()/4;
+		int midwayWithdrawalCount =auctionInfo.getMidwayWithdrawalCount();
+		int cancelSuccessfulBidCount = auctionInfo.getCancelSuccessfulBidCount();
+		
+		int userAuctionGrade = addProductCount + addReviewCount + auctionConfirmCount + topRankCount
+						- midwayWithdrawalCount - cancelSuccessfulBidCount;
+		
+		user.setAuctionGrade(userAuctionGrade);
+		
+		auctionInfoDAO.updateUserAuctionGrade(user);		
+	}
+
+	@Override
+	public AuctionInfo getBidderRanking(AuctionInfo auctionInfo) {
+		// TODO Auto-generated method stub
+		return auctionInfoDAO.getBidderRanking(auctionInfo);
+	}
+	
+	
+
 }

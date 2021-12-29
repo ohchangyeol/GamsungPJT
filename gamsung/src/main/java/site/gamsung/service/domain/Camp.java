@@ -2,6 +2,8 @@ package site.gamsung.service.domain;
 
 import java.sql.Date;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class Camp {
 
 	/*
@@ -58,7 +60,13 @@ public class Camp {
 	private String campNature2;
 	private String campOperation1;
 	private String campOperation2;
-	private double campRate;
+	private double campRate;	
+	private MultipartFile campMapFile;
+	private MultipartFile campImgFile1;
+	private MultipartFile campImgFile2;
+	private MultipartFile campImgFile3;
+	private MultipartFile campImgFile4;
+	private MultipartFile campImgFile5;
 	
 	/// Default Constructor
 	public Camp() {
@@ -247,8 +255,58 @@ public class Camp {
 	
 	public void setCampRate(double campRate) {
 		this.campRate = campRate;
+	}	
+	
+	public MultipartFile getCampMapFile() {
+		return campMapFile;
 	}
 
+	public void setCampMapFile(MultipartFile campMapFile) {
+		this.campMapFile = campMapFile;
+	}
+
+	public MultipartFile getCampImgFile1() {
+		return campImgFile1;
+	}
+
+	public void setCampImgFile1(MultipartFile campImgFile1) {
+		this.campImgFile1 = campImgFile1;
+	}
+
+	public MultipartFile getCampImgFile2() {
+		return campImgFile2;
+	}
+
+	public void setCampImgFile2(MultipartFile campImgFile2) {
+		this.campImgFile2 = campImgFile2;
+	}
+
+	public MultipartFile getCampImgFile3() {
+		return campImgFile3;
+	}
+
+	public void setCampImgFile3(MultipartFile campImgFile3) {
+		this.campImgFile3 = campImgFile3;
+	}
+
+	public MultipartFile getCampImgFile4() {
+		return campImgFile4;
+	}
+
+	public void setCampImgFile4(MultipartFile campImgFile4) {
+		this.campImgFile4 = campImgFile4;
+	}
+
+	public MultipartFile getCampImgFile5() {
+		return campImgFile5;
+	}
+
+	public void setCampImgFile5(MultipartFile campImgFile5) {
+		this.campImgFile5 = campImgFile5;
+	}
+
+	
+	
 	// Override toString
 	public String toString() {
 		return "\n -- Camp --"
@@ -275,7 +333,14 @@ public class Camp {
 			+ "\n [campNature2] : " + campNature2 
 			+ "\n [campOperation1] : " + campOperation1 
 			+ "\n [campOperation2] : " + campOperation2 
-			+ "\n [campRate] : " + campRate 
+			+ "\n [campRate] : " + campRate 			
+			+ "\n [campMapFile] : " + campMapFile 
+			+ "\n [campImgFile1] : " + campImgFile1 
+			+ "\n [campImgFile2] : " + campImgFile2 
+			+ "\n [campImgFile3] : " + campImgFile3 
+			+ "\n [campImgFile4] : " + campImgFile4 
+			+ "\n [campImgFile5] : " + campImgFile5 			
+			
 			+ "\n ---------------- \n";
 	}	
 	

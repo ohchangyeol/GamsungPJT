@@ -198,7 +198,7 @@ public class CampReservationServiceImpl implements CampReservationService {
 	}
 
 	@Override
-	@Scheduled(cron="0 0 12 * * *")
+	@Scheduled(cron="0 0 18 * * *")
 	public void sendMessage() {
 		
 		List<CampReservation> list = campReservationDAO.sendMessageInfo();
@@ -225,6 +225,14 @@ public class CampReservationServiceImpl implements CampReservationService {
 		CampReservation campReservation = new CampReservation();
 		campReservation.setReservationStatus(7);
 		campReservationDAO.updateReservation(campReservation);
+		
+	}
+
+	@Override
+	@Scheduled(cron = "30 0 0 1 * *")
+	public void resetCount() {
+		
+		campReservationDAO.resetCount();
 		
 	}
 	

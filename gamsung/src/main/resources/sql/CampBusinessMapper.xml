@@ -73,7 +73,7 @@
 	
 	<!-- SQL : Camp ################################################################################################################### -->
 
-	<insert id="getRegNumIn" parameterType="camp" >	
+	<insert id="getRegNumInCamp" parameterType="camp" >	
 		INSERT 
 		INTO CAMP ( user_id, camp_reg_date, camp_theme1, camp_theme2, 
 					camp_nature1, camp_nature2, camp_operation1, camp_operation2)			
@@ -86,21 +86,19 @@
 					, #{campOperation1}
 					, #{campOperation2} )
 	</insert>
-	
-	<select	id="getRegNumOut" parameterType="camp" resultType="int">
+		
+	<select	id="getRegNumOutCamp" parameterType="camp" resultType="int">
 	   	SELECT camp_no
 	   	FROM CAMP
 	   	WHERE camp_reg_date = #{campRegDate}
 	   		AND user_id = #{user.id}
 	</select>
-	
 
 	<select id="getCamp" parameterType="int" resultMap="campSelectMap">
 		SELECT 	*
 		FROM CAMP
 		WHERE camp_no = #{value}
 	</select>
-	
 	
 	<select id="listCamp" parameterType="search" resultMap="campSelectMap">
   		SELECT c.camp_no, c.delete_flag, c.camp_reg_date, u.user_id, u.camp_name, u.camp_call, u.addr,   
@@ -159,9 +157,39 @@
 	   	WHERE user_id = #{value}
 	</select>
 	
+	<select id="getCampReservationCount" parameterType="int">
+		SELECT COUNT(*)
+		FROM (	SELECT mainsite_reservation_start, mainsite_reservation_end
+				FROM MAINSITE
+				WHERE camp_no = #{value}
+					AND mainsite_reservation_start <![CDATA[>=]]> date_format(now(), '%Y%m%d')
+					AND mainsite_reservation_end <![CDATA[<=]]> date_format(now(), '%Y%m%d') )countTable
+	</select>
+	
 
 	
 	<!-- SQL : MainSite ################################################################################################################### -->
+	
+	<insert id="getRegNumInMainSite" parameterType="mainSite" >	
+		INSERT 
+		INTO MAINSITE ( camp_no, mainsite_type, mainsite_name, mainsite_min_capacity, mainsite_max_capacity,
+					mainsite_min_price, mainsite_add_price, mainsite_reg_date)			
+		VALUES	 ( #{campNo}
+					, #{mainSiteType}					
+					, #{mainSiteName}
+					, #{mainSiteMinCapacity}
+					, #{mainSiteMaxCapacity}
+					, #{mainSiteMinPrice}
+					, #{mainSiteAddPrice}
+					, #{mainSiteRegDate} )
+	</insert>
+		
+	<select	id="getRegNumOutMainSite" parameterType="mainSite" resultType="int">
+	   	SELECT mainsite_no
+	   	FROM MAINSITE
+	   	WHERE mainsite_reg_date = #{mainSiteRegDate}
+	   		AND mainsite_name = #{mainSiteName}
+	</select>
 	
 	<insert id="addMainSite" parameterType="mainSite" >	
 		INSERT 
@@ -256,6 +284,7 @@
 			, mainsite_min_price = #{mainSiteMinPrice}
 			, mainsite_add_price = #{mainSiteAddPrice}
 			, mainsite_parking_size = #{mainSiteParkingSize}
+			, mainsite_reg_date = #{mainSiteRegDate}
 			, mainsite_info = #{mainSiteInfo}
 			, mainsite_img1 = #{mainSiteImg1}
 			, mainsite_img2 = #{mainSiteImg2}
@@ -273,6 +302,22 @@
 	
 	
 	<!-- SQL : SubSite ################################################################################################################### -->
+	
+	<insert id="getRegNumInSubSite" parameterType="subSite" >	
+		INSERT 
+		INTO SUBSITE ( camp_no, subsite_type, subsite_name, subsite_reg_date)			
+		VALUES	 ( #{campNo}
+					, #{subSiteType}					
+					, #{subSiteName}
+					, #{subSiteRegDate} )
+	</insert>
+		
+	<select	id="getRegNumOutSubSite" parameterType="subSite" resultType="int">
+	   	SELECT subsite_no
+	   	FROM SUBSITE
+	   	WHERE subsite_reg_date = #{subSiteRegDate}
+	   		AND subsite_name = #{subSiteName}
+	</select>
 
 	<insert id="addSubSite"	parameterType="subSite" >	
 		INSERT 
@@ -334,7 +379,8 @@
 	   	UPDATE SUBSITE
 	   	SET	subsite_type = #{subSiteType}
 			, subsite_name = #{subSiteName}
-			, subsite_info = #{subSiteInfo} 	
+			, subsite_info = #{subSiteInfo}
+			, subsite_reg_date = #{subSiteRegDate}
 	   	WHERE subsite_no = #{subSiteNo}
 	</update>
 	

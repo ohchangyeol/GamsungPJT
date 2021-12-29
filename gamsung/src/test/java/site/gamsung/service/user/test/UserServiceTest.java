@@ -32,6 +32,7 @@ public class UserServiceTest {
 		
 		User user = new User();
 
+
 		user.setId("muse1264@nate.com");
 		user.setNickName("으어어");
 		user.setName("으어어");

@@ -268,4 +268,10 @@ public class CampReservationServiceTest {
 	public void testReservationCompleteUse() {
 		campReservationService.reservationCompleteUse();
 	}
+	
+	//매월 첫째날 조회수, 예약자수 초기화
+	//@Test
+	public void testResetCount() {
+		campReservationService.resetCount();
+	}
 }

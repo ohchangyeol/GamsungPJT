@@ -4,7 +4,9 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.commons.collections4.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,6 +22,7 @@ import site.gamsung.service.auction.AuctionInfoDAO;
 import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.AuctionInfo;
 import site.gamsung.service.domain.AuctionProduct;
+import site.gamsung.service.domain.User;
 import site.gamsung.util.auction.CrawlingData;
 
 @Service("auctionProductService")
@@ -108,9 +111,36 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 	}
 
 	@Override
-	public AuctionProduct getAuctionProduct(String auctionProductNo) {
+	public Map<String, Object> getAuctionProduct(AuctionInfo auctionInfo) {
 		// TODO Auto-generated method stub
-		return auctionProductDAO.getAuctionProduct(auctionProductNo);
+		
+		//상품 정보를 가져왔다.
+		AuctionProduct auctionProduct = auctionProductDAO.getAuctionProduct(auctionInfo.getAuctionProductNo());
+		
+		auctionInfo = auctionInfoDao.getBidderRanking(auctionInfo);
+		
+		// 경매 등록자의 아이디를 가져와 경매 등급과 리뷰에 대한 정보를 가져온다.
+		String registrantId = auctionProduct.getRegistrantId();
+		
+		int registrantGrade = auctionInfoDao.getUserAuctionGradeInfo(registrantId);
+		
+		//리뷰를 추가해야한다.
+		//
+		//
+		AuctionInfo registrantInfo = new AuctionInfo();
+		
+		User user =  new User();
+		user.setId(registrantId);
+		user.setAuctionGrade(registrantGrade);
+		
+		registrantInfo.setUser(user);
+
+		Map<String, Object> map = new HashedMap<String, Object>();
+		map.put("auctionProduct", auctionProduct);
+		map.put("auctionInfo", auctionInfo);
+		map.put("registrantInfo", registrantInfo);
+		
+		return map;
 	}
 
 	@Override
@@ -199,8 +229,6 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 		// TODO Auto-generated method stub
 		
 		SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
-		AuctionInfo auctionInfo = new AuctionInfo();
-		auctionInfo.setAuctionStatus("WAIT");
 		List<AuctionProduct> list = auctionProductDAO.listAuctionProduct(new Search());
 		for(AuctionProduct auctionProduct : list) {
 		
@@ -209,8 +237,27 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 			auctionProduct = auctionProductDAO.getAuctionProduct(auctionProductNo);
 			
 			try {
+//				System.out.println(auctionProductNo+ ":"+ auctionProduct.getRemainAuctionTime());
 				boolean isEnd = dateFormat.parse(auctionProduct.getRemainAuctionTime()).before(dateFormat.parse("00:00:00"));
-				if(isEnd) {
+//				System.out.println(isEnd);
+				
+				if(isEnd) {					
+					
+					AuctionProduct tmpAuctionProduct = auctionProductDAO.getAuctionProduct(auctionProductNo);
+					
+					//경매 상태 낙찰
+					auctionProduct.setAuctionStatus("WAIT");
+					
+					//희망 낙찰가 보다 최종 입찰가가 작을 경우
+//					System.out.println(tmpAuctionProduct.getCurrentBidPrice());
+//					System.out.println(tmpAuctionProduct.getHopefulBidPrice());
+					
+					if(tmpAuctionProduct.getCurrentBidPrice() < tmpAuctionProduct.getHopefulBidPrice()) {
+						//경매 상태 유찰
+						auctionProduct.setAuctionStatus("FAIL");
+					}
+					
+					
 					auctionProductDAO.updateAuctionProductCondition(auctionProduct);
 				}
 			} catch (ParseException e) {

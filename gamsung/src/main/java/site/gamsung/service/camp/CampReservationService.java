@@ -38,4 +38,6 @@ public interface CampReservationService {
 	public void sendMessage();
 	
 	public void reservationCompleteUse();
+	
+	public void resetCount();
 }

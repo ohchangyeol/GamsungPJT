@@ -1,7 +1,9 @@
 package site.gamsung.service.auction.test;
 
 import java.util.List;
+import java.util.Map;
 
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -52,12 +54,14 @@ public class AuctionProductServiceTest {
 	}
 	
 	//상품 상세정보 조회 및 조회수 증가 service test
-	//@Test
+	@Test
 	public void testGetAuctionProduct() {
 		
-		AuctionProduct auctionProduct = auctionProductService.getAuctionProduct("PROD00010");
-		System.out.println(auctionProduct);
-		
+//		
+//		Map<String, Object> map = auctionProductService.getAuctionProduct("PROD00010");
+//		System.out.println(map.get("auctionProduct"));
+//		System.out.println(map.get("auctionInfo"));
+//		
 	}
 	
 	//임시 저장된 상품 정보 조회 service test
@@ -115,8 +119,8 @@ public class AuctionProductServiceTest {
 		
 		auctionProductService.addAuctionProduct(auctionProduct);
 		
-		auctionProduct = auctionProductService.getAuctionProduct("PROD00001");
-		System.out.println(auctionProduct);
+//		Map<String, Object> map = auctionProductService.getAuctionProduct("PROD00001");
+//		System.out.println(map.get("auctionProduct"));
 		
 	}
 	

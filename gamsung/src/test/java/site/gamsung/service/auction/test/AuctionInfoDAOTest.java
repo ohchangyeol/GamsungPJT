@@ -168,7 +168,7 @@ public class AuctionInfoDAOTest {
 		System.out.println(auctionBidInfo);
 	}
 	
-	@Test
+	//@Test
 	public void testGetYearAuctionStatistics() {
 		
 		List<AuctionInfo> list = auctionInfoDAO.getYearAuctionStatistics();
@@ -214,7 +214,18 @@ public class AuctionInfoDAOTest {
 	}
 	
 	
-	
+	@Test
+	public void testGetBidderRanking() {
+		
+		AuctionInfo auctionInfo = new AuctionInfo();
+		User user = new User();
+		user.setId("TEST44@NATE.COM");
+		auctionInfo.setUser(user);
+		auctionInfo.setAuctionProductNo("PROD00001");
+		
+		auctionInfoDAO.getBidderRanking(auctionInfo);
+		System.out.println(auctionInfoDAO.getBidderRanking(auctionInfo));
+	}
 	
 }
 	
