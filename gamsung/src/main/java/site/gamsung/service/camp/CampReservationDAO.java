@@ -44,4 +44,6 @@ public interface CampReservationDAO {
 	
 	public List<CampReservation> sendMessageInfo();
 	
+	public void resetCount();
+	
 }

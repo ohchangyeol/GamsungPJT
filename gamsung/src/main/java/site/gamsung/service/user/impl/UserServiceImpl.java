@@ -102,7 +102,7 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public void sendEmailAuthNum(String id, String key) throws Exception {
+	public void sendEmailAuthNum(String id, String key){
 				
 		String info = "인증번호 발송";
 		String text = "인증번호는"+key+"입니다.";
@@ -112,7 +112,7 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public void sendPhoneAuthNum(String phone, String phKey) throws Exception {
+	public void sendPhoneAuthNum(String phone, String phKey){
 		
 		String text = "[감성캠핑] 인증번호는"+phKey+"입니다.";
 		SendMessage sendMessage = new SendMessage();
@@ -133,7 +133,7 @@ public class UserServiceImpl implements UserService{
 
 
 	@Override
-	public String checkDuplication(User user) throws Exception {
+	public String checkDuplication(User user){
 		
 		return userDAO.checkDuplication(user);
 	}
@@ -349,6 +349,11 @@ public class UserServiceImpl implements UserService{
 		cal.add(Calendar.DAY_OF_MONTH, +1);
 		String TobeConvertedDate = sdf.format(cal.getTime());
 		
+		Calendar cal2 = Calendar.getInstance();
+		cal.add(Calendar.YEAR , -1);
+		cal.add(Calendar.DAY_OF_MONTH, -7);
+		String SendMailConvertedDate = sdf.format(cal2.getTime());
+		
 		for(User user : list) {
 			System.out.println("for문이 도는지");
 			System.out.println(user);
@@ -361,7 +366,12 @@ public class UserServiceImpl implements UserService{
 				String loginDate=currentDate.toString();
 				
 				System.out.println("들어오나");
-			if(user.getSecessionRegDate()==null&&user.getSuspensionDate()==null&&user.getDormantConversionDate()==null&&sdf.parse(TobeConvertedDate).after(sdf.parse(loginDate))) {
+				if(user.getSecessionRegDate()==null&&user.getSuspensionDate()==null&&user.getDormantConversionDate()==null&&sdf.parse(SendMailConvertedDate).after(sdf.parse(loginDate))){
+				SendMail mail=new SendMail();
+				String info="[감성캠핑] 휴면회원 전환예정 안내메일 입니다.";
+				String text ="안녕하세요 회원님! 휴면회원으로 전환되기 7일 전입니다. 휴면회원으로 전환되길 원치 않으신다면 사이트 방문 후 로그인 부탁드립니다. 감사합니다^^";
+				mail.sendMail(user.getId(), info, text);
+				}else if(user.getSecessionRegDate()==null&&user.getSuspensionDate()==null&&user.getDormantConversionDate()==null&&sdf.parse(TobeConvertedDate).after(sdf.parse(loginDate))) {
 	            userDAO.addDormantUser(user);
 	            }
 			}

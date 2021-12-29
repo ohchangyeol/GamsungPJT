@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import site.gamsung.service.domain.User;
@@ -29,21 +30,25 @@ public class UserRestController {
 	public UserRestController() {}
 
 	
-	//@RequestMapping(value = "json/sendEmailAuthNum/{inputEmail:.+}", method = RequestMethod.GET)
-	@RequestMapping(value="sendEmailAuthNum", method=RequestMethod.GET)
-	public void sendEmailAuthNum(@RequestParam("id") String id, HttpSession session) throws Exception{
-		
-		TempKey tmp = new TempKey();
-		String key=tmp.generateKey(6);
+	@RequestMapping(value = "rest/sendEmailAuthNum/{inputEmail:.+}", method = RequestMethod.GET)
+	public void sendEmailAuthNum(@RequestParam("id") String id, HttpSession session){
+	
+		try {
+			TempKey tmp = new TempKey();
+			String key=tmp.generateKey(6);
+				
+			session.setAttribute(id, key);
 			
-		session.setAttribute(id, key);
+			userService.sendEmailAuthNum(id, key);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 		
-		userService.sendEmailAuthNum(id, key);
 
 	}
 	
 	@RequestMapping(value="sendPhoneAuthNum", method=RequestMethod.POST)
-	public void sendPhoneAuthNum(@RequestParam("phone") String phone, HttpSession session) throws Exception{
+	public void sendPhoneAuthNum(@RequestParam("phone") String phone, HttpSession session) {
 		
 		Random rand  = new Random();
         
@@ -62,22 +67,36 @@ public class UserRestController {
 	}
 	
 	@RequestMapping(value="findIdPhoneAuthNum", method=RequestMethod.POST)
-	public String findIdPhoneAuthNum(@RequestBody User user, Model model) throws Exception{
+	public String findIdPhoneAuthNum(@RequestBody User user, Model model){
 	
-		String userId=userService.findId(user.getName(), user.getPhone());
-		if(userId == null) {
-			return "redirect:./addUser";
-			}
+		try {
+			String userId=userService.findId(user.getName(), user.getPhone());
+			if(userId == null) {
+				return "redirect:./addUser";
+				}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
 		model.addAttribute("phone", user.getPhone());
 		return "forward:./sendPhoneAuthNum";
 	}	
 		
 	
-	@RequestMapping(value="checkDuplication", method=RequestMethod.POST)
-	public void checkDuplication(@RequestBody User user) throws Exception{
+	@RequestMapping(value="rest/checkDuplication", method=RequestMethod.POST)
+	public int checkDuplication(@RequestBody User user) throws Exception{
+		System.out.println("1111");
+		System.out.println(user);
+		int isSuccess=0;
 		
-		userService.checkDuplication(user);
+		String check = userService.checkDuplication(user);
 		
+		System.out.println("check"+check);
+		if(check != null){ //중복
+			isSuccess = 1;	
+		}
+		System.out.println("str"+isSuccess);
+		return isSuccess;
 	}
 	
 	//아이디찾기

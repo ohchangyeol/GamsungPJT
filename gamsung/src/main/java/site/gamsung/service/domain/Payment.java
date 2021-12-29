@@ -3,56 +3,56 @@ package site.gamsung.service.domain;
 /*
 ====  결제 / 결제취소 ====
 
-## 결제 
-1. Payment domain 에 정보 입력
-2. PaymentService > addMakePayment() 메소드에 매개변수로 전달.
-
-[ Payment domain ]
-String 	paymentSender 			: 주는사람 (아이디)
-String 	paymentReceiver 		: 받는사람 (아이디)
-int     paymentMethod 			: 결제방법 [ 1-포인트결제, 2-현금결제, 3-카드결제, 4-간편결제 ] 
-String 	paymentCode 			: 결제코드 [ PaymentCode Domain 설명 참조 ] 
-int     paymentPriceTotal 		: 수수료 계산전 결제금액 원금 
-String 	paymentReferenceNum 	: 결제참조번호 [ 예약번호, 경매번호, 양도양수번호 ]
-
-
-## 결제취소  
-1. Payment domain 에 정보 입력 후 
-2. PaymentService > addRefundPayment() 메소드에 매개변수 전달
-
-[ Payment domain ]
-String  paymentReferenceNum 	 	: 해당결제참조번호 [ 예약번호, 경매번호, 양도양수번호 ]
-String  paymentRefundCode			: 코드 [ PaymentCode Domain 설명 참조 ]
-String  paymentRefundReferenceNum   : 환불참조번호 [ 예약취소번호, 경매취소번호, 양도양수취소번호 ]
-int     paymentRefundPriceTotal    	: 수수료 계산전  환불금액 원금
-
-	  
-=== [ Payment domain ]===	  
+	## 결제 
+	1. Payment domain 에 정보 입력
+	2. PaymentService > addMakePayment() 메소드에 매개변수로 전달.
 	
-		결제등록번호					String 	paymentNo                  
-(*결제)	주는사람					String 	paymentSender              
-(*결제)	받는사람					String 	paymentReceiver            
-(*결제)	결제방법(paymentMethod)		int 	paymentMethod                 
-		1-포인트결제              
-		2-현금결제                
-		3-카드결제                
-		4-간편결제                
-                                  
- 		결제등록일자					String 	paymentRegTime              
-(*결제) 	결제 코드					String 	paymentCode                
-(*결제) 	결제 원금					int 	paymentPriceTotal             
-		결제 실 금액				int 	paymentPricePay               
-		결제 수수료금액				int 	paymentPriceFee           
-(*결제/*환불)	결제 참조번호			String 	paymentReferenceNum          
-		결제 참조수수료율				int 	paymentReferenceFee        
+	[ Payment domain ]
+	String 	paymentSender 			: 주는사람 (아이디)
+	String 	paymentReceiver 		: 받는사람 (아이디)
+	int     paymentMethod 			: 결제방법 [ 1-포인트결제, 2-현금결제, 3-카드결제, 4-간편결제 ] 
+	String 	paymentCode 			: 결제코드 [ PaymentCode Domain 설명 참조 ] 
+	int     paymentPriceTotal 		: 수수료 계산전 결제금액 원금 
+	String 	paymentReferenceNum 	: 결제참조번호 [ 예약번호, 경매번호, 양도양수번호 ]
 	
- 		환불등록일자					String 	paymentRegTime    
-(*환불) 	환불 코드					String 	paymentRefundCode          
-(*환불) 	환불 원금					int 	paymentRefundPriceTotal     
-		환불 실 금액				int 	paymentRefundPricePay         
-		환불 수수료금액				int 	paymentRefundPriceFee  
-(*환불)	환불 참조번호				String 	paymentRefundReferenceNum   
-		환불 참조수수료율				int 	paymentRefundReferenceFee
+	
+	## 결제취소  
+	1. Payment domain 에 정보 입력 후 
+	2. PaymentService > addRefundPayment() 메소드에 매개변수 전달
+	
+	[ Payment domain ]
+	String  paymentReferenceNum 	 	: 해당결제참조번호 [ 예약번호, 경매번호, 양도양수번호 ]
+	String  paymentRefundCode			: 코드 [ PaymentCode Domain 설명 참조 ]
+	String  paymentRefundReferenceNum   : 환불참조번호 [ 예약취소번호, 경매취소번호, 양도양수취소번호 ]
+	int     paymentRefundPriceTotal    	: 수수료 계산전  환불금액 원금
+	
+		  
+	=== [ Payment domain ]===	  
+		
+			결제등록번호				String 	paymentNo                  
+	(*결제)	주는사람					String 	paymentSender              
+	(*결제)	받는사람					String 	paymentReceiver            
+	(*결제)	결제방법(paymentMethod)	int 	paymentMethod                 
+			1-포인트결제              
+			2-현금결제                
+			3-카드결제                
+			4-간편결제                
+	                                  
+	 		결제등록일자				String 	paymentRegTime              
+	(*결제) 	결제 코드					String 	paymentCode                
+	(*결제) 	결제 원금					int 	paymentPriceTotal             
+			결제 실 금액				int 	paymentPricePay               
+			결제 수수료금액				int 	paymentPriceFee           
+	(*결제/*환불)	결제 참조번호			String 	paymentReferenceNum          
+			결제 참조수수료율				int 	paymentReferenceFee        
+		
+	 		환불등록일자				String 	paymentRegTime    
+	(*환불) 	환불 코드					String 	paymentRefundCode          
+	(*환불) 	환불 원금					int 	paymentRefundPriceTotal     
+			환불 실 금액				int 	paymentRefundPricePay         
+			환불 수수료금액				int 	paymentRefundPriceFee  
+	(*환불)	환불 참조번호				String 	paymentRefundReferenceNum   
+			환불 참조수수료율				int 	paymentRefundReferenceFee
 */
 
 public class Payment {

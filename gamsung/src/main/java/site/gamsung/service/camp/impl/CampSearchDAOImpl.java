@@ -29,52 +29,52 @@ public class CampSearchDAOImpl implements CampSearchDAO {
 	}
 
 	@Override
-	public List<Camp> listCamp(Search search) throws Exception {
+	public List<Camp> listCamp(Search search){
 		return sqlSession.selectList("CampSearchMapper.listCamp", search);
 	}
 
 	@Override
-	public int getTotalCount(Search search) throws Exception {
+	public int getTotalCount(Search search){
 		return sqlSession.selectOne("CampSearchMapper.getTotalCount", search);
 	}
 
 	@Override
-	public Camp getCamp(int campNo) throws Exception {
+	public Camp getCamp(int campNo){
 		return sqlSession.selectOne("CampSearchMapper.getCamp", campNo);
 	}
 
 	@Override
-	public List<MainSite> getMainSite(int campNo) throws Exception {
+	public List<MainSite> getMainSite(int campNo){
 		return sqlSession.selectList("CampSearchMapper.getMainSite", campNo);
 	}
 
 	@Override
-	public List<SubSite> getSubSite(int campNo) throws Exception {
+	public List<SubSite> getSubSite(int campNo){
 		return sqlSession.selectList("CampSearchMapper.getSubSite", campNo);
 	}
 
 	@Override
-	public int updateViewCount(int campNo) throws Exception {
+	public int updateViewCount(int campNo){
 		return sqlSession.update("CampSearchMapper.updateViewCount", campNo);
 	}
 
 	@Override
-	public Camp getTopRatingCamp() throws Exception {
+	public Camp getTopRatingCamp(){
 		return sqlSession.selectOne("CampSearchMapper.getTopRatingCamp");
 	}
 
 	@Override
-	public Camp getTopViewCamp() throws Exception {
+	public Camp getTopViewCamp(){
 		return sqlSession.selectOne("CampSearchMapper.getTopViewCamp");
 	}
 
 	@Override
-	public Camp getTopReservationCamp() throws Exception {
+	public Camp getTopReservationCamp(){
 		return sqlSession.selectOne("CampSearchMapper.getTopReservationCamp");
 	}
 
 	@Override
-	public List<Camp> getEventCamp(Search search) throws Exception {
+	public List<Camp> getEventCamp(Search search){
 		return sqlSession.selectList("CampSearchMapper.getEventCamp", search);
 	}	
 	

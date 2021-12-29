@@ -36,7 +36,7 @@ public class CampSearchServiceImpl implements CampSearchService{
 	}
 
 	@Override
-	public Map<String, Object> listCamp(Search search) throws Exception{
+	public Map<String, Object> listCamp(Search search){
 		
 		List<Camp> list = campSearchDAO.listCamp(search);
 		int totalCount = campSearchDAO.getTotalCount(search);
@@ -50,7 +50,7 @@ public class CampSearchServiceImpl implements CampSearchService{
 
 	@Override
 	@Transactional(propagation=Propagation.REQUIRES_NEW)
-	public Map<String, Object> getCamp(int campNo) throws Exception{
+	public Map<String, Object> getCamp(int campNo){
 		
 		int viewUpdate = campSearchDAO.updateViewCount(campNo);
 		System.out.println("조회수 증가 확인 -> "+viewUpdate);
@@ -69,7 +69,7 @@ public class CampSearchServiceImpl implements CampSearchService{
 	}
 
 	@Override
-	public Map<String, Object> getTopCamp() throws Exception{
+	public Map<String, Object> getTopCamp(){
 		
 		Camp topRating = campSearchDAO.getTopRatingCamp();
 		Camp topView = campSearchDAO.getTopViewCamp();

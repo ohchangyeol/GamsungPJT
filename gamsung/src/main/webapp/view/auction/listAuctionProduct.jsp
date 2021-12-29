@@ -189,8 +189,8 @@
     <script src="../../resources/js/main.js"></script>
     
    	<script type="text/javascript">
-   	/* $(function(){
-   		   		
+   	 $(function(){
+   		/*   		
   		var page = 2;
   		$(window).scroll(function() {
   			var sortCondition = $('#sortCondition').val();
@@ -267,8 +267,9 @@
   					});
   				}
   			});
+  			 */
   		
-	  		$('.btn-b').on('click',function(){
+	  		$('body').on('click','.btn-b',function(){
 	   			var auctionProductSubDatail = $(this).prev().text();
 	   			var auctionProductName = $(this).parent().parent().next().text();
 	   			var allhashtag = $(this).parent().parent().next().next().text();
@@ -279,7 +280,7 @@
 	   		});
   	});
    	
-   	$(document).ready */
+   	$(document).ready
   		  	
   	</script>    
   </body>

@@ -3,7 +3,6 @@ package site.gamsung.service.user.test;
 import java.util.List;
 import java.util.Random;
 
-import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -31,6 +30,7 @@ public class UserServiceTest {
 	public void testAddUser() throws Exception{
 		
 		User user = new User();
+
 
 		user.setId("muse1264@nate.com");
 		user.setNickName("으어어");

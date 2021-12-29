@@ -7,21 +7,13 @@
 <head>
 	<meta charset="EUC-KR">
 
-	<!-- 참조 : http://getbootstrap.com/css/   참조 -->
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
 	<!-- Bootstrap, jQuery CDN -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
-	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
-
-	<!-- Bootstrap Dropdown Hover CSS -->
-	<link href="/css/animate.min.css" rel="stylesheet">
-	<link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
-   
-	<!-- Bootstrap Dropdown Hover JS -->
-	<script src="/javascript/bootstrap-dropdownhover.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >	
+	
+	<script src="../../resources/lib/jquery/jquery.js"></script>
+    <script src="../../resources/lib/bootstrap/js/bootstrap.min.js"></script>
+  	<script src="../../resources/lib/imagesloaded/imagesloaded.pkgd.js"></script>
 	
 	<!-- CSS -->
 	<style>
@@ -74,6 +66,13 @@
 		<div class="page-header">
 	       <h3 class=" text-info">주요시설 상세정보</h3>
 	    </div>
+	    
+	    <div class="row">
+	  		<div class="col-xs-4 col-md-2"><strong>주요시설 등록번호</strong></div>
+			<div class="col-xs-8 col-md-4">${mainSite.mainSiteNo}</div>
+		</div>
+						
+		<hr/>
 	    	
 		<div class="row">
 	  		<div class="col-xs-4 col-md-2"><strong>주요시설 등록일자</strong></div>
@@ -154,17 +153,17 @@
 		
 		<div class="row">
 	  		<div class="col-xs-4 col-md-2"><strong>주요시설 사진1</strong></div>
-			<img src="/uploadFiles/campimg/campbusiness/mainsite/${mainSite.mainSiteImg1}" />
+			<img src="../uploadfiles/campimg/campbusiness/mainsite/${mainSite.mainSiteImg1}" />
 		</div>
 		
 		<div class="row">
 	  		<div class="col-xs-4 col-md-2"><strong>주요시설 사진2</strong></div>
-			<img src="/uploadFiles/campimg/campbusiness/mainsite/${mainSite.mainSiteImg2}" />
+			<img src="../uploadfiles/campimg/campbusiness/mainsite/${mainSite.mainSiteImg2}" />
 		</div>
 		
 		<div class="row">
 	  		<div class="col-xs-4 col-md-2"><strong>주요시설 사진3</strong></div>
-			<img src="/uploadFiles/campimg/campbusiness/mainsite/${mainSite.mainSiteImg3}" />
+			<img src="../uploadfiles/campimg/campbusiness/mainsite/${mainSite.mainSiteImg3}" />
 		</div>
 		 							  		  
 		<div class="form-group">

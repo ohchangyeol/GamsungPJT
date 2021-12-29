@@ -7,21 +7,13 @@
 <head>
 	<meta charset="EUC-KR">
 
-	<!-- 참조 : http://getbootstrap.com/css/   참조 -->
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
 	<!-- Bootstrap, jQuery CDN -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
-	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
-
-	<!-- Bootstrap Dropdown Hover CSS -->
-	<link href="/css/animate.min.css" rel="stylesheet">
-	<link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
-   
-	<!-- Bootstrap Dropdown Hover JS -->
-	<script src="/javascript/bootstrap-dropdownhover.min.js"></script>
+	
+	<script src="../../resources/lib/jquery/jquery.js"></script>
+    <script src="../../resources/lib/bootstrap/js/bootstrap.min.js"></script>
+  	<script src="../../resources/lib/imagesloaded/imagesloaded.pkgd.js"></script>
 	
 	<!-- CSS -->
 	<style>
@@ -42,7 +34,7 @@
 			
 			$("#save").on("click" , function() {
 				alert("부가시설이 등록 되었습니다.");			
-				$("form").attr("method" , "POST").attr("action" , "/campBusiness/addSubSite").submit();
+				$("form").attr("method" , "POST").attr("action" , "/campBusiness/updateSubSite").attr("enctype","multipart/form-data").submit();
 			});
 					
 			$("#cancle").on("click" , function() {
@@ -77,6 +69,13 @@
 		<form class="form-horizontal" >
 		
 		<input type="hidden" name="campNo" id="campNo" value="${campSession.campNo}">
+		
+		<div class="form-group">
+			<label for="subSiteNo" class="col-sm-offset-1 col-sm-3 control-label">등록 번호</label>
+				<div class="col-sm-4">
+					<input type="text" class="form-control" id="subSiteNo" name="subSiteNo" value="${subSite.subSiteNo}" readonly>
+				</div>
+		</div>
 			
 		<div class="form-group">
 			<label for="subSiteRegDate" class="col-sm-offset-1 col-sm-3 control-label">등록 일자</label>
@@ -109,15 +108,12 @@
 				</div>
 		</div>
 		
-		<!-- 
 		<div class="form-group">
-			<label for="subSiteImg" class="col-sm-offset-1 col-sm-3 control-label">부가시설 사진</label>
+			<label for="subSiteImgFile" class="col-sm-offset-1 col-sm-3 control-label">부가시설 이미지</label>				
 				<div class="col-sm-4">
-					<input type="file"  id="subSiteImg" name="subSiteImg">
+					<input type="file"  id="subSiteImgFile" name="subSiteImgFile">	
 				</div>
 		</div>
-			
-		-->
 		
 		<div class="form-group">
 			<label for="subSiteInfo" class="col-sm-offset-1 col-sm-3 control-label">부가시설 설명</label>
