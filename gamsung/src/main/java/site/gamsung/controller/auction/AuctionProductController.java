@@ -1,5 +1,12 @@
 package site.gamsung.controller.auction;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -10,9 +17,11 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import site.gamsung.service.auction.AuctionProductService;
@@ -35,6 +44,7 @@ public class AuctionProductController {
 	@Value("#{commonProperties['crawlingURL']}")
 	private String crawlingURL;
 	
+	private static final String TMP_PATH = "D:\\Main\\GamsungPJT\\gamsung\\src\\main\\webapp\\uploadfiles\\auctionimg\\product";
 	
 	public AuctionProductController() {
 		System.out.println(this.getClass());
@@ -109,16 +119,13 @@ public class AuctionProductController {
 		
 		//세션으로 부터 요청한 유저의 정보를 가져온다.
 		User user = (User)session.getAttribute("user");
-		
-		String userId = null;
-		
-		//user 정보가 존재하면 Id를 받는다.
-		if(user != null) {
-			userId = user.getId();
+
+		if(user == null) {
+			return "redirect:./listAuctionProduct";
 		}
 		
 		//Id에 해당하는 임시 등록 정보가 있는지 확인한다.
-		AuctionProduct auctionProduct = auctionProductService.getTempSaveAuctionProduct(userId);
+		AuctionProduct auctionProduct = auctionProductService.getTempSaveAuctionProduct(user.getId());
 		
 		// 임시정보가 있다면 model에 담아 return한다.
 		if(auctionProduct != null) {
@@ -131,18 +138,16 @@ public class AuctionProductController {
 	//상품 등록 확정 요청시 매핑된다.
 	@RequestMapping(value = "addAuctionProduct", method = RequestMethod.POST)
 	public String addAuctionProduct(@ModelAttribute("auctionProduct") AuctionProduct auctionProduct, HttpSession session) {
-		
+				
 		//세션으로 부터 요청한 유저의 정보를 가져온다.
 		User user = (User)session.getAttribute("user");
 		
-		String userId = null;
-		
 		//user 정보가 존재하면 Id를 받는다.
-		if(user != null) {
-			userId = user.getId();
+		if(user == null) {
+			return "redirect:./listAuctionProduct";
 		}
 		
-		auctionProduct.setRegistrantId(userId);
+		auctionProduct.setRegistrantId(user.getId());
 		
 		//상품정보를 등록한다.
 		auctionProductService.addAuctionProduct(auctionProduct);
@@ -160,17 +165,51 @@ public class AuctionProductController {
 	//미리보기 페이지 요청시 정보를 그대로 담아 페이지 navigation한다.
 	@RequestMapping(value = "previewAuctionProduct", method = RequestMethod.POST)
 	public String previewAuctionProduct(@ModelAttribute("auctionProduct") AuctionProduct auctionProduct,
-									 	MultipartHttpServletRequest multipartHttpServletRequest) {
-	
+										MultipartHttpServletRequest mtfRequest, Model model){
+		System.out.println(auctionProduct);
+		
+		List<MultipartFile> fileList = mtfRequest.getFiles("inputImgs");
+		List<String> fileName = new ArrayList<String>();
+		
+		for (MultipartFile multipartFile : fileList) {
+            
+			// File.seperator 는 OS종속적이다.
+	        // Spring에서 제공하는 cleanPath()를 통해서 ../ 내부 점들에 대해서 사용을 억제한다
+			Path copyOfLocation = Paths.get(TMP_PATH + File.separator + StringUtils.cleanPath(multipartFile.getOriginalFilename()));
+			fileName.add(multipartFile.getOriginalFilename());
+			
+			try {
+				
+				// inputStream을 가져와서
+	            // copyOfLocation (저장위치)로 파일을 쓴다.
+	            // copy의 옵션은 기존에 존재하면 REPLACE(대체한다), 오버라이딩 한다
+				Files.copy(multipartFile.getInputStream(), copyOfLocation, StandardCopyOption.REPLACE_EXISTING);
+				
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}         
+
+		}
+		
+		auctionProduct = auctionProductService.previewAuctionProduct(auctionProduct, fileName);
+		model.addAttribute("auctionProduct",auctionProduct);
 		
 		return "forward:/view/auction/previewAuctionProduct.jsp";
 	}
 	
 	//임시저장 요청시 매핑된다.
 	@RequestMapping(value = "tempSaveAuctionProduct", method = RequestMethod.POST)
-	public String tempSaveAuctionProduct(@ModelAttribute("auctionProduct") AuctionProduct auctionProduct) { 
-			
-			auctionProductService.tempSaveAuctionProduct(auctionProduct);
+	public String tempSaveAuctionProduct(@ModelAttribute("auctionProduct") AuctionProduct auctionProduct, HttpSession session) { 
+		
+		User user = (User)session.getAttribute("user");
+		
+		if(user == null) {
+			return "redirect:./listAuctionProduct";
+		}
+		
+		auctionProduct.setRegistrantId(user.getId());
+		auctionProductService.tempSaveAuctionProduct(auctionProduct);
 		
 		return "redirect:./listAuctionProduct";
 	}

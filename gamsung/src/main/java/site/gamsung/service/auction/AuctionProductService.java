@@ -30,4 +30,6 @@ public interface AuctionProductService {
 	public String addMainAuctionProduct(AuctionProduct auctionProduct);
 	
 	public List<AuctionProduct> listMainAuctionProduct();
+	
+	public AuctionProduct previewAuctionProduct(AuctionProduct auctionProduct, List<String> fileList);
 }

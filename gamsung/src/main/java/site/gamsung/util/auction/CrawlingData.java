@@ -73,7 +73,7 @@ public class CrawlingData {
 			
 			auctionProduct.setProductImg1(img);
 			auctionProduct.setAuctionProductName(name);
-			auctionProduct.setAuctionProductSubDatail(detail);
+			auctionProduct.setAuctionProductSubDetail(detail);
 
 			hashtags = name.split(" ");
 
@@ -103,7 +103,7 @@ public class CrawlingData {
 	
 	public synchronized AuctionProduct crawling(AuctionProduct auctionProduct){
 		
-		String url = "https://www.coupang.com"+auctionProduct.getAuctionProductSubDatail();
+		String url = "https://www.coupang.com"+auctionProduct.getAuctionProductSubDetail();
 		
 		Date date = new Date(System.currentTimeMillis());
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
