@@ -61,7 +61,11 @@ public class PaymentServiceImpl implements PaymentService{
 	public List<PaymentCode> listPaymentCode() throws Exception{
 		return paymentDAO.listPaymentCode();
 	}
-		
+	
+	@Override
+	public int getFeeByPaymentCode(String paymentCodeLetter) throws Exception{		
+		return paymentDAO.getFeeByPaymentCode(paymentCodeLetter);
+	}
 	
 	/*
 	 *  SiteProfit

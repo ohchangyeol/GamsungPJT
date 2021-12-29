@@ -77,186 +77,187 @@ public class Camp {
 	public int getCampNo() {
 		return campNo;
 	}
-	
+
 	public void setCampNo(int campNo) {
 		this.campNo = campNo;
 	}
-	
+
 	public User getUser() {
 		return user;
 	}
-	
+
 	public void setUser(User user) {
 		this.user = user;
 	}
-	
+
 	public int getCampTempSave() {
 		return campTempSave;
 	}
-	
+
 	public void setCampTempSave(int campTempSave) {
 		this.campTempSave = campTempSave;
 	}
-	
+
 	public boolean isDeleteFlag() {
 		return deleteFlag;
 	}
-	
+
 	public void setDeleteFlag(boolean deleteFlag) {
 		this.deleteFlag = deleteFlag;
 	}
-	
+
 	public String getCampSummery() {
 		return campSummery;
 	}
-	
+
 	public void setCampSummery(String campSummery) {
 		this.campSummery = campSummery;
 	}
-	
+
 	public String getCampDetail() {
 		return campDetail;
 	}
-	
+
 	public void setCampDetail(String campDetail) {
 		this.campDetail = campDetail;
 	}
-	
+
 	public String getCampMapImg() {
 		return campMapImg;
 	}
-	
+
 	public void setCampMapImg(String campMapImg) {
 		this.campMapImg = campMapImg;
 	}
-	
+
 	public String getCampImg1() {
 		return campImg1;
 	}
-	
+
 	public void setCampImg1(String campImg1) {
 		this.campImg1 = campImg1;
 	}
-	
+
 	public String getCampImg2() {
 		return campImg2;
 	}
-	
+
 	public void setCampImg2(String campImg2) {
 		this.campImg2 = campImg2;
 	}
-	
+
 	public String getCampImg3() {
 		return campImg3;
 	}
+
 	public void setCampImg3(String campImg3) {
 		this.campImg3 = campImg3;
 	}
-	
+
 	public String getCampImg4() {
 		return campImg4;
 	}
-	
+
 	public void setCampImg4(String campImg4) {
 		this.campImg4 = campImg4;
 	}
-	
+
 	public String getCampImg5() {
 		return campImg5;
 	}
-	
+
 	public void setCampImg5(String campImg5) {
 		this.campImg5 = campImg5;
 	}
-	
+
 	public int getCampViewCountCurrentMonth() {
 		return campViewCountCurrentMonth;
 	}
-	
+
 	public void setCampViewCountCurrentMonth(int campViewCountCurrentMonth) {
 		this.campViewCountCurrentMonth = campViewCountCurrentMonth;
 	}
-	
+
 	public int getCampViewCountPreviousMonth() {
 		return campViewCountPreviousMonth;
 	}
-	
+
 	public void setCampViewCountPreviousMonth(int campViewCountPreviousMonth) {
 		this.campViewCountPreviousMonth = campViewCountPreviousMonth;
 	}
-	
+
 	public int getCampReservationCount() {
 		return campReservationCount;
 	}
-	
+
 	public void setCampReservationCount(int campReservationCount) {
 		this.campReservationCount = campReservationCount;
 	}
-	
+
 	public Date getCampRegDate() {
 		return campRegDate;
 	}
-	
+
 	public void setCampRegDate(Date campRegDate) {
 		this.campRegDate = campRegDate;
 	}
-	
+
 	public String getCampTheme1() {
 		return campTheme1;
 	}
-	
+
 	public void setCampTheme1(String campTheme1) {
 		this.campTheme1 = campTheme1;
 	}
-	
+
 	public String getCampTheme2() {
 		return campTheme2;
 	}
-	
+
 	public void setCampTheme2(String campTheme2) {
 		this.campTheme2 = campTheme2;
 	}
-	
+
 	public String getCampNature1() {
 		return campNature1;
 	}
-	
+
 	public void setCampNature1(String campNature1) {
 		this.campNature1 = campNature1;
 	}
-	
+
 	public String getCampNature2() {
 		return campNature2;
 	}
-	
+
 	public void setCampNature2(String campNature2) {
 		this.campNature2 = campNature2;
 	}
-	
+
 	public String getCampOperation1() {
 		return campOperation1;
 	}
-	
+
 	public void setCampOperation1(String campOperation1) {
 		this.campOperation1 = campOperation1;
 	}
-	
+
 	public String getCampOperation2() {
 		return campOperation2;
 	}
-	
+
 	public void setCampOperation2(String campOperation2) {
 		this.campOperation2 = campOperation2;
 	}
-		
+
 	public double getCampRate() {
 		return campRate;
 	}
-	
+
 	public void setCampRate(double campRate) {
 		this.campRate = campRate;
-	}	
-	
+	}
+
 	public MultipartFile getCampMapFile() {
 		return campMapFile;
 	}
@@ -303,9 +304,7 @@ public class Camp {
 
 	public void setCampImgFile5(MultipartFile campImgFile5) {
 		this.campImgFile5 = campImgFile5;
-	}
-
-	
+	}	
 	
 	// Override toString
 	public String toString() {
@@ -339,9 +338,8 @@ public class Camp {
 			+ "\n [campImgFile2] : " + campImgFile2 
 			+ "\n [campImgFile3] : " + campImgFile3 
 			+ "\n [campImgFile4] : " + campImgFile4 
-			+ "\n [campImgFile5] : " + campImgFile5 			
-			
+			+ "\n [campImgFile5] : " + campImgFile5 					
 			+ "\n ---------------- \n";
-	}	
+	}
 	
 }// end of class
