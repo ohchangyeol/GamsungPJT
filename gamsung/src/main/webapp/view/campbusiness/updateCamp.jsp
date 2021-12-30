@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=EUC-KR" %>
+<%@ page contentType="text/html; charset=utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>	
 
 <!DOCTYPE html>
@@ -6,29 +6,53 @@
 <html lang="ko">
 
 <head>
-	<meta charset="EUC-KR">
-
-	<!-- ÂüÁ¶ : http://getbootstrap.com/css/   ÂüÁ¶ -->
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta charset="utf-8">
 
 	<!-- Bootstrap, jQuery CDN -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
-	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
-
-	<!-- Bootstrap Dropdown Hover CSS -->
-	<link href="/css/animate.min.css" rel="stylesheet">
-	<link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
+	<meta name="viewport" content="width=device-width, initial-scale=1">	
+	<script src="/resources/lib/jquery/jquery.js"></script>
+    <script src="/resources/lib/bootstrap/js/bootstrap.min.js"></script>
+  	<script src="/resources/lib/imagesloaded/imagesloaded.pkgd.js"></script>
+  	<link rel="stylesheet" href="/resources/lib/bootstrap/css/bootstrap.min.css"></link>  	
+  	
+  	
+  	<!-- ### headerCampBusiness resources Start ### -->
+  	<script src="/resources/lib/jquery/jquery.js"></script>
+    
+    <!-- Favicons -->
+    <meta name="msapplication-TileImage" content="/resources/images/favicons/ms-icon-144x144.png">    
+    <meta name="msapplication-TileColor" content="#ffffff">  
+    <meta name="theme-color" content="#ffffff">
    
-	<!-- Bootstrap Dropdown Hover JS -->
-	<script src="/javascript/bootstrap-dropdownhover.min.js"></script>
+    <!-- Stylesheets -->
+    
+    <!-- Default stylesheets-->
+    <link href="/resources/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Template specific stylesheets-->
+    <link href="/resources/lib/animate.css/animate.css" rel="stylesheet">
+    <link href="/resources/lib/components-font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/resources/lib/et-line-font/et-line-font.css" rel="stylesheet">
+    <link href="/resources/lib/flexslider/flexslider.css" rel="stylesheet">
+    <link href="/resources/lib/owl.carousel/dist/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="/resources/lib/owl.carousel/dist/assets/owl.theme.default.min.css" rel="stylesheet">
+    <link href="/resources/lib/magnific-popup/magnific-popup.css" rel="stylesheet">
+    <link href="/resources/lib/simple-text-rotator/simpletextrotator.css" rel="stylesheet">       
+    
+    <!-- Main stylesheet and color file-->
+    <link href="/resources/css/style.css" rel="stylesheet">
+    <link id="color-scheme" href="/resources/css/colors/default.css" rel="stylesheet">  
+  	<!-- ### headerCampBusiness resources End ### -->
 	
 	<!-- CSS -->
-	<style>	
+	<style>
 		body > div.container{
-			margin-top: 70px;
-		}				
+			margin-top: 30px;
+		}
+		
+		.form-horizontal .control-label{
+    		text-align: left;
+		}
     </style>
 
 	<!-- JavaScript -->
@@ -37,12 +61,12 @@
 		$(function() {
 			
 			$("#update").on("click" , function() {
-				alert("Ä·ÇÎÀåÁ¤º¸¸¦ ¼öÁ¤ÇÕ´Ï´Ù.");
+				alert("ìº í•‘ìž¥ì •ë³´ë¥¼ ìˆ˜ì •í•©ë‹ˆë‹¤.");
 				$("form").attr("method" , "POST").attr("action" , "/campBusiness/updateCamp").attr("enctype","multipart/form-data").submit();
 			});
 			
 			$("#cancle").on("click" , function() {
-				alert("¼öÁ¤ÀÌ Ãë¼Ò µÇ¾ú½À´Ï´Ù.");
+				alert("ìˆ˜ì •ì´ ì·¨ì†Œ ë˜ì—ˆìŠµë‹ˆë‹¤.");
 				history.go(-1);
 			});			
 	
@@ -59,231 +83,249 @@
 
 	<!-- Page Start -->
 	<div class="container">
+		<div class="col-sm-2"></div>
+			<div class="col-sm-10">
 
-		<div class="page-header">
-	       <h1 class=" text-info">Ä·ÇÎÀå Á¤º¸¼öÁ¤</h1>
-	    </div>
-
-		<!-- Form Start -->
-		<form class="form-horizontal" >
-		
-		<input type="hidden" name="campNo" id="campNo" value="${campSession.campNo}">	
-		<input type="hidden" name="campTempSave" id="campTempSave" value="3">
-		
-		<div class="form-group">
-			<label for="campNo" class="col-sm-offset-1 col-sm-3 control-label">µî·Ï ¹øÈ£</label>
-				<div class="col-sm-4">
-					<input type="text" class="form-control" id="campNo" name="campNo" value="${camp.campNo}" readonly>
+				<div class="page-header">
+				   <h1 class=" text-info">ìº í•‘ìž¥ ì •ë³´ìˆ˜ì •</h1>
 				</div>
-		</div>		
-		
-		<div class="form-group">
-			<label for="campRegDate" class="col-sm-offset-1 col-sm-3 control-label">µî·Ï ÀÏÀÚ</label>
-				<div class="col-sm-4">
-					<input type="text" class="form-control" id="campRegDate" name="campRegDate" value="${camp.campRegDate}" readonly>
-				</div>
-		</div>
+				
+				<!-- Form Start -->
+				<div class="row">    				
+    				<form class="form-horizontal" >
+    				
+	    				<input type="hidden" name="campNo" id="campNo" value="${campSession.campNo}">	
+					    <input type="hidden" name="campTempSave" id="campTempSave" value="3">
+					    
+					    <div class="form-group">
+					        <label for="campNo" class="col-sm-offset-1 col-sm-3 control-label">ë“±ë¡ ë²ˆí˜¸</label>
+					            <div class="col-sm-4">
+					                <input type="text" class="form-control" id="campNo" name="campNo" value="${camp.campNo}" readonly>
+					            </div>
+					    </div>		
+					    
+					    <div class="form-group">
+					        <label for="campRegDate" class="col-sm-offset-1 col-sm-3 control-label">ë“±ë¡ ì¼ìž</label>
+					            <div class="col-sm-4">
+					                <input type="text" class="form-control" id="campRegDate" name="campRegDate" value="${camp.campRegDate}" readonly>
+					            </div>
+					    </div>
+					                
+					    <div class="form-group">
+					        <label for="user.id" class="col-sm-offset-1 col-sm-3 control-label">ì‚¬ì—…ìžíšŒì›ID</label>
+					            <div class="col-sm-4">
+					                <input type="text" class="form-control" id="user.id" name="user.id" value="${user.id}" readonly>
+					            </div>
+					    </div>					    
+					    
+					    <div class="form-group">
+					        <label for="campTheme1" class="col-sm-offset-1 col-sm-3 control-label">í…Œë§ˆ ìœ í˜•1</label>
+					        <div class="col-sm-4">
+					            <select name="campTheme1" class="form-control" >
+					                <option value="ë´„" ${! empty camp.campTheme1 && camp.campTheme1 eq 'ë´„' ? "selected" : "" }>ë´„</option>
+					                <option value="ì—¬ë¦„" ${! empty camp.campTheme1 && camp.campTheme1 eq 'ì—¬ë¦„' ? "selected" : "" }>ì—¬ë¦„</option>
+					                <option value="ê°€ì„" ${! empty camp.campTheme1 && camp.campTheme1 eq 'ê°€ì„' ? "selected" : "" }>ê°€ì„</option>
+					                <option value="ê²¨ìš¸" ${! empty camp.campTheme1 && camp.campTheme1 eq 'ê²¨ìš¸' ? "selected" : "" }>ê²¨ìš¸</option>
+					                <option value="ì¼ì¶œ" ${! empty camp.campTheme1 && camp.campTheme1 eq 'ì¼ì¶œ' ? "selected" : "" }>ì¼ì¶œ</option>
+					                <option value="ì¼ëª°" ${! empty camp.campTheme1 && camp.campTheme1 eq 'ì¼ëª°' ? "selected" : "" }>ì¼ëª°</option>
+					                <option value="ë“±ì‚°" ${! empty camp.campTheme1 && camp.campTheme1 eq 'ë“±ì‚°' ? "selected" : "" }>ë“±ì‚°</option>
+					                <option value="ë‚šì‹œ" ${! empty camp.campTheme1 && camp.campTheme1 eq 'ë‚šì‹œ' ? "selected" : "" }>ë‚šì‹œ</option>
+					                <option value="ì• ì™„ë™ë¬¼ë™ë°˜" ${! empty camp.campTheme1 && camp.campTheme1 eq 'ì• ì™„ë™ë¬¼ë™ë°˜' ? "selected" : "" }>ì• ì™„ë™ë¬¼ë™ë°˜</option>	
+					            </select>
+					        </div>
+					    </div>
+					    
+					    <div class="form-group">
+					        <label for="campTheme2" class="col-sm-offset-1 col-sm-3 control-label">í…Œë§ˆ ìœ í˜•2</label>
+					        <div class="col-sm-4">
+					            <select name="campTheme2" class="form-control" >
+					                <option value="ë´„" ${! empty camp.campTheme2 && camp.campTheme2 eq 'ë´„' ? "selected" : "" }>ë´„</option>
+					                <option value="ì—¬ë¦„" ${! empty camp.campTheme2 && camp.campTheme2 eq 'ì—¬ë¦„' ? "selected" : "" }>ì—¬ë¦„</option>
+					                <option value="ê°€ì„" ${! empty camp.campTheme2 && camp.campTheme2 eq 'ê°€ì„' ? "selected" : "" }>ê°€ì„</option>
+					                <option value="ê²¨ìš¸" ${! empty camp.campTheme2 && camp.campTheme2 eq 'ê²¨ìš¸' ? "selected" : "" }>ê²¨ìš¸</option>
+					                <option value="ì¼ì¶œ" ${! empty camp.campTheme2 && camp.campTheme2 eq 'ì¼ì¶œ' ? "selected" : "" }>ì¼ì¶œ</option>
+					                <option value="ì¼ëª°" ${! empty camp.campTheme2 && camp.campTheme2 eq 'ì¼ëª°' ? "selected" : "" }>ì¼ëª°</option>
+					                <option value="ë“±ì‚°" ${! empty camp.campTheme2 && camp.campTheme2 eq 'ë“±ì‚°' ? "selected" : "" }>ë“±ì‚°</option>
+					                <option value="ë‚šì‹œ" ${! empty camp.campTheme2 && camp.campTheme2 eq 'ë‚šì‹œ' ? "selected" : "" }>ë‚šì‹œ</option>
+					                <option value="ì• ì™„ë™ë¬¼ë™ë°˜" ${! empty camp.campTheme2 && camp.campTheme2 eq 'ì• ì™„ë™ë¬¼ë™ë°˜' ? "selected" : "" }>ì• ì™„ë™ë¬¼ë™ë°˜</option>
+					            </select>
+					        </div>
+					    </div>
 					
-		<div class="form-group">
-			<label for="user.id" class="col-sm-offset-1 col-sm-3 control-label">»ç¾÷ÀÚÈ¸¿øID</label>
-				<div class="col-sm-4">
-					<input type="text" class="form-control" id="user.id" name="user.id" value="${user.id}" readonly>
-				</div>
+					    <div class="form-group">
+					        <label for="campNature1" class="col-sm-offset-1 col-sm-3 control-label">ì£¼ë³€ í™˜ê²½1</label>
+					        <div class="col-sm-4">
+					            <select name="campNature1" class="form-control" >
+					                <option value="ê³„ê³¡" ${! empty camp.campNature1 && camp.campNature1 eq 'ê³„ê³¡' ? "selected" : "" }>ê³„ê³¡</option>
+					                <option value="í˜¸ìˆ˜" ${! empty camp.campNature1 && camp.campNature1 eq 'í˜¸ìˆ˜' ? "selected" : "" }>í˜¸ìˆ˜</option>
+					                <option value="ê°•" ${! empty camp.campNature1 && camp.campNature1 eq 'ê°•' ? "selected" : "" }>ê°•</option>
+					                <option value="ë°”ë‹¤" ${! empty camp.campNature1 && camp.campNature1 eq 'ë°”ë‹¤' ? "selected" : "" }>ë°”ë‹¤</option>
+					                <option value="ì‚°" ${! empty camp.campNature1 && camp.campNature1 eq 'ì‚°' ? "selected" : "" }>ì‚°</option>
+					                <option value="ìˆ²" ${! empty camp.campNature1 && camp.campNature1 eq 'ìˆ²' ? "selected" : "" }>ìˆ²</option>
+					                <option value="ë„ì‹œ" ${! empty camp.campNature1 && camp.campNature1 eq 'ë„ì‹œ' ? "selected" : "" }>ë„ì‹œ</option>
+					                <option value="ì„¬" ${! empty camp.campNature1 && camp.campNature1 eq 'ì„¬' ? "selected" : "" }>ì„¬</option>
+					            </select>
+					        </div>
+					    </div>
+					
+					    <div class="form-group">
+					        <label for="campNature2" class="col-sm-offset-1 col-sm-3 control-label">ì£¼ë³€ í™˜ê²½2</label>
+					        <div class="col-sm-4">
+					            <select name="campNature2" class="form-control" >
+					                <option value="ê³„ê³¡" ${! empty camp.campNature2 && camp.campNature2 eq 'ê³„ê³¡' ? "selected" : "" }>ê³„ê³¡</option>
+					                <option value="í˜¸ìˆ˜" ${! empty camp.campNature2 && camp.campNature2 eq 'í˜¸ìˆ˜' ? "selected" : "" }>í˜¸ìˆ˜</option>
+					                <option value="ê°•" ${! empty camp.campNature2 && camp.campNature2 eq 'ê°•' ? "selected" : "" }>ê°•</option>
+					                <option value="ë°”ë‹¤" ${! empty camp.campNature2 && camp.campNature2 eq 'ë°”ë‹¤' ? "selected" : "" }>ë°”ë‹¤</option>
+					                <option value="ì‚°" ${! empty camp.campNature2 && camp.campNature2 eq 'ì‚°' ? "selected" : "" }>ì‚°</option>
+					                <option value="ìˆ²" ${! empty camp.campNature2 && camp.campNature2 eq 'ìˆ²' ? "selected" : "" }>ìˆ²</option>
+					                <option value="ë„ì‹œ" ${! empty camp.campNature2 && camp.campNature2 eq 'ë„ì‹œ' ? "selected" : "" }>ë„ì‹œ</option>
+					                <option value="ì„¬" ${! empty camp.campNature2 && camp.campNature2 eq 'ì„¬' ? "selected" : "" }>ì„¬</option>
+					            </select>
+					        </div>
+					    </div>	
+					
+					    <div class="form-group">
+					        <label for="campOperation1" class="col-sm-offset-1 col-sm-3 control-label">ìš´ì˜ ìœ í˜•1</label>
+					        <div class="col-sm-4">
+					            <select name="campOperation1" class="form-control" >
+					                <option value="ìƒì‹œ" ${! empty camp.campOperation1 && camp.campOperation1 eq 'ìƒì‹œ' ? "selected" : "" }>ìƒì‹œ</option>
+					                <option value="ë´„" ${! empty camp.campOperation1 && camp.campOperation1 eq 'ë´„' ? "selected" : "" }>ë´„ (3ì›”~5ì›”)</option>
+					                <option value="ì—¬ë¦„" ${! empty camp.campOperation1 && camp.campOperation1 eq 'ì—¬ë¦„' ? "selected" : "" }>ì—¬ë¦„ (6ì›”~8ì›”)</option>
+					                <option value="ê°€ì„" ${! empty camp.campOperation1 && camp.campOperation1 eq 'ê°€ì„' ? "selected" : "" }>ê°€ì„ (9ì›”~11ì›”)</option>
+					                <option value="ê²¨ìš¸" ${! empty camp.campOperation1 && camp.campOperation1 eq 'ê²¨ìš¸' ? "selected" : "" }>ê²¨ìš¸ (12ì›”~2ì›”)</option>
+					                <option value="ì£¼ì¤‘" ${! empty camp.campOperation1 && camp.campOperation1 eq 'ì£¼ì¤‘' ? "selected" : "" }>ì£¼ì¤‘</option>
+					                <option value="ì£¼ë§" ${! empty camp.campOperation1 && camp.campOperation1 eq 'ì£¼ë§' ? "selected" : "" }>ì£¼ë§</option>
+					            </select>
+					        </div>
+					    </div>
+					    
+					    <div class="form-group">
+					        <label for="campOperation2" class="col-sm-offset-1 col-sm-3 control-label">ìš´ì˜ ìœ í˜•2</label>
+					        <div class="col-sm-4">
+					            <select name="campOperation2" class="form-control" >
+					                <option value="ìƒì‹œ" ${! empty camp.campOperation2 && camp.campOperation2 eq 'ìƒì‹œ' ? "selected" : "" }>ìƒì‹œ</option>
+					                <option value="ë´„" ${! empty camp.campOperation2 && camp.campOperation2 eq 'ë´„' ? "selected" : "" }>ë´„ (3ì›”~5ì›”)</option>
+					                <option value="ì—¬ë¦„" ${! empty camp.campOperation2 && camp.campOperation2 eq 'ì—¬ë¦„' ? "selected" : "" }>ì—¬ë¦„ (6ì›”~8ì›”)</option>
+					                <option value="ê°€ì„" ${! empty camp.campOperation2 && camp.campOperation2 eq 'ê°€ì„' ? "selected" : "" }>ê°€ì„ (9ì›”~11ì›”)</option>
+					                <option value="ê²¨ìš¸" ${! empty camp.campOperation2 && camp.campOperation2 eq 'ê²¨ìš¸' ? "selected" : "" }>ê²¨ìš¸ (12ì›”~2ì›”)</option>
+					                <option value="ì£¼ì¤‘" ${! empty camp.campOperation2 && camp.campOperation2 eq 'ì£¼ì¤‘' ? "selected" : "" }>ì£¼ì¤‘</option>
+					                <option value="ì£¼ë§" ${! empty camp.campOperation2 && camp.campOperation2 eq 'ì£¼ë§' ? "selected" : "" }>ì£¼ë§</option>
+					            </select>
+					        </div>
+					    </div>
+					    
+						<div class="form-group">
+					        <label for="campName" class="col-sm-offset-1 col-sm-3 control-label">ìº í•‘ìž¥ ì´ë¦„</label>
+					            <div class="col-sm-4">
+					                <input type="text" class="form-control" id="campName" name="campName" value="${campSession.user.campName}" readonly>
+					            </div>
+					    </div>
+					
+					    <div class="form-group">
+					        <label for="campCall" class="col-sm-offset-1 col-sm-3 control-label">ìº í•‘ìž¥ ì „í™”ë²ˆí˜¸</label>
+					            <div class="col-sm-4">
+					                <input type="text" class="form-control" id="campCall" name="campCall" value="${campSession.user.campCall}" readonly>
+					            </div>
+					    </div>
+					    
+					    <div class="form-group">
+					        <label for="campAddr" class="col-sm-offset-1 col-sm-3 control-label">ìº í•‘ìž¥ ì£¼ì†Œ</label>
+					            <div class="col-sm-4">
+					                <input type="text" class="form-control" id="campAddr" name="campAddr" value="${campSession.user.addr}" readonly>
+					            </div>
+					    </div>
+					            
+					    <div class="form-group">
+					        <label for="campMapFile" class="col-sm-offset-1 col-sm-3 control-label">ìº í•‘ìž¥ ì§€ë„ì´ë¯¸ì§€ </label>				
+					            <div class="col-sm-4">
+					                <img src="/uploadFiles/campimg/campbusiness/camp/${camp.campMapImg}" />
+					                <span>ë³€ê²½í•˜ê¸°<input type="file"  id="campMapFile" name="campMapFile" ></span>			
+					            </div>
+					    </div> 
+					            
+					    <div class="form-group">
+					        <label for="campImgFile1" class="col-sm-offset-1 col-sm-3 control-label">ìº í•‘ìž¥ ì „ê²½ì´ë¯¸ì§€(1/5)</label>				
+					            <div class="col-sm-4">
+					                <img src="/uploadFiles/campimg/campbusiness/camp/${camp.campImg1}" />
+					                <span>ë³€ê²½í•˜ê¸°<input type="file"  id="campImgFile1" name="campImgFile1" ></span>			
+					            </div>
+					    </div>
+					    
+					    <div class="form-group">
+					        <label for="campImgFile2" class="col-sm-offset-1 col-sm-3 control-label">ìº í•‘ìž¥ ì „ê²½ì´ë¯¸ì§€(2/5)</label>				
+					            <div class="col-sm-4">
+					                <img src="/uploadFiles/campimg/campbusiness/camp/${camp.campImg2}" />
+					                <span>ë³€ê²½í•˜ê¸°<input type="file"  id="campImgFile2" name="campImgFile2" ></span>			
+					            </div>
+					    </div>
+					    
+					    <div class="form-group">
+					        <label for="campImgFile3" class="col-sm-offset-1 col-sm-3 control-label">ìº í•‘ìž¥ ì „ê²½ì´ë¯¸ì§€(3/5)</label>				
+					            <div class="col-sm-4">
+					                <img src="/uploadFiles/campimg/campbusiness/camp/${camp.campImg3}" />
+					                <span>ë³€ê²½í•˜ê¸°<input type="file"  id="campImgFile3" name="campImgFile3" ></span>			
+					            </div>
+					    </div>
+					
+					    <div class="form-group">
+					        <label for="campImgFile4" class="col-sm-offset-1 col-sm-3 control-label">ìº í•‘ìž¥ ì „ê²½ì´ë¯¸ì§€(4/5)</label>				
+					            <div class="col-sm-4">
+					                <img src="/uploadFiles/campimg/campbusiness/camp/${camp.campImg4}" />
+					                <span>ë³€ê²½í•˜ê¸°<input type="file"  id="campImgFile4" name="campImgFile4" ></span>			
+					            </div>
+					    </div>	
+					
+					    <div class="form-group">
+					        <label for="campImgFile5" class="col-sm-offset-1 col-sm-3 control-label">ìº í•‘ìž¥ ì „ê²½ì´ë¯¸ì§€(5/5)</label>				
+					            <div class="col-sm-4">
+					                <img src="/uploadFiles/campimg/campbusiness/camp/${camp.campImg5}" />
+					                <span>ë³€ê²½í•˜ê¸°<input type="file"  id="campImgFile5" name="campImgFile5" ></span>			
+					            </div>
+					    </div>			
+						
+						<div class="row">
+							<div class="form-group">        
+						        <label for="campSummery" class="col-sm-offset-1 col-sm-3 control-label">ìº í•‘ìž¥ ìš”ì•½ì†Œê°œ</label>
+							</div> 		   
+						</div>
+						
+						<div class="row">
+							<div class="col-sm-7 col-xs-offset-1">
+						    	<textarea class="form-control" id="campSummery" rows="3" name="campSummery">${camp.campSummery}</textarea>
+						    </div> 		   
+						</div>
+						
+						<div class="row">
+							<br>
+							<div class="form-group">        
+						       <label for="campDetail" class="col-sm-offset-1 col-sm-3 control-label">ìº í•‘ìž¥ ìƒì„¸ì†Œê°œ</label>
+							</div> 		   
+						</div>
+						
+						<div class="row">
+							<div class="col-sm-7 col-xs-offset-1">
+						    	<textarea class="form-control" id="campDetail" rows="6" name="campDetail">${camp.campDetail}</textarea>	
+						    </div> 		   
+						</div>
+						
+						<br>
+						<div class="row">
+							<div class="form-group">		
+								<div class="col-xs-1 col-xs-offset-1">
+									<button id="cancle" type="button" class="btn btn-danger">ì·¨ì†Œ</button>
+								</div>
+								
+								<div class="col-xs-1 col-xs-offset-5">
+									<button id="update" type="button" class="btn btn-primary">ìˆ˜ì •</button>
+								</div>			
+							</div>
+						</div>    				
+    				
+    				</form>
+    			</div>
+    			<!-- Form End -->
+    			
 		</div>
-
-		<div class="form-group">
-			<label for="campTheme1" class="col-sm-offset-1 col-sm-3 control-label">Å×¸¶ À¯Çü1</label>
-			<div class="col-sm-4">
-				<select name="campTheme1" class="form-control" >
-					<option value="º½" ${! empty camp.campTheme1 && camp.campTheme1 eq 'º½' ? "selected" : "" }>º½</option>
-					<option value="¿©¸§" ${! empty camp.campTheme1 && camp.campTheme1 eq '¿©¸§' ? "selected" : "" }>¿©¸§</option>
-					<option value="°¡À»" ${! empty camp.campTheme1 && camp.campTheme1 eq '°¡À»' ? "selected" : "" }>°¡À»</option>
-					<option value="°Ü¿ï" ${! empty camp.campTheme1 && camp.campTheme1 eq '°Ü¿ï' ? "selected" : "" }>°Ü¿ï</option>
-					<option value="ÀÏÃâ" ${! empty camp.campTheme1 && camp.campTheme1 eq 'ÀÏÃâ' ? "selected" : "" }>ÀÏÃâ</option>
-					<option value="ÀÏ¸ô" ${! empty camp.campTheme1 && camp.campTheme1 eq 'ÀÏ¸ô' ? "selected" : "" }>ÀÏ¸ô</option>
-					<option value="µî»ê" ${! empty camp.campTheme1 && camp.campTheme1 eq 'µî»ê' ? "selected" : "" }>µî»ê</option>
-					<option value="³¬½Ã" ${! empty camp.campTheme1 && camp.campTheme1 eq '³¬½Ã' ? "selected" : "" }>³¬½Ã</option>
-					<option value="¾Ö¿Ïµ¿¹°µ¿¹Ý" ${! empty camp.campTheme1 && camp.campTheme1 eq '¾Ö¿Ïµ¿¹°µ¿¹Ý' ? "selected" : "" }>¾Ö¿Ïµ¿¹°µ¿¹Ý</option>	
-				</select>
-			</div>
-		</div>
-		
-		<div class="form-group">
-			<label for="campTheme2" class="col-sm-offset-1 col-sm-3 control-label">Å×¸¶ À¯Çü2</label>
-			<div class="col-sm-4">
-				<select name="campTheme2" class="form-control" >
-					<option value="º½" ${! empty camp.campTheme2 && camp.campTheme2 eq 'º½' ? "selected" : "" }>º½</option>
-					<option value="¿©¸§" ${! empty camp.campTheme2 && camp.campTheme2 eq '¿©¸§' ? "selected" : "" }>¿©¸§</option>
-					<option value="°¡À»" ${! empty camp.campTheme2 && camp.campTheme2 eq '°¡À»' ? "selected" : "" }>°¡À»</option>
-					<option value="°Ü¿ï" ${! empty camp.campTheme2 && camp.campTheme2 eq '°Ü¿ï' ? "selected" : "" }>°Ü¿ï</option>
-					<option value="ÀÏÃâ" ${! empty camp.campTheme2 && camp.campTheme2 eq 'ÀÏÃâ' ? "selected" : "" }>ÀÏÃâ</option>
-					<option value="ÀÏ¸ô" ${! empty camp.campTheme2 && camp.campTheme2 eq 'ÀÏ¸ô' ? "selected" : "" }>ÀÏ¸ô</option>
-					<option value="µî»ê" ${! empty camp.campTheme2 && camp.campTheme2 eq 'µî»ê' ? "selected" : "" }>µî»ê</option>
-					<option value="³¬½Ã" ${! empty camp.campTheme2 && camp.campTheme2 eq '³¬½Ã' ? "selected" : "" }>³¬½Ã</option>
-					<option value="¾Ö¿Ïµ¿¹°µ¿¹Ý" ${! empty camp.campTheme2 && camp.campTheme2 eq '¾Ö¿Ïµ¿¹°µ¿¹Ý' ? "selected" : "" }>¾Ö¿Ïµ¿¹°µ¿¹Ý</option>
-				</select>
-			</div>
-		</div>
-
-		<div class="form-group">
-			<label for="campNature1" class="col-sm-offset-1 col-sm-3 control-label">ÁÖº¯ È¯°æ1</label>
-			<div class="col-sm-4">
-				<select name="campNature1" class="form-control" >
-					<option value="°è°î" ${! empty camp.campNature1 && camp.campNature1 eq '°è°î' ? "selected" : "" }>°è°î</option>
-					<option value="È£¼ö" ${! empty camp.campNature1 && camp.campNature1 eq 'È£¼ö' ? "selected" : "" }>È£¼ö</option>
-					<option value="°­" ${! empty camp.campNature1 && camp.campNature1 eq '°­' ? "selected" : "" }>°­</option>
-					<option value="¹Ù´Ù" ${! empty camp.campNature1 && camp.campNature1 eq '¹Ù´Ù' ? "selected" : "" }>¹Ù´Ù</option>
-					<option value="»ê" ${! empty camp.campNature1 && camp.campNature1 eq '»ê' ? "selected" : "" }>»ê</option>
-					<option value="½£" ${! empty camp.campNature1 && camp.campNature1 eq '½£' ? "selected" : "" }>½£</option>
-					<option value="µµ½Ã" ${! empty camp.campNature1 && camp.campNature1 eq 'µµ½Ã' ? "selected" : "" }>µµ½Ã</option>
-					<option value="¼¶" ${! empty camp.campNature1 && camp.campNature1 eq '¼¶' ? "selected" : "" }>¼¶</option>
-				</select>
-			</div>
-		</div>
-
-		<div class="form-group">
-			<label for="campNature2" class="col-sm-offset-1 col-sm-3 control-label">ÁÖº¯ È¯°æ2</label>
-			<div class="col-sm-4">
-				<select name="campNature2" class="form-control" >
-					<option value="°è°î" ${! empty camp.campNature2 && camp.campNature2 eq '°è°î' ? "selected" : "" }>°è°î</option>
-					<option value="È£¼ö" ${! empty camp.campNature2 && camp.campNature2 eq 'È£¼ö' ? "selected" : "" }>È£¼ö</option>
-					<option value="°­" ${! empty camp.campNature2 && camp.campNature2 eq '°­' ? "selected" : "" }>°­</option>
-					<option value="¹Ù´Ù" ${! empty camp.campNature2 && camp.campNature2 eq '¹Ù´Ù' ? "selected" : "" }>¹Ù´Ù</option>
-					<option value="»ê" ${! empty camp.campNature2 && camp.campNature2 eq '»ê' ? "selected" : "" }>»ê</option>
-					<option value="½£" ${! empty camp.campNature2 && camp.campNature2 eq '½£' ? "selected" : "" }>½£</option>
-					<option value="µµ½Ã" ${! empty camp.campNature2 && camp.campNature2 eq 'µµ½Ã' ? "selected" : "" }>µµ½Ã</option>
-					<option value="¼¶" ${! empty camp.campNature2 && camp.campNature2 eq '¼¶' ? "selected" : "" }>¼¶</option>
-				</select>
-			</div>
-		</div>	
-
-		<div class="form-group">
-			<label for="campOperation1" class="col-sm-offset-1 col-sm-3 control-label">¿î¿µ À¯Çü1</label>
-			<div class="col-sm-4">
-				<select name="campOperation1" class="form-control" >
-					<option value="»ó½Ã" ${! empty camp.campOperation1 && camp.campOperation1 eq '»ó½Ã' ? "selected" : "" }>»ó½Ã</option>
-					<option value="º½" ${! empty camp.campOperation1 && camp.campOperation1 eq 'º½' ? "selected" : "" }>º½ (3¿ù~5¿ù)</option>
-					<option value="¿©¸§" ${! empty camp.campOperation1 && camp.campOperation1 eq '¿©¸§' ? "selected" : "" }>¿©¸§ (6¿ù~8¿ù)</option>
-					<option value="°¡À»" ${! empty camp.campOperation1 && camp.campOperation1 eq '°¡À»' ? "selected" : "" }>°¡À» (9¿ù~11¿ù)</option>
-					<option value="°Ü¿ï" ${! empty camp.campOperation1 && camp.campOperation1 eq '°Ü¿ï' ? "selected" : "" }>°Ü¿ï (12¿ù~2¿ù)</option>
-					<option value="ÁÖÁß" ${! empty camp.campOperation1 && camp.campOperation1 eq 'ÁÖÁß' ? "selected" : "" }>ÁÖÁß</option>
-					<option value="ÁÖ¸»" ${! empty camp.campOperation1 && camp.campOperation1 eq 'ÁÖ¸»' ? "selected" : "" }>ÁÖ¸»</option>
-				</select>
-			</div>
-		</div>
-		
-		<div class="form-group">
-			<label for="campOperation2" class="col-sm-offset-1 col-sm-3 control-label">¿î¿µ À¯Çü2</label>
-			<div class="col-sm-4">
-				<select name="campOperation2" class="form-control" >
-					<option value="»ó½Ã" ${! empty camp.campOperation2 && camp.campOperation2 eq '»ó½Ã' ? "selected" : "" }>»ó½Ã</option>
-					<option value="º½" ${! empty camp.campOperation2 && camp.campOperation2 eq 'º½' ? "selected" : "" }>º½ (3¿ù~5¿ù)</option>
-					<option value="¿©¸§" ${! empty camp.campOperation2 && camp.campOperation2 eq '¿©¸§' ? "selected" : "" }>¿©¸§ (6¿ù~8¿ù)</option>
-					<option value="°¡À»" ${! empty camp.campOperation2 && camp.campOperation2 eq '°¡À»' ? "selected" : "" }>°¡À» (9¿ù~11¿ù)</option>
-					<option value="°Ü¿ï" ${! empty camp.campOperation2 && camp.campOperation2 eq '°Ü¿ï' ? "selected" : "" }>°Ü¿ï (12¿ù~2¿ù)</option>
-					<option value="ÁÖÁß" ${! empty camp.campOperation2 && camp.campOperation2 eq 'ÁÖÁß' ? "selected" : "" }>ÁÖÁß</option>
-					<option value="ÁÖ¸»" ${! empty camp.campOperation2 && camp.campOperation2 eq 'ÁÖ¸»' ? "selected" : "" }>ÁÖ¸»</option>
-				</select>
-			</div>
-		</div>
-		
-		
-		<div class="form-group">
-			<label for="campName" class="col-sm-offset-1 col-sm-3 control-label">Ä·ÇÎÀå ÀÌ¸§</label>
-				<div class="col-sm-4">
-					<input type="text" class="form-control" id="campName" name="campName" value="${campSession.user.campName}" readonly>
-				</div>
-		</div>
-
-		<div class="form-group">
-			<label for="campCall" class="col-sm-offset-1 col-sm-3 control-label">Ä·ÇÎÀå ÀüÈ­¹øÈ£</label>
-				<div class="col-sm-4">
-					<input type="text" class="form-control" id="campCall" name="campCall" value="${campSession.user.campCall}" readonly>
-				</div>
-		</div>
-		
-		<div class="form-group">
-			<label for="campAddr" class="col-sm-offset-1 col-sm-3 control-label">Ä·ÇÎÀå ÁÖ¼Ò</label>
-				<div class="col-sm-4">
-					<input type="text" class="form-control" id="campAddr" name="campAddr" value="${campSession.user.addr}" readonly>
-				</div>
-		</div>
-				
-		<div class="form-group">
-			<label for="campMapFile" class="col-sm-offset-1 col-sm-3 control-label">Ä·ÇÎÀå ÁöµµÀÌ¹ÌÁö </label>				
-				<div class="col-sm-4">
-					<img src="/uploadFiles/campimg/campbusiness/camp/${camp.campMapImg}" />
-					<span>º¯°æÇÏ±â<input type="file"  id="campMapFile" name="campMapFile" ></span>			
-				</div>
-		</div> 
-				
-		<div class="form-group">
-			<label for="campImgFile1" class="col-sm-offset-1 col-sm-3 control-label">Ä·ÇÎÀå Àü°æÀÌ¹ÌÁö(1/5)</label>				
-				<div class="col-sm-4">
-					<img src="/uploadFiles/campimg/campbusiness/camp/${camp.campImg1}" />
-					<span>º¯°æÇÏ±â<input type="file"  id="campImgFile1" name="campImgFile1" ></span>			
-				</div>
-		</div>
-		
-		<div class="form-group">
-			<label for="campImgFile2" class="col-sm-offset-1 col-sm-3 control-label">Ä·ÇÎÀå Àü°æÀÌ¹ÌÁö(2/5)</label>				
-				<div class="col-sm-4">
-					<img src="/uploadFiles/campimg/campbusiness/camp/${camp.campImg2}" />
-					<span>º¯°æÇÏ±â<input type="file"  id="campImgFile2" name="campImgFile2" ></span>			
-				</div>
-		</div>
-		
-		<div class="form-group">
-			<label for="campImgFile3" class="col-sm-offset-1 col-sm-3 control-label">Ä·ÇÎÀå Àü°æÀÌ¹ÌÁö(3/5)</label>				
-				<div class="col-sm-4">
-					<img src="/uploadFiles/campimg/campbusiness/camp/${camp.campImg3}" />
-					<span>º¯°æÇÏ±â<input type="file"  id="campImgFile3" name="campImgFile3" ></span>			
-				</div>
-		</div>
-
-		<div class="form-group">
-			<label for="campImgFile4" class="col-sm-offset-1 col-sm-3 control-label">Ä·ÇÎÀå Àü°æÀÌ¹ÌÁö(4/5)</label>				
-				<div class="col-sm-4">
-					<img src="/uploadFiles/campimg/campbusiness/camp/${camp.campImg4}" />
-					<span>º¯°æÇÏ±â<input type="file"  id="campImgFile4" name="campImgFile4" ></span>			
-				</div>
-		</div>	
-
-		<div class="form-group">
-			<label for="campImgFile5" class="col-sm-offset-1 col-sm-3 control-label">Ä·ÇÎÀå Àü°æÀÌ¹ÌÁö(5/5)</label>				
-				<div class="col-sm-4">
-					<img src="/uploadFiles/campimg/campbusiness/camp/${camp.campImg5}" />
-					<span>º¯°æÇÏ±â<input type="file"  id="campImgFile5" name="campImgFile5" ></span>			
-				</div>
-		</div>
-										
-		<div class="form-group">
-			<label for="campSummery" class="col-sm-offset-1 col-sm-3 control-label">Ä·ÇÎÀå ¿ä¾à¼Ò°³</label>
-				<div class="col-sm-4">
-					<input type="text" class="form-control" id="campSummery" name="campSummery" value="${camp.campSummery}">
-				</div>
-		</div>
-		
-		<div class="form-group">
-			<label for="campDetail" class="col-sm-offset-1 col-sm-3 control-label">Ä·ÇÎÀå »ó¼¼¼Ò°³</label>
-				<div class="col-sm-4">
-					<input type="text" class="form-control" id="campDetail" name="campDetail" value="${camp.campDetail}">
-				</div>
-		</div>
-		
-		<br>
-		<br>
-		
-		<div class="form-group">
-			<div class="col-sm-offset-4  col-sm-4 text-center">
-				<button id="cancle" type="button" class="btn btn-primary">Ãë¼Ò</button>
-				<button id="update" type="button" class="btn btn-primary">¼öÁ¤</button>
-			</div>
-		</div> 
-		
-		</form>
-		<!-- Form End -->
-		
  	</div>
 	<!-- Page End -->
 

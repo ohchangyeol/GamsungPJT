@@ -1,6 +1,7 @@
 package site.gamsung.service.user.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,6 +73,34 @@ public class UserDAOImpl implements UserDAO{
 	public String getSaltById(String id) throws Exception {
 		
 		return sqlSession.selectOne(id);
+	}
+
+	@Override
+	public String findId(Map<String, Object> map) throws Exception {
+		return sqlSession.selectOne("UserMapper.findId", map);
+	}
+
+	@Override
+	public void addSuspensionUser(User user) throws Exception {
+		sqlSession.insert("UserMapper.addSusepsionUser", user);
+		
+	}
+
+	@Override
+	public void addSecessionUser(User user) throws Exception {
+		sqlSession.insert("UserMapper.addSecessionUser", user);
+		
+	}
+
+	@Override
+	public void addDormantUser(User user) throws Exception {
+		sqlSession.insert("UserMapper.addDormantUser", user);	
+	}
+
+	@Override
+	public void updateDormantGeneralUserConver(String id) throws Exception {
+		sqlSession.insert("UserMapper.updateDormantGeneralUserConver", id);
+		
 	}
 
 }

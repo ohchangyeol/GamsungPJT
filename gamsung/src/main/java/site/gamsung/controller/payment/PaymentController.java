@@ -46,7 +46,7 @@ public class PaymentController {
 			System.out.println(this.getClass());
 	}
 	
-	
+		
 	/*
 	 *  Point
 	 */	
@@ -65,6 +65,13 @@ public class PaymentController {
 		httpSession.setAttribute("user", tempSessionUser);
 		System.out.println("tempSessionUser : " + tempSessionUser);
 		/////////////////////////////////////////////////////////////////////// 여기까지 삭제
+		
+		
+		int pointChargeFee = paymentService.getFeeByPaymentCode("P1");
+		int pointWithdrawFee = paymentService.getFeeByPaymentCode("P2");
+		
+		model.addAttribute("pointChargeFee", pointChargeFee);
+		model.addAttribute("pointWithdrawFee", pointWithdrawFee);		
 		
 		User tempUser = null;
 
@@ -141,7 +148,7 @@ public class PaymentController {
 		return "forward:/view/payment/addSiteProfit.jsp";
 	}
 	
-	@RequestMapping(value = "listSiteProfit", method = RequestMethod.POST)
+	@RequestMapping(value = "listSiteProfit", method = RequestMethod.GET)
 	public String listSiteProfit() throws Exception {
 		return "forward:/view/payment/listSiteProfit.jsp";
 	}

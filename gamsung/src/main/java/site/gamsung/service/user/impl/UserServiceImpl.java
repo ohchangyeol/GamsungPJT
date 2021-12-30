@@ -7,16 +7,27 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import site.gamsung.service.auction.AuctionInfoDAO;
+import site.gamsung.service.auction.AuctionProductDAO;
+import site.gamsung.service.camp.CampReservationDAO;
 import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.User;
 import site.gamsung.service.domain.UserWrapper;
@@ -34,6 +45,17 @@ public class UserServiceImpl implements UserService{
 	@Autowired
 	@Qualifier("userDAOImpl")
 	private UserDAO userDAO;
+	
+	@Autowired
+	@Qualifier("campReservationDAOImpl")
+	private CampReservationDAO campDAO;
+	
+	@Autowired
+	@Qualifier("auctionInfoDAO")
+	private AuctionInfoDAO auctionDAO;
+	
+	
+	
 	public void setUserDAO(UserDAO userDAO) {
 		this.userDAO=userDAO;
 	}
@@ -86,8 +108,6 @@ public class UserServiceImpl implements UserService{
 		String info = "인증번호 발송";
 		String text = "인증번호는"+key+"입니다.";
 		SendMail mailSend = new SendMail();
-		mailSend.mailSend(id, key, info, text);
-	
 	}
 
 	@Override
@@ -119,6 +139,7 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public String getSaltById(String id) throws Exception {
+		
 		return userDAO.getSaltById(id);
 	}
 
@@ -138,13 +159,12 @@ public class UserServiceImpl implements UserService{
 		"로그인 후 비밀번호를 변경해주세요.";
 		
 		SendMail sendMail = new SendMail();
-		sendMail.mailSend(user.getId(), pw, info, text);
 	}
 
 	@Override
 	public String getAccessToken (String code) {
-        String access_Token = "";
-        String refresh_Token = "";
+        String accessToken = "";
+        String refreshToken = "";
         String reqURL = "https://kauth.kakao.com/oauth/token";
 
         try {
@@ -161,7 +181,7 @@ public class UserServiceImpl implements UserService{
             StringBuilder sb = new StringBuilder();
             sb.append("grant_type=authorization_code");
             sb.append("&client_id=5069ddcbe63e1882c2df7cc176f1a96f");  				//발급받은 key
-            sb.append("&redirect_uri=http://localhost:8080/gamsung/user/kakao_callback");     //설정해 놓은 경로
+            sb.append("&redirect_uri=http://localhost:8080/user/kakaoCallback");     //설정해 놓은 경로
             sb.append("&code=" + code);
             bw.write(sb.toString());
             bw.flush();
@@ -171,7 +191,7 @@ public class UserServiceImpl implements UserService{
             System.out.println("responseCode : " + responseCode);
 
             //    요청을 통해 얻은 JSON타입의 Response 메세지 읽어오기
-            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(),"UTF-8"));
             String line = "";
             String result = "";
 
@@ -184,11 +204,11 @@ public class UserServiceImpl implements UserService{
             JsonParser parser = new JsonParser();
             JsonElement element = parser.parse(result);
 
-            access_Token = element.getAsJsonObject().get("access_token").getAsString();
-            refresh_Token = element.getAsJsonObject().get("refresh_token").getAsString();
-
-            System.out.println("access_token : " + access_Token);
-            System.out.println("refresh_token : " + refresh_Token);
+            accessToken = element.getAsJsonObject().get("access_token").getAsString();
+            refreshToken = element.getAsJsonObject().get("refresh_token").getAsString();
+            
+            System.out.println("access_token : " + accessToken);
+            System.out.println("refresh_token : " + refreshToken);
 
             br.close();
             bw.close();
@@ -199,13 +219,13 @@ public class UserServiceImpl implements UserService{
         	e.printStackTrace();
         }
 
-        return access_Token;
+        return accessToken;
     }
 	
 	 //유저정보조회
     public HashMap<String, Object> getUserInfo (String accessToken) {
 
-        //    요청하는 클라이언트마다 가진 정보가 다를 수 있기에 HashMap타입으로 선언
+        //  요청하는 클라이언트마다 가진 정보가 다를 수 있기에 HashMap타입으로 선언
         HashMap<String, Object> userInfo = new HashMap<String, Object>();
         String reqURL = "https://kapi.kakao.com/v2/user/me";
         try {
@@ -219,7 +239,7 @@ public class UserServiceImpl implements UserService{
             int responseCode = conn.getResponseCode();
             System.out.println("responseCode : " + responseCode);
 
-            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(),"UTF-8"));
 
             String line = "";
             String result = "";
@@ -233,16 +253,19 @@ public class UserServiceImpl implements UserService{
             JsonElement element = parser.parse(result);
 
             JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
-            JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
+            JsonObject kakaoAccount = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
 
             String nickname = properties.getAsJsonObject().get("nickname").getAsString();
-            String email = kakao_account.getAsJsonObject().get("email").getAsString();
+            String email = kakaoAccount.getAsJsonObject().get("email").getAsString();
+            String kakaoId=element.getAsJsonObject().get("id").getAsString();
             
             userInfo.put("accessToken", accessToken);
             userInfo.put("nickname", nickname);
             userInfo.put("email", email);
+            userInfo.put("snsId", kakaoId);
 
         } catch (IOException ioe) {
+        	
             // TODO Auto-generated catch block
             ioe.printStackTrace();
         } catch(Exception e) {
@@ -251,5 +274,109 @@ public class UserServiceImpl implements UserService{
         
         return userInfo;
     }
+
+	@Override
+	public String findId(String name, String phone) throws Exception {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("name", name);
+		map.put("phone", phone);
+
+		return userDAO.findId(map);
+	}
+
+	@Override
+	public User findPassword(User user) throws Exception {
+		
+		User dbUser=userDAO.getUser(user.getId());
+		
+		System.out.println("dbUser##########"+dbUser);
+		
+		if(!(dbUser != null && user.getName().equals(dbUser.getName())&&user.getPhone().equals(dbUser.getPhone()))){
+			return null;
+		}
+			System.out.println("###############user############"+user);
+			return dbUser;
+	}
+
+	@Override
+	public void addSuspensionUser(User user) throws Exception {
+		
+		userDAO.addSuspensionUser(user);
+		
+	}
+
+	@Override
+	public boolean addSecessionUser(User user) throws Exception {
+	
+		
+		if(campDAO.isSecessionUserReservationCondition(user.getId())&&auctionDAO.isSecessionUserAuctionCondition(user.getId())) {
+		 userDAO.addSecessionUser(user);
+		 return true;
+		}		
+		return false;
+	}
+
+	@Override
+	public User checkIdPassword(User user) throws Exception {
+		
+		User dbUser = userDAO.getUser(user.getId());
+		String pw = user.getPassword();
+		System.out.println("비밀번호"+pw);
+		System.out.println("솔트"+dbUser.getSalt());
+		String newPwd = SHA256Util.getEncrypt(pw, dbUser.getSalt());
+		System.out.println("암호화"+newPwd);
+		
+		if(newPwd.equals(dbUser.getPassword())) {
+			return dbUser;
+		}
+		
+		return null;
+	}
+
+	@Override
+	@Scheduled(cron="*/1 * * * * *")
+	public void addDormantUser() throws Exception{
+		
+		System.out.println("배치 도는지");
+		List<User> list=userDAO.listUser(new Search());
+		LocalDate now = LocalDate.now();
+		String regDate=now.toString();
+		Date nowDate = new SimpleDateFormat("yyyy-mm-dd").parse(regDate);
+		
+		//밀리초로 변환
+		long today = nowDate.getTime();
+		
+		
+		for(User user : list) {
+			user = userDAO.getUser(user.getId());
+			Date currentDate=user.getCurrentLoginRegDate();
+			long loginDate = currentDate.getTime();
+			
+			if(loginDate > 0 && today > 0) {
+	            // 두 날짜가 기준일(1970년 1월1일)에서 양수일 경우
+	            long sumMs = today - loginDate;
+	            long days = sumMs / (1000 * 60 * 60 * 24) + 1;
+	            System.out.println(nowDate + " ~ " + currentDate + " 은 " + days + "일 차이입니다.");
+	            if(days==359) {
+	            	String info = "[감성캠핑] 휴면전환 안내 메일입니다.";
+	            	String text = "안녕하세요 "+user.getNickName()+"님~ 휴면회원으로 전환되기 7일 전입니다."+
+	            	"\n전환을 원치 않으시면 사이트 방문 후 로그인 부탁드립니다.";
+	            	SendMail mail = new SendMail();
+	            	mail.sendMail(user.getId(), info, text);   	
+	            }
+	            if(days>=366) {
+	            	userDAO.addDormantUser(user);
+	            }
+		}
+				return; 
+        }
+	}
+
+	@Override
+	public void updateDormantGeneralUserConvert(String id) throws Exception {
+		userDAO.updateDormantGeneralUserConver(id);
+		
+	}
 
 }

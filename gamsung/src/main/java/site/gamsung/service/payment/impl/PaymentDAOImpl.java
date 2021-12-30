@@ -60,9 +60,14 @@ public class PaymentDAOImpl implements PaymentDAO{
 	@Override
 	public List<PaymentCode> listPaymentCode() throws Exception{		
 		return sqlSession.selectList("PaymentMapper.listPaymentCode");
-	}	
+	}		
+
+	@Override
+	public int getFeeByPaymentCode(String paymentCodeLetter) throws Exception{		
+		return sqlSession.selectOne("PaymentMapper.getFeeByPaymentCode", paymentCodeLetter);
+	}
 	
-	
+
 	/*
 	 *  SiteProfit
 	 */

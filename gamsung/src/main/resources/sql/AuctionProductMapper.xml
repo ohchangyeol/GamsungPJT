@@ -11,8 +11,8 @@
 		<result property="successfulBidderId" column="successful_bidder_id"/>
 		<result property="successfulBidderId" column="bidder_id"/>
 		<result property="auctionProductName" column="product_name"/>
-		<result property="auctionProductDatail" column="product_detail"/>
-		<result property="auctionProductSubDatail" column="product_sub_detail"/>
+		<result property="auctionProductDetail" column="product_detail"/>
+		<result property="auctionProductSubDetail" column="product_sub_detail"/>
 		<result property="startBidPrice" column="start_bid_price"/>
 		<result property="hopefulBidPrice" column="hopeful_bid_price"/>
 		<result property="bidUnit" column="bid_unit"/>
@@ -54,7 +54,7 @@
 		INSERT INTO AUCTION_PRODUCT
 		(product_name, product_sub_detail, start_bid_price, hopeful_bid_price, bid_unit, auction_start_time, auction_end_time, bidable_grade, 
 		 hashtag1, hashtag2, hashtag3, product_img1, product_img2, product_img3, product_img4, product_img5) 
-		VALUES (#{auctionProductName}, #{auctionProductSubDatail}, #{startBidPrice}, #{hopefulBidPrice}, #{bidUnit}, #{auctionStartTime}, #{auctionEndTime},
+		VALUES (#{auctionProductName}, #{auctionProductSubDetail}, #{startBidPrice}, #{hopefulBidPrice}, #{bidUnit}, #{auctionStartTime}, #{auctionEndTime},
 		        #{bidableGrade},#{hashtag1},#{hashtag2},#{hashtag3},#{productImg1}, #{productImg2}, #{productImg3}, #{productImg4}, #{productImg5});
 	</insert>
 	
@@ -111,15 +111,15 @@
 		INSERT INTO AUCTION_PRODUCT
 		(registrant_id, product_name, product_detail, product_sub_detail, start_bid_price, hopeful_bid_price, bid_unit, auction_start_time, auction_end_time, bidable_grade, 
 		 hashtag1, hashtag2, hashtag3, product_img1, product_img2, product_img3, product_img4, product_img5, temp_save_flag) 
-		VALUES (#{registrantId}, #{auctionProductName}, #{auctionProductDatail}, #{auctionProductSubDatail}, #{startBidPrice}, #{hopefulBidPrice}, #{bidUnit}, #{auctionStartTime}, #{auctionEndTime},
+		VALUES (#{registrantId}, #{auctionProductName}, #{auctionProductDetail}, #{auctionProductSubDetail}, #{startBidPrice}, #{hopefulBidPrice}, #{bidUnit}, #{auctionStartTime}, #{auctionEndTime},
 		        #{bidableGrade},#{hashtag1},#{hashtag2},#{hashtag3},#{productImg1}, #{productImg2}, #{productImg3}, #{productImg4}, #{productImg5}, 'Y');
 	</insert>
 	
 	<insert id="addAuctionProduct" parameterType="auctionProduct">
 		UPDATE AUCTION_PRODUCT
 		SET	product_name = #{auctionProductName}, 
-			product_detail = #{auctionProductDatail},
-			product_sub_detail = #{auctionProductSubDatail},  
+			product_detail = #{auctionProductDetail},
+			product_sub_detail = #{auctionProductSubDetail},  
 			start_bid_price = #{startBidPrice}, 
 			hopeful_bid_price = #{hopefulBidPrice}, 
 			bid_unit = #{bidUnit}, 
@@ -143,7 +143,7 @@
 	
 	<select id="getAuctionProduct" parameterType="String" resultMap="auction">
 		SELECT registrant_id, ap.product_no AS product_no, product_name, product_detail, product_sub_detail  , start_bid_price , hopeful_bid_price, bid_unit , auction_start_time, auction_end_time,
-				ah.bid_price AS bid_price, ah.bidder_id AS bidder_id, timediff(NOW(),auction_end_time) AS remain_time, bidable_grade, hashtag1, hashtag2, hashtag3, product_img1, product_img2, product_img3, product_img4, product_img5, product_view_count
+				ah.bid_price AS bid_price, ah.bidder_id AS bidder_id, timediff(auction_end_time , NOW()) AS remain_time, bidable_grade, hashtag1, hashtag2, hashtag3, product_img1, product_img2, product_img3, product_img4, product_img5, product_view_count
 		FROM AUCTION_PRODUCT AS ap
 		LEFT OUTER JOIN AUCTION_HISTORY AS ah ON ap.product_no = ah.product_no 
 		WHERE ap.product_no = #{value}
