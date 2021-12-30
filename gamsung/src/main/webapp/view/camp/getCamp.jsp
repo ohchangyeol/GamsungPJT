@@ -187,22 +187,22 @@ pageEncoding="UTF-8"%>
                     <div calss="row">
                       <div class="col-sm-3 mb-sm-20">
                         <a class="image-popup-vertical-fit" href="/uploadfiles/campimg/campbusiness/camp/${camp.campImg2}" >
-                          <img class="img-responsive" src="/uploadfiles/campimg/campbusiness/camp/${camp.campImg2}" onerror="this.src='/uploadfiles/campimg/campbusiness/camp/no_image.jpg'" >
+                          <img class="img-responsive" src="/uploadfiles/campimg/campbusiness/camp/${camp.campImg2}" onerror="this.src='/uploadfiles/campimg/campbusiness/camp/no_image.jpg'" style="height: 185px;">
                         </a>
                       </div>
                       <div class="col-sm-3 mb-sm-20">
                         <a class="image-popup-vertical-fit" href="/uploadfiles/campimg/campbusiness/camp/${camp.campImg3}" >
-                          <img class="img-responsive" src="/uploadfiles/campimg/campbusiness/camp/${camp.campImg3}" onerror="this.src='/uploadfiles/campimg/campbusiness/camp/no_image.jpg'" >
+                          <img class="img-responsive" src="/uploadfiles/campimg/campbusiness/camp/${camp.campImg3}" onerror="this.src='/uploadfiles/campimg/campbusiness/camp/no_image.jpg'" style="height: 185px;">
                         </a>
                       </div>
                       <div class="col-sm-3 mb-sm-20">
                         <a class="image-popup-vertical-fit" href="/uploadfiles/campimg/campbusiness/camp/${camp.campImg4}" >
-                          <img class="img-responsive" src="/uploadfiles/campimg/campbusiness/camp/${camp.campImg4}" onerror="this.src='/uploadfiles/campimg/campbusiness/camp/no_image.jpg'" >
+                          <img class="img-responsive" src="/uploadfiles/campimg/campbusiness/camp/${camp.campImg4}" onerror="this.src='/uploadfiles/campimg/campbusiness/camp/no_image.jpg'" style="height: 185px;">
                         </a>
                       </div>
                       <div class="col-sm-3 mb-sm-20">
                         <a class="image-popup-vertical-fit" href="/uploadfiles/campimg/campbusiness/camp/${camp.campImg5}" >
-                          <img class="img-responsive" src="/uploadfiles/campimg/campbusiness/camp/${camp.campImg5}" onerror="this.src='/uploadfiles/campimg/campbusiness/camp/no_image.jpg'" >
+                          <img class="img-responsive" src="/uploadfiles/campimg/campbusiness/camp/${camp.campImg5}" onerror="this.src='/uploadfiles/campimg/campbusiness/camp/no_image.jpg'" style="height: 185px;">
                         </a>
                       </div>
                     </div>

@@ -122,6 +122,26 @@ pageEncoding="UTF-8"%>
               <c:set var="i" value="${ i+1 }" />
               <input type="hidden" name="campAddr" value="${campAddr}">
           </c:forEach>
+          <c:forEach var="circumstance" items="${search.circumstance}">
+              <c:set var="i" value="${ i+1 }" />
+              <input type="hidden" name="circumstance" value="${circumstance}">
+          </c:forEach>
+          <c:forEach var="mainSite" items="${search.mainSite}">
+              <c:set var="i" value="${ i+1 }" />
+              <input type="hidden" name="mainSite" value="${mainSite}">
+          </c:forEach>
+          <c:forEach var="subSite" items="${search.subSite}">
+              <c:set var="i" value="${ i+1 }" />
+              <input type="hidden" name="subSite" value="${subSite}">
+          </c:forEach>
+          <c:forEach var="theme" items="${search.theme}">
+              <c:set var="i" value="${ i+1 }" />
+              <input type="hidden" name="theme" value="${theme}">
+          </c:forEach>
+          <c:forEach var="price" items="${search.price}">
+              <c:set var="i" value="${ i+1 }" />
+              <input type="hidden" name="price" value="${price}">
+          </c:forEach>
         </form>
 
         <form id="rating_order">  
@@ -131,6 +151,26 @@ pageEncoding="UTF-8"%>
            <c:forEach var="campAddr" items="${search.campAddr}">
               <c:set var="i" value="${ i+1 }" />
               <input type="hidden" name="campAddr" value="${campAddr}">
+          </c:forEach>
+          <c:forEach var="circumstance" items="${search.circumstance}">
+              <c:set var="i" value="${ i+1 }" />
+              <input type="hidden" name="circumstance" value="${circumstance}">
+          </c:forEach>
+          <c:forEach var="mainSite" items="${search.mainSite}">
+              <c:set var="i" value="${ i+1 }" />
+              <input type="hidden" name="mainSite" value="${mainSite}">
+          </c:forEach>
+          <c:forEach var="subSite" items="${search.subSite}">
+              <c:set var="i" value="${ i+1 }" />
+              <input type="hidden" name="subSite" value="${subSite}">
+          </c:forEach>
+          <c:forEach var="theme" items="${search.theme}">
+              <c:set var="i" value="${ i+1 }" />
+              <input type="hidden" name="theme" value="${theme}">
+          </c:forEach>
+          <c:forEach var="price" items="${search.price}">
+              <c:set var="i" value="${ i+1 }" />
+              <input type="hidden" name="price" value="${price}">
           </c:forEach>
         </form>
 
@@ -142,6 +182,26 @@ pageEncoding="UTF-8"%>
               <c:set var="i" value="${ i+1 }" />
               <input type="hidden" name="campAddr" value="${campAddr}">
           </c:forEach>
+          <c:forEach var="circumstance" items="${search.circumstance}">
+              <c:set var="i" value="${ i+1 }" />
+              <input type="hidden" name="circumstance" value="${circumstance}">
+          </c:forEach>
+          <c:forEach var="mainSite" items="${search.mainSite}">
+              <c:set var="i" value="${ i+1 }" />
+              <input type="hidden" name="mainSite" value="${mainSite}">
+          </c:forEach>
+          <c:forEach var="subSite" items="${search.subSite}">
+              <c:set var="i" value="${ i+1 }" />
+              <input type="hidden" name="subSite" value="${subSite}">
+          </c:forEach>
+          <c:forEach var="theme" items="${search.theme}">
+              <c:set var="i" value="${ i+1 }" />
+              <input type="hidden" name="theme" value="${theme}">
+          </c:forEach>
+          <c:forEach var="price" items="${search.price}">
+              <c:set var="i" value="${ i+1 }" />
+              <input type="hidden" name="price" value="${price}">
+          </c:forEach>
         </form>
 
         <form id="pagenavi">
@@ -151,6 +211,26 @@ pageEncoding="UTF-8"%>
            <c:forEach var="campAddr" items="${search.campAddr}">
               <c:set var="i" value="${ i+1 }" />
               <input type="hidden" name="campAddr" value="${campAddr}">
+          </c:forEach>
+          <c:forEach var="circumstance" items="${search.circumstance}">
+              <c:set var="i" value="${ i+1 }" />
+              <input type="hidden" name="circumstance" value="${circumstance}">
+          </c:forEach>
+          <c:forEach var="mainSite" items="${search.mainSite}">
+              <c:set var="i" value="${ i+1 }" />
+              <input type="hidden" name="mainSite" value="${mainSite}">
+          </c:forEach>
+          <c:forEach var="subSite" items="${search.subSite}">
+              <c:set var="i" value="${ i+1 }" />
+              <input type="hidden" name="subSite" value="${subSite}">
+          </c:forEach>
+          <c:forEach var="theme" items="${search.theme}">
+              <c:set var="i" value="${ i+1 }" />
+              <input type="hidden" name="theme" value="${theme}">
+          </c:forEach>
+          <c:forEach var="price" items="${search.price}">
+              <c:set var="i" value="${ i+1 }" />
+              <input type="hidden" name="price" value="${price}">
           </c:forEach>
           <input type="hidden" id="currentPage" name="currentPage" value="0"/>
         </form>

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html lang="" dir="ltr">
   <head>
@@ -115,15 +115,28 @@
             <c:forEach var="product" items="${list}" begin="0" step="1" end="3">
               <div class="col-sm-6 col-md-3 col-lg-3">
                 <div class="shop-item">
-                  <div class="shop-item-image">
-                  	<img src="${product.productImg1}" alt="Accessories Pack"/>
-                    <div class="shop-item-detail">
-	                  	<span hidden="hidden">${product.auctionProductSubDatail}</span>
-                    	<a class="btn btn-round btn-b">경매 시작하기!</a>
-                    </div>
-                  </div>
-                  <h4 class="shop-item-title font-alt"><a href="#">${product.auctionProductName}</a></h4>
-                  <span>${product.hashtag1} ${product.hashtag2} ${product.hashtag2}</span>			
+                  <c:if test="${!empty product.auctionProductSubDetail}">
+	                  <div class="shop-item-image">
+	                  	<img src="${product.productImg1}" alt="Accessories Pack"/>
+	                    <div class="shop-item-detail">
+		                  	<span hidden="hidden">${product.auctionProductSubDetail}</span>
+	                    	<a class="btn btn-round btn-b crawl">경매 시작하기!</a>
+	                    </div>
+	                  </div>
+	                  <h4 class="shop-item-title font-alt"><a href="#">${product.auctionProductName}</a></h4>
+	                  <span>${product.hashtag1} ${product.hashtag2} ${product.hashtag2}</span>			
+                  </c:if>
+                   <c:if test="${empty product.auctionProductSubDetail}">
+	                  <div class="shop-item-image">
+	                  	<img src="/uploadfiles/auctionimg/product/${product.productImg1}" alt="Accessories Pack"/>
+	                    <div class="shop-item-detail">
+		                  	<span hidden="hidden">${product.auctionProductNo}</span>
+	                    	<a class="btn btn-round btn-b notCrawl">경매 시작하기!</a>
+	                    </div>
+	                  </div>
+	                  <h4 class="shop-item-title font-alt"><a href="#">${product.auctionProductName}</a></h4>
+	                  <span>${product.hashtag1} ${product.hashtag2} ${product.hashtag2}</span>			
+                  </c:if>
                 </div>
               </div>
             </c:forEach>
@@ -134,7 +147,7 @@
                 <div class="shop-item">
                   <div class="shop-item-image"><img src="${product.productImg1}" alt="Accessories Pack"/>
                   	<div class="shop-item-detail">
-	                  	<span hidden="hidden">${product.auctionProductSubDatail}</span>
+	                  	<span hidden="hidden">${product.auctionProductSubDetail}</span>
                     	<a class="btn btn-round btn-b">경매 시작하기!</a>
                     </div>
                   </div>
@@ -165,9 +178,10 @@
       </div>
       <div class="scroll-up"><a href="#totop"><i class="fa fa-angle-double-up"></i></a></div>
       <form>
-      	<input type="hidden" id="auctionProductSubDatail" name="auctionProductSubDatail"/>
+      	<input type="hidden" id="auctionProductSubDetail" name="auctionProductSubDetail"/>
       	<input type="hidden" id="auctionProductName" name="auctionProductName"/>
       	<input type="hidden" id="allhashtag"name="allhashtag"/>
+      	<input type="hidden" id="auctionProductNo" name="auctionProductNo"/>
       </form>
     </main>
     <!--  
@@ -220,7 +234,7 @@
 					              				+ JSONData[i].productImg1
 				              					+ '" alt="Accessories Pack"/>'
 				                  				+ '<div class="shop-item-detail"><span hidden="hidden">'
-				                  				+ JSONData[i].auctionProductSubDatail
+				                  				+ JSONData[i].auctionProductSubDetail
 				                  				+ '</span><a class="btn btn-round btn-b">경매 시작하기!</a></div></div>'
 				                  				+ '</span><h4 class="shop-item-title font-alt"><a href="#">'
 				                   				+ JSONData[i].auctionProductName
@@ -244,7 +258,7 @@
 					              				+ JSONData[i].productImg1
 				              					+ '" alt="Accessories Pack"/>'
 				              					+ '<div class="shop-item-detail"><span hidden="hidden">'
-				                  				+ JSONData[i].auctionProductSubDatail
+				                  				+ JSONData[i].auctionProductSubDetail
 				                  				+ '</span><a class="btn btn-round btn-b">경매 시작하기!</a></div></div>'
 				                  				+ '<h4 class="shop-item-title font-alt"><a href="#">'
 				                   				+ JSONData[i].auctionProductName
@@ -269,14 +283,23 @@
   			});
   			 */
   		
-	  		$('body').on('click','.btn-b',function(){
-	   			var auctionProductSubDatail = $(this).prev().text();
+	   		$('body').on('click','.crawl',function(){
+	   			var auctionProductSubDetail = $(this).prev().text();
 	   			var auctionProductName = $(this).parent().parent().next().text();
 	   			var allhashtag = $(this).parent().parent().next().next().text();
-	   			$("#auctionProductSubDatail").val(auctionProductSubDatail);
+	   			$("#auctionProductSubDetail").val(auctionProductSubDetail);
 	   			$("#auctionProductName").val(auctionProductName);
 	   			$("#allhashtag").val(allhashtag);
 	   			$('form').attr('method','post').attr('action','/auction/getAuctionProduct').submit();
+	   		});
+  			 
+	   		$('body').on('click','.notCrawl',function(){
+	   			var auctionProductNo = $(this).prev().text();
+	   			$("#auctionProductNo").val(auctionProductNo);
+	   			$("#auctionProductSubDetail").remove();
+	   			$("#auctionProductName").remove();
+	   			$("#allhashtag").remove();
+	   			$('form').attr('method','GET').attr('action','/auction/getAuctionProduct').submit();
 	   		});
   	});
    	

@@ -20,6 +20,8 @@ public interface AuctionProductDAO {
 	
 	public void addAuctionProduct(AuctionProduct auctionProduct);
 	
+	public void updateAuctionProduct(AuctionProduct auctionProduct);
+	
 	public AuctionProduct getAuctionProduct(String auctionProductNo);
 	
 	public void updateAuctionProductViewCounter(String auctionProductNo);
@@ -37,4 +39,6 @@ public interface AuctionProductDAO {
 	public int mainAuctionProductCount(AuctionProduct auctionProduct);
 	
 	public List<AuctionProduct> listMainAuctionProduct();
+	
+	public void deleteAuctionProduct(AuctionInfo auctionInfo);
 }

@@ -64,12 +64,11 @@
 		WHERE product_sub_detail = #{value}
 	</select> 
 	
-	
 	<select id="listAuctionProduct" parameterType="search" resultMap="auction">
-		SELECT product_no, product_name, product_detail ,product_view_count, start_bid_price, hopeful_bid_price, auction_start_time, auction_end_time,
-               timediff(auction_end_time, now()) AS remain_time, hashtag1, hashtag2, hashtag3, product_img1
+		SELECT product_no, product_name, product_detail, product_sub_detail ,product_view_count, start_bid_price, hopeful_bid_price, auction_start_time, auction_end_time,
+               timediff(auction_end_time , NOW()) AS remain_time, hashtag1, hashtag2, hashtag3, product_img1
 			FROM AUCTION_PRODUCT
-			WHERE temp_save_flag = 'N' AND auction_status = 'START' 
+			WHERE temp_save_flag = 'N' AND auction_status = 'START'
 			<if test='role != null and role.equals("GENERAL")'>
 				AND delete_flag = 'N' AND NOW() BETWEEN auction_start_time AND auction_end_time
 			</if>
@@ -116,6 +115,14 @@
 	</insert>
 	
 	<insert id="addAuctionProduct" parameterType="auctionProduct">
+		INSERT INTO AUCTION_PRODUCT
+		(product_name, registrant_id, product_sub_detail, start_bid_price, hopeful_bid_price, bid_unit, auction_start_time, auction_end_time, bidable_grade, 
+		 hashtag1, hashtag2, hashtag3, product_img1, product_img2, product_img3, product_img4, product_img5) 
+		VALUES (#{auctionProductName}, #{registrantId} , #{auctionProductSubDetail}, #{startBidPrice}, #{hopefulBidPrice}, #{bidUnit}, #{auctionStartTime}, #{auctionEndTime},
+		        #{bidableGrade},#{hashtag1},#{hashtag2},#{hashtag3},#{productImg1}, #{productImg2}, #{productImg3}, #{productImg4}, #{productImg5});
+	</insert>
+	
+	<update id="updateAuctionProduct" parameterType="auctionProduct">
 		UPDATE AUCTION_PRODUCT
 		SET	product_name = #{auctionProductName}, 
 			product_detail = #{auctionProductDetail},
@@ -137,9 +144,9 @@
 		 	<if test="auctionStatus != null">
 			 	auction_status = #{auctionSatus},
 		 	</if>
-		 	temp_save_flag = 'N'
+		 	temp_save_flag = #{isTempSave}
 		WHERE product_no = #{auctionProductNo} AND registrant_id = #{registrantId};
-	</insert>
+	</update>
 	
 	<select id="getAuctionProduct" parameterType="String" resultMap="auction">
 		SELECT registrant_id, ap.product_no AS product_no, product_name, product_detail, product_sub_detail  , start_bid_price , hopeful_bid_price, bid_unit , auction_start_time, auction_end_time,
@@ -202,10 +209,13 @@
 		WHERE ap.product_no = mah.product_no AND timeout_flag = 'N'
 	</select>
 	
-	<update id="deleteAuctionProductManagement" parameterType="auctionProduct">
+	<update id="deleteAuctionProduct" parameterType="auctionInfo">
 		UPDATE AUCTION_PRODUCT
 		SET delete_flag = 'Y'
-		WHERE product_no = #{auctionProduct.auctionProductNo}
+		<if test='auctionStatus != null'>
+			, auction_status = #{auctionStatus}
+		</if>
+		WHERE product_no = #{auctionProductNo}
 	</update>
 
 </mapper>
