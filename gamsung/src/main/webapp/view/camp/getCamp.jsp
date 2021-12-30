@@ -12,7 +12,20 @@ pageEncoding="UTF-8"%>
     <!-- Document Title -->
     <title>GetCamp</title>
     
-    
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Shadows+Into+Light" rel="stylesheet" type="text/css">
+		<!-- Vendor CSS -->
+		<link href="../../resources/lib/bootstrap/css/bootstrap.css" rel="stylesheet" />
+		<link href="../../resources/lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
+		<link href="../../resources/lib/magnific-popup/magnific-popup.css" rel="stylesheet" />
+		<link href="../../resources/lib/bootstrap-datepicker/css/datepicker3.css" rel="stylesheet" />
+		<!-- Theme CSS -->
+		<link href="../../resources/css/theme.css" rel="stylesheet" />
+		<!-- Skin CSS -->
+		<link href="../../resources/css/skins/default.css" rel="stylesheet" />
+		<!-- Theme Custom CSS -->
+		<link href="../../resources/css/theme-custom.css" rel="stylesheet" >
+		<!-- Head Libs -->
+		<script src="../../resources/lib/modernizr/modernizr.js"></script>
     <!-- JavaScripts -->
     <script src="../../resources/lib/jquery/jquery.js"></script>
     <script src="../../resources/lib/bootstrap/js/bootstrap.min.js"></script>
@@ -27,10 +40,10 @@ pageEncoding="UTF-8"%>
     <script src="../../resources/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script>
     <script src="../../resources/js/plugins.js"></script>
     <script src="../../resources/js/main.js"></script>
-
+    <!-- Kakao Map-->
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6f8199ad71211c3df709f290a0e83244&libraries=services"></script>
     <!-- Default stylesheets-->
     <link href="../../resources/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    
     <!-- Template specific stylesheets-->
     <link href="../../resources/lib/animate.css/animate.css" rel="stylesheet">
     <link href="../../resources/lib/components-font-awesome/css/font-awesome.min.css" rel="stylesheet">
@@ -40,10 +53,16 @@ pageEncoding="UTF-8"%>
     <link href="../../resources/lib/owl.carousel/dist/assets/owl.theme.default.min.css" rel="stylesheet">
     <link href="../../resources/lib/magnific-popup/magnific-popup.css" rel="stylesheet">
     <link href="../../resources/lib/simple-text-rotator/simpletextrotator.css" rel="stylesheet">       
-    
     <!-- Main stylesheet and color file-->
     <link href="../../resources/css/style.css" rel="stylesheet">
     <link id="color-scheme" href="../../resources/css/colors/default.css" rel="stylesheet">  
+
+    <style>
+
+      img { display : block;
+            margin : auto;}
+
+    </style>
 
     <script type="text/javascript">
           
@@ -68,21 +87,17 @@ pageEncoding="UTF-8"%>
           <div class="container">
             <div class="row">
               <div class="col-sm-6 mb-sm-40">
-                <a class="gallery" href="/uploadfiles/campimg/campbusiness/camp/${camp.campImg1}">
-                  <img src="/uploadfiles/campimg/campbusiness/camp/${camp.campImg1}" onerror="this.src='/uploadfiles/campimg/campbusiness/camp/no_image.jpg'" /></a>
-                <ul class="product-gallery">
-                  <li><a class="gallery" href="/uploadfiles/campimg/campbusiness/camp/${camp.campImg2}"></a><img src="/uploadfiles/campimg/campbusiness/camp/${camp.campImg2}" /></li>
-                  <li><a class="gallery" href="/uploadfiles/campimg/campbusiness/camp/${camp.campImg3}"></a><img src="/uploadfiles/campimg/campbusiness/camp/${camp.campImg3}" /></li>
-                  <li><a class="gallery" href="/uploadfiles/campimg/campbusiness/camp/${camp.campImg4}"></a><img src="/uploadfiles/campimg/campbusiness/camp/${camp.campImg4}" /></li>
-                  <li><a class="gallery" href="/uploadfiles/campimg/campbusiness/camp/${camp.campImg5}"></a><img src="/uploadfiles/campimg/campbusiness/camp/${camp.campImg5}" /></li>
-                </ul>
+                <a class="image-popup-vertical-fit" href="/uploadfiles/campimg/campbusiness/camp/${camp.campImg1}" >
+                  <img class="img-responsive" src="/uploadfiles/campimg/campbusiness/camp/${camp.campImg1}" onerror="this.src='/uploadfiles/campimg/campbusiness/camp/no_image.jpg'" >
+                </a>
               </div>
               <div class="col-sm-6">
                 <div class="row">
                   <div class="col-sm-12">
-                    <h1 class="product-title font-alt">${camp.user.campName}&nbsp;캠핑장</h1>
+                    <h1 class="product-title font-alt" style="margin-bottom: 0px;">${camp.user.campName}&nbsp;캠핑장</h1>
                   </div>
                 </div>
+                <hr>
                 <div class="row mb-20">
                   <div class="col-sm-12">
                     <span><i class="fa fa-star star"></i></span>
@@ -98,65 +113,249 @@ pageEncoding="UTF-8"%>
                     <div class="price"><span style="font-size: medium;">${camp.user.addr}</span></div>
                   </div>
                 </div>
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div><span style="font-size: small;">전화번호&nbsp;:&nbsp;${camp.user.campCall}</span></div>
+                  </div>
+                </div>
+                <hr>
                 <div class="row mb-20">
                   <div class="col-sm-12">
                     <div class="description">
-                      <p>주요시설&nbsp;:&nbsp;글램핑</p>
+                      <p style="margin-bottom: 0px;">
+                        주요시설&nbsp;:&nbsp;
+                      <c:set var="i" value="0" />
+                      <c:forEach var="mainSiteType" items="${mainSiteType}">
+                         <c:set var="i" value="${ i+1 }" />
+                          ${mainSiteType}&nbsp;
+                      </c:forEach>
+                      </p>
                     </div>
                   </div>
-                </div>
-                <div class="row mb-20">
-                  <div class="col-sm-4 mb-sm-20">
-                    <input class="form-control input-lg" type="number" name="" value="1" max="40" min="1" required="required"/>
-                  </div>
-                  <div class="col-sm-8"><a class="btn btn-lg btn-block btn-round btn-b" href="#">Add To Cart</a></div>
                 </div>
                 <div class="row mb-20">
                   <div class="col-sm-12">
-                    <div class="product_meta">Categories:<a href="#"> Man, </a><a href="#">Clothing, </a><a href="#">T-shirts</a>
+                    <div class="description">
+                      <p style="margin-bottom: 0px;">운영형태&nbsp;:&nbsp;${camp.campOperation1},&nbsp;${camp.campOperation2}</p>
                     </div>
                   </div>
                 </div>
+                <div class="row mb-20">
+                  <div class="col-sm-12">
+                    <div class="description">
+                      <p style="margin-bottom: 0px;">주변환경&nbsp;:&nbsp;${camp.campNature1},&nbsp;${camp.campNature2}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="row mb-20">
+                  <div class="col-sm-12">
+                    <div class="description">
+                      <p style="margin-bottom: 0px;">테마&nbsp;:&nbsp;${camp.campTheme1},&nbsp;${camp.campTheme2}</p>
+                    </div>
+                  </div>
+                </div>
+                <hr>
+                <div class="row mb-20">
+                 <div class="col-sm-12"><a class="btn btn-lg btn-block btn-round btn-b" href="#">예약하기</a></div>
+                </div>
               </div>
             </div>
+            <hr>
+              <div class="row mb-20">
+                <div class="col-sm-12" style="text-align: center;">
+                  이번달&nbsp;총&nbsp;조회수&nbsp;:&nbsp;<span style="color: rgb(230, 173, 17);">${camp.campViewCountCurrentMonth}건</span>&nbsp;&nbsp;&nbsp;
+                  이번달&nbsp;총&nbsp;예약자수&nbsp;:&nbsp;<span style="color: rgb(230, 173, 17);">${camp.campReservationCount}명</span>&nbsp;입니다.
+                </div>
+              </div>
+            <hr>
             <div class="row mt-70">
               <div class="col-sm-12">
-                <ul class="nav nav-tabs font-alt" role="tablist">
-                  <li class="active"><a href="#description" data-toggle="tab"><span class="icon-tools-2"></span>Description</a></li>
-                  <li><a href="#data-sheet" data-toggle="tab"><span class="icon-tools-2"></span>Data sheet</a></li>
-                  <li><a href="#reviews" data-toggle="tab"><span class="icon-tools-2"></span>Reviews (2)</a></li>
+                <ul class="nav nav-tabs font-alt" role="tablist" id="myTab">
+                  <li class="active" ><a href="#introduce" data-toggle="tab"><span class="icon-magnifying-glass"></span>캠핑장소개</a></li>
+                  <li><a href="#useinfo" data-toggle="tab"><span class="icon-magnifying-glass"></span>이용안내</a></li>
+                  <li><a href="#mapview" data-toggle="tab"><span class="icon-magnifying-glass"></span>위치/주변정보</a></li>
+                  <li><a href="#notice" data-toggle="tab"><span class="icon-magnifying-glass"></span>공지사항</a></li>
+                  <li><a href="#qna" data-toggle="tab"><span class="icon-magnifying-glass"></span>Q&A</a></li>
+                  <li><a href="#reviews" data-toggle="tab"><span class="icon-magnifying-glass"></span>평점&리뷰</a></li>
                 </ul>
+
+
                 <div class="tab-content">
-                  <div class="tab-pane active" id="description">
-                    <p>Everyone realizes why a new common language would be desirable: one could refuse to pay expensive translators. To achieve this, it would be necessary to have uniform grammar, pronunciation and more common words. If several languages coalesce, the grammar of the resulting language is more simple and regular than that of the individual languages.</p>
-                    <p>The European languages are members of the same family. Their separate existence is a myth. For science, music, sport, etc, Europe uses the same vocabulary. The languages only differ in their grammar, their pronunciation and their most common words.</p>
+
+
+                  <div class="tab-pane active" id="introduce">
+                    <div calss="row">
+                      <div class="col-sm-3 mb-sm-20">
+                        <a class="image-popup-vertical-fit" href="/uploadfiles/campimg/campbusiness/camp/${camp.campImg2}" >
+                          <img class="img-responsive" src="/uploadfiles/campimg/campbusiness/camp/${camp.campImg2}" onerror="this.src='/uploadfiles/campimg/campbusiness/camp/no_image.jpg'" >
+                        </a>
+                      </div>
+                      <div class="col-sm-3 mb-sm-20">
+                        <a class="image-popup-vertical-fit" href="/uploadfiles/campimg/campbusiness/camp/${camp.campImg3}" >
+                          <img class="img-responsive" src="/uploadfiles/campimg/campbusiness/camp/${camp.campImg3}" onerror="this.src='/uploadfiles/campimg/campbusiness/camp/no_image.jpg'" >
+                        </a>
+                      </div>
+                      <div class="col-sm-3 mb-sm-20">
+                        <a class="image-popup-vertical-fit" href="/uploadfiles/campimg/campbusiness/camp/${camp.campImg4}" >
+                          <img class="img-responsive" src="/uploadfiles/campimg/campbusiness/camp/${camp.campImg4}" onerror="this.src='/uploadfiles/campimg/campbusiness/camp/no_image.jpg'" >
+                        </a>
+                      </div>
+                      <div class="col-sm-3 mb-sm-20">
+                        <a class="image-popup-vertical-fit" href="/uploadfiles/campimg/campbusiness/camp/${camp.campImg5}" >
+                          <img class="img-responsive" src="/uploadfiles/campimg/campbusiness/camp/${camp.campImg5}" onerror="this.src='/uploadfiles/campimg/campbusiness/camp/no_image.jpg'" >
+                        </a>
+                      </div>
+                    </div>
+                    <div calss="row">
+                      <div calss="col-sm-12">
+                        &nbsp;
+                      </div>
+                    </div>
+                    <div calss="row">
+                      <div calss="col-sm-12" style="text-align: center; font-size: large;">
+                        <span class="icon-happy"></span>&nbsp;캠핑장 요약 정보&nbsp;<span class="icon-happy"></span>
+                      </div>
+                      <hr>
+                      <div calss="col-sm-12" style="text-align: center; ">
+                        ${camp.campSummery}
+                      </div>
+                    </div>
+                    <hr>
+                    <div calss="row">
+                      <div calss="col-sm-12" style="text-align: center; font-size: large;">
+                        <span class="icon-happy"></span>&nbsp;캠핑장 상세 정보&nbsp;<span class="icon-happy"></span>
+                      </div>
+                      <hr>
+                      <div calss="col-sm-12" style="text-align: center; ">
+                        ${camp.campDetail}
+                      </div>
+                    </div>
                   </div>
-                  <div class="tab-pane" id="data-sheet">
-                    <table class="table table-striped ds-table table-responsive">
-                      <tbody>
-                        <tr>
-                          <th>Title</th>
-                          <th>Info</th>
-                        </tr>
-                        <tr>
-                          <td>Compositions</td>
-                          <td>Jeans</td>
-                        </tr>
-                        <tr>
-                          <td>Size</td>
-                          <td>44, 46, 48</td>
-                        </tr>
-                        <tr>
-                          <td>Color</td>
-                          <td>Black</td>
-                        </tr>
-                        <tr>
-                          <td>Brand</td>
-                          <td>Somebrand</td>
-                        </tr>
-                      </tbody>
-                    </table>
+
+
+                  <div class="tab-pane" id="useinfo">
+                    <div calss="row">
+                      <div calss="col-sm-12" style="text-align: center; font-size: large;">
+                        <span class="icon-happy"></span>&nbsp;캠핑장 지도&nbsp;<span class="icon-happy"></span>
+                      </div>
+                      <hr>
+                      <div calss="row" >
+                      <div class="col-sm-push-12">
+                        <a class="image-popup-vertical-fit" href="/uploadfiles/campimg/campbusiness/camp/${camp.campMapImg}" >
+                          <img class="img-responsive" style="width: 800px; height: 400px; " src="/uploadfiles/campimg/campbusiness/camp/${camp.campMapImg}" onerror="this.src='/uploadfiles/campimg/campbusiness/camp/no_image.jpg'" >
+                        </a>
+                      </div>
+                    </div>
+                    </div>
+                    <div calss="row">
+                      <hr>
+                    </div>
+                    <div calss="row">
+                      <div calss="col-sm-12" style="text-align: center; font-size: large;">
+                        <span class="icon-happy"></span>&nbsp;주요시설안내&nbsp;<span class="icon-happy"></span>
+                      </div>
+                      <hr>
+                      <div calss="col-sm-12"">
+                        <c:set var="i" value="0" />
+                          <c:forEach var="mainSite" items="${mainSite}">
+                            <c:set var="i" value="${ i+1 }" />
+                            <c:set var="type" value="${mainSite.mainSiteType}" />
+                             <div class="row">
+                              <div class="col-sm-3 mb-sm-20">
+                                <a class="image-popup-vertical-fit" href="/uploadfiles/campimg/campbusiness/mainsite/${mainSite.mainSiteImg1}" >
+                                  <img class="img-responsive" src="/uploadfiles/campimg/campbusiness/mainsite/${mainSite.mainSiteImg1}" onerror="this.src='/uploadfiles/campimg/campbusiness/camp/no_image.jpg'" >
+                                </a>
+                              </div>
+                              <div class="col-lg-9">
+                                 <div class="row">
+                                    <div class="col-xs-12" style="font-size: large; font-weight: bold ">${mainSite.mainSiteType}&nbsp;(${mainSite.mainSiteName})</div>
+                                 </div>   
+                                 <div class="row">
+                                  <div class="col-xs-12">${mainSite.mainSiteInfo}</div>
+                                 </div>
+                                 <hr>
+                                 <div class="row">
+                                   <div class="col-xs-12" style="font-size: medium;"> 기본 사용인원 : ${mainSite.mainSiteMinCapacity}인 (최대 사용인원 : (${mainSite.mainSiteMaxCapacity}인)</div>
+                                 </div>
+                                 <div class="row">
+                                   <div class="col-xs-12"> 이용가격(1박) : ${mainSite.mainSiteMinPrice}원 (인원 추가금 : ${mainSite.mainSiteAddPrice}원)</div>
+                                 </div>
+                               </div>       
+                           </div>
+                           <hr>
+                          </c:forEach>
+                      </div>
+                    </div>
                   </div>
+
+
+                  <div class="tab-pane" id="mapview">
+                    <div id="map" style="width:100%;height:350px;"></div>
+                    <hr>
+
+                    <script>
+                      var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+                          mapOption = {
+                              center: new kakao.maps.LatLng(1, 1), // 지도의 중심좌표
+                              level: 3 // 지도의 확대 레벨
+                          };  
+                      
+                        // 지도를 생성합니다    
+                        var map = new kakao.maps.Map(mapContainer, mapOption); 
+                                           
+                      $('#myTab a').click(function (e) {
+                        e.preventDefault()
+                        $(this).tab('show');
+                        setTimeout(function(){
+                          map.relayout();
+
+                          // 주소-좌표 변환 객체를 생성합니다
+                          var geocoder = new kakao.maps.services.Geocoder();
+
+                          // 주소로 좌표를 검색합니다
+                            geocoder.addressSearch('서울특별시 종로구 종로2가 9', function(result, status) {
+                            
+                            // 정상적으로 검색이 완료됐으면 
+                            if (status === kakao.maps.services.Status.OK) {
+                        
+                                var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+                        
+                                // 결과값으로 받은 위치를 마커로 표시합니다
+                                var marker = new kakao.maps.Marker({
+                                    map: map,
+                                    position: coords
+                                });
+                        
+                                // 인포윈도우로 장소에 대한 설명을 표시합니다
+                                var infowindow = new kakao.maps.InfoWindow({
+                                    content: '<div style="width:150px;text-align:center;padding:6px 0;">캠핑장</div>'
+                                });
+                                infowindow.open(map, marker);
+                                
+                                 // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+                                map.setCenter(coords);
+                                } 
+                            }); 
+                        });  
+                      });
+                    </script>
+                  </div>
+
+
+                  <div class="tab-pane" id="notice">
+                    <div calss="row" style="text-align: center; font-size: xx-large;">
+                        공지사항
+                    </div>
+                  </div>
+
+
+                  <div class="tab-pane" id="qna">
+                    <div calss="row" style="text-align: center; font-size: xx-large;">
+                      Q&A
+                  </div>
+                  </div>
+
+
                   <div class="tab-pane" id="reviews">
                     <div class="comments reviews">
                       <div class="comment clearfix">
@@ -230,6 +429,24 @@ pageEncoding="UTF-8"%>
         <hr class="divider-w">
         
     </main>
-            
+  
+    <script src="../../resources/lib/jquery/jquery.js"></script>
+		<script src="../../resources/lib/jquery-browser-mobile/jquery.browser.mobile.js"></script>
+		<script src="../../resources/lib/bootstrap/js/bootstrap.js"></script>
+		<script src="../../resources/lib/nanoscroller/nanoscroller.css"></script>
+		<script src="../../resources/lib/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+		<script src="../../resources/lib/magnific-popup/magnific-popup.js"></script>
+		<script src="../../resources/lib/jquery-placeholder/jquery.placeholder.js"></script>
+		<!-- Specific Page Vendor -->
+		<script src="../../resources/lib/pnotify/pnotify.custom.js"></script>
+		<!-- Theme Base, Components and Settings -->
+		<script src="../../resources/js/theme.js"></script>
+		<!-- Theme Custom -->
+		<script src="../../resources/js/theme.custom.js"></script>
+		<!-- Theme Initialization Files -->
+		<script src="../../resources/js/theme.init.js"></script>
+    <!-- Examples -->
+		<script src="../../resources/js/examples.lightbox.js"></script>
+
   </body>
 </html>

@@ -2,12 +2,15 @@ package site.gamsung.service.transfer.impl;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
+import site.gamsung.service.domain.CampReservation;
+import site.gamsung.service.domain.Receive;
 import site.gamsung.service.domain.Transfer;
 import site.gamsung.service.transfer.TransferDAO;
 
@@ -36,7 +39,7 @@ public class TransferDAOImpl implements TransferDAO {
 	}
 
 	@Override
-	public List<Transfer> listTransfer(HashMap<String, Object> map) throws Exception {
+	public List<Transfer> listTransfer(Map<String, Object> map) throws Exception {
 		return sqlSession.selectList("TransferMapper.listTransfer", map);
 	}
 
@@ -60,6 +63,25 @@ public class TransferDAOImpl implements TransferDAO {
 		return sqlSession.update("TransferMapper.blindTransfer", transferNo);
 	}
 
+	@Override
+	public int updateReservationStatus(String reservationNo) throws Exception {
+	return sqlSession.update("TransferMapper.updateReservationStatus", reservationNo);	
+	}
 	
 	
+	@Override
+	public boolean isSecessionTransferCondition(String id) throws Exception {
+		
+		List<Transfer> list= sqlSession.selectList("TransferMapper.getTransferStatus", id);
+		
+		List<Receive> list2= sqlSession.selectList("ReceiveMapper.getReceiveStatus", id);		
+		//리턴 값이 있으면 회원 탈퇴 불가 : flag false. 리턴 값이 없으면 회원 탈퇴 가능 : flag true.
+		
+		if(list.size() != 0 && list2.size() !=0) {
+			return false;
+		}else {
+			return true;
+		}
+	
+	}
 }

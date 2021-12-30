@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+		
+
+	<mapper namespace="ReceiveMapper">
+
+	<resultMap id="receiveMapper" type="receive">
+		<result property="receiveNo"    		 	   column="receive_no"     	    jdbcType="NUMERIC"/>
+		<result property="transferee.id"	   	 	   column="user_id" 	        jdbcType="VARCHAR"/>
+		<result property="receiveRegdate"       	   column="receive_reg_date"    jdbcType="VARCHAR"/>
+		<result property="receiveStatus"  		 	   column="receive_status" 	    jdbcType="NUMERIC"/>
+		<result property="receiveTitle"    		 	   column="receive_title"       jdbcType="VARCHAR"/>
+		<result property="receiveContent" 	 		   column="receive_content"     jdbcType="VARCHAR"/>
+		<result property="receiveCancleDate"  		   column="receive_cancel_date" jdbcType="VARCHAR"/>
+		<result property="deleteFlag"		 		   column="delete_flag"     	jdbcType="CHAR"/>
+		<result property="receivePhone"	 			   column="transfer_ee_phone"   jdbcType="VARCHAR"/>		
+		<result property="transferNo.transferNo"	   column="transfer_no"         jdbcType="NUMERIC"/>		
+	</resultMap> 
+
+	<!-- SQL : INSERT -->
+	<!-- 양수 신청글 등록 -->
+
+	<insert    id="addReceive"      parameterType="receive" >
+      INSERT 
+      INTO  GAMSUNG.RECEIVE(user_id,receive_title,receive_content,transfer_ee_phone,transfer_no)
+      VALUES (#{transferee.id},#{receiveTitle:VARCHAR},#{receiveContent:VARCHAR},#{receivePhone:VARCHAR},#{transferNo.transferNo:NUMERIC})    
+	</insert>
+    	 
+	<!-- SQL : SELECT --> 	 
+	<!-- 양수 신청글 상세조회 -->
+
+	 <select id="getReceive" parameterType="int" resultMap="receiveMapper">
+	  SELECT
+	  receive_content,transfer_ee_phone
+	  FROM  GAMSUNG.RECEIVE
+      WHERE receive_no = #{value}
+	 </select> 
+	 
+	 
+	 
+	 <!-- 가지고 온 양도글 번호로 양도글 작성자 id, 닉네임  조회  -->
+	 <select id="getTransferUser" parameterType="int" resultType="map">
+	 
+	 SELECT u.user_id id, u.nick_name nickname 
+	 FROM transfer t , (SELECT user_id, nick_name
+			   			FROM users) u 
+	 WHERE u.user_id = t.user_id 
+	 AND t.transfer_no = #{value}
+	 </select> 
+	 
+ 
+	<!-- 	양수 신청글 : 내가 쓴 양수 List parameter로는 serach, userid -->
+
+	<select  id="listMyReceive"  parameterType="search"	resultMap="receiveMapper">
+	SELECT S.* 
+	FROM (SELECT @rownum:= @rownum+1 AS R , RE.* 
+		  FROM (SELECT *
+			    FROM RECEIVE								  
+	  		    WHERE delete_flag = 'N' 
+	  		    AND user_id = #{id}	  		    
+			    ORDER BY receive_no ) RE, (select @rownum:= 0) M
+		  WHERE @rownum  <![CDATA[ <=]]>  #{endRowNum}  ) S
+	      WHERE R BETWEEN  #{startRowNum} AND #{endRowNum} 
+    </select>
+   
+	<!-- 	양수 신청글 : 해당 양도의 양수 List parameter로는 serach, transferNo -->
+
+	<select  id="listReceive"  parameterType="search"	resultMap="receiveMapper">
+	SELECT S.* 
+	FROM (SELECT @rownum:= @rownum+1 AS R , RE.* 
+		  FROM (SELECT *
+			    FROM RECEIVE								  
+	  		    WHERE delete_flag = 'N' 
+	  		    AND transfer_no = #{transferNo} 		    
+			    ORDER BY receive_no ) RE, (select @rownum:= 0) M
+		  WHERE @rownum  <![CDATA[ <=]]>  #{endRowNum}  ) S
+	      WHERE R BETWEEN  #{startRowNum} AND #{endRowNum} 
+    </select>     	
+	 
+	<!-- 	SQL : UPDATE 	  -->
+ 	
+	<!-- 	 내가 작성한 양도글의 양수글 List에서 양수승인 클릭 -> 양도, 양수 status 2로 변경.   -->
+ 	<update	id="updateApprovalStatus" parameterType="int"  >
+	UPDATE TRANSFER T1 RIGHT JOIN RECEIVE T2
+	ON (T1.transfer_no = T2.transfer_no) 
+		<set> 
+		T1.transfer_status = 2, 
+		T2.receive_status = 2 
+	   	</set>
+		WHERE T1.transfer_no = #{value};
+	</update>
+	
+	<!-- 	양도완료로 변경  -> 양도, 양수 status 3로 변경.   -->
+ 	<update	id="updateCompleteStatus" parameterType="int"  >
+	UPDATE TRANSFER T1 RIGHT JOIN RECEIVE T2
+	ON (T1.transfer_no = T2.transfer_no) 
+		<set> 
+		T1.transfer_status = 3, 
+		T2.receive_status = 3 
+	   	</set>
+		WHERE T1.transfer_no = #{value};
+	</update>	
+	
+	<!-- 	양도글 삭제  -->
+ 	<update	id="deleteReceive"	parameterType="int" >
+	 UPDATE RECEIVE
+		<set> 
+	 		delete_flag = 'Y'
+		</set>
+	 WHERE receive_no = #{value}
+	 </update> 
+
+	<!-- 	양도글 블라인드 처리 관리자일 경우 가능하다. 	  -->	 
+ 	<update	id="blindReceive"	parameterType="int" >
+	 UPDATE RECEIVE
+		<set> 
+	 		delete_flag = 'X'
+		</set>
+	 WHERE receive_no = #{value}
+	 </update> 
+
+	<!-- 	양도글 수정 	  -->	 
+	<update	id="updateReceive"	parameterType="receive" >
+		 UPDATE RECEIVE
+	   	<set>
+		receive_title= #{receiveTitle:VARCHAR},
+		receive_content= #{receiveContent:VARCHAR},
+		transfer_ee_phone= #{receivePhone:VARCHAR}
+	   	</set>
+	   	WHERE receive_no = #{receiveNo}
+	 </update> 
+	 
+	<!-- 	회원탈퇴값 조회 결과가 있으면 1,2상태값을 가진 userid로 1,2상태값을 가진 양수글이 있다는것. 3	 	  -->
+	<select id="getReceiveStatus" parameterType="String" resultMap="receiveMapper">
+		SELECT receive_status 
+		FROM RECEIVE	
+		WHERE user_id = #{value} AND receive_status IN ('1','2')
+	</select> 
+	 
+</mapper> 

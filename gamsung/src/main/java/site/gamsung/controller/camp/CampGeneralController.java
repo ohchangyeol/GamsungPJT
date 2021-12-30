@@ -89,10 +89,12 @@ public class CampGeneralController {
 		model.addAttribute("camp", map.get("camp"));
 		model.addAttribute("mainSite", map.get("mainSite"));
 		model.addAttribute("subSite", map.get("subSite"));
+		model.addAttribute("mainSiteType", map.get("mainSiteType"));
 		
 		System.out.println(map.get("camp"));
 		System.out.println(map.get("mainSite"));
 		System.out.println(map.get("subSite"));
+		System.out.println(map.get("mainSiteType"));
 		
 		return "forward:/view/camp/getCamp.jsp";
 	}

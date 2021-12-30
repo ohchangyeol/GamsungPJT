@@ -101,7 +101,7 @@ public class CommunityTest {
 
 	}
 
-	@Test
+	//@Test
 	public void testListPost() throws Exception {
 
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -124,7 +124,7 @@ public class CommunityTest {
 		search.setCurrentPage(1); 
 		search.setPageSize(10);
 		search.setSearchCondition("3"); 
-		search.setSearchKeyword("명식");
+		search.setSearchKeyword("강아지");
 		
 		Post post = new Post();
 		post.setPostType(2);
