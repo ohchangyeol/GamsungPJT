@@ -1,7 +1,9 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en-US" dir="ltr">
   <head>
-    <meta charset="utf-8">
+	<meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--  
@@ -36,7 +38,7 @@
     
     -->
     <!-- Default stylesheets-->
-    <link href="../../resources/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../resources/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Template specific stylesheets-->
     <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Volkhov:400i" rel="stylesheet">
@@ -45,9 +47,9 @@
     <link href="../../resources/lib/components-font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="../../resources/lib/et-line-font/et-line-font.css" rel="stylesheet">
     <link href="../../resources/lib/flexslider/flexslider.css" rel="stylesheet">
-    <link href="../../resources/lib/owl.carousel/dist/../..//owl.carousel.min.css" rel="stylesheet">
-    <link href="../../resources/lib/owl.carousel/dist/../..//owl.theme.default.min.css" rel="stylesheet">
-    <link href="../../resources/lib/magnific-popup/dist/magnific-popup.css" rel="stylesheet">
+    <link href="../../resources/lib/owl.carousel/dist/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="../../resources/lib/owl.carousel/dist/assets/owl.theme.default.min.css" rel="stylesheet">
+    <link href="../../resources/lib/magnific-popup/magnific-popup.css" rel="stylesheet">
     <link href="../../resources/lib/simple-text-rotator/simpletextrotator.css" rel="stylesheet">
     <!-- Main stylesheet and color file-->
     <link href="../../resources/css/style.css" rel="stylesheet">
@@ -58,7 +60,10 @@
       <div class="page-loader">
         <div class="loader">Loading...</div>
       </div>
-      <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+        <!-- header -->
+       <jsp:include page="../common/header.jsp"/>     
+ <!--<nav class="navbar navbar-custom navbar-fixed-top" role="navigation">-->
+        <!-- headerEnd -->
         <div class="container">
           <div class="navbar-header">
             <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#custom-collapse"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="index.html">Titan</a>
@@ -369,13 +374,13 @@
                   </form>
                 </div>
                 <div class="widget">
-                  <h5 class="widget-title font-alt">Blog Categories</h5>
+                  <h5 class="widget-title font-alt">C O M M U N I T Y</h5>
                   <ul class="icon-list">
-                    <li><a href="#">Photography - 7</a></li>
-                    <li><a href="#">Web Design - 3</a></li>
-                    <li><a href="#">Illustration - 12</a></li>
-                    <li><a href="#">Marketing - 1</a></li>
-                    <li><a href="#">Wordpress - 16</a></li>
+                    <li><a href="#">캠핑 리포트</a></li>
+                    <li><a href="#">캠핑 노하우</a></li>
+                    <li><a href="#">추억 한 컷</a></li>
+                    <li><a href="#">캠핑 기록</a></li>
+                    <li><a href="#">캠핑 지식인 </a></li>
                   </ul>
                 </div>
                 <div class="widget">
@@ -420,14 +425,6 @@
                   <h5 class="widget-title font-alt">Text</h5>The languages only differ in their grammar, their pronunciation and their most common words. Everyone realizes why a new common language would be desirable: one could refuse to pay expensive translators.
                 </div>
                 <div class="widget">
-                  <h5 class="widget-title font-alt">Recent Comments</h5>
-                  <ul class="icon-list">
-                    <li>Maria on <a href="#">Designer Desk Essentials</a></li>
-                    <li>John on <a href="#">Realistic Business Card Mockup</a></li>
-                    <li>Andy on <a href="#">Eco bag Mockup</a></li>
-                    <li>Jack on <a href="#">Bottle Mockup</a></li>
-                    <li>Mark on <a href="#">Our trip to the Alps</a></li>
-                  </ul>
                 </div>
               </div>
               <div class="col-sm-8 col-sm-offset-1">
@@ -590,16 +587,16 @@
     JavaScripts
     =============================================
     -->
-    <script src="../../resources/lib/jquery/dist/jquery.js"></script>
-    <script src="../../resources/lib/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="../../resources/lib/wow/dist/wow.js"></script>
+    <script src="../../resources/lib/jquery/jquery.js"></script>
+    <script src="../../resources/lib/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../../resources/lib/wow/wow.js"></script>
     <script src="../../resources/lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js"></script>
-    <script src="../../resources/lib/isotope/dist/isotope.pkgd.js"></script>
+    <script src="../../resources/lib/isotope/isotope.pkgd.js"></script>
     <script src="../../resources/lib/imagesloaded/imagesloaded.pkgd.js"></script>
     <script src="../../resources/lib/flexslider/jquery.flexslider.js"></script>
     <script src="../../resources/lib/owl.carousel/dist/owl.carousel.min.js"></script>
     <script src="../../resources/lib/smoothscroll.js"></script>
-    <script src="../../resources/lib/magnific-popup/dist/jquery.magnific-popup.js"></script>
+    <script src="../../resources/lib/magnific-popup/magnific-popup.js"></script>
     <script src="../../resources/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script>
     <script src="../../resources/js/plugins.js"></script>
     <script src="../../resources/js/main.js"></script>

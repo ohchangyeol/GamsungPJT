@@ -14,10 +14,12 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 public class SendMail {
-		
-	public void mailSend(String id, String info, String text) {
-		
 	
+	public void sendMail() {}
+		
+
+	public void sendMail(String id, String info, String text) {
+
 		Properties prop = System.getProperties();
 		
         // 로그인시 TLS를 사용할 것인지 설정

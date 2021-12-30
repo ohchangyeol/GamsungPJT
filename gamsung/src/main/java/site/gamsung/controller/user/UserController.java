@@ -78,21 +78,13 @@ public class UserController {
 		return "forward:/view/user/loginView.jsp";
 	}
 	
-//	@RequestMapping( value="loginWithKakao", method=RequestMethod.GET )
-//	public String loginWithKakao() throws Exception{
-//		
-//		System.out.println("/user/logon : GET");
-//
-//		return "forward:/view/user/loginWithKakao.jsp";
-//	}
-//	
 
 	@RequestMapping(value="login", method=RequestMethod.POST)
 	public String login(@ModelAttribute("user") User user, HttpSession session) throws Exception{
 		
 		System.out.println("/user/login : POST");
 		//Business Logic
-		User dbUser=userService.getUser(user.getId());
+		User dbUser=userService.checkIdPassword(user);
 		
 		if(dbUser == null) {
 			return "forward:/main.jsp";
@@ -118,19 +110,20 @@ public class UserController {
 		}
 		
 		String jsp ="forward:/main.jsp";
-		String pw = user.getPassword();
-		System.out.println("비밀번호"+pw);
-		System.out.println("솔트"+dbUser.getSalt());
-		String newPwd = SHA256Util.getEncrypt(pw, dbUser.getSalt());
-		System.out.println("암호화"+newPwd);
+//		String pw = user.getPassword();
+//		System.out.println("비밀번호"+pw);
+//		System.out.println("솔트"+dbUser.getSalt());
+//		String newPwd = SHA256Util.getEncrypt(pw, dbUser.getSalt());
+//		System.out.println("암호화"+newPwd);
 		
-		if(newPwd.equals(dbUser.getPassword())) {
+	
+		if(dbUser != null) {
 			System.out.println("로그인 시작");
 			
 			if(dbUser.getNickName() != null) {
 				jsp = "redirect:/main.jsp";
 			}else if(dbUser.getBusinessUserApprovalFlag() != null && dbUser.getBusinessUserApprovalFlag().equals("Y")) {
-				jsp = "forward:/campbusiness/goSubMainCampBusiness"; 
+				jsp = "forward:/campbusiness/goSubMainCampBusiness.jsp"; 
 		    }else {
 		    	return "아직 회원가입 승인안됨.jsp";
 		    }
@@ -147,7 +140,6 @@ public class UserController {
 	@RequestMapping(value="logout", method=RequestMethod.GET)
 	public String logout(HttpSession session) throws Exception{
 		
-		
 		System.out.println("/user/logout : GET");
 		
 		session.invalidate();
@@ -155,37 +147,58 @@ public class UserController {
 		return "redirect:/main.jsp";
 		
 	}
-	
+		
 
 	@RequestMapping(value = "getKakaoAuthUrl", method= RequestMethod.GET)
 	public @ResponseBody String getKakaoAuthUrl(HttpServletRequest request) throws Exception {
 		String reqUrl = 
 				"https://kauth.kakao.com/oauth/authorize"
 				+ "?client_id=5069ddcbe63e1882c2df7cc176f1a96f"
-				+ "&redirect_uri=http://localhost:8080/gamsung/user/kakao_callback"
+				+ "&redirect_uri=http://localhost:8080/user/kakaoCallback"
 				+ "&response_type=code";
 		
 		return reqUrl;
 	}
 	
 	// 카카오 연동정보 조회
-	@RequestMapping(value = "kakao_callback")
-	public String oauthKakao(@RequestParam(value = "code", required = false) String code, Model model) throws Exception {
+	@RequestMapping(value = "kakaoCallback")
+	public String oauthKakao(@RequestParam(value = "code", required = false) String code, Model model, HttpSession session) throws Exception {
 		System.out.println("#########" + code);
         String accessToken = userService.getAccessToken(code);
         System.out.println("###access_Token#### : " + accessToken);
         
         HashMap<String, Object> userInfo = userService.getUserInfo(accessToken);
         System.out.println("###access_Token#### : " + accessToken);
+        String email=(String)userInfo.get("email");
         System.out.println("###userInfo#### : " + userInfo.get("email"));
         System.out.println("###nickname#### : " + userInfo.get("nickname"));
+        System.out.println("###sns_id#### : " + userInfo.get("snsId"));
        
         JSONObject kakaoInfo =  new JSONObject(userInfo);
         model.addAttribute("kakaoInfo", kakaoInfo);
+        User userEmail = userService.getUser(email);
         
-       // if(userInfo.get("email").equals(userService.getUser()))
-        return "forward:/addUser.jsp";
+        if(accessToken != null) {
+			session.setAttribute("kakaoToken", accessToken);
+		}
+        
+        
+        if(userEmail != null) {
+              if(email.equals(userService.getUser(email).getId())) {
+	        	
+	        	if(userEmail.getSnsId() != null) {
+	        		session.setAttribute("user", userEmail);
+	        	   return "forward:/view/user/main.jsp";
+	        	} else {
+	        		//우리 회원임
+	        		return "redirect:/view/user/login.jsp";
+	        	} 	
+	        } 
+        }
+        return "forward:/view/user/addUser.jsp";
 	}
+	
 
- }
+	
+}
 

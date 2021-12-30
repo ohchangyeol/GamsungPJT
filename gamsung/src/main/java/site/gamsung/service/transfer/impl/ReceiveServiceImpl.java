@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.Receive;
 import site.gamsung.service.domain.Transfer;
 import site.gamsung.service.transfer.ReceiveDAO;
@@ -36,15 +37,12 @@ public class ReceiveServiceImpl implements ReceiveService {
 	}
 
 	@Override
-	public List<Transfer> listReceive(HashMap<String, Object> map) throws Exception {
-		
-		List<Transfer> list = receiveDAO.listReceive(map);
-		
-		return list;
+	public List<Receive> listReceive(Search search) throws Exception {		
+		return receiveDAO.listReceive(search);
 	}
 
 	@Override
-	public Transfer getReceive(int receiveNo) throws Exception {
+	public Receive getReceive(int receiveNo) throws Exception {
 		return receiveDAO.getReceive(receiveNo);
 	}
 
@@ -61,6 +59,11 @@ public class ReceiveServiceImpl implements ReceiveService {
 	@Override
 	public int blindReceive(int receiveNo) throws Exception {
 		return receiveDAO.blindReceive(receiveNo);
+	}
+
+	@Override
+	public int UpdateTransferApproval(int transferNo) throws Exception {
+		return receiveDAO.UpdateTransferApproval(transferNo);
 	}
 
 } 

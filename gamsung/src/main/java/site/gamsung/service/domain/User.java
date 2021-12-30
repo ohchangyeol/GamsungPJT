@@ -31,7 +31,7 @@ public class User {
 	private String accountHolder;
 	private String accountNum;
 	private String businessUserApprovalFlag;
-		
+	private String snsId;
 		
 	///Constructor
 	public User() {
@@ -288,6 +288,10 @@ public class User {
 
 	public void setBusinessUserApprovalFlag(String businessUserApprovalFlag) {
 		this.businessUserApprovalFlag = businessUserApprovalFlag;
+	}
+	
+	public String getSnsId() {
+		return snsId;
 	}
 
 	@Override

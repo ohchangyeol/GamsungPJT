@@ -1,6 +1,7 @@
 package site.gamsung.service.user;
 
 import java.util.List;
+import java.util.Map;
 
 import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.User;
@@ -30,7 +31,20 @@ public interface UserDAO {
 	//아이디, 닉네임, 휴대폰번호 중복체크
 	public String checkDuplication(User user) throws Exception;
 	
+	//아이디 찾기
+	public String findId(Map<String, Object> map) throws Exception;
+	
 	//회원 이용정지 등록
-//	public void addSuspensionUser(String id, String text) throws Exception;
+    public void addSuspensionUser(User user) throws Exception;
+    
+    //회원탈퇴
+    public void addSecessionUser(User user) throws Exception;
+    
+    //회원 휴면전환
+    public void addDormantUser(User user) throws Exception;
+    
+    //휴면회원 일반회원 전환
+    public void updateDormantGeneralUserConver(String id) throws Exception;
+
 		
 }

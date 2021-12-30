@@ -200,8 +200,9 @@
 	
 	<select id="getCamp"  parameterType="int"  resultMap="CampSelectMap">
 		SELECT c.camp_no, c.camp_summery, c.camp_detail, c.camp_map_img, c.camp_img1, c.camp_img2, c.camp_img3, c.camp_img4, 
-			   c.camp_img5, c.camp_view_count_previous_month, c.camp_reg_date, c.camp_theme1, c.camp_theme2, c.camp_nature1, 
-			   c.camp_nature2, c.camp_operation1, c.camp_operation2, c.camp_rating, u.camp_name, u.addr, u.camp_call, c.user_id
+			   c.camp_img5, c.camp_view_count_current_month, c.camp_reg_date, c.camp_theme1, c.camp_theme2, c.camp_nature1, 
+			   c.camp_nature2, c.camp_operation1, c.camp_operation2, c.camp_rating, u.camp_name, u.addr, u.camp_call, c.user_id, 
+			   c.camp_reservation_count
 		FROM CAMP c, USERS u
 		WHERE c.user_id = u.user_id AND c.camp_no = #{value}
 	</select>
@@ -212,6 +213,7 @@
 			   mainsite_reg_date, mainsite_img1, mainsite_img2, mainsite_img3
 		FROM MAINSITE
 		WHERE camp_no = #{value} AND delete_flag = 'N'
+		ORDER BY mainsite_type
 	</select>
 	
 	<select id="getSubSite"  parameterType="int"  resultMap="SubSiteSelectMap">
