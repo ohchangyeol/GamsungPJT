@@ -31,8 +31,6 @@ public class CrawlingData {
 			unit= 9;
 		}
 		
-		System.out.println(page);
-		System.out.println(unit);
 		String url = "https://www.coupang.com/np/search?q=%EC%BA%A0%ED%95%91&channel=&component=&eventCategory=SRP&trcid=&traid=&sorter=saleCountDesc&minPrice=&maxPrice=&priceRange=&filterType=&listSize=72&filter=&isPriceRange=false&brand=&offerCondition=&rating=0&page="+(page+1)+"&rocketAll=false&searchIndexingToken=&backgroundColor=";
 				
 
@@ -63,9 +61,7 @@ public class CrawlingData {
 			auctionProduct = new AuctionProduct();
 			
 			detail = prodTag.get(j).attr("href");
-			System.out.println(detail);
 			img = imgTag.get(j).attr("data-img-src");
-			System.out.println("==="+img+"===");
 			if(img != null && img.equals("")) {
 				img = imgTag.get(j).attr("src");
 			}
@@ -142,8 +138,7 @@ public class CrawlingData {
 							break;
 						}
 					}
-					
-					String price = doc.select(".total-price").text().replaceAll("원 원","").replaceAll(",", "");
+					String price = doc.select(".total-price").text().replaceAll(",","").replaceAll("원","").trim();
 					int intPrice = Integer.parseInt(price);
 					auctionProduct.setHopefulBidPrice(intPrice);
 					auctionProduct.setStartBidPrice(intPrice/2);

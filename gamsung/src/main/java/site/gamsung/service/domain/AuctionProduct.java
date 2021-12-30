@@ -48,6 +48,8 @@ public class AuctionProduct {
 	public void setAuctionProductDetail(String auctionProductDetail) {
 		if(auctionProductDetail != null) {
 			this.auctionProductDetail = auctionProductDetail.trim();
+		}else {
+			this.auctionProductDetail = auctionProductDetail;
 		}
 	}
 	public String getAuctionProductSubDetail() {
@@ -126,19 +128,31 @@ public class AuctionProduct {
 		return hashtag1;
 	}
 	public void setHashtag1(String hashtag1) {
-		this.hashtag1 = hashtag1;
+		if(hashtag1 != null) {
+			this.hashtag1 = hashtag1.trim();
+		}else {
+			this.hashtag1 = hashtag1;			
+		}
 	}
 	public String getHashtag2() {
 		return hashtag2;
 	}
 	public void setHashtag2(String hashtag2) {
-		this.hashtag2 = hashtag2;
+		if(hashtag2 != null) {
+			this.hashtag2 = hashtag2.trim();
+		}else {
+			this.hashtag2 = hashtag2;			
+		}
 	}
 	public String getHashtag3() {
 		return hashtag3;
 	}
 	public void setHashtag3(String hashtag3) {
-		this.hashtag3 = hashtag3;
+		if(hashtag3 != null) {
+			this.hashtag3 = hashtag3.trim();
+		}else {
+			this.hashtag3 = hashtag3;			
+		}
 	}
 	public String getProductImg1() {
 		return productImg1;

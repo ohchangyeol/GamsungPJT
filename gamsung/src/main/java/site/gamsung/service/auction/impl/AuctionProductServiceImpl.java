@@ -114,6 +114,8 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 	@Override
 	public Map<String, Object> getAuctionProduct(AuctionInfo auctionInfo) {
 		// TODO Auto-generated method stub
+
+		Map<String, Object> map = new HashedMap<String, Object>();
 		
 		//상품 정보를 가져왔다.
 		AuctionProduct auctionProduct = auctionProductDAO.getAuctionProduct(auctionInfo.getAuctionProductNo());
@@ -123,6 +125,7 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 		
 		if(list != null && list.size() != 0) {
 			auctionInfo = list.get(0);			
+			map.put("auctionInfo", auctionInfo);
 		}
 		
 		// 경매 등록자의 아이디를 가져와 경매 등급과 리뷰에 대한 정보를 가져온다.
@@ -141,9 +144,7 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 		
 		registrantInfo.setUser(user);
 
-		Map<String, Object> map = new HashedMap<String, Object>();
 		map.put("auctionProduct", auctionProduct);
-		map.put("auctionInfo", auctionInfo);
 		map.put("registrantInfo", registrantInfo);
 		
 		return map;
@@ -158,14 +159,29 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 	@Override
 	public void tempSaveAuctionProduct(AuctionProduct auctionProduct) {
 		// TODO Auto-generated method stub
-		auctionProductDAO.tempSaveAuctionProduct(auctionProduct);
+		
+		auctionProduct.setIsTempSave("Y");
+		
+		AuctionProduct tmpAuctionProduct = auctionProductDAO.getTempSaveAuctionProduct(auctionProduct.getRegistrantId());
+		
+		if(tmpAuctionProduct != null) {
+			auctionProduct.setAuctionProductNo(tmpAuctionProduct.getAuctionProductNo());
+			auctionProductDAO.updateAuctionProduct(auctionProduct);
+		}else {
+			auctionProductDAO.tempSaveAuctionProduct(auctionProduct);
+		}
 	}
 
 	@Override
 	public void addAuctionProduct(AuctionProduct auctionProduct) {
 		// TODO Auto-generated method stub
-		auctionProductDAO.addAuctionProduct(auctionProduct);
+		auctionProductDAO.addAuctionProduct(auctionProduct);	
+	}
+	
+	public void updateAuctionProduct(AuctionProduct auctionProduct) {
 		
+		auctionProduct.setIsTempSave("N");
+		auctionProductDAO.updateAuctionProduct(auctionProduct);
 	}
 
 	@Override
@@ -250,10 +266,9 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 			auctionProduct = auctionProductDAO.getAuctionProduct(auctionProductNo);
 			
 			try {
-				System.out.println(auctionProductNo+ ":"+ auctionProduct.getRemainAuctionTime());
-				boolean isEnd = dateFormat.parse(auctionProduct.getRemainAuctionTime()).before(dateFormat.parse("00:00:00"));
-				System.out.println(isEnd);
 				
+				boolean isEnd = dateFormat.parse(auctionProduct.getRemainAuctionTime()).before(dateFormat.parse("00:00:01"));
+				System.out.println(isEnd+":"+auctionProduct.getRemainAuctionTime());
 				if(isEnd) {					
 					auctionInfo.setAuctionProductNo(auctionProductNo);		
 					
@@ -341,7 +356,7 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 	}
 
 	@Override
-	public AuctionProduct previewAuctionProduct(AuctionProduct auctionProduct, List<String> fileList) {
+	public AuctionProduct auctionProductImgs(AuctionProduct auctionProduct, List<String> fileList) {
 		// TODO Auto-generated method stub
 		
 		switch(fileList.size()) {
@@ -374,6 +389,33 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 		
 		return auctionProduct;
 	}
+
+	@Override
+	public AuctionInfo deleteAuctionProduct(String auctionProductNo) {
+		// TODO Auto-generated method stub
+		
+		AuctionProduct auctionProduct = auctionProductDAO.getAuctionProduct(auctionProductNo);
+		AuctionInfo auctionInfo = new AuctionInfo();
+		auctionInfo.setAuctionStatus("Withdrawal");
+		auctionInfo.setAuctionProductNo(auctionProductNo);
+		
+		SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+		
+		try {
+			if(auctionProduct.getCurrentBidPrice() == 0 && dateFormat.parse(auctionProduct.getRemainAuctionTime()).after(dateFormat.parse("20:00:00")) ) {
+				auctionProductDAO.deleteAuctionProduct(auctionInfo);
+				auctionInfo.setInfo("중도 철회 성공하셨습니다.");
+				return auctionInfo;
+			}
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		auctionInfo.setInfo("중도 철회 불가합니다.");
+		return auctionInfo;
+	}
+	
 	
 	
 }

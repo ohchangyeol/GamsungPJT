@@ -23,6 +23,8 @@ public interface AuctionProductService {
 	
 	public void addAuctionProduct(AuctionProduct auctionProduct);
 	
+	public void updateAuctionProduct(AuctionProduct auctionProduct);
+	
 	public String auctionProductBid(AuctionInfo auctionInfo);
 	
 	public void updateAuctionProductCondition(); 
@@ -31,5 +33,7 @@ public interface AuctionProductService {
 	
 	public List<AuctionProduct> listMainAuctionProduct();
 	
-	public AuctionProduct previewAuctionProduct(AuctionProduct auctionProduct, List<String> fileList);
+	public AuctionProduct auctionProductImgs(AuctionProduct auctionProduct, List<String> fileList);
+	
+	public AuctionInfo deleteAuctionProduct(String auctionProductNo);
 }
