@@ -55,7 +55,7 @@ public class UserController {
 		//user.setRole("GENERAL");
 		userService.addUser(user);
 		
-		return "redirect:/user/loginModal.jsp";
+		return "redirect:/main.jsp";
 	}
 	
 	@RequestMapping(value="getUser", method=RequestMethod.POST)
@@ -89,7 +89,7 @@ public class UserController {
 		User dbUser=userService.checkIdPassword(user);
 		
 		if(dbUser == null) {
-			return "forward:/main.jsp";
+			return "redirect:/main.jsp";
 		}
 		
 		System.out.println(dbUser);

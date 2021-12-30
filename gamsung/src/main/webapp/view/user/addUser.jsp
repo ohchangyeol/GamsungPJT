@@ -324,7 +324,7 @@
 		//이메일 인증번호 받기
 		$("#mailAuthNum").on("click", function() {
 			
-			var id = $("input[name='id']").val();
+			var id = $("#id").val();
 		
 			if(id != (id.indexOf('@') < 1 || id.indexOf('.') == -1)){
 

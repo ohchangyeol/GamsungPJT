@@ -310,7 +310,7 @@ pageEncoding="UTF-8"%>
 	<form action="" class="was-validated">
 		<div class="form-group">
 			<label for="modalId">아이디 </label>
-			<input type="text" class="form-control" id="modalId" placeholder="아이디를 입력하세요." name="modalId" required>
+			<input type="text" class="form-control" id="modalId" placeholder="아이디를 입력하세요." name="id" required>
 			<div class="valid-feedback">Valid.</div>
 			<div class="invalid-feedback">Please fill out this field.</div>
 		</div>
