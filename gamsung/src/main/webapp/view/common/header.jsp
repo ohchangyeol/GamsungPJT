@@ -27,6 +27,8 @@ pageEncoding="UTF-8"%>
 
 		<!-- Theme Custom CSS -->
 		<link rel="stylesheet" href="../../resources/css/theme-custom.css">
+		
+		<link rel="stylesheet" href="../../resources/lib/magnific-popup/magnific-popup.css">
 
 		<!-- Head Libs -->
 		<script src="../../resources/lib/modernizr/modernizr.js"></script>
@@ -72,7 +74,6 @@ pageEncoding="UTF-8"%>
 		<script src="../../resources/lib/bootStrap/js/bootstrap.js"></script>		
 		<script src="../../resources/lib/nanoscroller/nanoscroller.js"></script>
 		<script src="../../resources/lib/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
-		<script src="../../resources/lib/magnific-popup/magnific-popup.js"></script>
 		<script src="../../resources/lib/jquery-placeholder/jquery.placeholder.js"></script>
 		<script src="../../resources/lib/pnotify/pnotify.custom.js"></script>
 		<script src="../../resources/js/theme.js"></script>
@@ -82,17 +83,6 @@ pageEncoding="UTF-8"%>
      
 </head>
 
- <script type="text/javascript">
-    //============= logout Event =============	
-		 $(function() {
-			//==> DOM Object GET 3���� ��� ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-		 	$("#logout").on("click" , function() {
-		 		//$(self.location).attr("href","/user/logout");
-				self.location = "/user/logout"
-			}); 
-		 });	
-   
-</script> 
 
 <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
   <div class="container">
@@ -303,7 +293,7 @@ pageEncoding="UTF-8"%>
 	     <c:if test="${sessionScope.user.role==null}">
 
         <!-- <li><a href="/view/user/tempLogin.jsp"> -->
-	       <a class="mb-xs mt-xs mr-xs modal-basic btn btn-default" href="#modalBasic">LOGIN</a>
+	       <a class="mb-xs mt-xs mr-xs modal-basic btn btn-default" href="#modalBasic" id="login">LOGIN</a>
         <!-- </a> </li> -->
 
         </c:if>
@@ -311,28 +301,33 @@ pageEncoding="UTF-8"%>
     </div>
   </div>
 </nav>
+
+
+ 
+
 <div id="modalBasic" class="modal-block modal-block-primary mfp mfp-hide">
 	<section class="panel">
 <header class="panel-heading">
+<button class="close" data-dismiss="modal">&times;</button>
 	</header>
 	<div class="panel-body" >
+		
 	<form action="" class="was-validated">
-	<button class="close" data-dismiss="modal">&times;</button>
 		<div class="form-group">
-			<label for="userId">아이디 </label>
-			<input type="text" class="form-control" id="userId" placeholder="아이디를 입력하세요." name="userId" required>
+			<label for="modalId">아이디 </label>
+			<input type="text" class="form-control" id="modalId" placeholder="아이디를 입력하세요." name="modalId" required>
 			<div class="valid-feedback">Valid.</div>
 			<div class="invalid-feedback">Please fill out this field.</div>
 		</div>
 		<div class="form-group">
-			<label for="userPw">비밀번호 </label>
-			<input type="password" class="form-control" id="userPw" placeholder="비밀번호를 입력하세요." name="userPw" required>
+			<label for="pwd">비밀번호 </label>
+			<input type="password" class="form-control" id="pwd" placeholder="비밀번호를 입력하세요." name="password" required>
 			<div class="valid-feedback">Valid.</div>
 			<div class="invalid-feedback">Please fill out this field.</div>
 		</div>
 		<button type="submit" class="btn btn-primary" style="margin-left:50%;">로그인</button>
-		<button type="button" class="btn btn-secondary">회원가입</button>
-		<img src="../../resources/images/kakao_login_small.png"/>
+		<button type="button" class="btn btn-secondary" id="joinUser">회원가입</button>
+		<a href="javascript:kakaoLogin();"><img src="../../resources/images/kakao_login_small.png"/></a>
 	</form>
 		</div>
 			<footer class="panel-footer">
@@ -345,50 +340,75 @@ pageEncoding="UTF-8"%>
 			</footer>
 		</section>
 </div>
-<!--  
-<div id="modalMD" class="modal-block modal-block-md" hidden="hidden">
-<div class="modal-dialog modal-dialog-centered">
-<div class="mfp-content">
-<div class="modal-dialog">
-<section class="panel">
-<header class="panel-heading">
-	</header>
-	<div class="panel-body" >
-	<form action="" class="was-validated">
-	<button class="close" data-dismiss="modal">&times;</button>
-		<div class="form-group">
-			<label for="userId">아이디 </label>
-			<input type="text" class="form-control" id="userId" placeholder="아이디를 입력하세요." name="userId" required>
-			<div class="valid-feedback">Valid.</div>
-			<div class="invalid-feedback">Please fill out this field.</div>
-		</div>
-		<div class="form-group">
-			<label for="userPw">비밀번호 </label>
-			<input type="password" class="form-control" id="userPw" placeholder="비밀번호를 입력하세요." name="userPw" required>
-			<div class="valid-feedback">Valid.</div>
-			<div class="invalid-feedback">Please fill out this field.</div>
-		</div>
-		<button type="submit" class="btn btn-primary" style="margin-left:50%;">로그인</button>
-		<button type="button" class="btn btn-secondary">회원가입</button>
-		<img src="../../resources/images/kakao_login_small.png"/>
-	</form>
-		</div>
-			<footer class="panel-footer">
-				<div class="row">
-					<div class="col-md-12 text-right">
-						<button class="btn btn-primary modal-confirm">아이디 찾기</button>
-						<button class="btn btn-default modal-dismiss">비밀번호 찾기</button>
-					</div>
-				</div>
-			</footer>
-		</section>
-		</div>
-	</div>
-	</div>
-	</div>
--->
 
 
+<script type="text/javascript">
+    //============= logout Event =============	
+		 $(function() {
+			//==> DOM Object GET 3���� ��� ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+		 	$("#logout").on("click" , function() {
+		 		//$(self.location).attr("href","/user/logout");
+				self.location = "/user/logout"
+			}); 
+			
+		 	$("#joinUser").on("click" , function() {
+				//$(self.location).attr("href","/user/logout");
+			self.location = "/user/addUser"
+		}); 
+			
+			$("#id").focus();
+		$("button:contains(로그인)").on("click" , function() {
+			//alert("gkgkgkgk");
+			var id=$("input:text").val();
+			var pwd=$("input:password").val();
+			
+			if(id == null || id.length <1) {
+				alert('ID 를 입력하지 않으셨습니다.');
+				$("#id").focus();
+				return;
+			}
+			
+			if(pwd == null || pwd.length <1) {
+				alert('패스워드를 입력하지 않으셨습니다.');
+				$("#pwd").focus();
+				return;
+			}
+			
+			$("form").attr("method","POST").attr("action","/user/login").submit();
+		});
+		});
 
+		//카카오로그인
+		function kakaoLogin() {
 
+		$.ajax({
+		    url: '/user/getKakaoAuthUrl',
+		    type: 'get',
+		    async: false,
+		    dataType: 'text',
+		    success: function (res) {
+		        location.href = res;
+		    }
+		});
+
+		}
+
+		$(document).ready(function() {
+
+		  var kakaoInfo = '${kakaoInfo}';
+
+		  if(kakaoInfo != ""){
+		      var data = JSON.parse(kakaoInfo);
+
+		      alert("카카오로그인 성공 \n accessToken : " + data['accessToken']);
+		      alert(
+		      "user : \n" + "email : "
+		      + data['email']  
+		      + "\n nickname : " 
+		      + data['nickname']);
+		  }
+		});  
+		 	
+   
+</script> 
 

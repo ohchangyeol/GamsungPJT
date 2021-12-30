@@ -66,5 +66,11 @@ public interface UserService {
 	
 	//휴면회원 일반회원 전환
 	public void updateDormantGeneralUserConvert(String id) throws Exception;
+	
+	//카카오 로그아웃
+	public void kakaoLogout(String accessToken);
+	
+	//카카오 연결끊기
+	public void unlink(String accessToken);
 
 }
