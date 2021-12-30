@@ -335,7 +335,7 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	@Scheduled(cron="*/1 * * * * *")
+	//@Scheduled(cron="*/1 * * * * *")
 	public void addDormantUser() throws Exception{
 		
 		System.out.println("배치 도는지");
