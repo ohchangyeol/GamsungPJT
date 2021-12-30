@@ -48,6 +48,12 @@ pageEncoding="UTF-8"%>
           </ul>
         </li>
         
+        <li class="dropdown"><a class="dropdown-toggle" href="/community/listCommunity" data-toggle="dropdown">커뮤니티</a>
+        	<ul class="dropdown-menu">
+				<li><a href="/community/listCommunity">커뮤니티</a></li>
+			</ul>
+        </li>
+               
         <li class="dropdown"><a class="dropdown-toggle" href="/servicecenter/home" data-toggle="dropdown">고객센터</a>
         	<ul class="dropdown-menu">
 				<li><a href="/servicecenter/home">고객센터</a></li>

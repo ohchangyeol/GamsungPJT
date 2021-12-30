@@ -8,7 +8,10 @@ public class Search {
 	private String searchCondition;
 	private String sortCondition;
 	private String searchKeyword;
+	private String searchStartDate;
+	private String searchEndDate;
 	private String searchItemType;
+	private int transferNo;
 	private int campNo;
 	private String role;
 	private String id;
@@ -54,6 +57,22 @@ public class Search {
 		this.searchKeyword = searchKeyword;
 	}
 
+	public String getSearchStartDate() {
+		return searchStartDate;
+	}
+	
+	public void setSearchStartDate(String searchStartDate) {
+		this.searchStartDate = searchStartDate;
+	}
+	
+	public String getSearchEndDate() {
+		return searchEndDate;
+	}
+	
+	public void setSearchEndDate(String searchEndDate) {
+		this.searchEndDate = searchEndDate;
+	}	
+	
 	public String getSearchItemType() {
 		return searchItemType;
 	}
@@ -68,6 +87,14 @@ public class Search {
 
 	public void setCampNo(int campNo) {
 		this.campNo = campNo;
+	}
+	
+	public int getTransferNo() {
+		return transferNo;
+	}
+
+	public void setTransferNo(int transferNo) {
+		this.transferNo = transferNo;
 	}
 
 	public String getRole() {
@@ -183,8 +210,11 @@ public class Search {
 			+ "\n [searchCondition] : " + searchCondition
 			+ "\n [sortCondition] : " + sortCondition
 			+ "\n [searchKeyword] : " + searchKeyword
+			+ "\n [searchStartDate] : " + searchStartDate
+			+ "\n [searchEndDate] : " + searchEndDate
 			+ "\n [searchItemType] : " + searchItemType	
 			+ "\n [campNo] : " + campNo	
+			+ "\n [transferNo] : " + transferNo
 			+ "\n [role] : " + role
 			+ "\n [id] : " + id 
 			+ "\n [campAddr] : " + campAddr 
@@ -199,6 +229,6 @@ public class Search {
 			+ "\n [endRowNum] : " + endRowNum
 			+ "\n [offset] : " + offset
 			+ "\n ---------------- \n";
-	}	
+	}
 
 }

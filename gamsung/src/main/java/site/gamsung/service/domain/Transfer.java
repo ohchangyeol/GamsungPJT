@@ -152,12 +152,12 @@ public class Transfer {
 	@Override
 	public String toString() {
 		return "Transfer : transferNo=[" + transferNo + "] transferOr=[" + transferOr + "] transferRegdate=["
-				+ transferRegdate + ", transferTitle=" + transferTitle + ", transferArea=" + transferArea
+				+ transferRegdate + "] transferTitle=[" + transferTitle + "] transferArea=[" + transferArea
 				+ "] transferCampname=[" + transferCampname + "] transferMainsiteType=[" + transferMainsiteType
 				+ "] transferCampCall=[" + transferCampCall + "] transferStartDate=[" + transferStartDate
-				+ "] transferEndDate=[" + transferEndDate + " transferPrice=[" + transferPrice + "] transferContent=["
+				+ "] transferEndDate=[" + transferEndDate + "] transferPrice=[" + transferPrice + "] transferContent=["
 				+ transferContent + "] transferAddContent=[" + transferAddContent + "] transferUserNum=["
-				+ transferUserNum + "] hashtag1=[" + hashtag1 + "] hashtag2=[" + hashtag2 + ", hashtag3=[" + hashtag3
+				+ transferUserNum + "] hashtag1=[" + hashtag1 + "] hashtag2=[" + hashtag2 + "] hashtag3=[" + hashtag3
 				+ "] paymentImg=[" + paymentImg + "] transferStatus=[" + transferStatus + "] deleteFlag=[" + deleteFlag
 				+ "] transferReservationNo=[" + transferReservationNo + "]";
 	}
