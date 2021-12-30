@@ -10,36 +10,40 @@ import site.gamsung.service.domain.ReservationStatistics;
 
 public interface CampReservationDAO {
 
-	public List<MainSite> listPossibleReservation(Map<String, Object> map) throws Exception;
+	public List<MainSite> listPossibleReservation(Map<String, Object> map);
 	
-	public int addReservation(CampReservation campReservation) throws Exception;
+	public int addReservation(CampReservation campReservation);
 	
-	public int updateMainSiteReservation(CampReservation campReservation) throws Exception;
+	public int updateMainSiteReservation(CampReservation campReservation);
 	
-	public int updateCampReservationCount(int campNo) throws Exception;
+	public int updateCampReservationCount(int campNo);
 	
-	public boolean isSecessionUserReservationCondition(String id) throws Exception;
+	public boolean isSecessionUserReservationCondition(String id);
 	
-	public List<CampReservation> listReservation(Map<String, Object> map) throws Exception;
+	public List<CampReservation> listReservation(Map<String, Object> map);
 	
-	public int getTotalCount(Map<String, Object> map) throws Exception;
+	public int getTotalCount(Map<String, Object> map);
 	
-	public ReservationStatistics getReservationStatistics() throws Exception;
+	public ReservationStatistics getReservationStatistics();
 	
-	public List<ReservationStatistics> campReservationStatisticsByDay(Search search) throws Exception;
+	public List<ReservationStatistics> campReservationStatisticsByDay(Search search);
 	
-	public List<ReservationStatistics> campReservationStatisticsByWeek(Search search) throws Exception;
+	public List<ReservationStatistics> campReservationStatisticsByWeek(Search search);
 	
-	public List<ReservationStatistics> campReservationStatisticsByMonth(Search search) throws Exception;
+	public List<ReservationStatistics> campReservationStatisticsByMonth(Search search);
 	
-	public int getTotalCampReservationCountByDay(Search search) throws Exception;
+	public int getTotalCampReservationCountByDay(Search search);
 	
-	public int getTotalCampReservationCountByWeek(Search search) throws Exception;
+	public int getTotalCampReservationCountByWeek(Search search);
 	
-	public int getTotalCampReservationCountByMonth(Search search) throws Exception;
+	public int getTotalCampReservationCountByMonth(Search search);
 	
-	public CampReservation getReservation(String reservationNo) throws Exception;
+	public CampReservation getReservation(String reservationNo);
 	
-	public int updateReservation(CampReservation campReservation) throws Exception;
+	public int updateReservation(CampReservation campReservation);
+	
+	public List<CampReservation> sendMessageInfo();
+	
+	public void resetCount();
 	
 }

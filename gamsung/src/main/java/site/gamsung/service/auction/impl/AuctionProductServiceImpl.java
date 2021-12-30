@@ -4,7 +4,9 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.commons.collections4.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,7 +22,9 @@ import site.gamsung.service.auction.AuctionInfoDAO;
 import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.AuctionInfo;
 import site.gamsung.service.domain.AuctionProduct;
+import site.gamsung.service.domain.User;
 import site.gamsung.util.auction.CrawlingData;
+import site.gamsung.util.user.SendMail;
 
 @Service("auctionProductService")
 @EnableTransactionManagement //관리자 권한 획득
@@ -57,26 +61,44 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 	public AuctionProduct getCrawlingAuctionProductNo(AuctionProduct auctionProduct) {
 		// TODO Auto-generated method stub
 		
-		String existNo = auctionProductDAO.getCrawlingAuctionProductNo(auctionProduct.getAuctionProductSubDatail());
+		//저장된 서브 정보를 가지고 있는 상품이 있는지 확인 
+		String existNo = auctionProductDAO.getCrawlingAuctionProductNo(auctionProduct.getAuctionProductSubDetail());
 		
+		//있다면 해당 데이터를 반환한다.
 		if(existNo != null) {
 			return auctionProductDAO.getAuctionProduct(existNo);
 		}
 		
+		//없다면 상세 정보에 해당하는 서브 정보를 크롤링하여 객체를 반환 받는다.
 		auctionProduct = crawlingData.crawling(auctionProduct);
 		
-		auctionProduct.setBidableGrade(2);
+		//입찰 가능 등급을 1~10사이의 무작위 숫자를 적용한다.
+		int bidableGrade = (int) (Math.random()*9) + 1;
+		auctionProduct.setBidableGrade(bidableGrade);
+		
+		//받은 모든 해시태그를 공백
 		String allhashtag = auctionProduct.getAllhashtag();
-		String [] hashtags = allhashtag.split(" ");
-		auctionProduct.setHashtag1(hashtags[0]);
-		auctionProduct.setHashtag1(hashtags[1]);
-		auctionProduct.setHashtag1(hashtags[2]);
+		String [] hashtags = allhashtag.split("#");
 		
+		//#기준으로 파싱하여 해시태그 재정의
+		if(hashtags.length == 2) {
+			auctionProduct.setHashtag1("#"+hashtags[1].trim());			
+		}else if(hashtags.length <=3) {
+			auctionProduct.setHashtag1("#"+hashtags[1].trim());	
+			auctionProduct.setHashtag1("#"+hashtags[2].trim());			
+		}else if(hashtags.length > 3) {
+			auctionProduct.setHashtag1("#"+hashtags[1].trim());	
+			auctionProduct.setHashtag1("#"+hashtags[2].trim());	
+			auctionProduct.setHashtag1("#"+hashtags[3].trim());			
+		}
 		
+		//데이터를 저장한다. 등록자는 관리자가 Default이다.
 		auctionProductDAO.addCrawlingAuctionProduct(auctionProduct);
 		
-		String auctionProductNo = auctionProductDAO.getCrawlingAuctionProductNo(auctionProduct.getAuctionProductSubDatail());
+		//저장한 크롤링 데이터의 상품 번호를 가져온다.
+		String auctionProductNo = auctionProductDAO.getCrawlingAuctionProductNo(auctionProduct.getAuctionProductSubDetail());
 		
+		//조회수를 1 증가 시킨다.
 		auctionProductDAO.updateAuctionProductViewCounter(auctionProductNo);
 		
 		
@@ -90,9 +112,42 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 	}
 
 	@Override
-	public AuctionProduct getAuctionProduct(String auctionProductNo) {
+	public Map<String, Object> getAuctionProduct(AuctionInfo auctionInfo) {
 		// TODO Auto-generated method stub
-		return auctionProductDAO.getAuctionProduct(auctionProductNo);
+
+		Map<String, Object> map = new HashedMap<String, Object>();
+		
+		//상품 정보를 가져왔다.
+		AuctionProduct auctionProduct = auctionProductDAO.getAuctionProduct(auctionInfo.getAuctionProductNo());
+		
+		//경매 조회자의 랭킹을 가져온다.
+		List<AuctionInfo> list = auctionInfoDao.getBidderRanking(auctionInfo);
+		
+		if(list != null && list.size() != 0) {
+			auctionInfo = list.get(0);			
+			map.put("auctionInfo", auctionInfo);
+		}
+		
+		// 경매 등록자의 아이디를 가져와 경매 등급과 리뷰에 대한 정보를 가져온다.
+		String registrantId = auctionProduct.getRegistrantId();
+		
+		int registrantGrade = auctionInfoDao.getUserAuctionGradeInfo(registrantId);
+		
+		//리뷰를 추가해야한다.
+		//
+		//
+		AuctionInfo registrantInfo = new AuctionInfo();
+		
+		User user =  new User();
+		user.setId(registrantId);
+		user.setAuctionGrade(registrantGrade);
+		
+		registrantInfo.setUser(user);
+
+		map.put("auctionProduct", auctionProduct);
+		map.put("registrantInfo", registrantInfo);
+		
+		return map;
 	}
 
 	@Override
@@ -104,14 +159,29 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 	@Override
 	public void tempSaveAuctionProduct(AuctionProduct auctionProduct) {
 		// TODO Auto-generated method stub
-		auctionProductDAO.tempSaveAuctionProduct(auctionProduct);
+		
+		auctionProduct.setIsTempSave("Y");
+		
+		AuctionProduct tmpAuctionProduct = auctionProductDAO.getTempSaveAuctionProduct(auctionProduct.getRegistrantId());
+		
+		if(tmpAuctionProduct != null) {
+			auctionProduct.setAuctionProductNo(tmpAuctionProduct.getAuctionProductNo());
+			auctionProductDAO.updateAuctionProduct(auctionProduct);
+		}else {
+			auctionProductDAO.tempSaveAuctionProduct(auctionProduct);
+		}
 	}
 
 	@Override
 	public void addAuctionProduct(AuctionProduct auctionProduct) {
 		// TODO Auto-generated method stub
-		auctionProductDAO.addAuctionProduct(auctionProduct);
+		auctionProductDAO.addAuctionProduct(auctionProduct);	
+	}
+	
+	public void updateAuctionProduct(AuctionProduct auctionProduct) {
 		
+		auctionProduct.setIsTempSave("N");
+		auctionProductDAO.updateAuctionProduct(auctionProduct);
 	}
 
 	@Override
@@ -181,21 +251,61 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 		// TODO Auto-generated method stub
 		
 		SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+		
+		List<AuctionProduct> auctionList = auctionProductDAO.listAuctionProduct(new Search());
+		List<AuctionInfo> bidderList = null;
+		
+		SendMail sendMail = new SendMail();
+		
 		AuctionInfo auctionInfo = new AuctionInfo();
-		auctionInfo.setAuctionStatus("WAIT");
-		List<AuctionProduct> list = auctionProductDAO.listAuctionProduct(new Search());
-		for(AuctionProduct auctionProduct : list) {
+		
+		for(AuctionProduct auctionProduct : auctionList) {
 		
 			String auctionProductNo = auctionProduct.getAuctionProductNo();
 			
 			auctionProduct = auctionProductDAO.getAuctionProduct(auctionProductNo);
 			
-			System.out.println(auctionProductNo+"-remainTime : "+auctionProduct.getRemainAuctionTime());
 			try {
-				boolean isEnd = dateFormat.parse(auctionProduct.getRemainAuctionTime()).before(dateFormat.parse("00:00:00"));
-				if(isEnd) {
-					System.out.println(isEnd);
+
+				boolean isEnd = dateFormat.parse(auctionProduct.getRemainAuctionTime()).before(dateFormat.parse("00:00:01"));
+				System.out.println(isEnd+":"+auctionProduct.getRemainAuctionTime());
+				if(isEnd) {					
+					auctionInfo.setAuctionProductNo(auctionProductNo);		
+					
+					AuctionProduct tmpAuctionProduct = auctionProductDAO.getAuctionProduct(auctionProductNo);
+					
+					//경매에 참여한 모든 인원들 뽑아온다.
+					bidderList = auctionInfoDao.getBidderRanking(auctionInfo);
+					
+					//희망 낙찰가 보다 최종 입찰가가 작을 경우
+					if(tmpAuctionProduct.getCurrentBidPrice() < tmpAuctionProduct.getHopefulBidPrice()) {
+						//경매 상태 유찰
+						auctionProduct.setAuctionStatus("FAIL");
+						
+						//입찰한 모든 인원에게 실패 메일 발송
+						for(AuctionInfo info : bidderList) {
+							sendMail.sendMail(info.getUser().getId(), tmpAuctionProduct.getAuctionProductName(), "유찰 되셨습니다.");
+						}
+						
+					}else {
+						//1등을 제외한 모든 인원에게 입찰 상태를 전송한다.
+						
+						//경매 상태 낙찰
+						auctionProduct.setAuctionStatus("WAIT");
+						
+						//낙찰 성공 여부에 따라 등수에 따른 메일 발송
+						for(AuctionInfo info : bidderList) {
+							if(info.getBidderRank() == 1) {
+								sendMail.sendMail(info.getUser().getId(), tmpAuctionProduct.getAuctionProductName(), "낙찰 되셨습니다. \n 화상채팅 URL 추가 예정");
+							}else {
+								sendMail.sendMail(info.getUser().getId(), tmpAuctionProduct.getAuctionProductName(), "유찰 되셨습니다.");
+							}
+						}
+					}
+					
+					//경매 상태를 업데이트 한다.
 					auctionProductDAO.updateAuctionProductCondition(auctionProduct);
+
 				}
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
@@ -244,5 +354,68 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 		// TODO Auto-generated method stub
 		return auctionProductDAO.listMainAuctionProduct();
 	}
+
+	@Override
+	public AuctionProduct auctionProductImgs(AuctionProduct auctionProduct, List<String> fileList) {
+		// TODO Auto-generated method stub
+		
+		switch(fileList.size()) {
+			case 1:
+				auctionProduct.setProductImg1(fileList.get(0));
+				break;
+			case 2:
+				auctionProduct.setProductImg1(fileList.get(0));
+				auctionProduct.setProductImg2(fileList.get(1));
+				break;
+			case 3:
+				auctionProduct.setProductImg1(fileList.get(0));
+				auctionProduct.setProductImg2(fileList.get(1));
+				auctionProduct.setProductImg3(fileList.get(2));
+				break;
+			case 4:
+				auctionProduct.setProductImg1(fileList.get(0));
+				auctionProduct.setProductImg2(fileList.get(1));
+				auctionProduct.setProductImg3(fileList.get(2));
+				auctionProduct.setProductImg4(fileList.get(3));
+				break;
+			case 5:
+				auctionProduct.setProductImg1(fileList.get(0));
+				auctionProduct.setProductImg2(fileList.get(1));
+				auctionProduct.setProductImg3(fileList.get(2));
+				auctionProduct.setProductImg4(fileList.get(3));
+				auctionProduct.setProductImg5(fileList.get(4));
+				break;
+		}
+		
+		return auctionProduct;
+	}
+
+	@Override
+	public AuctionInfo deleteAuctionProduct(String auctionProductNo) {
+		// TODO Auto-generated method stub
+		
+		AuctionProduct auctionProduct = auctionProductDAO.getAuctionProduct(auctionProductNo);
+		AuctionInfo auctionInfo = new AuctionInfo();
+		auctionInfo.setAuctionStatus("Withdrawal");
+		auctionInfo.setAuctionProductNo(auctionProductNo);
+		
+		SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+		
+		try {
+			if(auctionProduct.getCurrentBidPrice() == 0 && dateFormat.parse(auctionProduct.getRemainAuctionTime()).after(dateFormat.parse("20:00:00")) ) {
+				auctionProductDAO.deleteAuctionProduct(auctionInfo);
+				auctionInfo.setInfo("중도 철회 성공하셨습니다.");
+				return auctionInfo;
+			}
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		auctionInfo.setInfo("중도 철회 불가합니다.");
+		return auctionInfo;
+	}
+	
+	
 	
 }

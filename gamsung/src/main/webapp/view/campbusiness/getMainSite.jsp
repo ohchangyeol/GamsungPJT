@@ -1,27 +1,47 @@
-<%@ page contentType="text/html; charset=EUC-KR" %>
+<%@ page contentType="text/html; charset=utf-8" %>
 
 <!DOCTYPE html>
 
 <html lang="ko">
 
 <head>
-	<meta charset="EUC-KR">
-
-	<!-- ÂüÁ¶ : http://getbootstrap.com/css/   ÂüÁ¶ -->
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta charset="utf-8">
 
 	<!-- Bootstrap, jQuery CDN -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
-	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
-
-	<!-- Bootstrap Dropdown Hover CSS -->
-	<link href="/css/animate.min.css" rel="stylesheet">
-	<link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
+	<meta name="viewport" content="width=device-width, initial-scale=1">	
+	<script src="/resources/lib/jquery/jquery.js"></script>
+    <script src="/resources/lib/bootstrap/js/bootstrap.min.js"></script>
+  	<script src="/resources/lib/imagesloaded/imagesloaded.pkgd.js"></script>
+  	<link rel="stylesheet" href="/resources/lib/bootstrap/css/bootstrap.min.css"></link>  	
+  	
+  	
+  	<!-- ### headerCampBusiness resources Start ### -->
+  	<script src="/resources/lib/jquery/jquery.js"></script>
+    
+    <!-- Favicons -->
+    <meta name="msapplication-TileImage" content="/resources/images/favicons/ms-icon-144x144.png">    
+    <meta name="msapplication-TileColor" content="#ffffff">  
+    <meta name="theme-color" content="#ffffff">
    
-	<!-- Bootstrap Dropdown Hover JS -->
-	<script src="/javascript/bootstrap-dropdownhover.min.js"></script>
+    <!-- Stylesheets -->
+    
+    <!-- Default stylesheets-->
+    <link href="/resources/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Template specific stylesheets-->
+    <link href="/resources/lib/animate.css/animate.css" rel="stylesheet">
+    <link href="/resources/lib/components-font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/resources/lib/et-line-font/et-line-font.css" rel="stylesheet">
+    <link href="/resources/lib/flexslider/flexslider.css" rel="stylesheet">
+    <link href="/resources/lib/owl.carousel/dist/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="/resources/lib/owl.carousel/dist/assets/owl.theme.default.min.css" rel="stylesheet">
+    <link href="/resources/lib/magnific-popup/magnific-popup.css" rel="stylesheet">
+    <link href="/resources/lib/simple-text-rotator/simpletextrotator.css" rel="stylesheet">       
+    
+    <!-- Main stylesheet and color file-->
+    <link href="/resources/css/style.css" rel="stylesheet">
+    <link id="color-scheme" href="/resources/css/colors/default.css" rel="stylesheet">  
+  	<!-- ### headerCampBusiness resources End ### -->
 	
 	<!-- CSS -->
 	<style>
@@ -33,20 +53,20 @@
 	<!-- JavaScript -->
 	<script type="text/javascript">
 
-		// ¹öÆ°
+		// ë²„íŠ¼
 		$(function() {
-			//==> DOM Object GET 3°¡Áö ¹æ¹ı ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+			//==> DOM Object GET 3ê°€ì§€ ë°©ë²• ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			$("#confirm").on("click" , function() {
-				$("form").attr("method" , "get").attr("action" , "/campBusiness/listMainSite").submit();
+				$("form").attr("method" , "post").attr("action" , "/campBusiness/listMainSite").submit();
 			});
 			
 			$("#update").on("click" , function() {
-				alert("¼öÁ¤È­¸éÀ¸·Î ÀüÈ¯ÇÕ´Ï´Ù.")
+				alert("ìˆ˜ì •í™”ë©´ìœ¼ë¡œ ì „í™˜í•©ë‹ˆë‹¤.")
 				$("form").attr("method" , "POST").attr("action" , "/campBusiness/updateMainSiteView").submit();
 			});
 			
 			$("#delete").on("click" , function() {
-				if (confirm("'È®ÀÎ'À» ´©¸£½Ã¸é »èÁ¦°¡ µË´Ï´Ù \n»èÁ¦ ÈÄ¿¡´Â º¹±¸°¡ ºÒ°¡´ÉÇÕ´Ï´Ù.") == true){    
+				if (confirm("'í™•ì¸'ì„ ëˆ„ë¥´ì‹œë©´ ì‚­ì œê°€ ë©ë‹ˆë‹¤ \nì‚­ì œ í›„ì—ëŠ” ë³µêµ¬ê°€ ë¶ˆê°€ëŠ¥í•©ë‹ˆë‹¤.") == true){    
 					$("form").attr("method" , "POST").attr("action" , "/campBusiness/deleteMainSite").submit();
 				} else {
 				    return;
@@ -65,118 +85,140 @@
 	<jsp:include page="/view/common/headerCampBusiness.jsp" />
 
 	<!-- Page Start -->
-	<div class="container">		
 	<form>
+	<div class="container">		
+		<div class="col-md-1"></div>
+			<div class="col-md-10">	
 	
-	<input type="hidden" name="campNo" value="${camp.campNo}">
-	<input type="hidden" name="mainSiteNo" value="${mainSite.mainSiteNo}">
-	
-		<div class="page-header">
-	       <h3 class=" text-info">ÁÖ¿ä½Ã¼³ »ó¼¼Á¤º¸</h3>
-	    </div>
-	    	
-		<div class="row">
-	  		<div class="col-xs-4 col-md-2"><strong>ÁÖ¿ä½Ã¼³ µî·ÏÀÏÀÚ</strong></div>
-			<div class="col-xs-8 col-md-4">${mainSite.mainSiteRegDate}</div>
-		</div>
-		
-		<hr/>
-		
-		<div class="row">
-	  		<div class="col-xs-4 col-md-2"><strong>ÁÖ¿ä½Ã¼³ À¯Çü</strong></div>
-			<div class="col-xs-8 col-md-4">${mainSite.mainSiteType}</div>
-		</div>
-		
-		<hr/>
-		
-		<div class="row">
-	  		<div class="col-xs-4 col-md-2"><strong>ÁÖ¿ä½Ã¼³ ÀÌ¸§</strong></div>
-			<div class="col-xs-8 col-md-4">${mainSite.mainSiteName}</div>
-		</div>
-		
-		<hr/>
-		
-		<div class="row">
-	  		<div class="col-xs-4 col-md-2"><strong>ÁÖ¿ä½Ã¼³ Å©±â</strong></div>
-			<div class="col-xs-8 col-md-4">${mainSite.mainSiteSize}</div>
-		</div>
-		
-		<hr/>
-		
-		<div class="row">
-	  		<div class="col-xs-4 col-md-2"><strong>ÁÖ¿ä½Ã¼³ À§Ä¡(±¸¿ª¹øÈ£)</strong></div>
-			<div class="col-xs-8 col-md-4">${mainSite.mainSiteSection}</div>
-		</div>
-		
-		<hr/>							
-		
-		<div class="row">
-	  		<div class="col-xs-4 col-md-2"><strong>±âº» »ç¿ëÀÎ¿ø¼ö</strong></div>
-			<div class="col-xs-8 col-md-4">${mainSite.mainSiteMinCapacity}</div>
-		</div>
-		
-		<hr/>
-		
-		<div class="row">
-	  		<div class="col-xs-4 col-md-2"><strong>ÃÖ´ë »ç¿ëÀÎ¿ø¼ö</strong></div>
-			<div class="col-xs-8 col-md-4">${mainSite.mainSiteMaxCapacity}</div>
-		</div>
-		
-		<hr/>
-		
-		<div class="row">
-	  		<div class="col-xs-4 col-md-2"><strong>±âº»ÀÎ¿ø ±İ¾×</strong></div>
-			<div class="col-xs-8 col-md-4">${mainSite.mainSiteMinPrice}</div>
-		</div>
-		
-		<hr/>
-		
-		<div class="row">
-	  		<div class="col-xs-4 col-md-2"><strong>Ãß°¡ÀÎ¿ø ±İ¾×</strong></div>
-			<div class="col-xs-8 col-md-4">${mainSite.mainSiteAddPrice}</div>
-		</div>
-		
-		<hr/>	
-		
-		<div class="row">
-	  		<div class="col-xs-4 col-md-2"><strong>ÁÖÂ÷°¡´É ´ë¼ö</strong></div>
-			<div class="col-xs-8 col-md-4">${mainSite.mainSiteParkingSize}</div>
-		</div>
-		
-		<hr/>
-		
-		<div class="row">
-	  		<div class="col-xs-4 col-md-2"><strong>ÁÖ¿ä½Ã¼³ ¼³¸í</strong></div>
-			<div class="col-xs-8 col-md-4">${mainSite.mainSiteInfo}</div>
-		</div>
-		
-		<hr/>
-		
-		<div class="row">
-	  		<div class="col-xs-4 col-md-2"><strong>ÁÖ¿ä½Ã¼³ »çÁø1</strong></div>
-			<img src="/uploadFiles/campimg/campbusiness/mainsite/${mainSite.mainSiteImg1}" />
-		</div>
-		
-		<div class="row">
-	  		<div class="col-xs-4 col-md-2"><strong>ÁÖ¿ä½Ã¼³ »çÁø2</strong></div>
-			<img src="/uploadFiles/campimg/campbusiness/mainsite/${mainSite.mainSiteImg2}" />
-		</div>
-		
-		<div class="row">
-	  		<div class="col-xs-4 col-md-2"><strong>ÁÖ¿ä½Ã¼³ »çÁø3</strong></div>
-			<img src="/uploadFiles/campimg/campbusiness/mainsite/${mainSite.mainSiteImg3}" />
-		</div>
+			<input type="hidden" name="campNo" value="${camp.campNo}">
+			<input type="hidden" name="mainSiteNo" value="${mainSite.mainSiteNo}">
+			
+				<br>
+		    	<br>
+				<div class="page-header">
+			       <h3 class=" text-info">ì£¼ìš”ì‹œì„¤ ìƒì„¸ì •ë³´</h3>
+			    </div>
+			    
+			    <div class="row">
+			  		<div class="col-xs-4 col-md-2"><strong>ì£¼ìš”ì‹œì„¤ ë“±ë¡ë²ˆí˜¸</strong></div>
+					<div class="col-xs-8 col-md-4">${mainSite.mainSiteNo}</div>
+				</div>
+								
+				<hr/>
+			    	
+				<div class="row">
+			  		<div class="col-xs-4 col-md-2"><strong>ì£¼ìš”ì‹œì„¤ ë“±ë¡ì¼ì</strong></div>
+					<div class="col-xs-8 col-md-4">${mainSite.mainSiteRegDate}</div>
+				</div>
+				
+				<hr/>
+				
+				<div class="row">
+			  		<div class="col-xs-4 col-md-2"><strong>ì£¼ìš”ì‹œì„¤ ìœ í˜•</strong></div>
+					<div class="col-xs-8 col-md-4">${mainSite.mainSiteType}</div>
+				</div>
+				
+				<hr/>
+				
+				<div class="row">
+			  		<div class="col-xs-4 col-md-2"><strong>ì£¼ìš”ì‹œì„¤ ì´ë¦„</strong></div>
+					<div class="col-xs-8 col-md-4">${mainSite.mainSiteName}</div>
+				</div>
+				
+				<hr/>
+				
+				<div class="row">
+			  		<div class="col-xs-4 col-md-2"><strong>ì£¼ìš”ì‹œì„¤ í¬ê¸°</strong></div>
+					<div class="col-xs-8 col-md-4">${mainSite.mainSiteSize}</div>
+				</div>
+				
+				<hr/>
+				
+				<div class="row">
+			  		<div class="col-xs-4 col-md-2"><strong>ì£¼ìš”ì‹œì„¤ ìœ„ì¹˜(êµ¬ì—­ë²ˆí˜¸)</strong></div>
+					<div class="col-xs-8 col-md-4">${mainSite.mainSiteSection}</div>
+				</div>
+				
+				<hr/>							
+				
+				<div class="row">
+			  		<div class="col-xs-4 col-md-2"><strong>ê¸°ë³¸ ì‚¬ìš©ì¸ì›ìˆ˜</strong></div>
+					<div class="col-xs-8 col-md-4">${mainSite.mainSiteMinCapacity}</div>
+				</div>
+				
+				<hr/>
+				
+				<div class="row">
+			  		<div class="col-xs-4 col-md-2"><strong>ìµœëŒ€ ì‚¬ìš©ì¸ì›ìˆ˜</strong></div>
+					<div class="col-xs-8 col-md-4">${mainSite.mainSiteMaxCapacity}</div>
+				</div>
+				
+				<hr/>
+				
+				<div class="row">
+			  		<div class="col-xs-4 col-md-2"><strong>ê¸°ë³¸ì¸ì› ê¸ˆì•¡</strong></div>
+					<div class="col-xs-8 col-md-4">${mainSite.mainSiteMinPrice}</div>
+				</div>
+				
+				<hr/>
+				
+				<div class="row">
+			  		<div class="col-xs-4 col-md-2"><strong>ì¶”ê°€ì¸ì› ê¸ˆì•¡</strong></div>
+					<div class="col-xs-8 col-md-4">${mainSite.mainSiteAddPrice}</div>
+				</div>
+				
+				<hr/>	
+				
+				<div class="row">
+			  		<div class="col-xs-4 col-md-2"><strong>ì£¼ì°¨ê°€ëŠ¥ ëŒ€ìˆ˜</strong></div>
+					<div class="col-xs-8 col-md-4">${mainSite.mainSiteParkingSize}</div>
+				</div>
+				
+				<hr/>
+				
+				<div class="row">
+			  		<div class="col-xs-4 col-md-2"><strong>ì£¼ìš”ì‹œì„¤ ì„¤ëª…</strong></div>
+					<div class="col-xs-8 col-md-4">${mainSite.mainSiteInfo}</div>
+				</div>
+				
+				<hr/>
+				
+				<div class="row">
+			  		<div class="col-xs-4 col-md-2"><strong>ì£¼ìš”ì‹œì„¤ ì‚¬ì§„1</strong></div>
+					<img src="../uploadfiles/campimg/campbusiness/mainsite/${mainSite.mainSiteImg1}" />
+				</div>
+				
+				<div class="row">
+			  		<div class="col-xs-4 col-md-2"><strong>ì£¼ìš”ì‹œì„¤ ì‚¬ì§„2</strong></div>
+					<img src="../uploadfiles/campimg/campbusiness/mainsite/${mainSite.mainSiteImg2}" />
+				</div>
+				
+				<div class="row">
+			  		<div class="col-xs-4 col-md-2"><strong>ì£¼ìš”ì‹œì„¤ ì‚¬ì§„3</strong></div>
+					<img src="../uploadfiles/campimg/campbusiness/mainsite/${mainSite.mainSiteImg3}" />
+				</div>
 		 							  		  
-		<div class="form-group">
-			<div class="col-sm-offset-4  col-sm-4 text-center">
-				<button id="delete" type="button" class="btn btn-primary">»èÁ¦</button>
-				<button id="update"type="button" class="btn btn-primary">¼öÁ¤</button>
-				<button id="confirm" type="button" class="btn btn-primary">È®ÀÎ</button>
+			<br>
+			<br>	
+			<div class="row">	
+		        <div class="col-xs-2">
+		            <button id="delete" type="button" class="btn btn-danger">ì‚­ì œ</button>
+		        </div>
+		        
+		        <div class="col-xs-1">
+		           	<button id="update"type="button" class="btn btn-warning">ìˆ˜ì •</button>
+		        </div>
+		        
+		        <div class="col-xs-1 col-xs-offset-7">
+		            <button id="confirm" type="button" class="btn btn-primary">í™•ì¸</button>
+			    </div>										  		  	
 			</div>
-		</div>
-		
-	</form>	  	
- 	</div>
+			
+		</div> 
+		<div class="col-md-1"></div>
+	</div>
+	
+ 	</form>	
 
 </body>
 

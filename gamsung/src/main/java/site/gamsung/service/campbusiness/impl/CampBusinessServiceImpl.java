@@ -41,8 +41,12 @@ public class CampBusinessServiceImpl implements CampBusinessService{
 	/*
 	 *  Common	
 	 */
-
-
+	@Override
+	@Transactional(propagation=Propagation.REQUIRES_NEW)	
+	public int getRegNum(String type, Object obj) throws Exception{
+		return campBusinessDAO.getRegNum(type, obj);
+	}
+	
 	
 	/*
 	 *  Camp	
@@ -88,13 +92,7 @@ public class CampBusinessServiceImpl implements CampBusinessService{
 	public int getCampTempSaveById(String id) throws Exception {
 		return campBusinessDAO.getCampTempSaveById(id);
 	}
-	
-	@Override
-	@Transactional(propagation=Propagation.REQUIRES_NEW)	
-	public int getRegNum(Camp camp) throws Exception{
-		return campBusinessDAO.getRegNum(camp);
-	}
-	
+		
 	
 	/*
 	 *  MainSite

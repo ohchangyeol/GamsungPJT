@@ -1,7 +1,9 @@
 package site.gamsung.service.auction.test;
 
 import java.util.List;
+import java.util.Map;
 
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -55,9 +57,11 @@ public class AuctionProductServiceTest {
 	//@Test
 	public void testGetAuctionProduct() {
 		
-		AuctionProduct auctionProduct = auctionProductService.getAuctionProduct("PROD00010");
-		System.out.println(auctionProduct);
-		
+//		
+//		Map<String, Object> map = auctionProductService.getAuctionProduct("PROD00010");
+//		System.out.println(map.get("auctionProduct"));
+//		System.out.println(map.get("auctionInfo"));
+//		
 	}
 	
 	//임시 저장된 상품 정보 조회 service test
@@ -97,8 +101,8 @@ public class AuctionProductServiceTest {
 		auctionProduct.setAuctionProductNo("PROD00101");
 		auctionProduct.setRegistrantId("user1@gamsung.com");
 		auctionProduct.setAuctionProductName("감자");
-		auctionProduct.setAuctionProductDatail("dididi");
-		auctionProduct.setAuctionProductSubDatail("adada");
+		auctionProduct.setAuctionProductDetail("dididi");
+		auctionProduct.setAuctionProductSubDetail("adada");
 		auctionProduct.setStartBidPrice(10000);
 		auctionProduct.setHopefulBidPrice(1000000);
 		auctionProduct.setBidUnit(20000);
@@ -115,8 +119,8 @@ public class AuctionProductServiceTest {
 		
 		auctionProductService.addAuctionProduct(auctionProduct);
 		
-		auctionProduct = auctionProductService.getAuctionProduct("PROD00001");
-		System.out.println(auctionProduct);
+//		Map<String, Object> map = auctionProductService.getAuctionProduct("PROD00001");
+//		System.out.println(map.get("auctionProduct"));
 		
 	}
 	
@@ -171,5 +175,26 @@ public class AuctionProductServiceTest {
 		
 	}
 	
+	//@Test
+	public void testTempSaveAuctionProduct() {
+		
+		AuctionProduct auctionProduct = new AuctionProduct();
+		auctionProduct.setRegistrantId("test44@nate.com");
+		
+		auctionProductService.tempSaveAuctionProduct(auctionProduct);
+	}
+	
+	//@Test
+	public void testUpdateAuctionProduct() {
+		AuctionProduct auctionProduct = new AuctionProduct();
+		auctionProduct.setRegistrantId("test44@nate.com");
+		auctionProduct.setAuctionProductName("코멧 매직 30g, 5개");
+		auctionProductService.updateAuctionProduct(auctionProduct);
+	}
+	
+	@Test
+	public void testDeleteAuctionProduct() {
+		System.out.println(auctionProductService.deleteAuctionProduct("PROD00010")); 
+	}
 }
 	

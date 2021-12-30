@@ -2,244 +2,172 @@
 <!DOCTYPE mapper
 		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+		
 
-<!-- <mapper namespace="TransferMapper">
+	<mapper namespace="TransferMapper">
 
 	<resultMap id="transferMapper" type="transfer">
-		<result property="transferNo"    		 column="transfer_no"     	    jdbcType="VARCHAR"/>
-		<result property="transferOr.id"	   	 column="user_id" 	       		jdbcType="NUMERIC" />
-		<result property="transferRegdate"       column="transfer_reg_date"     jdbcType="VARCHAR" />
-		<result property="transferTitle"  		 column="transfer_title" 	    jdbcType="VARCHAR" />
-		<result property="transferArea"    		 column="transfer_camp_area"    jdbcType="NUMERIC" />
-		<result property="transferName" 	     column="transfer_camp_name"    jdbcType="VARCHAR" />
-		<result property="transferCall"    		 column="transfer_camp_call"    jdbcType="VARCHAR"/>
-		<result property="transferStartDate"	 column="transfer_start_date"   jdbcType="CHAR" />
-		<result property="transferEndDate"  	 column="transfer_end_date" 	jdbcType="VARCHAR" />
-		<result property="transferPrice"    	 column="transfer_price" 	    jdbcType="VARCHAR" />
-		<result property="transferContent" 	   	 column="transfer_content" 	    jdbcType="VARCHAR" />
-		<result property="transferAddition" 	 column="transfer_add_content"  jdbcType="VARCHAR" />
-		<result property="transferUserNum" 		 column="transfer_use_num"      jdbcType="VARCHAR" />
-		<result property="Hashtag1"  		     column="transfer_hashtag1"     jdbcType="VARCHAR" />
-	 	<result property="Hashtag2"  			 column="transfer_hashtag2" 	jdbcType="NUMERIC" /> 
-		<result property="Hashtag3" 		     column="transfer_hashtag3" 	jdbcType="NUMERIC" />
-		<result property="paymentImg"			 column="transfer_payment_img"  jdbcType="NUMERIC" />		
-		<result property="transferApprovalFlag"	 column=""   					jdbcType="NUMERIC" /> 양도승인flag	
-		<result property="transferEndFlag"	 	 column=""   					jdbcType="NUMERIC" /> 양도완료flag 
-		<result property="deleteFlag"			 column="delete_flag"   		jdbcType="NUMERIC" />		
-		<result property="transReservationNo"	 column="reservation_no"   		jdbcType="NUMERIC" />		
-		<result property=""	 					 column="transfer_status" 		jdbcType="NUMERIC" />		
-		
-	</resultMap> -->
-		<!-- SQL : INSERT -->
-	<!-- 게시글 등록 -->
-<!--     <insert    id="addPost"      parameterType="post" >
-      INSERT 
-      INTO  GAMSUNG.POST(user_id,post_type,post_title,post_content,post_Img1,post_Img2,post_Img3,post_hashtag1,post_hashtag2,post_hashtag3,video)
-      VALUES    (#{writer.id}, #{postType}, #{postTile:VARCHAR}, #{postContent:VARCHAR}, #{postImg1:VARCHAR}, #{postImg2:VARCHAR}, #{postImg3:VARCHAR}, #{Hashtag1:VARCHAR}, #{Hashtag2:VARCHAR}, #{Hashtag3:VARCHAR}, #{video:VARCHAR})                                     
-    </insert> -->
+		<result property="transferNo"    		 			   column="transfer_no"     	   jdbcType="NUMERIC"/>
+		<result property="transferOr.id"	   	 			   column="user_id" 	       	   jdbcType="VARCHAR"/>
+		<result property="transferRegdate"       			   column="transfer_reg_date"      jdbcType="VARCHAR"/>
+		<result property="transferTitle"  		 			   column="transfer_title" 	       jdbcType="VARCHAR"/>
+		<result property="transferArea"    		 			   column="transfer_camp_area"     jdbcType="VARCHAR"/>
+		<result property="transferCampname" 	 			   column="transfer_camp_name"     jdbcType="VARCHAR"/>
+		<result property="transferMainsiteType"  			   column="transfer_mainsite_type" jdbcType="VARCHAR"/>
+		<result property="transferCampCall"		 			   column="transfer_camp_call"     jdbcType="VARCHAR"/>
+		<result property="transferStartDate"	 			   column="transfer_start_date"    jdbcType="VARCHAR"/>
+		<result property="transferEndDate"  	 			   column="transfer_end_date" 	   jdbcType="VARCHAR"/>
+		<result property="transferPrice"    	 			   column="transfer_price" 	       jdbcType="NUMERIC"/>
+		<result property="transferContent" 	   	 			   column="transfer_content" 	   jdbcType="VARCHAR"/>
+		<result property="transferAddContent" 	 			   column="transfer_add_content"   jdbcType="VARCHAR"/>
+		<result property="transferUserNum" 		 			   column="transfer_use_num"       jdbcType="NUMERIC"/>
+		<result property="hashtag1"  		     			   column="transfer_hashtag1"      jdbcType="VARCHAR"/>
+	 	<result property="hashtag2"  						   column="transfer_hashtag2" 	   jdbcType="VARCHAR"/> 
+		<result property="hashtag3" 		     			   column="transfer_hashtag3" 	   jdbcType="VARCHAR"/>
+		<result property="paymentImg"						   column="transfer_payment_img"   jdbcType="VARCHAR"/>		
+		<result property="transferStatus"	     			   column="transfer_status"   	   jdbcType="NUMERIC"/>
+		<result property="deleteFlag"			 			   column="delete_flag"   		   jdbcType="CHAR"/>		
+		<result property="transferReservationNo.reservationNo" column="reservation_no"   	   jdbcType="VARCHAR"/>		
+			
+</resultMap> 
 
-	<!-- 댓글 등록 -->	 
-<!--     <insert    id="addComment"      parameterType="comment" >
+<!-- SQL : INSERT -->
+<!-- 양도글 등록 -->
+
+	<insert    id="addTransfer"      parameterType="transfer" >
       INSERT 
-      INTO  GAMSUNG.COMMENT(post_no,user_id,comment_content)
-      VALUES    (#{postNo.postNo}, #{commentWriter.id}, #{commentContent:VARCHAR})                                      
-    </insert>	 	 --> 
- 	 
-	<!-- 추천 등록 중복된 값이 있을 경우 INSERT되지않는다. -->
-<!--   	<insert    id="addConcern"      parameterType="hashmap" >
-    INSERT INTO POST_CONCERN (post_no, user_id)
-	SELECT #{postNo}, #{userId}
-	FROM dual
-	WHERE NOT EXISTS (SELECT post_no, user_id 
-					  FROM post_concern 
-					  WHERE post_no = #{postNo}
-					  AND user_id = #{userId} )                                   
-    </insert>  -->
+      INTO  GAMSUNG.TRANSFER(transfer_title,transfer_camp_area,transfer_camp_name,transfer_mainsite_type,transfer_start_date,transfer_end_date,transfer_camp_call,transfer_use_num,transfer_price,transfer_content,transfer_add_content,transfer_payment_img,transfer_hashtag1,transfer_hashtag2,transfer_hashtag3,user_id,reservation_no)
+      VALUES    (#{transferTitle:VARCHAR},#{transferArea:VARCHAR},#{transferCampname:VARCHAR}, #{transferMainsiteType:VARCHAR}, 
+      #{transferStartDate:VARCHAR}, #{transferEndDate:VARCHAR}, #{transferCampCall:VARCHAR}, #{transferUserNum:NUMERIC},
+      #{transferPrice:NUMERIC}, #{transferContent:VARCHAR}, #{transferAddContent:VARCHAR}, #{paymentImg:VARCHAR},#{hashtag1:VARCHAR},#{hashtag2:VARCHAR},#{hashtag3:VARCHAR},#{transferOr.id},#{transferReservationNo.reservationNo:VARCHAR})    
+	</insert>
     	 
-    <!-- SQL : SELECT --> 	 
-<!--     게시글 상세 조회 	 
+<!-- SQL : SELECT --> 	 
+<!-- 양도글 상세 조회  --> 
 
-	 <select 	id="getPost"	parameterType="int"	resultMap="postMapper">
+	 <select 	id="getTransfer" parameterType="int" resultMap="transferMapper">
 	  SELECT
-	  post_no , user_id , post_type , post_title , post_content, post_reg_date, post_Img1, post_Img2, post_Img3, post_hashtag1, post_hashtag2, post_hashtag3, video, delete_flag
-	  FROM  GAMSUNG.POST
-      WHERE post_no = #{value}
-	 </select> -->
+	  transfer_no,user_id,reservation_no,transfer_camp_area,transfer_camp_name,transfer_camp_call,transfer_start_date,transfer_end_date,transfer_use_num,transfer_price,transfer_title,transfer_content,transfer_add_content,transfer_reg_date,transfer_status,transfer_payment_img,delete_flag,transfer_hashtag1,transfer_hashtag2,transfer_hashtag3,transfer_mainsite_type
+	  FROM  GAMSUNG.TRANSFER
+      WHERE transfer_no = #{value}
+	 </select> 
 	 
-<!--     게시글 List 조회 list를 가지고 올때 해당 user_id에 대한 post_no 값이 concern table에 있으면 하트를 컬러로 표출한다. 	 
+<!-- 양도글 List -->
     
-	<select  id="listPost"  parameterType="hashmap"	resultMap="postMapper">
+	<select  id="listTransfer"  parameterType="map"	resultMap="transferMapper">
 	SELECT S.* 
-	FROM (SELECT @rownum:= @rownum+1 AS R , P.* 
-		FROM (SELECT p.*,com.com_num,con.con_num, CASE WHEN cop.flag = 'Y' THEN 'Y'
-		                                          WHEN cop.flag = 'N' THEN 'N'
-		                                          ELSE 'Y' END AS con_deleteFlag
-			  FROM POST p LEFT JOIN (SELECT post_no, count(*) com_num
-								     FROM comment 
-									 GROUP BY post_no) com 게시물당 코멘트 총 수 
-			  ON p.post_no = com.post_no 
-						  LEFT JOIN (SELECT post_no, count(*) con_num
-									FROM post_concern 
-									GROUP BY post_no) con 게시물당 추천 총 수 
-			  ON p.post_no = con.post_no	
-			  			 LEFT JOIN (SELECT post_no, delete_flag flag
-						            FROM post_concern pc
-						            WHERE pc.user_id =#{userId}
-						          	) cop  회원의 게시물 추천 유무 Y는 빈하트 표출  
-			   ON p.post_no = cop.post_no			            								
-	  		  WHERE p.delete_flag = 'N' 
-	  		  <if test="postType != null">		
-	  		  AND p.post_type = #{post.postType}
-	  		  </if>
-			      <if test="search.searchCondition != null">		
+	FROM (SELECT @rownum:= @rownum+1 AS R , T.* 
+		FROM (SELECT *
+			  FROM Transfer								  
+	  		  WHERE delete_flag = 'N' 
+			      <if test="search.searchCondition != null"> 
 				    <trim prefix="AND">
-						<if test="search.searchCondition == 0 and search.searchKeyword !='' "> 
-						작성자id
-							p.user_id LIKE CONCAT_WS(#{search.searchKeyword},'%','%')		
+						<if test='search.searchCondition == 1 and search.searchKeyword.equals("무료양도")'> 
+							transfer_price = 0	
 						</if>
-						<if test="search.searchCondition == 1 and search.searchKeyword !='' "> 
-						게시글 제목
-							MATCH(post_title) AGAINST (concat_ws(#{search.searchKeyword},'*','*')in boolean mode)
-						    p.post_title LIKE CONCAT_WS(#{search.searchKeyword},'%','%')
+ 					
+ 						<if test='search.searchCondition == 1 and search.searchKeyword.equals("1만원~9만원")'> 
+							transfer_price BETWEEN 10000 AND 90000
 						</if>
-						<if test="search.searchCondition == 2 and search.searchKeyword !='' "> 
-						게시글 번호
-							p.post_no = #{search.searchKeyword}
+						
+						<if test='search.searchCondition == 1 and search.searchKeyword.equals("10만원~19만원")'> 
+							transfer_price BETWEEN 100000 AND 190000
 						</if>
-						<if test="search.searchCondition == 3 and search.searchKeyword !='' ">
-						내용
-							MATCH(p.post_content) AGAINST (concat_ws(#{search.searchKeyword},'*','*')in boolean mode)
-							p.post_content LIKE CONCAT_WS(#{search.searchKeyword},'%','%')
+						
+						<if test='search.searchCondition == 1 and search.searchKeyword.equals("20만원~29만원")'> 
+							transfer_price BETWEEN 200000 AND 290000	
 						</if>
-						<if test="search.searchCondition == 4 and search.searchKeyword !='' ">
-						해시태그 
-							   p.post_hashtag1 LIKE CONCAT_WS(#{search.searchKeyword},'%','%')
-	  						OR p.post_hashtag2 LIKE CONCAT_WS(#{search.searchKeyword},'%','%')
-	  						OR p.post_hashtag3 LIKE CONCAT_WS(#{search.searchKeyword},'%','%')
+					
+						<if test='search.searchCondition == 1 and search.searchKeyword.equals("30만원~39만원")'> 
+							transfer_price BETWEEN 300000 AND 390000	
 						</if>
+						
+						<if test='search.searchCondition == 1 and search.searchKeyword.equals("40만원 이상")'> 
+							transfer_price > 390000
+						</if>
+						
+						<if test='search.searchCondition == 2'>
+							transfer_start_date <![CDATA[ >=]]> #{search.searchStartDate}  
+						</if>
+						
+						<if test='search.searchEndDate != null'>
+							AND transfer_end_date <![CDATA[ <=]]> #{search.searchEndDate}  
+						</if>	
 					</trim>
 				</if>
-				ORDER BY p.post_reg_date ) P, (select @rownum:= 0) M
+				ORDER BY transfer_reg_date ) T, (select @rownum:= 0) M
 				WHERE @rownum  <![CDATA[ <=]]> #{search.endRowNum} ) S
 				WHERE R BETWEEN #{search.startRowNum} AND #{search.endRowNum} 
-	 </select> 	  -->
+	 </select> 	
 	 
-	 	<!-- 추천 여부-->
-<!-- 	<select  id="ConcernFlag"  parameterType="postConcern"	resultMap="postConcernMapper">
-		SELECT delete_flag
-		FROM post_concern
-		WHERE post_no= #{postNo.postNo} AND user_id = #{userId.id}
+	 
+<!-- SQL : UPDATE --> 	 
+<!-- 캠핑예약테이블의 상태값 변경, 1,2일경우 3으로 3일경우 5로 이때 양도 테이블 상태도 같이 변경 --> 	 
+
+ 	<update	id="updateReservationStatus" parameterType="String"  ><!--  resultType=int를 넣으면 error가 난다. update에는 resulttype이 없다? -->
+	UPDATE CAMP_RESERVATION
+		<set> 
+	  reservation_status = CASE 
+      WHEN reservation_status = 1 THEN 3
+      WHEN reservation_status = 2 THEN 3
+      WHEN reservation_status = 3 THEN 5
+      ELSE reservation_status
+      END
+	   	</set>
+	   	WHERE reservation_no = #{value}
+	</update>
+	 
+<!-- 양도글 삭제  -->
+ 	<update	id="deleteTransfer"	parameterType="int" >
+	 UPDATE TRANSFER
+		<set> 
+	 		delete_flag = 'Y'
+		</set>
+	 WHERE transfer_no = #{value}
+	 </update> 
+
+<!-- 양도글 블라인드 처리 관리자일 경우 가능하다.--> 	 	 
+ 	<update	id="blindTransfer"	parameterType="int" >
+	 UPDATE TRANSFER
+		<set> 
+	 		delete_flag = 'X'
+		</set>
+	 WHERE transfer_no = #{value}
+	 </update> 
+
+<!-- 양도글 수정  -->	 
+	  
+	<update	id="updateTransfer"	parameterType="transfer" >
+		 UPDATE TRANSFER
+	   	<set>
+		transfer_reg_date= #{transferRegdate},
+		transfer_title= #{transferTitle},
+		transfer_camp_area= #{transferArea},
+		transfer_camp_name= #{transferCampname},
+		transfer_mainsite_type= #{transferMainsiteType},
+		transfer_camp_call= #{transferCampCall},
+		transfer_start_date= #{transferStartDate},
+		transfer_end_date= #{transferEndDate},
+		transfer_price= #{transferPrice},
+		transfer_content= #{transferContent},
+		transfer_add_content= #{transferAddContent},
+		transfer_use_num= #{transferUserNum},
+		transfer_hashtag1= #{hashtag1},
+		transfer_hashtag2= #{hashtag2},
+		transfer_hashtag3= #{hashtag3},
+		transfer_payment_img= #{paymentImg},
+		transfer_status= #{transferStatus},
+		reservation_no= #{transferReservationNo.reservationNo}
+	   	</set>
+	   	WHERE transfer_no = #{transferNo}
+	 </update> 
+	 
+<!-- 회원탈퇴값 -->	 	 
+	<select id="getTransferStatus" parameterType="String" resultMap="transferMapper">
+		SELECT transfer_status 
+		FROM TRANSFER
+		WHERE user_id = #{value} AND transfer_status IN ('1','2')
 	</select> 
-	  -->
 	 
-	 
-    <!-- 댓글 list  조회--> 	 
- 	 
-<!-- 	<select  id="listComment"  parameterType="int"	resultMap="commentMapper">
-	SELECT * 
-	FROM comment
-	WHERE delete_flag = 'N' AND post_no= #{value}
-	ORDER BY comment_reg_date
-	 </select>  -->
-	 
-    <!-- SQL : UPDATE --> 	 
-    <!-- 게시물 수정 --> 	 
-
-<!-- 	<update	id="updatePost"	parameterType="post" >
-	UPDATE POST
-	   	<set>
-	   		post_title= #{postTile:VARCHAR},
-	   		post_no= #{postNo},
-	   		post_content= #{postContent},
-	   		user_id= #{writer.id},
-	   		post_type= #{postType},
-	   		post_reg_date=#{postRegdate},
-	   		video= #{video},
-	   		delete_flag= #{deleteFlag},
-	   		post_Img1= #{postImg1},
-	   		post_Img2= #{postImg2},
-	   		post_Img3= #{postImg3},
-	   		post_hashtag1= #{Hashtag1},
-	   		post_hashtag2= #{Hashtag2},
-	   		post_hashtag3= #{Hashtag3}
-	   	</set>
-	   	WHERE post_no = #{postNo}
-	 </update> -->
-	 
-<!--     게시물 삭제 그에 딸린 댓글들도 delete_flags를 Y 설정해줘야한다. 내 댓글 보기에서 안보이게 하려면 	 
- 	<update	id="deletePost"	parameterType="int" >
-	 UPDATE POST P RIGHT JOIN COMMENT C
-	 ON (P.post_no = C.post_no ) 
-		<set> 
-	 		P.delete_flag = 'Y', C.delete_flag = 'Y' 
-		</set>
-		WHERE P.post_no = #{value}
-	 </update> -->
-
-	<!-- 게시물 블라인드 처리 관리자일 경우 가능하다.--> 	 	 
-<!-- 	<update	id="blindPost"	parameterType="int" >
-	 UPDATE POST P RIGHT JOIN COMMENT C
-	 ON (P.post_no = C.post_no )  
-		<set> 
-	 		P.delete_flag = 'X', C.delete_flag = 'X' 
-		</set>
-		WHERE P.post_no = #{value}
-	 </update> --> 
-
-	<!-- 댓글 수정  앞단에서 수정버튼을 user만 보이게끔 설정하기때문에 where 조건에는 댓글번호만 가지고 오면된다. -->	 
-	 
-<!-- 	<update	id="updateComment"	parameterType="comment" >
-		 UPDATE COMMENT
-	   	<set>
-	   		comment_content= #{commentContent},
-	   	</set>
-	   	WHERE comment_no = #{commentNo}
-	 </update> -->
-	 
-	<!-- 댓글 삭제-->
-	
-<!--     <update	id="deleteComment"	parameterType="int" >
-	   	UPDATE COMMENT
-	   	<set>
-	   		delete_flag= 'Y'
-	   	</set>
-	   	WHERE comment_no= #{commentNo}
-	 </update> -->
-	 
-<!-- 댓글 블라인드 처리 관리자일 경우 가능하다. -->
-<!-- 	<update	id="blindComment"	parameterType="int" >
-	   	UPDATE COMMENT
-	   	<set>
-	   		delete_flag= 'X'
-	   	</set>
-	   	WHERE comment_no= #{commentNo}s
-	</update>  -->
-
-
-  <!-- 추천 해제 table에 postNo값이 등록이 되어있어야 헤재도 된다. -->   
-<!-- 	<update	id="deleteConcern"	parameterType="hashmap" >
-	   	UPDATE post_concern
-	   	<set>
-	   		delete_flag = 'Y'
-	   	</set>
-	   	WHERE post_no= #{postNo} AND user_id = #{userId}
-	 </update>  -->
-	 
-   <!-- 총 추천수 -->
-<!-- 	<select  id="totalConcern"  parameterType="int"	resultType="int">
-	SELECT count(*) 
-	FROM post_concern 
-	WHERE post_no= #{value} and delete_flag  = 'Y';
-	 </select> -->
-
-   <!-- 총 댓글수-->
-<!-- 	<select  id="totalComment"  parameterType="int"	resultType="int">
-	SELECT count(*) 
-	FROM comment
-	WHERE post_no= #{value} and delete_flag = 'N';
-	 </select>  -->
-	 
-	 
-
-	 
-	<!--  </mapper> -->
+		 
+</mapper> 

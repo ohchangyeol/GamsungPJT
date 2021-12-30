@@ -1,14 +1,24 @@
 package site.gamsung.controller.camp;
 
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import site.gamsung.service.camp.CampReservationService;
 import site.gamsung.service.camp.CampSearchService;
+import site.gamsung.service.common.Page;
 import site.gamsung.service.common.RatingReviewService;
+import site.gamsung.service.common.Search;
 import site.gamsung.service.payment.PaymentService;
 import site.gamsung.service.servicecenter.NoticeService;
 import site.gamsung.service.servicecenter.QnaService;
@@ -45,31 +55,48 @@ public class CampGeneralController {
 	@Value("#{commonProperties['pageSize']}")
 	int pageSize;
 	
-	@RequestMapping(value = "campSearch")
-	public String campSearch() throws Exception{
-		System.out.println("/campGeneral/campSearch : GET");
+	@RequestMapping(value = "listCamp", method = RequestMethod.POST)
+	public String listCamp(@ModelAttribute("search") Search search, Model model) throws Exception{
+		System.out.println("/campGeneral/listCamp : POST");
+	
+		if (search.getCurrentPage() == 0) {
+			search.setCurrentPage(1);
+		}
 		
-		return "redirect:/view/camp/campSearch.jsp";
+		search.setPageSize(pageSize);
+		
+		Map<String, Object> map = campSearchService.listCamp(search);
+		
+		Page resultPage = new Page(search.getCurrentPage(), ((Integer) map.get("totalCount")).intValue(), pageUnit, pageSize);
+		System.out.println(resultPage);
+		
+		model.addAttribute("list", map.get("list"));
+		model.addAttribute("resultPage", resultPage);
+		model.addAttribute("search", search);
+		
+		System.out.println(search);
+		System.out.println(map.get("list"));
+		
+		return "forward:/view/camp/listCamp.jsp";
 	}
 	
-	@RequestMapping(value = "campDetailSearch")
-	public String campDetailSearch() throws Exception{
-		System.out.println("/campGeneral/campDetailSearch : GET");
-		
-		return "redirect:/view/camp/campDetailSearch.jsp";
-	}
-	
-	public String listCamp() throws Exception{
-		System.out.println("/campGeneral/listCamp : GET");
-		
-		return null;
-	}
-	
-	//getcamp, intro, useInfo 한번에.....
-	public String getCamp() throws Exception{
+	@RequestMapping(value = "getCamp", method = RequestMethod.POST)
+	public String getCamp(@RequestParam("campNo") int campNo , Model model ) throws Exception{
 		System.out.println("/campGeneral/getCamp : GET");
 		
-		return null;
+		Map<String, Object> map = campSearchService.getCamp(campNo);
+		
+		model.addAttribute("camp", map.get("camp"));
+		model.addAttribute("mainSite", map.get("mainSite"));
+		model.addAttribute("subSite", map.get("subSite"));
+		model.addAttribute("mainSiteType", map.get("mainSiteType"));
+		
+		System.out.println(map.get("camp"));
+		System.out.println(map.get("mainSite"));
+		System.out.println(map.get("subSite"));
+		System.out.println(map.get("mainSiteType"));
+		
+		return "forward:/view/camp/getCamp.jsp";
 	}
 	
 	public String getCampMap() throws Exception{

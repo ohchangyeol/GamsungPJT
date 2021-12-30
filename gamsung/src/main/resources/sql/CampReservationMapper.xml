@@ -121,7 +121,12 @@
 			total_reservation_reg_car = #{totalReservationRegCar},
 			</if>
 			reservation_status = #{reservationStatus}
+		<if test="reservationStatus != 7">
 		WHERE reservation_no = #{reservationNo}
+		</if>
+		<if test="reservationStatus == 7">
+		WHERE reservation_end_date =  DATE(NOW())
+		</if>
 	</update>
 	
 	<update id="updateMainSiteReservation" parameterType="campReservation">
@@ -142,7 +147,8 @@
 	
 	<select id="listReservation" parameterType="map" resultMap="CampReservationSelectMap">
 		SELECT DISTINCT r.reservation_no, u.camp_name, m.mainsite_type, r.reservation_status, r.reservation_reg_date, r.reservation_start_date, 
-			  			r.reservation_end_date, r.total_payment_price, r.camp_no, r.reservation_user_name, r.reservation_user_phone, r.use_num
+			  			r.reservation_end_date, r.total_payment_price, r.camp_no, r.reservation_user_name, r.reservation_user_phone, r.use_num, 
+			  			u.camp_call
 		FROM CAMP_RESERVATION r, MAINSITE m, CAMP c, USERS u
 		WHERE c.user_id = u.user_id AND c.camp_no = r.camp_no AND r.mainsite_no = m.mainsite_no
 		<if test="id != null">
@@ -150,6 +156,9 @@
 		</if>
 		<if test="campNo != null">
 			AND r.camp_no = #{campNo}
+		</if>
+		<if test="search.pageSize == null">
+			AND r.reservation_status IN (1, 2)
 		</if>
 		<if test="search.searchCondition != null">
 			<if test="search.searchCondition == 0 and search.searchKeyword !='' ">
@@ -188,8 +197,7 @@
 	
 	<select  id="getTotalCount"  parameterType="map"	 resultType="int">
 		SELECT COUNT(*)
-	  	FROM(SELECT DISTINCT r.reservation_no, u.camp_name, m.mainsite_type, r.reservation_status, r.reservation_reg_date, r.reservation_start_date, 
-			  				 r.reservation_end_date, r.total_payment_price, r.camp_no, r.reservation_user_name, r.reservation_user_phone, r.use_num
+	  	FROM(SELECT DISTINCT r.reservation_no
 			 FROM CAMP_RESERVATION r, MAINSITE m, CAMP c, USERS u
 			 WHERE c.user_id = u.user_id AND c.camp_no = r.camp_no AND r.mainsite_no = m.mainsite_no
 			 <if test="id != null">
@@ -373,4 +381,14 @@
 			  GROUP BY DATE, u.user_id) countTable
 	</select>
 	
+	<select id="sendMessageInfo" resultMap="CampReservationSelectMap">
+		SELECT u.camp_name, m.mainsite_type, r.reservation_user_name, r.reservation_user_phone, r.reservation_start_date, r.reservation_end_date, r.reservation_reg_date
+		FROM CAMP c , CAMP_RESERVATION r, USERS u, MAINSITE m 
+		WHERE c.camp_no = r.camp_no and c.user_id = u.user_id and r.mainsite_no = m.mainsite_no and r.reservation_start_date-1 =  DATE(NOW())
+	</select>
+	
+	<update id="resetCount">
+		UPDATE CAMP
+		SET camp_view_count_current_month=0, camp_reservation_count=0		
+	</update>	
 </mapper>

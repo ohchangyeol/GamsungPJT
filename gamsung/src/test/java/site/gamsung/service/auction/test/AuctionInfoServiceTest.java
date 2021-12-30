@@ -132,7 +132,19 @@ public class AuctionInfoServiceTest {
 		System.out.println(auctionInfo);
 	}
 	
-	
-	
+	//@Test
+	public void testGetBidderRanking() {
+		
+		User user = new User();
+		user.setId("user1@gamsung.com");
+
+		AuctionInfo auctionInfo = new AuctionInfo();
+		auctionInfo.setAuctionProductNo("PROD00001");
+		auctionInfo.setUser(user);
+		
+		auctionInfoService.getBidderRanking(auctionInfo);
+		
+	}
+
 
 }

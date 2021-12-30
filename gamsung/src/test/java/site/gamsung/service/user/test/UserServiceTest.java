@@ -27,16 +27,18 @@ public class UserServiceTest {
 	@Qualifier("userServiceImpl")
 	private UserService userService;
 
-	@Test
+	//@Test
 	public void testAddUser() throws Exception{
 		
 		User user = new User();
-		user.setId("test66@nate.com");
-		user.setNickName("임시6");
-		user.setName("비번14");
-		user.setPassword("6666");
+
+
+		user.setId("muse1264@nate.com");
+		user.setNickName("으어어");
+		user.setName("으어어");
+		user.setPassword("5555");
 		user.setRole("GENERAL");
-		user.setPhone("01001153333");
+		user.setPhone("01001123333");
 				
 		userService.addUser(user);
 		
@@ -153,6 +155,69 @@ public class UserServiceTest {
 		
 		userService.updateTempPassword(user);
 	}
+	
+	//@Test
+		public void testSendPhoneAuthNum() throws Exception{
+			
+			User user = new User();
+			user=userService.getUser("muse1264@nate.com");
+			
+			Random rand  = new Random();
+	        
+	        String numStr = "";
+	        
+	        for(int i=0; i<4; i++) {
+	        	
+	            String num = Integer.toString(rand.nextInt(10));
+	            
+	            numStr += num;
+	        }	   
+	        
+	        userService.sendPhoneAuthNum(user.getPhone(), numStr);	
+		}
+		
+		//@Test
+		public void testFindId() throws Exception{
+			
+			System.out.println("findId 시작");
+			
+			User user = new User();
+			user.setName("비번14");
+			user.setPhone("01001153333");
+			
+			System.out.println(user.getName());
+			
+			user.setId(userService.findId(user.getName(), user.getPhone()));
+			
+			System.out.println(user.getId());	
+		}
+		
+		//@Test
+		public void testFindPassword() throws Exception{
+			
+			User user = new User();
+			user.setId("muse1264@nate.com");
+			user.setName("으어어");
+			user.setPhone("01001123333");
+			
+			userService.findPassword(user);
+			
+			System.out.println(user);
+			
+		}
+		
+		//@Test
+		public void testAddSuspensionUser() throws Exception{
+			 
+			User user = new User();
+			user.setId("user1@gamsung.com");
+			user.setSuspensionContent("~~한 사유로 이용정지 됨");
+			
+			userService.addSuspensionUser(user);
+			
+		}
+		
+		
 	
 }
 

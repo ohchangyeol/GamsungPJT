@@ -1,64 +1,88 @@
-<%@ page contentType="text/html; charset=EUC-KR" %>
-
+<%@ page contentType="text/html; charset=utf-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>	
 
 <!DOCTYPE html>
 
 <html lang="ko">
 
 <head>
-	<meta charset="EUC-KR">
-
-	<!-- ÂüÁ¶ : http://getbootstrap.com/css/   ÂüÁ¶ -->
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta charset="utf-8">
 
 	<!-- Bootstrap, jQuery CDN -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
-	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
-
-	<!-- Bootstrap Dropdown Hover CSS -->
-	<link href="/css/animate.min.css" rel="stylesheet">
-	<link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
+	<meta name="viewport" content="width=device-width, initial-scale=1">	
+	<script src="/resources/lib/jquery/jquery.js"></script>
+    <script src="/resources/lib/bootstrap/js/bootstrap.min.js"></script>
+  	<script src="/resources/lib/imagesloaded/imagesloaded.pkgd.js"></script>
+  	<link rel="stylesheet" href="/resources/lib/bootstrap/css/bootstrap.min.css"></link>  	
+  	
+  	
+  	<!-- ### headerCampBusiness resources Start ### -->
+  	<script src="/resources/lib/jquery/jquery.js"></script>
+    
+    <!-- Favicons -->
+    <meta name="msapplication-TileImage" content="/resources/images/favicons/ms-icon-144x144.png">    
+    <meta name="msapplication-TileColor" content="#ffffff">  
+    <meta name="theme-color" content="#ffffff">
    
-	<!-- Bootstrap Dropdown Hover JS -->
-	<script src="/javascript/bootstrap-dropdownhover.min.js"></script>
+    <!-- Stylesheets -->
+    
+    <!-- Default stylesheets-->
+    <link href="/resources/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Template specific stylesheets-->
+    <link href="/resources/lib/animate.css/animate.css" rel="stylesheet">
+    <link href="/resources/lib/components-font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/resources/lib/et-line-font/et-line-font.css" rel="stylesheet">
+    <link href="/resources/lib/flexslider/flexslider.css" rel="stylesheet">
+    <link href="/resources/lib/owl.carousel/dist/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="/resources/lib/owl.carousel/dist/assets/owl.theme.default.min.css" rel="stylesheet">
+    <link href="/resources/lib/magnific-popup/magnific-popup.css" rel="stylesheet">
+    <link href="/resources/lib/simple-text-rotator/simpletextrotator.css" rel="stylesheet">       
+    
+    <!-- Main stylesheet and color file-->
+    <link href="/resources/css/style.css" rel="stylesheet">
+    <link id="color-scheme" href="/resources/css/colors/default.css" rel="stylesheet">  
+  	<!-- ### headerCampBusiness resources End ### -->
 	
 	<!-- CSS -->
-	<style>	
+	<style>
 		body > div.container{
-			margin-top: 70px;
-		}	
+			margin-top: 30px;
+		}
+		
+		.form-horizontal .control-label{
+    		text-align: left;
+		}
     </style>
 
 	<!-- JavaScript -->
 	<script type="text/javascript">
 
-		// ¹öÆ°
+		// ë²„íŠ¼
 		$(function() {
 			
-			//µî·ÏÀÏÀÚ ÇöÀç³â¿ùÀÏ ¹Þ¾Æ¿À±â	
+			//ë“±ë¡ì¼ìž í˜„ìž¬ë…„ì›”ì¼ ë°›ì•„ì˜¤ê¸°	
 			document.getElementById('campRegDate').value = new Date().toISOString().substring(0, 10);
 			
 			$("#save").on("click" , function() {
-				alert("Ä·ÇÎÀåÁ¤º¸°¡ µî·Ï µÇ¾ú½À´Ï´Ù.");
-				document.getElementById('campTempSave').value = "3";
+				alert("ìº í•‘ìž¥ì •ë³´ê°€ ë“±ë¡ ë˜ì—ˆìŠµë‹ˆë‹¤.");
+				$("#addCampTempSave").val("3");
 				$("form").attr("method" , "POST").attr("action" , "/campBusiness/updateCamp").attr("enctype","multipart/form-data").submit();
 			});
 			
 			$("#tempsave").on("click" , function() {
-				alert("ÀÓ½Ãµî·Ï µÇ¾ú½À´Ï´Ù.");
-				document.getElementById('campTempSave').value = "2";				
+				alert("ìž„ì‹œë“±ë¡ ë˜ì—ˆìŠµë‹ˆë‹¤.");
+				$("#addCampTempSave").val("2");			
 				$("form").attr("method" , "POST").attr("action" , "/campBusiness/updateCamp").attr("enctype","multipart/form-data").submit();
 			});
 			
 			$("#cancle").on("click" , function() {
-				alert("Ãë¼Ò µÇ¾ú½À´Ï´Ù.");
+				alert("ì·¨ì†Œ ë˜ì—ˆìŠµë‹ˆë‹¤.");
 				window.history.back();			
 			});
 			
 			$("#resetform").on("click" , function() {
-				alert("ÃÊ±âÈ­ µÇ¾ú½À´Ï´Ù.");				
+				alert("ì´ˆê¸°í™” ë˜ì—ˆìŠµë‹ˆë‹¤.");				
 				$("form")[0].reset();				
 			});
 		
@@ -70,221 +94,276 @@
 
 <body>
 
-	
-
 	<!-- ToolBar -->
 	<jsp:include page="/view/common/headerCampBusiness.jsp" />
 
 	<!-- Page Start -->
 	<div class="container">
+		<div class="row">
+		 
+			<div class="page-header">
+		       <h1 class=" text-info">ìº í•‘ìž¥ ë“±ë¡</h1>
+		    </div>		    
+		   
+		   	<div class="col-xs-1"></div>	
+			<div class="col-xs-9">	
+				   
+	    	<!-- Form Start -->
+			<form class="form-horizontal">
+			
+				<div class="row">
+					
+					<input type="hidden" name="campTempSave" id="addCampTempSave" value="${camp.campTempSave}">
+					
+					<div class="form-group">
+						<label for="saveStatus" class="col-sm-offset-1 col-sm-3 control-label">ë“±ë¡ ìƒíƒœ</label>	
+							<c:if test="${ empty campSession.campTempSave || campSession.campTempSave != '3' }">	
+								<div class="col-xs-8 col-md-4"> ë¯¸ë“±ë¡ ìƒíƒœìž…ë‹ˆë‹¤. ë“±ë¡ì„ ì™„ë£Œí•˜ì„¸ìš”</div>
+							</c:if>
+					</div>
+				
+					<div class="form-group">
+						<label for="campNo" class="col-sm-offset-1 col-sm-3 control-label">ë“±ë¡ ë²ˆí˜¸</label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control" id="campNo" name="campNo" value="${camp.campNo}" readonly>
+							</div>
+					</div>
+					
+					<div class="form-group">
+						<label for="campRegDate" class="col-sm-offset-1 col-sm-3 control-label">ë“±ë¡ ì¼ìž</label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control" id="campRegDate" name="campRegDate" value="" readonly>
+							</div>
+					</div>
+					
+					<div class="form-group">
+						<label for="user.id" class="col-sm-offset-1 col-sm-3 control-label">ì‚¬ì—…ìžíšŒì›ID</label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control" id="user.id" name="user.id" value="${camp.user.id}" readonly>
+							</div>
+					</div>
+				
+					<div class="form-group">
+						<label for="campTheme1" class="col-sm-offset-1 col-sm-3 control-label">í…Œë§ˆ ìœ í˜•1</label>
+						<div class="col-sm-4">
+							<select name="campTheme1" class="form-control" >
+								<option value="ë´„" selected="selected">ë´„</option>
+								<option value="ì—¬ë¦„">ì—¬ë¦„</option>
+								<option value="ê°€ì„">ê°€ì„</option>
+								<option value="ê²¨ìš¸">ê²¨ìš¸</option>
+								<option value="ì¼ì¶œ">ì¼ì¶œ</option>
+								<option value="ì¼ëª°">ì¼ëª°</option>
+								<option value="ë“±ì‚°">ë“±ì‚°</option>
+								<option value="ë‚šì‹œ">ë‚šì‹œ</option>
+								<option value="ì• ì™„ë™ë¬¼ë™ë°˜">ì• ì™„ë™ë¬¼ë™ë°˜</option>	
+							</select>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label for="campTheme2" class="col-sm-offset-1 col-sm-3 control-label">í…Œë§ˆ ìœ í˜•2</label>
+						<div class="col-sm-4">
+							<select name="campTheme2" class="form-control" >
+								<option value="ë´„">ë´„</option>
+								<option value="ì—¬ë¦„">ì—¬ë¦„</option>
+								<option value="ê°€ì„">ê°€ì„</option>
+								<option value="ê²¨ìš¸">ê²¨ìš¸</option>
+								<option value="ì¼ì¶œ" selected="selected">ì¼ì¶œ</option>
+								<option value="ì¼ëª°">ì¼ëª°</option>
+								<option value="ë“±ì‚°">ë“±ì‚°</option>
+								<option value="ë‚šì‹œ">ë‚šì‹œ</option>
+								<option value="ì• ì™„ë™ë¬¼ë™ë°˜">ì• ì™„ë™ë¬¼ë™ë°˜</option>	
+							</select>
+						</div>
+					</div>
+			
+					<div class="form-group">
+						<label for="campNature1" class="col-sm-offset-1 col-sm-3 control-label">ì£¼ë³€ í™˜ê²½1</label>
+						<div class="col-sm-4">
+							<select name="campNature1" class="form-control" >
+								<option value="ê³„ê³¡" selected="selected">ê³„ê³¡</option>
+								<option value="í˜¸ìˆ˜">í˜¸ìˆ˜</option>
+								<option value="ê°•">ê°•</option>
+								<option value="ë°”ë‹¤">ë°”ë‹¤</option>
+								<option value="ì‚°">ì‚°</option>
+								<option value="ìˆ²">ìˆ²</option>
+								<option value="ë„ì‹œ">ë„ì‹œ</option>
+								<option value="ì„¬">ì„¬</option>
+							</select>
+						</div>
+					</div>
+			
+					<div class="form-group">
+						<label for="campNature2" class="col-sm-offset-1 col-sm-3 control-label">ì£¼ë³€ í™˜ê²½2</label>
+						<div class="col-sm-4">
+							<select name="campNature2" class="form-control" >
+								<option value="ê³„ê³¡">ê³„ê³¡</option>
+								<option value="í˜¸ìˆ˜">í˜¸ìˆ˜</option>
+								<option value="ê°•">ê°•</option>
+								<option value="ë°”ë‹¤">ë°”ë‹¤</option>
+								<option value="ì‚°" selected="selected">ì‚°</option>
+								<option value="ìˆ²">ìˆ²</option>
+								<option value="ë„ì‹œ">ë„ì‹œ</option>
+								<option value="ì„¬">ì„¬</option>
+							</select>
+						</div>
+					</div>	
+			
+					<div class="form-group">
+						<label for="campOperation1" class="col-sm-offset-1 col-sm-3 control-label">ìš´ì˜ ìœ í˜•1</label>
+						<div class="col-sm-4">
+							<select name="campOperation1" class="form-control" >
+								<option value="ìƒì‹œ" selected="selected">ìƒì‹œ</option>
+								<option value="ë´„">ë´„ (3ì›”~5ì›”)</option>
+								<option value="ì—¬ë¦„">ì—¬ë¦„ (6ì›”~8ì›”)</option>
+								<option value="ê°€ì„">ê°€ì„ (9ì›”~11ì›”)</option>
+								<option value="ê²¨ìš¸">ê²¨ìš¸ (12ì›”~2ì›”)</option>
+								<option value="ì£¼ì¤‘">ì£¼ì¤‘</option>
+								<option value="ì£¼ë§">ì£¼ë§</option>
+							</select>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label for="campOperation2" class="col-sm-offset-1 col-sm-3 control-label">ìš´ì˜ ìœ í˜•2</label>
+						<div class="col-sm-4">
+							<select name="campOperation2" class="form-control" >
+								<option value="ìƒì‹œ">ìƒì‹œ</option>
+								<option value="ë´„">ë´„ (3ì›”~5ì›”)</option>
+								<option value="ì—¬ë¦„">ì—¬ë¦„ (6ì›”~8ì›”)</option>
+								<option value="ê°€ì„">ê°€ì„ (9ì›”~11ì›”)</option>
+								<option value="ê²¨ìš¸">ê²¨ìš¸ (12ì›”~2ì›”)</option>
+								<option value="ì£¼ì¤‘" selected="selected">ì£¼ì¤‘</option>
+								<option value="ì£¼ë§">ì£¼ë§</option>
+							</select>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label for="user.campName" class="col-sm-offset-1 col-sm-3 control-label">ìº í•‘ìž¥ ì´ë¦„</label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control" id="user.campName" name="user.campName" value="${campSession.user.campName}" readonly>
+							</div>
+					</div>
+			
+					<div class="form-group">
+						<label for="user.campCall" class="col-sm-offset-1 col-sm-3 control-label">ìº í•‘ìž¥ ì „í™”ë²ˆí˜¸</label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control" id="user.campCall" name="user.campCall" value="${campSession.user.campCall}" readonly>
+							</div>
+					</div>
+					
+					<div class="form-group">
+						<label for="user.addr" class="col-sm-offset-1 col-sm-3 control-label">ìº í•‘ìž¥ ì£¼ì†Œ</label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control" id="user.addr" name="user.addr" value="${campSession.user.addr}" readonly>
+							</div>
+					</div>
+										
+					<hr>
+					
+  					<div class="form-group">
+						<label for="campMapFile" class="col-sm-offset-1 col-sm-3 control-label">ìº í•‘ìž¥ ì§€ë„ì´ë¯¸ì§€ </label>				
+							<div class="col-sm-4">
+								<input type="file"  id="campMapFile" name="campMapFile">	
+							</div>
+					</div> 
+							
+					<div class="form-group">
+						<label for="campImgFile1" class="col-sm-offset-1 col-sm-3 control-label">ìº í•‘ìž¥ ì „ê²½ì´ë¯¸ì§€(1/5)</label>				
+							<div class="col-sm-4">
+								<input type="file"  id="campImgFile1" name="campImgFile1">	
+							</div>
+					</div>
+					
+					<div class="form-group">
+						<label for="campImgFile2" class="col-sm-offset-1 col-sm-3 control-label">ìº í•‘ìž¥ ì „ê²½ì´ë¯¸ì§€(2/5)</label>				
+							<div class="col-sm-4">
+								<input type="file"  id="campImgFile2" name="campImgFile2">	
+							</div>
+					</div>
+					
+					<div class="form-group">
+						<label for="campImgFile3" class="col-sm-offset-1 col-sm-3 control-label">ìº í•‘ìž¥ ì „ê²½ì´ë¯¸ì§€(3/5)</label>				
+							<div class="col-sm-4">
+								<input type="file"  id="campImgFile3" name="campImgFile3">	
+							</div>
+					</div>
+			
+					<div class="form-group">
+						<label for="campImgFile4" class="col-sm-offset-1 col-sm-3 control-label">ìº í•‘ìž¥ ì „ê²½ì´ë¯¸ì§€(4/5)</label>				
+							<div class="col-sm-4">
+								<input type="file"  id="campImgFile4" name="campImgFile4">		
+							</div>
+					</div>	
+			
+					<div class="form-group">
+						<label for="campImgFile5" class="col-sm-offset-1 col-sm-3 control-label">ìº í•‘ìž¥ ì „ê²½ì´ë¯¸ì§€(5/5)</label>				
+							<div class="col-sm-4">
+								<input type="file"  id="campImgFile5" name="campImgFile5">
+							</div>
+					</div> 	
+					
+					<hr>
+			
+				    </div>
+				    
+					<div class="row">
+						<div class="form-group">        
+					        <label for="campSummery" class="col-sm-offset-1 col-sm-3 control-label">ìº í•‘ìž¥ ìš”ì•½ì†Œê°œ</label>
+						</div> 		   
+					</div>
+					
+					<div class="row">
+						<div class="col-sm-7 col-xs-offset-1">
+					    	<textarea class="form-control" id="campSummery" rows="3" name="campSummery"></textarea>
+					    </div> 		   
+					</div>
+						
+					<div class="row">
+						<br>
+						<div class="form-group">        
+					       <label for="campDetail" class="col-sm-offset-1 col-sm-3 control-label">ìº í•‘ìž¥ ìƒì„¸ì†Œê°œ</label>
+						</div> 		   
+					</div>
+					
+					<div class="row">
+						<div class="col-sm-7 col-xs-offset-1">
+					    	<textarea class="form-control" id="campDetail" rows="6" name="campDetail"></textarea>	
+					    </div> 		   
+					</div>
+					
+	    	</form>
+		    <!-- Form End -->	    
+		
+				<br>
+				<br>
+				
+				<div class="row">
+					<div class="form-group">		
+						<div class="col-xs-1">
+							<button id="cancle" type="button" class="btn btn-danger">ì·¨ì†Œ</button>
+						</div>
+						
+						<div class="col-xs-1 col-xs-offset-1">
+							<button id="resetform" type="button" class="btn btn-secondary">ì–‘ì‹ ì´ˆê¸°í™”</button>	
+						</div>
+						
+						<div class="col-xs-1 col-xs-offset-2">
+							<button id="tempsave" type="button" class="btn btn-info">ìž„ì‹œì €ìž¥</button>
+						</div>
+												
+						<div class="col-xs-1 col-xs-offset-1">
+							<button id="save" type="button" class="btn btn-primary">ì €ìž¥</button>
+						</div>			
+					</div>
+				</div> 			
+		  
+		    
+		    </div>
 
-		<div class="page-header">
-	       <h1 class=" text-info">Ä·ÇÎÀå µî·Ï</h1>
-	    </div>
-
-		<!-- Form Start -->
-		<form class="form-horizontal" >
-		
-		<input type="hidden" name="campTempSave" id="campTempSave" value="">
-		
-		<div class="form-group">
-			<label for="campNo" class="col-sm-offset-1 col-sm-3 control-label">µî·Ï»óÅÂ</label>	
-				<c:if test="${ empty campSession.campTempSave || campSession.campTempSave != '3' }">	
-					<div class="col-xs-8 col-md-4"> ¹Ìµî·Ï »óÅÂÀÔ´Ï´Ù. µî·ÏÀ» ¿Ï·áÇÏ¼¼¿ä</div>
-				</c:if>
 		</div>
-		
-		<div class="form-group">
-			<label for="campNo" class="col-sm-offset-1 col-sm-3 control-label">µî·Ï¹øÈ£</label>
-				<div class="col-sm-4">
-					<input type="text" class="form-control" id="campNo" name="campNo" value="${camp.campNo}" readonly>
-				</div>
-		</div>
-		
-		<div class="form-group">
-			<label for="campRegDate" class="col-sm-offset-1 col-sm-3 control-label">µî·Ï ÀÏÀÚ</label>
-				<div class="col-sm-4">
-					<input type="text" class="form-control" id="campRegDate" name="campRegDate" value="" readonly>
-				</div>
-		</div>
-	
-		<div class="form-group">
-			<label for="user.id" class="col-sm-offset-1 col-sm-3 control-label">»ç¾÷ÀÚÈ¸¿øID</label>
-				<div class="col-sm-4">
-					<input type="text" class="form-control" id="user.id" name="user.id" value="${camp.user.id}">
-				</div>
-		</div>
-
-		<div class="form-group">
-			<label for="campTheme1" class="col-sm-offset-1 col-sm-3 control-label">Å×¸¶ À¯Çü1</label>
-			<div class="col-sm-4">
-				<select name="campTheme1" class="form-control" >
-					<option value="º½" selected="selected">º½</option>
-					<option value="¿©¸§">¿©¸§</option>
-					<option value="°¡À»">°¡À»</option>
-					<option value="°Ü¿ï">°Ü¿ï</option>
-					<option value="ÀÏÃâ">ÀÏÃâ</option>
-					<option value="ÀÏ¸ô">ÀÏ¸ô</option>
-					<option value="µî»ê">µî»ê</option>
-					<option value="³¬½Ã">³¬½Ã</option>
-					<option value="¾Ö¿Ïµ¿¹°µ¿¹Ý">¾Ö¿Ïµ¿¹°µ¿¹Ý</option>	
-				</select>
-			</div>
-		</div>
-		
-		<div class="form-group">
-			<label for="campTheme2" class="col-sm-offset-1 col-sm-3 control-label">Å×¸¶ À¯Çü2</label>
-			<div class="col-sm-4">
-				<select name="campTheme2" class="form-control" >
-					<option value="º½">º½</option>
-					<option value="¿©¸§">¿©¸§</option>
-					<option value="°¡À»">°¡À»</option>
-					<option value="°Ü¿ï">°Ü¿ï</option>
-					<option value="ÀÏÃâ" selected="selected">ÀÏÃâ</option>
-					<option value="ÀÏ¸ô">ÀÏ¸ô</option>
-					<option value="µî»ê">µî»ê</option>
-					<option value="³¬½Ã">³¬½Ã</option>
-					<option value="¾Ö¿Ïµ¿¹°µ¿¹Ý">¾Ö¿Ïµ¿¹°µ¿¹Ý</option>	
-				</select>
-			</div>
-		</div>
-
-		<div class="form-group">
-			<label for="campNature1" class="col-sm-offset-1 col-sm-3 control-label">ÁÖº¯ È¯°æ1</label>
-			<div class="col-sm-4">
-				<select name="campNature1" class="form-control" >
-					<option value="°è°î" selected="selected">°è°î</option>
-					<option value="È£¼ö">È£¼ö</option>
-					<option value="°­">°­</option>
-					<option value="¹Ù´Ù">¹Ù´Ù</option>
-					<option value="»ê">»ê</option>
-					<option value="½£">½£</option>
-					<option value="µµ½Ã">µµ½Ã</option>
-					<option value="¼¶">¼¶</option>
-				</select>
-			</div>
-		</div>
-
-		<div class="form-group">
-			<label for="campNature2" class="col-sm-offset-1 col-sm-3 control-label">ÁÖº¯ È¯°æ2</label>
-			<div class="col-sm-4">
-				<select name="campNature2" class="form-control" >
-					<option value="°è°î">°è°î</option>
-					<option value="È£¼ö">È£¼ö</option>
-					<option value="°­">°­</option>
-					<option value="¹Ù´Ù">¹Ù´Ù</option>
-					<option value="»ê" selected="selected">»ê</option>
-					<option value="½£">½£</option>
-					<option value="µµ½Ã">µµ½Ã</option>
-					<option value="¼¶">¼¶</option>
-				</select>
-			</div>
-		</div>	
-
-		<div class="form-group">
-			<label for="campOperation1" class="col-sm-offset-1 col-sm-3 control-label">¿î¿µ À¯Çü1</label>
-			<div class="col-sm-4">
-				<select name="campOperation1" class="form-control" >
-					<option value="»ó½Ã" selected="selected">»ó½Ã</option>
-					<option value="º½">º½ (3¿ù~5¿ù)</option>
-					<option value="¿©¸§">¿©¸§ (6¿ù~8¿ù)</option>
-					<option value="°¡À»">°¡À» (9¿ù~11¿ù)</option>
-					<option value="°Ü¿ï">°Ü¿ï (12¿ù~2¿ù)</option>
-					<option value="ÁÖÁß">ÁÖÁß</option>
-					<option value="ÁÖ¸»">ÁÖ¸»</option>
-				</select>
-			</div>
-		</div>
-		
-		<div class="form-group">
-			<label for="campOperation2" class="col-sm-offset-1 col-sm-3 control-label">¿î¿µ À¯Çü2</label>
-			<div class="col-sm-4">
-				<select name="campOperation2" class="form-control" >
-					<option value="»ó½Ã">»ó½Ã</option>
-					<option value="º½">º½ (3¿ù~5¿ù)</option>
-					<option value="¿©¸§">¿©¸§ (6¿ù~8¿ù)</option>
-					<option value="°¡À»">°¡À» (9¿ù~11¿ù)</option>
-					<option value="°Ü¿ï">°Ü¿ï (12¿ù~2¿ù)</option>
-					<option value="ÁÖÁß" selected="selected">ÁÖÁß</option>
-					<option value="ÁÖ¸»">ÁÖ¸»</option>
-				</select>
-			</div>
-		</div>
-		
-		
-		<div class="form-group">
-			<label for="camp.user.campName" class="col-sm-offset-1 col-sm-3 control-label">Ä·ÇÎÀå ÀÌ¸§</label>
-				<div class="col-sm-4">
-					<input type="text" class="form-control" id="user.campName" name="camp.user.campName" value="${campSession.user.campName}" readonly>
-				</div>
-		</div>
-
-		<div class="form-group">
-			<label for="camp.user.campCall" class="col-sm-offset-1 col-sm-3 control-label">Ä·ÇÎÀå ÀüÈ­¹øÈ£</label>
-				<div class="col-sm-4">
-					<input type="text" class="form-control" id="user.campCall" name="camp.user.campCall" value="${campSession.user.campCall}" readonly>
-				</div>
-		</div>
-		
-		<div class="form-group">
-			<label for="camp.user.addr" class="col-sm-offset-1 col-sm-3 control-label">Ä·ÇÎÀå ÁÖ¼Ò</label>
-				<div class="col-sm-4">
-					<input type="text" class="form-control" id="camp.user.addr" name="camp.user.addr" value="${campSession.user.addr}" readonly>
-				</div>
-		</div>
-		
-		<br>
-		<br>
-
-		<div class="form-group">
-			<label for="campMapImg" class="col-sm-offset-1 col-sm-3 control-label">Ä·ÇÎÀå ÁöµµÀÌ¹ÌÁö </label>				
-				<div class="col-sm-4">
-					<input type="file"  id="campMapImg" name="campMapImg" >			
-				</div>
-		</div>
-		
-		<div class="form-group">
-			<label for="campImg1" class="col-sm-offset-1 col-sm-3 control-label">Ä·ÇÎÀå Àü°æÀÌ¹ÌÁö(5°³) </label>				
-				<div class="col-sm-4">
-					<input multiple="multiple" type="file"  id="campImg1" name="campImg1" >	
-				</div>
-		</div>			
-
-		<br>
-		<br>
-		
-		<div class="form-group">
-			<label for="campSummery" class="col-sm-offset-1 col-sm-3 control-label">Ä·ÇÎÀå ¿ä¾à¼Ò°³</label>
-				<div class="col-sm-4">
-					<input type="text" class="form-control" id="campSummery" name="campSummery" value="" placeholder="¿ä¾à¼Ò°³¸¦ ÀÔ·ÂÇÏ¼¼¿ä">
-				</div>
-		</div>
-		
-		<div class="form-group">
-			<label for="campDetail" class="col-sm-offset-1 col-sm-3 control-label">Ä·ÇÎÀå »ó¼¼¼Ò°³</label>
-				<div class="col-sm-4">
-					<input type="text" class="form-control" id="campDetail" name="campDetail" value="" placeholder="»ó¼¼¼Ò°³¸¦ ÀÔ·ÂÇÏ¼¼¿ä">
-				</div>
-		</div>
-		
-		<br>
-		<br>
-	
-		<div class="form-group">
-			<div class="col-sm-offset-4  col-sm-4 text-center">
-				<button id="cancle" type="button" class="btn btn-primary">Ãë¼Ò</button>
-				<button id="resetform" type="button" class="btn btn-primary">¾ç½Ä ÃÊ±âÈ­</button>				
-				<button id="tempsave" type="button" class="btn btn-primary">ÀÓ½ÃÀúÀå</button>
-				<button id="save" type="button" class="btn btn-primary">ÀúÀå</button>
-			</div>
-		</div> 
-		
-		</form>
-		<!-- Form End -->
-		
- 	</div>
-	<!-- Page End -->
-
+	</div>
 </body>
 
 </html>

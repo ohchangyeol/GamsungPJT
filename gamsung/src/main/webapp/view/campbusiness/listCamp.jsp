@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>	
 
 <!DOCTYPE html>
@@ -7,29 +7,43 @@
 
 <head>
 
-	<meta charset="EUC-KR">
+	<meta charset="utf-8">
 	
-	<!-- ÂüÁ¶ : http://getbootstrap.com/css/   ÂüÁ¶ -->
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	
-	<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
-	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
-	
-	
-	<!-- Bootstrap Dropdown Hover CSS -->
-   <link href="/css/animate.min.css" rel="stylesheet">
-   <link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
-    <!-- Bootstrap Dropdown Hover JS -->
-   <script src="/javascript/bootstrap-dropdownhover.min.js"></script>
+	<!-- Bootstrap, jQuery CDN -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">	
+	<script src="/resources/lib/jquery/jquery.js"></script>
+    <script src="/resources/lib/bootstrap/js/bootstrap.min.js"></script>
+  	<script src="/resources/lib/imagesloaded/imagesloaded.pkgd.js"></script>
+  	<link rel="stylesheet" href="/resources/lib/bootstrap/css/bootstrap.min.css"></link>  	
+  	
+  	
+  	<!-- ### headerCampBusiness resources Start ### -->
+  	<script src="/resources/lib/jquery/jquery.js"></script>
+    
+    <!-- Favicons -->
+    <meta name="msapplication-TileImage" content="/resources/images/favicons/ms-icon-144x144.png">    
+    <meta name="msapplication-TileColor" content="#ffffff">  
+    <meta name="theme-color" content="#ffffff">
    
-   
-   <!-- jQuery UI toolTip »ç¿ë CSS-->
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  <!-- jQuery UI toolTip »ç¿ë JS-->
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <!-- Stylesheets -->
+    
+    <!-- Default stylesheets-->
+    <link href="/resources/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Template specific stylesheets-->
+    <link href="/resources/lib/animate.css/animate.css" rel="stylesheet">
+    <link href="/resources/lib/components-font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/resources/lib/et-line-font/et-line-font.css" rel="stylesheet">
+    <link href="/resources/lib/flexslider/flexslider.css" rel="stylesheet">
+    <link href="/resources/lib/owl.carousel/dist/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="/resources/lib/owl.carousel/dist/assets/owl.theme.default.min.css" rel="stylesheet">
+    <link href="/resources/lib/magnific-popup/magnific-popup.css" rel="stylesheet">
+    <link href="/resources/lib/simple-text-rotator/simpletextrotator.css" rel="stylesheet">       
+    
+    <!-- Main stylesheet and color file-->
+    <link href="/resources/css/style.css" rel="stylesheet">
+    <link id="color-scheme" href="/resources/css/colors/default.css" rel="stylesheet">  
+  	<!-- ### headerCampBusiness resources End ### -->
   
   	<style>
 	  body {
@@ -39,27 +53,27 @@
 
 	<script type="text/javascript">
 	
-	function fncGetList(currentPage) {
-		$("#currentPage").val(currentPage)
-		$("form").attr("method" , "POST").attr("action" , "/campBusiness/listCamp").submit();
-	}
-
-	$(function() {
-		 
-		$( "button.btn.btn-default"  ).on("click" , function() {
-			fncGetList(1);
-		}); 
-		 
-		$( "td:nth-child(2)" ).on("click" , function() {
-			self.location ="/campBusiness/getCamp?campNo="+$(this).attr("data-campNo");
-		});
-					
-		//==> LINK Event End User ¿¡°Ô º¸ÀÏ¼ö ÀÖµµ·Ï 
-		$( "td:nth-child(2)" ).css("color" , "red");		
+		function fncGetList(currentPage) {
+			$("#currentPage").val(currentPage)
+			$("form").attr("method" , "POST").attr("action" , "/campBusiness/listCamp").submit();
+		}
 	
-	});	
+		$(function() {
+			 
+			$( "button.btn.btn-default"  ).on("click" , function() {
+				fncGetList(1);
+			}); 
+			 
+			$( "td:nth-child(2)" ).on("click" , function() {
+				self.location ="/campBusiness/getCamp?campNo="+$(this).attr("data-campNo");
+			});
+						
+			//==> LINK Event End User ì—ê²Œ ë³´ì¼ìˆ˜ ìˆë„ë¡ 
+			$( "td:nth-child(2)" ).css("color" , "red");		
+		
+		});	
     
-</script>
+	</script>
 </head>
 
 <body>
@@ -70,15 +84,15 @@
    	<!-- Page Start -->
 	<div class="container">
 		<div class="page-header text-info">
-			<h3>Ä·ÇÎÀå ÀüÃ¼ ¸ñ·Ï</h3>
+			<h3>ìº í•‘ì¥ ì „ì²´ ëª©ë¡</h3>
 	    </div>
 	    
-	    <!-- »ó´Ü -->
+	    <!-- ìƒë‹¨ -->
 	    <div class="row">
 	    
 	    	<div class="col-md-6 text-left">
 				<p class="text-primary">
-		    		ÀüÃ¼  ${resultPage.totalCount} °Ç¼ö, ÇöÀç ${resultPage.currentPage}  ÆäÀÌÁö
+		    		ì „ì²´  ${resultPage.totalCount} ê±´ìˆ˜, í˜„ì¬ ${resultPage.currentPage}  í˜ì´ì§€
 		    	</p>
 			</div>
 		
@@ -87,19 +101,19 @@
 			    
 					<div class="form-group">
 						<select class="form-control" name="searchCondition" >
-							<option value="0" ${! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>Ä·ÇÎÀå¸í</option>
-							<option value="1" ${! empty search.searchCondition && search.searchCondition==1 ? "selected" : "" }>Ä·ÇÎÀå¸í</option>
-							<option value="2" ${! empty search.searchCondition && search.searchCondition==2 ? "selected" : "" }>µµ¼­°¡°İ</option>
+							<option value="0" ${! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>ìº í•‘ì¥ëª…</option>
+							<option value="1" ${! empty search.searchCondition && search.searchCondition==1 ? "selected" : "" }>ìº í•‘ì¥ëª…</option>
+							<option value="2" ${! empty search.searchCondition && search.searchCondition==2 ? "selected" : "" }>ë„ì„œê°€ê²©</option>
 						</select>
 					</div>
 					  
 					<div class="form-group">
-						<label class="sr-only" for="searchKeyword">°Ë»ö¾î</label>
-					    <input type="text"  class="form-control" id="searchKeyword" name="searchKeyword"  placeholder="°Ë»ö¾î"
+						<label class="sr-only" for="searchKeyword">ê²€ìƒ‰ì–´</label>
+					    <input type="text"  class="form-control" id="searchKeyword" name="searchKeyword"  placeholder="ê²€ìƒ‰ì–´"
 					    			 value="${! empty search.searchKeyword ? search.searchKeyword : '' }"  >
 					</div>
 					  
-					<button type="button" class="btn btn-default">°Ë»ö</button>
+					<button type="button" class="btn btn-info">ê²€ìƒ‰</button>
 					  
 					<!-- PageNavigation Page value -->
 					<input type="hidden" id="currentPage" name="currentPage" value=""/>
@@ -109,18 +123,19 @@
 	    
 	    </div>
 	    
-		<!-- ÇÏ´Ü -->
+		<!-- í•˜ë‹¨ -->
+		<br>
 		<table class="table table-hover table-striped" >
       
 			<thead>
 				<tr>
             		<th align="left">No</th>
-            		<th align="left">Ä·ÇÎÀå¸í</th>
-          			<th align="left">ÆòÁ¡</th>
-          			<th align="left">Àü¿ù ¿¹¾à¼ö</th>
-          			<th align="left">Àü¿ù Á¶È¸¼ö</th>          			
-          			<th align="left">´ç¿ù Á¶È¸¼ö</th>
-           			<th align="left">µî·ÏÀÏ</th>          	
+            		<th align="left">ìº í•‘ì¥ëª…</th>
+          			<th align="left">í‰ì </th>
+          			<th align="left">ì „ì›” ì˜ˆì•½ìˆ˜</th>
+          			<th align="left">ì „ì›” ì¡°íšŒìˆ˜</th>          			
+          			<th align="left">ë‹¹ì›” ì¡°íšŒìˆ˜</th>
+           			<th align="left">ë“±ë¡ì¼</th>          	
            			<th align="left">Blind</th>          			
 				</tr>
        		</thead>

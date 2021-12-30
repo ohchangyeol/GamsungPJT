@@ -100,6 +100,12 @@ public class AuctionInfoDAOImpl implements AuctionInfoDAO{
 	}
 
 	@Override
+	public List<AuctionInfo> getBidderRanking(AuctionInfo auctionInfo) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("AuctionInfoMapper.getBidderRanking",auctionInfo);
+	}
+
+	@Override
 	public boolean isSecessionUserAuctionCondition(String userId) {
 		// TODO Auto-generated method stub
 		

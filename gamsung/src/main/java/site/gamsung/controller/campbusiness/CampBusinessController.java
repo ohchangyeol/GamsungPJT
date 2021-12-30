@@ -1,14 +1,14 @@
 package site.gamsung.controller.campbusiness;
 
-import java.util.List;
 import java.util.Map;
 import java.io.File;
-import java.io.IOException;
 import java.sql.Date;
 
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.http.HttpRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,8 +18,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import site.gamsung.service.common.Page;
 import site.gamsung.service.common.Search;
@@ -53,9 +51,11 @@ public class CampBusinessController {
 	// @Value("#{commonProperties['pageSize']}")
 	@Value("#{commonProperties['pageSize'] ?: 10}")
 	int pageSize;
-
-	private static final String FILE_PATH = "C:\\Users\\Choi\\git\\GamsungPJT\\gamsung\\src\\main\\webapp\\uploadfiles\\campimg\\campbusiness\\camp";
-
+	
+	public static final String FILE_PATH_CAMP = "C:\\Users\\Choi\\git\\GamsungPJT\\gamsung\\src\\main\\webapp\\uploadfiles\\campimg\\campbusiness\\camp";
+	public static final String FILE_PATH_MAINSITE = "C:\\Users\\Choi\\git\\GamsungPJT\\gamsung\\src\\main\\webapp\\uploadfiles\\campimg\\campbusiness\\mainsite";
+	public static final String FILE_PATH_SUBSITE = "C:\\Users\\Choi\\git\\GamsungPJT\\gamsung\\src\\main\\webapp\\uploadfiles\\campimg\\campbusiness\\subsite";
+		
 	public CampBusinessController() {
 		System.out.println(this.getClass());
 	}
@@ -64,15 +64,15 @@ public class CampBusinessController {
 	 * Common
 	 */
 	@RequestMapping(value = "goSubMainCampBusiness", method = RequestMethod.GET)
-	public String goSubMainCampBusiness(HttpSession httpSession, Model model) throws Exception {
-
+	public String goSubMainCampBusiness(HttpSession httpSession) throws Exception {
+			
 		/////////////////////////////////////////////////////////////////////// Session 완료시 삭제
 		User tempSessionUser = new User();
 		
-		tempSessionUser.setId("businessuser1@gamsung.com"); // TS -3 저장
+		//tempSessionUser.setId("businessuser1@gamsung.com"); // TS -3 저장
 		//tempSessionUser.setId("businessuser6@gamsung.com"); // TS -2 임시저장
 		//tempSessionUser.setId("businessuser9@gamsung.com"); // TS -1 발급 완료
-		//tempSessionUser.setId("businessuser11@gamsung.com");  // TS -0 발급 미완료
+		tempSessionUser.setId("businessuser11@gamsung.com");  // TS -0 발급 미완료
 		//tempSessionUser.setId("admin");					  // admin
 		
 		httpSession.setAttribute("user", tempSessionUser);
@@ -151,7 +151,7 @@ public class CampBusinessController {
 		int tempRegNum = campBusinessService.getCampNoById(tempId);
 		System.out.println("tempRegNum1 : " + tempRegNum);
 		if (tempRegNum == 0 ) {
-			tempRegNum = campBusinessService.getRegNum(tempCamp);
+			tempRegNum = campBusinessService.getRegNum("Camp", tempCamp);
 		}
 		System.out.println("tempRegNum2 : " + tempRegNum);
 		tempCamp.setCampNo(tempRegNum);
@@ -172,10 +172,9 @@ public class CampBusinessController {
 		search.setPageSize(pageSize);
 		search.setSearchItemType("Camp");
 		Map<String, Object> map = campBusinessService.listCamp(search);
-
-		Page resultPage = new Page(search.getCurrentPage(), ((Integer) map.get("totalCount")).intValue(), pageUnit, pageSize);
-		System.out.println(resultPage);
-
+		Page resultPage = 
+				new Page(search.getCurrentPage(), ((Integer) map.get("totalCount")).intValue(), pageUnit, pageSize);
+		
 		model.addAttribute("list", map.get("list"));
 		model.addAttribute("resultPage", resultPage);
 		model.addAttribute("search", search);
@@ -201,33 +200,81 @@ public class CampBusinessController {
 		return "forward:/view/campbusiness/updateCamp.jsp";
 	}
 	
+
 	@RequestMapping(value = "updateCamp", method = RequestMethod.POST)
-	public String updateCamp(@ModelAttribute("camp") Camp camp, MultipartHttpServletRequest multipartRequest) throws Exception {	
-		System.out.println("c1 : " + camp);	
+	public String updateCamp(@ModelAttribute("camp") Camp camp) throws Exception {		
 			
-		List<MultipartFile> fileList = multipartRequest.getFiles("file");
-        String src = multipartRequest.getParameter("src");
-        System.out.println("src value : " + src);
-
-        String path = "C:\\image\\";
-
-        for (MultipartFile mf : fileList) {
-            String originFileName = mf.getOriginalFilename(); // 원본 파일 명
-            long fileSize = mf.getSize(); // 파일 사이즈
-
-            System.out.println("originFileName : " + originFileName);
-            System.out.println("fileSize : " + fileSize);
-
-            String safeFile = path + System.currentTimeMillis() + originFileName;
-            try {
-                mf.transferTo(new File(safeFile));
-            } catch (IllegalStateException e) {
-                   e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
+		String originfileName = ""; 
+		String extension = "";
+		String newfileName = ""; 		
+		
+		if(camp.getCampMapFile() != null) {
+			originfileName = camp.getCampMapFile().getOriginalFilename().trim();
+			
+			if(!(originfileName.equals(""))) {
+				extension = originfileName.split("\\.")[1];		
+				newfileName = camp.getCampNo() + "_map" + "." + extension;
+				camp.setCampMapImg(newfileName);
+				camp.getCampMapFile().transferTo(new File(FILE_PATH_CAMP, newfileName)); 
+			}
+		}
+		
+		if(camp.getCampImgFile1() != null) {
+			originfileName = camp.getCampImgFile1().getOriginalFilename().trim();
+			
+			if(!(originfileName.equals(""))) {
+				System.out.println("cccccc" +originfileName + "aaa");
+				extension = originfileName.split("\\.")[1];		
+				newfileName = camp.getCampNo() + "_1" + "." + extension;
+				camp.setCampImg1(newfileName);
+				camp.getCampImgFile1().transferTo(new File(FILE_PATH_CAMP, newfileName));
+			}
+		}
+		
+		if(camp.getCampImgFile2() != null) {
+			originfileName = camp.getCampImgFile2().getOriginalFilename().trim();
+			
+			if(!(originfileName.equals(""))) {
+				extension = originfileName.split("\\.")[1];		
+				newfileName = camp.getCampNo() + "_2" + "." + extension;
+				camp.setCampImg2(newfileName);
+				camp.getCampImgFile2().transferTo(new File(FILE_PATH_CAMP, newfileName));
+			}
+		}		
+		
+		if(camp.getCampImgFile3() != null) {
+			originfileName = camp.getCampImgFile3().getOriginalFilename().trim();
+			
+			if(!(originfileName.equals(""))) {
+				extension = originfileName.split("\\.")[1];		
+				newfileName = camp.getCampNo() + "_3" + "." + extension;
+				camp.setCampImg3(newfileName);
+				camp.getCampImgFile3().transferTo(new File(FILE_PATH_CAMP, newfileName));
+			}
+		}
+		
+		if(camp.getCampImgFile4() != null) {
+			originfileName = camp.getCampImgFile4().getOriginalFilename().trim();
+			
+			if(!(originfileName.equals(""))) {
+				extension = originfileName.split("\\.")[1];		
+				newfileName = camp.getCampNo() + "_4" + "." + extension;
+				camp.setCampImg4(newfileName);
+				camp.getCampImgFile4().transferTo(new File(FILE_PATH_CAMP, newfileName));
+			}
+		}		
+		
+		if(camp.getCampImgFile5() != null) {
+			originfileName = camp.getCampImgFile5().getOriginalFilename().trim();
+			
+			if(!(originfileName.equals(""))) {
+				extension = originfileName.split("\\.")[1];		
+				newfileName = camp.getCampNo() + "_5" + "." + extension;
+				camp.setCampImg5(newfileName);
+				camp.getCampImgFile5().transferTo(new File(FILE_PATH_CAMP, newfileName)); 
+			}
+		}		
+	
 		System.out.println("c1 : " + camp);		
 		campBusinessService.updateCamp(camp);
 		
@@ -246,15 +293,25 @@ public class CampBusinessController {
 	 * MainSite
 	 */
 	@RequestMapping(value = "addMainSiteView", method = RequestMethod.GET)
-	public String addMainSiteView() throws Exception {
+	public String addMainSiteView(HttpSession httpSession, Model model) throws Exception {
+		
+		MainSite tempMainSite = new MainSite();		
+		int tempCampNo = ((Camp)httpSession.getAttribute("campSession")).getCampNo();
+		tempMainSite.setCampNo(tempCampNo);
+
+		tempMainSite.setMainSiteType(" ");
+		tempMainSite.setMainSiteName(tempCampNo+"");
+		tempMainSite.setMainSiteMinCapacity(0);
+		tempMainSite.setMainSiteMaxCapacity(0);
+		tempMainSite.setMainSiteMinPrice(0);
+		tempMainSite.setMainSiteAddPrice(0);		
+		tempMainSite.setMainSiteRegDate(Date.valueOf("1111-11-11"));		
+		
+		int tempRegNum = campBusinessService.getRegNum("MainSite", tempMainSite);		
+		tempMainSite.setMainSiteNo(tempRegNum);
+		model.addAttribute("mainSite", tempMainSite);			
+		
 		return "forward:/view/campbusiness/addMainSite.jsp";
-	}
-
-	@RequestMapping(value = "addMainSite", method = RequestMethod.POST)
-	public String addMainSite(@ModelAttribute("mainSite") MainSite mainSite) throws Exception {
-
-		campBusinessService.addMainSite(mainSite);
-		return "forward:/view/campbusiness/getMainSite.jsp";
 	}
 
 	// 구역크기, 기본인원, 최대인원, 기본인원사용금액, 추가인원금액 Ajax 처리필요
@@ -269,11 +326,9 @@ public class CampBusinessController {
 		search.setPageSize(pageSize);
 		search.setSearchItemType("MainSite");
 		Map<String, Object> map = campBusinessService.listMainSite(search);
-
-		Page resultPage = new Page(search.getCurrentPage(), ((Integer) map.get("totalCount")).intValue(), pageUnit,
-				pageSize);
-		System.out.println(resultPage);
-
+		Page resultPage = 
+				new Page(search.getCurrentPage(), ((Integer) map.get("totalCount")).intValue(), pageUnit,	pageSize);
+	
 		model.addAttribute("list", map.get("list"));
 		model.addAttribute("resultPage", resultPage);
 		model.addAttribute("search", search);
@@ -302,6 +357,43 @@ public class CampBusinessController {
 	@RequestMapping(value = "updateMainSite", method = RequestMethod.POST)
 	public String updateMainSite(@ModelAttribute("mainSite") MainSite mainSite) throws Exception {
 		
+		String originfileName = ""; 
+		String extension = "";
+		String newfileName = ""; 			
+		
+		if(mainSite.getMainSiteImgFile1() != null) {			
+			originfileName = mainSite.getMainSiteImgFile1().getOriginalFilename().trim();
+			
+			if(!(originfileName.equals(""))) {				
+				extension = originfileName.split("\\.")[1];		
+				newfileName = mainSite.getCampNo()+"-" + mainSite.getMainSiteNo() +"_1" + "." + extension;
+				mainSite.setMainSiteImg1(newfileName);
+				mainSite.getMainSiteImgFile1().transferTo(new File(FILE_PATH_MAINSITE, newfileName)); 
+			}
+		}
+		
+		if(mainSite.getMainSiteImgFile2() != null) {
+			originfileName = mainSite.getMainSiteImgFile2().getOriginalFilename().trim();
+			
+			if(!(originfileName.equals(""))) {
+				extension = originfileName.split("\\.")[1];		
+				newfileName = mainSite.getCampNo()+"-" + mainSite.getMainSiteNo() +"_2" + "." + extension;
+				mainSite.setMainSiteImg2(newfileName);
+				mainSite.getMainSiteImgFile2().transferTo(new File(FILE_PATH_MAINSITE, newfileName)); 
+			}
+		}
+		
+		if(mainSite.getMainSiteImgFile3() != null) {
+			originfileName = mainSite.getMainSiteImgFile3().getOriginalFilename().trim();
+			
+			if(!(originfileName.equals(""))) {
+				extension = originfileName.split("\\.")[1];		
+				newfileName = mainSite.getCampNo()+"-" + mainSite.getMainSiteNo() +"_3" + "." + extension;
+				mainSite.setMainSiteImg3(newfileName);
+				mainSite.getMainSiteImgFile3().transferTo(new File(FILE_PATH_MAINSITE, newfileName)); 
+			}
+		}
+		
 		campBusinessService.updateMainSite(mainSite);
 		return "forward:/view/campbusiness/getMainSite.jsp";
 	}
@@ -317,15 +409,22 @@ public class CampBusinessController {
 	 * SubSite
 	 */
 	@RequestMapping(value = "addSubSiteView", method = RequestMethod.GET)
-	public String addSubSiteView() throws Exception {
+	public String addSubSiteView(HttpSession httpSession, Model model) throws Exception {
+				
+		SubSite tempSubSite = new SubSite();		
+		int tempCampNo = ((Camp)httpSession.getAttribute("campSession")).getCampNo();
+		tempSubSite.setCampNo(tempCampNo);
+
+		tempSubSite.setSubSiteType(" ");
+		tempSubSite.setSubSiteName(tempCampNo+"");
+		tempSubSite.setSubSiteRegDate(Date.valueOf("1111-11-11"));
+		
+		// 등록번호 발급
+		int tempRegNum = campBusinessService.getRegNum("SubSite", tempSubSite);		
+		tempSubSite.setSubSiteNo(tempRegNum);
+		model.addAttribute("subSite", tempSubSite);		
+		
 		return "forward:/view/campbusiness/addSubSite.jsp";
-	}
-
-	@RequestMapping(value = "addSubSite", method = RequestMethod.POST)
-	public String addSubSite(@ModelAttribute("SubSite") SubSite subSite) throws Exception {
-
-		campBusinessService.addSubSite(subSite);
-		return "forward:/view/campbusiness/getSubSite.jsp";
 	}
 
 	@RequestMapping(value = "listSubSite", method = RequestMethod.POST)
@@ -339,10 +438,8 @@ public class CampBusinessController {
 		search.setPageSize(pageSize);
 		search.setSearchItemType("SubSite");
 		Map<String, Object> map = campBusinessService.listSubSite(search);
-
-		Page resultPage = new Page(search.getCurrentPage(), ((Integer) map.get("totalCount")).intValue(), pageUnit,
-				pageSize);
-		System.out.println(resultPage);
+		Page resultPage = 
+				new Page(search.getCurrentPage(), ((Integer) map.get("totalCount")).intValue(), pageUnit,	pageSize);
 
 		model.addAttribute("list", map.get("list"));
 		model.addAttribute("resultPage", resultPage);
@@ -369,7 +466,22 @@ public class CampBusinessController {
 	}
 
 	@RequestMapping(value = "updateSubSite", method = RequestMethod.POST)
-	public String updateSubSite(@ModelAttribute("subSite") SubSite subSite) throws Exception {
+	public String updateSubSite(@ModelAttribute("subSite") SubSite subSite, HttpServletRequest httpServletRequest) throws Exception {
+				
+		String originfileName = ""; 
+		String extension = "";
+		String newfileName = ""; 			
+
+		if(subSite.getSubSiteImgFile() != null) {
+			originfileName = subSite.getSubSiteImgFile().getOriginalFilename().trim();
+					
+			if(!(originfileName.equals(""))) {
+				extension = originfileName.split("\\.")[1];		
+				newfileName = subSite.getCampNo() + "-" + subSite.getSubSiteNo() + "." + extension;
+				subSite.setSubSiteImg(newfileName);
+				subSite.getSubSiteImgFile().transferTo(new File(FILE_PATH_SUBSITE, newfileName)); 
+			}
+		}
 		
 		campBusinessService.updateSubSite(subSite);
 		return "forward:/view/campbusiness/getSubSite.jsp";

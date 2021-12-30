@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>	
 
 <!DOCTYPE html>
@@ -7,29 +7,43 @@
 
 <head>
 
-	<meta charset="EUC-KR">
+	<meta charset="utf-8">
 	
-	<!-- ÂüÁ¶ : http://getbootstrap.com/css/   ÂüÁ¶ -->
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	
-	<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
-	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
-	
-	
-	<!-- Bootstrap Dropdown Hover CSS -->
-   <link href="/css/animate.min.css" rel="stylesheet">
-   <link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
-    <!-- Bootstrap Dropdown Hover JS -->
-   <script src="/javascript/bootstrap-dropdownhover.min.js"></script>
+	<!-- Bootstrap, jQuery CDN -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">	
+	<script src="/resources/lib/jquery/jquery.js"></script>
+    <script src="/resources/lib/bootstrap/js/bootstrap.min.js"></script>
+  	<script src="/resources/lib/imagesloaded/imagesloaded.pkgd.js"></script>
+  	<link rel="stylesheet" href="/resources/lib/bootstrap/css/bootstrap.min.css"></link>  	
+  	
+  	
+  	<!-- ### headerCampBusiness resources Start ### -->
+  	<script src="/resources/lib/jquery/jquery.js"></script>
+    
+    <!-- Favicons -->
+    <meta name="msapplication-TileImage" content="/resources/images/favicons/ms-icon-144x144.png">    
+    <meta name="msapplication-TileColor" content="#ffffff">  
+    <meta name="theme-color" content="#ffffff">
    
-   
-   <!-- jQuery UI toolTip »ç¿ë CSS-->
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  <!-- jQuery UI toolTip »ç¿ë JS-->
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <!-- Stylesheets -->
+    
+    <!-- Default stylesheets-->
+    <link href="/resources/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Template specific stylesheets-->
+    <link href="/resources/lib/animate.css/animate.css" rel="stylesheet">
+    <link href="/resources/lib/components-font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/resources/lib/et-line-font/et-line-font.css" rel="stylesheet">
+    <link href="/resources/lib/flexslider/flexslider.css" rel="stylesheet">
+    <link href="/resources/lib/owl.carousel/dist/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="/resources/lib/owl.carousel/dist/assets/owl.theme.default.min.css" rel="stylesheet">
+    <link href="/resources/lib/magnific-popup/magnific-popup.css" rel="stylesheet">
+    <link href="/resources/lib/simple-text-rotator/simpletextrotator.css" rel="stylesheet">       
+    
+    <!-- Main stylesheet and color file-->
+    <link href="/resources/css/style.css" rel="stylesheet">
+    <link id="color-scheme" href="/resources/css/colors/default.css" rel="stylesheet">  
+  	<!-- ### headerCampBusiness resources End ### -->
   
   	<style>
 	  body {
@@ -50,12 +64,25 @@
 			fncGetList(1);
 		}); 
 		 
-		$( "td:nth-child(3)" ).on("click" , function() {
-			self.location ="/campBusiness/getMainSite?mainSiteNo="+$(this).attr("data-mainSiteNo");
-		});
-					
-		//==> LINK Event End User ¿¡°Ô º¸ÀÏ¼ö ÀÖµµ·Ï 
-		$( "td:nth-child(3)" ).css("color" , "red");		
+		var role = $('input[name=role]').val()
+		
+		
+		if (role == 'ADMIN'){
+			
+			$( "td:nth-child(3)" ).on("click" , function() {
+				self.location ="/campBusiness/getMainSite?mainSiteNo="+$(this).attr("data-mainSiteNo");
+			});
+			
+			$( "td:nth-child(3)" ).css("color" , "red");
+			
+		} else {
+			
+			$( "td:nth-child(2)" ).on("click" , function() {
+				self.location ="/campBusiness/getMainSite?mainSiteNo="+$(this).attr("data-mainSiteNo");
+			});
+			
+			$( "td:nth-child(2)" ).css("color" , "red");
+		}
 	
 	});	
     
@@ -70,17 +97,17 @@
    	<!-- Page Start -->
 	<div class="container">
 		<div class="page-header text-info">
-			<h3>ÁÖ¿ä½Ã¼³ ¸ñ·Ï</h3>
+			<h3>ì£¼ìš”ì‹œì„¤ ëª©ë¡</h3>
 	    </div>
 	    
 	    <input type="hidden" name="campNo" value="${mainSite.campNo}">  
 	    	    
-	    <!-- »ó´Ü -->
+	    <!-- ìƒë‹¨ -->
 	    <div class="row">
 	    
 	    	<div class="col-md-6 text-left">
 				<p class="text-primary">
-		    		ÀüÃ¼  ${resultPage.totalCount} °Ç¼ö, ÇöÀç ${resultPage.currentPage}  ÆäÀÌÁö
+		    		ì „ì²´  ${resultPage.totalCount} ê±´ìˆ˜, í˜„ì¬ ${resultPage.currentPage}  í˜ì´ì§€
 		    	</p>
 			</div>
 		
@@ -92,22 +119,22 @@
 					<div class="form-group">
 						<select class="form-control" name="searchCondition" >
 							<c:if test="${ campSession.user.role eq 'ADMIN' }">
-            					<option value="0" ${! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>Ä·ÇÎÀå¸í</option>
+            					<option value="0" ${! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>ìº í•‘ì¥ëª…</option>
             				</c:if> 
-							<option value="1" ${! empty search.searchCondition && search.searchCondition==1 ? "selected" : "" }>ÁÖ¿ä½Ã¼³¸í</option>
-							<option value="2" ${! empty search.searchCondition && search.searchCondition==2 ? "selected" : "" }>À¯Çü</option>
-							<option value="3" ${! empty search.searchCondition && search.searchCondition==3 ? "selected" : "" }>±¸¿ª¹øÈ£</option>
-							<option value="4" ${! empty search.searchCondition && search.searchCondition==4 ? "selected" : "" }>¿¹¾àÀÚ¸í</option>
+							<option value="1" ${! empty search.searchCondition && search.searchCondition==1 ? "selected" : "" }>ì£¼ìš”ì‹œì„¤ëª…</option>
+							<option value="2" ${! empty search.searchCondition && search.searchCondition==2 ? "selected" : "" }>ìœ í˜•</option>
+							<option value="3" ${! empty search.searchCondition && search.searchCondition==3 ? "selected" : "" }>êµ¬ì—­ë²ˆí˜¸</option>
+							<option value="4" ${! empty search.searchCondition && search.searchCondition==4 ? "selected" : "" }>ì˜ˆì•½ìëª…</option>
 						</select>
 					</div>
 					  
 					<div class="form-group">
-						<label class="sr-only" for="searchKeyword">°Ë»ö¾î</label>
-					    <input type="text"  class="form-control" id="searchKeyword" name="searchKeyword"  placeholder="°Ë»ö¾î"
+						<label class="sr-only" for="searchKeyword">ê²€ìƒ‰ì–´</label>
+					    <input type="text"  class="form-control" id="searchKeyword" name="searchKeyword"  placeholder="ê²€ìƒ‰ì–´"
 					    			 value="${! empty search.searchKeyword ? search.searchKeyword : '' }"  >
 					</div>
 					  
-					<button type="button" class="btn btn-default">°Ë»ö</button>
+					<button type="button" class="btn btn-info">ê²€ìƒ‰</button>
 					  
 					<!-- PageNavigation Page value -->
 					<input type="hidden" id="currentPage" name="currentPage" value=""/>
@@ -117,21 +144,22 @@
 	    
 	    </div>
 	    
-		<!-- ÇÏ´Ü -->
+		<!-- í•˜ë‹¨ -->
+		<br>
 		<table class="table table-hover table-striped" >		
       
 			<thead>
 				<tr>
             		<th align="left">No</th>
             		<c:if test="${ campSession.user.role eq 'ADMIN' }">
-            			<th align="left">Ä·ÇÎÀå¸í</th>
+            			<th align="left">ìº í•‘ì¥ëª…</th>
             		</c:if>
-            		<th align="left">ÀÌ¸§</th>
-            		<th align="left">À¯Çü</th>
-          			<th align="left">±¸¿ª¹øÈ£</th>
-           			<th align="left">¿¡¾à½ÃÀÛÀÏ</th>          	
-           			<th align="left">¿¹¾àÁ¾·áÀÏ</th>
-           			<th align="left">¿¹¾àÀÚ¸í</th>           			         			
+            		<th align="left">ì´ë¦„</th>
+            		<th align="left">ìœ í˜•</th>
+          			<th align="left">êµ¬ì—­ë²ˆí˜¸</th>
+           			<th align="left">ì—ì•½ì‹œì‘ì¼</th>          	
+           			<th align="left">ì˜ˆì•½ì¢…ë£Œì¼</th>
+           			<th align="left">ì˜ˆì•½ìëª…</th>           			         			
 				</tr>
        		</thead>
        		

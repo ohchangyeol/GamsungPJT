@@ -33,5 +33,7 @@ public interface AuctionInfoDAO {
 	
 	public void updateUserAuctionGrade(User user);
 	
+	public List<AuctionInfo> getBidderRanking(AuctionInfo auctionInfo);
+	
 	public boolean isSecessionUserAuctionCondition(String userId);
 }

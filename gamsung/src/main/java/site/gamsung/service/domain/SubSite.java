@@ -2,6 +2,8 @@ package site.gamsung.service.domain;
 
 import java.sql.Date;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class SubSite {
 	
 	/*
@@ -24,6 +26,7 @@ public class SubSite {
 	private String subSiteInfo;
 	private String subSiteImg;
 	private String campName;
+	private MultipartFile subSiteImgFile;
 
 	
 	/// Default Constructor
@@ -96,6 +99,14 @@ public class SubSite {
 		this.campName = campName;
 	}
 
+	public MultipartFile getSubSiteImgFile() {
+		return subSiteImgFile;
+	}
+
+	public void setSubSiteImgFile(MultipartFile subSiteImgFile) {
+		this.subSiteImgFile = subSiteImgFile;
+	}
+
 	// Override toString
 	public String toString() {
 		return "\n -- SubSite --"
@@ -107,6 +118,7 @@ public class SubSite {
 			+ "\n [subSiteInfo] : " + subSiteInfo
 			+ "\n [subSiteImg] : " + subSiteImg 
 			+ "\n [campName] : " + campName
+			+ "\n [subSiteImgFile] : " + subSiteImgFile
 			+ "\n ---------------- \n";
 	}		
 

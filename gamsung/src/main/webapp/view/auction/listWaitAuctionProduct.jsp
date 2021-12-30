@@ -106,7 +106,7 @@
           <div class="container">
             <div class="row">
               <div class="col-sm-6 col-sm-offset-3">
-                <h2 class="module-title font-alt">캠핑전 상품</h2>
+                <h2 class="module-title font-alt">경매 진행 전 상품</h2>
               </div>
             </div>
             <div class="row multi-columns-row">
@@ -118,7 +118,7 @@
                   <div class="shop-item-image">
                   	<img src="${product.productImg1}" alt="Accessories Pack"/>
                     <div class="shop-item-detail">
-	                  	<span hidden="hidden">${product.auctionProductSubDatail}</span>
+	                  	<span hidden="hidden">${product.auctionProductSubDetail}</span>
                     	<a class="btn btn-round btn-b">경매 시작하기!</a>
                     </div>
                   </div>
@@ -134,7 +134,7 @@
                 <div class="shop-item">
                   <div class="shop-item-image"><img src="${product.productImg1}" alt="Accessories Pack"/>
                   	<div class="shop-item-detail">
-	                  	<span hidden="hidden">${product.auctionProductSubDatail}</span>
+	                  	<span hidden="hidden">${product.auctionProductSubDetail}</span>
                     	<a class="btn btn-round btn-b">경매 시작하기!</a>
                     </div>
                   </div>
@@ -165,7 +165,7 @@
       </div>
       <div class="scroll-up"><a href="#totop"><i class="fa fa-angle-double-up"></i></a></div>
       <form>
-      	<input type="hidden" id="auctionProductSubDatail" name="auctionProductSubDatail"/>
+      	<input type="hidden" id="auctionProductSubDetail" name="auctionProductSubDetail"/>
       	<input type="hidden" id="auctionProductName" name="auctionProductName"/>
       	<input type="hidden" id="allhashtag"name="allhashtag"/>
       </form>
@@ -195,7 +195,7 @@
   		$(window).scroll(function() {
   			var sortCondition = $('#sortCondition').val();
   			var searchKeyword = $('#searchKeyword').val();
-  			if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight/2) {
+  			if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight/3) {
   				 console.log("실행");
   				$.ajax({
   						url : "/auction/rest/infiniteScroll",
@@ -220,7 +220,7 @@
 					              				+ JSONData[i].productImg1
 				              					+ '" alt="Accessories Pack"/>'
 				                  				+ '<div class="shop-item-detail"><span hidden="hidden">'
-				                  				+ JSONData[i].auctionProductSubDatail
+				                  				+ JSONData[i].auctionProductSubDetail
 				                  				+ '</span><a class="btn btn-round btn-b">경매 시작하기!</a></div></div>'
 				                  				+ '</span><h4 class="shop-item-title font-alt"><a href="#">'
 				                   				+ JSONData[i].auctionProductName
@@ -244,7 +244,7 @@
 					              				+ JSONData[i].productImg1
 				              					+ '" alt="Accessories Pack"/>'
 				              					+ '<div class="shop-item-detail"><span hidden="hidden">'
-				                  				+ JSONData[i].auctionProductSubDatail
+				                  				+ JSONData[i].auctionProductSubDetail
 				                  				+ '</span><a class="btn btn-round btn-b">경매 시작하기!</a></div></div>'
 				                  				+ '<h4 class="shop-item-title font-alt"><a href="#">'
 				                   				+ JSONData[i].auctionProductName
@@ -268,11 +268,11 @@
   				}
   			});
   		
-	  		$('.btn-b').on('click',function(){
-	   			var auctionProductSubDatail = $(this).prev().text();
+	  		$('body').on('click','.btn-b',function(){
+	   			var auctionProductSubDetail = $(this).prev().text();
 	   			var auctionProductName = $(this).parent().parent().next().text();
 	   			var allhashtag = $(this).parent().parent().next().next().text();
-	   			$("#auctionProductSubDatail").val(auctionProductSubDatail);
+	   			$("#auctionProductSubDetail").val(auctionProductSubDetail);
 	   			$("#auctionProductName").val(auctionProductName);
 	   			$("#allhashtag").val(allhashtag);
 	   			$('form').attr('method','post').attr('action','/auction/getAuctionProduct').submit();

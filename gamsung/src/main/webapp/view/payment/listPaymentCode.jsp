@@ -1,0 +1,171 @@
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+	pageEncoding="EUC-KR"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<script src="/resources/lib/jquery/jquery.js"></script>
+    <script src="/resources/lib/bootstrap/js/bootstrap.min.js"></script>
+  	<script src="/resources/lib/imagesloaded/imagesloaded.pkgd.js"></script>
+  	<link rel="stylesheet" href="/resources/lib/bootstrap/css/bootstrap.min.css"></link>
+
+	<style>
+		.container {
+			padding-top: 70px;
+			padding-right: 15px;
+			padding-left: 15px;
+			margin-right: auto;
+			margin-left: auto;
+		}
+		
+		@media ( min-width : 768px) {
+			.container {
+				width: 750px;
+			}
+		}
+		
+		@media ( min-width : 992px) {
+			.container {
+				width: 970px;
+			}
+		}
+		
+		@media ( min-width : 1200px) {
+			.container {
+				width: 1170px;
+			}
+		}
+		
+		.container-fluid {
+			padding-right: 15px;
+			padding-left: 15px;
+			margin-right: auto;
+			margin-left: auto;
+		}
+	</style>
+
+	<script type="text/javascript">			
+	
+		$(function() {		
+			
+			$("body").on("click","#addType",function () {			
+				var result = confirm("추가 하시겠습니까?"); 
+				if(result) { 
+					alert("추가 되었습니다.");
+					$(this).parent().parent().parent().attr("method" , "POST").attr("action" , "/payment/addPaymentCode").submit();
+				} else { 
+					alert("취소 되었습니다.");					
+				}
+			});				    			
+			
+			$(".btn-warning").on("click" , function() {
+				var result = confirm("변경 하시겠습니까?"); 
+				if(result) { 
+					alert("변경 되었습니다.");
+					$(this).parent().parent().parent().attr("method" , "POST").attr("action" , "/payment/updatePaymentCode").submit();
+				} else { 
+					alert("취소 되었습니다.");					
+				}
+				
+			});
+				
+			var count = 0;
+			$("#addform").on("click" , function() {	
+				$("#ori").append(
+								"<form id='addOne'>"					
+								+"<div class='row'>"
+								+"<div class='col-xs-1 form-group'>"
+								+"<input type='text' id='paymentCode' name='paymentCode' value='' class='form-control'>"
+								+"</div>"
+								+"<div class='col-xs-2 form-group'>"
+								+"<input type='number' id='paymentCodeRangeStart' name='paymentCodeRangeStart' class='form-control' value=''>"
+								+"</div>"
+								+"<div class='col-xs-2 form-group'>"
+								+"<input type='number' id='paymentCodeRangeEnd' name='paymentCodeRangeEnd' class='form-control' value=''>"
+								+"</div>"
+								+"<div class='col-xs-3 form-group'>"
+								+"<input type='text' id='paymentCodeInfo' name='paymentCodeInfo' class='form-control' value=''>"
+								+"</div>"
+								+"<div class='col-xs-1 form-group'>"
+								+"<input type='number' id='paymentCodeFee' name='paymentCodeFee' class='form-control' value='' min='0' max='100'>"
+								+"</div>"
+								+"<div class='col-xs-1 form-group'>"
+								+"<button id='addType' type='button' class='btn btn-primary'>등록</button>"
+								+"</div>"
+								+"</div>"
+								+"</form>"	);
+				    
+				count++; 
+				if( count == 1){
+					$("#addform").attr('disabled', true); 
+				} 			
+			});		
+		});				
+	
+	</script>
+	
+</head>
+<body>
+
+	<div class="container">
+
+		<div class="row">
+			<div class="col-xs-1">결제코드</div>
+			<div class="col-xs-2">구간시작값</div>
+			<div class="col-xs-2">구간종료값</div>
+			<div class="col-xs-3">설명</div>
+			<div class="col-xs-1">수수료(%)</div>
+			<div class="col-xs-1"></div>
+			<div class="col-xs-1"></div>
+		</div>
+		
+		<br>
+		
+		<ori id="ori">
+		<c:set var="i" value="0" />
+			<c:forEach var="payment" items="${list}">
+				<c:set var="i" value="${ i+1 }" />
+					<form id="${i}">					
+						<div class="row">
+							<div class="col-xs-1 form-group">
+								<input type="text" id="paymentCode" name="paymentCode" value="${payment.paymentCode}" class="form-control">
+							</div>
+					
+							<div class="col-xs-2 form-group">
+								<input type="number" id="paymentCodeRangeStart" name="paymentCodeRangeStart" value="${payment.paymentCodeRangeStart}" class="form-control" value="">
+							</div>
+					
+							<div class="col-xs-2 form-group">
+								<input type="number" id="paymentCodeRangeEnd" name="paymentCodeRangeEnd" value="${payment.paymentCodeRangeEnd}" class="form-control" value="">
+							</div>
+							
+							<div class="col-xs-3 form-group">
+								<input type="text" id="paymentCodeInfo" name="paymentCodeInfo" value="${payment.paymentCodeInfo}" class="form-control">
+							</div>
+							
+							<div class="col-xs-1 form-group">
+								<input type="number" id="paymentCodeFee" name="paymentCodeFee" value="${payment.paymentCodeFee}" class="form-control" value="0" min="0" max="100">
+							</div>
+
+							<div class="col-xs-1 form-group">
+								<button id="update" type="button" class="btn btn-warning">변경</button>
+							</div>
+							
+							<c:if test="${fn:length(list) == i }">
+								<div class="col-xs-1 form-group">
+									<button id="addform" type="button" class="btn btn-primary">추가</button>
+								</div>
+							</c:if>
+						</div>
+					</form>
+			</c:forEach>
+			</ori>
+	</div>
+</body>
+</html>

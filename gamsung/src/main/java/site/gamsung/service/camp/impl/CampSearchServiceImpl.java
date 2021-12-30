@@ -1,5 +1,6 @@
 package site.gamsung.service.camp.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,7 +37,7 @@ public class CampSearchServiceImpl implements CampSearchService{
 	}
 
 	@Override
-	public Map<String, Object> listCamp(Search search) throws Exception{
+	public Map<String, Object> listCamp(Search search){
 		
 		List<Camp> list = campSearchDAO.listCamp(search);
 		int totalCount = campSearchDAO.getTotalCount(search);
@@ -44,13 +45,13 @@ public class CampSearchServiceImpl implements CampSearchService{
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list);
 		map.put("totalCount", new Integer(totalCount));
-		
+	
 		return map;
 	}
 
 	@Override
 	@Transactional(propagation=Propagation.REQUIRES_NEW)
-	public Map<String, Object> getCamp(int campNo) throws Exception{
+	public Map<String, Object> getCamp(int campNo){
 		
 		int viewUpdate = campSearchDAO.updateViewCount(campNo);
 		System.out.println("조회수 증가 확인 -> "+viewUpdate);
@@ -58,18 +59,35 @@ public class CampSearchServiceImpl implements CampSearchService{
 		Camp camp = campSearchDAO.getCamp(campNo);
 		List<MainSite> mainSite = campSearchDAO.getMainSite(campNo);
 		List<SubSite> subSite = campSearchDAO.getSubSite(campNo);
+		List<String> mainSiteType = new ArrayList<String>();
+		mainSiteType.add(mainSite.get(0).getMainSiteType());
+		
+		for (int i = 0; i < mainSite.size()-1; i++) {
+			
+			boolean k = true;
+			
+			for (int j = 0; j < mainSiteType.size(); j++) {
+				if(mainSite.get(i).getMainSiteType().equals(mainSiteType.get(j))){
+					k = false;
+				}
+			}
+			if(k) {
+				mainSiteType.add(mainSite.get(i).getMainSiteType());
+			}
+		}
 		
 				
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("camp", camp);
 		map.put("mainSite", mainSite);
 		map.put("subSite", subSite);
+		map.put("mainSiteType", mainSiteType);
 		
 		return map;
 	}
 
 	@Override
-	public Map<String, Object> getTopCamp() throws Exception{
+	public Map<String, Object> getTopCamp(){
 		
 		Camp topRating = campSearchDAO.getTopRatingCamp();
 		Camp topView = campSearchDAO.getTopViewCamp();
