@@ -17,9 +17,9 @@ public class SendMail {
 	
 	public void sendMail() {}
 		
+
 	public void sendMail(String id, String info, String text) {
-		
-	
+
 		Properties prop = System.getProperties();
 		
         // 로그인시 TLS를 사용할 것인지 설정
@@ -53,7 +53,7 @@ public class SendMail {
 			msg.setSentDate(new Date());
 
 			// 발송자를 지정한다. 발송자의 메일, 발송자명
-			msg.setFrom(new InternetAddress("hulis1234@gmail.com", "감성캠핑"));
+			msg.setFrom(new InternetAddress("gamsungcampsite@gmail.com", "감성캠핑"));
 			
             // 수신자의 메일을 생성한다.
 			InternetAddress to = new InternetAddress(id);

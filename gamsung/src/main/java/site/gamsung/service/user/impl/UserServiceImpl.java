@@ -108,8 +108,6 @@ public class UserServiceImpl implements UserService{
 		String info = "인증번호 발송";
 		String text = "인증번호는"+key+"입니다.";
 		SendMail mailSend = new SendMail();
-		mailSend.sendMail(id, info, text);
-	
 	}
 
 	@Override
@@ -161,7 +159,6 @@ public class UserServiceImpl implements UserService{
 		"로그인 후 비밀번호를 변경해주세요.";
 		
 		SendMail sendMail = new SendMail();
-		sendMail.sendMail(user.getId(), info, text);
 	}
 
 	@Override

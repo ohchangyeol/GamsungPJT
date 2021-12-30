@@ -45,7 +45,7 @@
 		LIMIT #{search.pageSize} offset #{search.offset}
 	</select>
 	
-	<select  id="getTotalCount"  parameterType="map"	 resultType="int">
+	<select  id="getTotalCount"  parameterType="map" resultType="int">
 		SELECT COUNT(*)
 		FROM(SELECT rating_review_no
 			 FROM RATING_REVIEW

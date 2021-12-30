@@ -1,14 +1,14 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 	
 	<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 	
-	<title>»óÇ° µî·Ï</title>
+	<title>ìƒí’ˆ ë“±ë¡</title>
 	
 	<link rel="apple-touch-icon" sizes="57x57" href="../../resources/images/favicons/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="../../resources/images/favicons/apple-icon-60x60.png">
@@ -43,6 +43,7 @@
     <!-- Main stylesheet and color file-->
     <link href="../../resources/css/style.css" rel="stylesheet">
     <link id="color-scheme" href="../../resources/css/colors/default.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/vendor/pnotify/pnotify.custom.css" />  
  
  	<style>
  	
@@ -59,19 +60,7 @@
 		border-bottom-color: #e2e2e2; 
 		border-radius: .25em; 
 		} 
-		
-		.filebox input[type="file"] {
-		 /* ÆÄÀÏ ÇÊµå ¼û±â±â */ 
-		 position: absolute; 
-		 width: 1px; 
-		 height: 1px; 
-		 padding: 0; 
-		 margin: -1px; 
-		 overflow: hidden; 
-		 clip:rect(0,0,0,0); 
-		 border: 0; 
-		 }
-		 
+			 
 		 #file{
 		 	display: flex;
 		 	flex-direction: row;
@@ -83,6 +72,26 @@
 		 .time{
 		 	display: flex;
 		 }
+		 
+		  input[type=file] {
+            display: none;
+        }
+
+        .imgsWrap {
+
+            border: 2px solid #A8A8A8;
+            margin-top: 30px;
+            margin-bottom: 30px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+
+        }
+        .imgsWrap img {
+            max-width: 150px;
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+		 
 	</style>
 	
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -96,103 +105,68 @@
        		<div class="loader">Loading...</div>
      	</div>
   		<jsp:include page="../common/header.jsp"></jsp:include>
-<div class="main">
-        <section class="module bg-dark-30 about-page-header" data-background="assets/images/about_bg.jpg">
-          <div class="container">
-            <div class="row">
-              <div class="col-sm-6 col-sm-offset-3">
-                <h1 class="module-title font-alt mb-0">Forms</h1>
-              </div>
-            </div>
-          </div>
-        </section>
-        <section class="module">
-          <div class="container">
-            <div class="row">
-              <div class="col-sm-8 col-sm-offset-2">
-                <h4 class="font-alt mb-0">»óÇ° µî·Ï</h4>
-                <hr class="divider-w mt-10 mb-20">
-                <form class="form" role="form">
-                  <div class="form-group">
-                  	<label for=auctionProductName class="col-sm-offset-1 col-sm-3 control-label">»óÇ°¸í</label>
-                    <input id="auctionProductName" name="auctionProductName" class="form-control" type="text" placeholder="»óÇ°¸íÀ» ÀÔ·ÂÇÏ¼¼¿ä."/>
-                  </div>
-                  <div class="form-group">
-                  	<label for="startBidPrice" class="col-sm-offset-1 col-sm-3 control-label">°æ¸Å ½ÃÀÛ°¡</label>
-                    <input id="startBidPrice" name="startBidPrice" class="form-control" type="text" placeholder="°æ¸Å ½ÃÀÛ°¡¸¦ ÀÔ·ÂÇÏ¼¼¿ä."/>
-                  </div>
-                  <div id="startBidPriceDiv" class="alert alert-danger" role="alert" hidden="hidden">
-	                 <button class="close" type="button" data-dismiss="alert" aria-hidden="true">&times;</button><i class="icon-sad"></i><strong id="startBidPriceStrong"></strong>
-	              </div>                 
-                  <div class="form-group">
-                  	<label for="hopefulBidPrice" class="col-sm-offset-1 col-sm-3 control-label">Èñ¸Á ³«Âû°¡</label>
-                    <input id="hopefulBidPrice" name="hopefulBidPrice" class="form-control" type="text" placeholder="Èñ¸Á ³«Âû°¡¸¦ ÀÔ·ÂÇÏ¼¼¿ä."/>
-                  </div>
-                  <div id="hopefulBidPriceDiv" class="alert alert-danger" role="alert" hidden="hidden">
-	                 <button class="close" type="button" data-dismiss="alert" aria-hidden="true">&times;</button><i class="icon-sad"></i><strong id="hopefulBidPriceStrong"></strong>
-	              </div>  
-                  <div class="form-group">
-                  	<label for="bidUnit" class="col-sm-offset-1 col-sm-3 control-label">ÀÔÂû ´ÜÀ§</label>
-                    <input id="bidUnit" name="bidUnit" class="form-control" type="text" placeholder="ÀÔÂû ´ÜÀ§¸¦ ÀÔ·ÂÇÏ¼¼¿ä."/>
-                  </div>
-                   <div class="alert alert-danger" role="alert" hidden="hidden">
-	                 <button class="close" type="button" data-dismiss="alert" aria-hidden="true">&times;</button><i class="icon-sad"></i><strong class="bidUnit"></strong>
-	              </div>
-                  <div class="form-group">
-                  	<label for="auctionStartTime" class="col-sm-offset-1 col-sm-3 control-label">°æ¸Å ½ÃÀÛ ½Ã°£</label>
-                    <input id="auctionStartTime" name="auctionStartTime" class="form-control" type="text" placeholder="°æ¸Å ½ÃÀÛ ½Ã°£À» ÀÔ·ÂÇÏ¼¼¿ä."/>
-                  </div>
-                   <div class="alert alert-danger" role="alert" hidden="hidden">
-	                 <button class="close" type="button" data-dismiss="alert" aria-hidden="true">&times;</button><i class="icon-sad"></i><strong class="auctionStartTime"></strong>
-	              </div>
-                  <div class="form-group">
-                  	<label for="auctionEndTime" class="col-sm-offset-1 col-sm-3 control-label">°æ¸Å Á¾·á ½Ã°£</label>
-                    <input id="auctionEndTime" name="auctionEndTime" class="form-control" type="text" placeholder="°æ¸Å Á¾·á ½Ã°£À» ÀÔ·ÂÇÏ¼¼¿ä."/>
-                  </div>
-                   <div class="alert alert-danger" role="alert" hidden="hidden">
-	                 <button class="close" type="button" data-dismiss="alert" aria-hidden="true">&times;</button><i class="icon-sad"></i><strong class="auctionEndTime"></strong>
-	              </div>
-                  <div class="form-group">
-                  	<label for="bidableGrade" class="col-sm-offset-1 col-sm-3 control-label">ÀÔÂû °¡´É µî±Ş</label>
-                    <input id="bidableGrade" name="bidableGrade" class="form-control" type="text" placeholder="ÀÔÂû °¡´É µî±ŞÀ» ÀÔ·ÂÇÏ¼¼¿ä."/>
-                  </div>
-                   <div class="alert alert-danger" role="alert" hidden="hidden">
-	                 <button class="close" type="button" data-dismiss="alert" aria-hidden="true">&times;</button><i class="icon-sad"></i><strong class="bidableGrade"></strong>
-	              </div>
-                  <div id="file">
-					  <div class="filebox">
-					  	<img id="productImg1" alt="" src="" width="100%" height="100%" hidden="hidden">
-					  	<label for="ex_file">+</label>
-					  	<input class="previewImg" name="productImg1" type="file" id="ex_file"> 
-					  </div>
-					   <div class="filebox"> 
-					   	<img id="productImg2" alt="" src="" width="100%" height="100%" hidden="hidden">
-					  	<label for="ex_file">+</label>
-					  	<input class="previewImg" name="productImg2" type="file" id="ex_file"> 
-					  </div>
-					   <div class="filebox">
-					  	<img id="productImg3" alt="" src="" width="100%" height="100%" hidden="hidden"> 
-					  	<label for="ex_file">+</label> 
-					  	<input class="previewImg" name="productImg3" type="file" id="ex_file"> 
-					  </div>
-					   <div class="filebox"> 
-					   	<img id="productImg4" alt="" src="" width="100%" height="100%" hidden="hidden">
-					  	<label for="ex_file">+</label> 
-					  	<input class="previewImg" name="productImg4" type="file" id="ex_file"> 
-					  </div>
-					   <div class="filebox">
-						<img id="productImg5" alt="" src="" width="100%" height="100%" hidden="hidden">
-					  	<label for="ex_file">+</label>
-					  	<input class="previewImg" name="productImg5" type="file" id="ex_file"> 
-					  </div>
+		<div class="main">
+			<section class="module bg-dark-30 about-page-header"
+				data-background="assets/images/about_bg.jpg">
+				<div class="container">
+					<div class="row">
+						<div class="col-sm-6 col-sm-offset-3">
+							<h1 class="module-title font-alt mb-0">Forms</h1>
+						</div>
 					</div>
-                  <textarea class="form-control" rows="7" placeholder="»óÇ° Á¤º¸¸¦ ÀÔ·Â ÇÏ¼¼¿ä.."></textarea>
-                </form>
+				</div>
+			</section>
+		</div>
+		<section class="module">
+          <div class="container">
+            <div class="row">
+					<div class="col-sm-8 col-sm-offset-2">
+						<h4 class="font-alt mb-0">ìƒí’ˆ ë“±ë¡</h4>
+						<hr class="divider-w mt-10 mb-20">
+						<form class="form" role="form">
+							<div class="form-group">
+								<label for="auctionProductName" class="col-sm-offset-1 col-sm-3 control-label">ìƒí’ˆëª…</label> 
+								<input id="auctionProductName" name="auctionProductName" class="form-control" type="text" value="${auctionProduct.auctionProductName}" placeholder="ìƒí’ˆëª…ì„ ì…ë ¥í•˜ì„¸ìš”." />
+							</div>
+							<div class="form-group">
+								<label for="startBidPrice" class="col-sm-offset-1 col-sm-3 control-label">ê²½ë§¤ ì‹œì‘ê°€</label>
+								<input id="startBidPrice" name="startBidPrice" class="form-control" type="text" value="${auctionProduct.startBidPrice}" placeholder="ê²½ë§¤ ì‹œì‘ê°€ë¥¼ ì…ë ¥í•˜ì„¸ìš”." />
+							</div>
+							<div class="form-group">
+								<label for="hopefulBidPrice" class="col-sm-offset-1 col-sm-3 control-label">í¬ë§ ë‚™ì°°ê°€</label>
+								<input id="hopefulBidPrice" name="hopefulBidPrice" class="form-control" type="text" value="${auctionProduct.hopefulBidPrice}" placeholder="í¬ë§ ë‚™ì°°ê°€ë¥¼ ì…ë ¥í•˜ì„¸ìš”." />
+							</div>
+							<div class="form-group">
+								<label for="bidUnit" class="col-sm-offset-1 col-sm-3 control-label">ì…ì°° ë‹¨ìœ„</label> 
+								<input id="bidUnit" name="bidUnit" class="form-control" type="text"	value="${auctionProduct.bidUnit}"  placeholder="ì…ì°° ë‹¨ìœ„ë¥¼ ì…ë ¥í•˜ì„¸ìš”." />
+							</div>
+							<div class="form-group">
+								<label for="auctionStartTime" class="col-sm-offset-1 col-sm-3 control-label">ê²½ë§¤ ì‹œì‘ ì‹œê°„</label>
+								<input id="auctionStartTime" name="auctionStartTime" class="form-control" type="text"  value="${auctionProduct.auctionStartTime}"  placeholder="ê²½ë§¤ ì‹œì‘ ì‹œê°„ì„ ì…ë ¥í•˜ì„¸ìš”." />
+							</div>
+							<div class="form-group">
+								<label for="auctionEndTime" class="col-sm-offset-1 col-sm-3 control-label">ê²½ë§¤ ì¢…ë£Œ ì‹œê°„</label>
+								<input id="auctionEndTime" name="auctionEndTime" class="form-control" type="text" value="${auctionProduct.auctionEndTime}" placeholder="ê²½ë§¤ ì¢…ë£Œ ì‹œê°„ì„ ì…ë ¥í•˜ì„¸ìš”." />
+							</div>
+							<div class="form-group">
+								<label for="bidableGrade" class="col-sm-offset-1 col-sm-3 control-label">ì…ì°° ê°€ëŠ¥ ë“±ê¸‰</label>
+								<input id="bidableGrade" name="bidableGrade" class="form-control" type="text" value="${auctionProduct.bidableGrade}" placeholder="ì…ì°° ê°€ëŠ¥ ë“±ê¸‰ì„ ì…ë ¥í•˜ì„¸ìš”." />
+							</div>
+							<div class="inputWrap">
+								<button type="button" id="fileUpload" class="btn btn-border-d btn-round">íŒŒì¼ ì—…ë¡œë“œ</button>
+								 <input type="file" id="inputImgs" name="inputImgs" multiple />
+							</div>
+							<div>
+								<div class="imgsWrap"></div>
+							</div>
+							<textarea id="textareaDetail" name="auctionProductDetail" class="form-control" rows="7" placeholder="ìƒí’ˆ ì •ë³´ë¥¼ ì…ë ¥ í•˜ì„¸ìš”.." ></textarea>
+		                </form>
                 <div class="col-sm-4 col-sm-offset-2"></div>
                 <div class="col-sm-4 col-sm-offset-2">
                 <div class="row">
-	                <button id="cancel" class="btn btn-border-d btn-circle" type="button">Ãë¼Ò</button>
-	                <button id="previewBtn" class="btn btn-border-d btn-circle" type="button">¹Ì¸®º¸±â</button>                
+                
+	                <button id="cancel" class="btn btn-border-d btn-circle" type="button">ì·¨ì†Œ</button>
+	                <button id="previewBtn" class="btn btn-border-d btn-circle" type="button">ë¯¸ë¦¬ë³´ê¸°</button>                
                 </div>
                 </div>
               </div>
@@ -272,7 +246,6 @@
             </div>
           </div>
         </footer>
-      </div>
       <div class="scroll-up"><a href="#totop"><i class="fa fa-angle-double-up"></i></a></div>
     </main>
 	<footer class="footer-box">
@@ -284,8 +257,6 @@
 			</div>
 		</div>
 	</footer>
-</body>
-	
 	
     <script src="../../resources/lib/jquery/jquery.js"></script>
     <script src="../../resources/lib/bootstrap/js/bootstrap.min.js"></script>
@@ -311,21 +282,69 @@
 				if( !$.isNumeric( $('#startBidPrice').val() ) ){
 					$('#startBidPrice').focus();
 					$('#startBidPriceDiv').attr('hidden',false)
-					$('#startBidPriceStrong').text('°æ¸Å ½ÃÀÛ°¡°¡ ¼ıÀÚ°¡ ¾Æ´Õ´Ï´Ù.').css('color','red');
+					$('#startBidPriceStrong').text('ê²½ë§¤ ì‹œì‘ê°€ê°€ ìˆ«ìê°€ ì•„ë‹™ë‹ˆë‹¤.').css('color','red');
 					return;
 				}
 				
 				if( !$.isNumeric( $('#hopefulBidPrice').val() ) ){
 					$('#hopefulBidPrice').focus();
 					$('#hopefulBidPriceDiv').attr('hidden',false)
-					$('#hopefulBidPriceStrong').text('Èñ¸Á ³«Âû°¡°¡ ¼ıÀÚ°¡ ¾Æ´Õ´Ï´Ù.').css('color','red');
+					$('#hopefulBidPriceStrong').text('í¬ë§ ë‚™ì°°ê°€ê°€ ìˆ«ìê°€ ì•„ë‹™ë‹ˆë‹¤.').css('color','red');
 					return;
 				}
+				
+				$('form').attr('method','post').attr('action','/auction/previewAuctionProduct').attr("enctype","multipart/form-data").submit();
 			});
 			
+			$('#fileUpload').on('click',fileUploadAction);
+			$("#inputImgs").on("change",handleImgFileSelect);
 			
 		});
+		
+		var sel_files = [];
+		
+		function fileUploadAction() {
+            console.log("fileUploadAction");
+            $("#inputImgs").trigger('click');
+        }
+		
+		function handleImgFileSelect(e){
 			
+			sel_files = [];
+			$(".imgsWrap").empty();
+			
+			var files = e.target.files;
+			var filesArray = Array.prototype.slice.call(files);
+			
+			var index = 0;
+			
+			filesArray.forEach(function(f){
+				if(!f.type.match("image.*")){
+					alert("ì´ë¯¸ì§€ë§Œ ì—…ë¡œë“œ ê°€ëŠ¥í•©ë‹ˆë‹¤.");
+					return;
+				}
+			
+				sel_files.push(f);
+				
+				var reader = new FileReader();
+				
+				reader.onload = function(e){
+					 var html = "<a href=\"javascript:void(0);\" onclick=\"deleteImageAction("+index+")\" id=\"imgId"+index+"\"><img src=\"" + e.target.result + "\" data-file='"+f.name+"' class='selProductFile' title='Click to remove'></a>";
+					$('.imgsWrap').append(html);
+					index++;
+				}
+				reader.readAsDataURL(f);
+			});
+		}
+		
+		function deleteImageAction(index) {
+           
+            sel_files.splice(index, 1);
+
+            var imgId = "#imgId"+index;
+            $(imgId).remove(); 
+        }
+		
 		
 		
 		
