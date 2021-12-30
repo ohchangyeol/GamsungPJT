@@ -311,18 +311,18 @@ pageEncoding="UTF-8"%>
 		<div class="form-group">
 			<label for="modalId">아이디 </label>
 			<input type="text" class="form-control" id="modalId" placeholder="아이디를 입력하세요." name="id" required>
-			<div class="valid-feedback">Valid.</div>
-			<div class="invalid-feedback">Please fill out this field.</div>
+			<!-- <div class="valid-feedback">Valid.</div>
+			<div class="invalid-feedback">Please fill out this field.</div> -->
 		</div>
 		<div class="form-group">
 			<label for="pwd">비밀번호 </label>
 			<input type="password" class="form-control" id="pwd" placeholder="비밀번호를 입력하세요." name="password" required>
-			<div class="valid-feedback">Valid.</div>
-			<div class="invalid-feedback">Please fill out this field.</div>
+			<!-- <div class="valid-feedback">Valid.</div>
+			<div class="invalid-feedback">Please fill out this field.</div> -->
 		</div>
 		<button type="submit" class="btn btn-primary" style="margin-left:50%;">로그인</button>
 		<button type="button" class="btn btn-secondary" id="joinUser">회원가입</button>
-		<a href="javascript:kakaoLogin();"><img src="../../resources/images/kakao_login_small.png"/></a>
+		<a href="javascript:kakaoLogin();"><img src="../../resources/images/kakao_login_small.png" width="50px" height="10px"/></a>
 	</form>
 		</div>
 			<footer class="panel-footer">
