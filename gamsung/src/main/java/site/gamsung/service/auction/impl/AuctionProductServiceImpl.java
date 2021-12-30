@@ -250,9 +250,7 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 			auctionProduct = auctionProductDAO.getAuctionProduct(auctionProductNo);
 			
 			try {
-				System.out.println(auctionProductNo+ ":"+ auctionProduct.getRemainAuctionTime());
 				boolean isEnd = dateFormat.parse(auctionProduct.getRemainAuctionTime()).before(dateFormat.parse("00:00:00"));
-				System.out.println(isEnd);
 				
 				if(isEnd) {					
 					auctionInfo.setAuctionProductNo(auctionProductNo);		
