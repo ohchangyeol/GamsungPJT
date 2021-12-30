@@ -1,7 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
+
+<!--  ///////////////////////// JSTL  ////////////////////////// -->
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<!--  /////////////////////////jQuery CDN ////////////////////////// -->
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8"> 
 </head>
 
 <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
@@ -37,6 +44,12 @@ pageEncoding="UTF-8"%>
           </ul>
         </li>
         
+        <li class="dropdown"><a class="dropdown-toggle" href="/community/listCommunity" data-toggle="dropdown">커뮤니티</a>
+        	<ul class="dropdown-menu">
+				<li><a href="/community/listCommunity">커뮤니티</a></li>
+			</ul>
+        </li>
+               
         <li class="dropdown"><a class="dropdown-toggle" href="/servicecenter/home" data-toggle="dropdown">고객센터</a>
         	<ul class="dropdown-menu">
 				<li><a href="/servicecenter/home">고객센터</a></li>
@@ -195,13 +208,29 @@ pageEncoding="UTF-8"%>
             <li><a href="documentation.html#plugin">Plugins</a></li>
             <li><a href="documentation.html#changelog">Changelog</a></li>
           </ul>
-        </li>
-        
+        </li>    
+         <c:if test="${sessionScope.user.role!=null}">
+	      <li><a href="#"><button class="btn btn-border-w btn-round btn-xs" type="button" id="logout">LOGOUT</button></a></li>
+	    </c:if>
+	     <c:if test="${sessionScope.user.role==null}">
+
         <li><a href="/view/user/tempLogin.jsp">
 	       <button class="btn btn-border-w btn-round btn-xs" type="button">LOGIN</button>
         </a>
         </li>
-      </ul>
+        </c:if>
+        </ul>
     </div>
   </div>
 </nav>
+
+ <script type="text/javascript">
+    //============= logout Event  ó�� =============	
+		 $(function() {
+			//==> DOM Object GET 3���� ��� ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+		 	$("#logout").on("click" , function() {
+		 		//$(self.location).attr("href","/user/logout");
+				self.location = "/user/logout"
+			}); 
+		 });	
+</script> 

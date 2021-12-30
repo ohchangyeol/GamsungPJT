@@ -269,7 +269,7 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 						
 						//입찰한 모든 인원에게 실패 메일 발송
 						for(AuctionInfo info : bidderList) {
-							sendMail.mailSend(info.getUser().getId(), tmpAuctionProduct.getAuctionProductName(), "유찰 되셨습니다.");
+							sendMail.sendMail(info.getUser().getId(), tmpAuctionProduct.getAuctionProductName(), "유찰 되셨습니다.");
 						}
 						
 					}else {
@@ -281,9 +281,9 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 						//낙찰 성공 여부에 따라 등수에 따른 메일 발송
 						for(AuctionInfo info : bidderList) {
 							if(info.getBidderRank() == 1) {
-								sendMail.mailSend(info.getUser().getId(), tmpAuctionProduct.getAuctionProductName(), "낙찰 되셨습니다. \n 화상채팅 URL 추가 예정");
+								sendMail.sendMail(info.getUser().getId(), tmpAuctionProduct.getAuctionProductName(), "낙찰 되셨습니다. \n 화상채팅 URL 추가 예정");
 							}else {
-								sendMail.mailSend(info.getUser().getId(), tmpAuctionProduct.getAuctionProductName(), "유찰 되셨습니다.");
+								sendMail.sendMail(info.getUser().getId(), tmpAuctionProduct.getAuctionProductName(), "유찰 되셨습니다.");
 							}
 						}
 					}
