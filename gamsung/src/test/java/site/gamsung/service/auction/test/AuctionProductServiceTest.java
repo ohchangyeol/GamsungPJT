@@ -101,8 +101,8 @@ public class AuctionProductServiceTest {
 		auctionProduct.setAuctionProductNo("PROD00101");
 		auctionProduct.setRegistrantId("user1@gamsung.com");
 		auctionProduct.setAuctionProductName("감자");
-		auctionProduct.setAuctionProductDatail("dididi");
-		auctionProduct.setAuctionProductSubDatail("adada");
+		auctionProduct.setAuctionProductDetail("dididi");
+		auctionProduct.setAuctionProductSubDetail("adada");
 		auctionProduct.setStartBidPrice(10000);
 		auctionProduct.setHopefulBidPrice(1000000);
 		auctionProduct.setBidUnit(20000);

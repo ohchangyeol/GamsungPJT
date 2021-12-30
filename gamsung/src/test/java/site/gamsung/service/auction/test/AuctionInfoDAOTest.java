@@ -218,10 +218,10 @@ public class AuctionInfoDAOTest {
 	public void testGetBidderRanking() {
 		
 		AuctionInfo auctionInfo = new AuctionInfo();
-		User user = new User();
-		user.setId("TEST44@NATE.COM");
-		auctionInfo.setUser(user);
-		auctionInfo.setAuctionProductNo("PROD00001");
+//		User user = new User();
+//		user.setId("TEST44@NATE.COM");
+//		auctionInfo.setUser(user);
+		auctionInfo.setAuctionProductNo("PROD00007");
 		
 		auctionInfoDAO.getBidderRanking(auctionInfo);
 		System.out.println(auctionInfoDAO.getBidderRanking(auctionInfo));

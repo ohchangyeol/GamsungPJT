@@ -29,16 +29,16 @@ package site.gamsung.service.domain;
 		  
 	=== [ Payment domain ]===	  
 		
-			결제등록번호				String 	paymentNo                  
+			결제등록번호					String 	paymentNo                  
 	(*결제)	주는사람					String 	paymentSender              
 	(*결제)	받는사람					String 	paymentReceiver            
-	(*결제)	결제방법(paymentMethod)	int 	paymentMethod                 
+	(*결제)	결제방법(paymentMethod)		int 	paymentMethod                 
 			1-포인트결제              
 			2-현금결제                
 			3-카드결제                
 			4-간편결제                
 	                                  
-	 		결제등록일자				String 	paymentRegTime              
+	 		결제등록일자					String 	paymentRegTime              
 	(*결제) 	결제 코드					String 	paymentCode                
 	(*결제) 	결제 원금					int 	paymentPriceTotal             
 			결제 실 금액				int 	paymentPricePay               
@@ -46,7 +46,7 @@ package site.gamsung.service.domain;
 	(*결제/*환불)	결제 참조번호			String 	paymentReferenceNum          
 			결제 참조수수료율				int 	paymentReferenceFee        
 		
-	 		환불등록일자				String 	paymentRegTime    
+	 		환불등록일자					String 	paymentRegTime    
 	(*환불) 	환불 코드					String 	paymentRefundCode          
 	(*환불) 	환불 원금					int 	paymentRefundPriceTotal     
 			환불 실 금액				int 	paymentRefundPricePay         

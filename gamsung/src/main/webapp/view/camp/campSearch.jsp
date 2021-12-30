@@ -30,6 +30,7 @@ pageEncoding="UTF-8"%>
            
             if(sido == '서울'){
               $("#sigungu option").remove();
+              $("#sigungu").append("<option value=''>전체/시/군</option>");
               $("#sigungu").append("<option value='강남'>강남구</option>");
               $("#sigungu").append("<option value='강동'>강동구</option>");
               $("#sigungu").append("<option value='강북'>강북구</option>");
@@ -59,6 +60,7 @@ pageEncoding="UTF-8"%>
 
             if(sido == '부산'){
               $("#sigungu option").remove();
+              $("#sigungu").append("<option value=''>전체/시/군</option>");
               $("#sigungu").append("<option value='강서'>강서구</option>");
               $("#sigungu").append("<option value='금정'>금정구</option>");
               $("#sigungu").append("<option value='기장'>기장군</option>");
@@ -79,6 +81,7 @@ pageEncoding="UTF-8"%>
 
             if(sido == '대구'){
               $("#sigungu option").remove();
+              $("#sigungu").append("<option value=''>전체/시/군</option>");
               $("#sigungu").append("<option value='남구'>남구</option>");
               $("#sigungu").append("<option value='달서'>달서구</option>");
               $("#sigungu").append("<option value='달성'>달성군</option>");
@@ -92,6 +95,7 @@ pageEncoding="UTF-8"%>
 
             if(sido == '인천'){
               $("#sigungu option").remove();
+              $("#sigungu").append("<option value=''>전체/시/군</option>");
               $("#sigungu").append("<option value='강화'>강화군</option>");
               $("#sigungu").append("<option value='계양'>계양구</option>");
               $("#sigungu").append("<option value='남구'>남구</option>");
@@ -106,6 +110,7 @@ pageEncoding="UTF-8"%>
             
             if(sido == '광주'){
               $("#sigungu option").remove();
+              $("#sigungu").append("<option value=''>전체/시/군</option>");
               $("#sigungu").append("<option value='광산'>광산구</option>");
               $("#sigungu").append("<option value='남구'>남구</option>");
               $("#sigungu").append("<option value='동구'>동구</option>");
@@ -115,6 +120,7 @@ pageEncoding="UTF-8"%>
 
             if(sido == '대전'){
               $("#sigungu option").remove();
+              $("#sigungu").append("<option value=''>전체/시/군</option>");
               $("#sigungu").append("<option value='대덕'>대덕구</option>");
               $("#sigungu").append("<option value='동구'>동구</option>");
               $("#sigungu").append("<option value='서구'>서구</option>");
@@ -124,6 +130,7 @@ pageEncoding="UTF-8"%>
 
             if(sido == '울산'){
               $("#sigungu option").remove();
+              $("#sigungu").append("<option value=''>전체/시/군</option>");
               $("#sigungu").append("<option value='남구'>남구</option>");
               $("#sigungu").append("<option value='동구'>동구</option>");
               $("#sigungu").append("<option value='북구'>북구</option>");
@@ -133,6 +140,7 @@ pageEncoding="UTF-8"%>
 
             if(sido == '세종'){
               $("#sigungu option").remove();
+              $("#sigungu").append("<option value=''>전체/시/군</option>");
               $("#sigungu").append("<option value='금남'>금남면</option>");
               $("#sigungu").append("<option value='세종'>세종시</option>");
               $("#sigungu").append("<option value='소정'>소정면</option>");
@@ -142,6 +150,7 @@ pageEncoding="UTF-8"%>
 
             if(sido == '경기'){
               $("#sigungu option").remove();
+              $("#sigungu").append("<option value=''>전체/시/군</option>");
               $("#sigungu").append("<option value='가평'>가평군</option>");
               $("#sigungu").append("<option value='고양'>고양시</option>");
               $("#sigungu").append("<option value='과천'>과천시</option>");
@@ -177,6 +186,7 @@ pageEncoding="UTF-8"%>
 
             if(sido == '강원'){
               $("#sigungu option").remove();
+              $("#sigungu").append("<option value=''>전체/시/군</option>");
               $("#sigungu").append("<option value='강릉'>강릉시</option>");
               $("#sigungu").append("<option value='고성'>고성군</option>");
               $("#sigungu").append("<option value='동해'>동해시</option>");
@@ -199,6 +209,7 @@ pageEncoding="UTF-8"%>
 
             if(sido == '충북'){
               $("#sigungu option").remove();
+              $("#sigungu").append("<option value=''>전체/시/군</option>");
               $("#sigungu").append("<option value='괴산'>괴산군</option>");
               $("#sigungu").append("<option value='단양'>단양군</option>");
               $("#sigungu").append("<option value='보은'>보은군</option>");
@@ -215,6 +226,7 @@ pageEncoding="UTF-8"%>
 
             if(sido == '충남'){
               $("#sigungu option").remove();
+              $("#sigungu").append("<option value=''>전체/시/군</option>");
               $("#sigungu").append("<option value='계룡'>계룡시</option>");
               $("#sigungu").append("<option value='공주'>공주시</option>");
               $("#sigungu").append("<option value='금산'>금산군</option>");
@@ -234,6 +246,7 @@ pageEncoding="UTF-8"%>
 
             if(sido == '전북'){
               $("#sigungu option").remove();
+              $("#sigungu").append("<option value=''>전체/시/군</option>");
               $("#sigungu").append("<option value='고창'>고창군</option>");
               $("#sigungu").append("<option value='군산'>군산시</option>");
               $("#sigungu").append("<option value='김제'>김제시</option>");
@@ -252,6 +265,7 @@ pageEncoding="UTF-8"%>
             
             if(sido == '전남'){
               $("#sigungu option").remove();
+              $("#sigungu").append("<option value=''>전체/시/군</option>");
               $("#sigungu").append("<option value='강진'>강진군</option>");
               $("#sigungu").append("<option value='고흥'>고흥군</option>");
               $("#sigungu").append("<option value='곡성'>곡성군</option>");
@@ -275,6 +289,7 @@ pageEncoding="UTF-8"%>
 
             if(sido == '전남'){
               $("#sigungu option").remove();
+              $("#sigungu").append("<option value=''>전체/시/군</option>");
               $("#sigungu").append("<option value='강진'>강진군</option>");
               $("#sigungu").append("<option value='고흥'>고흥군</option>");
               $("#sigungu").append("<option value='곡성'>곡성군</option>");
@@ -301,6 +316,7 @@ pageEncoding="UTF-8"%>
 
             if(sido == '경북'){
               $("#sigungu option").remove();
+              $("#sigungu").append("<option value=''>전체/시/군</option>");
               $("#sigungu").append("<option value='경산'>경산시</option>");
               $("#sigungu").append("<option value='경주'>경주시</option>");
               $("#sigungu").append("<option value='고령'>고령군</option>");
@@ -328,6 +344,7 @@ pageEncoding="UTF-8"%>
 
             if(sido == '경남'){
               $("#sigungu option").remove();
+              $("#sigungu").append("<option value=''>전체/시/군</option>");
               $("#sigungu").append("<option value='거제'>거제시</option>");
               $("#sigungu").append("<option value='거창'>거창군</option>");
               $("#sigungu").append("<option value='고성'>고성군</option>");
@@ -350,6 +367,7 @@ pageEncoding="UTF-8"%>
 
             if(sido == '제주'){
               $("#sigungu option").remove();
+              $("#sigungu").append("<option value=''>전체/시/군</option>");
               $("#sigungu").append("<option value='서귀포'>서귀포시</option>");
               $("#sigungu").append("<option value='제주'>제주시</option>");
             };
@@ -358,86 +376,102 @@ pageEncoding="UTF-8"%>
 
           $("#search").focus();
 
-          $("button:contains(search)").on("click" , function() {
-              
-              var keyword=$("#keyword").val();
-              var addr = $("#addr1").val() + $("#addr2").val();
-                  
-              $("form").attr("method","POST").attr("action","/campGeneral/login").submit();
+          $("#searchKeyword").keypress(function(e) { 
+              if (e.keyCode == 13){
+                $("#search").attr("method","POST").attr("action","/campGeneral/listCamp").submit();
+			        }    
+          });
+
+          $("#searchbtn").on("click" , function() {
+              $("#search").attr("method","POST").attr("action","/campGeneral/listCamp").submit();
           });
           
+          $("#detail_search").on("click" , function() {
+              $("#detailSearch").attr("method","POST").attr("action","/campGeneral/listCamp").submit();
+          });
       });	
 </script>	
 
 <section class="bg-dark-30 showcase-page-header module parallax-bg" data-background="../../resources/images/showcase_bg.jpg">
   <div class="titan-caption">
     <div class="row">
-      <div class="col-md-4 col-lg-offset-4" style="text-align: center;">
-        <h2  style="margin-bottom: 20px;">캠핑장을 검색해 주세요!</h2>
+      <div class="col-xs-4 col-lg-offset-4" style="text-align: center;">
+        <h2  style="margin-bottom: 20px;">캠핑장을 검색 하세요!</h2>
         <div class="row">
           <div class="row">
             <div style="text-align: end; padding-right: 15px;">
-              <a class="modal-with-form btn btn-success" href="#modalForm" style="padding: 5px; ">상세검색+</a>
+              <a class="modal-with-form btn btn-success" href="#modalForm" style="padding: 5px;">상세검색+</a>
               <div id="modalForm" class="modal-block modal-block-primary mfp mfp-hide">
+              
                 <section class="panel">
                   <header class="panel-heading">
                     <h4 class="panel-title">캠핑장을 상세하게 검색 하세요!</h4>
                   </header>
                   <div class="panel-body">
-                    <form id="demo-form" class="form-horizontal mb-lg" novalidate="novalidate">
+                    <form id="detailSearch" class="form-horizontal mb-lg" novalidate="novalidate">
                       <div class="form-group mt-lg">
                         <label class="col-sm-2 control-label">지역별</label>
                         <div class="col-sm-10">
                             <label class="checkbox-inline">
-                              <input type="checkbox" id="addr1" value="서울">서울
+                              <input type="checkbox" id="addr1" name="campAddr" value="서울">서울
                             </label>
                             <label class="checkbox-inline">
-                              <input type="checkbox" id="addr2" value="부산">부산
+                              <input type="checkbox" id="addr2" name="campAddr" value="부산">부산
                             </label>
                             <label class="checkbox-inline">
-                              <input type="checkbox" id="addr3" value="대구">대구
+                              <input type="checkbox" id="addr3" name="campAddr" value="대구">대구
                             </label>
                             <label class="checkbox-inline">
-                              <input type="checkbox" id="addr4" value="인천">인천
+                              <input type="checkbox" id="addr4" name="campAddr" value="인천">인천
                             </label>
                             <label class="checkbox-inline">
-                              <input type="checkbox" id="addr5" value="광주">광주
+                              <input type="checkbox" id="addr5" name="campAddr" value="광주">광주
                             </label>
                             <label class="checkbox-inline">
-                              <input type="checkbox" id="addr6" value="대전">대전
+                              <input type="checkbox" id="addr6" name="campAddr" value="대전">대전
                             </label>
                             <label class="checkbox-inline">
-                              <input type="checkbox" id="addr7" value="울산">울산
+                              <input type="checkbox" id="addr7" name="campAddr" value="울산">울산
                             </label>
                             <label class="checkbox-inline">
-                              <input type="checkbox" id="addr8" value="세종">세종
+                              <input type="checkbox" id="addr8" name="campAddr" value="세종">세종
+                            </label>
+                          </div>
+                        </div>
+                        <div class="form-group mt-lg">
+                          <label class="col-sm-2 control-label"></label>
+                          <div class="col-sm-10">
+                            <label class="checkbox-inline">
+                              <input type="checkbox" id="addr9" name="campAddr" value="경기">경기
                             </label>
                             <label class="checkbox-inline">
-                              <input type="checkbox" id="addr9" value="경기">경기
+                              <input type="checkbox" id="addr10" name="campAddr" value="강원">강원
                             </label>
                             <label class="checkbox-inline">
-                              <input type="checkbox" id="addr10" value="강원">강원
+                              <input type="checkbox" id="addr11" name="campAddr" value="충북">충북
                             </label>
                             <label class="checkbox-inline">
-                              <input type="checkbox" id="addr11" value="충북">충북
+                              <input type="checkbox" id="addr12" name="campAddr" value="충남">충남
                             </label>
                             <label class="checkbox-inline">
-                              <input type="checkbox" id="addr12" value="충남">충남
+                              <input type="checkbox" id="addr13" name="campAddr" value="전북">전북
                             </label>
                             <label class="checkbox-inline">
-                              <input type="checkbox" id="addr13" value="전북">전북
+                              <input type="checkbox" id="addr14" name="campAddr" value="전남">전남
                             </label>
                             <label class="checkbox-inline">
-                              <input type="checkbox" id="addr14" value="전남">전남
+                              <input type="checkbox" id="addr15" name="campAddr" value="경북">경북
                             </label>
                             <label class="checkbox-inline">
-                              <input type="checkbox" id="addr15" value="경북">경북
+                              <input type="checkbox" id="addr16" name="campAddr" value="경남">경남
                             </label>
+                          </div>
+                        </div>
+                        <div class="form-group mt-lg">
+                          <label class="col-sm-2 control-label"></label>
+                          <div class="col-sm-10">
                             <label class="checkbox-inline">
-                              <input type="checkbox" id="addr16" value="경남">경남
-                            </label>
-                            <label class="checkbox-inline">
-                              <input type="checkbox" id="addr17" value="제주">제주
+                              <input type="checkbox" id="addr17" name="campAddr" value="제주">제주
                             </label>
                         </div>
                       </div>
@@ -445,69 +479,158 @@ pageEncoding="UTF-8"%>
                         <label class="col-sm-2 control-label">주요시설</label>
                         <div class="col-sm-10">
                           <label class="checkbox-inline">
-                            <input type="checkbox" id="addr1" value="서울">서울
+                            <input type="checkbox" id="main_site1" name="mainSite" value="오토캠핑">오토캠핑
                           </label>
                           <label class="checkbox-inline">
-                            <input type="checkbox" id="addr2" value="부산">부산
+                            <input type="checkbox" id="main_site2" name="mainSite" value="글램핑">글램핑
                           </label>
                           <label class="checkbox-inline">
-                            <input type="checkbox" id="addr3" value="대구">대구
+                            <input type="checkbox" id="main_site3" name="mainSite" value="카라반">카라반
                           </label>
                           <label class="checkbox-inline">
-                            <input type="checkbox" id="addr4" value="인천">인천
+                            <input type="checkbox" id="main_site4" name="mainSite" value="방갈로">방갈로
                           </label>
                           <label class="checkbox-inline">
-                            <input type="checkbox" id="addr5" value="광주">광주
+                            <input type="checkbox" id="main_site5" name="mainSite" value="펜션">펜션
                           </label>
                           <label class="checkbox-inline">
-                            <input type="checkbox" id="addr6" value="대전">대전
+                            <input type="checkbox" id="main_site6" name="mainSite" value="자동차 야영장">자동차 야영장
                           </label>
                         </div>
                       </div>
                       <div class="form-group">
                         <label class="col-sm-2 control-label">부가시설</label>
                         <div class="col-sm-10">
-                          <input type="url" name="url" class="form-control" placeholder="Type an URL..." />
+                          <label class="checkbox-inline">
+                            <input type="checkbox" id="sub_site1" name="subSite" value="전기">전기
+                          </label>
+                          <label class="checkbox-inline">
+                            <input type="checkbox" id="sub_site1" name="subSite" value="온수">온수
+                          </label>
+                          <label class="checkbox-inline">
+                            <input type="checkbox" id="sub_site1" name="subSite" value="화장실">화장실
+                          </label>
+                          <label class="checkbox-inline">
+                            <input type="checkbox" id="sub_site1" name="subSite" value="무선인터넷">무선인터넷
+                          </label>
+                          <label class="checkbox-inline">
+                            <input type="checkbox" id="sub_site1" name="subSite" value="매점">매점
+                          </label>
+                          <label class="checkbox-inline">
+                            <input type="checkbox" id="sub_site1" name="subSite" value="물놀이장">물놀이장
+                          </label>
                         </div>
                       </div>
-                      <div class="form-group mt-lg">
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label"></label>
+                        <div class="col-sm-10">
+                          <label class="checkbox-inline">
+                            <input type="checkbox" id="sub_site1" name="subSite" value="트램폴린">트램폴린
+                          </label>
+                          <label class="checkbox-inline">
+                            <input type="checkbox" id="sub_site1" name="subSite" value="산책로">산책로
+                          </label>
+                        </div>
+                      </div>
+                      <div class="form-group">
                         <label class="col-sm-2 control-label">주변환경</label>
                         <div class="col-sm-10">
-                          <input type="text" name="name" class="form-control" placeholder="Type your name..." required/>
+                          <label class="checkbox-inline">
+                            <input type="checkbox" id="circumstance1" name="circumstance" value="계곡">계곡
+                          </label>
+                          <label class="checkbox-inline">
+                            <input type="checkbox" id="circumstance2" name="circumstance" value="호수">호수
+                          </label>
+                          <label class="checkbox-inline">
+                            <input type="checkbox" id="circumstance3" name="circumstance" value="강">강
+                          </label>
+                          <label class="checkbox-inline">
+                            <input type="checkbox" id="circumstance4" name="circumstance" value="바다">바다
+                          </label>
+                          <label class="checkbox-inline">
+                            <input type="checkbox" id="circumstance5" name="circumstance" value="산">산
+                          </label>
+                          <label class="checkbox-inline">
+                            <input type="checkbox" id="circumstance6" name="circumstance" value="숲">숲
+                          </label>
+                          <label class="checkbox-inline">
+                            <input type="checkbox" id="circumstance7" name="circumstance" value="도시">도시
+                          </label>
+                          <label class="checkbox-inline">
+                            <input type="checkbox" id="circumstance8" name="circumstance" value="섬">섬
+                          </label>
                         </div>
                       </div>
-                      <div class="form-group mt-lg">
+                      <div class="form-group">
                         <label class="col-sm-2 control-label">테마</label>
                         <div class="col-sm-10">
-                          <input type="text" name="name" class="form-control" placeholder="Type your name..." required/>
+                          <label class="checkbox-inline">
+                            <input type="checkbox" id="theme1" name="theme" value="봄">봄
+                          </label>
+                          <label class="checkbox-inline">
+                            <input type="checkbox" id="theme2" name="theme" value="여름">여름
+                          </label>
+                          <label class="checkbox-inline">
+                            <input type="checkbox" id="theme3" name="theme" value="가을">가을
+                          </label>
+                          <label class="checkbox-inline">
+                            <input type="checkbox" id="theme4" name="theme" value="겨울">겨울
+                          </label>
+                          <label class="checkbox-inline">
+                            <input type="checkbox" id="theme5" name="theme" value="일출">일출
+                          </label>
+                          <label class="checkbox-inline">
+                            <input type="checkbox" id="theme6" name="theme" value="일몰">일몰
+                          </label>
+                          <label class="checkbox-inline">
+                            <input type="checkbox" id="theme7" name="theme" value="등산">등산
+                          </label>
+                          <label class="checkbox-inline">
+                            <input type="checkbox" id="theme8" name="theme" value="낚시">낚시
+                          </label>
+                        </div>
+                      </div>    
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label"></label>
+                        <div class="col-sm-10">
+                          <label class="checkbox-inline">
+                            <input type="checkbox" id="theme9" name="theme" value="애완동물동반">애완동물동반
+                          </label>
                         </div>
                       </div>
-                      <div class="form-group mt-lg">
+                      <div class="form-group">
                         <label class="col-sm-2 control-label">가격(1박)</label>
                         <div class="col-sm-10">
-                          <input type="text" name="name" class="form-control" placeholder="Type your name..." required/>
-                        </div>
+                          <div class="col-sm-3" style="padding-left: 0px;">
+                            <input type="text" id="price1" class="form-control input-sm mb-md" name="price" value="0"/>  
+                          </div>
+                          <div class="col-sm-3" style="padding-left: 0px;">
+                            <input type="text" id="price2" class="form-control input-sm mb-md" name="price" value="100000"/>  
+                          </div>
+                      </div>
                       </div>
                     </form>
                   </div>
                   <footer class="panel-footer">
                     <div class="row">
                       <div class="col-md-12 text-right">
-                        <button class="btn btn-primary modal-confirm">Submit</button>
-                        <button class="btn btn-default modal-dismiss">Cancel</button>
+                        <button class="btn btn-success"  id="detail_search">검색</button>
+                        <button class="btn btn-warning modal-dismiss">취소</button>
                       </div>
                     </div>
                   </footer>
                 </section>
+              
               </div>
             </div>
           </div>
-          
+
+        <form id="search">  
           <div class="row" style="margin-bottom: 15px;">
             <div class="form-group">
               <label class="col-sm-3 control-label">키워드</label>
               <div class="col-sm-9">
-                <input type="text" name="name" class="form-control">
+                <input type="text" id="searchKeyword" name="searchKeyword" class="form-control">
               </div>
             </div>
           </div>
@@ -515,7 +638,7 @@ pageEncoding="UTF-8"%>
             <div class="row">
               <label class="col-md-3 control-label">지역별</label>
               <div class="col-md-3">
-                <select class="form-control" id="sido">
+                <select class="form-control" id="sido" name="campAddr">
                   <option value="">전체/도</option>
                   <option value="서울">서울시</option>
                   <option value="부산">부산시</option>
@@ -537,15 +660,16 @@ pageEncoding="UTF-8"%>
                 </select>
               </div>
               <div class="col-md-3" style="text-align: start; padding-left: 0px;" >
-                <select class="form-control" id="sigungu">
+                <select class="form-control" id="sigungu" name="campAddr">
                     <option value="">전체/시/군</option>
                 </select>
               </div>
               <div class="col-md-3" style="text-align: end;">
-                <button class="btn btn-success btn-round" type="button">검색</button>
+                <button class="btn btn-success btn-round" type="button" id="searchbtn">검색</button>
               </div>
             </div>
           </div>
+        </form>
         </div>
       </div>
     </div>

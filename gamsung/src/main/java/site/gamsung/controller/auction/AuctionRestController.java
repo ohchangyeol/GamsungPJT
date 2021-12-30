@@ -19,6 +19,7 @@ import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -92,25 +93,6 @@ public class AuctionRestController {
 		return auctionProductService.listCrawlingAuctionProduct(search);
 	}
 	
-	@RequestMapping("previewAuctionProductImageFile")
-	public String previewAuctionProductImageFile(@RequestParam(value = "fileUpload", required=false) MultipartFile file) {
-		
-		if(!file.getOriginalFilename().isEmpty()) {
-			try {
-				
-				file.transferTo(new File(PATH, file.getOriginalFilename()));
-				
-			} catch (IllegalStateException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-		}
-		return file.getOriginalFilename();
-		
-	}
 	
 	@RequestMapping("getBidderRanking")
 	public AuctionInfo getBidderRanking(@RequestBody AuctionInfo auctionInfo, HttpSession httpSession) {

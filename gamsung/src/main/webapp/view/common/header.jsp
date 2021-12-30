@@ -118,7 +118,7 @@ pageEncoding="UTF-8"%>
            	<li><a href="/payment/listSiteProfit">SiteProfit</a></li>          	      
           </ul>
         </li>
-             
+
         <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">중고상품</a>
 
           <ul class="dropdown-menu">

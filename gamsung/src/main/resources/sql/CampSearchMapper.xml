@@ -72,16 +72,15 @@
 	
 	<select id="listCamp"  parameterType="search"  resultMap="CampSelectMap">
 		SELECT DISTINCT c.camp_no, c.camp_img1, c.camp_img2, c.camp_img3, c.camp_img4, c.camp_img5, c.camp_reg_date, c.camp_rating, 
-		       			c.camp_view_count_previous_month, c.camp_summery, u.camp_name, u.addr, u.camp_call 
+		       			c.camp_view_count_current_month, c.camp_summery, u.camp_name, u.addr, u.camp_call 
 		FROM CAMP c, MAINSITE m, SUBSITE s, USERS u
 		WHERE c.user_id = u.user_id and c.camp_no = m.camp_no and c.camp_no = s.camp_no AND c.delete_flag = 'N' AND tempsave_flag = 3
 			<if test="searchKeyword !=null and searchKeyword !=''">
 	 			AND u.camp_name LIKE CONCAT('%',#{searchKeyword},'%')
 			</if>
 			<if test="campAddr !=null and campAddr.size !=0">
-				AND u.addr IN
-				<foreach collection="campAddr" item="item" index="index" open="(" close=")" separator=",">
-					('%',#{item},'%')
+				<foreach collection="campAddr" item="item" index="index" >
+					AND u.addr LIKE CONCAT('%',#{item},'%') 
 				</foreach>
 	 		</if>
 			<if test="mainSite !=null and mainSite.size !=0">
@@ -120,7 +119,7 @@
 					#{item}
 				</foreach>
 			</if>
-			<if test="price !=null">
+			<if test="price !=null and price.size !=0">
 	 			AND m.mainsite_min_price BETWEEN
 	 			<foreach collection="price" item="item" index="index" separator="AND">
 					#{item}
@@ -129,7 +128,7 @@
 	  	<trim prefix="ORDER BY">
             <if test="sortCondition != null ">
                <if test='sortCondition.equals("조회수 높은순")'>
-                  c.camp_view_count_previous_month DESC
+                  c.camp_view_count_current_month DESC
                </if>
                <if test='sortCondition.equals("평점 높은순")'>
                   c.camp_rating DESC
@@ -151,11 +150,10 @@
 	 					AND u.camp_name LIKE CONCAT('%',#{searchKeyword},'%')
 					</if>
 					<if test="campAddr !=null and campAddr.size !=0">
-						AND u.addr IN
-						<foreach collection="campAddr" item="item" index="index" open="(" close=")" separator=",">
-							('%',#{item},'%')
-						</foreach>
-			 		</if>
+					<foreach collection="campAddr" item="item" index="index" >
+						AND u.addr LIKE CONCAT('%',#{item},'%') 
+					</foreach>
+	 				</if>
 					<if test="mainSite !=null and mainSite.size !=0">
 			 			AND m.mainsite_type IN
 						<foreach collection="mainSite" item="item" index="index" open="(" close=")" separator=",">
@@ -192,7 +190,7 @@
 							#{item}
 						</foreach>
 					</if>
-					<if test="price !=null">
+					<if test="price !=null and price.size !=0">
 			 			AND m.mainsite_min_price BETWEEN
 			 			<foreach collection="price" item="item" index="index" separator="AND">
 							#{item}
