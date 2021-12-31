@@ -10,14 +10,16 @@
 		<result property="paymentNo" 						column="payment_no" 		  				jdbcType="VARCHAR"/>
 		<result property="paymentSender"					column="payment_sender" 		  			jdbcType="VARCHAR"/>
 		<result property="paymentReceiver" 					column="payment_receiver" 	  				jdbcType="VARCHAR"/>
-		<result property="paymentMethod" 					column="payment_method"  					jdbcType="NUMERIC"/>
-		<result property="paymentRegTime" 					column="payment_reg_time" 				  	jdbcType="VARCHAR"/>
-		<result property="paymentCode" 						column="payment_code" 	  					jdbcType="VARCHAR"/>
+		<result property="paymentMethod" 					column="payment_method"  					jdbcType="NUMERIC"/>		
+		<result property="paymentCode" 						column="payment_code" 	  					jdbcType="VARCHAR"/>	
+		<result property="paymentRegTime" 					column="payment_reg_time" 				  	jdbcType="TIMESTAMP"/>
 		<result property="paymentPriceTotal" 				column="payment_price_total" 			 	jdbcType="NUMERIC"/>
 		<result property="paymentPricePay" 					column="payment_price_pay" 					jdbcType="NUMERIC"/>
 		<result property="paymentPriceFee" 					column="payment_price_fee" 		 		 	jdbcType="NUMERIC"/>
 		<result property="paymentReferenceNum"				column="payment_reference_num" 		 	 	jdbcType="VARCHAR"/>
-		<result property="paymentReferenceFee" 				column="payment_reference_fee"				jdbcType="NUMERIC"/>
+		<result property="paymentReferenceFee" 				column="payment_reference_fee"				jdbcType="NUMERIC"/>			
+		<result property="paymentRefundCode" 				column="payment_refund_code" 	  			jdbcType="VARCHAR"/>
+		<result property="paymentRefundRegTime" 			column="payment_refund_reg_time" 		  	jdbcType="TIMESTAMP"/>
 		<result property="paymentRefundPriceTotal" 			column="payment_refund_price_total"  		jdbcType="NUMERIC"/>
 		<result property="paymentRefundPricePay" 			column="payment_refund_price_pay" 			jdbcType="NUMERIC"/>
 		<result property="paymentRefundPriceFee" 			column="payment_refund_price_fee" 	  		jdbcType="NUMERIC"/>
@@ -46,6 +48,100 @@
 	
 	<!-- SQL : Payment ################################################################################################################### -->
 	
+	<insert id="addMakePayment" parameterType="payment">
+		INSERT
+		INTO PAYMENT (payment_sender, payment_receiver, payment_method, payment_code, payment_reg_time,
+						payment_price_total, payment_price_pay, payment_price_fee, payment_reference_num, payment_reference_fee )
+		VALUES ( #{paymentSender}
+				, #{paymentReceiver}
+				, #{paymentMethod}		
+				, #{paymentCode}
+				, now(6)
+				, #{paymentPriceTotal}
+				, #{paymentPricePay}
+				, #{paymentPriceFee}				
+				, #{paymentReferenceNum}
+				, #{paymentReferenceFee} )	
+	</insert>
+	
+	<update	id="addRefundPayment" parameterType="payment" >
+	   	UPDATE PAYMENT
+	   	SET	payment_refund_code = #{paymentRefundCode}
+	   		, now(6)
+	   		, payment_refund_price_total = #{paymentRefundPriceTotal}
+			, payment_refund_price_pay = #{paymentRefundPricePay}
+			, payment_refund_price_fee = #{paymentRefundPriceFee}
+			, payment_refund_reference_num = #{paymentRefundReferenceNum}
+			, payment_refund_reference_fee = #{paymentRefundReferenceFee}			
+	   	WHERE payment_no = #{paymentNo}
+	</update>
+		
+	<select id="listPayment" parameterType="payment" resultMap="paymentSelectMap">
+  		SELECT	payment_no, payment_sender, payment_receiver, payment_method, 
+  				payment_code, payment_reg_time, payment_price_total, payment_price_pay, 
+				payment_price_fee, payment_reference_num, payment_reference_fee, 				
+				payment_refund_code, payment_refund_reg_time, payment_refund_price_total, payment_refund_price_pay, 
+				payment_refund_price_fee, payment_refund_reference_num, payment_refund_reference_fee		
+		FROM PAYMENT			
+		<trim prefix="WHERE" prefixOverrides="AND">
+			<if test="paymentNo != null">
+				payment_no = #{paymentNo}			
+			</if>
+			<if test="paymentSender != null">
+				AND payment_sender = #{paymentSender}			
+			</if>
+			<if test="paymentReceiver != null">
+				AND payment_receiver = #{paymentReceiver}			
+			</if>
+			<if test="paymentMethod != null">
+				AND payment_method = #{paymentMethod}			
+			</if>
+			<if test="paymentRegTime != null">
+				AND payment_reg_time = #{paymentRegTime}			
+			</if>
+			<if test="paymentCode != null">
+				AND payment_code = #{paymentCode}			
+			</if>
+			<if test="paymentPriceTotal != null">
+				AND payment_price_total = #{paymentPriceTotal}			
+			</if>
+			<if test="paymentPricePay != null">
+				AND payment_price_pay = #{paymentPricePay}			
+			</if>
+			<if test="paymentPriceFee != null">
+				AND payment_price_fee = #{paymentPriceFee}			
+			</if>
+			<if test="paymentReferenceNum != null">
+				AND payment_reference_num = #{paymentReferenceNum}			
+			</if>
+			<if test="paymentReferenceFee != null">
+				AND payment_reference_fee = #{paymentReferenceFee}			
+			</if>			
+			<if test="paymentRefundPriceTotal != null">
+				AND payment_refund_code = #{paymentRefundPriceTotal}			
+			</if>
+			<if test="paymentRefundPriceTotal != null">
+				AND payment_refund_reg_time = #{paymentRefundPriceTotal}			
+			</if>	
+			<if test="paymentRefundPriceTotal != null">
+				AND payment_refund_price_total = #{paymentRefundPriceTotal}			
+			</if>
+			<if test="paymentRefundPricePay != null">
+				AND payment_refund_price_pay = #{paymentRefundPricePay}			
+			</if>
+			<if test="paymentRefundPriceFee != null">
+				AND payment_refund_price_fee = #{paymentRefundPriceFee}			
+			</if>
+			<if test="paymentRefundReferenceNum != null">
+				AND payment_refund_reference_num = #{paymentRefundReferenceNum}			
+			</if>
+			<if test="paymentRefundReferenceFee != null">
+				AND payment_refund_reference_fee = #{paymentRefundReferenceFee}			
+			</if>			  			
+		</trim>		
+		ORDER BY payment_no		
+	</select>
+
 	
 	<!-- SQL : PaymentCode ################################################################################################################### -->
 	
@@ -74,8 +170,8 @@
 		ORDER BY payment_code	
 	</select>
 	
-	<select id="getFeeByPaymentCode" parameterType="String" resultType="int">
-  		SELECT payment_code_fee
+	<select id="getPaymentCodeInfo" parameterType="String" resultMap="paymentCodeSelectMap">
+  		SELECT payment_code, payment_code_range_start, payment_code_range_end, payment_code_info, payment_code_fee
 		FROM PAYMENT_CODE			
 		WHERE LOWER(payment_code) = LOWER(#{value})	
 	</select>	

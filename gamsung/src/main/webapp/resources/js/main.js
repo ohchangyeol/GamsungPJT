@@ -846,6 +846,14 @@ console.log('%c Proudly Crafted with ZiOn.', 'background: #222; color: #bada55')
         }
 
     });
+
+    
+    $("#messenger-btn").on("click", ()=>{
+        console.log("클릭");
+        $("#messenger-iframe").attr("class", "ch-desk-messenger rightPosition");
+    })
+
+    
 })(jQuery);
 
 

@@ -10,20 +10,7 @@
 	
 	<title>상품 등록</title>
 	
-	<link rel="apple-touch-icon" sizes="57x57" href="../../resources/images/favicons/apple-icon-57x57.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="../../resources/images/favicons/apple-icon-60x60.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="../../resources/images/favicons/apple-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="../../resources/images/favicons/apple-icon-76x76.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="../../resources/images/favicons/apple-icon-114x114.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="../../resources/images/favicons/apple-icon-120x120.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="../../resources/images/favicons/apple-icon-144x144.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="../../resources/images/favicons/apple-icon-152x152.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="../../resources/images/favicons/apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="../../resources/images/favicons/android-icon-192x192.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="../../resources/images/favicons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="../../resources/images/favicons/favicon-96x96.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="../../resources/images/favicons/favicon-16x16.png">
-    <meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="../../resources/images/favicons/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
     
@@ -43,7 +30,7 @@
     <!-- Main stylesheet and color file-->
     <link href="../../resources/css/style.css" rel="stylesheet">
     <link id="color-scheme" href="../../resources/css/colors/default.css" rel="stylesheet">
-    <link rel="stylesheet" href="assets/vendor/pnotify/pnotify.custom.css" />  
+    <link rel="stylesheet" href="../../resources/lib/pnotify/pnotify.custom.css" />  
  
  	<style>
  	
@@ -73,7 +60,7 @@
 		 	display: flex;
 		 }
 		 
-		  input[type=file] {
+		 #inputImgs {
             display: none;
         }
 
@@ -107,7 +94,7 @@
   		<jsp:include page="../common/header.jsp"></jsp:include>
 		<div class="main">
 			<section class="module bg-dark-30 about-page-header"
-				data-background="assets/images/about_bg.jpg">
+				data-background="">
 				<div class="container">
 					<div class="row">
 						<div class="col-sm-6 col-sm-offset-3">
@@ -126,47 +113,85 @@
 						<form class="form" role="form">
 							<div class="form-group">
 								<label for="auctionProductName" class="col-sm-offset-1 col-sm-3 control-label">상품명</label> 
-								<input id="auctionProductName" name="auctionProductName" class="form-control" type="text" value="${auctionProduct.auctionProductName}" placeholder="상품명을 입력하세요." />
+								<input id="auctionProductName" name="auctionProductName" class="form-control" type="text" placeholder="상품명을 입력하세요." />
 							</div>
 							<div class="form-group">
 								<label for="startBidPrice" class="col-sm-offset-1 col-sm-3 control-label">경매 시작가</label>
-								<input id="startBidPrice" name="startBidPrice" class="form-control" type="text" value="${auctionProduct.startBidPrice}" placeholder="경매 시작가를 입력하세요." />
+								<input id="startBidPrice" name="startBidPrice" class="form-control"  value="" type="text" placeholder="경매 시작가를 입력하세요." />
 							</div>
 							<div class="form-group">
 								<label for="hopefulBidPrice" class="col-sm-offset-1 col-sm-3 control-label">희망 낙찰가</label>
-								<input id="hopefulBidPrice" name="hopefulBidPrice" class="form-control" type="text" value="${auctionProduct.hopefulBidPrice}" placeholder="희망 낙찰가를 입력하세요." />
+								<input id="hopefulBidPrice" name="hopefulBidPrice" class="form-control"  value="" type="text" placeholder="희망 낙찰가를 입력하세요." />
 							</div>
 							<div class="form-group">
 								<label for="bidUnit" class="col-sm-offset-1 col-sm-3 control-label">입찰 단위</label> 
-								<input id="bidUnit" name="bidUnit" class="form-control" type="text"	value="${auctionProduct.bidUnit}"  placeholder="입찰 단위를 입력하세요." />
+								<input id="bidUnit" name="bidUnit" class="form-control" type="text"  placeholder="입찰 단위를 입력하세요." />
 							</div>
 							<div class="form-group">
 								<label for="auctionStartTime" class="col-sm-offset-1 col-sm-3 control-label">경매 시작 시간</label>
-								<input id="auctionStartTime" name="auctionStartTime" class="form-control" type="text"  value="${auctionProduct.auctionStartTime}"  placeholder="경매 시작 시간을 입력하세요." />
+								<input id="auctionStartTime" name="auctionStartTime" class="form-control" type="text"  placeholder="경매 시작 시간을 입력하세요." />
 							</div>
 							<div class="form-group">
 								<label for="auctionEndTime" class="col-sm-offset-1 col-sm-3 control-label">경매 종료 시간</label>
-								<input id="auctionEndTime" name="auctionEndTime" class="form-control" type="text" value="${auctionProduct.auctionEndTime}" placeholder="경매 종료 시간을 입력하세요." />
+								<input id="auctionEndTime" name="auctionEndTime" class="form-control" type="text" placeholder="경매 종료 시간을 입력하세요." />
 							</div>
 							<div class="form-group">
 								<label for="bidableGrade" class="col-sm-offset-1 col-sm-3 control-label">입찰 가능 등급</label>
-								<input id="bidableGrade" name="bidableGrade" class="form-control" type="text" value="${auctionProduct.bidableGrade}" placeholder="입찰 가능 등급을 입력하세요." />
+								<input id="bidableGrade" name="bidableGrade" class="form-control" type="text" placeholder="입찰 가능 등급을 입력하세요." />
 							</div>
 							<div class="inputWrap">
 								<button type="button" id="fileUpload" class="btn btn-border-d btn-round">파일 업로드</button>
 								 <input type="file" id="inputImgs" name="inputImgs" multiple />
 							</div>
 							<div>
-								<div class="imgsWrap"></div>
+								<div class="imgsWrap">
+								<c:if test="${!empty auctionProduct.productImg1}">
+									<a href="javascript:void(0);" onclick="deleteImageAction(0)" id="imgId0">
+										<img id="productImg1" src="" class='selProductFile' title='Click to remove'>
+									</a>
+								</c:if>
+								<c:if test="${!empty auctionProduct.productImg2}">
+									<a href="javascript:void(0);" onclick="deleteImageAction(1)" id="imgId1">
+										<img id="productImg2" src="" class='selProductFile' title='Click to remove'>
+									</a>
+								</c:if>
+								<c:if test="${!empty auctionProduct.productImg3}">
+									<a href="javascript:void(0);" onclick="deleteImageAction(2)" id="imgId2">
+										<img id="productImg3" src="" class='selProductFile' title='Click to remove'>
+									</a>
+								</c:if>
+								<c:if test="${!empty auctionProduct.productImg4}">
+									<a href="javascript:void(0);" onclick="deleteImageAction(3)" id="imgId3">
+										<img id="productImg4" src="" class='selProductFile' title='Click to remove'>
+									</a>
+								</c:if>
+								<c:if test="${!empty auctionProduct.productImg5}">
+									<a href="javascript:void(0);" onclick="deleteImageAction(4)" id="imgId4">
+										<img id="productImg5" src="" class='selProductFile' title='Click to remove'>
+									</a>
+								</c:if>
+								</div>
 							</div>
-							<textarea id="textareaDetail" name="auctionProductDetail" class="form-control" rows="7" placeholder="상품 정보를 입력 하세요.." ></textarea>
+							<textarea id="auctionProductDetail" name="auctionProductDetail" class="form-control" rows="7" placeholder="상품 정보를 입력 하세요.." ></textarea>
+							<input id="allhashtag" name="allhashtag" class="form-control" type="text" value="${auctionProduct.hashtag1}${auctionProduct.hashtag2}${auctionProduct.hashtag3}" placeholder="해시태그를 #을 포함하여 입력하세요." />
+							<input type="hidden" id="inputImg1" name="productImg1" value="">
+						  	<input type="hidden" id="inputImg2" name="productImg2" value="">
+						  	<input type="hidden" id="inputImg3" name="productImg3" value="">
+						  	<input type="hidden" id="inputImg4" name="productImg4" value="">
+							<input type="hidden" id="inputImg5" name="productImg5" value=""> 
+							<input type="hidden" id="hashtag1" name="hashtag1" value="">
+						  	<input type="hidden" id="hashtag2" name="hashtag2" value="">
+							<input type="hidden" id="hashtag3" name="hashtag3" value=""> 
 		                </form>
-                <div class="col-sm-4 col-sm-offset-2"></div>
-                <div class="col-sm-4 col-sm-offset-2">
+                <div class="col-sm-4"></div>
+                <div class="container">
+                <div class="col-sm-6"></div>
+                <div class="col-sm-6">
                 <div class="row">
-                
 	                <button id="cancel" class="btn btn-border-d btn-circle" type="button">취소</button>
-	                <button id="previewBtn" class="btn btn-border-d btn-circle" type="button">미리보기</button>                
+	                <button id="tempSave" class="btn btn-border-d btn-circle" type="button">임시저장</button>
+	            	<button id="confirm" class="btn btn-border-d btn-circle" type="button">등록확정</button>                                
+                </div>                
                 </div>
                 </div>
               </div>
@@ -213,14 +238,14 @@
                   <h5 class="widget-title font-alt">Popular Posts</h5>
                   <ul class="widget-posts">
                     <li class="clearfix">
-                      <div class="widget-posts-image"><a href="#"><img src="assets/images/rp-1.jpg" alt="Post Thumbnail"/></a></div>
+                      <div class="widget-posts-image"><a href="#"></a></div>
                       <div class="widget-posts-body">
                         <div class="widget-posts-title"><a href="#">Designer Desk Essentials</a></div>
                         <div class="widget-posts-meta">23 january</div>
                       </div>
                     </li>
                     <li class="clearfix">
-                      <div class="widget-posts-image"><a href="#"><img src="assets/images/rp-2.jpg" alt="Post Thumbnail"/></a></div>
+                      <div class="widget-posts-image"><a href="#"></a></div>
                       <div class="widget-posts-body">
                         <div class="widget-posts-title"><a href="#">Realistic Business Card Mockup</a></div>
                         <div class="widget-posts-meta">15 February</div>
@@ -273,27 +298,84 @@
     <script src="../../resources/js/main.js"></script>
 	
 	<script>
+		
 		$(function(){
+			var auctionProduct = "${auctionProduct.auctionProductNo}";
+			var imgCount = $('.selProductFile').length;
+							
+			if(auctionProduct.length == 9){
+				if(confirm("임시등록 상품이 존재합니다. 불러 오시겠습니까?")){
+					$('#auctionProductName').val("${auctionProduct.auctionProductName}");
+					$('#startBidPrice').val(${auctionProduct.startBidPrice});
+					$('#hopefulBidPrice').val(${auctionProduct.hopefulBidPrice});
+					$('#bidUnit').val(${auctionProduct.bidUnit});
+					$('#auctionStartTime').val("${auctionProduct.auctionStartTime}");
+					$('#auctionEndTime').val("${auctionProduct.auctionEndTime}");
+					$('#bidableGrade').val(${auctionProduct.bidableGrade});
+					$('#auctionProductDetail').val("${auctionProduct.auctionProductDetail}");
+					$('#productImg1').attr('src','/uploadfiles/auctionimg/product/${auctionProduct.productImg1}').attr('data-file','${auctionProduct.productImg1}');
+					$('#productImg2').attr('src','/uploadfiles/auctionimg/product/${auctionProduct.productImg2}').attr('data-file','${auctionProduct.productImg2}');
+					$('#productImg3').attr('src','/uploadfiles/auctionimg/product/${auctionProduct.productImg3}').attr('data-file','${auctionProduct.productImg3}');
+					$('#productImg4').attr('src','/uploadfiles/auctionimg/product/${auctionProduct.productImg4}').attr('data-file','${auctionProduct.productImg4}');
+					$('#productImg5').attr('src','/uploadfiles/auctionimg/product/${auctionProduct.productImg5}').attr('data-file','${auctionProduct.productImg5}');
+					
+				}else{
+					$('#imgId0').remove();
+					$('#imgId1').remove();
+					$('#imgId2').remove();
+					$('#imgId3').remove();
+					$('#imgId4').remove();
+				}
+			}
+			
+			$('#auctionProductName').on('keypress',function(){
+				
+			});
+			
 			$("#cancel").on('click', function(){
 				window.location.href = "/auction/listAuctionProduct";
 			});
 			
-			$("#previewBtn").on('click',function(){
+			$("#tempSave").on('click',function(){
+				
+				var hashtags = $('#allhashtag').val().split('#');
+				var tagCount = hashtags.length;
+				
+				dataSet(imgCount, tagCount, hashtags);
+				$('form').attr('method','post').attr('action','/auction/tempSaveAuctionProduct').attr("enctype","multipart/form-data").submit();
+			});
+			
+			$("#confirm").on('click',function(){
+				
+				
 				if( !$.isNumeric( $('#startBidPrice').val() ) ){
 					$('#startBidPrice').focus();
-					$('#startBidPriceDiv').attr('hidden',false)
-					$('#startBidPriceStrong').text('경매 시작가가 숫자가 아닙니다.').css('color','red');
 					return;
 				}
 				
 				if( !$.isNumeric( $('#hopefulBidPrice').val() ) ){
 					$('#hopefulBidPrice').focus();
-					$('#hopefulBidPriceDiv').attr('hidden',false)
-					$('#hopefulBidPriceStrong').text('희망 낙찰가가 숫자가 아닙니다.').css('color','red');
+					return;
+				}
+
+				if($('.selProductFile').length == 0){
+					alert("1~5장의 사진이 필요합니다.");
 					return;
 				}
 				
-				$('form').attr('method','post').attr('action','/auction/previewAuctionProduct').attr("enctype","multipart/form-data").submit();
+				var hashtags = $('#allhashtag').val().split('#');
+				var tagCount = hashtags.length;
+				
+				if(hashtags.length >  4){
+					alert("해시태그는 최대 3개 까지 등록 가능합니다.");
+					$('#allhashtag').focus();
+					return;
+				}else{
+					
+					dataSet(imgCount, tagCount, hashtags);
+				}
+				
+				$('form').attr('method','post').attr('action','/auction/addAuctionProduct').attr("enctype","multipart/form-data").submit();
 			});
 			
 			$('#fileUpload').on('click',fileUploadAction);
@@ -301,10 +383,56 @@
 			
 		});
 		
+		function dataSet(imgCount, tagCount, hashtags){
+			
+			switch (imgCount) {
+			  case 1 :
+			      $('#inputImg1').val($($('.selProductFile')[0]).attr('data-file'));
+			      break;
+			  case 2:
+				  $('#inputImg1').val($($('.selProductFile')[0]).attr('data-file'));
+				  $('#inputImg2').val($($('.selProductFile')[1]).attr('data-file'));
+				  break;
+			  case 3:
+				  $('#inputImg1').val($($('.selProductFile')[0]).attr('data-file'));
+				  $('#inputImg2').val($($('.selProductFile')[1]).attr('data-file'));
+				  $('#inputImg3').val($($('.selProductFile')[2]).attr('data-file'));
+			      break;
+			  case 4:
+				  $('#inputImg1').val($($('.selProductFile')[0]).attr('data-file'));
+				  $('#inputImg2').val($($('.selProductFile')[1]).attr('data-file'));
+				  $('#inputImg3').val($($('.selProductFile')[2]).attr('data-file'));
+				  $('#inputImg4').val($($('.selProductFile')[3]).attr('data-file'));
+				  break;
+			  case 5:
+				  $('#inputImg1').val($($('.selProductFile')[0]).attr('data-file'));
+				  $('#inputImg2').val($($('.selProductFile')[1]).attr('data-file'));
+				  $('#inputImg3').val($($('.selProductFile')[2]).attr('data-file'));
+				  $('#inputImg4').val($($('.selProductFile')[3]).attr('data-file'));
+				  $('#inputImg5').val($($('.selProductFile')[4]).attr('data-file'));
+				  break;
+			}
+			
+			switch(tagCount){
+				case 2 :
+					$('#hashtag1').val("#"+hashtags[1]);
+			      break;
+			  	case 3:
+				  	$('#hashtag1').val("#"+hashtags[1]);
+				  	$('#hashtag2').val("#"+hashtags[2]);
+				  break;
+			 	case 4:
+				  	$('#hashtag1').val("#"+hashtags[1]);
+					$('#hashtag2').val("#"+hashtags[2]);
+					$('#hashtag3').val("#"+hashtags[3]);
+			      break;
+			}
+			
+		}
+		
 		var sel_files = [];
 		
 		function fileUploadAction() {
-            console.log("fileUploadAction");
             $("#inputImgs").trigger('click');
         }
 		
@@ -313,12 +441,25 @@
 			sel_files = [];
 			$(".imgsWrap").empty();
 			
+			$('#inputImg1').remove();
+			$('#inputImg2').remove();
+			$('#inputImg3').remove();
+			$('#inputImg4').remove();
+			$('#inputImg5').remove();
+						
+			
 			var files = e.target.files;
 			var filesArray = Array.prototype.slice.call(files);
 			
 			var index = 0;
 			
+			if(filesArray.length > 5){
+				alert("사진은 최대 5장까지 입니다.");
+				return;
+			}
+			
 			filesArray.forEach(function(f){
+				
 				if(!f.type.match("image.*")){
 					alert("이미지만 업로드 가능합니다.");
 					return;
@@ -338,11 +479,13 @@
 		}
 		
 		function deleteImageAction(index) {
-           
+			
             sel_files.splice(index, 1);
 
             var imgId = "#imgId"+index;
-            $(imgId).remove(); 
+            var inputImg = "#inputImg"+(1*index+1)
+            $(imgId).remove();
+            $(inputImg).val("");
         }
 		
 		

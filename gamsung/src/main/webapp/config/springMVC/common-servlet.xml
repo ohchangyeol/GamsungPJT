@@ -144,8 +144,6 @@
 	</websocket:message-broker>
 	
 	<bean id="auctionRepository" class="site.gamsung.util.auction.AuctionRepository"></bean>
-	
-
-	 
+ 
 	
 </beans>

@@ -23,7 +23,6 @@
 		<result property="campImg4" 					column="camp_img4" 	  						jdbcType="VARCHAR"/>
 		<result property="campImg5" 					column="camp_img5" 		 					jdbcType="VARCHAR"/>
 		<result property="campViewCountCurrentMonth"	column="camp_view_count_previous_month"		jdbcType="NUMERIC"/>
-		<result property="campViewCountPreviousMonth"	column="camp_view_count_current_month"  	jdbcType="NUMERIC"/>
 		<result property="campReservationCount" 		column="camp_reservation_count" 			jdbcType="NUMERIC"/>
 		<result property="campRegDate" 					column="camp_reg_date" 	  					jdbcType="DATE"/>
 		<result property="campTheme1" 					column="camp_theme1" 		 				jdbcType="VARCHAR"/>
@@ -102,7 +101,7 @@
 	
 	<select id="listCamp" parameterType="search" resultMap="campSelectMap">
   		SELECT c.camp_no, c.delete_flag, c.camp_reg_date, u.user_id, u.camp_name, u.camp_call, u.addr,   
-				c.camp_view_count_previous_month, c.camp_view_count_current_month, c.camp_reservation_count, c.camp_rating  								  		
+				c.camp_view_count_current_month, c.camp_reservation_count, c.camp_rating  								  		
 		FROM CAMP c, USERS u
 		WHERE c.user_id = u.user_id					
 		ORDER BY camp_no 
@@ -111,8 +110,8 @@
 	
 	<select id="getTotalCountCamp" parameterType="search" resultType="int">
 	  	SELECT COUNT(*)
-	  	FROM( SELECT c.camp_no, c.delete_flag, c.camp_reg_date, u.user_id, u.camp_name, u.camp_call, u.addr,   
-					c.camp_view_count_previous_month, c.camp_view_count_current_month, c.camp_reservation_count, c.camp_rating  								  		
+	  	FROM( SELECT c.camp_no, c.delete_flag, c.camp_reg_date, u.user_id, u.camp_name, u.camp_call, u.addr,
+	  					c.camp_view_count_current_month, c.camp_reservation_count, c.camp_rating  								  		
 				FROM CAMP c, USERS u
 				WHERE c.user_id = u.user_id
 			) countTable						

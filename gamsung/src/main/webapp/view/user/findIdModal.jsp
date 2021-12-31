@@ -1,12 +1,6 @@
-<%@ page contentType="text/html; charset=UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+pageEncoding="UTF-8"%>
+
 <!--  ///////////////////////// jQuery CDN ////////////////////////// -->
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script type="text/javascript">
@@ -26,29 +20,7 @@ $(function() {
 			}
 		$('#loginForm').attr('method', 'post').attr('action', '/user/login').submit();
 	});
-		$("#kakao-png").on("click",function() {
-			Kakao.init('b3bed223fd618abc07f64c2103ca9659');
-			console.log(Kakao.isInitialized());
-			Kakao.Auth.login({
-			success : function(authObj) {
-			Kakao.API.request({
-			url : '/v2/user/me',
-			success : function(result) {
-			console.log(result);
-			$('#kakaoId').val(result.kakao_account.profile.nickname);
-			$('#kakaoName').val(result.kakao_account.profile.nickname);
-			$('#kakaoEmail').val(result.kakao_account.email);
-			$('#kakaoImage').val(result.kakao_account.profile.thumbnail_image_url);
-			$('#addKakao').attr('method','post').attr('action','/user/kakaoUser').submit();
-			}
-		});
-			//$(self.location).attr("href","/user/login/pass");
-		},
-			fail : function(err) {console.log(JSON.stringify(err))
-		},
-	})
-});
-			$("#logout").on("click", function() {
+		$("#logout").on("click", function() {
 			if (Kakao.Auth.getAccessToken()) {
 				Kakao.Auth.logout();
 			}
@@ -59,45 +31,60 @@ $(function() {
 	});
 });
 </script>
-<div hidden="" class="modal fade" id="loginModal" tabindex="-1"
-	role="dialog" aria-labelledby="myModalLabel">
-	<div class="modal-dialog modal-dialog-centered" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"
-					aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-				<h4 class="modal-title" id="myModalLabel">로그인</h4>
-			</div>
-			<div class="modal-body">
-				<form id="loginForm">
-					<div class="form-group">
-						<label>ID</label> <input id="modalId" type="text"
-							class="form-control" name="userId" placeholder="Id">
-					</div>
-					<div class="form-group">
-						<label>Password</label> <input id="modalPwd" type="password"
-							class="form-control" name="password" placeholder="Password">
-					</div>
-					<div class="checkbox">
-						<label> <input type="checkbox"> 자동로그인
-						</label>
-					</div>
-					<button type="button" class="btn btn-default">LOGIN</button>
-					<hr class="my-4">
-					<div id="img">
-						<div id="img-in">
-							<div id="kakao-img">
-								<img id="kakao-png"
-									src="/images/RestApi/Kakao/kakao_login_medium_wide.png">
-							</div>
-						</div>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
-</div>
-</body>
-</html>
+<section class="bg-dark-30 showcase-page-header module parallax-bg" data-background="../../resources/images/showcase_bg.jpg">
+  <div class="titan-caption">
+    <div class="row">
+      <div class="col-md-4 col-lg-offset-4" style="text-align: center;">
+        <div class="row">
+          <div class="row">
+            <div style="text-align: end; padding-right: 15px;">
+                <div id="modalForm" class="modal-block modal-block-primary mfp-hide">
+                <section class="panel">
+                  <header class="panel-heading">
+                    <h2 class="panel-title">Registration Form</h2>
+                  </header>
+                  <div class="panel-body">
+                    <form id="demo-form" class="form-horizontal mb-lg" novalidate="novalidate">
+                      <div class="form-group mt-lg">
+                        <label class="col-sm-3 control-label">Name</label>
+                        <div class="col-sm-9">
+                          <input type="text" name="name" class="form-control" placeholder="Type your name..." required/>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-3 control-label">Email</label>
+                        <div class="col-sm-9">
+                          <input type="email" name="email" class="form-control" placeholder="Type your email..." required/>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-3 control-label">URL</label>
+                        <div class="col-sm-9">
+                          <input type="url" name="url" class="form-control" placeholder="Type an URL..." />
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-3 control-label">Comment</label>
+                        <div class="col-sm-9">
+                          <textarea rows="5" class="form-control" placeholder="Type your comment..." required></textarea>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                  <footer class="panel-footer">
+                    <div class="row">
+                      <div class="col-md-12 text-right">
+                        <button class="btn btn-primary modal-confirm">Submit</button>
+                        <button class="btn btn-default modal-dismiss">Cancel</button>
+                      </div>
+                    </div>
+                  </footer>
+                </section>
+              </div>
+            </div>
+          </div>
+         </div>
+      </div>
+    </div>
+  </div>
+        </section>

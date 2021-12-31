@@ -277,8 +277,7 @@
 		    <artifactId>jackson-annotations</artifactId>
 		    <version>${jackson.version}</version>
 		</dependency>
-				
-			
+
 		<!-- junit/junit -->
 		<dependency>
 		    <groupId>junit</groupId>

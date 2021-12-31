@@ -31,23 +31,23 @@ package site.gamsung.service.domain;
 		
 			결제등록번호					String 	paymentNo                  
 	(*결제)	주는사람					String 	paymentSender              
-	(*결제)	받는사람					String 	paymentReceiver            
+	(*결제)	받는사람					String 	paymentReceiver              
 	(*결제)	결제방법(paymentMethod)		int 	paymentMethod                 
 			1-포인트결제              
 			2-현금결제                
 			3-카드결제                
-			4-간편결제                
-	                                  
-	 		결제등록일자					String 	paymentRegTime              
-	(*결제) 	결제 코드					String 	paymentCode                
+			4-간편결제     
+			           
+	(*결제) 	결제 코드					String 	paymentCode                                   
+	 		결제등록일자					String 	paymentRegTime                           
 	(*결제) 	결제 원금					int 	paymentPriceTotal             
 			결제 실 금액				int 	paymentPricePay               
 			결제 수수료금액				int 	paymentPriceFee           
 	(*결제/*환불)	결제 참조번호			String 	paymentReferenceNum          
-			결제 참조수수료율				int 	paymentReferenceFee        
-		
-	 		환불등록일자					String 	paymentRegTime    
-	(*환불) 	환불 코드					String 	paymentRefundCode          
+			결제 참조수수료율				int 	paymentReferenceFee 
+			       
+	(*환불) 	환불 코드					String 	paymentRefundCode 	
+	 		환불등록일자					String 	paymentRefundRegTime             
 	(*환불) 	환불 원금					int 	paymentRefundPriceTotal     
 			환불 실 금액				int 	paymentRefundPricePay         
 			환불 수수료금액				int 	paymentRefundPriceFee  
@@ -57,24 +57,22 @@ package site.gamsung.service.domain;
 
 public class Payment {
 	
-
-	
 	/// Field
 	private String paymentNo;
 	private String paymentSender;
 	private String paymentReceiver;
 	private int paymentMethod;
 	
+	private String paymentCode;	
 	private String paymentRegTime;
-	private String paymentCode;
 	private int paymentPriceTotal;
 	private int paymentPricePay;
 	private int paymentPriceFee;
 	private String paymentReferenceNum;
 	private int paymentReferenceFee;
 	
+	private String paymentRefundCode;		
 	private String paymentRefundRegTime;
-	private String paymentRefundCode;
 	private int paymentRefundPriceTotal;
 	private int paymentRefundPricePay;
 	private int paymentRefundPriceFee;
@@ -120,20 +118,20 @@ public class Payment {
 		this.paymentMethod = paymentMethod;
 	}
 
-	public String getPaymentRegTime() {
-		return paymentRegTime;
-	}
-
-	public void setPaymentRegTime(String paymentRegTime) {
-		this.paymentRegTime = paymentRegTime;
-	}
-
 	public String getPaymentCode() {
 		return paymentCode;
 	}
 
 	public void setPaymentCode(String paymentCode) {
 		this.paymentCode = paymentCode;
+	}
+
+	public String getPaymentRegTime() {
+		return paymentRegTime;
+	}
+
+	public void setPaymentRegTime(String paymentRegTime) {
+		this.paymentRegTime = paymentRegTime;
 	}
 
 	public int getPaymentPriceTotal() {
@@ -176,20 +174,20 @@ public class Payment {
 		this.paymentReferenceFee = paymentReferenceFee;
 	}
 
-	public String getPaymentRefundRegTime() {
-		return paymentRefundRegTime;
-	}
-
-	public void setPaymentRefundRegTime(String paymentRefundRegTime) {
-		this.paymentRefundRegTime = paymentRefundRegTime;
-	}
-
 	public String getPaymentRefundCode() {
 		return paymentRefundCode;
 	}
 
 	public void setPaymentRefundCode(String paymentRefundCode) {
 		this.paymentRefundCode = paymentRefundCode;
+	}
+
+	public String getPaymentRefundRegTime() {
+		return paymentRefundRegTime;
+	}
+
+	public void setPaymentRefundRegTime(String paymentRefundRegTime) {
+		this.paymentRefundRegTime = paymentRefundRegTime;
 	}
 
 	public int getPaymentRefundPriceTotal() {
@@ -230,8 +228,8 @@ public class Payment {
 
 	public void setPaymentRefundReferenceFee(int paymentRefundReferenceFee) {
 		this.paymentRefundReferenceFee = paymentRefundReferenceFee;
-	}	
-	
+	}
+
 	// Override toString
 	public String toString() {
 		return "\n -- Payment --"

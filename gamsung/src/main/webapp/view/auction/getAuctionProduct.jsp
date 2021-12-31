@@ -6,7 +6,6 @@
 <html lang="ko" dir="ltr">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <title>${auctionProduct.auctionProductName}</title>
@@ -65,7 +64,7 @@
 				<i class="fa fa-diamond"></i><strong></strong></div>
 			<div class="alert alert-danger" role="alert" hidden="hidden">
 				<button class="close" type="button" data-dismiss="alert" aria-hidden="true">&times;</button>
-				<i class="fa fa-coffee"></i><strong></strong> </div>
+				<i class="fa fa-coffee"></i><strong></strong></div>
 			<section class="module">
 				<div class="container">
 					<div class="col-sm-2"></div>
@@ -76,6 +75,7 @@
 					<div class="row">
 						<div class="col-sm-2"></div>
 						<div class="col-sm-4 mb-sm-40">	
+						<c:if test="${!empty auctionProduct.auctionProductSubDetail}">
 							<a><img src="${auctionProduct.productImg1}" alt="Single Product Image" /></a>
 							 <ul class="product-gallery">
 								<c:if test="${!empty auctionProduct.productImg2}">
@@ -91,6 +91,24 @@
 									<li><img src="${auctionProduct.productImg5}" alt="Single Product" /></li>
 								</c:if>
 							</ul>
+						</c:if>
+						<c:if test="${empty auctionProduct.auctionProductSubDetail}">
+							<a><img src="/uploadfiles/auctionimg/product/${auctionProduct.productImg1}" alt="Single Product Image" /></a>
+							 <ul class="product-gallery">
+								<c:if test="${!empty auctionProduct.productImg2}">
+									<li><img src="/uploadfiles/auctionimg/product/${auctionProduct.productImg2}" alt="Single Product" /></li>
+								</c:if>
+								<c:if test="${!empty auctionProduct.productImg3}">
+									<li><img src="/uploadfiles/auctionimg/product/${auctionProduct.productImg3}" alt="Single Product" /></li>
+								</c:if>
+								<c:if test="${!empty auctionProduct.productImg4}">
+									<li><img src="/uploadfiles/auctionimg/product/${auctionProduct.productImg4}" alt="Single Product" /></li>
+								</c:if>
+								<c:if test="${!empty auctionProduct.productImg5}">
+									<li><img src="/uploadfiles/auctionimg/product/${auctionProduct.productImg5}" alt="Single Product" /></li>
+								</c:if>
+							</ul>
+						</c:if>
 						</div>
 						<div class="col-sm-6">
 							<div class="col-sm-12">
@@ -107,6 +125,7 @@
 							<div class="col-sm-12">
 								<div class="price font-alt">
 									<a>시작가 : ${auctionProduct.startBidPrice}원</a><br>
+									<input type="hidden" id="startBidPrice" value="${auctionProduct.startBidPrice}">
 									<a>희망 낙찰가 : ${auctionProduct.hopefulBidPrice}원</a><br>
 									<a>입찰 단위 : ${auctionProduct.bidUnit}원</a><br>
 									<input type="hidden" id="bidUnit" value="${auctionProduct.bidUnit}">
@@ -123,11 +142,24 @@
 								</div>
 							</div>
 						</div>
+						<input type="hidden" id="auctionProductNo" value="${auctionProduct.auctionProductNo}">
 						<div class="row mb-20">
-							<div class="col-sm-5">
-								<a id="bidBtn" class="btn btn-lg btn-block btn-round btn-b">입찰</a>
-								<input type="hidden" id="auctionProductNo" value="${auctionProduct.auctionProductNo}">
-							</div>
+							<c:if test="${registrantInfo.user.id ne sessionScope.user.id}">
+								<div class="col-sm-5">
+									<a id="bidBtn" class="btn btn-lg btn-block btn-round btn-b">입찰</a>
+								</div>
+								<div class="col-sm-5" hidden="hidden">
+									<a id="cancelBtn" class="btn btn-lg btn-block btn-round btn-b">낙찰취소</a>
+								</div>
+							</c:if>
+							<c:if test="${registrantInfo.user.id eq sessionScope.user.id}">
+								<div class="col-sm-5">
+									<a id="updateBtn" class="btn btn-lg btn-block btn-round btn-b">수정</a>
+								</div>
+								<div class="col-sm-5">
+									<a id="deleteBtn" class="btn btn-lg btn-block btn-round btn-b">중도철회</a>
+								</div>
+							</c:if>
 						</div>
 						<div class="font15 time-title"></div>
 						<div class="time font40">
@@ -173,9 +205,9 @@
 							</ul>
 							<div class="tab-content">
 								<div class="tab-pane active" id="description">
-								<c:if test="${empty auctionProduct.auctionProductDatail}">
+								<c:if test="${empty auctionProduct.auctionProductDetail}">
 									<p>관리자가 등록한 상품입니다.</p>
-									<p><a href="https://www.coupang.com${auctionProduct.auctionProductSubDatail}">상품 정보</a></p>								
+									<p><a href="https://www.coupang.com${auctionProduct.auctionProductSubDetail}">상품 정보</a></p>								
 								</c:if>
 								</div>
 								<div class="tab-pane" id="reviews">
@@ -229,7 +261,7 @@
 									</div>
 									<div class="comment-form mt-30">
 										<h4 class="comment-form-title font-alt">Add review</h4>
-										<form method="post">
+										
 											<div class="row">
 												<div class="col-sm-4">
 													<div class="form-group">
@@ -266,7 +298,7 @@
 													<button class="btn btn-round btn-d" type="submit">Submit Review</button>
 												</div>
 											</div>
-										</form>
+									
 									</div>
 								</div>
 							</div>
@@ -466,13 +498,17 @@
 		<div class="scroll-up">
 			<a href="#totop"><i class="fa fa-angle-double-up"></i></a>
 		</div>
+		
+		<form>
+			<input type="hidden" name="auctionProductNo" value="${auctionProduct.auctionProductNo}">
+			<input type="hidden" name="user.id" value="${registrantInfo.user.id}">
+		</form>
 	</main>
 	<!--  
     JavaScripts
     =============================================
     -->
 	<script src="../../resources/lib/jquery/jquery.js"></script>
-	<script src="../../resources/lib/bootstrap/js/bootstrap.min.js"></script>
 	<script src="../../resources/lib/wow/wow.js"></script>
 	<script src="../../resources/lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js"></script>
 	<script src="../../resources/lib/isotope/isotope.pkgd.js"></script>
@@ -494,12 +530,80 @@
 	});
 	
 	var stompClient = null;
+	var auctionProductNo = document.getElementById('auctionProductNo').value;
+	var userId = document.getElementById('userId').value;
+	var nickName = document.getElementById('nickName').value;
+	
+	console.log(auctionProductNo, userId, nickName);
+	
+	$(function(){
+		
+		auctionProductNo = $('#auctionProductNo').val();
+		userId = $('#userId').val(); 
+		nickName = $('#nickName').val();
+		
+		$('#updateBtn').on('click',function(){
+			$('form').attr('method','get').attr('action','/auction/updateAuctionProduct').submit();
+		});
+		
+		$('#deleteBtn').on('click',function(){
+			$.ajax({
+					url : "/auction/rest/midwayWithdrawal/"+auctionProductNo,
+					method : "GET",
+					headers : {
+						"Accept" : "application/json",
+						"Content-Type" : "application/json"
+					},
+					dataType : "json",
+					success : function(JSONData, status) {
+						alert(JSONData.info);
+						deleteProduct();
+					}
+			});
+			
+			
+		});
+		
+		$('#bidBtn').on('click',function(event){
+			
+			if($('#bidBtn').attr('disabled') == 'disabled'){
+				return;
+			}
+			
+			var currentPrice = $('#currentPrice').text();
+			var startBidPrice = $('#startBidPrice').val();
+			var bidUnit = $('#bidUnit').val();
+			var bidPrice = $('#bidPrice').val();
+			var bidableGrade = ${registrantInfo.user.auctionGrade}
+			var userGrade = ${sessionScope.user.auctionGrade}
+			if(bidableGrade > userGrade){
+				$('.alert-danger').children('strong').text('입찰 가능 등급을 확인하세요.');
+				$('.alert-success').attr('hidden',true);
+				$('.alert-danger').attr('hidden',false);
+				return;
+			}
+			
+			$('.alert-success').children('strong').text('입찰 성공하셨습니다.');
+			$('.alert-danger').attr('hidden',true);
+			$('.alert-success').attr('hidden',false);
+
+			if(currentPrice != 0){
+				stompClient.send('/app/bid',{},JSON.stringify({
+					auctionProductNo : auctionProductNo,
+					bidPrice : 1*currentPrice + 1*bidUnit
+				}));				
+			}else{
+				stompClient.send('/app/bid',{},JSON.stringify({
+					auctionProductNo : auctionProductNo,
+					bidPrice : 1*startBidPrice
+				}));
+			}
+		
+			
+		});
+	});
 	
 	function connect(){
-		
-		var auctionProductNo = $('#auctionProductNo').val();
-		var userId = $('#userId').val(); 
-		var nickName = $('#nickName').val();
 		
 		var sock = new SockJS("/realtime");
 		stompClient = Stomp.over(sock);
@@ -540,10 +644,20 @@
   						},
   						dataType : "json",
   						success : function(JSONData, status) {
-  							var info = nickName+'님은 '+JSONData.bidderCount+'명 중 '+JSONData.bidderRank+'등 입니다.';
-  							$('#userInfo').text(info);
+  							if(JSONData.bidderRank != 0){
+	  							var info = nickName+'님은 '+JSONData.bidderCount+'명 중 '+JSONData.bidderRank+'등 입니다.';
+	  							$('#userInfo').text(info);  								
+  							}
   						}
 					});
+				}
+			});
+			
+			stompClient.subscribe('/topic/delete',function(response){
+				var deleteInfo = JSON.parse(response.body)
+				if(auctionProductNo == deleteInfo.auctionProductNo){
+					alert(deleteInfo.info);
+					window.location = "/auction/listAuctionProduct";
 				}
 			});
 			
@@ -559,29 +673,6 @@
 			}));
 		});
 	
-		$('#bidBtn').on('click',function(event){
-			
-			if($('#bidBtn').attr('disabled') == 'disabled'){
-				return;
-			}
-			
-			var currentPrice = $('#currentPrice').text();
-			var bidUnit = $('#bidUnit').val();
-			var bidPrice = $('#bidPrice').val();
-			
-			$('.alert-success').children('strong').text('입찰 성공하셨습니다.');
-			$('.alert-danger').attr('hidden',true);
-			$('.alert-success').attr('hidden',false);
-			console.log('sending');
-			
-			stompClient.send('/app/bid',{},JSON.stringify({
-				auctionProductNo : auctionProductNo,
-				bidPrice : 1*currentPrice + 1*bidUnit
-			}));
-		
-			
-		});
-	
 	}
 	
 	
@@ -592,7 +683,11 @@
 		setTimeout(disconnect(),3000);
 	}
 	
-	
+	function deleteProduct(){
+        stompClient.send('/app/delete',{},JSON.stringify({
+        	auctionProductNo : auctionProductNo
+    	}));
+	}
 	
 	
 	function disconnect() {

@@ -27,13 +27,13 @@ public class UserServiceTest {
 	@Qualifier("userServiceImpl")
 	private UserService userService;
 
-	//@Test
+	@Test
 	public void testAddUser() throws Exception{
 		
 		User user = new User();
 
 
-		user.setId("muse1264@nate.com");
+		user.setId("test55@test.com");
 		user.setNickName("으어어");
 		user.setName("으어어");
 		user.setPassword("5555");
@@ -45,7 +45,7 @@ public class UserServiceTest {
 		System.out.println(user.getSalt());
 		System.out.println(user.getPassword());
 		
-		//user=userService.getUser("test1@test.com");
+		user=userService.getUser("test44@test.com");
 		
 		System.out.println("########### "+user);
 	}

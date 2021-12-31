@@ -25,4 +25,5 @@
 	</context:component-scan>	
 	
 	<bean id="crawlingData" class="site.gamsung.util.auction.CrawlingData"></bean>
+	
 </beans>
