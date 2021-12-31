@@ -1,7 +1,9 @@
 package site.gamsung.controller.payment;
 
+import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import site.gamsung.service.common.Page;
 import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.Camp;
+import site.gamsung.service.domain.Payment;
 import site.gamsung.service.domain.PaymentCode;
 import site.gamsung.service.domain.User;
 import site.gamsung.service.payment.PaymentService;
@@ -65,14 +68,7 @@ public class PaymentController {
 		httpSession.setAttribute("user", tempSessionUser);
 		System.out.println("tempSessionUser : " + tempSessionUser);
 		/////////////////////////////////////////////////////////////////////// 여기까지 삭제
-		
-		
-		int pointChargeFee = paymentService.getFeeByPaymentCode("P1");
-		int pointWithdrawFee = paymentService.getFeeByPaymentCode("P2");
-		
-		model.addAttribute("pointChargeFee", pointChargeFee);
-		model.addAttribute("pointWithdrawFee", pointWithdrawFee);		
-		
+
 		User tempUser = null;
 
 		if (httpSession != null) {
@@ -95,34 +91,79 @@ public class PaymentController {
 	
 	/*
 	 *  Payment
-	 */	
-	@RequestMapping(value = "addMakePayment", method = RequestMethod.POST)
-	public String addMakePayment() throws Exception {
+	 */
+	@RequestMapping(value = "readyPayment", method = RequestMethod.GET)
+	public String readyPayment(@ModelAttribute("payment") Payment payment) throws Exception {
+		
+	
+		
+		return "forward:/view/payment/readyPayment.jsp";
+	}
+	
+	@RequestMapping(value = "addMakePayment", method = RequestMethod.GET)
+	public String addMakePayment(@ModelAttribute("payment") Payment payment) throws Exception {
+		
+		// test start
+		payment.setPaymentSender("businessuser10@gamsung.com");
+		payment.setPaymentReceiver("businessuser11@gamsung.com");
+		payment.setPaymentPriceTotal(10000);
+		// test end
+		
+		paymentService.addMakePayment(payment);	
+		
 		return "forward:/view/payment/addMakePayment.jsp";
 	}
 	
 	@RequestMapping(value = "addRefundPayment", method = RequestMethod.POST)
-	public String addRefundPayment() throws Exception {
+	public String addRefundPayment(@ModelAttribute("payment") Payment payment) throws Exception {
+		
+		paymentService.addRefundPayment(payment);
+		
 		return "forward:/view/payment/addRefundPayment.jsp";
 	}
 	
+	@RequestMapping(value = "resultPayment", method = RequestMethod.POST)
+	public String resultPayment(@ModelAttribute("payment") Payment payment) throws Exception {
+		
+		
+		return "forward:/view/payment/resultPayment.jsp";
+	}
+	
 	@RequestMapping(value = "getPayment", method = RequestMethod.POST)
-	public String getPayment() throws Exception {	
+	public String getPayment(@ModelAttribute("payment") Payment payment, Model model) throws Exception {	
+		
+		List<Payment> list = paymentService.getPayment(payment);
+		model.addAttribute("list", list);
+		
 		return "forward:/view/payment/getPayment.jsp";
 	}
 	
 	@RequestMapping(value = "listPayment", method = RequestMethod.POST)
-	public String listPayment() throws Exception {
+	public String listPayment(@ModelAttribute("search") Search search, Model model) throws Exception {
+		
+		if (search.getCurrentPage() == 0) {
+			search.setCurrentPage(1);
+		}
+
+		search.setPageSize(pageSize);
+		search.setSearchItemType("Payment");
+		Map<String, Object> map = paymentService.listPayment(search);
+		Page resultPage = 
+				new Page(search.getCurrentPage(), ((Integer) map.get("totalCount")).intValue(), pageUnit, pageSize);
+		
+		model.addAttribute("list", map.get("list"));
+		model.addAttribute("resultPage", resultPage);
+		model.addAttribute("search", search);		
+		
 		return "forward:/view/payment/listPayment.jsp";
 	}
 		
 	
 	/*
-	 *  Payment Code
+	 *  PaymentCode
 	 */
 	@RequestMapping(value = "addPaymentCode", method = RequestMethod.POST)
 	public String addPaymentCode(@ModelAttribute("paymentCode") PaymentCode paymentCode) throws Exception {	
-		System.out.println("222222222222 : " + paymentCode);
 		paymentService.addPaymentCode(paymentCode);
 		return "redirect:/payment/listPaymentCode";
 	}
@@ -141,7 +182,7 @@ public class PaymentController {
 
 	
 	/*
-	 *  Site Profit
+	 *  SiteProfit
 	 */
 	@RequestMapping(value = "addSiteProfit", method = RequestMethod.POST)
 	public String addSiteProfit() throws Exception {	

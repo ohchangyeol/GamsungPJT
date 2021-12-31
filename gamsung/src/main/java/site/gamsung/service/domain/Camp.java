@@ -51,7 +51,6 @@ public class Camp {
 	private String campImg4;
 	private String campImg5;
 	private int campViewCountCurrentMonth;
-	private int campViewCountPreviousMonth;
 	private int campReservationCount;
 	private Date campRegDate;
 	private String campTheme1;
@@ -176,14 +175,6 @@ public class Camp {
 
 	public void setCampViewCountCurrentMonth(int campViewCountCurrentMonth) {
 		this.campViewCountCurrentMonth = campViewCountCurrentMonth;
-	}
-
-	public int getCampViewCountPreviousMonth() {
-		return campViewCountPreviousMonth;
-	}
-
-	public void setCampViewCountPreviousMonth(int campViewCountPreviousMonth) {
-		this.campViewCountPreviousMonth = campViewCountPreviousMonth;
 	}
 
 	public int getCampReservationCount() {
@@ -322,9 +313,7 @@ public class Camp {
 			+ "\n [campImg4] : " + campImg4 
 			+ "\n [campImg5] : " + campImg5 
 			+ "\n [campViewCountCurrentMonth] : " + campViewCountCurrentMonth
-			+ "\n [campViewCountPreviousMonth] : " + campViewCountPreviousMonth
 			+ "\n [campReservationCount] : " + campReservationCount
-			+ "\n [campViewCountPreviousMonth] : " + campViewCountPreviousMonth
 			+ "\n [campRegDate] : " + campRegDate
 			+ "\n [campTheme1] : " + campTheme1
 			+ "\n [campTheme2] : " + campTheme2 
