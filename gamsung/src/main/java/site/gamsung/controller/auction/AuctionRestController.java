@@ -1,7 +1,5 @@
 package site.gamsung.controller.auction;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,14 +15,12 @@ import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
 import site.gamsung.service.auction.AuctionInfoService;
 import site.gamsung.service.auction.AuctionProductService;
@@ -33,7 +29,6 @@ import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.AuctionInfo;
 import site.gamsung.service.domain.AuctionProduct;
 import site.gamsung.service.domain.User;
-import site.gamsung.util.auction.AuctionRepository;
 
 @RequestMapping("auction/rest/*")
 @RestController
@@ -57,10 +52,6 @@ public class AuctionRestController {
 	
 	@Value("#{commonProperties['path']}")
 	private String PATH;
-	
-	@Autowired
-	@Qualifier("auctionRepository")
-	private AuctionRepository auctionRepository;
 	
 	@RequestMapping("crawling")
 	public Map<String,String> crawlingData(HttpSession session) {
@@ -106,12 +97,14 @@ public class AuctionRestController {
 		return auctionInfoService.getBidderRanking(auctionInfo);
 	}
 	
-	@GetMapping(value = "midwayWithdrawal/{auctionProductNo}")
-	public AuctionInfo midwayWithdrawal(@PathVariable("auctionProductNo") String auctionProductNo) {
-		
-		 return auctionProductService.deleteAuctionProduct(auctionProductNo);
+	@GetMapping(value = "updateAuctionStatus/{auctionProductNo}/{status}")
+	public AuctionInfo updateAuctionStatus(	@PathVariable("auctionProductNo") String auctionProductNo,
+											@PathVariable("status") String status) {
+			
+		 return auctionProductService.deleteAuctionProduct(auctionProductNo,status);
 		
 	}
+		
 	
 	@MessageMapping("/join")
 	@SendTo("/topic/join")
@@ -162,6 +155,7 @@ public class AuctionRestController {
 		
 		auctionInfo.setUser(user);
 		
+		auctionInfoService.checkAndUpdateUserAuctionGrade(user);
 		
 		auctionInfo.setInfo("해당 상품은 중도 철회 되었습니다.");
 		

@@ -35,5 +35,6 @@ public interface AuctionProductService {
 	
 	public AuctionProduct auctionProductImgs(AuctionProduct auctionProduct, List<String> fileList);
 	
-	public AuctionInfo deleteAuctionProduct(String auctionProductNo);
+	public AuctionInfo deleteAuctionProduct(String auctionProductNo, String status);
+
 }

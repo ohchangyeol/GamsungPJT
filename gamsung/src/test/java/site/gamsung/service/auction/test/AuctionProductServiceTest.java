@@ -194,7 +194,9 @@ public class AuctionProductServiceTest {
 	
 	@Test
 	public void testDeleteAuctionProduct() {
-		System.out.println(auctionProductService.deleteAuctionProduct("PROD00010")); 
+		System.out.println(auctionProductService.deleteAuctionProduct("PROD00001","CANCEL").getInfo()); 
+		System.out.println(auctionProductService.deleteAuctionProduct("PROD00001","CONFIRM").getInfo()); 
+		System.out.println(auctionProductService.deleteAuctionProduct("PROD00001","WITHDRAWAL").getInfo()); 
 	}
 }
 	

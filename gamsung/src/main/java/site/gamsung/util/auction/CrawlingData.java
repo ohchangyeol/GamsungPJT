@@ -25,13 +25,14 @@ public class CrawlingData {
 		
 		int page = search.getCurrentPage()/9;
 		int unit = search.getCurrentPage()%9;
+		String sort = search.getSortCondition();
 		
 		if(unit==0){
 			page --;
 			unit= 9;
 		}
 		
-		String url = "https://www.coupang.com/np/search?q=%EC%BA%A0%ED%95%91&channel=&component=&eventCategory=SRP&trcid=&traid=&sorter=saleCountDesc&minPrice=&maxPrice=&priceRange=&filterType=&listSize=72&filter=&isPriceRange=false&brand=&offerCondition=&rating=0&page="+(page+1)+"&rocketAll=false&searchIndexingToken=&backgroundColor=";
+		String url = "https://www.coupang.com/np/search?q=%EC%BA%A0%ED%95%91&channel=&component=&eventCategory=SRP&trcid=&traid=&sorter="+sort+"&minPrice=&maxPrice=&priceRange=&filterType=&listSize=72&filter=&isPriceRange=false&brand=&offerCondition=&rating=0&page="+(page+1)+"&rocketAll=false&searchIndexingToken=&backgroundColor=";
 				
 
 		Document doc = null;
@@ -138,7 +139,7 @@ public class CrawlingData {
 							break;
 						}
 					}
-					String price = doc.select(".total-price").text().replaceAll(",","").replaceAll("원","").trim();
+					String price = doc.select(".total-price").text().replaceAll(",","").replaceAll("원","").replaceAll(" ","").trim();
 					int intPrice = Integer.parseInt(price);
 					auctionProduct.setHopefulBidPrice(intPrice);
 					auctionProduct.setStartBidPrice(intPrice/2);

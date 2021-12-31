@@ -40,5 +40,5 @@ public interface AuctionProductDAO {
 	
 	public List<AuctionProduct> listMainAuctionProduct();
 	
-	public void deleteAuctionProduct(AuctionInfo auctionInfo);
+	public int deleteAuctionProduct(AuctionInfo auctionInfo);
 }
