@@ -19,11 +19,7 @@ pageEncoding="UTF-8"%>
           </ul>
         </li>
         
-        <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">CampBusiness</a>
-          <ul class="dropdown-menu">
-           	<li><a href="/campBusiness/goSubMainCampBusiness">CampBusinessMain</a></li>        	      
-          </ul>
-        </li>
+        <li><a href="/campBusiness/goSubMainCampBusiness">CampBusiness</a></li>
       
         <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Payment</a>
           <ul class="dropdown-menu">
