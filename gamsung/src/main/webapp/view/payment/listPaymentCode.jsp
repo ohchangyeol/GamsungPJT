@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
@@ -50,53 +50,84 @@
 		}
 	</style>
 
-	<script type="text/javascript">			
+	<script type="text/javascript">		
 	
 		$(function() {		
 			
+			$(".btn-info").hide();
+			
 			$("body").on("click","#addType",function () {			
-				var result = confirm("Ãß°¡ ÇÏ½Ã°Ú½À´Ï±î?"); 
+				var result = confirm("ì¶”ê°€ í•˜ì‹œê² ìŠµë‹ˆê¹Œ?"); 
 				if(result) { 
-					alert("Ãß°¡ µÇ¾ú½À´Ï´Ù.");
+					alert("ì¶”ê°€ ë˜ì—ˆìŠµë‹ˆë‹¤.");
 					$(this).parent().parent().parent().attr("method" , "POST").attr("action" , "/payment/addPaymentCode").submit();
 				} else { 
-					alert("Ãë¼Ò µÇ¾ú½À´Ï´Ù.");					
+					alert("ì·¨ì†Œ ë˜ì—ˆìŠµë‹ˆë‹¤.");					
 				}
-			});				    			
+			});	
 			
 			$(".btn-warning").on("click" , function() {
-				var result = confirm("º¯°æ ÇÏ½Ã°Ú½À´Ï±î?"); 
+								
+				if($(this).val()==0){
+					$(this).val(1); 
+		        } else{
+		        	$(this).val(0);
+		        }
+
+		        var isHide=$(this).val();
+
+		        if(isHide==1){
+		            // Button ìˆ¨ê¸°ê¸°
+		           $(this).html('ìˆ˜ì •'); 
+		           $(this).parent().next().children().hide();
+		           $(this).parent().parent().find('input').attr('readonly', true);
+		        } else{
+		            // Button ë³´ì´ê¸°
+		           $(this).html('ì·¨ì†Œ'); 
+		           $(this).parent().next().children().show();
+		           $(this).parent().parent().find('input').attr('readonly', false);
+		        }			
+
+			});
+			
+			$(".btn-info").on("click" , function() {
+				var result = confirm("ë³€ê²½ í•˜ì‹œê² ìŠµë‹ˆê¹Œ?"); 
 				if(result) { 
-					alert("º¯°æ µÇ¾ú½À´Ï´Ù.");
+					alert("ë³€ê²½ ë˜ì—ˆìŠµë‹ˆë‹¤.");
 					$(this).parent().parent().parent().attr("method" , "POST").attr("action" , "/payment/updatePaymentCode").submit();
 				} else { 
-					alert("Ãë¼Ò µÇ¾ú½À´Ï´Ù.");					
+					alert("ì·¨ì†Œ ë˜ì—ˆìŠµë‹ˆë‹¤.");					
 				}
 				
-			});
-				
+			});			
+			
 			var count = 0;
 			$("#addform").on("click" , function() {	
 				$("#ori").append(
-								"<form id='addOne'>"					
+								"<form id='addOne'>"
+								+"<div class='row'>"
+								+"<div class='col-xs-10 form-group'>"
+								+"<hr>"
+								+"</div>"
+								+"</div>"
 								+"<div class='row'>"
 								+"<div class='col-xs-1 form-group'>"
 								+"<input type='text' id='paymentCode' name='paymentCode' value='' class='form-control'>"
 								+"</div>"
 								+"<div class='col-xs-2 form-group'>"
-								+"<input type='number' id='paymentCodeRangeStart' name='paymentCodeRangeStart' class='form-control' value=''>"
+								+"<input type='number' id='paymentCodeRangeStart' name='paymentCodeRangeStart' class='form-control' value='0'>"
 								+"</div>"
 								+"<div class='col-xs-2 form-group'>"
-								+"<input type='number' id='paymentCodeRangeEnd' name='paymentCodeRangeEnd' class='form-control' value=''>"
+								+"<input type='number' id='paymentCodeRangeEnd' name='paymentCodeRangeEnd' class='form-control' value='0'>"
 								+"</div>"
 								+"<div class='col-xs-3 form-group'>"
 								+"<input type='text' id='paymentCodeInfo' name='paymentCodeInfo' class='form-control' value=''>"
 								+"</div>"
 								+"<div class='col-xs-1 form-group'>"
-								+"<input type='number' id='paymentCodeFee' name='paymentCodeFee' class='form-control' value='' min='0' max='100'>"
+								+"<input type='number' id='paymentCodeFee' name='paymentCodeFee' class='form-control' value='0' min='0' max='100'>"
 								+"</div>"
 								+"<div class='col-xs-1 form-group'>"
-								+"<button id='addType' type='button' class='btn btn-primary'>µî·Ï</button>"
+								+"<button id='addType' type='button' class='btn btn-primary'>ë“±ë¡</button>"
 								+"</div>"
 								+"</div>"
 								+"</form>"	);
@@ -116,11 +147,11 @@
 	<div class="container">
 
 		<div class="row">
-			<div class="col-xs-1">°áÁ¦ÄÚµå</div>
-			<div class="col-xs-2">±¸°£½ÃÀÛ°ª</div>
-			<div class="col-xs-2">±¸°£Á¾·á°ª</div>
-			<div class="col-xs-3">¼³¸í</div>
-			<div class="col-xs-1">¼ö¼ö·á(%)</div>
+			<div class="col-xs-1">ê²°ì œì½”ë“œ</div>
+			<div class="col-xs-2">êµ¬ê°„ì‹œì‘ê°’</div>
+			<div class="col-xs-2">êµ¬ê°„ì¢…ë£Œê°’</div>
+			<div class="col-xs-3">ì„¤ëª…</div>
+			<div class="col-xs-1">ìˆ˜ìˆ˜ë£Œ(%)</div>
 			<div class="col-xs-1"></div>
 			<div class="col-xs-1"></div>
 		</div>
@@ -131,41 +162,55 @@
 		<c:set var="i" value="0" />
 			<c:forEach var="payment" items="${list}">
 				<c:set var="i" value="${ i+1 }" />
-					<form id="${i}">					
-						<div class="row">
+					<form id="${i}">
+					
+						<div class="row">	
+							<c:if test="${ payment.paymentCode == 'A0'|| payment.paymentCode == 'P0'|| payment.paymentCode == 'R0'|| payment.paymentCode == 'T0'}">
+								<div class="col-xs-10 form-group">
+									<hr>
+								</div>
+							</c:if>
+						</div>		
+										
+						<div class="row">				
 							<div class="col-xs-1 form-group">
-								<input type="text" id="paymentCode" name="paymentCode" value="${payment.paymentCode}" class="form-control">
+								<input type="text" id="paymentCode" name="paymentCode" value="${payment.paymentCode}" class="form-control" readonly>
 							</div>
 					
 							<div class="col-xs-2 form-group">
-								<input type="number" id="paymentCodeRangeStart" name="paymentCodeRangeStart" value="${payment.paymentCodeRangeStart}" class="form-control" value="">
+								<input type="number" id="paymentCodeRangeStart" name="paymentCodeRangeStart" value="${payment.paymentCodeRangeStart}" class="form-control" value="" readonly>
 							</div>
 					
 							<div class="col-xs-2 form-group">
-								<input type="number" id="paymentCodeRangeEnd" name="paymentCodeRangeEnd" value="${payment.paymentCodeRangeEnd}" class="form-control" value="">
+								<input type="number" id="paymentCodeRangeEnd" name="paymentCodeRangeEnd" value="${payment.paymentCodeRangeEnd}" class="form-control" value="" readonly>
 							</div>
 							
 							<div class="col-xs-3 form-group">
-								<input type="text" id="paymentCodeInfo" name="paymentCodeInfo" value="${payment.paymentCodeInfo}" class="form-control">
+								<input type="text" id="paymentCodeInfo" name="paymentCodeInfo" value="${payment.paymentCodeInfo}" class="form-control" readonly>
 							</div>
 							
 							<div class="col-xs-1 form-group">
-								<input type="number" id="paymentCodeFee" name="paymentCodeFee" value="${payment.paymentCodeFee}" class="form-control" value="0" min="0" max="100">
+								<input type="number" id="paymentCodeFee" name="paymentCodeFee" value="${payment.paymentCodeFee}" class="form-control" value="0" min="0" max="100" readonly>
 							</div>
 
 							<div class="col-xs-1 form-group">
-								<button id="update" type="button" class="btn btn-warning">º¯°æ</button>
+								<button id="updateTry" type="button" class="btn btn-warning" value="1">ìˆ˜ì •</button>
 							</div>
-							
+														
+							<div class="col-xs-1 form-group">
+								<button id="update" type="button" class="btn btn-info">ë³€ê²½</button>
+							</div>
+
 							<c:if test="${fn:length(list) == i }">
 								<div class="col-xs-1 form-group">
-									<button id="addform" type="button" class="btn btn-primary">Ãß°¡</button>
+									<button id="addform" type="button" class="btn btn-primary">ì¶”ê°€</button>
 								</div>
-							</c:if>
-						</div>
+							</c:if>															
+						</div>						
+	
 					</form>
 			</c:forEach>
-			</ori>
+		</ori>
 	</div>
 </body>
 </html>

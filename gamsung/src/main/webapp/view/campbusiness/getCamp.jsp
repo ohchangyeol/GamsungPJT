@@ -154,12 +154,7 @@
 			</div>
 			
 			<hr/>
-			
-			<div class="row">
-		  		<div class="col-xs-4 col-md-2"><strong>캠핑장 지난달 조회수</strong></div>
-				<div class="col-xs-8 col-md-4">${camp.campViewCountPreviousMonth}</div>
-			</div>
-			
+					
 			<hr/>	
 			
 			<div class="row">

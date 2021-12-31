@@ -131,9 +131,9 @@ public class CampBusinessController {
 	 * Camp
 	 */
 	@RequestMapping(value = "addCampView", method = RequestMethod.GET)
-	public String addCampView(HttpSession httpSession, Model model) throws Exception {		
+	public String addCampView(HttpSession httpSession, Model model) throws Exception {
 		
-		Camp tempCamp = new Camp();		
+		Camp tempCamp = new Camp();
 		User tempUser = new User();
 		String tempId = ((User)httpSession.getAttribute("user")).getId();
 		tempUser.setId(tempId);
@@ -149,11 +149,9 @@ public class CampBusinessController {
 		
 		// 등록번호 발급
 		int tempRegNum = campBusinessService.getCampNoById(tempId);
-		System.out.println("tempRegNum1 : " + tempRegNum);
 		if (tempRegNum == 0 ) {
 			tempRegNum = campBusinessService.getRegNum("Camp", tempCamp);
 		}
-		System.out.println("tempRegNum2 : " + tempRegNum);
 		tempCamp.setCampNo(tempRegNum);
 		model.addAttribute("camp", tempCamp);		
 		
@@ -162,7 +160,7 @@ public class CampBusinessController {
 	
 	// 주소, 전화번호, 회원ID, 테마, 환경, 운영 Ajax 처리필요
 	@RequestMapping(value = "listCamp", method = RequestMethod.POST)
-	public String listCamp(@ModelAttribute("search") Search search, Model model, HttpServletRequest request)
+	public String listCamp(@ModelAttribute("search") Search search, Model model)
 			throws Exception {
 
 		if (search.getCurrentPage() == 0) {
@@ -316,7 +314,7 @@ public class CampBusinessController {
 
 	// 구역크기, 기본인원, 최대인원, 기본인원사용금액, 추가인원금액 Ajax 처리필요
 	@RequestMapping(value = "listMainSite", method = RequestMethod.POST)
-	public String listMainSite(@ModelAttribute("search") Search search, Model model, HttpServletRequest request)
+	public String listMainSite(@ModelAttribute("search") Search search, Model model)
 			throws Exception {
 
 		if (search.getCurrentPage() == 0) {
@@ -428,7 +426,7 @@ public class CampBusinessController {
 	}
 
 	@RequestMapping(value = "listSubSite", method = RequestMethod.POST)
-	public String listSubSite(@ModelAttribute("search") Search search, Model model, HttpServletRequest request)
+	public String listSubSite(@ModelAttribute("search") Search search, Model model)
 			throws Exception {
 
 		if (search.getCurrentPage() == 0) {

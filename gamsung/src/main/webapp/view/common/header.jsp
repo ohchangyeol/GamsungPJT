@@ -64,7 +64,7 @@ pageEncoding="UTF-8"%>
     </div>
     <div class="collapse navbar-collapse" id="custom-collapse">
       <ul class="nav navbar-nav navbar-right">    
-        
+
         <li><a href="/campBusiness/goSubMainCampBusiness">CampBusiness</a></li> 
       
         <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Payment</a>
