@@ -32,10 +32,10 @@ public interface UserService {
 	public String checkDuplication(User user) throws Exception;
 	
 	//인증메일 발송
-	public void sendEmailAuthNum(String id, String key) throws Exception;
+	public void sendEmailAuthNum(String id, String key);
 	
 	//인증문자 발송
-	public void sendPhoneAuthNum(String phone, String phKey) throws Exception;
+	public void sendPhoneAuthNum(String phone, String phKey);
 	
 	//사업자회원 승인
 	public void approvalBusinessUser(User user) throws Exception;
@@ -66,5 +66,11 @@ public interface UserService {
 	
 	//휴면회원 일반회원 전환
 	public void updateDormantGeneralUserConvert(String id) throws Exception;
+	
+	//카카오 로그아웃
+	public void kakaoLogout(String accessToken);
+	
+	//카카오 연결끊기
+	public void unlink(String accessToken);
 
 }

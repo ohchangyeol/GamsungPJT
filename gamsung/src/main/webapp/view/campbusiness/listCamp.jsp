@@ -132,8 +132,7 @@
             		<th align="left">No</th>
             		<th align="left">캠핑장명</th>
           			<th align="left">평점</th>
-          			<th align="left">전월 예약수</th>
-          			<th align="left">전월 조회수</th>          			
+          			<th align="left">전월 예약수</th>      			
           			<th align="left">당월 조회수</th>
            			<th align="left">등록일</th>          	
            			<th align="left">Blind</th>          			
@@ -150,7 +149,6 @@
           				<td align="left">${camp.campRate}</td>
           				<td align="left">${camp.campReservationCount}</td>
           				<td align="left">${camp.campViewCountCurrentMonth}</td>
-          				<td align="left">${camp.campViewCountPreviousMonth}</td>
 	           			<td align="left">${camp.campRegDate}</td>
 	           			<td align="left">
 	 						<c:if test="${ empty camp.deleteFlag || camp.deleteFlag == 'true'}">		

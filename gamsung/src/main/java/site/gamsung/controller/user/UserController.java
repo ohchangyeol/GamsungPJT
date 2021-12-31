@@ -44,7 +44,7 @@ public class UserController {
 		
 		System.out.println("/user/addUser:GET");
 		
-		return null;
+		return "redirect:/view/user/addUser.jsp";
 	}
 	
 	@RequestMapping(value="addUser", method=RequestMethod.POST)
@@ -52,9 +52,10 @@ public class UserController {
 		
 		System.out.println("/user/addUser:POST");
 		
+		//user.setRole("GENERAL");
 		userService.addUser(user);
 		
-		return "redirect:/user/loginModal.jsp";
+		return "redirect:/main.jsp";
 	}
 	
 	@RequestMapping(value="getUser", method=RequestMethod.POST)
@@ -84,10 +85,11 @@ public class UserController {
 		
 		System.out.println("/user/login : POST");
 		//Business Logic
+		System.out.println(user);
 		User dbUser=userService.checkIdPassword(user);
 		
 		if(dbUser == null) {
-			return "forward:/main.jsp";
+			return "redirect:/main.jsp";
 		}
 		
 		System.out.println(dbUser);
@@ -197,6 +199,23 @@ public class UserController {
         }
         return "forward:/view/user/addUser.jsp";
 	}
+	
+	@RequestMapping(value="/kakaologout")
+	public String kakaoLogout(HttpSession session) {
+	userService.kakaoLogout((String)session.getAttribute("accessToken"));
+	session.invalidate();
+	return "redirect:/main.jsp"; 
+	}
+	
+	@RequestMapping(value="/kakaounlink") 
+	public String unlink(HttpSession session) { 
+		userService.unlink((String)session.getAttribute("access_token")); 
+		session.invalidate();
+		return "redirect:/";
+		}
+
+
+	
 	
 
 	

@@ -31,74 +31,74 @@ public class UserDAOImpl implements UserDAO{
 
 	///Method
 	@Override
-	public void addUser(User user) throws Exception {
+	public void addUser(User user){
 		sqlSession.insert("UserMapper.addUser", user);
 	}
 
 	@Override
-	public User getUser(String id) throws Exception {
+	public User getUser(String id){
 		return sqlSession.selectOne("UserMapper.getUser", id);
 	}
 
 	@Override
-	public void updateUser(User user) throws Exception {
+	public void updateUser(User user){
 		sqlSession.update("UserMapper.updateUser", user);
 		
 	}
 
 	@Override
-	public List<User> listUser(Search search) throws Exception {
+	public List<User> listUser(Search search){
 		return sqlSession.selectList("UserMapper.listUser", search);
 	}
 
 	@Override
-	public int getTotalCount(Search search) throws Exception {
+	public int getTotalCount(Search search){
 
 		return sqlSession.selectOne("UserMapper.getTotalCount", search);
 	}
 
 	@Override
-	public String checkDuplication(User user) throws Exception {
+	public String checkDuplication(User user){
 		
 		return sqlSession.selectOne("UserMapper.checkDuplication", user);
 	}
 
 	@Override
-	public void addLoginDate(User user) throws Exception {
+	public void addLoginDate(User user){
 		
 		sqlSession.insert("UserMapper.addLoginDate", user);
 	}
 
 	@Override
-	public String getSaltById(String id) throws Exception {
+	public String getSaltById(String id){
 		
 		return sqlSession.selectOne(id);
 	}
 
 	@Override
-	public String findId(Map<String, Object> map) throws Exception {
+	public String findId(Map<String, Object> map){
 		return sqlSession.selectOne("UserMapper.findId", map);
 	}
 
 	@Override
-	public void addSuspensionUser(User user) throws Exception {
+	public void addSuspensionUser(User user){
 		sqlSession.insert("UserMapper.addSusepsionUser", user);
 		
 	}
 
 	@Override
-	public void addSecessionUser(User user) throws Exception {
+	public void addSecessionUser(User user){
 		sqlSession.insert("UserMapper.addSecessionUser", user);
 		
 	}
 
 	@Override
-	public void addDormantUser(User user) throws Exception {
+	public void addDormantUser(User user){
 		sqlSession.insert("UserMapper.addDormantUser", user);	
 	}
 
 	@Override
-	public void updateDormantGeneralUserConver(String id) throws Exception {
+	public void updateDormantGeneralUserConver(String id){
 		sqlSession.insert("UserMapper.updateDormantGeneralUserConver", id);
 		
 	}

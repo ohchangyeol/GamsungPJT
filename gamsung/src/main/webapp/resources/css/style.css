@@ -2927,7 +2927,7 @@ Google map
 }
 
 
-/* Ãß°¡ */
+/* ?? */
 
 .report-and-qna .btn-block {
   position: relative;
@@ -2937,4 +2937,45 @@ Google map
 }
 .service-center-home .features-item{
   height: 220px;
+}
+
+.chatting-btn{
+    position: fixed;
+    bottom: 50px;
+    right: 50px;
+    z-index: 9997;
+    background: rgba(255, 255, 255, 0.85) !important;
+    backdrop-filter: blur(30px) !important;
+    cursor: pointer !important;
+    border-radius: 26px !important;
+    box-shadow: rgb(0 0 0 / 10%) 0px 4px 6px, rgb(0 0 0 / 15%) 0px 8px 30px, rgb(255 255 255 / 20%) 0px 0px 0px 1px inset !important;
+}
+.chatting-btn .fa-fw {
+    width: 60px;
+    height: 60px;
+    font-size: 30px;
+    line-height: 60px;
+    text-align: center;
+}
+
+.ch-messenger-hidden {
+	display: none !important;
+}
+.rightPosition {
+	right: 25px !important;
+}
+.ch-desk-messenger {
+	position: fixed !important;
+	bottom: 25px !important;
+	z-index: 1000000000 !important;
+	width: 370px !important;
+	height: 80% !important;
+	min-height: 520px !important;
+	max-height: 680px !important;
+	overflow: hidden !important;
+	font-family: NotoSansKR, NotoSansJP, -apple-system, BlinkMacSystemFont, "Helvetica Neue", "?? ??", "Yu Gothic", "Segoe UI", Roboto, "system-ui", "sans-serif" !important;
+	background-color: transparent !important;
+	border-radius: 30px !important;
+	box-shadow: rgb(0 0 0 / 30%) 0px 12px 60px 5px !important;
+	animation: 0.25s ease-out 0s 1 normal none running jZyQVL !important;
 }
