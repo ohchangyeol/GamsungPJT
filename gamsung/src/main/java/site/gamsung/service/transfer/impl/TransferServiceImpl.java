@@ -2,6 +2,7 @@ package site.gamsung.service.transfer.impl;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -35,11 +36,8 @@ public class TransferServiceImpl implements TransferService {
 	}
 
 	@Override
-	public List<Transfer> listTransfer(HashMap<String, Object> map) throws Exception {
-			
-		List<Transfer> list = transferDAO.listTransfer(map);
-		
-		return list;
+	public List<Transfer> listTransfer(Map<String, Object> map) throws Exception {				
+		return transferDAO.listTransfer(map);
 	}
 
 	@Override
@@ -51,7 +49,6 @@ public class TransferServiceImpl implements TransferService {
 	public int updateTransfer(Transfer transfer) throws Exception {
 		return transferDAO.updateTransfer(transfer);
 	}
-
 	@Override
 	public int deleteTransfer(int transferNo) throws Exception {
 		return transferDAO.deleteTransfer(transferNo);
@@ -60,6 +57,11 @@ public class TransferServiceImpl implements TransferService {
 	@Override
 	public int blindTransfer(int transferNo) throws Exception {
 		return transferDAO.blindTransfer(transferNo);
+	}
+
+	@Override
+	public int updateReservationStatus(String reservationNo) throws Exception {
+		return transferDAO.updateReservationStatus(reservationNo);
 	}
 
 }

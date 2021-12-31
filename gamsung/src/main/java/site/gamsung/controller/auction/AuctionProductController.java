@@ -1,5 +1,12 @@
 package site.gamsung.controller.auction;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -10,16 +17,22 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import site.gamsung.service.auction.AuctionProductDAO;
 import site.gamsung.service.auction.AuctionProductService;
 import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.AuctionInfo;
 import site.gamsung.service.domain.AuctionProduct;
 import site.gamsung.service.domain.User;
+import site.gamsung.util.auction.AuctionImgUpload;
 
 @RequestMapping("/auction/*")
 @Controller
@@ -34,7 +47,6 @@ public class AuctionProductController {
 
 	@Value("#{commonProperties['crawlingURL']}")
 	private String crawlingURL;
-	
 	
 	public AuctionProductController() {
 		System.out.println(this.getClass());
@@ -59,7 +71,7 @@ public class AuctionProductController {
 	}
 	
 	//상품 상세 조회 페이지 출력
-	@RequestMapping(value = "getAuctionProduct", method = RequestMethod.GET)
+	@GetMapping(value = "getAuctionProduct")
 	public String getAuctionProduct(AuctionInfo auctionInfo, HttpSession httpSession, Model model) {
 		
 		User user = (User)httpSession.getAttribute("user");
@@ -77,7 +89,7 @@ public class AuctionProductController {
 	}
 	
 	//상품 상세 조회 페이지 출력
-	@RequestMapping(value = "getAuctionProduct", method = RequestMethod.POST)
+	@PostMapping(value = "getAuctionProduct")
 	public String getCrawlingAuctionProductNo(@ModelAttribute("auctionProduct") AuctionProduct auctionProduct) {
 		
 		auctionProduct = auctionProductService.getCrawlingAuctionProductNo(auctionProduct);
@@ -104,21 +116,18 @@ public class AuctionProductController {
 	}
 	
 	//상품 등록 페이지 navigation
-	@RequestMapping(value = "addAuctionProduct", method = RequestMethod.GET)
+	@GetMapping(value = "addAuctionProduct")
 	public String addAuctionProduct(HttpSession session, Model model) {
 		
 		//세션으로 부터 요청한 유저의 정보를 가져온다.
 		User user = (User)session.getAttribute("user");
-		
-		String userId = null;
-		
-		//user 정보가 존재하면 Id를 받는다.
-		if(user != null) {
-			userId = user.getId();
+
+		if(user == null) {
+			return "redirect:./listAuctionProduct";
 		}
 		
 		//Id에 해당하는 임시 등록 정보가 있는지 확인한다.
-		AuctionProduct auctionProduct = auctionProductService.getTempSaveAuctionProduct(userId);
+		AuctionProduct auctionProduct = auctionProductService.getTempSaveAuctionProduct(user.getId());
 		
 		// 임시정보가 있다면 model에 담아 return한다.
 		if(auctionProduct != null) {
@@ -129,53 +138,118 @@ public class AuctionProductController {
 	}
 	
 	//상품 등록 확정 요청시 매핑된다.
-	@RequestMapping(value = "addAuctionProduct", method = RequestMethod.POST)
-	public String addAuctionProduct(@ModelAttribute("auctionProduct") AuctionProduct auctionProduct, HttpSession session) {
+	@PostMapping(value = "addAuctionProduct")
+	public String addAuctionProduct(@ModelAttribute("auctionProduct") AuctionProduct auctionProduct, HttpSession session, MultipartHttpServletRequest mtfRequest) {
 		
 		//세션으로 부터 요청한 유저의 정보를 가져온다.
 		User user = (User)session.getAttribute("user");
-		
-		String userId = null;
-		
+				
 		//user 정보가 존재하면 Id를 받는다.
-		if(user != null) {
-			userId = user.getId();
+		if(user == null) {
+			return "redirect:./listAuctionProduct";
 		}
 		
-		auctionProduct.setRegistrantId(userId);
+		auctionProduct.setRegistrantId(user.getId());
+		
+		if(auctionProduct.getProductImg1() == null) {
+			
+			List<MultipartFile> fileList = mtfRequest.getFiles("inputImgs");
+			
+			AuctionImgUpload auctionImgUpload = new AuctionImgUpload();
+			List<String> fileName = auctionImgUpload.imgUpload(fileList);
+			
+			auctionProduct = auctionProductService.auctionProductImgs(auctionProduct, fileName);
+			
+		}
+		
+		AuctionProduct tmpAuctionProduct = auctionProductService.getTempSaveAuctionProduct(user.getId());
+		
+		if(tmpAuctionProduct != null) {
+			auctionProduct.setAuctionProductNo(tmpAuctionProduct.getAuctionProductNo());
+			auctionProductService.updateAuctionProduct(auctionProduct);
+			return "redirect:./listAuctionProduct";
+		}
+		
 		
 		//상품정보를 등록한다.
 		auctionProductService.addAuctionProduct(auctionProduct);
-		
-		return "forward:/view/auction/addAuctionProduct.jsp";
-	}
-	
-	//미리보기 페이지를 get방식으로 들어올 경우 목록조회로 redirect 시킨다.
-	@RequestMapping(value = "previewAuctionProduct", method = RequestMethod.GET)
-	public String previewAuctionProduct() {
-		
+					
 		return "redirect:./listAuctionProduct";
-	}
-	
-	//미리보기 페이지 요청시 정보를 그대로 담아 페이지 navigation한다.
-	@RequestMapping(value = "previewAuctionProduct", method = RequestMethod.POST)
-	public String previewAuctionProduct(@ModelAttribute("auctionProduct") AuctionProduct auctionProduct,
-									 	MultipartHttpServletRequest multipartHttpServletRequest) {
-	
-		
-		return "forward:/view/auction/previewAuctionProduct.jsp";
 	}
 	
 	//임시저장 요청시 매핑된다.
-	@RequestMapping(value = "tempSaveAuctionProduct", method = RequestMethod.POST)
-	public String tempSaveAuctionProduct(@ModelAttribute("auctionProduct") AuctionProduct auctionProduct) { 
+	@PostMapping(value = "tempSaveAuctionProduct")
+	public String tempSaveAuctionProduct(@ModelAttribute("auctionProduct") AuctionProduct auctionProduct, HttpSession session, MultipartHttpServletRequest mtfRequest) { 
+		
+		//세션으로 부터 요청한 유저의 정보를 가져온다.
+		User user = (User)session.getAttribute("user");
+						
+		//user 정보가 존재하면 Id를 받는다.
+		if(user == null) {
+			return "redirect:./listAuctionProduct";
+		}
 			
-			auctionProductService.tempSaveAuctionProduct(auctionProduct);
+		auctionProduct.setRegistrantId(user.getId());
+		
+		if(auctionProduct.getProductImg1() == null) {
+			
+			List<MultipartFile> fileList = mtfRequest.getFiles("inputImgs");
+			
+			AuctionImgUpload auctionImgUpload = new AuctionImgUpload();
+			List<String> fileName = auctionImgUpload.imgUpload(fileList);
+			
+			auctionProduct = auctionProductService.auctionProductImgs(auctionProduct, fileName);
+			
+		}
+		
+		auctionProductService.tempSaveAuctionProduct(auctionProduct);
 		
 		return "redirect:./listAuctionProduct";
 	}
 	
+	@GetMapping(value = "updateAuctionProduct")
+	public String updateAuctionProduct(@ModelAttribute("auctionInfo") AuctionInfo auctionInfo, HttpSession session, Model model) { 
+		
+		User user = (User)session.getAttribute("user");
+		
+		if(user == null) {
+			return "redirect:./listAuctionProduct";
+		}
+		
+		if(!user.getId().equals(auctionInfo.getUser().getId())) {
+			return "redirect:./listAuctionProduct";
+		}
+		
+		AuctionProduct auctionProduct = (AuctionProduct)auctionProductService.getAuctionProduct(auctionInfo).get("auctionProduct");
+		model.addAttribute("auctionProduct",auctionProduct);
+		
+		return "forward:/view/auction/updateAuctionProduct.jsp";
+	}
 	
-	
-	
+	@PostMapping(value = "updateAuctionProduct")
+	public String updateAuctionProduct(@ModelAttribute("auctionProduct") AuctionProduct auctionProduct, HttpSession session, MultipartHttpServletRequest mtfRequest) { 
+		
+		User user = (User)session.getAttribute("user");
+		
+		if(user == null) {
+			return "redirect:./listAuctionProduct";
+		}
+		auctionProduct.setRegistrantId(user.getId());
+		
+		if(auctionProduct.getProductImg1() == null) {
+			
+			List<MultipartFile> fileList = mtfRequest.getFiles("inputImgs");
+			
+			AuctionImgUpload auctionImgUpload = new AuctionImgUpload();
+			List<String> fileName = auctionImgUpload.imgUpload(fileList);
+			
+			auctionProduct = auctionProductService.auctionProductImgs(auctionProduct, fileName);
+			
+		}
+		
+		auctionProductService.updateAuctionProduct(auctionProduct);
+		
+		return "forward:/view/auction/updateAuctionProduct.jsp";
+	}
+		
 }

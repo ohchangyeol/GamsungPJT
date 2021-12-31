@@ -16,6 +16,9 @@ public interface UserService {
 	// 내정보조회 / 로그인
 	public User getUser(String id) throws Exception;
 	
+	//아이디 비밀번호 확인
+	public User checkIdPassword(User user) throws Exception;
+	
 	//salt 값 가져오기
 	public String getSaltById(String id) throws Exception;
 	
@@ -29,10 +32,10 @@ public interface UserService {
 	public String checkDuplication(User user) throws Exception;
 	
 	//인증메일 발송
-	public void sendEmailAuthNum(String id, String key) throws Exception;
+	public void sendEmailAuthNum(String id, String key);
 	
 	//인증문자 발송
-	public void sendPhoneAuthNum(String phone, String phKey) throws Exception;
+	public void sendPhoneAuthNum(String phone, String phKey);
 	
 	//사업자회원 승인
 	public void approvalBusinessUser(User user) throws Exception;
@@ -45,5 +48,29 @@ public interface UserService {
 	
 	//카카오 유저 정보 조회
 	public HashMap<String, Object> getUserInfo (String accessToken);
+	
+	//아이디 찾기
+	public String findId(String name, String phone) throws Exception;
+	
+	//비밀번호 찾기
+	public User findPassword(User user) throws Exception;
+	
+	//이용정지 등록
+	public void addSuspensionUser(User user) throws Exception;
+	
+	//회원탈퇴
+	public boolean addSecessionUser(User user) throws Exception;
+	
+	//회원 휴면전환
+	public void addDormantUser() throws Exception;
+	
+	//휴면회원 일반회원 전환
+	public void updateDormantGeneralUserConvert(String id) throws Exception;
+	
+	//카카오 로그아웃
+	public void kakaoLogout(String accessToken);
+	
+	//카카오 연결끊기
+	public void unlink(String accessToken);
 
 }

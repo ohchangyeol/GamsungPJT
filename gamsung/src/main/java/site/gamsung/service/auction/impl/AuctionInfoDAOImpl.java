@@ -100,9 +100,9 @@ public class AuctionInfoDAOImpl implements AuctionInfoDAO{
 	}
 
 	@Override
-	public AuctionInfo getBidderRanking(AuctionInfo auctionInfo) {
+	public List<AuctionInfo> getBidderRanking(AuctionInfo auctionInfo) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne("AuctionInfoMapper.getBidderRanking",auctionInfo);
+		return sqlSession.selectList("AuctionInfoMapper.getBidderRanking",auctionInfo);
 	}
 
 	@Override

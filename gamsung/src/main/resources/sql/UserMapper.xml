@@ -32,16 +32,17 @@
 		<result property="suspensionContent" 			column="suspension_content" 			jdbcType="VARCHAR" />
 		<result property="auctionGrade" 				column="auction_grade" 					jdbcType="SMALLINT" />
 		<result property="currentLoginRegDate" 			column="login_reg_date" 				jdbcType="DATE" />
+		<result property="snsId" 						column="sns_id" 						jdbcType="VARCHAR" />
 	</resultMap>
 	
 		<!-- SQL : INSERT -->
 	<insert 	id="addUser"	parameterType="user" >
 	 	INSERT
 		INTO USERS( user_id , role , nick_name , password , salt, name, phone, addr, entry_reg_date , bank , account_holder, entry_approval_flag,
-		account_num, camp_name, camp_call, receive_ban_end_date, dormant_reg_date, secession_reg_date, suspension_reg_date, tourism_business_num, suspension_content) 
+		account_num, camp_name, camp_call, receive_ban_end_date, dormant_reg_date, secession_reg_date, suspension_reg_date, tourism_business_num, suspension_content, sns_id) 
 		VALUES	 (#{id} , #{role} , #{nickName:VARCHAR} , #{password} , #{salt:VARCHAR},  #{name} , #{phone} , #{addr:VARCHAR} , SYSDATE() , #{bank:VARCHAR}, #{accountHolder:VARCHAR},
 		#{businessUserApprovalFlag:CHAR}, #{accountNum:VARCHAR}, #{campName:VARCHAR}, #{campCall:VARCHAR} , #{receiveProhibitionEndDate:DATE}, #{dormantConversionDate:DATE} , #{secessionRegDate:DATE} ,
-		#{suspensionDate:DATE}, #{tourismBusinessNum:VARCHAR}, #{suspensionContent:VARCHAR})
+		#{suspensionDate:DATE}, #{tourismBusinessNum:VARCHAR}, #{suspensionContent:VARCHAR}, #{snsId:VARCHAR})
 	 </insert>
 	 
 	 <!-- SQL : SELECT ONE -->
@@ -50,9 +51,9 @@
 		u.user_id , u.role , u.nick_name , u.password ,u.salt, u.name, u.phone, u.addr, u.entry_reg_date , u.bank , u.account_holder, 
 		u.account_num, u.having_point, u.camp_name, u.camp_call, u.entry_approval_flag, u.receive_cancel_total_count, 
 		u.receive_ban_end_date, u.dormant_reg_date, u.secession_reg_date, u.suspension_reg_date, u.tourism_business_num, u.suspension_content,
-		u.auction_grade, h.login_reg_date
+		u.auction_grade, u.sns_id, h.login_reg_date
 		FROM USERS u left outer join (SELECT * from LOGIN_HISTORY where (user_id, login_reg_date) in (select user_id, max(login_reg_date) as date from login_history group by user_id)) h
-		on u.user_id = h.user_id where u.user_id = #{value}
+		on u.user_id = h.user_id where u.user_id = #{value} 
 	 </select>
 	 
 	 <!-- SQL : UPDATE -->
@@ -69,10 +70,48 @@
 			bank = #{bank:VARCHAR},
 			account_holder = #{accountHolder:VARCHAR},
 			account_num = #{accountNum:VARCHAR},
-			entry_approval_flag = #{businessUserApprovalFlag:VARCHAR}
+			entry_approval_flag = #{businessUserApprovalFlag:VARCHAR}		
 	   	</set>
 	   	WHERE user_id = #{id}
 	 </update>
+	 
+	  <!-- SQL : Update SuspensionUser -->
+	 <update	id="addSusepsionUser"	parameterType="user" >
+	   	UPDATE USERS
+	   	<set>
+	   		suspension_reg_date = SYSDATE() ,
+			suspension_content = #{suspensionContent:VARCHAR}
+	   	</set>
+	   	WHERE user_id = #{id}
+	 </update>
+	 
+	  <!-- SQL : add SecessionUser -->
+	 <update	id="addSecessionUser"	parameterType="user" >
+	   	UPDATE USERS
+	   	<set>
+	   		secession_reg_date = SYSDATE()
+	   	</set>
+	   	WHERE user_id = #{id}
+	 </update>
+	 
+	 <!-- SQL : add DormantUser -->
+	 <update	id="addDormantUser"	parameterType="user" >
+	   	UPDATE USERS
+	   	<set>
+	   		dormant_reg_date = SYSDATE()
+	   	</set>
+	   	WHERE user_id = #{id}
+	 </update>	
+	 
+	  <!-- SQL : updateDormantGeneralUserConver -->
+	 <update	id="updateDormantGeneralUserConver"	parameterType="String" >
+	   	DELETE USERS
+	   	<set>
+	   		dormant_reg_date = null
+	   	</set>
+	   	WHERE user_id = #{value}
+	 </update>	
+	 
 	 
 	 <!-- SQL : ADD LOGIN DATE -->
 	 <insert	id="addLoginDate"	parameterType="user" >
@@ -80,11 +119,20 @@
 	   	VALUES (#{id}, SYSDATE())
 	 </insert>
 	 
+	 
+	 
 	  <select  id="getSaltById"  parameterType="String"	resultMap="userSelectMap">
 	  SELECT
 	  user_id, salt
 	  FROM USERS
-	  where user_id = #{id}
+	  where user_id = #{value}
+	  </select>
+	  
+	  <select  id="findId"  parameterType="map"	resultType="String">
+	  SELECT
+	  user_id
+	  FROM USERS
+	  where phone = #{phone} AND name =#{name}
 	  </select>
 	 
 	 
@@ -107,7 +155,9 @@
 					</if>
 				</where>
 			</if>
+		<if test="pageSize != 0 and offset != 0">
          LIMIT #{pageSize} OFFSET #{offset}
+         </if>
 	 </select>
 	 
 	 <!-- SQL : SELECT ROW Count -->	 

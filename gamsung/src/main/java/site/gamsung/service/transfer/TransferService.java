@@ -12,7 +12,7 @@ public interface TransferService {
 	
 	public int addTransfer(Transfer transfer)throws Exception;
 	
-	public List<Transfer> listTransfer(HashMap<String, Object> map)throws Exception;
+	public List<Transfer> listTransfer(Map<String, Object> map)throws Exception;
 	
 	public Transfer getTransfer(int transferNo)throws Exception;
 
@@ -22,4 +22,6 @@ public interface TransferService {
 	
 	public int blindTransfer(int transferNo)throws Exception;
 	
+	public int updateReservationStatus(String reservationNo)throws Exception;
+
 }

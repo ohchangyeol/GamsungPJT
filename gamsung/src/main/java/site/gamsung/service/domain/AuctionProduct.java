@@ -3,8 +3,8 @@ package site.gamsung.service.domain;
 public class AuctionProduct {
 	private String auctionProductNo;
 	private String auctionProductName;
-	private String auctionProductDatail;
-	private String auctionProductSubDatail;
+	private String auctionProductDetail;
+	private String auctionProductSubDetail;
 	private String registrantId;
 	private String successfulBidderId;
 	private int startBidPrice;
@@ -42,17 +42,21 @@ public class AuctionProduct {
 	public void setAuctionProductName(String auctionProductName) {
 		this.auctionProductName = auctionProductName;
 	}
-	public String getAuctionProductDatail() {
-		return auctionProductDatail;
+	public String getAuctionProductDetail() {
+		return auctionProductDetail;
 	}
-	public void setAuctionProductDatail(String auctionProductDatail) {
-		this.auctionProductDatail = auctionProductDatail;
+	public void setAuctionProductDetail(String auctionProductDetail) {
+		if(auctionProductDetail != null) {
+			this.auctionProductDetail = auctionProductDetail.trim();
+		}else {
+			this.auctionProductDetail = auctionProductDetail;
+		}
 	}
-	public String getAuctionProductSubDatail() {
-		return auctionProductSubDatail;
+	public String getAuctionProductSubDetail() {
+		return auctionProductSubDetail;
 	}
-	public void setAuctionProductSubDatail(String auctionProductSubDatail) {
-		this.auctionProductSubDatail = auctionProductSubDatail;
+	public void setAuctionProductSubDetail(String auctionProductSubDetail) {
+		this.auctionProductSubDetail = auctionProductSubDetail;
 	}
 	public String getRegistrantId() {
 		return registrantId;
@@ -124,19 +128,31 @@ public class AuctionProduct {
 		return hashtag1;
 	}
 	public void setHashtag1(String hashtag1) {
-		this.hashtag1 = hashtag1;
+		if(hashtag1 != null) {
+			this.hashtag1 = hashtag1.trim();
+		}else {
+			this.hashtag1 = hashtag1;			
+		}
 	}
 	public String getHashtag2() {
 		return hashtag2;
 	}
 	public void setHashtag2(String hashtag2) {
-		this.hashtag2 = hashtag2;
+		if(hashtag2 != null) {
+			this.hashtag2 = hashtag2.trim();
+		}else {
+			this.hashtag2 = hashtag2;			
+		}
 	}
 	public String getHashtag3() {
 		return hashtag3;
 	}
 	public void setHashtag3(String hashtag3) {
-		this.hashtag3 = hashtag3;
+		if(hashtag3 != null) {
+			this.hashtag3 = hashtag3.trim();
+		}else {
+			this.hashtag3 = hashtag3;			
+		}
 	}
 	public String getProductImg1() {
 		return productImg1;
@@ -207,8 +223,8 @@ public class AuctionProduct {
 	@Override
 	public String toString() {
 		return "AuctionProduct [auctionProductNo=" + auctionProductNo + ", auctionProductName=" + auctionProductName
-				+ ", auctionProductDatail=" + auctionProductDatail + ", auctionProductSubDatail="
-				+ auctionProductSubDatail + ", registrantId=" + registrantId + ", successfulBidderId="
+				+ ", auctionProductDetail=" + auctionProductDetail + ", auctionProductSubDetail="
+				+ auctionProductSubDetail + ", registrantId=" + registrantId + ", successfulBidderId="
 				+ successfulBidderId + ", startBidPrice=" + startBidPrice + ", hopefulBidPrice=" + hopefulBidPrice
 				+ ", bidUnit=" + bidUnit + ", currentBidPrice=" + currentBidPrice + ", auctionStartTime="
 				+ auctionStartTime + ", auctionEndTime=" + auctionEndTime + ", remainAuctionTime=" + remainAuctionTime

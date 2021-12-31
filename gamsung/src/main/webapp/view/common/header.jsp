@@ -1,8 +1,88 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
+
+<!--  ///////////////////////// JSTL  ////////////////////////// -->
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <head>
     <meta charset="UTF-8">
+    
+   <!-- Web Fonts  -->
+		<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Shadows+Into+Light" rel="stylesheet" type="text/css">
+
+		<!-- Vendor CSS -->
+		<link rel="stylesheet" href="../../resources/lib/bootstrap/css/bootstrap.css" />
+		<link rel="stylesheet" href="../../resources/lib/font-awesome/css/font-awesome.css" />
+		<link rel="stylesheet" href="../../resources/lib/magnific-popup/magnific-popup.css" />
+		<link rel="stylesheet" href="../../resources/lib/bootstrap-datepicker/css/datepicker3.css" />
+
+		<!-- Specific Page Vendor CSS -->
+		<link rel="stylesheet" href="../../resources/lib/pnotify/pnotify.custom.css" />
+
+		<!-- Theme CSS -->
+		<link rel="stylesheet" href="../../resources/css/theme.css" />
+
+		<!-- Skin CSS -->
+		<link rel="stylesheet" href="../../resources/css/skins/default.css" />
+
+		<!-- Theme Custom CSS -->
+		<link rel="stylesheet" href="../../resources/css/theme-custom.css">
+		
+		<link rel="stylesheet" href="../../resources/lib/magnific-popup/magnific-popup.css">
+
+		<!-- Head Libs -->
+		<script src="../../resources/lib/modernizr/modernizr.js"></script>
+		
+		  <!-- Vendor -->
+		 
+		<script src="../../resources/lib/flot/jquery.js"></script>
+		<script src="../../resources/lib/jquery-browser-mobile/jquery.browser.mobile.js"></script>
+		<script src="../../resources/lib/bootstrap/js/bootstrap.js"></script>
+		<script src="../../resources/lib/nanoscroller/nanoscroller.js"></script>
+		<script src="../../resources/lib/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+		<script src="../../resources/lib/magnific-popup/magnific-popup.js"></script>
+		<script src="../../resources/lib/jquery-placeholder/jquery.placeholder.js"></script>
+		<!-- Specific Page Vendor -->
+		<script src="../../resources/lib/pnotify/pnotify.custom.js"></script>
+		<!-- Theme Base, Components and Settings -->
+		<script src="../../resources/js/theme.js"></script>
+		<!-- Theme Custom -->
+		<script src="../../resources/js/theme.custom.js"></script>
+		<!-- Theme Initialization Files -->
+		<script src="../../resources/js/theme.init.js"></script>
+		<!-- Examples -->
+		<script src="../../resources/js/ui-elements/examples.modals.js"></script>
+		
+		 
+		 
+		<script src="../../resources/lib/bootStrap/js/bootstrap.js"></script>
+		<script src="../../resources/lib/jquery/jquery.js"></script>
+		<script src="../../resources/lib/bootstrap/js/bootstrap.min.js"></script>
+		<script src="../../resources/lib/wow/wow.js"></script>
+		<script src="../../resources/lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js"></script>
+		<script src="../../resources/lib/isotope/isotope.pkgd.js"></script>
+		<script src="../../resources/lib/imagesloaded/imagesloaded.pkgd.js"></script>
+		<script src="../../resources/lib/flexslider/jquery.flexslider.js"></script>
+		<script src="../../resources/lib/owl.carousel/dist/owl.carousel.min.js"></script>
+		<script src="../../resources/lib/smoothscroll.js"></script>
+		<script src="../../resources/lib/magnific-popup/magnific-popup.js"></script>
+		<script src="../../resources/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script>
+		<script src="../../resources/js/plugins.js"></script>
+		<script src="../../resources/js/main.js"></script>
+		
+		<script src="../../resources/lib/jquery-browser-mobile/jquery.browser.mobile.js"></script>
+		<script src="../../resources/lib/bootStrap/js/bootstrap.js"></script>		
+		<script src="../../resources/lib/nanoscroller/nanoscroller.js"></script>
+		<script src="../../resources/lib/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+		<script src="../../resources/lib/jquery-placeholder/jquery.placeholder.js"></script>
+		<script src="../../resources/lib/pnotify/pnotify.custom.js"></script>
+		<script src="../../resources/js/theme.js"></script>
+		<script src="../../resources/js/theme.custom.js"></script>
+		<script src="../../resources/js/theme.init.js"></script>
+		<script src="../../resources/js/ui-elements/examples.modals.js"></script>
+     
 </head>
+
 
 <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
   <div class="container">
@@ -11,15 +91,8 @@ pageEncoding="UTF-8"%>
     </div>
     <div class="collapse navbar-collapse" id="custom-collapse">
       <ul class="nav navbar-nav navbar-right">    
-          
-        <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Camping</a>
-          <ul class="dropdown-menu">
-            <li><a href="/campGeneral/campSearch" >Camping Search</a></li>
-            <li><a href="/campGeneral/campDetailSearch" >Camping DetailSearch</a></li>           
-          </ul>
-        </li>
-        
-        <li><a href="/campBusiness/goSubMainCampBusiness">CampBusiness</a></li>
+
+        <li><a href="/campBusiness/goSubMainCampBusiness">CampBusiness</a></li> 
       
         <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Payment</a>
           <ul class="dropdown-menu">
@@ -34,7 +107,7 @@ pageEncoding="UTF-8"%>
            	<li><a href="/payment/listSiteProfit">SiteProfit</a></li>          	      
           </ul>
         </li>
-             
+
         <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">중고상품</a>
 
           <ul class="dropdown-menu">
@@ -44,6 +117,12 @@ pageEncoding="UTF-8"%>
           </ul>
         </li>
         
+        <li class="dropdown"><a class="dropdown-toggle" href="/community/listCommunity" data-toggle="dropdown">커뮤니티</a>
+        	<ul class="dropdown-menu">
+				<li><a href="/community/listCommunity">커뮤니티</a></li>
+			</ul>
+        </li>
+               
         <li class="dropdown"><a class="dropdown-toggle" href="/servicecenter/home" data-toggle="dropdown">고객센터</a>
         	<ul class="dropdown-menu">
 				<li><a href="/servicecenter/home">고객센터</a></li>
@@ -202,13 +281,129 @@ pageEncoding="UTF-8"%>
             <li><a href="documentation.html#plugin">Plugins</a></li>
             <li><a href="documentation.html#changelog">Changelog</a></li>
           </ul>
-        </li>
-        
-        <li><a href="/view/user/tempLogin.jsp">
-	       <button class="btn btn-border-w btn-round btn-xs" type="button">LOGIN</button>
-        </a>
-        </li>
-      </ul>
+        </li>    
+         <c:if test="${sessionScope.user.role!=null}">
+	      <li><a href="#"><button class="btn btn-border-w btn-round btn-xs" type="button" id="logout">LOGOUT</button></a></li>
+	    </c:if>
+	     <c:if test="${sessionScope.user.role==null}">
+
+        <!-- <li><a href="/view/user/tempLogin.jsp"> -->
+	       <a class="mb-xs mt-xs mr-xs modal-basic btn btn-default" href="#modalBasic" id="login">LOGIN</a>
+        <!-- </a> </li> -->
+
+        </c:if>
+        </ul>
     </div>
   </div>
 </nav>
+
+
+ 
+
+<div id="modalBasic" class="modal-block modal-block-primary mfp mfp-hide">
+	<section class="panel">
+<header class="panel-heading">
+<button class="close" data-dismiss="modal">&times;</button>
+	</header>
+	<div class="panel-body" >
+		
+	<form action="" class="was-validated">
+		<div class="form-group">
+			<label for="modalId">아이디 </label>
+			<input type="text" class="form-control" id="modalId" placeholder="아이디를 입력하세요." name="id" required>
+			<!-- <div class="valid-feedback">Valid.</div>
+			<div class="invalid-feedback">Please fill out this field.</div> -->
+		</div>
+		<div class="form-group">
+			<label for="pwd">비밀번호 </label>
+			<input type="password" class="form-control" id="pwd" placeholder="비밀번호를 입력하세요." name="password" required>
+			<!-- <div class="valid-feedback">Valid.</div>
+			<div class="invalid-feedback">Please fill out this field.</div> -->
+		</div>
+		<button type="submit" class="btn btn-primary" style="margin-left:50%;">로그인</button>
+		<button type="button" class="btn btn-secondary" id="joinUser">회원가입</button>
+		<a href="javascript:kakaoLogin();"><img src="../../resources/images/kakao_login_small.png" width="50px" height="10px"/></a>
+	</form>
+		</div>
+			<footer class="panel-footer">
+				<div class="row">
+					<div class="col-md-12 text-right">
+						<button class="btn btn-primary modal-confirm">아이디 찾기</button>
+						<button class="btn btn-default modal-dismiss">비밀번호 찾기</button>
+					</div>
+				</div>
+			</footer>
+		</section>
+</div>
+
+
+<script type="text/javascript">
+    //============= logout Event =============	
+		 $(function() {
+			//==> DOM Object GET 3���� ��� ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+		 	$("#logout").on("click" , function() {
+		 		//$(self.location).attr("href","/user/logout");
+				self.location = "/user/logout"
+			}); 
+			
+		 	$("#joinUser").on("click" , function() {
+				//$(self.location).attr("href","/user/logout");
+			self.location = "/user/addUser"
+		}); 
+			
+			$("#id").focus();
+		$("button:contains(로그인)").on("click" , function() {
+			//alert("gkgkgkgk");
+			var id=$("input:text").val();
+			var pwd=$("input:password").val();
+			
+			if(id == null || id.length <1) {
+				alert('ID 를 입력하지 않으셨습니다.');
+				$("#id").focus();
+				return;
+			}
+			
+			if(pwd == null || pwd.length <1) {
+				alert('패스워드를 입력하지 않으셨습니다.');
+				$("#pwd").focus();
+				return;
+			}
+			
+			$("form").attr("method","POST").attr("action","/user/login").submit();
+		});
+		});
+
+		//카카오로그인
+		function kakaoLogin() {
+
+		$.ajax({
+		    url: '/user/getKakaoAuthUrl',
+		    type: 'get',
+		    async: false,
+		    dataType: 'text',
+		    success: function (res) {
+		        location.href = res;
+		    }
+		});
+
+		}
+
+		$(document).ready(function() {
+
+		  var kakaoInfo = '${kakaoInfo}';
+
+		  if(kakaoInfo != ""){
+		      var data = JSON.parse(kakaoInfo);
+
+		      alert("카카오로그인 성공 \n accessToken : " + data['accessToken']);
+		      alert(
+		      "user : \n" + "email : "
+		      + data['email']  
+		      + "\n nickname : " 
+		      + data['nickname']);
+		  }
+		});  
+		 	
+   
+</script> 
+

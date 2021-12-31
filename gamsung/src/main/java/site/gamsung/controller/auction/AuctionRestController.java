@@ -16,9 +16,13 @@ import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -83,7 +87,7 @@ public class AuctionRestController {
 		
 	}
 	
-	@RequestMapping("infiniteScroll")
+	@PostMapping("infiniteScroll")
 	public synchronized List<AuctionProduct> InfiniteScroll(@RequestBody Search search){
 	
 		search.setOffset(auctionPageSize);
@@ -92,33 +96,21 @@ public class AuctionRestController {
 		return auctionProductService.listCrawlingAuctionProduct(search);
 	}
 	
-	@RequestMapping("previewAuctionProductImageFile")
-	public String previewAuctionProductImageFile(@RequestParam(value = "fileUpload", required=false) MultipartFile file) {
-		
-		if(!file.getOriginalFilename().isEmpty()) {
-			try {
-				
-				file.transferTo(new File(PATH, file.getOriginalFilename()));
-				
-			} catch (IllegalStateException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-		}
-		return file.getOriginalFilename();
-		
-	}
 	
-	@RequestMapping("getBidderRanking")
+	@PostMapping("getBidderRanking")
 	public AuctionInfo getBidderRanking(@RequestBody AuctionInfo auctionInfo, HttpSession httpSession) {
 		
 		User user = (User)httpSession.getAttribute("user");
 		auctionInfo.setUser(user);
 		
 		return auctionInfoService.getBidderRanking(auctionInfo);
+	}
+	
+	@GetMapping(value = "midwayWithdrawal/{auctionProductNo}")
+	public AuctionInfo midwayWithdrawal(@PathVariable("auctionProductNo") String auctionProductNo) {
+		
+		 return auctionProductService.deleteAuctionProduct(auctionProductNo);
+		
 	}
 	
 	@MessageMapping("/join")
@@ -156,6 +148,22 @@ public class AuctionRestController {
 		System.out.println(auctionInfo);
 		System.out.println(info);
 		auctionInfo.setInfo(info);
+		
+		return auctionInfo;
+	}
+	
+	@MessageMapping("/delete")
+	@SendTo("/topic/delete")
+	public AuctionInfo auctionDelete(@Payload AuctionInfo auctionInfo, SimpMessageHeaderAccessor simpMessageHeaderAccessor) {
+		System.out.println("중도철회");
+		
+		HttpSession httpSession = (HttpSession)simpMessageHeaderAccessor.getSessionAttributes().get("session");
+		User user = (User)httpSession.getAttribute("user");
+		
+		auctionInfo.setUser(user);
+		
+		
+		auctionInfo.setInfo("해당 상품은 중도 철회 되었습니다.");
 		
 		return auctionInfo;
 	}

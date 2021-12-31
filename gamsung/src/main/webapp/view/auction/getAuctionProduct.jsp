@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html lang="ko" dir="ltr">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <title>${auctionProduct.auctionProductName}</title>
@@ -64,147 +64,151 @@
 				<i class="fa fa-diamond"></i><strong></strong></div>
 			<div class="alert alert-danger" role="alert" hidden="hidden">
 				<button class="close" type="button" data-dismiss="alert" aria-hidden="true">&times;</button>
-				<i class="fa fa-coffee"></i><strong></strong> </div>
+				<i class="fa fa-coffee"></i><strong></strong></div>
 			<section class="module">
 				<div class="container">
 					<div class="col-sm-2"></div>
 					<div class="col-sm-8"><h1 class="product-title">${auctionProduct.auctionProductName}</h1></div>
 					<div class="col-sm-2"></div>
+				</div>
+				<div class="container">
 					<div class="row">
-						<div class="col-sm-4"></div>
-						<div class="col-sm-4">
-							<img src="${auctionProduct.productImg1}" alt="Single Product Image" />
-							<div class="product-gallery">
-							<c:if test="${!empty auctionProduct.productImg2}">
-								<img src="${auctionProduct.productImg2}" alt="Single Product" />
-							</c:if>
-							<c:if test="${!empty auctionProduct.productImg3}">
-								<img src="${auctionProduct.productImg3}" alt="Single Product" />
-							</c:if>
-							<c:if test="${!empty auctionProduct.productImg4}">
-								<img src="${auctionProduct.productImg4}" alt="Single Product" />
-							</c:if>
-							<c:if test="${!empty auctionProduct.productImg5}">
-								<img src="${auctionProduct.productImg5}" alt="Single Product" />
-							</c:if>
+						<div class="col-sm-2"></div>
+						<div class="col-sm-4 mb-sm-40">	
+						<c:if test="${!empty auctionProduct.auctionProductSubDetail}">
+							<a><img src="${auctionProduct.productImg1}" alt="Single Product Image" /></a>
+							 <ul class="product-gallery">
+								<c:if test="${!empty auctionProduct.productImg2}">
+									<li><img src="${auctionProduct.productImg2}" alt="Single Product" /></li>
+								</c:if>
+								<c:if test="${!empty auctionProduct.productImg3}">
+									<li><img src="${auctionProduct.productImg3}" alt="Single Product" /></li>
+								</c:if>
+								<c:if test="${!empty auctionProduct.productImg4}">
+									<li><img src="${auctionProduct.productImg4}" alt="Single Product" /></li>
+								</c:if>
+								<c:if test="${!empty auctionProduct.productImg5}">
+									<li><img src="${auctionProduct.productImg5}" alt="Single Product" /></li>
+								</c:if>
+							</ul>
+						</c:if>
+						<c:if test="${empty auctionProduct.auctionProductSubDetail}">
+							<a><img src="/uploadfiles/auctionimg/product/${auctionProduct.productImg1}" alt="Single Product Image" /></a>
+							 <ul class="product-gallery">
+								<c:if test="${!empty auctionProduct.productImg2}">
+									<li><img src="/uploadfiles/auctionimg/product/${auctionProduct.productImg2}" alt="Single Product" /></li>
+								</c:if>
+								<c:if test="${!empty auctionProduct.productImg3}">
+									<li><img src="/uploadfiles/auctionimg/product/${auctionProduct.productImg3}" alt="Single Product" /></li>
+								</c:if>
+								<c:if test="${!empty auctionProduct.productImg4}">
+									<li><img src="/uploadfiles/auctionimg/product/${auctionProduct.productImg4}" alt="Single Product" /></li>
+								</c:if>
+								<c:if test="${!empty auctionProduct.productImg5}">
+									<li><img src="/uploadfiles/auctionimg/product/${auctionProduct.productImg5}" alt="Single Product" /></li>
+								</c:if>
+							</ul>
+						</c:if>
+						</div>
+						<div class="col-sm-6">
+							<div class="col-sm-12">
+								<span>${registrantInfo.user.auctionGrade}LV</span>
+								<span>${registrantInfo.user.id}</span>
+								<span><i class="fa fa-star star"></i></span>
+								<span><i class="fa fa-star star"></i></span>
+								<span><i class="fa fa-star star"></i></span>
+								<span><i class="fa fa-star star"></i></span>
+								<span><i class="fa fa-star star-off"></i></span>
+								<a class="open-tab section-scroll" href="#reviews">4.0</a>
+							</div>
+						<div class="row mb-20">
+							<div class="col-sm-12">
+								<div class="price font-alt">
+									<a>시작가 : ${auctionProduct.startBidPrice}원</a><br>
+									<input type="hidden" id="startBidPrice" value="${auctionProduct.startBidPrice}">
+									<a>희망 낙찰가 : ${auctionProduct.hopefulBidPrice}원</a><br>
+									<a>입찰 단위 : ${auctionProduct.bidUnit}원</a><br>
+									<input type="hidden" id="bidUnit" value="${auctionProduct.bidUnit}">
+									<a>입찰 가능 등급 : ${auctionProduct.bidableGrade}LV 이상</a><br><br>
+									<input type="hidden" id="bidableGrade" value="${auctionProduct.bidableGrade}">
+								</div>
 							</div>
 						</div>
-						<div class="col-sm-4">
-							<div class="row">
-							</div>
-							<div class="row mb-20">
-								<div class="col-sm-12">
-									<span><i class="fa fa-star star"></i></span><span><i
-										class="fa fa-star star"></i></span><span><i
-										class="fa fa-star star"></i></span><span><i
-										class="fa fa-star star"></i></span><span><i
-										class="fa fa-star star-off"></i></span><a
-										class="open-tab section-scroll" href="#reviews"></a>
+						<div class="row mb-20">
+							<div class="col-sm-12">
+								<div class="description">
+									<span class="amount">현재입찰가</span><br>
+									<span id="currentPrice" class="amount">${auctionProduct.currentBidPrice}</span>										
 								</div>
 							</div>
-							<div class="row mb-20">
-								<div class="col-sm-12">
-									<div class="price font-alt">
-										<a>시작가 : ${auctionProduct.startBidPrice}원</a><br>
-										<a>희망 낙찰가 : ${auctionProduct.hopefulBidPrice}원</a><br>
-										<a>입찰 단위 : ${auctionProduct.bidUnit}원</a><br>
-										<input type="hidden" id="bidUnit" value="${auctionProduct.bidUnit}">
-										<a>입찰 가능 등급 : ${auctionProduct.bidableGrade}LV 이상</a><br><br>
-										<input type="hidden" id="bidableGrade" value="${auctionProduct.bidableGrade}">
-									</div>
-								</div>
-							</div>
-							<div class="row mb-20">
-								<div class="col-sm-12">
-									<div class="description">
-										<span class="amount">현재입찰가</span><br>
-										<span id="currentPrice" class="amount">${auctionProduct.currentBidPrice}</span>										
-									</div>
-								</div>
-							</div>
-							<div class="row mb-20">
-								<div class="col-sm-8">
+						</div>
+						<input type="hidden" id="auctionProductNo" value="${auctionProduct.auctionProductNo}">
+						<div class="row mb-20">
+							<c:if test="${registrantInfo.user.id ne sessionScope.user.id}">
+								<div class="col-sm-5">
 									<a id="bidBtn" class="btn btn-lg btn-block btn-round btn-b">입찰</a>
-									<input type="hidden" id="auctionProductNo" value="${auctionProduct.auctionProductNo}">
 								</div>
-							</div>
-							<div class="font15 time-title">금일 마감까지 남은 시간</div>
-							<div class="time font40">
+								<div class="col-sm-5" hidden="hidden">
+									<a id="cancelBtn" class="btn btn-lg btn-block btn-round btn-b">낙찰취소</a>
+								</div>
+							</c:if>
+							<c:if test="${registrantInfo.user.id eq sessionScope.user.id}">
+								<div class="col-sm-5">
+									<a id="updateBtn" class="btn btn-lg btn-block btn-round btn-b">수정</a>
+								</div>
+								<div class="col-sm-5">
+									<a id="deleteBtn" class="btn btn-lg btn-block btn-round btn-b">중도철회</a>
+								</div>
+							</c:if>
+						</div>
+						<div class="font15 time-title"></div>
+						<div class="time font40">
 							<span id="auctionStartTime" hidden="hidden">${auctionProduct.auctionStartTime}</span>
 							<span id="auctionEndTime" hidden="hidden">${auctionProduct.auctionEndTime}</span>
+							<c:if test="${fn:indexOf(auctionProduct.remainAuctionTime,'-') == -1}">
 							  <span class="hours"></span>
 							  <span class="col">:</span>
 							  <span class="minutes"></span>
 							  <span class="col">:</span>
 							  <span class="seconds"></span>
-							</div>
-							<div class="row mb-20">
-								<div class="col-sm-12">
-									<div class="product_meta">
-										<span id = "userInfo">
-											<c:if test="${!empty auctionInfo}">
-												${user.nickName}님은 ${auctionInfo.bidderCount}명 중 ${auctionInfo.bidderRank}등 입니다.'
-											</c:if>
-										
-										</span>
-										<input type="hidden" id="userId" value="${user.id}"/>
-										<input type="hidden" id="nickName" value="${user.nickName}"/>
-									</div>
+							</c:if>
+						</div>
+						<div class="row mb-20">
+							<div class="col-sm-12">
+								<div class="product_meta">
+									<span id = "userInfo">
+										<c:if test="${!empty auctionInfo && auctionInfo.bidderCount != 0}">
+											${user.nickName}님은 ${auctionInfo.bidderCount}명 중 ${auctionInfo.bidderRank}등 입니다.'
+										</c:if>
+									</span>
+									<input type="hidden" id="userId" value="${user.id}"/>
+									<input type="hidden" id="nickName" value="${user.nickName}"/>
 								</div>
-							</div>							
-						</div>
-						</div>
+							</div>
+						</div>							
+					</div>
 					</div>
 					<div class="row mt-70">
 						<div class="col-sm-12">
 						<div class="well well-lg"><strong id="realTimeViewCount"></strong></div>
 							<ul class="nav nav-tabs font-alt" role="tablist">
-								<li class="active"><a href="#description" data-toggle="tab"><span
-										class="icon-tools-2"></span>Description</a></li>
-								<li><a href="#data-sheet" data-toggle="tab"><span
-										class="icon-tools-2"></span>Data sheet</a></li>
-								<li><a href="#reviews" data-toggle="tab"><span
-										class="icon-tools-2"></span>Reviews (2)</a></li>
+								<li class="active">
+									<a href="#description" data-toggle="tab">
+										<span class="icon-tools-2"></span>Description
+									</a>
+								</li>
+								<li>
+									<a href="#reviews" data-toggle="tab">
+										<span class="icon-tools-2"></span>Reviews (2)
+									</a>
+								</li>
 							</ul>
 							<div class="tab-content">
 								<div class="tab-pane active" id="description">
-									<p>Everyone realizes why a new common language would be
-										desirable: one could refuse to pay expensive translators. To
-										achieve this, it would be necessary to have uniform grammar,
-										pronunciation and more common words. If several languages
-										coalesce, the grammar of the resulting language is more simple
-										and regular than that of the individual languages.</p>
-									<p>The European languages are members of the same family.
-										Their separate existence is a myth. For science, music, sport,
-										etc, Europe uses the same vocabulary. The languages only
-										differ in their grammar, their pronunciation and their most
-										common words.</p>
-								</div>
-								<div class="tab-pane" id="data-sheet">
-									<table class="table table-striped ds-table table-responsive">
-										<tbody>
-											<tr>
-												<th>Title</th>
-												<th>Info</th>
-											</tr>
-											<tr>
-												<td>Compositions</td>
-												<td>Jeans</td>
-											</tr>
-											<tr>
-												<td>Size</td>
-												<td>44, 46, 48</td>
-											</tr>
-											<tr>
-												<td>Color</td>
-												<td>Black</td>
-											</tr>
-											<tr>
-												<td>Brand</td>
-												<td>Somebrand</td>
-											</tr>
-										</tbody>
-									</table>
+								<c:if test="${empty auctionProduct.auctionProductDetail}">
+									<p>관리자가 등록한 상품입니다.</p>
+									<p><a href="https://www.coupang.com${auctionProduct.auctionProductSubDetail}">상품 정보</a></p>								
+								</c:if>
 								</div>
 								<div class="tab-pane" id="reviews">
 									<div class="comments reviews">
@@ -257,7 +261,7 @@
 									</div>
 									<div class="comment-form mt-30">
 										<h4 class="comment-form-title font-alt">Add review</h4>
-										<form method="post">
+										
 											<div class="row">
 												<div class="col-sm-4">
 													<div class="form-group">
@@ -294,99 +298,21 @@
 													<button class="btn btn-round btn-d" type="submit">Submit Review</button>
 												</div>
 											</div>
-										</form>
+									
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-			</section>
-			<hr class="divider-w">
-			<section class="module-small">
-				<div class="container">
-					<div class="row">
-						<div class="col-sm-6 col-sm-offset-3">
-							<h2 class="module-title font-alt">Related Products</h2>
-						</div>
-					</div>
-					<div class="row multi-columns-row">
-						<div class="col-sm-6 col-md-3 col-lg-3">
-							<div class="shop-item">
-								<div class="shop-item-image">
-									<img src="../../resources/images/shop/product-11.jpg"
-										alt="Accessories Pack" />
-									<div class="shop-item-detail">
-										<a class="btn btn-round btn-b"><span class="icon-basket">Add
-												To Cart</span></a>
-									</div>
-								</div>
-								<h4 class="shop-item-title font-alt">
-									<a href="#">Accessories Pack</a>
-								</h4>
-								£9.00
-							</div>
-						</div>
-						<div class="col-sm-6 col-md-3 col-lg-3">
-							<div class="shop-item">
-								<div class="shop-item-image">
-									<img src="../../resources/images/shop/product-12.jpg"
-										alt="Men’s Casual Pack" />
-									<div class="shop-item-detail">
-										<a class="btn btn-round btn-b"><span class="icon-basket">Add
-												To Cart</span></a>
-									</div>
-								</div>
-								<h4 class="shop-item-title font-alt">
-									<a href="#">Men’s Casual Pack</a>
-								</h4>
-								£12.00
-							</div>
-						</div>
-						<div class="col-sm-6 col-md-3 col-lg-3">
-							<div class="shop-item">
-								<div class="shop-item-image">
-									<img src="../../resources/images/shop/product-13.jpg"
-										alt="Men’s Garb" />
-									<div class="shop-item-detail">
-										<a class="btn btn-round btn-b"><span class="icon-basket">Add
-												To Cart</span></a>
-									</div>
-								</div>
-								<h4 class="shop-item-title font-alt">
-									<a href="#">Men’s Garb</a>
-								</h4>
-								£6.00
-							</div>
-						</div>
-						<div class="col-sm-6 col-md-3 col-lg-3">
-							<div class="shop-item">
-								<div class="shop-item-image">
-									<img src="../../resources/images/shop/product-14.jpg"
-										alt="Cold Garb" />
-									<div class="shop-item-detail">
-										<a class="btn btn-round btn-b"><span class="icon-basket">Add
-												To Cart</span></a>
-									</div>
-								</div>
-								<h4 class="shop-item-title font-alt">
-									<a href="#">Cold Garb</a>
-								</h4>
-								£14.00
-							</div>
-						</div>
-					</div>
-				</div>
-			</section>
+			</section>			
 			<hr class="divider-w">
 			<section class="module">
 				<div class="container">
 					<div class="row">
 						<div class="col-sm-6 col-sm-offset-3">
-							<h2 class="module-title font-alt">Exclusive products</h2>
-							<div class="module-subtitle font-serif">The languages only
-								differ in their grammar, their pronunciation and their most
-								common words.</div>
+							<h2 class="module-title font-alt">경매 추천 상품</h2>
+							<div class="module-subtitle font-serif">12개의 상품이 추천 되며 한 사람이 여러개의 상품을 등록할 수 없습니다.</div>
 						</div>
 					</div>
 					<div class="row">
@@ -572,6 +498,11 @@
 		<div class="scroll-up">
 			<a href="#totop"><i class="fa fa-angle-double-up"></i></a>
 		</div>
+		
+		<form>
+			<input type="hidden" name="auctionProductNo" value="${auctionProduct.auctionProductNo}">
+			<input type="hidden" name="user.id" value="${registrantInfo.user.id}">
+		</form>
 	</main>
 	<!--  
     JavaScripts
@@ -600,12 +531,80 @@
 	});
 	
 	var stompClient = null;
+	var auctionProductNo = document.getElementById('auctionProductNo').value;
+	var userId = document.getElementById('userId').value;
+	var nickName = document.getElementById('nickName').value;
+	
+	console.log(auctionProductNo, userId, nickName);
+	
+	$(function(){
+		
+		auctionProductNo = $('#auctionProductNo').val();
+		userId = $('#userId').val(); 
+		nickName = $('#nickName').val();
+		
+		$('#updateBtn').on('click',function(){
+			$('form').attr('method','get').attr('action','/auction/updateAuctionProduct').submit();
+		});
+		
+		$('#deleteBtn').on('click',function(){
+			$.ajax({
+					url : "/auction/rest/midwayWithdrawal/"+auctionProductNo,
+					method : "GET",
+					headers : {
+						"Accept" : "application/json",
+						"Content-Type" : "application/json"
+					},
+					dataType : "json",
+					success : function(JSONData, status) {
+						alert(JSONData.info);
+						deleteProduct();
+					}
+			});
+			
+			
+		});
+		
+		$('#bidBtn').on('click',function(event){
+			
+			if($('#bidBtn').attr('disabled') == 'disabled'){
+				return;
+			}
+			
+			var currentPrice = $('#currentPrice').text();
+			var startBidPrice = $('#startBidPrice').val();
+			var bidUnit = $('#bidUnit').val();
+			var bidPrice = $('#bidPrice').val();
+			var bidableGrade = ${registrantInfo.user.auctionGrade}
+			var userGrade = ${sessionScope.user.auctionGrade}
+			if(bidableGrade > userGrade){
+				$('.alert-danger').children('strong').text('입찰 가능 등급을 확인하세요.');
+				$('.alert-success').attr('hidden',true);
+				$('.alert-danger').attr('hidden',false);
+				return;
+			}
+			
+			$('.alert-success').children('strong').text('입찰 성공하셨습니다.');
+			$('.alert-danger').attr('hidden',true);
+			$('.alert-success').attr('hidden',false);
+
+			if(currentPrice != 0){
+				stompClient.send('/app/bid',{},JSON.stringify({
+					auctionProductNo : auctionProductNo,
+					bidPrice : 1*currentPrice + 1*bidUnit
+				}));				
+			}else{
+				stompClient.send('/app/bid',{},JSON.stringify({
+					auctionProductNo : auctionProductNo,
+					bidPrice : 1*startBidPrice
+				}));
+			}
+		
+			
+		});
+	});
 	
 	function connect(){
-		
-		var auctionProductNo = $('#auctionProductNo').val();
-		var userId = $('#userId').val(); 
-		var nickName = $('#nickName').val();
 		
 		var sock = new SockJS("/realtime");
 		stompClient = Stomp.over(sock);
@@ -646,10 +645,20 @@
   						},
   						dataType : "json",
   						success : function(JSONData, status) {
-  							var info = nickName+'님은 '+JSONData.bidderCount+'명 중 '+JSONData.bidderRank+'등 입니다.';
-  							$('#userInfo').text(info);
+  							if(JSONData.bidderRank != 0){
+	  							var info = nickName+'님은 '+JSONData.bidderCount+'명 중 '+JSONData.bidderRank+'등 입니다.';
+	  							$('#userInfo').text(info);  								
+  							}
   						}
 					});
+				}
+			});
+			
+			stompClient.subscribe('/topic/delete',function(response){
+				var deleteInfo = JSON.parse(response.body)
+				if(auctionProductNo == deleteInfo.auctionProductNo){
+					alert(deleteInfo.info);
+					window.location = "/auction/listAuctionProduct";
 				}
 			});
 			
@@ -665,29 +674,6 @@
 			}));
 		});
 	
-		$('#bidBtn').on('click',function(event){
-			
-			if($('#bidBtn').attr('disabled') == 'disabled'){
-				return;
-			}
-			
-			var currentPrice = $('#currentPrice').text();
-			var bidUnit = $('#bidUnit').val();
-			var bidPrice = $('#bidPrice').val();
-			
-			$('.alert-success').children('strong').text('입찰 성공하셨습니다.');
-			$('.alert-danger').attr('hidden',true);
-			$('.alert-success').attr('hidden',false);
-			console.log('sending');
-			
-			stompClient.send('/app/bid',{},JSON.stringify({
-				auctionProductNo : auctionProductNo,
-				bidPrice : 1*currentPrice + 1*bidUnit
-			}));
-		
-			
-		});
-	
 	}
 	
 	
@@ -698,7 +684,11 @@
 		setTimeout(disconnect(),3000);
 	}
 	
-	
+	function deleteProduct(){
+        stompClient.send('/app/delete',{},JSON.stringify({
+        	auctionProductNo : auctionProductNo
+    	}));
+	}
 	
 	
 	function disconnect() {
@@ -724,6 +714,7 @@
 	    
 	  
 	   if(nt<ot){
+		   
 			 $('#bidBtn').attr('disabled',true);
 		     $(".time").fadeIn();
 		     $("div.time-title").html("경매 시작까지 남은 시간");
@@ -740,13 +731,15 @@
 		     $(".hours").html(hour);
 		     $(".minutes").html(min);
 		     $(".seconds").html(sec);
+		     
 	   }else if(nt>et){
 		   
 		   	$('#bidBtn').attr('disabled',true);
-		   	
-	   		$("div.time-title").html("경매 마감");
+	   		$("#bidBtn").html("경매 마감");
 	    	$(".time").fadeOut();
+	    	
 	   }else {
+		   
 		     $(".time").fadeIn();
 		     $("div.time-title").html("경매 마감까지 남은 시간");
 		     $('#bidBtn').attr('disabled',false);
@@ -763,6 +756,7 @@
 		     $(".hours").html(hour);
 		     $(".minutes").html(min);
 		     $(".seconds").html(sec);
+		     
 	   }
 	 }
 	 setInterval(remaindTime,1000);

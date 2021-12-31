@@ -10,7 +10,7 @@
 		<result property="registrantId" 			column="registrant_id"/>
 		<result property="successfulBidderId" 		column="successful_bidder_id"/>
 		<result property="auctionProductName" 		column="product_name"/>
-		<result property="auctionProductDatail" 	column="product_detail"/>
+		<result property="auctionProductDetail" 	column="product_detail"/>
 		<result property="startBidPrice" 			column="start_bid_price"/>
 		<result property="hopefulBidPrice" 			column="hopeful_bid_price"/>
 		<result property="bidUnit" 					column="bid_unit"/>
@@ -256,7 +256,9 @@
 						GROUP BY bidder_id, product_no
 					) AS mx 
 			) as ck
-		WHERE rk.id = #{user.id}
+		<if test="user != null">
+			WHERE rk.id = #{user.id}		
+		</if>
 		GROUP BY bidder_rank, rk.id, rk.product_no
 		
 	</select>

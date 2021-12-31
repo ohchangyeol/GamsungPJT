@@ -54,7 +54,7 @@ public class AuctionProductServiceTest {
 	}
 	
 	//상품 상세정보 조회 및 조회수 증가 service test
-	@Test
+	//@Test
 	public void testGetAuctionProduct() {
 		
 //		
@@ -101,8 +101,8 @@ public class AuctionProductServiceTest {
 		auctionProduct.setAuctionProductNo("PROD00101");
 		auctionProduct.setRegistrantId("user1@gamsung.com");
 		auctionProduct.setAuctionProductName("감자");
-		auctionProduct.setAuctionProductDatail("dididi");
-		auctionProduct.setAuctionProductSubDatail("adada");
+		auctionProduct.setAuctionProductDetail("dididi");
+		auctionProduct.setAuctionProductSubDetail("adada");
 		auctionProduct.setStartBidPrice(10000);
 		auctionProduct.setHopefulBidPrice(1000000);
 		auctionProduct.setBidUnit(20000);
@@ -175,5 +175,26 @@ public class AuctionProductServiceTest {
 		
 	}
 	
+	//@Test
+	public void testTempSaveAuctionProduct() {
+		
+		AuctionProduct auctionProduct = new AuctionProduct();
+		auctionProduct.setRegistrantId("test44@nate.com");
+		
+		auctionProductService.tempSaveAuctionProduct(auctionProduct);
+	}
+	
+	//@Test
+	public void testUpdateAuctionProduct() {
+		AuctionProduct auctionProduct = new AuctionProduct();
+		auctionProduct.setRegistrantId("test44@nate.com");
+		auctionProduct.setAuctionProductName("코멧 매직 30g, 5개");
+		auctionProductService.updateAuctionProduct(auctionProduct);
+	}
+	
+	@Test
+	public void testDeleteAuctionProduct() {
+		System.out.println(auctionProductService.deleteAuctionProduct("PROD00010")); 
+	}
 }
 	
