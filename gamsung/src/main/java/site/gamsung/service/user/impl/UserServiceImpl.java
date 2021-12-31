@@ -11,7 +11,6 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -103,15 +102,16 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public void sendEmailAuthNum(String id, String key) throws Exception {
+	public void sendEmailAuthNum(String id, String key){
 				
 		String info = "인증번호 발송";
 		String text = "인증번호는"+key+"입니다.";
-		SendMail mailSend = new SendMail();
+		SendMail sendMail = new SendMail();
+		sendMail.sendMail(id, info, text);
 	}
 
 	@Override
-	public void sendPhoneAuthNum(String phone, String phKey) throws Exception {
+	public void sendPhoneAuthNum(String phone, String phKey){
 		
 		String text = "[감성캠핑] 인증번호는"+phKey+"입니다.";
 		SendMessage sendMessage = new SendMessage();
@@ -132,7 +132,7 @@ public class UserServiceImpl implements UserService{
 
 
 	@Override
-	public String checkDuplication(User user) throws Exception {
+	public String checkDuplication(User user){
 		
 		return userDAO.checkDuplication(user);
 	}
@@ -159,6 +159,7 @@ public class UserServiceImpl implements UserService{
 		"로그인 후 비밀번호를 변경해주세요.";
 		
 		SendMail sendMail = new SendMail();
+		sendMail.sendMail(user.getId(), info, text);
 	}
 
 	@Override
@@ -335,48 +336,95 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	//@Scheduled(cron="*/1 * * * * *")
+	@Scheduled(cron="0 0 12 * * *")
 	public void addDormantUser() throws Exception{
 		
 		System.out.println("배치 도는지");
 		List<User> list=userDAO.listUser(new Search());
-		LocalDate now = LocalDate.now();
-		String regDate=now.toString();
-		Date nowDate = new SimpleDateFormat("yyyy-mm-dd").parse(regDate);
 		
-		//밀리초로 변환
-		long today = nowDate.getTime();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.YEAR , -1);
+		cal.add(Calendar.DAY_OF_MONTH, +1);
+		String TobeConvertedDate = sdf.format(cal.getTime());
 		
+		Calendar cal2 = Calendar.getInstance();
+		cal.add(Calendar.YEAR , -1);
+		cal.add(Calendar.DAY_OF_MONTH, -7);
+		String SendMailConvertedDate = sdf.format(cal2.getTime());
 		
 		for(User user : list) {
-			user = userDAO.getUser(user.getId());
-			Date currentDate=user.getCurrentLoginRegDate();
-			long loginDate = currentDate.getTime();
+			System.out.println("for문이 도는지");
+			System.out.println(user);
 			
-			if(loginDate > 0 && today > 0) {
-	            // 두 날짜가 기준일(1970년 1월1일)에서 양수일 경우
-	            long sumMs = today - loginDate;
-	            long days = sumMs / (1000 * 60 * 60 * 24) + 1;
-	            System.out.println(nowDate + " ~ " + currentDate + " 은 " + days + "일 차이입니다.");
-	            if(days==359) {
-	            	String info = "[감성캠핑] 휴면전환 안내 메일입니다.";
-	            	String text = "안녕하세요 "+user.getNickName()+"님~ 휴면회원으로 전환되기 7일 전입니다."+
-	            	"\n전환을 원치 않으시면 사이트 방문 후 로그인 부탁드립니다.";
-	            	SendMail mail = new SendMail();
-	            	mail.sendMail(user.getId(), info, text);   	
+			Date currentDate=user.getCurrentLoginRegDate();
+			
+			if(currentDate == null) {
+				continue;
+			}
+				String loginDate=currentDate.toString();
+				
+				System.out.println("들어오나");
+				if(user.getSecessionRegDate()==null&&user.getSuspensionDate()==null&&user.getDormantConversionDate()==null&&sdf.parse(SendMailConvertedDate).after(sdf.parse(loginDate))){
+				SendMail mail=new SendMail();
+				String info="[감성캠핑] 휴면회원 전환예정 안내메일 입니다.";
+				String text ="안녕하세요 회원님! 휴면회원으로 전환되기 7일 전입니다. 휴면회원으로 전환되길 원치 않으신다면 사이트 방문 후 로그인 부탁드립니다. 감사합니다^^";
+				mail.sendMail(user.getId(), info, text);
+				}else if(user.getSecessionRegDate()==null&&user.getSuspensionDate()==null&&user.getDormantConversionDate()==null&&sdf.parse(TobeConvertedDate).after(sdf.parse(loginDate))) {
+	            userDAO.addDormantUser(user);
 	            }
-	            if(days>=366) {
-	            	userDAO.addDormantUser(user);
-	            }
+			}
+			return; 
 		}
-				return; 
-        }
-	}
-
+			
 	@Override
 	public void updateDormantGeneralUserConvert(String id) throws Exception {
 		userDAO.updateDormantGeneralUserConver(id);
 		
 	}
 
-}
+	@Override
+	public void kakaoLogout(String accessToken) {
+		String reqURL = "https://kapi.kakao.com/v1/user/logout"; 
+		try {
+			URL url = new URL(reqURL); 
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection(); 
+			conn.setRequestMethod("POST"); 
+			conn.setRequestProperty("Authorization", "Bearer " + accessToken); 
+			int responseCode = conn.getResponseCode(); 
+			System.out.println("responseCode : " + responseCode); 
+			BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream())); 
+			String result = ""; String line = ""; 
+			while ((line = br.readLine()) != null) {
+				result += line;
+				} 
+			System.out.println(result);
+			} catch (IOException e) {
+				e.printStackTrace(); 
+			}
+		}
+
+	@Override
+	public void unlink(String accessToken) {
+		String reqURL = "https://kapi.kakao.com/v1/user/unlink";
+		try { 
+			URL url = new URL(reqURL); 
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection(); 
+			conn.setRequestMethod("POST"); 
+			conn.setRequestProperty("Authorization", "Bearer " + accessToken);
+			int responseCode = conn.getResponseCode();
+			System.out.println("responseCode : " + responseCode);
+			BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			String result = ""; String line = ""; 
+			while ((line = br.readLine()) != null) { 
+				result += line;
+				}
+			System.out.println(result); 
+			} catch (IOException e) { 
+			e.printStackTrace();
+			}
+	}
+
+		
+	}
+

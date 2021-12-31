@@ -59,7 +59,7 @@ pageEncoding="UTF-8"%>
 
     <style>
 
-      img { display : block;
+      .campImg { display : block;
             margin : auto;
             width: 100%;
             height: 250px;}
@@ -106,7 +106,7 @@ pageEncoding="UTF-8"%>
             </div>
             <div class="col-sm-6 col-md-4 col-lg-4">
               <div class="post">
-                <div class="post-thumbnail"><a href="#"><img src="/uploadfiles/campimg/campbusiness/camp/thumb5.jpg" alt="Blog-post Thumbnail"></a></div>
+                <div class="post-thumbnail"><a href="#"><img class="campImg" src="/uploadfiles/campimg/campbusiness/camp/thumb5.jpg" alt="Blog-post Thumbnail"></a></div>
                 <div class="post-header font-alt">
                   <h2 class="post-title">조회수 TOP</a></h2>
                   <div class="post-meta">By&nbsp;<a href="#">Mark Stone</a>&nbsp;| 23 November | 3 Comments
@@ -120,7 +120,7 @@ pageEncoding="UTF-8"%>
             </div>
             <div class="col-sm-6 col-md-4 col-lg-4">
               <div class="post">
-                <div class="post-thumbnail"><a href="#"><img src="/uploadfiles/campimg/campbusiness/camp/thumb1.jpg" alt="Blog-post Thumbnail"></a></div>
+                <div class="post-thumbnail"><a href="#"><img class="campImg" src="/uploadfiles/campimg/campbusiness/camp/thumb1.jpg" alt="Blog-post Thumbnail"></a></div>
                 <div class="post-header font-alt">
                   <h2 class="post-title">평점 TOP</a></h2>
                   <div class="post-meta">By&nbsp;<a href="#">Mark Stone</a>&nbsp;| 23 November | 3 Comments
@@ -133,7 +133,7 @@ pageEncoding="UTF-8"%>
               </div>
             </div><div class="col-sm-6 col-md-4 col-lg-4">
               <div class="post">
-                <div class="post-thumbnail"><a href="#"><img src="/uploadfiles/campimg/campbusiness/camp/img2.jpg" alt="Blog-post Thumbnail"></a></div>
+                <div class="post-thumbnail"><a href="#"><img class="campImg" src="/uploadfiles/campimg/campbusiness/camp/img2.jpg" alt="Blog-post Thumbnail"></a></div>
                 <div class="post-header font-alt">
                   <h2 class="post-title">예약자수 TOP</a></h2>
                   <div class="post-meta">By&nbsp;<a href="#">Mark Stone</a>&nbsp;| 23 November | 3 Comments

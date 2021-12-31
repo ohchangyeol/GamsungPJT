@@ -10,20 +10,7 @@
 	
 	<title>상품 등록</title>
 	
-	<link rel="apple-touch-icon" sizes="57x57" href="../../resources/images/favicons/apple-icon-57x57.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="../../resources/images/favicons/apple-icon-60x60.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="../../resources/images/favicons/apple-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="../../resources/images/favicons/apple-icon-76x76.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="../../resources/images/favicons/apple-icon-114x114.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="../../resources/images/favicons/apple-icon-120x120.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="../../resources/images/favicons/apple-icon-144x144.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="../../resources/images/favicons/apple-icon-152x152.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="../../resources/images/favicons/apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="../../resources/images/favicons/android-icon-192x192.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="../../resources/images/favicons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="../../resources/images/favicons/favicon-96x96.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="../../resources/images/favicons/favicon-16x16.png">
-    <meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="../../resources/images/favicons/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
     
@@ -43,7 +30,7 @@
     <!-- Main stylesheet and color file-->
     <link href="../../resources/css/style.css" rel="stylesheet">
     <link id="color-scheme" href="../../resources/css/colors/default.css" rel="stylesheet">
-    <link rel="stylesheet" href="assets/vendor/pnotify/pnotify.custom.css" />  
+    <link rel="stylesheet" href="../../resources/lib/pnotify/pnotify.custom.css" />  
  
  	<style>
  	
@@ -73,7 +60,7 @@
 		 	display: flex;
 		 }
 		 
-		  input[type=file] {
+		 #inputImgs {
             display: none;
         }
 
@@ -107,7 +94,7 @@
   		<jsp:include page="../common/header.jsp"></jsp:include>
 		<div class="main">
 			<section class="module bg-dark-30 about-page-header"
-				data-background="assets/images/about_bg.jpg">
+				data-background="">
 				<div class="container">
 					<div class="row">
 						<div class="col-sm-6 col-sm-offset-3">
@@ -186,7 +173,7 @@
 								</div>
 							</div>
 							<textarea id="auctionProductDetail" name="auctionProductDetail" class="form-control" rows="7" placeholder="상품 정보를 입력 하세요.." ></textarea>
-							<input id="allhashtag" name="allhashtag" class="form-control" type="text" value="${auctionProduct.hashtag1} ${auctionProduct.hashtag2} ${auctionProduct.hashtag3}" placeholder="해시태그를 #을 포함하여 입력하세요." />
+							<input id="allhashtag" name="allhashtag" class="form-control" type="text" value="${auctionProduct.hashtag1}${auctionProduct.hashtag2}${auctionProduct.hashtag3}" placeholder="해시태그를 #을 포함하여 입력하세요." />
 							<input type="hidden" id="inputImg1" name="productImg1" value="">
 						  	<input type="hidden" id="inputImg2" name="productImg2" value="">
 						  	<input type="hidden" id="inputImg3" name="productImg3" value="">
@@ -197,11 +184,14 @@
 							<input type="hidden" id="hashtag3" name="hashtag3" value=""> 
 		                </form>
                 <div class="col-sm-4"></div>
-                <div class="col-sm-3">
+                <div class="container">
+                <div class="col-sm-6"></div>
+                <div class="col-sm-6">
                 <div class="row">
 	                <button id="cancel" class="btn btn-border-d btn-circle" type="button">취소</button>
 	                <button id="tempSave" class="btn btn-border-d btn-circle" type="button">임시저장</button>
 	            	<button id="confirm" class="btn btn-border-d btn-circle" type="button">등록확정</button>                                
+                </div>                
                 </div>
                 </div>
               </div>
@@ -248,14 +238,14 @@
                   <h5 class="widget-title font-alt">Popular Posts</h5>
                   <ul class="widget-posts">
                     <li class="clearfix">
-                      <div class="widget-posts-image"><a href="#"><img src="assets/images/rp-1.jpg" alt="Post Thumbnail"/></a></div>
+                      <div class="widget-posts-image"><a href="#"></a></div>
                       <div class="widget-posts-body">
                         <div class="widget-posts-title"><a href="#">Designer Desk Essentials</a></div>
                         <div class="widget-posts-meta">23 january</div>
                       </div>
                     </li>
                     <li class="clearfix">
-                      <div class="widget-posts-image"><a href="#"><img src="assets/images/rp-2.jpg" alt="Post Thumbnail"/></a></div>
+                      <div class="widget-posts-image"><a href="#"></a></div>
                       <div class="widget-posts-body">
                         <div class="widget-posts-title"><a href="#">Realistic Business Card Mockup</a></div>
                         <div class="widget-posts-meta">15 February</div>
