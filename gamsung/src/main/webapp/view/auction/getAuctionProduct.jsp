@@ -509,7 +509,6 @@
     =============================================
     -->
 	<script src="../../resources/lib/jquery/jquery.js"></script>
-	<script src="../../resources/lib/bootstrap/js/bootstrap.min.js"></script>
 	<script src="../../resources/lib/wow/wow.js"></script>
 	<script src="../../resources/lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js"></script>
 	<script src="../../resources/lib/isotope/isotope.pkgd.js"></script>

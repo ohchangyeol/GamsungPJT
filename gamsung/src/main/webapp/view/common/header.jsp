@@ -10,12 +10,6 @@ pageEncoding="UTF-8"%>
    <!-- Web Fonts  -->
 		<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Shadows+Into+Light" rel="stylesheet" type="text/css">
 
-		<!-- Vendor CSS -->
-		<link rel="stylesheet" href="../../resources/lib/bootstrap/css/bootstrap.css" />
-		<link rel="stylesheet" href="../../resources/lib/font-awesome/css/font-awesome.css" />
-		<link rel="stylesheet" href="../../resources/lib/magnific-popup/magnific-popup.css" />
-		<link rel="stylesheet" href="../../resources/lib/bootstrap-datepicker/css/datepicker3.css" />
-
 		<!-- Specific Page Vendor CSS -->
 		<link rel="stylesheet" href="../../resources/lib/pnotify/pnotify.custom.css" />
 
@@ -35,29 +29,8 @@ pageEncoding="UTF-8"%>
 		
 		  <!-- Vendor -->
 		 
-		<script src="../../resources/lib/flot/jquery.js"></script>
-		<script src="../../resources/lib/jquery-browser-mobile/jquery.browser.mobile.js"></script>
-		<script src="../../resources/lib/bootstrap/js/bootstrap.js"></script>
-		<script src="../../resources/lib/nanoscroller/nanoscroller.js"></script>
-		<script src="../../resources/lib/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
-		<script src="../../resources/lib/magnific-popup/magnific-popup.js"></script>
-		<script src="../../resources/lib/jquery-placeholder/jquery.placeholder.js"></script>
-		<!-- Specific Page Vendor -->
-		<script src="../../resources/lib/pnotify/pnotify.custom.js"></script>
-		<!-- Theme Base, Components and Settings -->
-		<script src="../../resources/js/theme.js"></script>
-		<!-- Theme Custom -->
-		<script src="../../resources/js/theme.custom.js"></script>
-		<!-- Theme Initialization Files -->
-		<script src="../../resources/js/theme.init.js"></script>
-		<!-- Examples -->
-		<script src="../../resources/js/ui-elements/examples.modals.js"></script>
-		
-		 
-		 
-		<script src="../../resources/lib/bootStrap/js/bootstrap.js"></script>
+		<script src="../../resources/lib/flot/jquery.js"></script>		 
 		<script src="../../resources/lib/jquery/jquery.js"></script>
-		<script src="../../resources/lib/bootstrap/js/bootstrap.min.js"></script>
 		<script src="../../resources/lib/wow/wow.js"></script>
 		<script src="../../resources/lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js"></script>
 		<script src="../../resources/lib/isotope/isotope.pkgd.js"></script>
@@ -71,7 +44,7 @@ pageEncoding="UTF-8"%>
 		<script src="../../resources/js/main.js"></script>
 		
 		<script src="../../resources/lib/jquery-browser-mobile/jquery.browser.mobile.js"></script>
-		<script src="../../resources/lib/bootStrap/js/bootstrap.js"></script>		
+		<script src="../../resources/lib/bootstrap/js/bootstrap.js"></script>	
 		<script src="../../resources/lib/nanoscroller/nanoscroller.js"></script>
 		<script src="../../resources/lib/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
 		<script src="../../resources/lib/jquery-placeholder/jquery.placeholder.js"></script>
@@ -281,17 +254,17 @@ pageEncoding="UTF-8"%>
             <li><a href="documentation.html#plugin">Plugins</a></li>
             <li><a href="documentation.html#changelog">Changelog</a></li>
           </ul>
-        </li>    
-         <c:if test="${sessionScope.user.role!=null}">
-	      <li><a href="#"><button class="btn btn-border-w btn-round btn-xs" type="button" id="logout">LOGOUT</button></a></li>
-	    </c:if>
-	     <c:if test="${sessionScope.user.role==null}">
-
-        <!-- <li><a href="/view/user/tempLogin.jsp"> -->
-	       <a class="mb-xs mt-xs mr-xs modal-basic btn btn-default" href="#modalBasic" id="login">LOGIN</a>
-        <!-- </a> </li> -->
-
-        </c:if>
+        </li>
+         <li>    
+	         <c:if test="${sessionScope.user.role!=null}">
+		     <a href="#"><button class="btn btn-border-w btn-round btn-xs" type="button" id="logout">LOGOUT</button></a>
+		    </c:if>
+		     <c:if test="${sessionScope.user.role==null}">
+		       <a class="modal-basic" href="#modalBasic" id="login">
+		       <button class="btn btn-border-w btn-round btn-xs" type="button">LOGIN</button>
+		       </a>
+	        </c:if>
+	    </li>
         </ul>
     </div>
   </div>
