@@ -48,7 +48,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="addUser", method=RequestMethod.POST)
-	public String addUser(@ModelAttribute("user") User user) throws Exception{
+	public String addUser(@ModelAttribute("user") User user){
 		
 		System.out.println("/user/addUser:POST");
 		
@@ -59,7 +59,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="getUser", method=RequestMethod.POST)
-	public String getUser(@ModelAttribute("user") String id, Model model) throws Exception{
+	public String getUser(@ModelAttribute("user") String id, Model model){
 		
 		System.out.println("/user/getUser:POST");
 		
@@ -81,7 +81,7 @@ public class UserController {
 	
 
 	@RequestMapping(value="login", method=RequestMethod.POST)
-	public String login(@ModelAttribute("user") User user, HttpSession session) throws Exception{
+	public String login(@ModelAttribute("user") User user, HttpSession session){
 		
 		System.out.println("/user/login : POST");
 		//Business Logic
@@ -89,7 +89,7 @@ public class UserController {
 		User dbUser=userService.checkIdPassword(user);
 		
 		if(dbUser == null) {
-			return "redirect:/main.jsp";
+			return "forward:/view/user/addUser.jsp";
 		}
 		
 		System.out.println(dbUser);
@@ -140,7 +140,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="logout", method=RequestMethod.GET)
-	public String logout(HttpSession session) throws Exception{
+	public String logout(HttpSession session){
 		
 		System.out.println("/user/logout : GET");
 		
@@ -152,7 +152,7 @@ public class UserController {
 		
 
 	@RequestMapping(value = "getKakaoAuthUrl", method= RequestMethod.GET)
-	public @ResponseBody String getKakaoAuthUrl(HttpServletRequest request) throws Exception {
+	public @ResponseBody String getKakaoAuthUrl(HttpServletRequest request){
 		String reqUrl = 
 				"https://kauth.kakao.com/oauth/authorize"
 				+ "?client_id=5069ddcbe63e1882c2df7cc176f1a96f"
@@ -164,7 +164,7 @@ public class UserController {
 	
 	// 카카오 연동정보 조회
 	@RequestMapping(value = "kakaoCallback")
-	public String oauthKakao(@RequestParam(value = "code", required = false) String code, Model model, HttpSession session) throws Exception {
+	public String oauthKakao(@RequestParam(value = "code", required = false) String code, Model model, HttpSession session){
 		System.out.println("#########" + code);
         String accessToken = userService.getAccessToken(code);
         System.out.println("###access_Token#### : " + accessToken);
@@ -214,10 +214,5 @@ public class UserController {
 		return "redirect:/";
 		}
 
-
-	
-	
-
-	
 }
 

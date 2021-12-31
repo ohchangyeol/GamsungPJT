@@ -122,7 +122,7 @@ public class UserRestController {
 	}
 
 	@RequestMapping(value = "rest/checkDuplication", method = RequestMethod.POST)
-	public int checkDuplication(@RequestBody User user) throws Exception {
+	public int checkDuplication(@RequestBody User user){
 		System.out.println("1111");
 		System.out.println(user);
 		int isSuccess = 0;
@@ -139,7 +139,7 @@ public class UserRestController {
 
 	// 아이디찾기
 	@RequestMapping(value = "findId")
-	public String findId(String name, String phone) throws Exception {
+	public String findId(String name, String phone){
 
 		String id = userService.findId(name, phone);
 
@@ -148,7 +148,7 @@ public class UserRestController {
 
 	// 비밀번호 찾기
 	@RequestMapping(value = "findPassword")
-	public void findPassword(@RequestBody User user) throws Exception {
+	public void findPassword(@RequestBody User user){
 		User newUser = userService.findPassword(user);
 		if (newUser != null) {
 			userService.updateTempPassword(user);
@@ -156,7 +156,7 @@ public class UserRestController {
 	}
 
 	@RequestMapping(value = "addSecessionUser")
-	public String addSecessionUser(@RequestBody User user) throws Exception {
+	public String addSecessionUser(@RequestBody User user){
 
 		user = userService.checkIdPassword(user);
 		if (user != null && userService.addSecessionUser(user)) {
@@ -167,7 +167,7 @@ public class UserRestController {
 	}
 
 	@RequestMapping(value = "updateDormantGeneralUserConvert", method = RequestMethod.GET)
-	public void updateDormantGeneralUserConvert(HttpSession session) throws Exception {
+	public void updateDormantGeneralUserConvert(HttpSession session){
 		userService.updateDormantGeneralUserConvert(session.getId());
 	}
 

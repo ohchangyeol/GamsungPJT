@@ -73,7 +73,7 @@
 		 	display: flex;
 		 }
 		 
-		  input[type=file] {
+		 #inputImgs {
             display: none;
         }
 
