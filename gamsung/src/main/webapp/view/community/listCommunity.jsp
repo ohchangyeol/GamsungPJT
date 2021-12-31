@@ -152,6 +152,10 @@ pageEncoding="UTF-8"%>
                   <h5 class="widget-title font-alt">Text</h5>The languages only differ in their grammar, their pronunciation and their most common words. Everyone realizes why a new common language would be desirable: one could refuse to pay expensive translators.
                 </div>
               </div>
+              
+ 
+     <!--Post Start-->                          
+              
               <div class="col-sm-8 col-sm-offset-1">
                 <div class="post">
                   <div class="post-thumbnail"><img src="../../resources/images/post-4.jpg" alt="Blog Featured Image"/></div>
@@ -229,6 +233,12 @@ pageEncoding="UTF-8"%>
                   </form>
                 </div>
               </div>
+              
+              
+   
+     <!--Post End-->             
+              
+              
             </div>
           </div>
         </section>
