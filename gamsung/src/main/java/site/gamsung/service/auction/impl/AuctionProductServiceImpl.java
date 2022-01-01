@@ -214,13 +214,13 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 			}
 			
 			String remainTime = auctionProduct.getRemainAuctionTime();
-			System.out.println(remainTime);
-			System.out.println(remainTime.indexOf("-"));
+			
+			//경매 마감 10초전이라면 10초 연장
 			if(remainTime != null && remainTime.indexOf("-") == -1) {
 				
 				SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 				try {				
-					if(dateFormat.parse(auctionProduct.getRemainAuctionTime()).before(dateFormat.parse("00:00:10"))){
+					if(dateFormat.parse(auctionProduct.getRemainAuctionTime()).before(dateFormat.parse("00:00:11"))){
 						auctionProductDAO.updateBidEndTime(auctionInfo.getAuctionProductNo());
 					}
 				} catch (ParseException e) {
@@ -251,8 +251,10 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 	public void updateAuctionProductCondition() {
 		// TODO Auto-generated method stub
 		
+		//시분초 포멧 지정
 		SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 		
+		//모든 삭제 플래그가 Y가 아닌 모든 경매 상품을 뽑아온다.
 		List<AuctionProduct> auctionList = auctionProductDAO.listAuctionProduct(new Search());
 		List<AuctionInfo> bidderList = null;
 		
@@ -260,6 +262,7 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 		
 		AuctionInfo auctionInfo = new AuctionInfo();
 		
+		// enhanced for loop
 		for(AuctionProduct auctionProduct : auctionList) {
 		
 			String auctionProductNo = auctionProduct.getAuctionProductNo();
@@ -267,7 +270,8 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 			auctionProduct = auctionProductDAO.getAuctionProduct(auctionProductNo);
 			
 			try {
-
+				
+				//잔여 시간이 00:00:00초라면 경매 상태를 업데이트한디. 
 				boolean isEnd = dateFormat.parse(auctionProduct.getRemainAuctionTime()).before(dateFormat.parse("00:00:01"));
 				
 				if(isEnd) {					
@@ -425,6 +429,24 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 		}
 		
 		auctionInfo.setInfo("중도 철회 불가합니다.");
+		return auctionInfo;
+	}
+
+	@Override
+	public AuctionInfo updateBidEndTime(String auctionProductNo) {
+		// TODO Auto-generated method stub
+		int isSuccess = auctionProductDAO.updateBidEndTime(auctionProductNo);
+		
+		AuctionInfo auctionInfo = new AuctionInfo();
+		auctionInfo.setAuctionProductNo(auctionProductNo);
+		String info = "";
+		if(isSuccess != 1) {
+			info = "경매 시간 연장에 오류 발생하였습니다 관리자에게 문의하세요.";
+		}else {
+			info = "경매 시간이 10초 연장 되었습니다.";
+		}
+		auctionInfo.setInfo(info);
+		
 		return auctionInfo;
 	}	
 	

@@ -104,9 +104,9 @@ public class AuctionProductDAOImpl implements AuctionProductDAO{
 	
 	//경매 상품 10초 추가
 	@Override
-	public void updateBidEndTime(String auctionProductNo) {
+	public int updateBidEndTime(String auctionProductNo) {
 		// TODO Auto-generated method stub
-		sqlSession.update("AuctionProductMapper.updateBidEndTime", auctionProductNo);
+		return sqlSession.update("AuctionProductMapper.updateBidEndTime", auctionProductNo);
 	}
 	
 	@Override

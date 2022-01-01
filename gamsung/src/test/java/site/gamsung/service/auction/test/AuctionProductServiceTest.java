@@ -54,14 +54,15 @@ public class AuctionProductServiceTest {
 	}
 	
 	//상품 상세정보 조회 및 조회수 증가 service test
-	//@Test
+	@Test
 	public void testGetAuctionProduct() {
 		
-//		
-//		Map<String, Object> map = auctionProductService.getAuctionProduct("PROD00010");
-//		System.out.println(map.get("auctionProduct"));
-//		System.out.println(map.get("auctionInfo"));
-//		
+		AuctionInfo auctionInfo = new AuctionInfo();
+		auctionInfo.setAuctionProductNo("PROD00001");
+		Map<String, Object> map = auctionProductService.getAuctionProduct(auctionInfo);
+		System.out.println(map.get("auctionProduct"));
+		System.out.println(map.get("auctionInfo"));
+		
 	}
 	
 	//임시 저장된 상품 정보 조회 service test
@@ -192,7 +193,7 @@ public class AuctionProductServiceTest {
 		auctionProductService.updateAuctionProduct(auctionProduct);
 	}
 	
-	@Test
+	//@Test
 	public void testDeleteAuctionProduct() {
 		System.out.println(auctionProductService.deleteAuctionProduct("PROD00001","CANCEL").getInfo()); 
 		System.out.println(auctionProductService.deleteAuctionProduct("PROD00001","CONFIRM").getInfo()); 

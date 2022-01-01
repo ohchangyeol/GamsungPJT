@@ -30,7 +30,7 @@ public interface AuctionProductDAO {
 	
 	public void auctionProductBid(AuctionInfo auctionInfo);
 
-	public void updateBidEndTime(String auctionProductNo);
+	public int updateBidEndTime(String auctionProductNo);
 	
 	public void updateAuctionProductCondition(AuctionProduct auctionProduct);
 	

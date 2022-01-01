@@ -153,6 +153,7 @@
 								<div id="cancel" class="col-sm-5">
 									<a id="cancelBtn" class="btn btn-sm btn-block btn-round btn-b">낙찰취소</a>
 									<a id="confirmBtn" class="btn btn-sm btn-block btn-round btn-b">경매 확정</a>
+									<a class="btn btn-sm btn-block btn-round btn-b video-pop-up" href="/view/auction/reviewModal.jsp">리뷰 쓰기</a>
 								</div>
 							</c:if>
 							<c:if test="${registrantInfo.user.id eq sessionScope.user.id}">
@@ -181,7 +182,7 @@
 								<div class="product_meta">
 									<span id = "userInfo">
 										<c:if test="${!empty auctionInfo && auctionInfo.bidderCount != 0}">
-											${user.nickName}님은 ${auctionInfo.bidderCount}명 중 ${auctionInfo.bidderRank}등 입니다.'
+											${user.nickName}님은 ${auctionInfo.bidderCount}명 중 ${auctionInfo.bidderRank}등 입니다.
 										</c:if>
 									</span>
 									<input type="hidden" id="userId" value="${user.id}"/>
@@ -261,47 +262,6 @@
 												</div>
 											</div>
 										</div>
-									</div>
-									<div class="comment-form mt-30">
-										<h4 class="comment-form-title font-alt">Add review</h4>
-										
-											<div class="row">
-												<div class="col-sm-4">
-													<div class="form-group">
-														<label class="sr-only" for="name">Name</label> <input
-															class="form-control" id="name" type="text" name="name"
-															placeholder="Name" />
-													</div>
-												</div>
-												<div class="col-sm-4">
-													<div class="form-group">
-														<label class="sr-only" for="email">Name</label> <input
-															class="form-control" id="email" type="text" name="email"
-															placeholder="E-mail" />
-													</div>
-												</div>
-												<div class="col-sm-4">
-													<div class="form-group">
-														<select class="form-control">
-															<option selected="true" disabled="">Rating</option>
-															<option value="1">1</option>
-															<option value="2">2</option>
-															<option value="3">3</option>
-															<option value="4">4</option>
-															<option value="5">5</option>
-														</select>
-													</div>
-												</div>
-												<div class="col-sm-12">
-													<div class="form-group">
-														<textarea class="form-control" id="" name="" rows="4" placeholder="Review"></textarea>
-													</div>
-												</div>
-												<div class="col-sm-12">
-													<button class="btn btn-round btn-d" type="submit">Submit Review</button>
-												</div>
-											</div>
-									
 									</div>
 								</div>
 							</div>
@@ -507,6 +467,7 @@
 			<input type="hidden" name="user.id" value="${registrantInfo.user.id}">
 		</form>
 	</main>
+	
 	<!--  
     JavaScripts
     =============================================
@@ -612,19 +573,43 @@
 			var bidPrice = $('#bidPrice').val();
 			var bidableGrade = ${auctionProduct.bidableGrade}
 			var userGrade = ${sessionScope.user.auctionGrade}
+			
 			if(bidableGrade > userGrade){
 				alert('입찰 가능 등급을 확인하세요.');
 				return;
 			}
 			
+			var remainHours = $('.hours').text();
+			var remainMinuts = $('.minutes').text();
+			var remainSeconds = $('.seconds').text();
+			
+			/* if(remainHours === 00 && remainMinuts == 00 && Number(remainSeconds) <= 10 ){
+				$.ajax({
+						url : "/auction/rest/updateBidEndTime"+${auctionProduct.auctionProductNo},
+						method : "GET",
+						headers : {
+							"Accept" : "application/json",
+							"Content-Type" : "application/json"
+						},
+						dataType : "json",
+						success : function(JSONData, status) {
+							alert(JSONData.info);
+							
+							stompClient.send('/app/update/${auctionProduct.auctionProductNo}',{},JSON.stringify({
+								auctionProductNo : auctionProductNo
+							}));
+							
+						}
+				});
+			} */
 			
 			if(currentPrice != 0){
-				stompClient.send('/app/bid',{},JSON.stringify({
+				stompClient.send('/app/bid/${auctionProduct.auctionProductNo}',{},JSON.stringify({
 					auctionProductNo : auctionProductNo,
 					bidPrice : 1*currentPrice + 1*bidUnit
 				}));				
 			}else{
-				stompClient.send('/app/bid',{},JSON.stringify({
+				stompClient.send('/app/bid/${auctionProduct.auctionProductNo}',{},JSON.stringify({
 					auctionProductNo : auctionProductNo,
 					bidPrice : 1*startBidPrice
 				}));
@@ -643,24 +628,16 @@
 		
 		stompClient.connect({},function(frame){	
 			
-			console.log('connected: '+frame);
-			
-			stompClient.subscribe('/topic/join',function(response){
-				
+			stompClient.subscribe('/topic/join/${auctionProduct.auctionProductNo}',function(response){
 				var joinInfo = JSON.parse(response.body);
-				console.log(joinInfo)
-				if(auctionProductNo == joinInfo.auctionProductNo){
-					$("#realTimeViewCount").text(joinInfo.realTimeViewCount);					
-				}
+				$("#realTimeViewCount").text('해당 상품을 '+joinInfo.realTimeViewCount+'명이 조회하고 있습니다.');					
 			});
 			
 			//입찰 subcribe
-			stompClient.subscribe('/topic/bid',function(response){
+			stompClient.subscribe('/topic/bid/${auctionProduct.auctionProductNo}',function(response){
 				var bidInfo = JSON.parse(response.body)
-				console.log(bidInfo);
-				if(auctionProductNo == bidInfo.auctionProductNo){
-					$('#currentPrice').text(bidInfo.bidPrice);
-				}
+				$('#currentPrice').text(bidInfo.bidPrice);
+				
 				if(userId == bidInfo.user.id){
 					var info = nickName+'님은 '+bidInfo.bidderCount+'명 중 '+bidInfo.bidderRank+'등 입니다.';
 					$('#userInfo').text(info);
@@ -684,27 +661,32 @@
   							}
   						}
 					});
+					
 				}
+				document.getElementById('auctionEndTime').innerText= bidInfo.bidDateTime;
 			});
 			
+			/* //상품 변동 사항 subscribe
+			stompClient.subscribe('/topic/update/${auctionProduct.auctionProductNo}',function(response){
+				var updateInfo = JSON.parse(response.body)
+				document.getElementById('auctionEndTime').innerText= updateInfo.auctionEndTime;
+				alert("시간이 10초 연장 되었습니다.");
+			}); */
+			
 			//중도 철회 subscribe
-			stompClient.subscribe('/topic/delete',function(response){
+			stompClient.subscribe('/topic/delete/${auctionProduct.auctionProductNo}',function(response){
 				var deleteInfo = JSON.parse(response.body)
-				if(auctionProductNo == deleteInfo.auctionProductNo){
-					alert(deleteInfo.info);
-					window.location = "/auction/listAuctionProduct";
-				}
+				alert(deleteInfo.info);
+				window.location = "/auction/listAuctionProduct";
 			});
 			
 			//화면 이탈 subscribe
-			stompClient.subscribe('/topic/exit',function(response){
+			stompClient.subscribe('/topic/exit/${auctionProduct.auctionProductNo}',function(response){
 				var exitInfo = JSON.parse(response.body)
-				if(auctionProductNo == exitInfo.auctionProductNo){
-					$("#realTimeViewCount").text(exitInfo.realTimeViewCount);					
-				}
+				$("#realTimeViewCount").text('해당 상품을 '+exitInfo.realTimeViewCount+'명이 조회하고 있습니다.');
 			});
 						
-			stompClient.send('/app/join',{},JSON.stringify({
+			stompClient.send('/app/join/${auctionProduct.auctionProductNo}',{},JSON.stringify({
 				auctionProductNo : auctionProductNo
 			}));
 		});
@@ -713,27 +695,15 @@
 	
 	
 	window.onbeforeunload = function(e){
-		stompClient.send('/app/exit',{},JSON.stringify({
+		stompClient.send('/app/exit/${auctionProduct.auctionProductNo}',{},JSON.stringify({
 			auctionProductNo : auctionProductNo
 		}));
-		setTimeout(disconnect(),3000);
 	}
 	
 	function deleteProduct(){
-        stompClient.send('/app/delete',{},JSON.stringify({
+        stompClient.send('/app/delete/${auctionProduct.auctionProductNo}',{},JSON.stringify({
         	auctionProductNo : auctionProductNo
     	}));
-	}
-	
-	
-	function disconnect() {
-	    if (stompClient !== null) {
-	        stompClient.disconnect(function(){
-	        	stompClient.send('/app/exit',{},JSON.stringify({
-	        		auctionProductNo : auctionProductNo
-	    		}));
-	        });
-	    }
 	}
 	
 	function remaindTime() {
