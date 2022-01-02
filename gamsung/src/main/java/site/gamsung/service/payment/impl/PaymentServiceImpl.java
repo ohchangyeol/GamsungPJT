@@ -76,7 +76,7 @@ public class PaymentServiceImpl implements PaymentService{
 	@Override
 	public void addMakePayment(Payment payment) throws Exception {
 		
-		int paymentMethod = payment.getPaymentMethod();
+		String paymentMethod = payment.getPaymentMethod();
 		String paymentCodeLetter = payment.getPaymentCode();
 		int paymentReferenceFee = paymentDAO.getPaymentCodeInfo(paymentCodeLetter).getPaymentCodeFee();
 		
@@ -85,7 +85,7 @@ public class PaymentServiceImpl implements PaymentService{
 		int paymentPricePay = paymentPriceTotal - paymentPriceFee;
 				
 		// 포인트결제              
-		if(paymentMethod == 1) {
+		if(paymentMethod.equals("point")) {
 			
 			//포인트 충전
 			if(paymentCodeLetter.equals("P1")) {
@@ -95,25 +95,23 @@ public class PaymentServiceImpl implements PaymentService{
 		
 		
 		// 현금결제
-		if(paymentMethod == 2) {
+		if(paymentMethod.equals("cash")) {
 			
 			//포인트 출금
 			if(paymentCodeLetter.equals("P2")) {
-				payment.setPaymentSender("admin");
-				payment.setPaymentReferenceNum("pointWithdraw(PointManager)");
-			}	
-					
+				payment.setPaymentSender("pointWithdraw(PointManager)");
+			}						
 		}
 		
 		
 		// 카드결제
-		if(paymentMethod == 3) {
+		if(paymentMethod.equals("card")) {
 			
 		}
 		
 		
 		// 간편결제
-		if(paymentMethod == 4) {
+		if(paymentMethod.equals("simple")) {
 			
 		}
 		

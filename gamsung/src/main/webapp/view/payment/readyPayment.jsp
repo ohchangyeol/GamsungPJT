@@ -320,6 +320,7 @@
 							const pointChargeTotal = $("#pointChargeTotal").val();			
 							const paymentPriceTotal = $("#paymentPriceTotal").val();
 							
+							$("#paymentMethod").val(vPaymethod);							
 							$("#paymentReferenceNum").val(vMerchant_uid);
 							$("#pointChargeTotal").val(uncomma(pointChargeTotal));
 							$("#paymentPriceTotal").val(uncomma(paymentPriceTotal));	
@@ -384,7 +385,7 @@
 			
 			<form id="chargeForm">
 				<input type="hidden" id="paymentReceiver" name="paymentReceiver" value="${user.id}">
-				<input type="hidden" id="paymentMethod" name="paymentMethod" value="1">
+				<input type="hidden" id="paymentMethod" name="paymentMethod" value="point">
 				<input type="hidden" id="paymentCode" name="paymentCode" value="P1">	
 				<input type="hidden" id="paymentReferenceNum" name="paymentReferenceNum" value="tempNum">									
 		
@@ -463,7 +464,7 @@
 			
 			<form id="withdrawForm">
 				<input type="hidden" id="paymentReceiver" name="paymentReceiver" value="${user.id}">
-				<input type="hidden" id="paymentMethod" name="paymentMethod" value="2">
+				<input type="hidden" id="paymentMethod" name="paymentMethod" value="cash">
 				<input type="hidden" id="paymentCode" name="paymentCode" value="P2">
 				<input type="hidden" id="paymentRefundReferenceFee" name="paymentRefundReferenceFee" value="${paymentCode.paymentCodeFee}">				
 				
