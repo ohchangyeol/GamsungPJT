@@ -34,6 +34,7 @@
 		 <typeAlias alias="payment" type="site.gamsung.service.domain.Payment" />
 		 <typeAlias alias="paymentCode" type="site.gamsung.service.domain.PaymentCode" />
 		 <typeAlias alias="siteProfit" type="site.gamsung.service.domain.SiteProfit" />
+		 <typeAlias alias="pointTransfer" type="site.gamsung.service.domain.PointTransfer" />
 		 
 		 <typeAlias alias="notice" type="site.gamsung.service.domain.Notice" />
 		 <typeAlias alias="qna" type="site.gamsung.service.domain.Qna" />

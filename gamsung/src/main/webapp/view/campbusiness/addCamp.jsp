@@ -64,6 +64,12 @@
 			//등록일자 현재년월일 받아오기	
 			document.getElementById('campRegDate').value = new Date().toISOString().substring(0, 10);
 			
+			var addCampTempSave = $("#addCampTempSave").val();			
+			if(addCampTempSave != 3){
+				alert("임시등록 된 캠핑장 정보가 있습니다.\n등록을 완료하세요.");
+			}
+			
+			
 			$("#save").on("click" , function() {
 				alert("캠핑장정보가 등록 되었습니다.");
 				$("#addCampTempSave").val("3");
@@ -140,6 +146,27 @@
 						<label for="user.id" class="col-sm-offset-1 col-sm-3 control-label">사업자회원ID</label>
 							<div class="col-sm-4">
 								<input type="text" class="form-control" id="user.id" name="user.id" value="${camp.user.id}" readonly>
+							</div>
+					</div>
+					
+					<div class="form-group">
+						<label for="user.campName" class="col-sm-offset-1 col-sm-3 control-label">캠핑장 이름</label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control" id="user.campName" name="user.campName" value="${campSession.user.campName}" readonly>
+							</div>
+					</div>
+			
+					<div class="form-group">
+						<label for="user.campCall" class="col-sm-offset-1 col-sm-3 control-label">캠핑장 전화번호</label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control" id="user.campCall" name="user.campCall" value="${campSession.user.campCall}" readonly>
+							</div>
+					</div>
+					
+					<div class="form-group">
+						<label for="user.addr" class="col-sm-offset-1 col-sm-3 control-label">캠핑장 주소</label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control" id="user.addr" name="user.addr" value="${campSession.user.addr}" readonly>
 							</div>
 					</div>
 				
@@ -238,32 +265,11 @@
 							</select>
 						</div>
 					</div>
-					
-					<div class="form-group">
-						<label for="user.campName" class="col-sm-offset-1 col-sm-3 control-label">캠핑장 이름</label>
-							<div class="col-sm-4">
-								<input type="text" class="form-control" id="user.campName" name="user.campName" value="${campSession.user.campName}" readonly>
-							</div>
-					</div>
-			
-					<div class="form-group">
-						<label for="user.campCall" class="col-sm-offset-1 col-sm-3 control-label">캠핑장 전화번호</label>
-							<div class="col-sm-4">
-								<input type="text" class="form-control" id="user.campCall" name="user.campCall" value="${campSession.user.campCall}" readonly>
-							</div>
-					</div>
-					
-					<div class="form-group">
-						<label for="user.addr" class="col-sm-offset-1 col-sm-3 control-label">캠핑장 주소</label>
-							<div class="col-sm-4">
-								<input type="text" class="form-control" id="user.addr" name="user.addr" value="${campSession.user.addr}" readonly>
-							</div>
-					</div>
-										
+															
 					<hr>
 					
   					<div class="form-group">
-						<label for="campMapFile" class="col-sm-offset-1 col-sm-3 control-label">캠핑장 지도이미지 </label>				
+						<label for="campMapFile" class="col-sm-offset-1 col-sm-3 control-label">캠핑장 지도이미지</label>				
 							<div class="col-sm-4">
 								<input type="file"  id="campMapFile" name="campMapFile">	
 							</div>

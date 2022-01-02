@@ -48,89 +48,7 @@
 	</style>
 
 	<!-- JavaScript -->
-	<script type="text/javascript">
-		
-		function calculateNumber() {
-			var count1 = $("#count1").val();
-			var count2 = $("#count2").val();
-			var count3 = $("#count3").val();
-							
-			var pointChargeTotaltext = (95000*count1) + (10000*count2) + (1000*count3);
-			var chargePriceTotaltext = (100000*count1) + (10000*count2) + (1000*count3);
-							
-			$("#pointChargeTotal").val(comma(pointChargeTotaltext));
-			$("#paymentPriceTotal").val(comma(chargePriceTotaltext));	
-		}
-			
-		function comma(str) {
-		    str = String(str);
-		    return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
-		}
-		
-		function uncomma(str) {
-		    str = String(str);
-		    return str.replace(/[^\d]+/g, '');
-		}		
-		
-		$(function() {
-			
-			$(document).ready(function() { 
-				$("#havingPoint").val(comma($("#havingPoint").val()));		
-			});
-						
-			$("#count1").on("propertychange change keyup paste input", function() {				
-				calculateNumber();								
-			});
-			
-			$("#count2").on("propertychange change keyup paste input", function() {
-				calculateNumber();
-			});
-						
-			$("#count3").on("propertychange change keyup paste input", function() {
-				calculateNumber();
-			});
-			
-		
-			$("#pointWithdrawTotal").on("propertychange change keyup paste input", function() {				
-				
-				var havingPoint = $("#havingPoint").val();
-				var withdrawPoint = $("#pointWithdrawTotal").val();	
-				var refundFee = $("#paymentRefundReferenceFee").val();
-				
-				var havingPointUc = uncomma(havingPoint);
-				var withdrawPointUc = uncomma(withdrawPoint);				
-				var afterWithdrawUc = havingPointUc - withdrawPointUc;				
-				var cashRefund = withdrawPointUc * ( 1 - refundFee * 0.01);
-		
-				if( afterWithdrawUc < 0 ){
-					alert("출금 할 포인트가 부족합니다.");
-					$("#pointWithdrawTotal").val("0");
-				}
-				
-				$("#pointWithdrawTotal").val(comma(withdrawPointUc));								
-				$("#pointAfterWithdraw").val(comma(afterWithdrawUc));
-				$("#paymentRefundPriceTotal").val(comma(cashRefund));			
-				
-			});			
-			
-			$("#charge").on("click" , function() {
-				alert("충전 되었습니다.");
-				$("#chargeForm").attr("method" , "POST").attr("action" , "/payment/addMakePayment").submit();
-			});
-			
-			$("#withdraw").on("click" , function() {
-				alert("출금 되었습니다.");
-				$("#withdrawForm").attr("method" , "POST").attr("action" , "/payment/addRefundPayment").submit();
-			});
-			
-			$("#cancle").on("click" , function() {
-				alert("취소 되었습니다.");
-				window.history.back();			
-			});
-				
-		});			 
-
-	</script>		
+	
 
 </head>
 
@@ -198,7 +116,7 @@
 		    </div>
 		    
 		    <form id="chargeForm">
-		    <input type="hidden" id="paymentReceiver" name="paymentReceiver" value="${user.id}">3
+		    <input type="hidden" id="paymentReceiver" name="paymentReceiver" value="${user.id}">
 		    <input type="hidden" id="paymentCode" name="paymentCode" value="P1">
 		    
 		    <div class="col-lg-5">
