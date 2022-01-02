@@ -1,6 +1,8 @@
 package site.gamsung.controller.auction;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -12,6 +14,7 @@ import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,9 +23,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import site.gamsung.service.auction.AuctionInfoService;
 import site.gamsung.service.auction.AuctionProductService;
+import site.gamsung.service.auction.AuctionReviewService;
+import site.gamsung.service.common.RatingReviewService;
 import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.AuctionInfo;
 import site.gamsung.service.domain.AuctionProduct;
+import site.gamsung.service.domain.RatingReview;
 import site.gamsung.service.domain.User;
 
 @RequestMapping("auction/rest/*")
@@ -36,6 +42,14 @@ public class AuctionRestController {
 	@Autowired
 	@Qualifier("auctionInfoService")
 	private AuctionInfoService auctionInfoService;
+	
+	@Autowired
+	@Qualifier("auctionReviewService")
+	private RatingReviewService ratingReviewService;
+	
+	@Autowired
+	@Qualifier("auctionReviewService")
+	private AuctionReviewService auctionReviewService;
 	
 	@Value("#{commonProperties['auctionPageSize']}")
 	int auctionPageSize;
@@ -73,11 +87,46 @@ public class AuctionRestController {
 		
 	}
 	
+	//입찰 10초전 증가
 	@GetMapping(value = "updateBidEndTime/{auctionProductNo}")
 	public AuctionInfo updateBidEndTime(@PathVariable("auctionProductNo") String auctionProductNo) {
 		
 		return auctionProductService.updateBidEndTime(auctionProductNo);
 	}
+	
+	//리뷰 등록
+	@PostMapping(value = "addReview/{auctionProductNo}")
+	public void addReview(	@PathVariable("auctionProductNo") String auctionProductNo, 
+							@RequestBody RatingReview ratingReview, HttpSession httpSession) {
+		
+		User user = (User)httpSession.getAttribute("user");
+		
+		ratingReview.setUser(user);
+		
+		AuctionInfo auctionInfo = new AuctionInfo();
+		auctionInfo.setAuctionProductNo(auctionProductNo);
+		ratingReview.setAuctionInfo(auctionInfo);
+		
+		try {
+			ratingReviewService.addRatingReview(ratingReview);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+	}
+	
+	//리뷰 리스트
+	@RequestMapping(value = "listAuctionRatingReview")
+	public List<RatingReview> listAuctionRatingReview(@RequestBody AuctionInfo auctionInfo, @RequestBody Search search){
+		
+		Map<String, Object> map = auctionProductService.getAuctionProduct(auctionInfo);
+		search.setPageSize(auctionPageSize);
+		
+		map.put("search", search);
+		
+		return auctionReviewService.listAuctionRatingReview(map);
+	}
+	
 	
 	@MessageMapping("/join/{auctionProductNo}")
 	public void auctionJoin(AuctionInfo auctionInfo, StompHeaderAccessor stompHeaderAccessor) {

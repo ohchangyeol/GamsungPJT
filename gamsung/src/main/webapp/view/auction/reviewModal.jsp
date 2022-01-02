@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -420,9 +419,10 @@
 					<textarea class="form-control" id="ratingReviewContent" name="ratingReviewContent" rows="10" placeholder="Review"></textarea>
 				</div>
 			</div>
-			<input type="hidden" name="kindnessRating">
-			<input type="hidden" name="statusRating">
-			<input type="hidden" name="priceRating">
+			<input type="hidden" id="kindnessRating" name="kindnessRating">
+			<input type="hidden" id="statusRating" name="statusRating">
+			<input type="hidden" id="priceRating" name="priceRating">
+			<input type="hidden" id="auctionProductNo" name="auctionInfo.auctionProductNo" value="${auctionProductNo}">
 			<div class="col-sm-12">
 				<button id="reviewBtn" class="btn btn-round btn-d" type="button">작성 완료</button>
 			</div>
@@ -447,21 +447,43 @@
 	
 	
 	$(function(){
-		$('#reviewBtn').on('click',function(){
+		$('#reviewBtn').on('click',function(e){
+			
 			$('#kindnessRating').val( $('#kind').text() )
 			$('#statusRating').val( $('#status').text() )
 			$('#priceRating').val( $('#price').text() )
 			
+			/* $('form').attr('method','post').attr('action','/auction/addReview').submit(); */
+			$.ajax({
+  						url : "/auction/rest/addReview/${auctionProductNo}",
+  						method : "POST",
+  						data : JSON.stringify({
+  							kindnessRating : $('#kind').text(),
+  							statusRating : $('#status').text(),
+  							priceRating : $('#price').text(),
+  							ratingReviewContent : $('#ratingReviewContent').val()
+  						}),
+  						headers : {
+  							"Accept" : "application/json",
+  							"Content-Type" : "application/json"
+  						},
+  						dataType : "json",
+  						success : function(JSONData, status) {						
+  						}
+					});
+			
+			setTimeout(function() {
+				parent.opener=self
+				parent.window.open('/auction/getAuctionProduct?auctionProductNo=${auctionProductNo}','_self').close()
+				self.close()
+			}, 500);
+
+			
+			
+			
 		});
 	});
-	
-	
-	
-	
-	
-	
-	
-	
+
 	var starRating1 = function(){
 	  var $star = $(".kindnessRating"),
 	      $result = $star.find("output>b");

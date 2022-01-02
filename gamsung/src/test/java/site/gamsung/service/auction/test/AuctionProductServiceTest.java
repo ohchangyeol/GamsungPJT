@@ -58,7 +58,7 @@ public class AuctionProductServiceTest {
 	public void testGetAuctionProduct() {
 		
 		AuctionInfo auctionInfo = new AuctionInfo();
-		auctionInfo.setAuctionProductNo("PROD00001");
+		auctionInfo.setAuctionProductNo("PROD00004");
 		Map<String, Object> map = auctionProductService.getAuctionProduct(auctionInfo);
 		System.out.println(map.get("auctionProduct"));
 		System.out.println(map.get("auctionInfo"));

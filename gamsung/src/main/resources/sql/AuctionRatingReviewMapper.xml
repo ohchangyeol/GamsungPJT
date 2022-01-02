@@ -5,9 +5,10 @@
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="AuctionRatingReviewMapper">
-	<resultMap id="RatingReviewSelectMap" type="ratingReview">
-		<result property="auctionProduct.auctionProductNo"		column="product_no" 				jdbcType="CHAR"/>
-		<result property="auctionProduct.successfulBidderId" 	column="user_id" 					jdbcType="VARCHAR"/>
+	<resultMap id="auctionRatingReview" type="ratingReview">
+		<result property="auctionInfo.auctionProductNo"			column="product_no" 				jdbcType="CHAR"/>
+		<result property="auctionInfo.addReviewCount"			column="review_count" 				jdbcType="CHAR"/>
+		<result property="user.id" 								column="user_id" 					jdbcType="VARCHAR"/>
 		<result property="user.role" 							column="role"	 					jdbcType="VARCHAR"/>
 		<result property="ratingReviewNo" 						column="rating_review_no" 			jdbcType="NUMERIC"/>
 		<result property="ratingReviewStatus"					column="rating_review_status" 		jdbcType="NUMERIC"/>
@@ -27,23 +28,61 @@
 	
 	<insert id="addAuctionRatingReview" parameterType="ratingReview" >
 		INSERT INTO RATING_REVIEW
-		(user_id, product_no, rating_review_content, review_reg_date, status_rating, priceRating, kindnessRating, review_img1)
+		(user_id, product_no, rating_review_content, review_reg_date, status_rating, price_rating, kindness_rating, review_img1)
 		VALUES
-		(#{auctionProduct.successfulBidderId}, #{auctionProduct.auctionProductNo}, #{ratingReviewContent}, NOW(), #{statusRating}, #{priceRating}, #{kindnessRating}, #{img1});
+		(#{user.id}, #{auctionInfo.auctionProductNo}, #{ratingReviewContent}, NOW(), #{statusRating}, #{priceRating}, #{kindnessRating}, #{img1});
 	</insert>
 	
-	<select id="listAuctionRatingReview" parameterType="map" resultMap="RatingReviewSelectMap">
-		SELECT user_id, product_no, rating_review_status  rating_review_content, review_reg_date, comment, comment_reg_date, status_rating, priceRating, kindnessRating, review_img1
-		FROM RATING_REVIEW
-		WHERE product_no = #{auctionProduct.auctionProductNo} AND review_delete_flag = 'N'
-		LIMIT #{search.pageSize} offset #{search.offset}
+	<update id="addAuctionRatingReviewComment" parameterType="ratingReview" >
+		UPDATE RATING_REVIEW
+		SET comment = #{comment},
+			comment_reg_date = NOW()
+		WHERE product_no = #{auctionInfo.auctionProductNo}
+	</update>
+	
+	<select id="listAuctionRatingReview" parameterType="map" resultMap="auctionRatingReview">
+		SELECT  rc.review_count AS review_count, rating_review_no, ap.registrant_id AS registrant_id, user_id, rr.product_no AS product_no, rating_review_content,
+				review_reg_date, comment, comment_reg_date, ROUND((status_rating+price_rating+kindness_rating)/3,1) AS avg_rating, review_img1
+				
+		FROM RATING_REVIEW AS rr, AUCTION_PRODUCT AS ap, 	(	SELECT 	COUNT(rating_review_no) review_count
+																FROM 	RATING_REVIEW AS rrw, AUCTION_PRODUCT AS apt
+																WHERE 	registrant_id = #{auctionProduct.registrantId} AND rrw.product_no = apt.product_no 
+																		AND (review_delete_flag = 'N' OR comment_delete_flag = 'N')
+															) AS rc 
+													
+		WHERE ap.registrant_id = #{auctionProduct.registrantId} AND rr.product_no = ap.product_no AND (review_delete_flag = 'N' OR comment_delete_flag = 'N')
+		LIMIT #{search.pageSize} OFFSET #{search.offset}
 	</select>
 	
-	<select  id="getTotalCount"  parameterType="map"	 resultType="int">
-		SELECT COUNT(*)
-		FROM(SELECT rating_review_no
-			 FROM RATING_REVIEW
-			 WHERE product_no IS NOT NULL AND review_delete_flag = 'N') countTable
+	<select id="getAuctionRatingReview" parameterType="int" resultMap="auctionRatingReview">
+		SELECT rating_review_no, user_id, product_no, rating_review_content, review_reg_date, comment, comment_reg_date, status_rating, price_rating, 
+				kindness_rating, review_img1, review_delete_flag, comment_delete_flag
+		FROM RATING_REVIEW
+		WHERE rating_review_no = #{value}
 	</select>
+	
+	<update id="updateAuctionRatingReview" parameterType="ratingReview">
+		UPDATE RATING_REVIEW
+		SET	rating_review_content = #{ratingReviewContent},
+			review_reg_date = NOW(),
+			status_rating = #{statusRating},
+			price_rating = #{priceRating},
+			kindness_rating = #{kindnessRating},
+			review_img1 = #{img1}
+		WHERE product_no = #{auctionInfo.auctionProductNo}	
+	</update>
+	
+	<update id="deleteAuctionRatingReview" parameterType="ratingReview">
+		UPDATE RATING_REVIEW
+		<set>
+			<if test="ratingReviewStatus == 0">
+				review_delete_flag = 'Y'
+			</if>
+			<if test="ratingReviewStatus == 1">
+				comment_delete_flag = 'Y'
+			</if>
+		</set>
+		WHERE rating_review_no = #{ratingReviewNo}
+	</update>
 	
 </mapper>

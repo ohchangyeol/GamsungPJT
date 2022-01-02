@@ -267,6 +267,12 @@
   			});
   		
 	  		$('body').on('click','.btn-b',function(){
+	  			
+	  			if(${empty sessionScope.user}){
+	  				alert("로그인해 주세요.");
+	  				return;
+	  			}
+	  			
 	   			var auctionProductSubDetail = $(this).prev().text();
 	   			var auctionProductName = $(this).parent().parent().next().text();
 	   			var allhashtag = $(this).parent().parent().next().next().text();

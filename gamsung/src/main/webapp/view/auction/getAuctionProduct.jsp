@@ -1,7 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="ko" dir="ltr">
 <head>
@@ -44,6 +44,14 @@
 <link href="../../resources/css/style.css" rel="stylesheet">
 <link id="color-scheme" href="../../resources/css/colors/default.css" rel="stylesheet">
 
+<style type="text/css">
+	.product-title {
+	  overflow: hidden;
+	  text-overflow: ellipsis;
+	  white-space: nowrap;
+	}
+</style>
+
 </head>
 <body data-spy="scroll" data-target=".onpage-navigation"
 	data-offset="60">
@@ -68,7 +76,7 @@
 			<section class="module">
 				<div class="container">
 					<div class="col-sm-2"></div>
-					<div class="col-sm-8"><h1 class="product-title">${auctionProduct.auctionProductName}</h1></div>
+					<div class="col-sm-8"><h2 class="product-title">${auctionProduct.auctionProductName}</h2></div>
 					<div class="col-sm-2"></div>
 				</div>
 				<div class="container">
@@ -124,12 +132,12 @@
 						<div class="row mb-20">
 							<div class="col-sm-12">
 								<div class="price font-alt">
-									<a>시작가 : ${auctionProduct.startBidPrice}원</a><br>
+									<h5 class="font-alt">시작가 : <fmt:formatNumber type="number" maxFractionDigits="3" value="${auctionProduct.startBidPrice}" />원</h5>
 									<input type="hidden" id="startBidPrice" value="${auctionProduct.startBidPrice}">
-									<a>희망 낙찰가 : ${auctionProduct.hopefulBidPrice}원</a><br>
-									<a>입찰 단위 : ${auctionProduct.bidUnit}원</a><br>
+									<h5 class="font-alt">희망 낙찰가 : <fmt:formatNumber type="number" maxFractionDigits="3" value="${auctionProduct.hopefulBidPrice}" />원</h5>
+									<h5>입찰 단위 : <fmt:formatNumber type="number" maxFractionDigits="3" value="${auctionProduct.bidUnit}" />원</h5>
 									<input type="hidden" id="bidUnit" value="${auctionProduct.bidUnit}">
-									<a>입찰 가능 등급 : ${auctionProduct.bidableGrade}LV 이상</a><br><br>
+									<h5>입찰 가능 등급 : ${auctionProduct.bidableGrade}LV 이상</h5>
 									<input type="hidden" id="bidableGrade" value="${auctionProduct.bidableGrade}">
 								</div>
 							</div>
@@ -137,25 +145,27 @@
 						<div class="row mb-20">
 							<div class="col-sm-12">
 								<div class="description">
-									<span class="amount">현재입찰가</span><br>
-									<span id="currentPrice" class="amount">${auctionProduct.currentBidPrice}</span>										
+									<h3 class="font-alt">현재입찰가</h3>
+									<h4 id="currentPrice" class="font-alt"><fmt:formatNumber type="number" maxFractionDigits="3" value="${auctionProduct.currentBidPrice}" />원</h4>										
 								</div>
 							</div>
 						</div>
 						<input type="hidden" id="auctionProductNo" value="${auctionProduct.auctionProductNo}">
 						<div class="row mb-20">
-							<c:if test="${registrantInfo.user.id ne sessionScope.user.id}">
+							<c:if test="${!empty sessionScope.user && registrantInfo.user.id ne sessionScope.user.id}">
 								<div id="bid" class="col-sm-5">
 									<a id="bidBtn" class="btn btn-lg btn-block btn-round btn-b">입찰</a>
 								</div>
 							</c:if>
-							<c:if test="${auctionProduct.successfulBidderId eq sessionScope.user.id}">
 								<div id="cancel" class="col-sm-5">
-									<a id="cancelBtn" class="btn btn-sm btn-block btn-round btn-b">낙찰취소</a>
-									<a id="confirmBtn" class="btn btn-sm btn-block btn-round btn-b">경매 확정</a>
-									<a class="btn btn-sm btn-block btn-round btn-b video-pop-up" href="/view/auction/reviewModal.jsp">리뷰 쓰기</a>
+									<c:if test="${!empty sessionScope.user && auctionProduct.successfulBidderId eq sessionScope.user.id && auctionProduct.auctionStatus eq 'WAIT'}">
+										<a id="cancelBtn" class="btn btn-sm btn-block btn-round btn-b">낙찰취소</a>
+										<a id="confirmBtn" class="btn btn-sm btn-block btn-round btn-b">경매 확정</a>									
+									</c:if>
+									<c:if test="${empty auctionProduct.productRegDate && auctionProduct.auctionStatus eq 'CONFIRM' }">
+										<a class="btn btn-sm btn-block btn-round btn-b video-pop-up" href="/auction/addReview/${auctionProduct.auctionProductNo}">리뷰 쓰기</a>
+									</c:if>
 								</div>
-							</c:if>
 							<c:if test="${registrantInfo.user.id eq sessionScope.user.id}">
 								<div class="col-sm-5">
 									<a id="updateBtn" class="btn btn-lg btn-block btn-round btn-b">수정</a>
@@ -169,19 +179,21 @@
 						<div class="time font40">
 							<span id="auctionStartTime" hidden="hidden">${auctionProduct.auctionStartTime}</span>
 							<span id="auctionEndTime" hidden="hidden">${auctionProduct.auctionEndTime}</span>
-							<c:if test="${fn:indexOf(auctionProduct.remainAuctionTime,'-') == -1}">
-							  <span class="hours"></span>
-							  <span class="col">:</span>
-							  <span class="minutes"></span>
-							  <span class="col">:</span>
-							  <span class="seconds"></span>
+							<c:if test="${!empty sessionScope.user}">
+								<c:if test="${fn:indexOf(auctionProduct.remainAuctionTime,'-') == -1}">
+								  <span class="hours"></span>
+								  <span class="col">:</span>
+								  <span class="minutes"></span>
+								  <span class="col">:</span>
+								  <span class="seconds"></span>
+								</c:if>
 							</c:if>
 						</div>
 						<div class="row mb-20">
 							<div class="col-sm-12">
 								<div class="product_meta">
 									<span id = "userInfo">
-										<c:if test="${!empty auctionInfo && auctionInfo.bidderCount != 0}">
+										<c:if test="${!empty sessionScope.user && !empty auctionInfo && auctionInfo.bidderCount != 0}">
 											${user.nickName}님은 ${auctionInfo.bidderCount}명 중 ${auctionInfo.bidderRank}등 입니다.
 										</c:if>
 									</span>
@@ -202,8 +214,8 @@
 									</a>
 								</li>
 								<li>
-									<a href="#reviews" data-toggle="tab">
-										<span class="icon-tools-2"></span>Reviews (2)
+									<a id="reviewBtn" href="#reviews" data-toggle="tab">
+										<span class="icon-tools-2"></span>Reviews 
 									</a>
 								</li>
 							</ul>
@@ -538,7 +550,7 @@
 				dataType : "json",
 				success : function(JSONData, status) {
 					alert(JSONData.info);
-					window.location = "/auction/listAuctionProduct";
+					window.location = "/auction/getAuctionProduct?auctionProductNo="+auctionProductNo;
 				}
 			});
 		});
@@ -583,40 +595,24 @@
 			var remainMinuts = $('.minutes').text();
 			var remainSeconds = $('.seconds').text();
 			
-			/* if(remainHours === 00 && remainMinuts == 00 && Number(remainSeconds) <= 10 ){
-				$.ajax({
-						url : "/auction/rest/updateBidEndTime"+${auctionProduct.auctionProductNo},
-						method : "GET",
-						headers : {
-							"Accept" : "application/json",
-							"Content-Type" : "application/json"
-						},
-						dataType : "json",
-						success : function(JSONData, status) {
-							alert(JSONData.info);
-							
-							stompClient.send('/app/update/${auctionProduct.auctionProductNo}',{},JSON.stringify({
-								auctionProductNo : auctionProductNo
-							}));
-							
-						}
-				});
-			} */
-			
 			if(currentPrice != 0){
 				stompClient.send('/app/bid/${auctionProduct.auctionProductNo}',{},JSON.stringify({
 					auctionProductNo : auctionProductNo,
-					bidPrice : 1*currentPrice + 1*bidUnit
+					bidPrice : 1*unComma(currentPrice) + 1*unComma(bidUnit)
 				}));				
 			}else{
 				stompClient.send('/app/bid/${auctionProduct.auctionProductNo}',{},JSON.stringify({
 					auctionProductNo : auctionProductNo,
-					bidPrice : 1*startBidPrice
+					bidPrice : 1*unComma(startBidPrice)
 				}));
 			
 				alert('입찰 성공하셨습니다.');
 			
 			}
+		});
+		
+		$('#reviewBtn').on('click',function(){
+			
 		});
 	});
 	
@@ -636,7 +632,7 @@
 			//입찰 subcribe
 			stompClient.subscribe('/topic/bid/${auctionProduct.auctionProductNo}',function(response){
 				var bidInfo = JSON.parse(response.body)
-				$('#currentPrice').text(bidInfo.bidPrice);
+				$('#currentPrice').text(addComma(bidInfo.bidPrice));
 				
 				if(userId == bidInfo.user.id){
 					var info = nickName+'님은 '+bidInfo.bidderCount+'명 중 '+bidInfo.bidderRank+'등 입니다.';
@@ -665,14 +661,7 @@
 				}
 				document.getElementById('auctionEndTime').innerText= bidInfo.bidDateTime;
 			});
-			
-			/* //상품 변동 사항 subscribe
-			stompClient.subscribe('/topic/update/${auctionProduct.auctionProductNo}',function(response){
-				var updateInfo = JSON.parse(response.body)
-				document.getElementById('auctionEndTime').innerText= updateInfo.auctionEndTime;
-				alert("시간이 10초 연장 되었습니다.");
-			}); */
-			
+						
 			//중도 철회 subscribe
 			stompClient.subscribe('/topic/delete/${auctionProduct.auctionProductNo}',function(response){
 				var deleteInfo = JSON.parse(response.body)
@@ -693,6 +682,15 @@
 	
 	}
 	
+	function addComma(value){
+        value = value.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        return value; 
+    }
+	
+	function unComma(value){
+        value = value.replace(/[^\d]+/g, "");
+        return value; 
+    }
 	
 	window.onbeforeunload = function(e){
 		stompClient.send('/app/exit/${auctionProduct.auctionProductNo}',{},JSON.stringify({
@@ -766,6 +764,7 @@
 	 }
 	 setInterval(remaindTime,1000);
 
+	 
 	
 	</script>
 </body>

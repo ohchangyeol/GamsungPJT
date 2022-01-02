@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import site.gamsung.service.auction.AuctionProductDAO;
 import site.gamsung.service.auction.AuctionProductService;
+import site.gamsung.service.auction.AuctionReviewDAO;
 import site.gamsung.service.auction.AuctionInfoDAO;
 import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.AuctionInfo;
@@ -37,6 +38,10 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 	@Autowired
 	@Qualifier("auctionInfoDAO")
 	private AuctionInfoDAO auctionInfoDao;
+	
+	@Autowired
+	@Qualifier("auctionReviewDAO")
+	private AuctionReviewDAO auctionReviewDAO;
 	
 	@Autowired
 	@Qualifier("crawlingData")
@@ -134,9 +139,6 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 		
 		int registrantGrade = auctionInfoDao.getUserAuctionGradeInfo(registrantId);
 		
-		//리뷰를 추가해야한다.
-		//
-		//
 		AuctionInfo registrantInfo = new AuctionInfo();
 		
 		User user =  new User();
