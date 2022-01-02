@@ -29,36 +29,41 @@
 </head>
 <body>
 
-<div id="modalBasic" class="modal-block modal-block-primary mfp">
+<div id="modalBasic" class="modal-block modal-block-primary mfp mfp-hide">
 	<section class="panel">
 <header class="panel-heading">
-<button class="close" data-dismiss="modal">&times;</button>
+<button type="button" class="close" data-dismiss="modal">&times;</button>
 	</header>
 	<div class="panel-body" >
 		
 	<form action="" class="was-validated">
 		<div class="form-group">
-			<label for="modalId">아이디 </label>
-			<input type="text" class="form-control" id="modalId" placeholder="아이디를 입력하세요." name="id" required>
-			<!-- <div class="valid-feedback">Valid.</div>
-			<div class="invalid-feedback">Please fill out this field.</div> -->
+		<div class="col-sm-2"></div>
+			<div><label for="modalId">아이디 </label></div>
+			<div class="col-sm-2"></div>
+			<div class="col-sm-8"><input type="text" class="form-control" id="modalId" placeholder="아이디를 입력하세요." name="id" required></div>
 		</div>
 		<div class="form-group">
-			<label for="pwd">비밀번호 </label>
-			<input type="password" class="form-control" id="pwd" placeholder="비밀번호를 입력하세요." name="password" required>
-			<!-- <div class="valid-feedback">Valid.</div>
-			<div class="invalid-feedback">Please fill out this field.</div> -->
+		<div class="col-sm-2"></div>
+			<div><label for="pwd">비밀번호 </label></div>
+			<div class="col-sm-2"></div>
+			<div class="col-sm-8"><input type="password" class="form-control" id="pwd" placeholder="비밀번호를 입력하세요." name="password" required></div>
+
 		</div>
-		<button type="submit" class="btn btn-primary" style="margin-left:50%;">로그인</button>
-		<button type="button" class="btn btn-secondary" id="joinUser">회원가입</button>
-		<a href="javascript:kakaoLogin();"><img src="../../resources/images/kakao_login_small.png"/></a>
+		<div class="col-sm-3"></div>
+		<div class="col-sm-6"><button type="submit" class="btn-info btn-round btn-block">로그인</button></div>
+		<br/><br/>
+		<div align="center"><a href="javascript:kakaoLogin();"><img src="../../resources/images/kakaolink_btn_small.png"/></a>
+		<button type="submit" class="btn btn-g btn-round" id="joinUser"><i class="fa fa-smile-o"></i>회원가입</button>
+		<button type="submit" class="btn btn-g btn-round" id="joinBusinessUser"><i class="fa fa-smile-o"></i>사업자 회원가입</button></div>
+		
 	</form>
 		</div>
 			<footer class="panel-footer">
 				<div class="row">
 					<div class="col-md-12 text-right">
-						<button class="btn btn-primary modal-confirm">아이디 찾기</button>
-						<button class="btn btn-default modal-dismiss">비밀번호 찾기</button>
+						<button class="btn btn-default btn-sm">아이디 찾기</button>
+						<button class="btn btn-default btn-sm">비밀번호 찾기</button>
 					</div>
 				</div>
 			</footer>
@@ -79,72 +84,75 @@
 <script src="../../resources/js/theme.init.js"></script>
 <script src="../../resources/js/ui-elements/examples.modals.js"></script>
 <script type="text/javascript">
-
     //============= logout Event =============	
-	 $(function() {
-		//==> DOM Object GET 3���� ��� ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-	 	$("#logout").on("click" , function() {
-	 		//$(self.location).attr("href","/user/logout");
-			self.location = "/user/logout"
+		 $(function() {
+			//==> DOM Object GET 3���� ��� ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+		 	$("#logout").on("click" , function() {
+		 		//$(self.location).attr("href","/user/logout");
+				self.location = "/user/logout"
+			}); 
+			
+		 	$("#joinUser").on("click" , function() {
+				//$(self.location).attr("href","/user/logout");
+			self.location = "/view/user/addGeneralUser.jsp"
 		}); 
-		
-	 	$("#joinUser").on("click" , function() {
-			//$(self.location).attr("href","/user/logout");
-		self.location = "/user/addUser"
-	}); 
-		
-		$("#modalId").focus();
-	$("button:contains(로그인)").on("click" , function() {
-		//alert("gkgkgkgk");
-		var id=$("input:text").val();
-		var pwd=$("input:password").val();
-		
-		if(id == null || id.length <1) {
-			alert('ID 를 입력하지 않으셨습니다.');
+		 	
+			$("#joinBusinessUser").on("click" , function() {
+			self.location = "/view/user/addBusinessUser.jsp"
+		}); 
+			
 			$("#id").focus();
-			return;
+		$("button:contains(로그인)").on("click" , function() {
+			//alert("gkgkgkgk");
+			var id=$("input:text").val();
+			var pwd=$("input:password").val();
+			
+			if(id == null || id.length <1) {
+				alert('ID 를 입력하지 않으셨습니다.');
+				$("#id").focus();
+				return;
+			}
+			
+			if(pwd == null || pwd.length <1) {
+				alert('패스워드를 입력하지 않으셨습니다.');
+				$("#pwd").focus();
+				return;
+			}
+			
+			$("form").attr("method","POST").attr("action","/user/login").submit();
+		});
+		});
+
+		//카카오로그인
+		function kakaoLogin() {
+
+		$.ajax({
+		    url: '/user/getKakaoAuthUrl',
+		    type: 'get',
+		    async: false,
+		    dataType: 'text',
+		    success: function (res) {
+		        location.href = res;
+		    }
+		});
+
 		}
-		
-		if(pwd == null || pwd.length <1) {
-			alert('패스워드를 입력하지 않으셨습니다.');
-			$("#pwd").focus();
-			return;
-		}
-		
-		$("form").attr("method","POST").attr("action","/user/login").submit();
-	});
-	});
 
-	//카카오로그인
-	function kakaoLogin() {
+		$(document).ready(function() {
 
-	$.ajax({
-	    url: '/user/getKakaoAuthUrl',
-	    type: 'get',
-	    async: false,
-	    dataType: 'text',
-	    success: function (res) {
-	        location.href = res;
-	    }
-	});
+		  var kakaoInfo = '${kakaoInfo}';
 
-	}
+		  if(kakaoInfo != ""){
+		      var data = JSON.parse(kakaoInfo);
 
-	$(document).ready(function() {
-
-	  var kakaoInfo = '${kakaoInfo}';
-
-	  if(kakaoInfo != ""){
-	      var data = JSON.parse(kakaoInfo);
-
-	      alert("카카오로그인 성공 \n accessToken : " + data['accessToken']);
-	      alert(
-	      "user : \n" + "email : "
-	      + data['email']  
-	      + "\n nickname : " 
-	      + data['nickname']);
-	  }
-	});  
+		      alert("카카오로그인 성공 \n accessToken : " + data['accessToken']);
+		      alert(
+		      "user : \n" + "email : "
+		      + data['email']  
+		      + "\n nickname : " 
+		      + data['nickname']);
+		  }
+		});  
 		 	
    
-</script>
+</script> 

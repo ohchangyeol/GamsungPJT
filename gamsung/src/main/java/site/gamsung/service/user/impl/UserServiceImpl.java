@@ -85,9 +85,11 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public void updateUser(User user){
 		
+		if(user.getSalt() !=null) {
 		String pw = user.getPassword();
 		String newPwd = SHA256Util.getEncrypt(pw, user.getSalt());
 		user.setPassword(newPwd);
+		}
 		
 		userDAO.updateUser(user);
 		

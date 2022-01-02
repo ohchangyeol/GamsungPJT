@@ -276,33 +276,38 @@ pageEncoding="UTF-8"%>
 <div id="modalBasic" class="modal-block modal-block-primary mfp mfp-hide">
 	<section class="panel">
 <header class="panel-heading">
-<button class="close" data-dismiss="modal">&times;</button>
+<button id="modalClose" type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
 	</header>
 	<div class="panel-body" >
 		
 	<form action="" class="was-validated">
 		<div class="form-group">
-			<label for="modalId">아이디 </label>
-			<input type="text" class="form-control" id="modalId" placeholder="아이디를 입력하세요." name="id" required>
-			<!-- <div class="valid-feedback">Valid.</div>
-			<div class="invalid-feedback">Please fill out this field.</div> -->
+		<div class="col-sm-2"></div>
+			<div><label for="modalId">아이디 </label></div>
+			<div class="col-sm-2"></div>
+			<div class="col-sm-8"><input type="text" class="form-control" id="modalId" placeholder="아이디를 입력하세요." name="id" required></div>
 		</div>
 		<div class="form-group">
-			<label for="pwd">비밀번호 </label>
-			<input type="password" class="form-control" id="pwd" placeholder="비밀번호를 입력하세요." name="password" required>
-			<!-- <div class="valid-feedback">Valid.</div>
-			<div class="invalid-feedback">Please fill out this field.</div> -->
+		<div class="col-sm-2"></div>
+			<div><label for="pwd">비밀번호 </label></div>
+			<div class="col-sm-2"></div>
+			<div class="col-sm-8"><input type="password" class="form-control" id="pwd" placeholder="비밀번호를 입력하세요." name="password" required></div>
+
 		</div>
-		<button type="submit" class="btn btn-primary" style="margin-left:50%;">로그인</button>
-		<button type="button" class="btn btn-secondary" id="joinUser">회원가입</button>
-		<a href="javascript:kakaoLogin();"><img src="../../resources/images/kakao_login_small.png" width="50px" height="10px"/></a>
+		<div class="col-sm-3"></div>
+		<div class="col-sm-6"><button type="submit" class="btn-info btn-round btn-block">로그인</button></div>
+		<br/><br/>
+		<div align="center"><a href="javascript:kakaoLogin();"><img src="../../resources/images/kakaolink_btn_small.png"/></a>
+		<button type="submit" class="btn btn-g btn-round" id="joinUser"><i class="fa fa-smile-o"></i>회원가입</button>
+		<button type="submit" class="btn btn-g btn-round" id="joinBusinessUser"><i class="fa fa-smile-o"></i>사업자 회원가입</button></div>
+		
 	</form>
 		</div>
 			<footer class="panel-footer">
 				<div class="row">
 					<div class="col-md-12 text-right">
-						<button class="btn btn-primary modal-confirm">아이디 찾기</button>
-						<button class="btn btn-default modal-dismiss">비밀번호 찾기</button>
+						<button class="btn btn-default btn-sm">아이디 찾기</button>
+						<button class="btn btn-default btn-sm">비밀번호 찾기</button>
 					</div>
 				</div>
 			</footer>
@@ -321,7 +326,11 @@ pageEncoding="UTF-8"%>
 			
 		 	$("#joinUser").on("click" , function() {
 				//$(self.location).attr("href","/user/logout");
-			self.location = "/user/addUser"
+			self.location = "/view/user/addGeneralUser.jsp"
+		}); 
+		 	
+			$("#joinBusinessUser").on("click" , function() {
+			self.location = "/view/user/addBusinessUser.jsp"
 		}); 
 			
 			$("#id").focus();
@@ -376,7 +385,6 @@ pageEncoding="UTF-8"%>
 		      + data['nickname']);
 		  }
 		});  
-		 	
    
 </script> 
 

@@ -182,7 +182,7 @@
 	 
 	 <!-- SQL : CHECK duplication -->
 	 <select id="checkDuplication" parameterType="user" resultType="String">
-		 SELECT user_id, nick_name, phone
+		 SELECT user_id, nick_name, phone, tourism_business_num
 		 FROM USERS
 		 WHERE 
 		 	<if test="id != null">
@@ -193,6 +193,9 @@
 			</if>
 			<if test="phone != null">
 				phone = #{phone}
+			</if>
+			<if test="tourismBusinessNum != null">
+				tourism_business_num = #{tourismBusinessNum}
 			</if>
 	 </select>
 		

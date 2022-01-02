@@ -27,7 +27,7 @@ public class UserServiceTest {
 	@Qualifier("userServiceImpl")
 	private UserService userService;
 
-	@Test
+	//@Test
 	public void testAddUser() throws Exception{
 		
 		User user = new User();
@@ -50,10 +50,10 @@ public class UserServiceTest {
 		System.out.println("########### "+user);
 	}
 	
-	//@Test
+	@Test
 	public void testGetUser() throws Exception{
 		User user= new User();
-		user=userService.getUser("businessuser1@gamsung.com");
+		user=userService.getUser("test1@test.com");
 		
 		System.out.println("########### "+user);
 	}

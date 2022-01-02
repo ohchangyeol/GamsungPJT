@@ -138,7 +138,7 @@ public class UserRestController {
 	}
 
 	// 아이디찾기
-	@RequestMapping(value = "findId")
+	@RequestMapping(value = "rest/findId")
 	public String findId(String name, String phone){
 
 		String id = userService.findId(name, phone);
@@ -147,8 +147,9 @@ public class UserRestController {
 	}
 
 	// 비밀번호 찾기
-	@RequestMapping(value = "findPassword")
+	@RequestMapping(value = "rest/findPassword")
 	public void findPassword(@RequestBody User user){
+		
 		User newUser = userService.findPassword(user);
 		if (newUser != null) {
 			userService.updateTempPassword(user);

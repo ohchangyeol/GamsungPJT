@@ -58,7 +58,7 @@ public class UserController {
 		return "redirect:/main.jsp";
 	}
 	
-	@RequestMapping(value="getUser", method=RequestMethod.POST)
+	@RequestMapping(value="getUser", method=RequestMethod.GET)
 	public String getUser(@ModelAttribute("user") String id, Model model){
 		
 		System.out.println("/user/getUser:POST");
@@ -68,7 +68,60 @@ public class UserController {
 		model.addAttribute("user", user);
 		
 		
-		return "forward:/user/getUser.jsp";
+		return "forward:/view/user/getUser.jsp";
+	}
+	
+	@RequestMapping(value="updateUser", method=RequestMethod.GET)
+	public String updateUser(@RequestParam("id") String id, Model model) {
+		
+		System.out.println("/user/updateUser : GET");
+		
+		User user = userService.getUser(id);
+		
+		model.addAttribute("user", user);
+		
+		return "forward:/view/user/updateUser.jsp";
+		
+	}
+	
+	@RequestMapping(value="updateUser", method=RequestMethod.POST)
+	public String updateUser(User user, Model model, HttpSession session) {
+		
+		System.out.println("/user/updateUser : POST");
+		
+		System.out.println("입력된 User"+user);
+		
+		
+		User sessionUser=(User)session.getAttribute("user");
+			
+		System.out.println("세션유저"+sessionUser);
+		System.out.println("유저 솔트값"+user.getSalt());
+		System.out.println("유저 비밀번호"+user.getPassword());
+
+		if(sessionUser.getId().equals(user.getId())){
+			if(user.getPassword()==null || user.getPassword()=="") {
+			user.setPassword(sessionUser.getPassword());
+			System.out.println(sessionUser.getPassword());
+			}else {
+				user.setSalt(sessionUser.getSalt());
+			}	
+		}
+			
+			userService.updateUser(user);
+						
+//			User upUser=userService.getUser(user.getId());
+			session.setAttribute("user", user);
+					
+		
+//		String seesionId=((User)session.getAttribute("user")).getId();
+//		
+
+//		session.setAttribute("user", user);
+//		User upSession=(User)session.getAttribute("user");
+//		
+//		System.out.println("변경이 되었는가"+upSession);
+		
+		return "forward:/view/user/getGeneralUserUpdate.jsp";
 	}
 	
 	@RequestMapping( value="login", method=RequestMethod.GET )
@@ -89,7 +142,7 @@ public class UserController {
 		User dbUser=userService.checkIdPassword(user);
 		
 		if(dbUser == null) {
-			return "forward:/view/user/addUser.jsp";
+			return "forward:/view/user/addGeneralUser.jsp";
 		}
 		
 		System.out.println(dbUser);
@@ -121,6 +174,8 @@ public class UserController {
 	
 		if(dbUser != null) {
 			System.out.println("로그인 시작");
+			
+			//비밀번호를 확인하세요 있어야됨.
 			
 			if(dbUser.getNickName() != null) {
 				jsp = "redirect:/main.jsp";
@@ -197,7 +252,7 @@ public class UserController {
 	        	} 	
 	        } 
         }
-        return "forward:/view/user/addUser.jsp";
+        return "forward:/view/user/addGeneralUser.jsp";
 	}
 	
 	@RequestMapping(value="/kakaologout")
