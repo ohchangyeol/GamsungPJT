@@ -145,11 +145,14 @@
 						<input type="hidden" id="auctionProductNo" value="${auctionProduct.auctionProductNo}">
 						<div class="row mb-20">
 							<c:if test="${registrantInfo.user.id ne sessionScope.user.id}">
-								<div class="col-sm-5">
+								<div id="bid" class="col-sm-5">
 									<a id="bidBtn" class="btn btn-lg btn-block btn-round btn-b">입찰</a>
 								</div>
-								<div class="col-sm-5" hidden="hidden">
-									<a id="cancelBtn" class="btn btn-lg btn-block btn-round btn-b">낙찰취소</a>
+							</c:if>
+							<c:if test="${auctionProduct.successfulBidderId eq sessionScope.user.id}">
+								<div id="cancel" class="col-sm-5">
+									<a id="cancelBtn" class="btn btn-sm btn-block btn-round btn-b">낙찰취소</a>
+									<a id="confirmBtn" class="btn btn-sm btn-block btn-round btn-b">경매 확정</a>
 								</div>
 							</c:if>
 							<c:if test="${registrantInfo.user.id eq sessionScope.user.id}">
@@ -509,7 +512,6 @@
     =============================================
     -->
 	<script src="../../resources/lib/jquery/jquery.js"></script>
-	<script src="../../resources/lib/bootstrap/js/bootstrap.min.js"></script>
 	<script src="../../resources/lib/wow/wow.js"></script>
 	<script src="../../resources/lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js"></script>
 	<script src="../../resources/lib/isotope/isotope.pkgd.js"></script>
@@ -535,36 +537,69 @@
 	var userId = document.getElementById('userId').value;
 	var nickName = document.getElementById('nickName').value;
 	
-	console.log(auctionProductNo, userId, nickName);
-	
 	$(function(){
 		
 		auctionProductNo = $('#auctionProductNo').val();
 		userId = $('#userId').val(); 
 		nickName = $('#nickName').val();
-		
+
+		//수정 버튼 클릭시 발생 이벤트
 		$('#updateBtn').on('click',function(){
 			$('form').attr('method','get').attr('action','/auction/updateAuctionProduct').submit();
 		});
 		
-		$('#deleteBtn').on('click',function(){
+		//낙찰 취소 클릭시 발생 이벤트
+		$('#cancelBtn').on('click',function(){
 			$.ajax({
-					url : "/auction/rest/midwayWithdrawal/"+auctionProductNo,
-					method : "GET",
-					headers : {
-						"Accept" : "application/json",
-						"Content-Type" : "application/json"
-					},
-					dataType : "json",
-					success : function(JSONData, status) {
-						alert(JSONData.info);
-						deleteProduct();
-					}
+				url : "/auction/rest/updateAuctionStatus/"+auctionProductNo+"/CANCEL",
+				method : "GET",
+				headers : {
+					"Accept" : "application/json",
+					"Content-Type" : "application/json"
+				},
+				dataType : "json",
+				success : function(JSONData, status) {
+					alert(JSONData.info);
+					window.location = "/auction/listAuctionProduct";
+				}
 			});
-			
-			
 		});
 		
+		//경매 확정 클릭시 발생 이벤트
+		$('#confirmBtn').on('click',function(){
+			$.ajax({
+				url : "/auction/rest/updateAuctionStatus/"+auctionProductNo+"/CONFIRM",
+				method : "GET",
+				headers : {
+					"Accept" : "application/json",
+					"Content-Type" : "application/json"
+				},
+				dataType : "json",
+				success : function(JSONData, status) {
+					alert(JSONData.info);
+					window.location = "/auction/listAuctionProduct";
+				}
+			});
+		});
+		
+		//삭제 버튼 클릭시 발생 이벤트
+		$('#deleteBtn').on('click',function(){
+			$.ajax({
+				url : "/auction/rest/updateAuctionStatus/"+auctionProductNo+"/WITHDRAWAL",
+				method : "GET",
+				headers : {
+					"Accept" : "application/json",
+					"Content-Type" : "application/json"
+				},
+				dataType : "json",
+				success : function(JSONData, status) {
+					alert(JSONData.info);
+					deleteProduct();
+				}
+			});	
+		});
+		
+		//입찰 버튼 클릭시 발생 이벤트
 		$('#bidBtn').on('click',function(event){
 			
 			if($('#bidBtn').attr('disabled') == 'disabled'){
@@ -575,19 +610,14 @@
 			var startBidPrice = $('#startBidPrice').val();
 			var bidUnit = $('#bidUnit').val();
 			var bidPrice = $('#bidPrice').val();
-			var bidableGrade = ${registrantInfo.user.auctionGrade}
+			var bidableGrade = ${auctionProduct.bidableGrade}
 			var userGrade = ${sessionScope.user.auctionGrade}
 			if(bidableGrade > userGrade){
-				$('.alert-danger').children('strong').text('입찰 가능 등급을 확인하세요.');
-				$('.alert-success').attr('hidden',true);
-				$('.alert-danger').attr('hidden',false);
+				alert('입찰 가능 등급을 확인하세요.');
 				return;
 			}
 			
-			$('.alert-success').children('strong').text('입찰 성공하셨습니다.');
-			$('.alert-danger').attr('hidden',true);
-			$('.alert-success').attr('hidden',false);
-
+			
 			if(currentPrice != 0){
 				stompClient.send('/app/bid',{},JSON.stringify({
 					auctionProductNo : auctionProductNo,
@@ -598,12 +628,14 @@
 					auctionProductNo : auctionProductNo,
 					bidPrice : 1*startBidPrice
 				}));
-			}
-		
 			
+				alert('입찰 성공하셨습니다.');
+			
+			}
 		});
 	});
 	
+	//화면 로드시 sockJS를 이용하여 STOMP로 연결하여 Publisher, Subscriber관계 형성
 	function connect(){
 		
 		var sock = new SockJS("/realtime");
@@ -622,6 +654,7 @@
 				}
 			});
 			
+			//입찰 subcribe
 			stompClient.subscribe('/topic/bid',function(response){
 				var bidInfo = JSON.parse(response.body)
 				console.log(bidInfo);
@@ -654,6 +687,7 @@
 				}
 			});
 			
+			//중도 철회 subscribe
 			stompClient.subscribe('/topic/delete',function(response){
 				var deleteInfo = JSON.parse(response.body)
 				if(auctionProductNo == deleteInfo.auctionProductNo){
@@ -662,6 +696,7 @@
 				}
 			});
 			
+			//화면 이탈 subscribe
 			stompClient.subscribe('/topic/exit',function(response){
 				var exitInfo = JSON.parse(response.body)
 				if(auctionProductNo == exitInfo.auctionProductNo){
