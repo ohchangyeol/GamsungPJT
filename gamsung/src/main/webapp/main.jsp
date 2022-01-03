@@ -63,12 +63,30 @@ pageEncoding="UTF-8"%>
             margin : auto;
             width: 100%;
             height: 250px;}
-
+            
+      
+		#findIdModal {
+			z-index: 1041;
+		    position: absolute;
+		    top: 50%;
+		    left: 0;
+		    right: 0;
+		    /* bottom: 0; */
+		    /*background: #0b0b0b6b;*/
+		    /*display: inline-block;*/
+    		/*vertical-align: middle;*/
+    		transform: translateY(-50%);
+    	}
+    	
     </style>
 
   </head>
   <body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
+     
     <main>
+      	
+	<!-- findIdModal -->
+	<jsp:include page="/view/user/findIdModal.jsp"/>
       <div class="page-loader">
         <div class="loader">Loading...</div>
       </div>
@@ -77,6 +95,8 @@ pageEncoding="UTF-8"%>
       <!-- header End -->
       <!-- Search -->
       <jsp:include page="/view/camp/campSearch.jsp"/>
+
+   
       <!-- Search End -->
       </section>
       <div class="main showcase-page">
@@ -231,10 +251,11 @@ pageEncoding="UTF-8"%>
     </main>
     
     <!-- chatting -->
-    <div id="messenger-btn" class="chatting-btn"><i class="fa fa-fw"></i></span></div>
+    <div id="messenger-btn" class="chatting-btn"><i class="fa fa-fw"></i></div>
     <div id="messenger-iframe" class="ch-messenger-hidden">
       <iframe src="/chat/chatroom" frameborder="1" style="position:relative!important;height:100%;width:100%!important;border:none!important;"></iframe>
      </div>
+     
     
      <!--  
     JavaScripts
@@ -253,5 +274,7 @@ pageEncoding="UTF-8"%>
     <script src="resources/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script>
     <script src="resources/js/plugins.js"></script>
     <script src="resources/js/main.js"></script>
+          
   </body>
 </html>
+

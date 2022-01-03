@@ -170,6 +170,7 @@
 										<input id="password" name="password" class="form-control "
 											type="password" placeholder="비밀번호는 8~15자까지 입력 가능합니다." />
 									</div>
+									<div id="check-pwd-exp" class='col-sm-offset-3 col-sm-6'></div>
 								</div>
 
 								<div class="form-group">
@@ -367,6 +368,21 @@
 			}
 		});
 		
+		//비밀번호
+		$('#password').on("keyup",function(){
+			var regExp = /[ㄱ-ㅎㅏ-ㅣ가-힣]/g; //한글입력 불가
+			var pwd=$('#password').val();
+			
+			if(pwd.length<1){
+				$("#check-pwd-exp").html("");
+				
+			}else if(regExp.test(pwd)){
+				$("#check-pwd-exp").html("한글은 입력 불가합니다.");
+				$("#check-pwd-exp").css('color','red');
+			}
+			
+		}); 
+		
 	   //비밀번호 확인
 		$('#confirmPassword').on("keyup",function(){
 
@@ -512,10 +528,10 @@
 			var phone=$("input[name='phone']").val();
 			
 			
-			/* if(id == null || id.length <1){
+			 if(id == null || id.length <1){
 				alert("아이디는 반드시 입력하셔야 합니다.");
 				return;
-			} *
+			} 
 			
 			if(password == null || password.length <1){
 				alert("패스워드는  반드시 입력하셔야 합니다.");
@@ -551,7 +567,7 @@
 			if(phone == null || phone.length <1){
 				alert("휴대폰번호는 반드시 입력하셔야 합니다.");
 				return;
-			}*/
+			}
 				
 			var addr = "";	
 			if( $("input:text[name='addr']").val() != ""  &&  $("input:text[name='userAddr']").val() != "") {

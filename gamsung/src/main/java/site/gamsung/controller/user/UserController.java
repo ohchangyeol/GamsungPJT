@@ -155,6 +155,7 @@ public class UserController {
 //		java.sql.Date date = java.sql.Date.valueOf(now);
 		
 		if(dbUser.getRole().equals("ADMIN")) {
+			session.setAttribute("user", dbUser);
 			return "관리자메인.jsp";
 		}else if(dbUser.getDormantConversionDate() != null) {
 			return "휴면회원임.일반으로 전환할건지?.jsp";
@@ -268,6 +269,7 @@ public class UserController {
 		session.invalidate();
 		return "redirect:/";
 		}
+
 
 }
 

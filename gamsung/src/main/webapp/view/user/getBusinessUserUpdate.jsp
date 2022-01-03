@@ -165,6 +165,7 @@
 										<input id="password" name="password" class="form-control "
 											 type="password" placeholder="변경할 비밀번호를 입력해 주세요." />
 									</div>
+									<div id="check-pwd-exp" class='col-sm-offset-3 col-sm-6'></div>
 								</div>
 
 								<div class="form-group">
@@ -177,21 +178,30 @@
 									</div>
 									<div id="check-pwd" class='col-sm-offset-3 col-sm-6'></div>
 								</div>
-
-								<div id="nick-name" class="form-group">
-									<label for="nickName"
-										class="col-sm-offset-1 col-sm-3 control-label"><strong>닉네임</strong></label>
+								
+								<div id="campName" class="form-group">
+									<label for="campName"
+										class="col-sm-offset-1 col-sm-3 control-label"><strong>캠핑장명</strong></label>
 									<div class="col-sm-6">
-										<input id="nickName" name="nickName" class="form-control"
-											type="text" value="${user.nickName}" placeholder="닉네임을 입력해 주세요."/>
+										<input id="campName" name="campName" class="form-control"
+											type="text" value="${user.campName}" placeholder="캠핑장명을 입력해 주세요."/>
 									</div>
-									<div id="check-nickName" class='col-sm-offset-3 col-sm-6'></div>
+								</div>
+
+							<div class="form-group">
+									<label for="tourismBusinessNum"
+										class="col-sm-offset-1 col-sm-3 control-label"><strong>관광사업자 등록번호</strong></label>
+									<div class="col-sm-6">
+										<input id="tourismBusinessNum" name="tourismBusinessNum" class="form-control" type="text"
+											value="${user.tourismBusinessNum}" maxlength="10" readonly/>
+									</div>
+									<div id="check-business" class='col-sm-offset-3 col-sm-6'></div>
 								</div>
 
 
 								<div class="form-group">
 									<label for="name"
-										class="col-sm-offset-1 col-sm-3 control-label"><strong>이름</strong></label>
+										class="col-sm-offset-1 col-sm-3 control-label"><strong>사업자대표 이름</strong></label>
 									<div class="col-sm-6">
 										<input id="name" name="name" class="form-control" type="text"
 											value="${user.name}" placeholder="이름을 입력하세요" />
@@ -227,12 +237,49 @@
 										class="col-sm-offset-1 col-sm-3 control-label"></label>
 									<div class="col-sm-6">
 										<input id="userAddr" name="userAddr" class="form-control"
-											type="text" placeholder="상세주소를 입력하세요." /> <input
-											type="hidden" name="allAddr" />
+											type="text" placeholder="상세주소를 입력하세요." /> 
+											<input type="hidden" name="allAddr" />
 									</div>
 								</div>
 								
-								<div id="nick-name" class="form-group">
+								<div class="form-group">
+									<label for="campCall"
+										class="col-sm-offset-1 col-sm-3 control-label"><strong>캠핑장 전화번호</strong></label>
+									<div class="col-sm-6">
+										<input id="campCall" name="campCall" class="form-control" type="text"
+											placeholder="숫자만 입력해주세요." />
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label for="accountInfo"
+										class="col-sm-offset-1 col-sm-3 control-label"><strong>계좌정보</strong></label>
+									<div class="col-sm-3">
+										<select class="form-control" name="bank" id="bank">
+										<option value="${user.bank}">은행</option>
+									     <option value="KB국민은행" <c:if test="${user.bank eq 'KB국민은행'}">selected="selected"</c:if>>KB국민은행</option>
+									      <option value="신한은행" <c:if test="${user.bank eq '신한은행'}">selected="selected"</c:if>>신한은행</option>
+									      <option value="우리은행" <c:if test="${user.bank eq '우리은행'}">selected="selected"</c:if>>우리은행</option>
+									      <option value="하나은행" <c:if test="${user.bank eq '하나은행'}">selected="selected"</c:if>>하나은행</option>
+									      <option value="NH농협은행" <c:if test="${user.bank eq 'NH농협은행'}">selected="selected"</c:if>>NH농협은행</option>
+									      <option value="카카오뱅크" <c:if test="${user.bank eq '카카오뱅크'}">selected="selected"</c:if>>카카오뱅크</option>  
+										 </select>
+									</div>
+									<div class="col-sm-3">
+										<input id="accountHolder" name="accountHolder" class="form-control" type="text"
+											value="${user.accountHolder}" placeholder="예금주" />
+									</div>
+								</div>
+								
+								<div class="form-group">
+										<label class="col-sm-offset-1 col-sm-3 control-label"></label>
+									<div class="col-sm-6">
+										<input id="accountNum" name="accountNum" class="form-control" type="text"
+											value="${user.accountNum}" placeholder="계좌번호를 숫자만 입력하세요" maxlength="14"/>
+									</div>
+								</div>
+								
+								<div id="entryDate" class="form-group">
 									<label for="entryDate"
 										class="col-sm-offset-1 col-sm-3 control-label"><strong>회원가입 일자</strong></label>
 									<div class="col-sm-6">
@@ -241,8 +288,7 @@
 									</div>
 								</div>
 							</form>
-
-						</div>
+						</div>	
 					</div>
 
 						<br/>
@@ -283,6 +329,22 @@
 	
 	$(function(){
 		
+		
+		//비밀번호
+		$('#password').on("keyup",function(){
+			var regExp = /[ㄱ-ㅎㅏ-ㅣ가-힣]/g; //한글입력 불가
+			var pwd=$('#password').val();
+			
+			if(pwd.length<1){
+				$("#check-pwd-exp").html("");
+				
+			}else if(regExp.test(pwd)){
+				$("#check-pwd-exp").html("한글은 입력 불가합니다.");
+				$("#check-pwd-exp").css('color','red');
+			}
+			
+		}); 
+		
 	   //비밀번호 확인
 		$('#confirmPassword').on("keyup",function(){
 
@@ -300,37 +362,7 @@
 				}
 		});
 	
-	//닉네임 중복체크
-	 $("input[name='nickName']").on("keyup" , function() {
-
-		 var nickName=$("input[name='nickName']").val();
-			    
-			$.ajax({
-				url : '/user/rest/checkDuplication',
-				headers :{
-					"Accept" : "application/json",
-					"Content-Type" : "application/json"
-				},
-				method : 'POST',
-				dataType:'json',
-				data : JSON.stringify({"nickName" : nickName}),	
-				success : function(result) {
-					console.log('성공: '+result);
-					if(result== 0){
-						if(nickName.length>2){
-							$("#check-nickName").html('사용 가능한 닉네임입니다.');
-							$("#check-nickName").css('color','green');
-						}else{
-							$("#check-nickName").html("");
-						}
-					}else{
-						$("#check-nickName").html('이미 사용중이거나 중복된 닉네임 입니다.');
-						$("#check-nickName").css('color','red');
-					} 
-				}
-			});
 	
-		});
 	
 	//휴대폰번호 중복체크
 	 $("input[name='phone']").on("keyup" , function() {

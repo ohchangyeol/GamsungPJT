@@ -136,13 +136,26 @@ public class UserRestController {
 		System.out.println("str" + isSuccess);
 		return isSuccess;
 	}
-
+	
+	
 	// 아이디찾기
-	@RequestMapping(value = "rest/findId")
-	public String findId(String name, String phone){
+	/*
+	 * @RequestMapping(value = "rest/findId", method = RequestMethod.GET) public
+	 * String findId(){ return "forward:/view/user/findIdModal.jsp"; }
+	 */
+	
+	// 아이디찾기
+	@RequestMapping(value = "rest/findId", method = RequestMethod.POST)
+	public String findId(@RequestParam("name") String name, @RequestParam("phone") String phone){
+		
+		System.out.println("rest실행되나");
 
 		String id = userService.findId(name, phone);
 
+		System.out.println(name);
+		System.out.println(phone);
+		System.out.println(id+"return 되나");
+		
 		return id;
 	}
 

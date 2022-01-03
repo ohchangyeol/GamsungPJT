@@ -150,7 +150,7 @@ public class UserServiceImpl implements UserService{
 		
 		TempKey tmp = new TempKey();
 		String pw = tmp.generateKey(10);
-		
+		System.out.println("비밀번호"+pw);
 		String newPwd = SHA256Util.getEncrypt(pw, user.getSalt());
 		user.setPassword(newPwd);
 		

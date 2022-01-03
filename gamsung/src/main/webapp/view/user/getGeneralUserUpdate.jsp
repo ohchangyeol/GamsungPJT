@@ -165,6 +165,7 @@
 										<input id="password" name="password" class="form-control "
 											 type="password" placeholder="변경할 비밀번호를 입력해 주세요." />
 									</div>
+									<div id="check-pwd-exp" class='col-sm-offset-3 col-sm-6'></div>
 								</div>
 
 								<div class="form-group">
@@ -232,7 +233,26 @@
 									</div>
 								</div>
 								
-								<div id="nick-name" class="form-group">
+								<div class="form-group">
+									<label for="accountInfo"
+										class="col-sm-offset-1 col-sm-3 control-label"><strong>계좌정보</strong></label>
+									<div class="col-sm-3">
+										<select class="form-control" name="bank" id="bank">
+										<option value="${user.bank}">은행</option>
+									     <option value="KB국민은행" <c:if test="${user.bank eq 'KB국민은행'}">selected="selected"</c:if>>KB국민은행</option>
+									      <option value="신한은행" <c:if test="${user.bank eq '신한은행'}">selected="selected"</c:if>>신한은행</option>
+									      <option value="우리은행" <c:if test="${user.bank eq '우리은행'}">selected="selected"</c:if>>우리은행</option>
+									      <option value="하나은행" <c:if test="${user.bank eq '하나은행'}">selected="selected"</c:if>>하나은행</option>
+									      <option value="NH농협은행" <c:if test="${user.bank eq 'NH농협은행'}">selected="selected"</c:if>>NH농협은행</option>
+									      <option value="카카오뱅크" <c:if test="${user.bank eq '카카오뱅크'}">selected="selected"</c:if>>카카오뱅크</option>  
+										 </select>
+									</div>
+									<div class="col-sm-3">
+										<input id="accountHolder" name="accountHolder" class="form-control" type="text"
+											value="${user.accountHolder}" placeholder="예금주" />
+									</div>
+								</div>
+								<div id="entryDate" class="form-group">
 									<label for="entryDate"
 										class="col-sm-offset-1 col-sm-3 control-label"><strong>회원가입 일자</strong></label>
 									<div class="col-sm-6">
@@ -282,6 +302,21 @@
 	<script>
 	
 	$(function(){
+		
+		//비밀번호
+		$('#password').on("keyup",function(){
+			var regExp = /[ㄱ-ㅎㅏ-ㅣ가-힣]/g; //한글입력 불가
+			var pwd=$('#password').val();
+			
+			if(pwd.length<1){
+				$("#check-pwd-exp").html("");
+				
+			}else if(regExp.test(pwd)){
+				$("#check-pwd-exp").html("한글은 입력 불가합니다.");
+				$("#check-pwd-exp").css('color','red');
+			}
+			
+		}); 
 		
 	   //비밀번호 확인
 		$('#confirmPassword').on("keyup",function(){

@@ -1,42 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<head>
-		<!-- Web Fonts  -->
-		<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Shadows+Into+Light" rel="stylesheet" type="text/css">
 
-		<!-- Vendor CSS -->
-		<link rel="stylesheet" href="../../resources/lib/bootstrap/css/bootstrap.css" />
-		<link rel="stylesheet" href="../../resources/lib/font-awesome/css/font-awesome.css" />
-		<link rel="stylesheet" href="../../resources/lib/magnific-popup/magnific-popup.css" />
-		<link rel="stylesheet" href="../../resources/lib/bootstrap-datepicker/css/datepicker3.css" />
-
-		<!-- Specific Page Vendor CSS -->
-		<link rel="stylesheet" href="../../resources/lib/pnotify/pnotify.custom.css" />
-
-		<!-- Theme CSS -->
-		<link rel="stylesheet" href="../../resources/css/theme.css" />
-
-		<!-- Skin CSS -->
-		<link rel="stylesheet" href="../../resources/css/skins/default.css" />
-
-		<!-- Theme Custom CSS -->
-		<link rel="stylesheet" href="../../resources/css/theme-custom.css">
-
-		<!-- Head Libs -->
-		<script src="assets/vendor/modernizr/modernizr.js"></script>
-
-<meta charset="UTF-8">
-</head>
-<body>
-
-<div id="modalBasic" class="modal-block modal-block-primary mfp">
+<div id="findIdModal" style="display:none;">
+<div  class="modal-block modal-block-primary mfp" >
 	<section class="panel">
 <header class="panel-heading">
-<button class="close" data-dismiss="modal">&times;</button>
+<h4 class="modal-title" align="center">아이디 찾기</h4>
 	</header>
 	<div class="panel-body" >
-		
-	<form action="" class="was-validated">
+	<form action="" class="was-validated" id="ModalFindId">
 		<div class="form-group">
 			<label for="findIdName" class="col-sm-offset-1 col-sm-3 control-label"><strong>이름</strong></label>
 			<div class="col-sm-6">
@@ -55,13 +27,12 @@
 					<div id="findId-check-phone" class='col-sm-offset-3 col-sm-6'></div>
 					<div id="findId-check-phone-auth" class='col-sm-offset-3 col-sm-6'></div>
 								</div>
-		<div align="right"><button type="submit" class="btn btn-default btn-sm" id="findId">아이디찾기</button></div>
+		<div align="right"><button type="button" class="btn btn-default btn-sm" id="findId">아이디찾기</button></div>
 	</form>
 		</div>
 	</section>
 </div>
-
-
+</div>
 <script src="../../resources/lib/jquery/jquery.js"></script>
 <script src="../../resources/lib/jquery-browser-mobile/jquery.browser.mobile.js"></script>
 <script src="../../resources/lib/bootStrap/js/bootstrap.js"></script>
@@ -74,53 +45,13 @@
 <script src="../../resources/js/theme.custom.js"></script>
 <script src="../../resources/js/theme.init.js"></script>
 <script src="../../resources/js/ui-elements/examples.modals.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
 <script type="text/javascript">
 
     //============= logout Event =============	
 	 $(function() {
 		 
-		//휴대폰번호 중복체크
-/* 		 $("input[name='phone']").on("keyup" , function() {
-
-			 var regExp = /^[0-9]*$/;
-			 var phone=$("#findIdPhone").val();
-				    
-				$.ajax({
-					url : '/user/rest/checkDuplication',
-					headers :{
-						"Accept" : "application/json",
-						"Content-Type" : "application/json"
-					},
-					method : 'POST',
-					dataType:'json',
-					data : JSON.stringify({"phone" : phone}),	
-					success : function(result) {
-						console.log('성공: '+result);
-						
-						if(result== 0){
-							if(email != ""){
-								if(!(regExp.test(phone))){
-									$("#findIdPhone").val("");
-									$("#findId-check-phone").html("휴대폰번호는 숫자로만 입력 가능합니다.");
-								}else if(phone.length==11){
-									$("#findId-check-phone").html('사용 가능한 번호입니다.');
-									$("#findId-check-phone").css('color','green');
-								}else if(phone.length>11){
-									$("#findIdPhone").val("");
-									$("#findId-check-phone").html("휴대폰번호는 11자리만 가능합니다.");
-								}else{
-									$("#findId-check-phone").html("");
-								}
-												
-						}else{
-							$("#findId-check-phone").html('이미 사용중이거나 중복된 휴대폰번호 입니다.');
-							$("#findId-check-phone").css('color','red');
-						} 
-					}
-					}
-				});
-		
-			}); */
 		
 		//휴대폰 인증번호 받기
 			$("#findIdPhoneAuthNum").on("click", function() {
@@ -162,23 +93,53 @@
 	//	$("#modalId").focus();
 	$("button:contains(아이디찾기)").on("click" , function() {
 		//alert("gkgkgkgk");
-/* 		var id=$("input:text").val();
-		var pwd=$("input:password").val();
+ 		var name=$("#findIdName").val();
+		var phone=$("#findIdPhone").val();
 		
-		if(id == null || id.length <1) {
-			alert('ID 를 입력하지 않으셨습니다.');
-			$("#id").focus();
+		if(name == null || name.length <1) {
+			alert('이름을 입력하지 않으셨습니다.');
+			$("#findIdName").focus();
 			return;
 		}
 		
-		if(pwd == null || pwd.length <1) {
-			alert('패스워드를 입력하지 않으셨습니다.');
-			$("#pwd").focus();
+		if(phone == null || phone.length <1) {
+			alert('휴대폰번호를 입력하지 않으셨습니다.');
+			$("#findIdPhone").focus();
 			return;
 		}
-		 */
-		 
-		$("form").attr("method","POST").attr("action","/user/rest/findId").submit();
+		
+		
+ 		$.ajax({
+			url : '/user/rest/findId',
+		/* 	 headers :{
+				"Accept" : "application/json",
+				"Content-Type" : "application/json"
+			},  */
+			method : 'POST',
+			//dataType:'json',
+			data : {
+				"name" :name,
+				"phone":phone
+			},
+			success : function(data) {
+				
+				console.log('성공: '+data);
+				  if(data!=null){
+					 var email=data;
+					 var split = data.split('@');
+					 var result = split[0].replace(/(?<=.{3})./gi,"*")+"@"+split[1];
+					 
+					 Swal.fire(result).then(()=>{
+						 self.location = "/";
+					 });
+					 
+					 } 
+				  
+				 }
+		});	   
+		 		 
+	//	$("form").attr("method","POST").attr("action","/user/findId").submit();
+
 	});
 });
 		 	

@@ -55,8 +55,7 @@ pageEncoding="UTF-8"%>
 		<script src="../../resources/js/ui-elements/examples.modals.js"></script>
      
 </head>
-
-
+ 		
 <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
@@ -270,16 +269,16 @@ pageEncoding="UTF-8"%>
   </div>
 </nav>
 
-
- 
+ <!-- 로그인 모달 -->
 
 <div id="modalBasic" class="modal-block modal-block-primary mfp mfp-hide">
 	<section class="panel">
-<header class="panel-heading">
-<button id="modalClose" type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
-	</header>
-	<div class="panel-body" >
-		
+<header class="panel-heading"> 
+<!--  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>-->
+ <div align="right"><button class="btn btn-default modal-dismiss">x</button></div>
+<h3 class="modal-title" align="center">로그인</h3>
+</header> 
+	 <div class="panel-body" >
 	<form action="" class="was-validated">
 		<div class="form-group">
 		<div class="col-sm-2"></div>
@@ -295,7 +294,7 @@ pageEncoding="UTF-8"%>
 
 		</div>
 		<div class="col-sm-3"></div>
-		<div class="col-sm-6"><button type="submit" class="btn-info btn-round btn-block">로그인</button></div>
+		<div class="col-sm-6"><button type="submit" class="btn-info btn-round btn-block" id="loginBtn">로그인</button></div>
 		<br/><br/>
 		<div align="center"><a href="javascript:kakaoLogin();"><img src="../../resources/images/kakaolink_btn_small.png"/></a>
 		<button type="submit" class="btn btn-g btn-round" id="joinUser"><i class="fa fa-smile-o"></i>회원가입</button>
@@ -303,17 +302,16 @@ pageEncoding="UTF-8"%>
 		
 	</form>
 		</div>
-			<footer class="panel-footer">
+		<footer class="panel-footer">
 				<div class="row">
 					<div class="col-md-12 text-right">
-						<button class="btn btn-default btn-sm">아이디 찾기</button>
+						<button class="btn btn-default btn-sm modal-dismiss" data-toggle="modal" data-target="#findIdModal" type="button" id="findId">아이디 찾기</button>
 						<button class="btn btn-default btn-sm">비밀번호 찾기</button>
 					</div>
 				</div>
-			</footer>
-		</section>
+		</footer>
+	</section>
 </div>
-
 
 <script type="text/javascript">
     //============= logout Event =============	
@@ -326,33 +324,47 @@ pageEncoding="UTF-8"%>
 			
 		 	$("#joinUser").on("click" , function() {
 				//$(self.location).attr("href","/user/logout");
-			self.location = "/view/user/addGeneralUser.jsp"
-		}); 
+				self.location = "/view/user/addGeneralUser.jsp"
+			}); 
 		 	
 			$("#joinBusinessUser").on("click" , function() {
-			self.location = "/view/user/addBusinessUser.jsp"
-		}); 
-			
+				self.location = "/view/user/addBusinessUser.jsp"
+			}); 
+			 			
 			$("#id").focus();
-		$("button:contains(로그인)").on("click" , function() {
-			//alert("gkgkgkgk");
-			var id=$("input:text").val();
-			var pwd=$("input:password").val();
-			
-			if(id == null || id.length <1) {
-				alert('ID 를 입력하지 않으셨습니다.');
-				$("#id").focus();
-				return;
-			}
-			
-			if(pwd == null || pwd.length <1) {
-				alert('패스워드를 입력하지 않으셨습니다.');
-				$("#pwd").focus();
-				return;
-			}
-			
-			$("form").attr("method","POST").attr("action","/user/login").submit();
-		});
+			$("button:contains(로그인)").on("click" , function() {
+				//alert("gkgkgkgk");
+				var id=$("input:text").val();
+				var pwd=$("input:password").val();
+				
+				if(id == null || id.length <1) {
+					alert('ID 를 입력하지 않으셨습니다.');
+					$("#id").focus();
+					return;
+				}
+				
+				if(pwd == null || pwd.length <1) {
+					alert('패스워드를 입력하지 않으셨습니다.');
+					$("#pwd").focus();
+					return;
+				}
+				
+				$("form").attr("method","POST").attr("action","/user/login").submit();
+			});
+			console.log($("#findId"));
+
+			$(".text-right #findId").on("click", function(e) {
+				
+				console.log("dddd");
+	 			console.log($('div#findIdModal'));
+	 			
+	 			//$(".mfp-ready").
+	 			$('#modalBasic').modal('hide');
+	 			//$(this).collapse('hide');
+	 			
+	 		//	$('#findIdModal').modal('show');
+	 			
+			}); 
 		});
 
 		//카카오로그인
@@ -368,7 +380,8 @@ pageEncoding="UTF-8"%>
 		    }
 		});
 
-		}
+	}
+	 
 
 		$(document).ready(function() {
 
@@ -387,4 +400,5 @@ pageEncoding="UTF-8"%>
 		});  
    
 </script> 
+
 
