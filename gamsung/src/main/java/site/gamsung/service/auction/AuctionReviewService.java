@@ -14,6 +14,6 @@ public interface AuctionReviewService {
 	
 	public AuctionInfo updateAuctionRatingReview(RatingReview ratingReview);
 	
-	public void deleteAuctionRatingReview(RatingReview ratingReview);
+	public AuctionInfo deleteAuctionRatingReview(RatingReview ratingReview);
 	
 }

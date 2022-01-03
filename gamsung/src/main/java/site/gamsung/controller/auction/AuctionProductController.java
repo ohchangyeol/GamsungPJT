@@ -1,5 +1,6 @@
 package site.gamsung.controller.auction;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -31,9 +32,6 @@ import site.gamsung.util.auction.AuctionImgUpload;
 @Controller
 public class AuctionProductController {
 	
-	@Value("#{commonProperties['auctionPageSize']}")
-	int auctionPageSize;
-	
 	@Autowired
 	@Qualifier("auctionProductService")
 	private AuctionProductService auctionProductService;
@@ -45,9 +43,15 @@ public class AuctionProductController {
 	@Autowired
 	@Qualifier("auctionReviewService")
 	private AuctionReviewService auctionReviewService;
-
+	
 	@Value("#{commonProperties['crawlingURL']}")
 	private String crawlingURL;
+	
+	@Value("#{commonProperties['auctionPageSize']}")
+	int auctionPageSize;
+	
+	@Value("#{commonProperties['auctionMypageSize']}")
+	int auctionMypageSize;
 	
 	public AuctionProductController() {
 		System.out.println(this.getClass());
@@ -86,6 +90,7 @@ public class AuctionProductController {
 		model.addAttribute("auctionProduct",map.get("auctionProduct"));
 		model.addAttribute("auctionInfo", map.get("auctionInfo"));
 		model.addAttribute("registrantInfo", map.get("registrantInfo"));
+		model.addAttribute("ratingReview",map.get("ratingReview"));
 			
 		return "forward:/view/auction/getAuctionProduct.jsp";
 	}
@@ -266,6 +271,29 @@ public class AuctionProductController {
 		model.addAttribute("auctionProductNo",auctionProductNo);
 		
 		return "forward:/view/auction/reviewModal.jsp";
+	}
+	
+	@GetMapping(value = "listMyAuctionProduct")
+	public String listMyAuctionProduct(	@ModelAttribute("search") Search search, Model model ,HttpSession httpSession) {
+		
+		User user = (User)httpSession.getAttribute("user");
+		
+		if(user == null) {
+			return "redirect:/main.jsp";
+		}
+		
+		search.setPageSize(auctionMypageSize);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("search", search);
+		map.put("user", user);
+		
+		map = auctionInfoService.listAuctionProductByRole(map);
+		
+		model.addAttribute("list",map.get("list"));
+		model.addAttribute("totalCount",map.get("totalCount"));
+		
+		return "forward:/view/auction/listMyAuctionProduct.jsp";
 	}
 
 }

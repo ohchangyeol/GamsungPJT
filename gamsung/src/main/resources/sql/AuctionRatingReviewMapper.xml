@@ -6,24 +6,26 @@
 
 <mapper namespace="AuctionRatingReviewMapper">
 	<resultMap id="auctionRatingReview" type="ratingReview">
-		<result property="auctionInfo.auctionProductNo"			column="product_no" 				jdbcType="CHAR"/>
-		<result property="auctionInfo.addReviewCount"			column="review_count" 				jdbcType="CHAR"/>
-		<result property="user.id" 								column="user_id" 					jdbcType="VARCHAR"/>
-		<result property="user.role" 							column="role"	 					jdbcType="VARCHAR"/>
-		<result property="ratingReviewNo" 						column="rating_review_no" 			jdbcType="NUMERIC"/>
-		<result property="ratingReviewStatus"					column="rating_review_status" 		jdbcType="NUMERIC"/>
-		<result property="ratingReviewTitle"					column="rating_review_title" 		jdbcType="VARCHAR"/>
-		<result property="ratingReviewContent"					column="rating_review_content" 		jdbcType="VARCHAR"/>
-		<result property="reviewRegDate" 						column="review_reg_date" 			jdbcType="DATE"/>
-		<result property="comment" 								column="comment" 					jdbcType="VARCHAR"/>
-		<result property="commentRegDate"						column="comment_reg_date" 			jdbcType="DATE"/>
-		<result property="statusRating" 						column="status_rating" 				jdbcType="FLOAT"/>
-		<result property="priceRating" 							column="price_rating" 				jdbcType="FLOAT"/>
-		<result property="kindnessRating" 						column="kindness_rating" 			jdbcType="FLOAT"/>
-		<result property="avgRating" 							column="avg_rating" 				jdbcType="FLOAT"/>
-		<result property="img1" 								column="review_img1" 				jdbcType="VARCHAR"/>
-		<result property="reviewDeleteFlag" 					column="review_delete_flag" 		jdbcType="CHAR"/>
-		<result property="commentDeleteFlag" 					column="comment_delete_flag" 		jdbcType="CHAR"/>
+		<result property="auctionInfo.auctionProductNo"			column="product_no" 				/>
+		<result property="auctionInfo.addReviewCount"			column="review_count" 				/>
+		<result property="auctionInfo.user.id"					column="registrant_id" 				/>
+		<result property="auctionInfo.info"						column="poduct_name" 				/>	
+		<result property="user.id" 								column="user_id" 					/>
+		<result property="user.role" 							column="role"	 					/>
+		<result property="ratingReviewNo" 						column="rating_review_no" 			/>
+		<result property="ratingReviewStatus"					column="rating_review_status" 		/>
+		<result property="ratingReviewTitle"					column="rating_review_title" 		/>
+		<result property="ratingReviewContent"					column="rating_review_content" 		/>
+		<result property="reviewRegDate" 						column="review_reg_date" 			/>
+		<result property="comment" 								column="comment" 					/>
+		<result property="commentRegDate"						column="comment_reg_date" 			/>
+		<result property="statusRating" 						column="status_rating" 				/>
+		<result property="priceRating" 							column="price_rating" 				/>
+		<result property="kindnessRating" 						column="kindness_rating" 			/>
+		<result property="avgRating" 							column="avg_rating" 				/>
+		<result property="img1" 								column="review_img1" 				/>
+		<result property="reviewDeleteFlag" 					column="review_delete_flag" 		/>
+		<result property="commentDeleteFlag" 					column="comment_delete_flag" 		/>
 	</resultMap>
 	
 	<insert id="addAuctionRatingReview" parameterType="ratingReview" >
@@ -41,8 +43,8 @@
 	</update>
 	
 	<select id="listAuctionRatingReview" parameterType="map" resultMap="auctionRatingReview">
-		SELECT  rc.review_count AS review_count, rating_review_no, ap.registrant_id AS registrant_id, user_id, rr.product_no AS product_no, rating_review_content,
-				review_reg_date, comment, comment_reg_date, ROUND((status_rating+price_rating+kindness_rating)/3,1) AS avg_rating, review_img1
+		SELECT  rc.review_count AS review_count, rating_review_no, ap.registrant_id AS registrant_id, user_id, rr.product_no AS product_no, ap.product_name AS poduct_name, rating_review_content,
+				review_reg_date, comment, comment_reg_date, ROUND((status_rating+price_rating+kindness_rating)/3,2) AS avg_rating, review_img1, review_delete_flag, comment_delete_flag
 				
 		FROM RATING_REVIEW AS rr, AUCTION_PRODUCT AS ap, 	(	SELECT 	COUNT(rating_review_no) review_count
 																FROM 	RATING_REVIEW AS rrw, AUCTION_PRODUCT AS apt
@@ -52,6 +54,12 @@
 													
 		WHERE ap.registrant_id = #{auctionProduct.registrantId} AND rr.product_no = ap.product_no AND (review_delete_flag = 'N' OR comment_delete_flag = 'N')
 		LIMIT #{search.pageSize} OFFSET #{search.offset}
+	</select>
+	
+	<select id="getRegistrantAvgRating" parameterType="String" resultMap="auctionRatingReview">
+		SELECT ROUND( (AVG(status_rating) + AVG(price_rating) + AVG(kindness_rating) )/3,2) AS avg_rating, registrant_id AS user_id
+		FROM RATING_REVIEW AS rr, AUCTION_PRODUCT AS ap
+		WHERE rr.product_no = ap.product_no AND registrant_id = #{value}
 	</select>
 	
 	<select id="getAuctionRatingReview" parameterType="int" resultMap="auctionRatingReview">

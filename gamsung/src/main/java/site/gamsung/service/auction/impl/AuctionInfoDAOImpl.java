@@ -58,6 +58,12 @@ public class AuctionInfoDAOImpl implements AuctionInfoDAO{
 	}
 
 	@Override
+	public int countAuctionProductByRole(String userId) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("AuctionInfoMapper.countAuctionProductByRole",userId);
+	}
+
+	@Override
 	public List<AuctionInfo> auctionHistory(Map<String, Object> map) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("AuctionInfoMapper.AuctionHistory", map);

@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
   <head>
@@ -53,17 +52,13 @@
 <!-- Main stylesheet and color file-->
 <link href="../../resources/css/style.css" rel="stylesheet">
 <link id="color-scheme" href="../../resources/css/colors/default.css" rel="stylesheet">
-
-<style type="text/css">
-</style>
-
-</head>
+  </head>
   <body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
     <main>
       <div class="page-loader">
         <div class="loader">Loading...</div>
       </div>
-	<jsp:include page="../common/header.jsp"></jsp:include>
+	<jsp:include page="header.jsp"></jsp:include>
       <div class="main">
         <section class="module-small">
           <div class="container">
@@ -88,71 +83,18 @@
                 <div class="widget">
                   <h5 class="widget-title font-alt">중고상품</h5>
                   <ul class="icon-list">
-                    <li id="listAddProduct"><a>등록한 상품 목록</a></li>
+                    <li id="listMyProduct"><a>등록한 상품 목록</a></li>
                     <li id="auctionHistory"><a>경매 내역</a></li>
                     <li id="reviewHistory"><a>리뷰 내역</a></li>
                   </ul>
                 </div>
                
               </div>
-              <div class="col-sm-8 col-md-9">
+              <div class="col-sm-8 col-sm-offset-1">
                 <div class="post">
-                <section class="module">
-		          <div class="container">
-		            <div class="row multi-columns-row">
-		              <div class="col-sm-8">
-		              	<c:forEach var="auctionProduct" items="${list}">
-		                <div class="menu">
-		                  <div class="row">
-		                    <div class="col-sm-8">
-		                      <h4 class="menu-title font-alt">${auctionProduct.auctionProductName}</h4>
-		                      <c:if test="${auctionProduct.auctionStatus eq 'WAIT'}">
-			                      <div class="menu-detail font-serif"><i class="fa fa-fw">&#xF129;</i> 낙찰된 상품입니다.</div>
-		                      </c:if>
-		                      <c:if test="${auctionProduct.auctionStatus eq 'CONFIRM'}">
-			                      <div class="menu-detail font-serif"><i class="fa fa-fw">&#xF129;</i> 거래완료된 상품입니다.</div>
-		                      </c:if>
-		                      <c:if test="${auctionProduct.auctionStatus eq 'FAIL'}">
-			                      <div class="menu-detail font-serif"><i class="fa fa-fw">&#xF129;</i> 유찰된 상품입니다.</div>
-		                      </c:if>
-		                      <c:if test="${auctionProduct.auctionStatus eq 'WITHDRAWAL'}">
-			                      <div class="menu-detail font-serif"><i class="fa fa-fw">&#xF129;</i> 중도 철회된 상품입니다.</div>
-		                      </c:if>
-		                      <c:if test="${auctionProduct.auctionStatus eq 'CANCEL'}">
-			                      <div class="menu-detail font-serif"><i class="fa fa-fw">&#xF129;</i> 낙찰 취소된 상품입니다.</div>
-		                      </c:if>
-		                    </div>
-		                    <div class="col-sm-4 menu-price-detail">
-		                      <h4 class="menu-price font-alt"><fmt:formatNumber type="number" maxFractionDigits="3" value="${auctionProduct.hopefulBidPrice}"/>원</h4>
-		                      <h4 class="menu-price font-alt"><i class="fa fa-fw">&#xF0C0;</i>${auctionProduct.productViewCount}</h4>
-		                    </div>
-		                  </div>
-		                </div>
-		               	</c:forEach>
-		              </div>
-		            </div>
-		          </div>
-		          <div class="container">
-		            <div class="row multi-columns-row">
-		              <div class="col-sm-8">
-		              	<div class="row">
-		              		<div class="col-sm-12">
-		              			<div class="pagination font-alt">
-		              				<a><i class="fa fa-angle-left"></i></a>
-										<c:forEach begin="1" end="${totalCount}/10" step="1">
-											<a class="active nav" >j</a>
-										</c:forEach>
-									<a><i class="fa fa-angle-right"></i></a>
-								</div>
-							</div>
-						</div>
-		        	  </div>
-		          </div>
-		       	</div>
-	        	</section>												           
+                                   
                 </div>
               </div>
-         
             </div>
           </div>
         </section>
@@ -251,15 +193,8 @@
 	<script src="../../resources/js/main.js"></script>
 	<script>
 		$(function(){
-			$('#listAddProduct').on('click',function(){
-				$.ajax({url:"list.html",
-
-					success:function(result) {
-
-					$("#div1").html(result);
-
-					}
-				});
+			$('#listMyProduct').on('click',function(){
+				window.location = "/auction/listMyAuctionProduct?currentPage=1";
 			});
 		});
 	</script>

@@ -1,33 +1,35 @@
 CREATE SCHEMA gamsung;
 USE gamsung;
 
+
 CREATE TABLE `USERS` (
-    `user_id` VARCHAR(50) NOT NULL,
-    `role` VARCHAR(20)  NOT NULL,
-    `nick_name` VARCHAR(30),
-    `password` VARCHAR(500) NOT NULL,
-    `salt` VARCHAR(100),
-    `name` VARCHAR(20) NOT NULL,
-    `phone` VARCHAR(11) NOT NULL,
-    `addr` VARCHAR(100),
-    `entry_reg_date` DATE,
-    `bank` VARCHAR(15),
-    `account_holder` VARCHAR(30),
-    `account_num` VARCHAR(14),
-    `having_point` INT DEFAULT 0,
-    `camp_name` VARCHAR(30),
-    `camp_call` VARCHAR(15),
-    `entry_approval_flag` CHAR(1)  DEFAULT 'N',
-    `receive_cancel_total_count` INT DEFAULT 0,
-    `receive_ban_end_date` DATE,
-    `dormant_reg_date` DATE,
-    `secession_reg_date` DATE,
-    `suspension_reg_date` DATE,
-    `tourism_business_num` VARCHAR(10),
-    `suspension_content` VARCHAR(200),
-    `auction_grade` SMALLINT DEFAULT 1,
-    PRIMARY KEY ( `user_id`),
-    UNIQUE (`user_id`,`nick_name`, `phone`, `tourism_business_num`)
+`user_id` VARCHAR(50) NOT NULL,
+`role` VARCHAR(20) NOT NULL,
+`nick_name` VARCHAR(30),
+`password` VARCHAR(500) NOT NULL,
+`salt` VARCHAR(100),
+`name` VARCHAR(20) NOT NULL,
+`phone` VARCHAR(11) NOT NULL,
+`addr` VARCHAR(100),
+`entry_reg_date` DATE,
+`bank` VARCHAR(15),
+`account_holder` VARCHAR(30),
+`account_num` VARCHAR(14),
+`having_point` INT DEFAULT 0,
+`camp_name` VARCHAR(30),
+`camp_call` VARCHAR(15),
+`entry_approval_flag` CHAR(1) DEFAULT 'N',
+`receive_cancel_total_count` INT DEFAULT 0,
+`receive_ban_end_date` DATE,
+`dormant_reg_date` DATE,
+`secession_reg_date` DATE,
+`suspension_reg_date` DATE,
+`tourism_business_num` VARCHAR(10),
+`suspension_content` VARCHAR(200),
+`auction_grade` SMALLINT DEFAULT 1,
+`sns_id` VARCHAR(15),
+PRIMARY KEY ( `user_id`),
+UNIQUE (`user_id`,`nick_name`, `phone`, `tourism_business_num`)
 );
 
 CREATE TABLE `LOGIN_HISTORY` (
@@ -37,46 +39,35 @@ CREATE TABLE `LOGIN_HISTORY` (
     PRIMARY KEY (`login_history_no`)
 );
 
-DELIMITER $$
-CREATE TRIGGER LOGIN_HISTORY_SEQ
-BEFORE INSERT ON LOGIN_HISTORY
-FOR EACH ROW
-BEGIN
-   DECLARE history_no INT;
-   SET history_no = (SELECT COUNT(login_history_no) FROM LOGIN_HISTORY);
-   SET NEW.login_history_no = LPAD(history_no+1, 5, '0');
-END $$
-DELIMITER ;
-
 CREATE TABLE `AUCTION_PRODUCT` (
-    `product_no` VARCHAR(9) NOT NULL,
-    `registrant_id` VARCHAR(50) NOT NULL,
-    `successful_bidder_id` VARCHAR(50),
-    `product_name` VARCHAR(200),
-    `product_detail_a` VARCHAR(2000),
-    `product_detail_b` VARCHAR(2000),
-    `start_bid_price` INT,
-    `hopeful_bid_price` INT,
-    `bid_unit` INT,
-    `auction_start_time` DATETIME,
-    `auction_end_time` DATETIME,
-    `bidable_grade` TINYINT,
-    `hashtag1` VARCHAR(20),
-    `hashtag2` VARCHAR(20),
-    `hashtag3` VARCHAR(20),
-    `product_img1` VARCHAR(2000),
-    `product_img2` VARCHAR(2000),
-    `product_img3` VARCHAR(2000),
-    `product_img4` VARCHAR(2000),
-    `product_img5` VARCHAR(2000),
-    `product_view_count` INT NOT NULL DEFAULT 0,
-    `product_reg_date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `registrant_confirm_flag` CHAR(1) NOT NULL DEFAULT 'N',
-    `successful_bidder_confirm_flag` CHAR(1) NOT NULL DEFAULT 'N',
-    `auction_status` VARCHAR(20) NOT NULL DEFAULT 'START',
-    `temp_save_flag` CHAR(1) NOT NULL DEFAULT 'N',
-    `delete_flag` CHAR(1) NOT NULL DEFAULT 'N',
-    PRIMARY KEY (`product_no`)
+`product_no` VARCHAR(9) NOT NULL,
+`registrant_id` VARCHAR(50) NOT NULL DEFAULT 'gamsungsite@gmail.com',
+`successful_bidder_id` VARCHAR(50),
+`product_name` VARCHAR(200),
+`product_detail` VARCHAR(2000),
+`product_sub_detail` VARCHAR(2000),
+`start_bid_price` INT,
+`hopeful_bid_price` INT,
+`bid_unit` INT,
+`auction_start_time` DATETIME,
+`auction_end_time` DATETIME,
+`bidable_grade` TINYINT,
+`hashtag1` VARCHAR(20),
+`hashtag2` VARCHAR(20),
+`hashtag3` VARCHAR(20),
+`product_img1` VARCHAR(2000),
+`product_img2` VARCHAR(2000),
+`product_img3` VARCHAR(2000),
+`product_img4` VARCHAR(2000),
+`product_img5` VARCHAR(2000),
+`product_view_count` INT NOT NULL DEFAULT 0,
+`product_reg_date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+`registrant_confirm_flag` CHAR(1) NOT NULL DEFAULT 'N',
+`successful_bidder_confirm_flag` CHAR(1) NOT NULL DEFAULT 'N',
+`auction_status` VARCHAR(20) NOT NULL DEFAULT 'START',
+`temp_save_flag` CHAR(1) NOT NULL DEFAULT 'N',
+`delete_flag` CHAR(1) NOT NULL DEFAULT 'N',
+PRIMARY KEY (`product_no`)
 );
 
 DELIMITER $$
@@ -156,7 +147,7 @@ DELIMITER ;
 CREATE TABLE `CAMP` (
     `camp_no` INT NOT NULL AUTO_INCREMENT,
     `user_id` VARCHAR(50) NOT NULL,
-    `tempsave_flag` CHAR(1) NOT NULL DEFAULT 'N',
+    `tempsave_flag` INT NOT NULL DEFAULT '1',
     `delete_flag` CHAR(1) NOT NULL DEFAULT 'N',
     `camp_summery` VARCHAR(200),
     `camp_detail` VARCHAR(800),
@@ -173,7 +164,6 @@ CREATE TABLE `CAMP` (
     `camp_nature2` VARCHAR(50) NOT NULL,
     `camp_operation1` VARCHAR(50) NOT NULL,
     `camp_operation2` VARCHAR(50) NOT NULL,
-    `camp_view_count_previous_month` INT,
     `camp_view_count_current_month` INT,
     `camp_reservation_count` INT,
     `camp_rating` FLOAT,
@@ -224,23 +214,25 @@ ALTER TABLE SUBSITE AUTO_INCREMENT=10000;
 
 CREATE TABLE `PAYMENT` (
     `payment_no` VARCHAR(10) NOT NULL,
+    `payment_product` VARCHAR(50) NOT NULL,
     `payment_sender` VARCHAR(50) NOT NULL,
-    `payment_receiver` VARCHAR(50) NOT NULL,  
-    `payment_code` VARCHAR(20) NOT NULL,    
-    `payment_refund_code` VARCHAR(20) NOT NULL,  
-    `payment_reference_num` VARCHAR(20) NOT NULL,
-    `payment_refund_reference_num` VARCHAR(20) NOT NULL,
-    `payment_method` INT NOT NULL,   
-    `payment_reg_time` VARCHAR(20) NOT NULL,
+    `payment_receiver` VARCHAR(50) NOT NULL,    
+    `payment_method` VARCHAR(20) NOT NULL,    
+    `payment_code` VARCHAR(10) NOT NULL,
+    `payment_reg_time` DATETIME,
     `payment_price_total` INT NOT NULL,
-    `payment_price_pay` INT NOT NULL,
-    `payment_price_fee` INT NOT NULL,
-    `payment_reference_fee` INT NOT NULL,
-    `payment_refund_reg_time` VARCHAR(20) NOT NULL,
+    `payment_price_pay` INT,
+    `payment_price_fee` INT,
+    `payment_reference_fee` INT,
+    `payment_reference_num` VARCHAR(100),   
+    `payment_refund_code` VARCHAR(10),
+    `payment_refund_reg_time` DATETIME,
     `payment_refund_price_total` INT,
     `payment_refund_price_pay` INT,
     `payment_refund_price_fee` INT,
     `payment_refund_reference_fee` INT,
+    `payment_refund_reference_num` VARCHAR(100),	
+
     PRIMARY KEY (`payment_no`)
 );
 
@@ -354,7 +346,12 @@ CREATE TABLE `POST` (
     `post_hashtag3` VARCHAR(20),
     `video` VARCHAR(100),
     `delete_flag` CHAR(1) NOT NULL DEFAULT 'N',
-    PRIMARY KEY (`post_no`)
+    PRIMARY KEY (`post_no`),
+    FULLTEXT (post_content),
+    FULLTEXT (post_hashtag1),
+    FULLTEXT (post_hashtag2),
+    FULLTEXT (post_hashtag3),
+    FULLTEXT (post_title)
 );
 
 
@@ -364,13 +361,14 @@ CREATE TABLE `COMMENT` (
     `user_id` VARCHAR(50) NOT NULL,
     `comment_content` VARCHAR(400),
     `comment_reg_date` DATETIME default CURRENT_TIMESTAMP,
+    `delete_flag` CHAR(1) NOT NULL DEFAULT 'N',
     PRIMARY KEY (`comment_no`)
 );
 
 
 CREATE TABLE `POST_CONCERN` (
     `count_no` INT NOT NULL AUTO_INCREMENT,
-    `concern_flag` CHAR(1),
+    `delete_flag` CHAR(1) NOT NULL DEFAULT 'N',
     `user_id` VARCHAR(50) NOT NULL,
     `post_no` INT NOT NULL,
     PRIMARY KEY (`count_no`)
@@ -382,6 +380,7 @@ CREATE TABLE `TRANSFER` (
     `reservation_no` VARCHAR(10),
     `transfer_camp_area` VARCHAR(30),
     `transfer_camp_name` VARCHAR(30),
+    `transfer_mainsite_type` VARCHAR(50),
     `transfer_camp_call` VARCHAR(15),
     `transfer_start_date` DATE,
     `transfer_end_date` DATE,
@@ -391,7 +390,7 @@ CREATE TABLE `TRANSFER` (
     `transfer_content` VARCHAR(1000),
     `transfer_add_content` VARCHAR(800),
     `transfer_reg_date` DATETIME default CURRENT_TIMESTAMP,
-    `transfer_status` INT DEFAULT 0,
+    `transfer_status` INT DEFAULT 1,
     `transfer_payment_img` VARCHAR(100),
     `delete_flag` CHAR(1) NOT NULL DEFAULT 'N',
     `transfer_hashtag1` VARCHAR(20),
@@ -409,60 +408,75 @@ CREATE TABLE `RECEIVE` (
     `receive_content` VARCHAR(1000),
     `receive_reg_date` DATETIME default CURRENT_TIMESTAMP,
     `receive_cancel_date` DATE,
-    `receive_status` INT DEFAULT 0,
+    `receive_status` INT DEFAULT 1,
     `delete_flag` CHAR(1) NOT NULL DEFAULT 'N',
     PRIMARY KEY (`receive_no`)
 );
+CREATE TABLE `NOTICE` (
+`notice_no` INT NOT NULL AUTO_INCREMENT,
+`user_id` VARCHAR(50) NOT NULL,
+`delete_flag` CHAR(1) NOT NULL DEFAULT 'N',
+`notice_title` VARCHAR(40) NOT NULL,
+`notice_content` VARCHAR(2000) NOT NULL,
+`view_count` INT DEFAULT 0,
+`reg_date` DATETIME DEFAULT CURRENT_TIMESTAMP,
+`camp_no` INT,
+`camp_name` VARCHAR(30),
+`notice_file1` VARCHAR(50),
+`notice_file2` VARCHAR(50),
+`notice_file3` VARCHAR(50),
 
+PRIMARY KEY (`notice_no`),
+FULLTEXT title (notice_title),
+FULLTEXT content (notice_content),
+FULLTEXT allCotent (notice_title,notice_content)
 
-
-CREATE TABLE `QNA` (
-    `qna_no` INT NOT NULL AUTO_INCREMENT,
-    `sender_id` VARCHAR(50) NOT NULL,
-    `receiver_id` VARCHAR(50) NOT NULL,
-    `delete_flag` CHAR(1) NOT NULL DEFAULT 'N',
-    `question_title` VARCHAR(40),
-    `question_content` VARCHAR(800),
-    `question_reg_date` DATETIME DEFAULT CURRENT_TIMESTAMP,
-    `view_count` INT,
-    `answer_content` VARCHAR(1000),
-    `answer_reg_date` DATETIME ,
-    `camp_no` INT,
-    `camp_name` VARCHAR(30),
-    PRIMARY KEY (`qna_no`)
 );
 
-CREATE TABLE `NOTICE` (
-    `notice_no` INT NOT NULL AUTO_INCREMENT,
-    `user_id` VARCHAR(50) NOT NULL,
-    `delete_flag` CHAR(1) NOT NULL DEFAULT 'N',
-    `notice_title` VARCHAR(40) NOT NULL,
-    `notice_content` VARCHAR(2000) NOT NULL,
-    `view_count` INT,
-    `reg_date` DATETIME DEFAULT CURRENT_TIMESTAMP,
-    `camp_no` INT,
-    `camp_name` VARCHAR(30),
-    `notice_file1` VARCHAR(50),
-    `notice_file2` VARCHAR(50),
-    `notice_file3` VARCHAR(50),
-    PRIMARY KEY (`notice_no`)
+CREATE TABLE `QNA` (
+`qna_no` INT NOT NULL AUTO_INCREMENT,
+`sender_id` VARCHAR(50) NOT NULL,
+`receiver_id` VARCHAR(50) ,
+`delete_flag` CHAR(1) NOT NULL DEFAULT 'N',
+`question_title` VARCHAR(40),
+`question_content` VARCHAR(800),
+`question_reg_date` DATETIME DEFAULT CURRENT_TIMESTAMP,
+`view_count` INT DEFAULT 0,
+`answer_content` VARCHAR(1000),
+`answer_reg_date` DATETIME ,
+`camp_no` INT,
+`camp_name` VARCHAR(30),
+
+PRIMARY KEY (`qna_no`),
+FULLTEXT title (question_title),
+FULLTEXT content (question_content),
+FULLTEXT allCotent (question_title,question_content)
+
 );
 
 CREATE TABLE `REPORT` (
-    `report_no` INT NOT NULL AUTO_INCREMENT,
-    `sender_id` VARCHAR(50) NOT NULL,
-    `receiver_id` VARCHAR(50) NOT NULL,
-    `report_status` INT,
-    `report_type` CHAR(1),
-    `delete_flag` CHAR(1) NOT NULL DEFAULT 'N',
-    `camp_name` VARCHAR(30),
-    `report_content` VARCHAR(1000),
-    `report_reg_date` DATETIME DEFAULT CURRENT_TIMESTAMP,
-    `report_Img1` VARCHAR(50),
-    `report_Img2` VARCHAR(50),
-    `report_img3` VARCHAR(50),
-    PRIMARY KEY (`report_no`)
+	`report_no` INT NOT NULL AUTO_INCREMENT,
+	`sender_id` VARCHAR(50) NOT NULL,
+	`receiver_id` VARCHAR(50) NOT NULL,
+	`report_status` INT DEFAULT 0,
+	`report_type`INT NOT NULL,
+	`delete_flag` CHAR(1) NOT NULL DEFAULT 'N',
+	`receiver_camp_name` VARCHAR(30),
+	`report_content` VARCHAR(1000),
+	`report_reg_date` DATETIME DEFAULT CURRENT_TIMESTAMP,
+	`report_Img1` VARCHAR(50),
+	`report_Img2` VARCHAR(50),
+	`report_img3` VARCHAR(50),
+	PRIMARY KEY (`report_no`)
 );
+
+CREATE TABLE `REPORT_TABLE`(
+	`report_type` INT NOT NULL AUTO_INCREMENT,
+	`report_name` VARCHAR (10) NOT NULL DEFAULT '',
+	PRIMARY KEY (`report_type`)
+);
+
+
 
 ALTER TABLE `QNA` ADD FOREIGN KEY (`sender_id`) REFERENCES `USERS`(`user_id`);
 ALTER TABLE `NOTICE` ADD FOREIGN KEY (`user_id`) REFERENCES `USERS`(`user_id`);
@@ -475,7 +489,6 @@ ALTER TABLE `POST_CONCERN` ADD FOREIGN KEY (`post_no`) REFERENCES `POST`(`post_n
 ALTER TABLE `POST_CONCERN` ADD FOREIGN KEY (`user_id`) REFERENCES `USERS`(`user_id`);
 ALTER TABLE `TRANSFER` ADD FOREIGN KEY (`user_id`) REFERENCES `USERS`(`user_id`);
 ALTER TABLE `RECEIVE` ADD FOREIGN KEY (`transfer_no`) REFERENCES `TRANSFER`(`transfer_no`);
-ALTER TABLE `TRANSFER` ADD FOREIGN KEY (`reservation_no`) REFERENCES `CAMP_RESERVATION`(`reservation_no`);
 ALTER TABLE `AUCTION_PRODUCT` ADD FOREIGN KEY (`registrant_id`) REFERENCES `USERS`(`user_id`);
 ALTER TABLE `AUCTION_PRODUCT` ADD FOREIGN KEY (`successful_bidder_id`) REFERENCES `USERS`(`user_id`);
 ALTER TABLE `AUCTION_HISTORY` ADD FOREIGN KEY (`product_no`) REFERENCES `AUCTION_PRODUCT`(`product_no`);
@@ -496,3 +509,4 @@ ALTER TABLE `PAYMENT` ADD FOREIGN KEY (`payment_code`) REFERENCES `PAYMENT_CODE`
 ALTER TABLE `PAYMENT` ADD FOREIGN KEY (`payment_refund_code`) REFERENCES `PAYMENT_CODE`(`payment_code`);
 ALTER TABLE `NOTICE` ADD FOREIGN KEY (`camp_no`) REFERENCES `CAMP`(`camp_no`);
 ALTER TABLE `QNA` ADD FOREIGN KEY (`camp_no`) REFERENCES `CAMP`(`camp_no`);
+ALTER TABLE `REPORT` ADD FOREIGN KEY (`report_type`) REFERENCES `REPORT_TABLE`(`report_type`);

@@ -18,5 +18,7 @@ public interface AuctionReviewDAO {
 	public int updateAuctionRatingReview(RatingReview ratingReview);
 	
 	public void deleteAuctionRatingReview(RatingReview ratingReview);
+	
+	public RatingReview getRegistrantAvgRating(String registrantId);
 }
 

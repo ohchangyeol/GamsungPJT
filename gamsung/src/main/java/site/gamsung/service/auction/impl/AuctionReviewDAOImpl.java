@@ -61,4 +61,11 @@ public class AuctionReviewDAOImpl implements AuctionReviewDAO{
 		sqlSession.update("AuctionRatingReviewMapper.deleteAuctionRatingReview",ratingReview);
 	}
 
+	@Override
+	public RatingReview getRegistrantAvgRating(String registrantId) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("AuctionRatingReviewMapper.getRegistrantAvgRating",registrantId);
+	}
+	
+	
 }

@@ -117,7 +117,7 @@ public class AuctionRestController {
 	}
 	
 	//리뷰 리스트
-	@RequestMapping(value = "listAuctionRatingReview/{currentPage}")
+	@PostMapping(value = "listAuctionRatingReview/{currentPage}")
 	public List<RatingReview> listAuctionRatingReview(@RequestBody AuctionInfo auctionInfo, @PathVariable int currentPage){
 		
 		Map<String, Object> map = auctionProductService.getAuctionProduct(auctionInfo);
@@ -129,6 +129,25 @@ public class AuctionRestController {
 		map.put("search", search);
 		
 		return auctionReviewService.listAuctionRatingReview(map);
+	}
+
+	//답글 등록
+	@PostMapping(value = "addReviewComment/{auctionProductNo}")
+	public AuctionInfo addReviewComment(@RequestBody RatingReview ratingReview, @PathVariable("auctionProductNo") String auctionProductNo) {
+		
+		AuctionInfo auctionInfo = new AuctionInfo();
+		auctionInfo.setAuctionProductNo(auctionProductNo);
+		
+		ratingReview.setAuctionInfo(auctionInfo);
+		
+		return auctionReviewService.addAuctionRatingReviewComment(ratingReview);
+		
+	}
+	
+	//리뷰 삭제
+	@PostMapping(value = "deleteAuctionRatingReview")
+	public AuctionInfo deleteAuctionRatingReview(@RequestBody RatingReview ratingReview){
+		return auctionReviewService.deleteAuctionRatingReview(ratingReview);
 	}
 	
 	

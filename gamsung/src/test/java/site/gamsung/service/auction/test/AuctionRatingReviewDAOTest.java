@@ -115,7 +115,7 @@ public class AuctionRatingReviewDAOTest {
 		
 	}
 	
-	@Test
+	//@Test
 	public void testDeleteAuctionRatingReview() {
 		
 		RatingReview ratingReview = new RatingReview();
@@ -124,7 +124,10 @@ public class AuctionRatingReviewDAOTest {
 		ratingReview.setRatingReviewStatus(1);
 		
 		auctionReviewDAO.deleteAuctionRatingReview(ratingReview);
-		
-		
+	}
+	
+	@Test
+	public void testGetRegistrantAvgRating() {
+		System.out.println(auctionReviewDAO.getRegistrantAvgRating("admin"));
 	}
 }

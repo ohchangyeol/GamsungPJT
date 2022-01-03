@@ -69,9 +69,9 @@
 		SELECT product_no, product_name, product_detail, product_sub_detail ,product_view_count, start_bid_price, hopeful_bid_price, auction_start_time, auction_end_time,
                timediff(auction_end_time , NOW()) AS remain_time, hashtag1, hashtag2, hashtag3, product_img1
 			FROM AUCTION_PRODUCT
-			WHERE temp_save_flag = 'N' AND auction_status = 'START'
+			WHERE temp_save_flag = 'N' AND auction_status = 'START'AND delete_flag = 'N' AND NOW() BETWEEN auction_start_time AND auction_end_time
 			<if test='role != null and role.equals("GENERAL")'>
-				AND delete_flag = 'N' AND NOW() BETWEEN auction_start_time AND auction_end_time
+				
 			</if>
 			<if test="searchKeyword != null">
 				AND product_name LIKE CONCAT_WS(#{searchKeyword},'%','%')
@@ -151,7 +151,7 @@
 	
 	<select id="getAuctionProduct" parameterType="String" resultMap="auction">
 		SELECT 	registrant_id, ap.product_no AS product_no, product_name, successful_bidder_id,product_detail, product_sub_detail  , start_bid_price , hopeful_bid_price, bid_unit , auction_start_time, 
-				auction_end_time, ap.auction_status,	ah.bid_price AS bid_price, timediff(auction_end_time , NOW()) AS remain_time, bidable_grade, 
+				auction_end_time, ap.auction_status AS auction_status , ah.bid_price AS bid_price, timediff(auction_end_time , NOW()) AS remain_time, bidable_grade, 
 				hashtag1, hashtag2, hashtag3, product_img1, product_img2, product_img3, product_img4, product_img5, product_view_count, rr.review_reg_date AS review_reg_date
 		FROM AUCTION_PRODUCT AS ap
 		LEFT OUTER JOIN AUCTION_HISTORY AS ah ON ap.product_no = ah.product_no 

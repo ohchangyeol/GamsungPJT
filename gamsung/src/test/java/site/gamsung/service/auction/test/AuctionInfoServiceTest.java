@@ -85,11 +85,11 @@ public class AuctionInfoServiceTest {
 		map.put("user", user);
 		map.put("search", search);
 		
-		List<AuctionProduct> list = auctionInfoService.listAuctionProductByRole(map);
-		
-		for(AuctionProduct auctionProduct : list) {
-			System.out.println(auctionProduct);
-		}
+//		List<AuctionProduct> list = auctionInfoService.listAuctionProductByRole(map);
+//		
+//		for(AuctionProduct auctionProduct : list) {
+//			System.out.println(auctionProduct);
+//		}
 		
 	}
 	

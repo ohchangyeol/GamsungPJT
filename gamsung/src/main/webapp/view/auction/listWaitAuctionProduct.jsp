@@ -136,7 +136,7 @@
                     </div>
                   </div>
                   <h4 class="shop-item-title font-alt"><a href="#">${product.auctionProductName}</a></h4>
-                  <span>${product.hashtag1} ${product.hashtag2} ${product.hashtag2}</span>			
+                  <span>${product.hashtag1}+' '+${product.hashtag2}+' '+${product.hashtag2}</span>			
                 </div>
               </div>
             </c:forEach>

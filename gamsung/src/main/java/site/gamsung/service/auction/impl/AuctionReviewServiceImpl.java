@@ -85,9 +85,25 @@ public class AuctionReviewServiceImpl implements RatingReviewService, AuctionRev
 	}
 
 	@Override
-	public void deleteAuctionRatingReview(RatingReview ratingReview) {
+	public AuctionInfo deleteAuctionRatingReview(RatingReview ratingReview) {
 		// TODO Auto-generated method stub
+		String info = "";
+		AuctionInfo auctionInfo = new AuctionInfo();
+		
+		if(ratingReview.getRatingReviewStatus() == 0) {
+			RatingReview tmpRatingReview = auctionReviewDAO.getAuctionRatingReview(ratingReview.getRatingReviewNo());
+			if(tmpRatingReview.getCommentRegDate() != null) {
+				info = "판매자의 답글이 달려 삭제 불가능 합니다.";
+				
+				return auctionInfo;
+			}
+		}
+		
 		auctionReviewDAO.deleteAuctionRatingReview(ratingReview);
+		
+		info = "삭제 완료하였습니다.";
+		auctionInfo.setInfo(info);
+		return auctionInfo;
 	}
 
 	//empty method

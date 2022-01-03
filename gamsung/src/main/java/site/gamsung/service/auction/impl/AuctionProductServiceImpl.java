@@ -23,6 +23,7 @@ import site.gamsung.service.auction.AuctionInfoDAO;
 import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.AuctionInfo;
 import site.gamsung.service.domain.AuctionProduct;
+import site.gamsung.service.domain.RatingReview;
 import site.gamsung.service.domain.User;
 import site.gamsung.util.auction.CrawlingData;
 import site.gamsung.util.user.SendMail;
@@ -138,6 +139,7 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 		String registrantId = auctionProduct.getRegistrantId();
 		
 		int registrantGrade = auctionInfoDao.getUserAuctionGradeInfo(registrantId);
+		RatingReview ratingReview = auctionReviewDAO.getRegistrantAvgRating(registrantId);
 		
 		AuctionInfo registrantInfo = new AuctionInfo();
 		
@@ -146,9 +148,9 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 		user.setAuctionGrade(registrantGrade);
 		
 		registrantInfo.setUser(user);
-
 		map.put("auctionProduct", auctionProduct);
 		map.put("registrantInfo", registrantInfo);
+		map.put("ratingReview", ratingReview);
 		
 		return map;
 	}
