@@ -1,6 +1,5 @@
 package site.gamsung.controller.auction;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,7 +13,6 @@ import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -53,6 +51,9 @@ public class AuctionRestController {
 	
 	@Value("#{commonProperties['auctionPageSize']}")
 	int auctionPageSize;
+	
+	@Value("#{commonProperties['auctionReviewPageSize']}")
+	int auctionReviewPageSize;
 	
 	@Value("#{commonProperties['path']}")
 	private String PATH;
@@ -116,11 +117,14 @@ public class AuctionRestController {
 	}
 	
 	//리뷰 리스트
-	@RequestMapping(value = "listAuctionRatingReview")
-	public List<RatingReview> listAuctionRatingReview(@RequestBody AuctionInfo auctionInfo, @RequestBody Search search){
+	@RequestMapping(value = "listAuctionRatingReview/{currentPage}")
+	public List<RatingReview> listAuctionRatingReview(@RequestBody AuctionInfo auctionInfo, @PathVariable int currentPage){
 		
 		Map<String, Object> map = auctionProductService.getAuctionProduct(auctionInfo);
-		search.setPageSize(auctionPageSize);
+		
+		Search search = new Search();
+		search.setCurrentPage(currentPage);
+		search.setPageSize(auctionReviewPageSize);
 		
 		map.put("search", search);
 		

@@ -75,7 +75,7 @@ public class AuctionRatingReviewServiceTest {
 		
 	}
 	
-	//@Test
+	@Test
 	public void testListAuctionRatingReview() {
 		
 		Map<String, Object> map = new HashedMap<String, Object>();
@@ -130,7 +130,7 @@ public class AuctionRatingReviewServiceTest {
 		
 	}
 	
-	@Test
+	//@Test
 	public void testDeleteAuctionRatingReview() {
 		
 		RatingReview ratingReview = new RatingReview();

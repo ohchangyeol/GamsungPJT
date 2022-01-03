@@ -452,8 +452,7 @@
 			$('#kindnessRating').val( $('#kind').text() )
 			$('#statusRating').val( $('#status').text() )
 			$('#priceRating').val( $('#price').text() )
-			
-			/* $('form').attr('method','post').attr('action','/auction/addReview').submit(); */
+		
 			$.ajax({
   						url : "/auction/rest/addReview/${auctionProductNo}",
   						method : "POST",

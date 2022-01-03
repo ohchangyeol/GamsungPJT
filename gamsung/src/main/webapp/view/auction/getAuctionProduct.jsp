@@ -3,7 +3,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
-<html lang="ko" dir="ltr">
+<html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -84,36 +84,36 @@
 						<div class="col-sm-2"></div>
 						<div class="col-sm-4 mb-sm-40">	
 						<c:if test="${!empty auctionProduct.auctionProductSubDetail}">
-							<a><img src="${auctionProduct.productImg1}" alt="Single Product Image" /></a>
+							<a><img class="firstImg" src="${fn:replace(auctionProduct.productImg1,'230x230ex','665x750ex')}" alt="Single Product Image" /></a>
 							 <ul class="product-gallery">
 								<c:if test="${!empty auctionProduct.productImg2}">
-									<li><img src="${auctionProduct.productImg2}" alt="Single Product" /></li>
+									<li><img class="secondImg" src="${auctionProduct.productImg2}" alt="Single Product" /></li>
 								</c:if>
 								<c:if test="${!empty auctionProduct.productImg3}">
-									<li><img src="${auctionProduct.productImg3}" alt="Single Product" /></li>
+									<li><img class="thirdImg" src="${auctionProduct.productImg3}" alt="Single Product" /></li>
 								</c:if>
 								<c:if test="${!empty auctionProduct.productImg4}">
-									<li><img src="${auctionProduct.productImg4}" alt="Single Product" /></li>
+									<li><img class="fourthImg" src="${auctionProduct.productImg4}" alt="Single Product" /></li>
 								</c:if>
 								<c:if test="${!empty auctionProduct.productImg5}">
-									<li><img src="${auctionProduct.productImg5}" alt="Single Product" /></li>
+									<li><img class="fifthImg" src="${auctionProduct.productImg5}" alt="Single Product" /></li>
 								</c:if>
 							</ul>
 						</c:if>
 						<c:if test="${empty auctionProduct.auctionProductSubDetail}">
-							<a><img src="/uploadfiles/auctionimg/product/${auctionProduct.productImg1}" alt="Single Product Image" /></a>
+							<a><img class="firstImg" src="/uploadfiles/auctionimg/product/${auctionProduct.productImg1}" alt="Single Product Image" /></a>
 							 <ul class="product-gallery">
 								<c:if test="${!empty auctionProduct.productImg2}">
-									<li><img src="/uploadfiles/auctionimg/product/${auctionProduct.productImg2}" alt="Single Product" /></li>
+									<li><img class="secondImg" src="/uploadfiles/auctionimg/product/${auctionProduct.productImg2}" alt="Single Product" /></li>
 								</c:if>
 								<c:if test="${!empty auctionProduct.productImg3}">
-									<li><img src="/uploadfiles/auctionimg/product/${auctionProduct.productImg3}" alt="Single Product" /></li>
+									<li><img class="thirdImg" src="/uploadfiles/auctionimg/product/${auctionProduct.productImg3}" alt="Single Product" /></li>
 								</c:if>
 								<c:if test="${!empty auctionProduct.productImg4}">
-									<li><img src="/uploadfiles/auctionimg/product/${auctionProduct.productImg4}" alt="Single Product" /></li>
+									<li><img class="fourthImg" src="/uploadfiles/auctionimg/product/${auctionProduct.productImg4}" alt="Single Product" /></li>
 								</c:if>
 								<c:if test="${!empty auctionProduct.productImg5}">
-									<li><img src="/uploadfiles/auctionimg/product/${auctionProduct.productImg5}" alt="Single Product" /></li>
+									<li><img class="fifthImg" src="/uploadfiles/auctionimg/product/${auctionProduct.productImg5}" alt="Single Product" /></li>
 								</c:if>
 							</ul>
 						</c:if>
@@ -162,7 +162,7 @@
 										<a id="cancelBtn" class="btn btn-sm btn-block btn-round btn-b">낙찰취소</a>
 										<a id="confirmBtn" class="btn btn-sm btn-block btn-round btn-b">경매 확정</a>									
 									</c:if>
-									<c:if test="${empty auctionProduct.productRegDate && auctionProduct.auctionStatus eq 'CONFIRM' }">
+									<c:if test="${empty auctionProduct.productRegDate && auctionProduct.successfulBidderId eq sessionScope.user.id && auctionProduct.auctionStatus eq 'CONFIRM' }">
 										<a class="btn btn-sm btn-block btn-round btn-b video-pop-up" href="/auction/addReview/${auctionProduct.auctionProductNo}">리뷰 쓰기</a>
 									</c:if>
 								</div>
@@ -227,53 +227,8 @@
 								</c:if>
 								</div>
 								<div class="tab-pane" id="reviews">
-									<div class="comments reviews">
-										<div class="comment clearfix">
-											<div class="comment-avatar">
-												<img src="" alt="avatar" />
-											</div>
-											<div class="comment-content clearfix">
-												<div class="comment-author font-alt">
-													<a href="#">John Doe</a>
-												</div>
-												<div class="comment-body">
-													<p>The European languages are members of the same
-														family. Their separate existence is a myth. For science,
-														music, sport, etc, Europe uses the same vocabulary. The
-														European languages are members of the same family. Their
-														separate existence is a myth.</p>
-												</div>
-												<div class="comment-meta font-alt">
-													Today, 14:55 -<span><i class="fa fa-star star"></i></span><span><i
-														class="fa fa-star star"></i></span><span><i
-														class="fa fa-star star"></i></span><span><i
-														class="fa fa-star star"></i></span><span><i
-														class="fa fa-star star-off"></i></span>
-												</div>
-											</div>
-										</div>
-										<div class="comment clearfix">
-											<div class="comment-avatar">
-												<img src="" alt="avatar" />
-											</div>
-											<div class="comment-content clearfix">
-												<div class="comment-author font-alt">
-													<a href="#">Mark Stone</a>
-												</div>
-												<div class="comment-body">
-													<p>Europe uses the same vocabulary. The European
-														languages are members of the same family. Their separate
-														existence is a myth.</p>
-												</div>
-												<div class="comment-meta font-alt">
-													Today, 14:59 -<span><i class="fa fa-star star"></i></span><span><i
-														class="fa fa-star star"></i></span><span><i
-														class="fa fa-star star"></i></span><span><i
-														class="fa fa-star star-off"></i></span><span><i
-														class="fa fa-star star-off"></i></span>
-												</div>
-											</div>
-										</div>
+									<div id="ratingReview" class="comments reviews">
+
 									</div>
 								</div>
 							</div>
@@ -296,11 +251,11 @@
 							<div class="owl-item">
 								<div class="col-sm-12">
 									<div class="ex-product">
-										<a href="#"><img
+										<a ><img
 											src="../../resources/images/shop/product-1.jpg"
 											alt="Leather belt" /></a>
 										<h4 class="shop-item-title font-alt">
-											<a href="#">Leather belt</a>
+											<a >Leather belt</a>
 										</h4>
 										£12.00
 									</div>
@@ -309,11 +264,11 @@
 							<div class="owl-item">
 								<div class="col-sm-12">
 									<div class="ex-product">
-										<a href="#"><img
+										<a ><img
 											src="../../resources/images/shop/product-3.jpg"
 											alt="Derby shoes" /></a>
 										<h4 class="shop-item-title font-alt">
-											<a href="#">Derby shoes</a>
+											<a >Derby shoes</a>
 										</h4>
 										£54.00
 									</div>
@@ -322,11 +277,11 @@
 							<div class="owl-item">
 								<div class="col-sm-12">
 									<div class="ex-product">
-										<a href="#"><img
+										<a ><img
 											src="../../resources/images/shop/product-2.jpg"
 											alt="Leather belt" /></a>
 										<h4 class="shop-item-title font-alt">
-											<a href="#">Leather belt</a>
+											<a >Leather belt</a>
 										</h4>
 										£19.00
 									</div>
@@ -335,11 +290,11 @@
 							<div class="owl-item">
 								<div class="col-sm-12">
 									<div class="ex-product">
-										<a href="#"><img
+										<a ><img
 											src="../../resources/images/shop/product-4.jpg"
 											alt="Leather belt" /></a>
 										<h4 class="shop-item-title font-alt">
-											<a href="#">Leather belt</a>
+											<a >Leather belt</a>
 										</h4>
 										£14.00
 									</div>
@@ -348,11 +303,11 @@
 							<div class="owl-item">
 								<div class="col-sm-12">
 									<div class="ex-product">
-										<a href="#"><img
+										<a ><img
 											src="../../resources/images/shop/product-5.jpg"
 											alt="Chelsea boots" /></a>
 										<h4 class="shop-item-title font-alt">
-											<a href="#">Chelsea boots</a>
+											<a >Chelsea boots</a>
 										</h4>
 										£44.00
 									</div>
@@ -361,11 +316,11 @@
 							<div class="owl-item">
 								<div class="col-sm-12">
 									<div class="ex-product">
-										<a href="#"><img
+										<a ><img
 											src="../../resources/images/shop/product-6.jpg"
 											alt="Leather belt" /></a>
 										<h4 class="shop-item-title font-alt">
-											<a href="#">Leather belt</a>
+											<a >Leather belt</a>
 										</h4>
 										£19.00
 									</div>
@@ -386,7 +341,7 @@
 								<p>Phone: +1 234 567 89 10</p>
 								Fax: +1 234 567 89 10
 								<p>
-									Email:<a href="#">somecompany@example.com</a>
+									Email:<a >somecompany@example.com</a>
 								</p>
 							</div>
 						</div>
@@ -394,11 +349,11 @@
 							<div class="widget">
 								<h5 class="widget-title font-alt">Recent Comments</h5>
 								<ul class="icon-list">
-									<li>Maria on <a href="#">Designer Desk Essentials</a></li>
-									<li>John on <a href="#">Realistic Business Card Mockup</a></li>
-									<li>Andy on <a href="#">Eco bag Mockup</a></li>
-									<li>Jack on <a href="#">Bottle Mockup</a></li>
-									<li>Mark on <a href="#">Our trip to the Alps</a></li>
+									<li>Maria on <a >Designer Desk Essentials</a></li>
+									<li>John on <a >Realistic Business Card Mockup</a></li>
+									<li>Andy on <a >Eco bag Mockup</a></li>
+									<li>Jack on <a >Bottle Mockup</a></li>
+									<li>Mark on <a >Our trip to the Alps</a></li>
 								</ul>
 							</div>
 						</div>
@@ -406,11 +361,11 @@
 							<div class="widget">
 								<h5 class="widget-title font-alt">Blog Categories</h5>
 								<ul class="icon-list">
-									<li><a href="#">Photography - 7</a></li>
-									<li><a href="#">Web Design - 3</a></li>
-									<li><a href="#">Illustration - 12</a></li>
-									<li><a href="#">Marketing - 1</a></li>
-									<li><a href="#">Wordpress - 16</a></li>
+									<li><a >Photography - 7</a></li>
+									<li><a >Web Design - 3</a></li>
+									<li><a >Illustration - 12</a></li>
+									<li><a >Marketing - 1</a></li>
+									<li><a >Wordpress - 16</a></li>
 								</ul>
 							</div>
 						</div>
@@ -420,24 +375,24 @@
 								<ul class="widget-posts">
 									<li class="clearfix">
 										<div class="widget-posts-image">
-											<a href="#"><img src="../../resources/images/rp-1.jpg"
+											<a ><img src="../../resources/images/rp-1.jpg"
 												alt="Post Thumbnail" /></a>
 										</div>
 										<div class="widget-posts-body">
 											<div class="widget-posts-title">
-												<a href="#">Designer Desk Essentials</a>
+												<a >Designer Desk Essentials</a>
 											</div>
 											<div class="widget-posts-meta">23 january</div>
 										</div>
 									</li>
 									<li class="clearfix">
 										<div class="widget-posts-image">
-											<a href="#"><img src="../../resources/images/rp-2.jpg"
+											<a ><img src="../../resources/images/rp-2.jpg"
 												alt="Post Thumbnail" /></a>
 										</div>
 										<div class="widget-posts-body">
 											<div class="widget-posts-title">
-												<a href="#">Realistic Business Card Mockup</a>
+												<a >Realistic Business Card Mockup</a>
 											</div>
 											<div class="widget-posts-meta">15 February</div>
 										</div>
@@ -460,9 +415,9 @@
 						</div>
 						<div class="col-sm-6">
 							<div class="footer-social-links">
-								<a href="#"><i class="fa fa-facebook"></i></a><a href="#"><i
-									class="fa fa-twitter"></i></a><a href="#"><i
-									class="fa fa-dribbble"></i></a><a href="#"><i
+								<a ><i class="fa fa-facebook"></i></a><a ><i
+									class="fa fa-twitter"></i></a><a ><i
+									class="fa fa-dribbble"></i></a><a ><i
 									class="fa fa-skype"></i></a>
 							</div>
 						</div>
@@ -470,10 +425,6 @@
 				</div>
 			</footer>
 		</div>
-		<div class="scroll-up">
-			<a href="#totop"><i class="fa fa-angle-double-up"></i></a>
-		</div>
-		
 		<form>
 			<input type="hidden" name="auctionProductNo" value="${auctionProduct.auctionProductNo}">
 			<input type="hidden" name="user.id" value="${registrantInfo.user.id}">
@@ -516,6 +467,33 @@
 		userId = $('#userId').val(); 
 		nickName = $('#nickName').val();
 
+		$('.secondImg').on('click',function(){
+			var firstImg = $('.firstImg').attr('src');
+			var secondImg = $('.secondImg').attr('src');
+			$('.firstImg').attr('src',secondImg.replace('48x48ex','665x750ex'));
+			$('.secondImg').attr('src',firstImg.replace('665x750ex','48x48ex'));
+		});
+		
+		$('.thirdImg').on('click',function(){
+			var firstImg = $('.firstImg').attr('src');
+			var thirdImg = $('.thirdImg').attr('src');
+			$('.firstImg').attr('src',thirdImg.replace('48x48ex','665x750ex'));
+			$('.thirdImg').attr('src',firstImg.replace('665x750ex','48x48ex'));		
+		});	
+		
+		$('.fourthImg').on('click',function(){
+			var firstImg = $('.firstImg').attr('src');
+			var fourthImg = $('.fourthImg').attr('src');
+			$('.firstImg').attr('src',fourthImg.replace('48x48ex','665x750ex'));
+			$('.fourthImg').attr('src',firstImg.replace('665x750ex','48x48ex'));		
+		});	
+		
+		$('.fifthImg').on('click',function(){
+			var firstImg = $('.firstImg').attr('src');
+			var fifthImg = $('.fifthImg').attr('src');
+			$('.firstImg').attr('src',fifthImg.replace('48x48ex','665x750ex'));
+			$('.fifthImg').attr('src',firstImg.replace('665x750ex','48x48ex'));
+		});	
 		//수정 버튼 클릭시 발생 이벤트
 		$('#updateBtn').on('click',function(){
 			$('form').attr('method','get').attr('action','/auction/updateAuctionProduct').submit();
@@ -583,8 +561,8 @@
 			var startBidPrice = $('#startBidPrice').val();
 			var bidUnit = $('#bidUnit').val();
 			var bidPrice = $('#bidPrice').val();
-			var bidableGrade = ${auctionProduct.bidableGrade}
-			var userGrade = ${sessionScope.user.auctionGrade}
+			var bidableGrade = ${auctionProduct.bidableGrade};
+			var userGrade = ${!empty sessionScope.user.auctionGrade ? sessionScope.user.auctionGrade : 0};
 			
 			if(bidableGrade > userGrade){
 				alert('입찰 가능 등급을 확인하세요.');
@@ -612,10 +590,152 @@
 		});
 		
 		$('#reviewBtn').on('click',function(){
+			$('#ratingReview').empty();
+			$.ajax({
+					url : "/auction/rest/listAuctionRatingReview/1",
+					method : "POST",
+					data : JSON.stringify({
+						auctionProductNo : auctionProductNo
+					}),
+					headers : {
+						"Accept" : "application/json",
+						"Content-Type" : "application/json"
+					},
+					dataType : "json",
+					success : function(JSONData, status) {
+						var stringHtml = '';
+						var addReviewCount = 0;
+						for (var i = 0; i < JSONData.length; i++) {
+								var str	='<div class="comment clearfix">'
+										+'<div class="comment-avatar"><img src="'
+										+JSONData[i].img1
+										+'" alt="avatar"/></div>'
+		                     			+'<div class="comment-content clearfix">'
+		                       			+'<div class="comment-author font-alt"><a >'
+		                       			+JSONData[i].user.id
+		                       			+'</a></div>'
+		                       			+'<div class="comment-body"><p>'
+		                       			+JSONData[i].ratingReviewContent
+		                       			+'</p></div><div class="comment-meta font-alt">'
+		                       			+getDate(JSONData[i].reviewRegDate)
+		                       			+ratingMake(JSONData[i].avgRating)
+		                       			+JSONData[i].avgRating+'점'
+		                       			+'<c:if test="${auctionProduct.successfulBidderId eq sessionScope.user.id}">'
+		                       			+'<button class="btn btn-d btn-circle btn-xs updateReviewBtn" type="button">수정</button>'
+		                       			+'<input type="hidden" value="'+JSONData[i].ratingReviewNo+'">'
+		                       			+'<button class="btn btn-d btn-circle btn-xs deleteReviewBtn" type="button">삭제</button>'
+		                       			+'</c:if>'
+		                       			+'<c:if test="${registrantInfo.user.id eq sessionScope.user.id}">'
+		                       			+'<button class="btn btn-d btn-circle btn-xs replyBtn" type="button">reply</button>'
+		                       			+'</c:if>'
+		                       			+'</div></div></div>'
+		                       	stringHtml += str
+		                       	addReviewCount=JSONData[i].auctionInfo.addReviewCount
+		                       	console.log(addReviewCount);
+						}
+						stringHtml +='<div class="row"><div class="col-sm-12"><div class="pagination font-alt"><a><i class="fa fa-angle-left"></i></a>'
+									+navigationMake(addReviewCount)
+									+'<a><i class="fa fa-angle-right"></i></a></div></div></div>'
+						$('#ratingReview').append(stringHtml);
+					}
+			});
+		});
+		
+		$(document).on('click','.pagination',function(){
+			var currentPage = $(this).text()
+			$('#ratingReview').empty();
+			$.ajax({
+				url : "/auction/rest/listAuctionRatingReview/"+currentPage,
+				method : "POST",
+				data : JSON.stringify({
+					auctionProductNo : auctionProductNo
+				}),
+				headers : {
+					"Accept" : "application/json",
+					"Content-Type" : "application/json"
+				},
+				dataType : "json",
+				success : function(JSONData, status) {
+					
+					var stringHtml = '';
+					var addReviewCount = 0;
+					for (var i = 0; i < JSONData.length; i++) {
+							var str	='<div class="comment clearfix">'
+									+'<div class="comment-avatar"><img src="'
+									+JSONData[i].img1
+									+'" alt="avatar"/></div>'
+	                     			+'<div class="comment-content clearfix">'
+	                       			+'<div class="comment-author font-alt"><a >'
+	                       			+JSONData[i].user.id
+	                       			+'</a></div>'
+	                       			+'<div class="comment-body"><p>'
+	                       			+JSONData[i].ratingReviewContent
+	                       			+'</p></div><div class="comment-meta font-alt">'
+	                       			+getDate(JSONData[i].reviewRegDate)
+	                       			+ratingMake(JSONData[i].avgRating)
+	                       			+JSONData[i].avgRating+'점'
+	                       			+'<c:if test="${auctionProduct.successfulBidderId eq sessionScope.user.id}">'
+	                       			+'<button class="btn btn-d btn-circle btn-xs updateReviewBtn" type="button">수정</button>'
+	                       			+'<input type="hidden" value="'+JSONData[i].ratingReviewNo+'">'
+	                       			+'<button class="btn btn-d btn-circle btn-xs deleteReviewBtn" type="button">삭제</button>'
+	                       			+'</c:if>'
+	                       			+'<c:if test="${registrantInfo.user.id eq sessionScope.user.id}">'
+	                       			+'<button class="btn btn-d btn-circle btn-xs replyBtn" type="button">답글</button>'
+	                       			+'</c:if>'
+	                       			+'</div></div></div>'
+	                       	stringHtml += str
+	                       	addReviewCount=JSONData[i].auctionInfo.addReviewCount
+	                       	console.log(addReviewCount);
+					}
+					stringHtml +='<div class="row"><div class="col-sm-12"><div class="pagination font-alt"><a><i class="fa fa-angle-left"></i></a>'
+								+navigationMake(addReviewCount)
+								+'<a><i class="fa fa-angle-right"></i></a></div></div></div>'
+					$('#ratingReview').append(stringHtml);
+				}
+			});
+		});
+		
+		$(document).on('click','.updateReviewBtn', function(){
 			
 		});
 	});
 	
+	function ratingMake(avgRating){
+		var rating = ""
+		for(var j=0; j<Math.floor(avgRating); j++){
+			rating += '<i class="fa fa-star star"></i>'
+		}
+			
+		if(Math.floor(avgRating) < avgRating){
+			rating += '<i class="fa fa-star-half star"></i>'
+   			for(var j=Math.ceil(avgRating); j<5; j++){
+   				rating+= '<i class="fa fa-star star-off"></i>'   					
+   			}
+		}else{
+			for(var j=Math.ceil(avgRating); j<5; j++){
+				rating+= '<i class="fa fa-star star-off"></i>'					
+			}
+		}
+		
+		return rating;
+	}
+	
+	function navigationMake(addReviewCount){
+		var navigation = ""
+		for(var j=0; j<Math.ceil(addReviewCount/5); j++){
+			navigation += '<a class="active" >'+(j+1)+'</a>'
+		}
+		return navigation;
+	}
+	
+	function getDate(){
+	    var date = new Date();
+	    var year = date.getFullYear();
+	    var month = ("0" + (1 + date.getMonth())).slice(-2);
+	    var day = ("0" + date.getDate()).slice(-2);
+
+	    return year + "-" + month + "-" + day;
+	}
 	//화면 로드시 sockJS를 이용하여 STOMP로 연결하여 Publisher, Subscriber관계 형성
 	function connect(){
 		
@@ -632,7 +752,7 @@
 			//입찰 subcribe
 			stompClient.subscribe('/topic/bid/${auctionProduct.auctionProductNo}',function(response){
 				var bidInfo = JSON.parse(response.body)
-				$('#currentPrice').text(addComma(bidInfo.bidPrice));
+				$('#currentPrice').text(addComma(bidInfo.bidPrice)+'원');
 				
 				if(userId == bidInfo.user.id){
 					var info = nickName+'님은 '+bidInfo.bidderCount+'명 중 '+bidInfo.bidderRank+'등 입니다.';
@@ -683,12 +803,12 @@
 	}
 	
 	function addComma(value){
-        value = value.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        value = value.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
         return value; 
     }
 	
 	function unComma(value){
-        value = value.replace(/[^\d]+/g, "");
+        value = value.toString().replace(/[^\d]+/g, "");
         return value; 
     }
 	
@@ -736,7 +856,6 @@
 		     $(".seconds").html(sec);
 		     
 	   }else if(nt>et){
-		   
 		   	$('#bidBtn').attr('disabled',true);
 	   		$("#bidBtn").html("경매 마감");
 	    	$(".time").fadeOut();

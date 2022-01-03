@@ -252,28 +252,26 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 	@Scheduled(cron = "*/1 * * * * *")
 	public void updateAuctionProductCondition() {
 		// TODO Auto-generated method stub
-		
 		//시분초 포멧 지정
 		SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 		
 		//모든 삭제 플래그가 Y가 아닌 모든 경매 상품을 뽑아온다.
 		List<AuctionProduct> auctionList = auctionProductDAO.listAuctionProduct(new Search());
 		List<AuctionInfo> bidderList = null;
-		
 		SendMail sendMail = new SendMail();
 		
 		AuctionInfo auctionInfo = new AuctionInfo();
 		
 		// enhanced for loop
 		for(AuctionProduct auctionProduct : auctionList) {
-		
+			
 			String auctionProductNo = auctionProduct.getAuctionProductNo();
 			
 			auctionProduct = auctionProductDAO.getAuctionProduct(auctionProductNo);
 			
 			try {
 				
-				//잔여 시간이 00:00:00초라면 경매 상태를 업데이트한디. 
+				//잔여 시간이 00:00:00초라면 경매 상태를 업데이트한디.
 				boolean isEnd = dateFormat.parse(auctionProduct.getRemainAuctionTime()).before(dateFormat.parse("00:00:01"));
 				
 				if(isEnd) {					
@@ -303,6 +301,7 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 						//낙찰 성공 여부에 따라 등수에 따른 메일 발송
 						for(AuctionInfo info : bidderList) {
 							if(info.getBidderRank() == 1) {
+								auctionProduct.setSuccessfulBidderId(info.getUser().getId());
 								sendMail.sendMail(info.getUser().getId(), tmpAuctionProduct.getAuctionProductName(), "낙찰 되셨습니다. \n 화상채팅 URL 추가 예정");
 							}else {
 								sendMail.sendMail(info.getUser().getId(), tmpAuctionProduct.getAuctionProductName(), "유찰 되셨습니다.");

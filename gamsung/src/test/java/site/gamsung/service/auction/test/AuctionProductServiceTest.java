@@ -39,22 +39,21 @@ public class AuctionProductServiceTest {
 	private AuctionProductService auctionProductService;
 	
 	//경매 상품 출력 service test
-	//@Test
+	@Test
 	public void testListAuctionProduct() {
 		
 		Search search = new Search();
-		search.setPageSize(10);
-		search.setCurrentPage(2);
 		
 		List<AuctionProduct> list = auctionProductService.listAuctionProduct(search);
 		
 		for(AuctionProduct auctionProduct : list) {
+			System.out.println("================================================");
 			System.out.println(auctionProduct);
 		}	
 	}
 	
 	//상품 상세정보 조회 및 조회수 증가 service test
-	@Test
+	//@Test
 	public void testGetAuctionProduct() {
 		
 		AuctionInfo auctionInfo = new AuctionInfo();
