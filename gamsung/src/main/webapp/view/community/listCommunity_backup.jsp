@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
-
 <!DOCTYPE html>
 <html lang="en-US" dir="ltr">
   <head>
@@ -72,24 +71,88 @@ pageEncoding="UTF-8"%>
         
         <div class="container">
           <div class="navbar-header">
-            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#custom-collapse">
-	            <span class="sr-only">Toggle navigation</span>
-	            <span class="icon-bar"></span>
-	            <span class="icon-bar"></span>
-	            <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="index.html">Titan</a>
+            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#custom-collapse"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="index.html">Titan</a>
           </div>
           
          </div>
+      </nav>
       <div class="main">
         <section class="module-small">
           <div class="container">
             <div class="row">
-              	
-              	<!-- sidebar Start -->
-				<jsp:include page="leftCommunity.jsp"/>
-              	<!-- sidebar End -->
+              <div class="col-sm-4 col-md-3 sidebar">
+                <div class="widget">
+                  <form role="form">            
+       <div class="form-group">
+                <select class="form-control" name="searchCondition" >
+                  <option value="0"  ${ ! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>닉네임</option>
+                  <option value="1"  ${ ! empty search.searchCondition && search.searchCondition==1 ? "selected" : "" }>제목</option>
+                  <option value="2"  ${ ! empty search.searchCondition && search.searchCondition==2 ? "selected" : "" }>번호</option>
+                  <option value="3"  ${ ! empty search.searchCondition && search.searchCondition==2 ? "selected" : "" }>내용</option>
+                  <option value="4"  ${ ! empty search.searchCondition && search.searchCondition==2 ? "selected" : "" }>해시태그</option>                  
+               </select>
+              </div>                         
+      <div class="search-box">
+                <label class="sr-only" for="searchKeyword">검색어</label>
+                <input type="text" class="form-control" id="searchKeyword" name="searchKeyword"  placeholder="검색어를 입력해주세요."
+                value="${! empty search.searchKeyword ? search.searchKeyword : '' }"  >
+                      <button class="search-btn" type="submit"><i class="fa fa-search"></i></button>                               
+     </div>                              
+                  </form>
+                </div>
+                <div class="widget">
+                  <h5 class="widget-title font-alt">카테고리</h5>
+                  <ul class="icon-list">
+                    <li><a href="#">캠핑 리포트</a></li>
+                    <li><a href="#">캠핑 노하우</a></li>
+                    <li><a href="#">추억 한 컷</a></li>
+                    <li><a href="#">캠핑 기록</a></li>
+                    <li><a href="#">캠핑 지식인 </a></li>
+                  </ul>
+                </div>
+                <div class="widget">
+                  <h5 class="widget-title font-alt">Popular Posts</h5>
+                  <ul class="widget-posts">
+                    <li class="clearfix">
+                      <div class="widget-posts-image"><a href="#"><img src="../../resources/images/rp-1.jpg" alt="Post Thumbnail"/></a></div>
+                      <div class="widget-posts-body">
+                        <div class="widget-posts-title"><a href="#">Designer Desk Essentials</a></div>
+                        <div class="widget-posts-meta">23 january</div>
+                      </div>
+                    </li>
+                    <li class="clearfix">
+                      <div class="widget-posts-image"><a href="#"><img src="../../resources/images/rp-2.jpg" alt="Post Thumbnail"/></a></div>
+                      <div class="widget-posts-body">
+                        <div class="widget-posts-title"><a href="#">Realistic Business Card Mockup</a></div>
+                        <div class="widget-posts-meta">15 February</div>
+                      </div>
+                    </li>
+                    <li class="clearfix">
+                      <div class="widget-posts-image"><a href="#"><img src="../../resources/images/rp-3.jpg" alt="Post Thumbnail"/></a></div>
+                      <div class="widget-posts-body">
+                        <div class="widget-posts-title"><a href="#">Eco bag Mockup</a></div>
+                        <div class="widget-posts-meta">21 February</div>
+                      </div>
+                    </li>
+                    <li class="clearfix">
+                      <div class="widget-posts-image"><a href="#"><img src="../../resources/images/rp-4.jpg" alt="Post Thumbnail"/></a></div>
+                      <div class="widget-posts-body">
+                        <div class="widget-posts-title"><a href="#">Bottle Mockup</a></div>
+                        <div class="widget-posts-meta">2 March</div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+                <div class="widget">
+                  <h5 class="widget-title font-alt">Tag</h5>
+                  <div class="tags font-serif"><a href="#" rel="tag">Blog</a><a href="#" rel="tag">Photo</a><a href="#" rel="tag">Video</a><a href="#" rel="tag">Image</a><a href="#" rel="tag">Minimal</a><a href="#" rel="tag">Post</a><a href="#" rel="tag">Theme</a><a href="#" rel="tag">Ideas</a><a href="#" rel="tag">Tags</a><a href="#" rel="tag">Bootstrap</a><a href="#" rel="tag">Popular</a><a href="#" rel="tag">English</a>
+                  </div>
+                </div>
+                <div class="widget">
+                  <h5 class="widget-title font-alt">Text</h5>The languages only differ in their grammar, their pronunciation and their most common words. Everyone realizes why a new common language would be desirable: one could refuse to pay expensive translators.
+                </div>
+              </div>
+              
  
      <!--Post Start-->                          
               
