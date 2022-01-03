@@ -9,13 +9,9 @@
 	<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 	
 	<title>상품 등록</title>
-	
-	<meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="msapplication-TileImage" content="../../resources/images/favicons/ms-icon-144x144.png">
-    <meta name="theme-color" content="#ffffff">
-    
-    <link href="../../resources/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Template specific stylesheets-->
+	    
+    <!-- <link href="../../resources/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    Template specific stylesheets
     <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Volkhov:400i" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
@@ -27,10 +23,39 @@
     <link href="../../resources/lib/owl.carousel/dist/assets/owl.theme.default.min.css" rel="stylesheet">
     <link href="../../resources/lib/magnific-popup/magnific-popup.css" rel="stylesheet">
     <link href="../../resources/lib/simple-text-rotator/simpletextrotator.css" rel="stylesheet">
-    <!-- Main stylesheet and color file-->
-    <link href="../../resources/css/style.css" rel="stylesheet">
+    <link href="../../resources/lib/bootstrap-timepicker/css/bootstrap-timepicker.css" rel="stylesheet">
+    <link href="../../resources/lib/bootstrap-timepicker/css/bootstrap-responsive.css" rel="stylesheet">
+    Main stylesheet and color file
     <link id="color-scheme" href="../../resources/css/colors/default.css" rel="stylesheet">
-    <link rel="stylesheet" href="../../resources/lib/pnotify/pnotify.custom.css" />  
+    <link rel="stylesheet" href="../../resources/lib/pnotify/pnotify.custom.css" />   -->
+    
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Shadows+Into+Light" rel="stylesheet" type="text/css">
+
+	    <link href="../../resources/css/style.css" rel="stylesheet">
+
+		<link rel="stylesheet" href="../../resources/lib/bootstrap/css/bootstrap.css" />
+		<link rel="stylesheet" href="../../resources/lib/font-awesome/css/font-awesome.css" />
+		<link rel="stylesheet" href="../../resources/lib/magnific-popup/magnific-popup.css" />
+		<link rel="stylesheet" href="../../resources/lib/bootstrap-datepicker/css/datepicker3.css" />
+
+		<link rel="stylesheet" href="../../resources/lib/jquery-ui/css/ui-lightness/jquery-ui-1.10.4.custom.css" />
+		<link rel="stylesheet" href="../../resources/lib/select2/select2.css" />
+		<link rel="stylesheet" href="../../resources/lib/bootstrap-multiselect/bootstrap-multiselect.css" />
+		<link rel="stylesheet" href="../../resources/lib/bootstrap-tagsinput/bootstrap-tagsinput.css" />
+		<link rel="stylesheet" href="../../resources/lib/bootstrap-colorpicker/css/bootstrap-colorpicker.css" />
+		<link rel="stylesheet" href="../../resources/lib/bootstrap-timepicker/css/bootstrap-timepicker.css" />
+		<link rel="stylesheet" href="../../resources/lib/dropzone/css/basic.css" />
+		<link rel="stylesheet" href="../../resources/lib/dropzone/css/dropzone.css" />
+		<link rel="stylesheet" href="../../resources/lib/bootstrap-markdown/css/bootstrap-markdown.min.css" />
+		<link rel="stylesheet" href="../../resources/lib/summernote/summernote.css" />
+		<link rel="stylesheet" href="../../resources/lib/summernote/summernote-bs3.css" />
+		<link rel="stylesheet" href="../../resources/lib/codemirror/lib/codemirror.css" />
+		<link rel="stylesheet" href="../../resources/lib/codemirror/theme/monokai.css" />
+
+		<link rel="stylesheet" href="../../resources/css/theme.css" />
+		<link rel="stylesheet" href="../../resources/css/skins/default.css" />
+		<link rel="stylesheet" href="../../resources/css/theme-custom.css">
+    
  
  	<style>
  	
@@ -92,18 +117,6 @@
        		<div class="loader">Loading...</div>
      	</div>
   		<jsp:include page="../common/header.jsp"></jsp:include>
-		<div class="main">
-			<section class="module bg-dark-30 about-page-header"
-				data-background="">
-				<div class="container">
-					<div class="row">
-						<div class="col-sm-6 col-sm-offset-3">
-							<h1 class="module-title font-alt mb-0">Forms</h1>
-						</div>
-					</div>
-				</div>
-			</section>
-		</div>
 		<section class="module">
           <div class="container">
             <div class="row">
@@ -112,38 +125,62 @@
 						<hr class="divider-w mt-10 mb-20">
 						<form class="form" role="form">
 							<div class="form-group">
-								<label for="auctionProductName" class="col-sm-offset-1 col-sm-3 control-label">상품명</label> 
+								<label for="auctionProductName" class="col-sm-3 control-label">상품명</label> 
 								<input id="auctionProductName" name="auctionProductName" class="form-control" type="text" placeholder="상품명을 입력하세요." />
 							</div>
 							<div class="form-group">
-								<label for="startBidPrice" class="col-sm-offset-1 col-sm-3 control-label">경매 시작가</label>
+								<label for="startBidPrice" class="col-sm-3 control-label">경매 시작가</label>
 								<input id="startBidPrice" name="startBidPrice" class="form-control"  value="" type="text" placeholder="경매 시작가를 입력하세요." />
 							</div>
 							<div class="form-group">
-								<label for="hopefulBidPrice" class="col-sm-offset-1 col-sm-3 control-label">희망 낙찰가</label>
+								<label for="hopefulBidPrice" class="col-sm-3 control-label">희망 낙찰가</label>
 								<input id="hopefulBidPrice" name="hopefulBidPrice" class="form-control"  value="" type="text" placeholder="희망 낙찰가를 입력하세요." />
 							</div>
 							<div class="form-group">
-								<label for="bidUnit" class="col-sm-offset-1 col-sm-3 control-label">입찰 단위</label> 
+								<label for="bidUnit" class="col-sm-3 control-label">입찰 단위</label> 
 								<input id="bidUnit" name="bidUnit" class="form-control" type="text"  placeholder="입찰 단위를 입력하세요." />
 							</div>
 							<div class="form-group">
-								<label for="auctionStartTime" class="col-sm-offset-1 col-sm-3 control-label">경매 시작 시간</label>
-								<input id="auctionStartTime" name="auctionStartTime" class="form-control" type="text"  placeholder="경매 시작 시간을 입력하세요." />
+								<label for="bidUnit" class="col-sm-3 control-label">경매 시작 시간</label> 
+								<div class="input-group">
+									<span class="input-group-addon">
+										<i class="fa fa-calendar"></i>
+									</span>
+									<input id="startDate" data-plugin-masked-input data-input-mask="9999-99-99" placeholder="____-__-__" class="form-control">
+									<!-- <input type="text" data-plugin-datepicker class="form-control"> -->
+									<span class="input-group-addon">
+										<i class="fa fa-clock-o"></i>
+									</span>
+									<input id="startTime" data-plugin-masked-input data-input-mask="99:99:99" placeholder="__:__:__" class="form-control">
+									<!-- <input type="text" data-plugin-timepicker class="form-control" data-plugin-options='{ "showMeridian": false }'> -->
+									<input type="hidden" id="auctionStartTime" name="auctionStartTime">
+								</div>
 							</div>
 							<div class="form-group">
-								<label for="auctionEndTime" class="col-sm-offset-1 col-sm-3 control-label">경매 종료 시간</label>
-								<input id="auctionEndTime" name="auctionEndTime" class="form-control" type="text" placeholder="경매 종료 시간을 입력하세요." />
+								<label for="bidUnit" class="col-sm-3 control-label">경매 종료 시간</label> 
+								<div class="input-group">
+									<span class="input-group-addon">
+										<i class="fa fa-calendar"></i>
+									</span>
+									<input id="endDate" data-plugin-masked-input data-input-mask="9999-99-99" placeholder="____-__-__" class="form-control">
+									<!-- <input type="text" data-plugin-datepicker class="form-control"> -->
+									<span class="input-group-addon">
+										<i class="fa fa-clock-o"></i>
+									</span>
+									<input id="endTime" data-plugin-masked-input data-input-mask="99:99:99" placeholder="__:__:__" class="form-control">
+									<!-- <input type="text" data-plugin-timepicker class="form-control" data-plugin-options='{ "showMeridian": false }'> -->
+									<input type="hidden" id="auctionEndTime" name="auctionEndTime">
+								</div>
 							</div>
 							<div class="form-group">
-								<label for="bidableGrade" class="col-sm-offset-1 col-sm-3 control-label">입찰 가능 등급</label>
+								<label for="bidableGrade" class="col-sm-3 control-label">입찰 가능 등급</label>
 								<input id="bidableGrade" name="bidableGrade" class="form-control" type="text" placeholder="입찰 가능 등급을 입력하세요." />
 							</div>
 							<div class="inputWrap">
 								<button type="button" id="fileUpload" class="btn btn-border-d btn-round">파일 업로드</button>
 								 <input type="file" id="inputImgs" name="inputImgs" multiple />
 							</div>
-							<div>
+							<div id="uploadForm" hidden="hidden">
 								<div class="imgsWrap">
 								<c:if test="${!empty auctionProduct.productImg1}">
 									<a href="javascript:void(0);" onclick="deleteImageAction(0)" id="imgId0">
@@ -172,7 +209,7 @@
 								</c:if>
 								</div>
 							</div>
-							<textarea id="auctionProductDetail" name="auctionProductDetail" class="form-control" rows="7" placeholder="상품 정보를 입력 하세요.." ></textarea>
+							<textarea id="auctionProductDetail" name="auctionProductDetail" class="form-control" rows="20" placeholder="상품 정보를 입력 하세요.." ></textarea>
 							<input id="allhashtag" name="allhashtag" class="form-control" type="text" value="${auctionProduct.hashtag1}${auctionProduct.hashtag2}${auctionProduct.hashtag3}" placeholder="해시태그를 #을 포함하여 입력하세요." />
 							<input type="hidden" id="inputImg1" name="productImg1" value="">
 						  	<input type="hidden" id="inputImg2" name="productImg2" value="">
@@ -185,8 +222,7 @@
 		                </form>
                 <div class="col-sm-4"></div>
                 <div class="container">
-                <div class="col-sm-6"></div>
-                <div class="col-sm-6">
+                <div class=".col-md-3 .col-md-offset-3">
                 <div class="row">
 	                <button id="cancel" class="btn btn-border-d btn-circle" type="button">취소</button>
 	                <button id="tempSave" class="btn btn-border-d btn-circle" type="button">임시저장</button>
@@ -283,8 +319,9 @@
 		</div>
 	</footer>
 	
-    <script src="../../resources/lib/jquery/jquery.js"></script>
+ <!--    <script src="../../resources/lib/jquery/jquery.js"></script>
     <script src="../../resources/lib/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../../resources/lib/bootstrap-timepicker/js/bootstrap-timepicker.js"></script>
     <script src="../../resources/lib/wow/wow.js"></script>
     <script src="../../resources/lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js"></script>
     <script src="../../resources/lib/isotope/isotope.pkgd.js"></script>
@@ -296,15 +333,65 @@
     <script src="../../resources/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script>
     <script src="../../resources/js/plugins.js"></script>
     <script src="../../resources/js/main.js"></script>
-	
+	 -->
+	 
+	 <script src="../../resources/lib/jquery/jquery.js"></script>
+		<script src="../../resources/lib/jquery-browser-mobile/jquery.browser.mobile.js"></script>
+		<script src="../../resources/lib/bootstrap/js/bootstrap.js"></script>
+		<script src="../../resources/lib/nanoscroller/nanoscroller.js"></script>
+		<script src="../../resources/lib/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+		<script src="../../resources/lib/magnific-popup/magnific-popup.js"></script>
+		<script src="../../resources/lib/jquery-placeholder/jquery.placeholder.js"></script>
+		
+		<!-- Specific Page Vendor -->
+		<script src="../../resources/lib/jquery-ui/js/jquery-ui-1.10.4.custom.js"></script>
+		<script src="../../resources/lib/jquery-ui-touch-punch/jquery.ui.touch-punch.js"></script>
+		<script src="../../resources/lib/select2/select2.js"></script>
+		<script src="../../resources/lib/bootstrap-multiselect/bootstrap-multiselect.js"></script>
+		<script src="../../resources/lib/jquery-maskedinput/jquery.maskedinput.js"></script>
+		<script src="../../resources/lib/bootstrap-tagsinput/bootstrap-tagsinput.js"></script>
+		<script src="../../resources/lib/bootstrap-colorpicker/js/bootstrap-colorpicker.js"></script>
+		<script src="../../resources/lib/bootstrap-timepicker/js/bootstrap-timepicker.js"></script>
+		<script src="../../resources/lib/fuelux/js/spinner.js"></script>
+		<script src="../../resources/lib/dropzone/dropzone.js"></script>
+		<script src="../../resources/lib/bootstrap-markdown/js/markdown.js"></script>
+		<script src="../../resources/lib/bootstrap-markdown/js/to-markdown.js"></script>
+		<script src="../../resources/lib/bootstrap-markdown/js/bootstrap-markdown.js"></script>
+		<script src="../../resources/lib/codemirror/lib/codemirror.js"></script>
+		<script src="../../resources/lib/codemirror/addon/selection/active-line.js"></script>
+		<script src="../../resources/lib/codemirror/addon/edit/matchbrackets.js"></script>
+		<script src="../../resources/lib/codemirror/mode/javascript/javascript.js"></script>
+		<script src="../../resources/lib/codemirror/mode/xml/xml.js"></script>
+		<script src="../../resources/lib/codemirror/mode/htmlmixed/htmlmixed.js"></script>
+		<script src="../../resources/lib/codemirror/mode/css/css.js"></script>
+		<script src="../../resources/lib/summernote/summernote.js"></script>
+		<script src="../../resources/lib/bootstrap-maxlength/bootstrap-maxlength.js"></script>
+		<script src="../../resources/lib/ios7-switch/ios7-switch.js"></script>
+		
+		<!-- Theme Base, Components and Settings -->
+		<script src="../../resources/js/theme.js"></script>
+		
+		<!-- Theme Custom -->
+		<script src="../../resources/js/theme.custom.js"></script>
+		
+		<!-- Theme Initialization Files -->
+		<script src="../../resources/js/theme.init.js"></script>
+
+
+		<!-- Examples -->
+		<script src="../../resources/js/forms/examples.advanced.form.js" /></script>
 	<script>
 		
 		$(function(){
+			
+			$('')
+			
 			var auctionProduct = "${auctionProduct.auctionProductNo}";
 			var imgCount = $('.selProductFile').length;
 							
 			if(auctionProduct.length == 9){
 				if(confirm("임시등록 상품이 존재합니다. 불러 오시겠습니까?")){
+					$('#uploadForm').attr('hidden',false);
 					$('#auctionProductName').val("${auctionProduct.auctionProductName}");
 					$('#startBidPrice').val(${auctionProduct.startBidPrice});
 					$('#hopefulBidPrice').val(${auctionProduct.hopefulBidPrice});
@@ -328,15 +415,13 @@
 				}
 			}
 			
-			$('#auctionProductName').on('keypress',function(){
-				
-			});
-			
 			$("#cancel").on('click', function(){
 				window.location.href = "/auction/listAuctionProduct";
 			});
 			
 			$("#tempSave").on('click',function(){
+				
+				$('#uploadForm').attr('hidden',true);
 				
 				var hashtags = $('#allhashtag').val().split('#');
 				var tagCount = hashtags.length;
@@ -347,21 +432,80 @@
 			
 			$("#confirm").on('click',function(){
 				
+				if($('#auctionProductName').val().length == 0){
+					alert("상품명을 입력하세요");
+					$('#auctionProductName').focus();
+					return;
+				}
 				
 				if( !$.isNumeric( $('#startBidPrice').val() ) ){
+					alert("시작가가 숫자 형식이 아닙니다.");
 					$('#startBidPrice').focus();
 					return;
 				}
 				
 				if( !$.isNumeric( $('#hopefulBidPrice').val() ) ){
+					alert("희망 낙찰가가 숫자 형식이 아닙니다.");
 					$('#hopefulBidPrice').focus();
 					return;
 				}
-
-				if($('.selProductFile').length == 0){
-					alert("1~5장의 사진이 필요합니다.");
+				
+				if( Number($('#startBidPrice').val() ) >= Number( $('#hopefulBidPrice').val() ) ){
+					alert("입찰 희망가는 시작가보다 작을 수 없습니다.");
+					$('#startBidPrice').focus();
+					return
+				}
+				
+				if( !$.isNumeric( $('#bidUnit').val() ) ){
+					$('#bidUnit').focus();
 					return;
 				}
+				
+				if( Number($('#bidUnit').val() ) > ( Number( $('#hopefulBidPrice').val() ) - Number( $('#startBidPrice').val() ) ) ){
+					alert("입찰 단위는 희망낙찰가 시작가 차보다 작아야 합니다.");
+					$('#bidUnit').focus();
+					return;
+				}
+				
+				$('#startDate').on('click',function(){
+					
+				});
+				
+			 	var date = RegExp(/^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/);
+				
+				if(!date.test($('#startDate').val())){
+					$('#startDate').focus();
+					alert("시작 날짜 형식을 확인해 주세요");
+					return;
+				}
+				
+				if(!date.test($('#endDate').val())){
+					$('#endDate').focus();
+					alert("종료 날짜 형식을 확인해 주세요");
+					return;
+				}
+				
+				var time = RegExp( /^([01][0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])$/);
+				
+				if(time.test($('#startTime').val())){
+					$('#startTime').focus();
+					alert("시작 시간 형식을 확인헤 주세요");
+					return;
+				}
+				
+				if(time.test($('#endTime').val())){
+					$('#endTime').focus();
+					alert("종료 시간 형식을 확인헤 주세요");
+					return;
+				}
+				 
+				if($('.selProductFile').length == 0){
+					alert("1~5장의 사진이 필요합니다.");
+					$('#fileUpload').click();
+					$('#uploadForm').attr('hidden',true);
+					return;
+				}
+				 판매자구매자 
 				
 				var hashtags = $('#allhashtag').val().split('#');
 				var tagCount = hashtags.length;
@@ -438,6 +582,8 @@
 		
 		function handleImgFileSelect(e){
 			
+			$('#uploadForm').attr('hidden',false);
+			
 			sel_files = [];
 			$(".imgsWrap").empty();
 			
@@ -460,8 +606,11 @@
 			
 			filesArray.forEach(function(f){
 				
+				$('#uploadForm').attr('hidden',false);
+				
 				if(!f.type.match("image.*")){
 					alert("이미지만 업로드 가능합니다.");
+					$('#uploadForm').attr('hidden',true);
 					return;
 				}
 			
@@ -486,6 +635,10 @@
             var inputImg = "#inputImg"+(1*index+1)
             $(imgId).remove();
             $(inputImg).val("");
+            
+            if(sel_files.length == 0){
+            	$('#uploadForm').attr('hidden',true);
+            }
         }
 		
 		

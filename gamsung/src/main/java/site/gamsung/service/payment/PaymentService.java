@@ -6,16 +6,17 @@ import java.util.Map;
 import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.Payment;
 import site.gamsung.service.domain.PaymentCode;
+import site.gamsung.service.domain.PointTransfer;
 
 public interface PaymentService {
 	
 	/*
 	 *  Point
 	 */	
-	public int pointCharge(Payment payment);
+	public int pointUpdateById(PointTransfer pointTransfer) throws Exception;
 	
-	public int pointWithdraw();
-	
+	public int pointTransferByUsers(PointTransfer pointTransfer) throws Exception;
+
 	
 	/*
 	 *  Payment
@@ -38,7 +39,7 @@ public interface PaymentService {
 	
 	public List<PaymentCode> listPaymentCode() throws Exception;	
 	
-	public PaymentCode getPaymentCode(String paymentCodeLetter) throws Exception;
+	public PaymentCode getPaymentCodeInfo(String paymentCodeLetter) throws Exception;
 	
 	/*
 	 *  SiteProfit

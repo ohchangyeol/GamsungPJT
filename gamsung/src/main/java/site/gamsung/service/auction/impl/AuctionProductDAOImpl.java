@@ -132,14 +132,13 @@ public class AuctionProductDAOImpl implements AuctionProductDAO{
 	@Override
 	public List<AuctionProduct> listMainAuctionProduct() {
 		// TODO Auto-generated method stub
-		
 		return sqlSession.selectList("AuctionProductMapper.listMainAuctionProduct");
 	}
 
 	@Override
-	public void deleteAuctionProduct(AuctionInfo auctionInfo) {
+	public int deleteAuctionProduct(AuctionInfo auctionInfo) {
 		// TODO Auto-generated method stub
-		sqlSession.update("AuctionProductMapper.deleteAuctionProduct",auctionInfo);
+		return sqlSession.update("AuctionProductMapper.deleteAuctionProduct",auctionInfo);
 	}
 	
 	

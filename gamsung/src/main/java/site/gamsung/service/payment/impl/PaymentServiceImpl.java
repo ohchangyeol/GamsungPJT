@@ -9,11 +9,12 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import site.gamsung.service.common.Search;
-import site.gamsung.service.domain.Camp;
 import site.gamsung.service.domain.Payment;
 import site.gamsung.service.domain.PaymentCode;
+import site.gamsung.service.domain.PointTransfer;
 import site.gamsung.service.payment.PaymentDAO;
 import site.gamsung.service.payment.PaymentService;
+
 
 
 @Service("paymentServiceImpl")
@@ -24,9 +25,10 @@ public class PaymentServiceImpl implements PaymentService{
 	@Qualifier("paymentDAOImpl")
 	private PaymentDAO paymentDAO;
 	
-	public void setPaymentDAO(PaymentDAO campBusinessDAO) {
+	public void setPaymentDAO(PaymentDAO paymentDAO) {
 		this.paymentDAO = paymentDAO;
 	}
+	
 	
 	public PaymentServiceImpl() {
 		System.out.println(this.getClass());
@@ -35,15 +37,37 @@ public class PaymentServiceImpl implements PaymentService{
 	/*
 	 *  Point
 	 */	
-	public int pointCharge(Payment payment) {
-		
-		return 0;
+	public int pointUpdateById(PointTransfer pointTransfer) throws Exception {
+		return paymentDAO.pointUpdateById(pointTransfer);
 	}
 	
-	public int pointWithdraw() {
-		return 0;		
+	public int pointTransferByUsers(PointTransfer pointTransfer) throws Exception {
+		
+		int pointAmount = pointTransfer.getPointAmount();
+		int fee = pointTransfer.getFeeAmount();		
+		int adminFee = pointAmount * fee / 100;
+		int pointAmountAfterFee = pointAmount - adminFee;		
+	
+		PointTransfer senderCase = new PointTransfer();
+		senderCase.setUserId(pointTransfer.getSenderId());
+		senderCase.setPointAmount(pointAmount * -1);
+		
+		PointTransfer receiverCase = new PointTransfer();
+		receiverCase.setUserId(pointTransfer.getReceiverId());
+		receiverCase.setPointAmount(pointAmountAfterFee);
+		
+		PointTransfer adminCase = new PointTransfer();
+		adminCase.setUserId("admin");
+		adminCase.setPointAmount(adminFee);				
+		
+		if(pointUpdateById(senderCase) == 1 
+				&& pointUpdateById(receiverCase) == 1
+				&& pointUpdateById(adminCase) == 1 ) {
+			return 1;
+		} else {
+			return 0;
+		}
 	}
-
 	
 	
 	/*
@@ -52,7 +76,7 @@ public class PaymentServiceImpl implements PaymentService{
 	@Override
 	public void addMakePayment(Payment payment) throws Exception {
 		
-		int paymentMethod = payment.getPaymentMethod();
+		String paymentMethod = payment.getPaymentMethod();
 		String paymentCodeLetter = payment.getPaymentCode();
 		int paymentReferenceFee = paymentDAO.getPaymentCodeInfo(paymentCodeLetter).getPaymentCodeFee();
 		
@@ -61,37 +85,33 @@ public class PaymentServiceImpl implements PaymentService{
 		int paymentPricePay = paymentPriceTotal - paymentPriceFee;
 				
 		// 포인트결제              
-		if(paymentMethod == 1) {
+		if(paymentMethod.equals("point")) {
 			
 			//포인트 충전
 			if(paymentCodeLetter.equals("P1")) {
-				payment.setPaymentSender("admin");
-				payment.setPaymentReferenceNum("pointCharge(PointManager)");
-			}				
-						
+				payment.setPaymentSender("pointCharge(PointManager)");
+			}									
 		}
 		
 		
 		// 현금결제
-		if(paymentMethod == 2) {
+		if(paymentMethod.equals("cash")) {
 			
 			//포인트 출금
 			if(paymentCodeLetter.equals("P2")) {
-				payment.setPaymentSender("admin");
-				payment.setPaymentReferenceNum("pointWithdraw(PointManager)");
-			}	
-					
+				payment.setPaymentSender("pointWithdraw(PointManager)");
+			}						
 		}
 		
 		
 		// 카드결제
-		if(paymentMethod == 3) {
+		if(paymentMethod.equals("card")) {
 			
 		}
 		
 		
 		// 간편결제
-		if(paymentMethod == 4) {
+		if(paymentMethod.equals("simple")) {
 			
 		}
 		
@@ -153,9 +173,10 @@ public class PaymentServiceImpl implements PaymentService{
 	}
 	
 	@Override
-	public PaymentCode getPaymentCode(String paymentCodeLetter) throws Exception{		
+	public PaymentCode getPaymentCodeInfo(String paymentCodeLetter) throws Exception{		
 		return paymentDAO.getPaymentCodeInfo(paymentCodeLetter);
 	}
+
 	
 	/*
 	 *  SiteProfit

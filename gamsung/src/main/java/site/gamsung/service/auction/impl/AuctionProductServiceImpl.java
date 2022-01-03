@@ -52,8 +52,9 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 	@Override
 	public List<AuctionProduct> listCrawlingAuctionProduct(Search search) {
 		// TODO Auto-generated method stub
+		List<AuctionProduct> list = crawlingData.crawlingList(search);
 	
-		return crawlingData.crawlingList(search);
+		return list;
 	}
  
 	@Override
@@ -175,7 +176,7 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 	@Override
 	public void addAuctionProduct(AuctionProduct auctionProduct) {
 		// TODO Auto-generated method stub
-		auctionProductDAO.addAuctionProduct(auctionProduct);	
+		auctionProductDAO.addAuctionProduct(auctionProduct);
 	}
 	
 	public void updateAuctionProduct(AuctionProduct auctionProduct) {
@@ -391,14 +392,25 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 	}
 
 	@Override
-	public AuctionInfo deleteAuctionProduct(String auctionProductNo) {
+	public AuctionInfo deleteAuctionProduct(String auctionProductNo, String status) {
 		// TODO Auto-generated method stub
+
+		AuctionInfo auctionInfo = new AuctionInfo();
+		auctionInfo.setAuctionProductNo(auctionProductNo);
+		auctionInfo.setAuctionStatus(status);
+		
+		if(status.equals("CANCEL")) {
+			auctionProductDAO.deleteAuctionProduct(auctionInfo);
+			auctionInfo.setInfo("낙찰 취소 되셨습니다.");
+			return auctionInfo;	
+		}else if(status.equals("CONFIRM")){
+			auctionProductDAO.deleteAuctionProduct(auctionInfo);
+			auctionInfo.setInfo("경매 확정 되셨습니다.");
+			return auctionInfo;
+		}
 		
 		AuctionProduct auctionProduct = auctionProductDAO.getAuctionProduct(auctionProductNo);
-		AuctionInfo auctionInfo = new AuctionInfo();
-		auctionInfo.setAuctionStatus("Withdrawal");
-		auctionInfo.setAuctionProductNo(auctionProductNo);
-		
+
 		SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 		
 		try {
@@ -414,8 +426,6 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 		
 		auctionInfo.setInfo("중도 철회 불가합니다.");
 		return auctionInfo;
-	}
-	
-	
+	}	
 	
 }

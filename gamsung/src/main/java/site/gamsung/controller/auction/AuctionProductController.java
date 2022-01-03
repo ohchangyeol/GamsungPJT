@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import site.gamsung.service.auction.AuctionInfoService;
 import site.gamsung.service.auction.AuctionProductDAO;
 import site.gamsung.service.auction.AuctionProductService;
 import site.gamsung.service.common.Search;
@@ -44,6 +45,10 @@ public class AuctionProductController {
 	@Autowired
 	@Qualifier("auctionProductService")
 	private AuctionProductService auctionProductService;
+	
+	@Autowired
+	@Qualifier("auctionInfoService")
+	private AuctionInfoService auctionInfoService;
 
 	@Value("#{commonProperties['crawlingURL']}")
 	private String crawlingURL;
@@ -57,6 +62,7 @@ public class AuctionProductController {
 	public String listCrawlingAuctionProduct(HttpSession httpSession, Model model, @ModelAttribute("search") Search search) {
 		
 		//출력할 개수을 commonProperties로 부터 받아오며, 1페이지가 고정값으로 들어간다.
+		search.setSortCondition("latestAsc");
 		search.setPageSize(auctionPageSize);
 		search.setCurrentPage(1);
 		
@@ -128,6 +134,7 @@ public class AuctionProductController {
 		
 		//Id에 해당하는 임시 등록 정보가 있는지 확인한다.
 		AuctionProduct auctionProduct = auctionProductService.getTempSaveAuctionProduct(user.getId());
+		auctionInfoService.checkAndUpdateUserAuctionGrade(user);
 		
 		// 임시정보가 있다면 model에 담아 return한다.
 		if(auctionProduct != null) {
@@ -213,12 +220,16 @@ public class AuctionProductController {
 		User user = (User)session.getAttribute("user");
 		
 		if(user == null) {
+			
 			return "redirect:./listAuctionProduct";
+			
+		
+		}else if(!user.getId().equals(auctionInfo.getUser().getId())) {
+		
+			return "redirect:./listAuctionProduct";
+			
 		}
 		
-		if(!user.getId().equals(auctionInfo.getUser().getId())) {
-			return "redirect:./listAuctionProduct";
-		}
 		
 		AuctionProduct auctionProduct = (AuctionProduct)auctionProductService.getAuctionProduct(auctionInfo).get("auctionProduct");
 		model.addAttribute("auctionProduct",auctionProduct);
@@ -234,6 +245,7 @@ public class AuctionProductController {
 		if(user == null) {
 			return "redirect:./listAuctionProduct";
 		}
+		
 		auctionProduct.setRegistrantId(user.getId());
 		
 		if(auctionProduct.getProductImg1() == null) {

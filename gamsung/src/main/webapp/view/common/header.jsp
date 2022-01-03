@@ -71,12 +71,16 @@ pageEncoding="UTF-8"%>
           <ul class="dropdown-menu">
           	<li><a href="/payment/managePoint">ManagePoint</a></li>
            	<br>
+           	
+          	<li><a href="/payment/readyPayment">ReadyPayment</a></li>
+           	<br>
+           	           	
+           	<li><a href="/payment/listPayment">listPayment</a></li>
+           	<br>           	
+           	
            	<li><a href="/payment/listPaymentCode">PaymentCode</a></li>
            	<br>
-           	<li><a href="/payment/addMakePayment">MakePayment</a></li>
-           	<li><a href="/payment/addRefundPayment">RefundPayment</a></li>
-           	<li><a href="/payment/listPayment">listPayment</a></li>
-           	<br>
+           	
            	<li><a href="/payment/listSiteProfit">SiteProfit</a></li>          	      
           </ul>
         </li>

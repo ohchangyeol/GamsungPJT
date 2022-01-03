@@ -286,29 +286,6 @@
 		    <scope>test</scope>
 		</dependency>
 		
-		<!-- org.slf4j/slf4j-api -->
-		<dependency>
-		    <groupId>org.slf4j</groupId>
-		    <artifactId>slf4j-api</artifactId>
-		    <version>1.7.25</version>
-		</dependency>
-		
-		<!-- org.slf4j/slf4j-log4j12 -->
-		<dependency>
-		    <groupId>org.slf4j</groupId>
-		    <artifactId>slf4j-log4j12</artifactId>
-		    <version>1.7.25</version>
-		    <scope>test</scope>
-		</dependency>
-		
-		<!-- org.slf4j/slf4j-api -->
-		<dependency>
-		    <groupId>org.slf4j</groupId>
-		    <artifactId>slf4j-api</artifactId>
-		    <version>1.7.25</version>
-		</dependency>
-		
-		
 		<!--artifact/org.jsoup/jsoup -->
 		<dependency>
 		    <groupId>org.jsoup</groupId>
@@ -326,7 +303,14 @@
 		    <groupId>javax.activation</groupId>
 		    <artifactId>activation</artifactId>
 		    <version>1.1.1</version>
-		</dependency>
+		</dependency>		
+		
+		<!-- i`mport 결제모듈 -->
+		<dependency>
+			<groupId>com.github.iamport</groupId>
+			<artifactId>iamport-rest-client-java</artifactId>
+			<version>0.2.14</version>
+		</dependency>        
         
         <!-- 문자 인증관련 라이브러리 --> 
         <dependency> 
@@ -336,7 +320,19 @@
         </dependency>
 
 	</dependencies>
+	
+	
+	<repositories>
+		
+		<!-- i`mport 결제모듈 -->
+		<repository>
+			<id>jitpack.io</id>
+			<url>https://jitpack.io</url>
+		</repository>
+	
+	</repositories>
 			
+	
 	<build>
 		<finalName>gamsung</finalName>
 		<pluginManagement><!-- lock down plugins versions to avoid using Maven 

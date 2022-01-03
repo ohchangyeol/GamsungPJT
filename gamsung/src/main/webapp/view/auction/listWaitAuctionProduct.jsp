@@ -70,12 +70,9 @@
             <form class="row">
               <div class="col-sm-4 mb-sm-20">
                 <select class="form-control">
-                  <option selected="selected">Default Sorting</option>
-                  <option>Popular</option>
-                  <option>Latest</option>
-                  <option>Average Price</option>
-                  <option>High Price</option>
-                  <option>Low Price</option>
+                  <option selected="selected" value="latestAsc">최신순</option>
+                  <option value="salePriceDesc">높은 가격 순</option>
+                  <option value="salePriceAsc">낮은 가격 순</option>
                 </select>
               </div>
               <div class="col-sm-2 mb-sm-20">
@@ -190,7 +187,8 @@
     
    	<script type="text/javascript">
    	$(function(){
-   		   		
+   		
+   		   		   		
   		var page = 2;
   		$(window).scroll(function() {
   			var sortCondition = $('#sortCondition').val();
