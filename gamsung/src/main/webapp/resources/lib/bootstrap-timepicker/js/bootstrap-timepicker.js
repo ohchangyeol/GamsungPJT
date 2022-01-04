@@ -1076,14 +1076,11 @@
   };
 
   $.fn.timepicker.defaults = {
-    defaultTime: 'current',
     disableFocus: false,
     disableMousewheel: false,
     isOpen: false,
-    minuteStep: 15,
     modalBackdrop: false,
     orientation: { x: 'auto', y: 'auto'},
-    secondStep: 15,
     showSeconds: false,
     showInputs: true,
     showMeridian: true,

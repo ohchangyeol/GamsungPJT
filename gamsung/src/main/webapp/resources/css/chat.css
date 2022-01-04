@@ -1,0 +1,42 @@
+
+body{overflow-x: hidden;}	
+#messages { list-style-type: none; margin: 0; padding: 0; }
+#messages li { padding: 5px 10px; }
+/* #messages li:nth-child(odd) { background: #eee; } */
+#messages span {display: inline-block; padding: 5px 15px; border-radius: 5px;}
+
+
+.left{text-align: left;}
+.right{text-align: right;}
+/* .card{display: grid; grid-template-columns: 1fr; grid-template-rows: 0.5fr 5fr 0.5fr;} */
+.right span{background-color: rgb(105, 0, 134); color: #fff;}
+.left span{background-color: rgb(147, 181, 255);}
+.card-body{position: fixed; bottom: 0;left: 0;right: 0; background-color: #fff;border-top: 1px solid rgb(223, 223, 223);}
+.card-body div{margin: 0 !important;}
+.card-footer{background-color: transparent;border: none;padding-bottom: 100px;padding-top: 70px;}
+.card {border: none;}
+.card .card-header{position: fixed;top: 0;left: 0;right: 0;z-index: 9999999999;background: #fff;display: flex;justify-content: space-between;}
+.card .card-header i{display: inline-block;margin-right: 5px;min-width: 40px;min-height: 40px;line-height: 40px;text-align: center;font-size: 14px;cursor: pointer !important;}
+.card .card-header .center{width: 100%;display: flex;justify-content: inherit;align-items: center;}
+
+/* 스크롤바 막대 설정*/
+::-webkit-scrollbar { width: 5px;} 
+::-webkit-scrollbar-track { background-color: #fff; } 
+::-webkit-scrollbar-thumb { box-shadow: inset 0 0 6px transparent;border-radius: 100px; }
+
+/* -------------------------- */
+.chatting-list .card-footer #chat-lists,li{list-style: none;padding: 0;margin-top: 25px ;}
+
+.chatting-list .card .card-header {border: none;}
+.chatting-list .card .card-header .center span{font-size: 24px; font-weight: 700;}
+
+.chatting-list .card-footer #chat-lists .list-box{display: flex;padding: 15px 20px;overflow: hidden;background-color: rgb(255, 255, 255);border-radius: 18px;box-shadow: rgb(0 0 0 / 10%) 0px 2px 16px 1px;color: #2d2d2d;}
+.chatting-list .card-footer #chat-lists .list-box .receive{flex-grow: 7; }
+.chatting-list .card-footer #chat-lists .list-box .receive .receiver{font-weight: 500; }
+.chatting-list .card-footer #chat-lists .list-box .receive .message{color: #969696;font-size: 12px;}
+.chatting-list .card-footer #chat-lists .list-box .msg-new-time{flex-grow: 1; text-align: center;}
+.chatting-list .card-footer #chat-lists .list-box .msg-new-time .msg-total span{border-radius: 100%; background-color: rgb(185, 34, 34);color: #fff;display: inline-block;width: 20px;height: 20px;font-size: 12px;}
+.chatting-list .card-footer #chat-lists .list-box .r-more-btn{flex-grow: 1;text-align: end;}
+.chatting-list .card-footer #chat-lists .list-box .r-more-btn i{display: inline-block;margin-right: 5px;min-width: 20px;min-height: 40px;line-height: 45px;text-align: center;font-size: 14px;cursor: pointer !important;}
+
+

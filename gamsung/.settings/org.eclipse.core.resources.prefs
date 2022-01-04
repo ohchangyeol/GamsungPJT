@@ -3,7 +3,10 @@
 >>>>>>>=refs/remotes/origin/developer
 eclipse.preferences.version=1
 encoding//src/main/java=UTF-8
+encoding//src/main/java/site/gamsung/controller/chat/ChatController.java=UTF-8
 encoding//src/main/resources=UTF-8
+encoding//src/main/webapp/view/chat/chattingList.jsp=UTF-8
+encoding//src/main/webapp/view/chat/chattingRoom.jsp=UTF-8
 encoding//src/main/webapp/view/community/listCommunity.jsp=UTF-8
 encoding//src/test/java=UTF-8
 encoding/<project>=UTF-8

@@ -63,7 +63,7 @@
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			
 			//등록일자 현재년월일 받아오기	
-			document.getElementById('subSiteRegDate').value = new Date().toISOString().substring(0, 10);;
+			document.getElementById('subSiteRegDate').value = new Date().toISOString().substring(0, 10);
 			
 			$("#save").on("click" , function() {
 				alert("부가시설이 등록 되었습니다.");			
