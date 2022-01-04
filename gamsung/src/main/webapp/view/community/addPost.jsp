@@ -88,9 +88,8 @@
         display: flex;
         justify-content: flex-start;
         text-align: center;
-        color: ##c1c1c1;        
-        padding-bottom: 10px;
-      	
+        color: #c1c1c1;
+        padding-bottom: 10px;      	
       }
       
       #file {
@@ -153,69 +152,50 @@
 
          <div class="form-group">
            <label class="sr-only" for="content">내용</label>
-           <input class="form-control" type="text" id="postContent" name="postContent" placeholder="내용을 입력해주세요." required="required" style="height: 514px"/>
+           <textarea class="form-control" id="postContent" name="postContent" placeholder="내용을 입력해주세요." required="required" style="height: 514px"></textarea>
            <p class="help-block text-danger"></p>
          </div>
 
          <div class="form-group">
            <label class="sr-only" for="hashtag">해시태그</label>
-           <input class="form-control" type="text" rows="7" id="allhashtag" name="allhashtag" placeholder="태그를 입력해주세요(최대3개)"></input>
+           <input class="form-control" type="text" id="allhashtag" name="allhashtag" placeholder="태그를 입력해주세요(최대3개)"></input>
            <p class="help-block text-danger"></p>
          </div>
-         
-		<input type="hidden" id="inputImg1" name="productImg1" value="">
-	  	<input type="hidden" id="inputImg2" name="productImg2" value="">
-	  	<input type="hidden" id="inputImg3" name="productImg3" value="">
-	  	<input type="hidden" id="inputImg4" name="productImg4" value="">
-		<input type="hidden" id="inputImg5" name="productImg5" value=""> 
-		
+	
 		<input type="hidden" id="hashtag1" name="hashtag1" value="">
 	  	<input type="hidden" id="hashtag2" name="hashtag2" value="">
 		<input type="hidden" id="hashtag3" name="hashtag3" value=""> 
          
         
          
-         <div class="camera-video">     
+        <div class="camera-video">     
                     
           <div class="camera-box">	
-          
-           	 <button type="button" id="fileUpload" class="btn btn-outline-dark" style="background-color: white; padding-left: 0px; padding-right: 0px;"">					                
-             <div class="camera-btn" style="width: 100px;  border: 1px solid;  border-radius: 20px;   margin-bottom : 5px;  text-color : #EAEAEA;">                  
-                 	<svg xmlns="http://www.w3.org/2000/svg" class="bi bi-camera" width="16" height="16" fill="currentColor" class="bi bi-camera" viewBox="0 0 16 16">
-                   <path d="M15 12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h1.172a3 3 0 0 0 2.12-.879l.83-.828A1 1 0 0 1 6.827 3h2.344a1 1 0 0 1 .707.293l.828.828A3 3 0 0 0 12.828 5H14a1 1 0 0 1 1 1v6zM2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4H2z"/>
-                   <path d="M8 11a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5zm0 1a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM3 6.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z"/>
-                   </svg>
-               </div>사진등록
-               </button>
-			   <input type="file" id="file" name="inputImgs" onchange="uploadFile(this)" style="display:none"/>	   
-             </div>
+            <div class="image-upload">
+           	 
+	           	 <button type="button" id="filebutton" class="btn btn-outline-dark" style="background-color: white; padding-left: 0px; padding-right: 0px;">					                
+	           	   <div class="camera-btn" style="width: 100px;  border: 1px solid;  border-radius: 20px;   margin-bottom : 5px;  text-color : #EAEAEA;">                  
+	                 	<svg xmlns="http://www.w3.org/2000/svg" class="bi bi-camera" width="16" height="16" fill="currentColor" class="bi bi-camera" viewBox="0 0 16 16">
+		                   <path d="M15 12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h1.172a3 3 0 0 0 2.12-.879l.83-.828A1 1 0 0 1 6.827 3h2.344a1 1 0 0 1 .707.293l.828.828A3 3 0 0 0 12.828 5H14a1 1 0 0 1 1 1v6zM2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4H2z"/>
+		                   <path d="M8 11a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5zm0 1a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM3 6.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z"/>
+	                   </svg>
+	             	</div>사진등록
+	             </button>
+			   
+			   <input type="file" id="file" name="postImg" accept="image/*" multiple="multiple" onchange="uploadFile(this)" style="display:none"/>	
+			      
+             </div><!-- image-upload end -->
+          </div><!-- camera-box 1  end -->
+ 
              
-			<div>
-				<div class="imgsWrap">
-				<c:if test="${!empty post.postImg1}">
-					<a href="javascript:void(0);" onclick="deleteImageAction(0)" id="imgId0">
-						<img id=postImg1" src="" class='selpostImgFile' title='Click to remove'>
-					</a>
-				</c:if>
-				<c:if test="${!empty post.postImg2}">
-					<a href="javascript:void(0);" onclick="deleteImageAction(1)" id="imgId1">
-						<img id="postImg2" src="" class='selpostImgFile' title='Click to remove'>
-					</a>
-				</c:if>
-				<c:if test="${!empty post.postImg3}">
-					<a href="javascript:void(0);" onclick="deleteImageAction(2)" id="imgId2">
-						<img id="postImg3" src="" class='selpostImgFile' title='Click to remove'>
-					</a>
-				</c:if>			
-				</div>
-			</div>             
-             
+             <div class="image-show" id="image-show"></div>
+                         
              <div class="camera-box">
              
 	   			 <button type="button" class="btn btn-outline-dark" style="background-color: white; padding-left: 0px; padding-right: 0px;"">
 					<div class="video-btn" style="width: 100px;  border: 1px solid;  border-radius: 20px;   margin-bottom : 5px;  text-color : #EAEAEA;">
 						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-camera-video" viewBox="0 0 16 16">
-					<path fill-rule="evenodd" d="M0 5a2 2 0 0 1 2-2h7.5a2 2 0 0 1 1.983 1.738l3.11-1.382A1 1 0 0 1 16 4.269v7.462a1 1 0 0 1-1.406.913l-3.111-1.382A2 2 0 0 1 9.5 13H2a2 2 0 0 1-2-2V5zm11.5 5.175 3.5 1.556V4.269l-3.5 1.556v4.35zM2 4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h7.5a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1H2z"></path>
+							<path fill-rule="evenodd" d="M0 5a2 2 0 0 1 2-2h7.5a2 2 0 0 1 1.983 1.738l3.11-1.382A1 1 0 0 1 16 4.269v7.462a1 1 0 0 1-1.406.913l-3.111-1.382A2 2 0 0 1 9.5 13H2a2 2 0 0 1-2-2V5zm11.5 5.175 3.5 1.556V4.269l-3.5 1.556v4.35zM2 4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h7.5a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1H2z"></path>
 		    			</svg>
 					</div>동영상등록
 				 </button>
@@ -253,9 +233,11 @@
     <script src="../../resources/js/main.js"></script>
     
 	<script>
-    
+	
+
     $(function() {
 		 $("button:button[name='1']").on("click" , function() {
+		//  $("#postsubmit").on("click" , function() {
 			//Debug..
 			fncAddPost();
 		 });
@@ -264,23 +246,18 @@
 		 
     function fncAddPost(){
     	
+    	console.log("fncAddPost 호출")
+    	
     	var postTile = $("input[name='postTile']").val();
-    	var postType = $("select[name='postType']").val();
-    	
-    	var postContent = $("input[name='postContent']").val();
-	/*	var hashtags = $('#hashtag').val().split('#');*/
-    /*	var tagCount = hashtags.length;*/
-		
-	   	/*		if(hashtags.length >  4){
-			("해시태그는 최대 3개 까지 등록 가능합니다.");
-			$('#allhashtag').focus();
-			return;
- 		}else{			
-			dataSet(imgCount, tagCount, hashtags);
-		} */
-    	
-/*     	var fileName = $("input[name='file']").val(); */
-    	
+    	var postType = $("select[name='postType']").val();    	
+    	var postContent = $("textarea[name='postContent']").val();
+  		var hashtags = $('#allhashtag').val().split('#');
+  		
+        hashtags.shift(); // 첫번째 배열 삭제 
+
+ 	    console.log($('#allhashtag').val()); 
+   		console.log(hashtags);
+      
     	if(postTile == ''){
     		alert("제목을 입력해주세요");
     		$("input:text[name='postTile']").focus();
@@ -289,7 +266,7 @@
     
     	if(postContent == ''){
     		alert("내용을 입력해주세요");
-    		$("input:text[name='postContent']").focus();
+    		$("textarea:text[name='postContent']").focus();
     		return;
     	}
     	
@@ -298,60 +275,38 @@
     		$("select[name='postType']").focus();
     		return;
     	}
-    	
-		var hashtags = $('#allhashtag').val().split('#');
-		
-		var tagCount = hashtags.length;
-    	
-		if(hashtags.length >  4){
-			alert("해시태그는 최대 3개 까지 등록 가능합니다.");
-			$('#allhashtag').focus();
-			return;
 
-    	
-    		
+      	if(hashtags.length >  4){
+       		alert("해시태그는 최대 3개 까지 등록 가능합니다.");
+        	$('#allhashtag').focus();
+        	return;
+     	}
+     	
+      	
+      	hashtags.forEach((el, index) => { /* array item 하나씩, 그리고 그것의 index */
+     
+        var i = index + 1 ;  /* 0+1=1 , 1+1=2 , 2+1=3 .... 여기서 var는 hashtag앞에 붙일 숫자.  */
+        
+        $('#hashtag'+i).val('#'+el); /* #hashtag1, #hashtag2, #hashtag3에 val을 넣는다. el값 하나씩  */
+        
+        console.log("이것좀보세요"+$('#hashtag'+i).val());
+
+      	})
+ 		
+ 		
     	if(confirm("등록하시겠습니까?")) { 
 			$("form").attr("method" , "POST").attr("action","/community/addPost").attr("enctype","multipart/form-data").submit();	
-
-    	}
-    	
-    }//end function
+		}
+      	
+    };
     
-    $('#fileUpload').click(function(){
-    		$('#file').click();
-    		});
+     $('#filebutton').click(function(){
+     		$('#file').click();
+     		});
 
-    function uploadFile(e){
+     function uploadFile(e){
     		 console.log("file Name:",e.value);}
-   		
-	}//end function
-    
-    
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-    
      
     </script>
    
