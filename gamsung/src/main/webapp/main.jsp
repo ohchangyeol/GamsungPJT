@@ -208,31 +208,8 @@ pageEncoding="UTF-8"%>
     <!-- chatting -->
     <div id="messenger-btn" class="chatting-btn"><i class="fa fa-fw"></i></div>
     <div id="messenger-iframe" class="ch-messenger-hidden">
-    
-
-      <iframe src="/chat/chatroom" frameborder="1" style="position:relative!important;height:100%;width:100%!important;border:none!important;"></iframe>
-     </div>
-
       <iframe src="/chat/chatlist" frameborder="1" style="position:relative!important;height:100%;width:100%!important;border:none!important;"></iframe>
     </div>
-    
-     <!--  
-    JavaScripts
-    =============================================
-    -->
-    <script src="resources/lib/jquery/jquery.js"></script>
-    <script src="resources/lib/bootstrap/js/bootstrap.min.js"></script>
-    <script src="resources/lib/wow/wow.js"></script>
-    <script src="resources/lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js"></script>
-    <script src="resources/lib/isotope/isotope.pkgd.js"></script>
-    <script src="resources/lib/imagesloaded/imagesloaded.pkgd.js"></script>
-    <script src="resources/lib/flexslider/jquery.flexslider.js"></script>
-    <script src="resources/lib/owl.carousel/dist/owl.carousel.min.js"></script>
-    <script src="resources/lib/smoothscroll.js"></script>
-    <script src="resources/lib/magnific-popup/magnific-popup.js"></script>
-    <script src="resources/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script>
-    <script src="resources/js/plugins.js"></script>
-    <script src="resources/js/main.js"></script>
     
     <script type="text/javascript">
     	$('.shop-item-title').on('click',function(){
