@@ -14,6 +14,7 @@ import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.User;
 import site.gamsung.service.domain.UserWrapper;
 import site.gamsung.service.user.UserService;
+import site.gamsung.util.user.SHA256Util;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -27,14 +28,15 @@ public class UserServiceTest {
 	@Qualifier("userServiceImpl")
 	private UserService userService;
 
-	@Test
+	//@Test
 	public void testAddUser() throws Exception{
 		
 		User user = new User();
 
 
-		user.setId("a@a.com");
-		user.setNickName("으어어");
+
+		user.setId("test55@nate.com");
+		user.setNickName("나야나");
 		user.setName("으어어");
 		user.setPassword("a");
 		user.setRole("BUSINESS");
@@ -53,7 +55,7 @@ public class UserServiceTest {
 	//@Test
 	public void testGetUser() throws Exception{
 		User user= new User();
-		user=userService.getUser("businessuser1@gamsung.com");
+		user=userService.getUser("test1@test.com");
 		
 		System.out.println("########### "+user);
 	}
@@ -143,17 +145,24 @@ public class UserServiceTest {
 		
 	}
 	
-	//@Test
+	@Test
 	public void testUpdateTempPassword() throws Exception{
 		
 		User user = new User();
-		String id = "muse1264@nate.com";
+		String id = "businessuser1@gamsung.com";
 		user = userService.getUser(id);
+		if(user.getSalt()==null) {
+			SHA256Util salt=new SHA256Util();
+			String newSalt=salt.generateSalt();
+			user.setSalt(newSalt.toString());
+			userService.updateUser(user);
+		}else {
 		
 		System.out.println(user);
 		System.out.println(user.getSalt());
-		
+		}
 		userService.updateTempPassword(user);
+		
 	}
 	
 	//@Test

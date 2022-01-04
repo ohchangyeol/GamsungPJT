@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
 
-<!--  ///////////////////////// JSTL  ////////////////////////// -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 
 <head>
     <meta charset="UTF-8">
@@ -56,7 +56,6 @@ pageEncoding="UTF-8"%>
      
 </head>
 
-
 <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
@@ -66,7 +65,7 @@ pageEncoding="UTF-8"%>
       <ul class="nav navbar-nav navbar-right">    
 
         <li><a href="/campBusiness/goSubMainCampBusiness">CampBusiness</a></li> 
-      
+      	
         <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Payment</a>
           <ul class="dropdown-menu">
              <li><a href="/payment/managePoint">ManagePoint</a></li>
@@ -98,9 +97,13 @@ pageEncoding="UTF-8"%>
         </li>
                
         <li class="dropdown"><a class="dropdown-toggle" href="/servicecenter/home" data-toggle="dropdown">고객센터</a>
-           <ul class="dropdown-menu">
-            <li><a href="/servicecenter/home">고객센터</a></li>
-         </ul>
+        	<ul class="dropdown-menu">
+				<li><a href="/servicecenter/listNotice">공지사항</a></li>
+        <li><a href="/servicecenter/home"> Q&A </a></li>
+        <li><a href="/servicecenter/home">내 신고 내역</a></li>
+
+			</ul>
+
         </li>
     
         <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Portfolio</a>
@@ -198,54 +201,7 @@ pageEncoding="UTF-8"%>
           </ul>
         </li>
  
-        <!--li.dropdown.navbar-cart-->
-        <!--    a.dropdown-toggle(href='#', data-toggle='dropdown')-->
-        <!--        span.icon-basket-->
-        <!--        |-->
-        <!--        span.cart-item-number 2-->
-        <!--    ul.dropdown-menu.cart-list(role='menu')-->
-        <!--        li-->
-        <!--            .navbar-cart-item.clearfix-->
-        <!--                .navbar-cart-img-->
-        <!--                    a(href='#')-->
-        <!--                        img(src='resources/images/shop/product-9.jpg', alt='')-->
-        <!--                .navbar-cart-title-->
-        <!--                    a(href='#') Short striped sweater-->
-        <!--                    |-->
-        <!--                    span.cart-amount 2 &times; $119.00-->
-        <!--                    br-->
-        <!--                    |-->
-        <!--                    strong.cart-amount $238.00-->
-        <!--        li-->
-        <!--            .navbar-cart-item.clearfix-->
-        <!--                .navbar-cart-img-->
-        <!--                    a(href='#')-->
-        <!--                        img(src='resources/images/shop/product-10.jpg', alt='')-->
-        <!--                .navbar-cart-title-->
-        <!--                    a(href='#') Colored jewel rings-->
-        <!--                    |-->
-        <!--                    span.cart-amount 2 &times; $119.00-->
-        <!--                    br-->
-        <!--                    |-->
-        <!--                    strong.cart-amount $238.00-->
-        <!--        li-->
-        <!--            .clearfix-->
-        <!--                .cart-sub-totle-->
-        <!--                    strong Total: $476.00-->
-        <!--        li-->
-        <!--            .clearfix-->
-        <!--                a.btn.btn-block.btn-round.btn-font-w(type='submit') Checkout-->
-        <!--li.dropdown-->
-        <!--    a.dropdown-toggle(href='#', data-toggle='dropdown') Search-->
-        <!--    ul.dropdown-menu(role='menu')-->
-        <!--        li-->
-        <!--            .dropdown-search-->
-        <!--                form(role='form')-->
-        <!--                    input.form-control(type='text', placeholder='Search...')-->
-        <!--                    |-->
-        <!--                    button.search-btn(type='submit')-->
-        <!--                        i.fa.fa-search-->
-        
+
         <li class="dropdown"><a class="dropdown-toggle" href="documentation.html" data-toggle="dropdown">Documentation</a>
           <ul class="dropdown-menu">
             <li><a href="documentation.html#contact">Contact Form</a></li>
@@ -256,20 +212,25 @@ pageEncoding="UTF-8"%>
             <li><a href="documentation.html#changelog">Changelog</a></li>
           </ul>
         </li>
+
+        <li><a href="/view/common/myPage.jsp">Mypage</a>
+
          <li>    
-            <c:if test="${sessionScope.user.role!=null}">
-           <a href="#"><button class="btn btn-border-w btn-round btn-xs" type="button" id="logout">LOGOUT</button></a>
-          </c:if>
-           <c:if test="${sessionScope.user.role==null}">
-             <a class="modal-basic" href="#modalBasic" id="login">
-             <button class="btn btn-border-w btn-round btn-xs" type="button">LOGIN</button>
-             </a>
-           </c:if>
-       </li>
+	         <c:if test="${sessionScope.user.role!=null}">
+		     <a href="#"><button class="btn btn-border-w btn-round btn-xs" type="button" id="logout">LOGOUT</button></a>
+		    </c:if>
+		     <c:if test="${sessionScope.user.role==null}">
+		       <a class="modal-basic" href="#modalBasic" id="header-login">
+		       <button class="btn btn-border-w btn-round btn-xs " type="button" >LOGIN</button>
+		       </a>
+	        </c:if>
+	    </li>
+
         </ul>
     </div>
   </div>
 </nav>
+
 
 
  
@@ -380,3 +341,6 @@ pageEncoding="UTF-8"%>
           
    
 </script> 
+
+<jsp:include page="../user/loginModal.jsp"/>
+

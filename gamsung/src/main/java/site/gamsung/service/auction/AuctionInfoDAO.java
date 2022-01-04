@@ -19,6 +19,8 @@ public interface AuctionInfoDAO {
 	
 	public List<AuctionProduct> listAuctionProductByRole(Map<String, Object> map);
 	
+	public int countAuctionProductByRole(String userId);
+	
 	public List<AuctionInfo> auctionHistory(Map<String, Object> map);
 	
 	public AuctionInfo auctionStatusTotalCount(User user);

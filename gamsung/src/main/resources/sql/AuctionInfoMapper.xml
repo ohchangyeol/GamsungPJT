@@ -26,6 +26,7 @@
 		<result property="productImg4" 				column="product_img4"/>
 		<result property="productImg5" 				column="product_img5"/>
 		<result property="productViewCount" 		column="product_view_count"/>
+		<result property="countAllProduct" 			column="product_count"/>
 		<result property="productRegDate" 			column="product_reg_date"/>
 		<result property="isConfirm" 				column="registrant_confirm_flag"/>
 		<result property="isConfirm" 				column="successful_bidder_confirm_flag"/>
@@ -99,6 +100,14 @@
 		LIMIT #{search.pageSize} OFFSET #{search.offset};
 	</select>
 	
+	<select id="countAuctionProductByRole" parameterType="String" resultType="int">
+		SELECT COUNT(product_no)
+		FROM AUCTION_PRODUCT
+		WHERE temp_save_flag = 'N'
+		<if test='_parameter != null'>
+			AND registrant_id = #{value}
+		</if>
+	</select>
 	
 	<select id="AuctionHistory" parameterType="map" resultMap="info">
 		SELECT bid_no, product_no, bidder_id, bid_price, bid_date_time, auction_status

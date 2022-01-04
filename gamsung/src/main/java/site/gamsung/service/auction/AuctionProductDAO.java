@@ -30,13 +30,13 @@ public interface AuctionProductDAO {
 	
 	public void auctionProductBid(AuctionInfo auctionInfo);
 
-	public void updateBidEndTime(String auctionProductNo);
+	public int updateBidEndTime(String auctionProductNo);
 	
 	public void updateAuctionProductCondition(AuctionProduct auctionProduct);
 	
-	public void addMainAuctionProduct(AuctionProduct auctionProduct);
+	public void addMainAuctionProduct(String auctionProductNo);
 	
-	public int mainAuctionProductCount(AuctionProduct auctionProduct);
+	public int mainAuctionProductCount(String auctionProductNo);
 	
 	public List<AuctionProduct> listMainAuctionProduct();
 	

@@ -39,16 +39,15 @@ public class AuctionProductServiceTest {
 	private AuctionProductService auctionProductService;
 	
 	//경매 상품 출력 service test
-	//@Test
+	@Test
 	public void testListAuctionProduct() {
 		
 		Search search = new Search();
-		search.setPageSize(10);
-		search.setCurrentPage(2);
 		
 		List<AuctionProduct> list = auctionProductService.listAuctionProduct(search);
 		
 		for(AuctionProduct auctionProduct : list) {
+			System.out.println("================================================");
 			System.out.println(auctionProduct);
 		}	
 	}
@@ -57,11 +56,12 @@ public class AuctionProductServiceTest {
 	//@Test
 	public void testGetAuctionProduct() {
 		
-//		
-//		Map<String, Object> map = auctionProductService.getAuctionProduct("PROD00010");
-//		System.out.println(map.get("auctionProduct"));
-//		System.out.println(map.get("auctionInfo"));
-//		
+		AuctionInfo auctionInfo = new AuctionInfo();
+		auctionInfo.setAuctionProductNo("PROD00004");
+		Map<String, Object> map = auctionProductService.getAuctionProduct(auctionInfo);
+		System.out.println(map.get("auctionProduct"));
+		System.out.println(map.get("auctionInfo"));
+		
 	}
 	
 	//임시 저장된 상품 정보 조회 service test
@@ -158,10 +158,7 @@ public class AuctionProductServiceTest {
 	//@Test
 	public void testAddMainAuctionProduct() {
 		
-		AuctionProduct auctionProduct = new AuctionProduct();
-		auctionProduct.setAuctionProductNo("PROD00006");
-		auctionProduct.setAuctionEndTime("2021-12-21 03:00:00");
-		String info = auctionProductService.addMainAuctionProduct(auctionProduct);
+		String info = auctionProductService.addMainAuctionProduct("PROD00006");
 		System.out.println(info);
 	}
 	
@@ -192,7 +189,7 @@ public class AuctionProductServiceTest {
 		auctionProductService.updateAuctionProduct(auctionProduct);
 	}
 	
-	@Test
+	//@Test
 	public void testDeleteAuctionProduct() {
 		System.out.println(auctionProductService.deleteAuctionProduct("PROD00001","CANCEL").getInfo()); 
 		System.out.println(auctionProductService.deleteAuctionProduct("PROD00001","CONFIRM").getInfo()); 

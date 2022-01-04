@@ -31,7 +31,8 @@ body{overflow-x: hidden;}
 .chatting-list .card .card-header .center span{font-size: 24px; font-weight: 700;}
 
 .chatting-list .card-footer #chat-lists .list-box{display: flex;padding: 15px 20px;overflow: hidden;background-color: rgb(255, 255, 255);border-radius: 18px;box-shadow: rgb(0 0 0 / 10%) 0px 2px 16px 1px;color: #2d2d2d;}
-.chatting-list .card-footer #chat-lists .list-box .receive{flex-grow: 7;}
+.chatting-list .card-footer #chat-lists .list-box .receive{flex-grow: 7; }
+.chatting-list .card-footer #chat-lists .list-box .receive .receiver{font-weight: 500; }
 .chatting-list .card-footer #chat-lists .list-box .receive .message{color: #969696;font-size: 12px;}
 .chatting-list .card-footer #chat-lists .list-box .msg-new-time{flex-grow: 1; text-align: center;}
 .chatting-list .card-footer #chat-lists .list-box .msg-new-time .msg-total span{border-radius: 100%; background-color: rgb(185, 34, 34);color: #fff;display: inline-block;width: 20px;height: 20px;font-size: 12px;}

@@ -28,7 +28,7 @@ pageEncoding="UTF-8"%>
     <link rel="icon" type="image/png" sizes="32x32" href="../../resources/images/favicons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="96x96" href="../../resources/images/favicons/favicon-96x96.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../../resources/images/favicons/favicon-16x16.png">
-    <link rel="manifest" href="/manifest.json">
+    <!-- <link rel="manifest" href="/manifest.json"> -->
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="../../resources/images/favicons/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
@@ -39,7 +39,9 @@ pageEncoding="UTF-8"%>
     -->
     <!-- Default stylesheets-->
     <link href="../../resources/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
     <!-- Template specific stylesheets-->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Volkhov:400i" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
@@ -54,9 +56,11 @@ pageEncoding="UTF-8"%>
     <!-- Main stylesheet and color file-->
     <link href="../../resources/css/style.css" rel="stylesheet">
     <link id="color-scheme" href="../../resources/css/colors/default.css" rel="stylesheet">
+
+    <link id="color-scheme" href="../../resources/css/serviceCenter.css" rel="stylesheet">
   </head>
   <body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
-    <main>
+    <main class="sc-main">
       <div class="page-loader">
         <div class="loader">Loading...</div>
       </div>
@@ -88,7 +92,7 @@ pageEncoding="UTF-8"%>
                   <div class="features-icon"><span class="icon-lightbulb"></span></div>
                   <h3 class="features-title font-alt">공지사항</h3>
                   <p>사이트 내 공지사항을 <br/>조회할 수 있습니다.</p>
-                  <button class="btn btn-d btn-round btn-block" type="button">
+                  <button class="btn btn-d btn-round btn-block" type="button" data-btntype="1">
                     <font style="vertical-align: inherit;">
                       <font style="vertical-align: inherit;">공지사항 보기</font>
                     </font>
@@ -100,7 +104,7 @@ pageEncoding="UTF-8"%>
                   <div class="features-icon"><span class="icon-bike"></span></div>
                   <h3 class="features-title font-alt">Q&amp;A</h3>
                   <p>사이트 내 궁금하신 점이나 <br/>의견을 남길 수 있습니다.</p>
-                  <button class="btn btn-d btn-round btn-block" type="button">
+                  <button class="btn btn-d btn-round btn-block" type="button" data-btntype="2">
                     <font style="vertical-align: inherit;">
                       <font style="vertical-align: inherit;">Q&A 바로가기</font>
                     </font>
@@ -112,7 +116,7 @@ pageEncoding="UTF-8"%>
                   <div class="features-icon"><span class="icon-tools"></span></div>
                   <h3 class="features-title font-alt">신고하기</h3>
                   <p>신속하게 해결하여 보다 나은 <br/>서비스를 만들어가도록 노력하겠습니다.</p>
-                  <button class="btn btn-d btn-round btn-block" type="button">
+                  <button class="btn btn-d btn-round btn-block" type="button" data-btntype="3">
                     <font style="vertical-align: inherit;">
                       <font style="vertical-align: inherit;">신고 하기</font>
                     </font>
@@ -124,12 +128,12 @@ pageEncoding="UTF-8"%>
                   <div class="features-icon"><span class="icon-gears"></span></div>
                   <h3 class="features-title font-alt">내 신고 / Q&amp;A내역</h3>
                   <p>내 신고 및 Q&amp;A 내역의 <br/> 진행 현황을 확인할 수 있습니다.</p>
-                  <button class="btn btn-d btn-round btn-block" type="button">
+                  <button class="btn btn-d btn-round btn-block" type="button" data-btntype="4">
                     <font style="vertical-align: inherit;">
                       <font style="vertical-align: inherit;">신고내역</font>
                     </font>
                   </button>
-                  <button class="btn btn-d btn-round btn-block" type="button">
+                  <button class="btn btn-d btn-round btn-block" type="button" data-btntype="5">
                     <font style="vertical-align: inherit;">
                       <font style="vertical-align: inherit;">내 Q&A</font>
                     </font>
@@ -233,6 +237,6 @@ pageEncoding="UTF-8"%>
     <script src="../../resources/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script>
     <script src="../../resources/js/plugins.js"></script>
     <script src="../../resources/js/main.js"></script>
-    <!-- <script src="../../resources/js/serivcecenter/"></script> -->
+    <script src="../../resources/js/serivcecenterHome.js"></script>
   </body>
 </html>

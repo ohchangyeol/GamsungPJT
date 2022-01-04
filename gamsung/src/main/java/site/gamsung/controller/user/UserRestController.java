@@ -122,7 +122,7 @@ public class UserRestController {
 	}
 
 	@RequestMapping(value = "rest/checkDuplication", method = RequestMethod.POST)
-	public int checkDuplication(@RequestBody User user) throws Exception {
+	public int checkDuplication(@RequestBody User user){
 		System.out.println("1111");
 		System.out.println(user);
 		int isSuccess = 0;
@@ -136,19 +136,33 @@ public class UserRestController {
 		System.out.println("str" + isSuccess);
 		return isSuccess;
 	}
-
+	
+	
 	// 아이디찾기
-	@RequestMapping(value = "findId")
-	public String findId(String name, String phone) throws Exception {
+	/*
+	 * @RequestMapping(value = "rest/findId", method = RequestMethod.GET) public
+	 * String findId(){ return "forward:/view/user/findIdModal.jsp"; }
+	 */
+	
+	// 아이디찾기
+	@RequestMapping(value = "rest/findId", method = RequestMethod.POST)
+	public String findId(@RequestParam("name") String name, @RequestParam("phone") String phone){
+		
+		System.out.println("rest실행되나");
 
 		String id = userService.findId(name, phone);
 
+		System.out.println(name);
+		System.out.println(phone);
+		System.out.println(id+"return 되나");
+		
 		return id;
 	}
 
 	// 비밀번호 찾기
-	@RequestMapping(value = "findPassword")
-	public void findPassword(@RequestBody User user) throws Exception {
+	@RequestMapping(value = "rest/findPassword")
+	public void findPassword(@RequestBody User user){
+		
 		User newUser = userService.findPassword(user);
 		if (newUser != null) {
 			userService.updateTempPassword(user);
@@ -156,7 +170,7 @@ public class UserRestController {
 	}
 
 	@RequestMapping(value = "addSecessionUser")
-	public String addSecessionUser(@RequestBody User user) throws Exception {
+	public String addSecessionUser(@RequestBody User user){
 
 		user = userService.checkIdPassword(user);
 		if (user != null && userService.addSecessionUser(user)) {
@@ -167,7 +181,7 @@ public class UserRestController {
 	}
 
 	@RequestMapping(value = "updateDormantGeneralUserConvert", method = RequestMethod.GET)
-	public void updateDormantGeneralUserConvert(HttpSession session) throws Exception {
+	public void updateDormantGeneralUserConvert(HttpSession session){
 		userService.updateDormantGeneralUserConvert(session.getId());
 	}
 

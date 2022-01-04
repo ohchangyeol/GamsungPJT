@@ -383,9 +383,7 @@
 	<script>
 		
 		$(function(){
-			
-			$('')
-			
+		
 			var auctionProduct = "${auctionProduct.auctionProductNo}";
 			var imgCount = $('.selProductFile').length;
 							

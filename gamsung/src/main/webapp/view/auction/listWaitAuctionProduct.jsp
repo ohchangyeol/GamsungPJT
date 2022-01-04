@@ -136,7 +136,7 @@
                     </div>
                   </div>
                   <h4 class="shop-item-title font-alt"><a href="#">${product.auctionProductName}</a></h4>
-                  <span>${product.hashtag1} ${product.hashtag2} ${product.hashtag2}</span>			
+                  <span>${product.hashtag1}+' '+${product.hashtag2}+' '+${product.hashtag2}</span>			
                 </div>
               </div>
             </c:forEach>
@@ -267,6 +267,12 @@
   			});
   		
 	  		$('body').on('click','.btn-b',function(){
+	  			
+	  			if(${empty sessionScope.user}){
+	  				alert("로그인해 주세요.");
+	  				return;
+	  			}
+	  			
 	   			var auctionProductSubDetail = $(this).prev().text();
 	   			var auctionProductName = $(this).parent().parent().next().text();
 	   			var allhashtag = $(this).parent().parent().next().next().text();

@@ -151,11 +151,7 @@ public class AuctionProductDAOTest {
 	//@Test
 	public void testAddMainAuctionProduct() {
 		
-		AuctionProduct auctionProduct = new AuctionProduct();
-		auctionProduct.setAuctionProductNo("PROD00001");
-		auctionProduct.setAuctionEndTime("2021-12-20 23:59:59");
-		
-		auctionProductDAO.addMainAuctionProduct(auctionProduct);
+		auctionProductDAO.addMainAuctionProduct("PROD00001");
 		
 	}
 

@@ -104,9 +104,9 @@ public class AuctionProductDAOImpl implements AuctionProductDAO{
 	
 	//경매 상품 10초 추가
 	@Override
-	public void updateBidEndTime(String auctionProductNo) {
+	public int updateBidEndTime(String auctionProductNo) {
 		// TODO Auto-generated method stub
-		sqlSession.update("AuctionProductMapper.updateBidEndTime", auctionProductNo);
+		return sqlSession.update("AuctionProductMapper.updateBidEndTime", auctionProductNo);
 	}
 	
 	@Override
@@ -117,15 +117,15 @@ public class AuctionProductDAOImpl implements AuctionProductDAO{
 
 	//메인에 표시될 경매 상품정보
 	@Override
-	public void addMainAuctionProduct(AuctionProduct auctionProduct) {
+	public void addMainAuctionProduct(String auctionProductNo) {
 		// TODO Auto-generated method stub
-		sqlSession.insert("AuctionProductMapper.addMainAuctionProduct",auctionProduct);
+		sqlSession.insert("AuctionProductMapper.addMainAuctionProduct",auctionProductNo);
 	}
 	
 	@Override
-	public int mainAuctionProductCount(AuctionProduct auctionProduct) {
+	public int mainAuctionProductCount(String auctionProductNo) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne("AuctionProductMapper.mainAuctionProductCount",auctionProduct);
+		return sqlSession.selectOne("AuctionProductMapper.mainAuctionProductCount",auctionProductNo);
 	}
 
 	//메인 상품 리스트 출력
