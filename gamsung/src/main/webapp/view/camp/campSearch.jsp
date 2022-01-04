@@ -27,7 +27,11 @@ pageEncoding="UTF-8"%>
           $("#sido").on("propertychange change keyup paste input", function(){
 
             var sido = $("#sido").val();
-           
+            // var 서울 = ['강남', '강동','강북','강서']
+            //   서울.forEach(element => {
+            //     $("#sigungu").append("<option value='"+element+"'>"강남"구</option>");
+            //   });
+
             if(sido == '서울'){
               $("#sigungu option").remove();
               $("#sigungu").append("<option value=''>전체/시/군</option>");
@@ -395,7 +399,9 @@ pageEncoding="UTF-8"%>
 <section class="bg-dark-30 showcase-page-header module parallax-bg" data-background="../../resources/images/showcase_bg.jpg">
   <div class="titan-caption">
     <div class="row">
-      <div class="col-xs-4 col-lg-offset-4" style="text-align: center;">
+      <div class="col-xs-12">
+        <div class="col-xs-4"></div>
+        <div class="col-xs-4" style="text-align: center;">
         <h2  style="margin-bottom: 20px;">캠핑장을 검색 하세요!</h2>
         <div class="row">
           <div class="row">
@@ -505,19 +511,19 @@ pageEncoding="UTF-8"%>
                             <input type="checkbox" id="sub_site1" name="subSite" value="전기">전기
                           </label>
                           <label class="checkbox-inline">
-                            <input type="checkbox" id="sub_site1" name="subSite" value="온수">온수
+                            <input type="checkbox" id="sub_site2" name="subSite" value="온수">온수
                           </label>
                           <label class="checkbox-inline">
-                            <input type="checkbox" id="sub_site1" name="subSite" value="화장실">화장실
+                            <input type="checkbox" id="sub_site3" name="subSite" value="화장실">화장실
                           </label>
                           <label class="checkbox-inline">
-                            <input type="checkbox" id="sub_site1" name="subSite" value="무선인터넷">무선인터넷
+                            <input type="checkbox" id="sub_site4" name="subSite" value="무선인터넷">무선인터넷
                           </label>
                           <label class="checkbox-inline">
-                            <input type="checkbox" id="sub_site1" name="subSite" value="매점">매점
+                            <input type="checkbox" id="sub_site5" name="subSite" value="매점">매점
                           </label>
                           <label class="checkbox-inline">
-                            <input type="checkbox" id="sub_site1" name="subSite" value="물놀이장">물놀이장
+                            <input type="checkbox" id="sub_site6" name="subSite" value="물놀이장">물놀이장
                           </label>
                         </div>
                       </div>
@@ -525,10 +531,10 @@ pageEncoding="UTF-8"%>
                         <label class="col-sm-2 control-label"></label>
                         <div class="col-sm-10">
                           <label class="checkbox-inline">
-                            <input type="checkbox" id="sub_site1" name="subSite" value="트램폴린">트램폴린
+                            <input type="checkbox" id="sub_site7" name="subSite" value="트램폴린">트램폴린
                           </label>
                           <label class="checkbox-inline">
-                            <input type="checkbox" id="sub_site1" name="subSite" value="산책로">산책로
+                            <input type="checkbox" id="sub_site8" name="subSite" value="산책로">산책로
                           </label>
                         </div>
                       </div>
@@ -672,6 +678,7 @@ pageEncoding="UTF-8"%>
         </form>
         </div>
       </div>
+    </div>
     </div>
   </div>
 </section>

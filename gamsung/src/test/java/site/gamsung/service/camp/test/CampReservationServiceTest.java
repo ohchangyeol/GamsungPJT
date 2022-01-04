@@ -90,7 +90,7 @@ public class CampReservationServiceTest {
 		campReservation.setTotalReservationRegCar(2);
 		campReservation.setPaymentType(3);
 		
-		campReservationService.addReservation(campReservation);
+		campReservationService.addTempReservation(campReservation);
 		
 	}
 	

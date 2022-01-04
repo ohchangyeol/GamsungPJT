@@ -42,6 +42,8 @@ public interface CampReservationDAO {
 	
 	public int updateReservation(CampReservation campReservation);
 	
+	public CampReservation getReservationByPayment(CampReservation campReservation);
+	
 	public List<CampReservation> sendMessageInfo();
 	
 	public void resetCount();

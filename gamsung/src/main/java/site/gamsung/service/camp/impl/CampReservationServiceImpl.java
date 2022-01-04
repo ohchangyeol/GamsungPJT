@@ -49,17 +49,20 @@ public class CampReservationServiceImpl implements CampReservationService {
 	}
 
 	@Override
-	public void addReservation(CampReservation campReservation){
+	public CampReservation addTempReservation(CampReservation campReservation){
 		
-		//insert payment(결제 정보) - insert payment(결제 정보) - 포인트, 현금, 카드 여러 형태 처리.
 		campReservationDAO.addReservation(campReservation);
+		
+		return campReservationDAO.getReservationByPayment(campReservation);
+				
+	}
+
+	@Override
+	public void updateTempReservationToReal(CampReservation campReservation) {
+		
+		campReservationDAO.updateReservation(campReservation);
 		campReservationDAO.updateMainSiteReservation(campReservation);
-		
-		Camp camp = new Camp();
-		camp.setCampNo(10000);
-		
-		campReservationDAO.updateCampReservationCount(camp.getCampNo());
-		
+		campReservationDAO.updateCampReservationCount(campReservation.getCamp().getCampNo());
 	}
 
 	@Override
