@@ -1,6 +1,8 @@
 package site.gamsung.controller.payment;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,14 +14,21 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.siot.IamportRestClient.IamportClient;
+import com.siot.IamportRestClient.exception.IamportResponseException;
+import com.siot.IamportRestClient.response.IamportResponse;
 
 import site.gamsung.service.common.Page;
 import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.Camp;
 import site.gamsung.service.domain.Payment;
 import site.gamsung.service.domain.PaymentCode;
+import site.gamsung.service.domain.PointTransfer;
 import site.gamsung.service.domain.User;
 import site.gamsung.service.payment.PaymentService;
 import site.gamsung.service.user.UserService;
@@ -59,7 +68,7 @@ public class PaymentController {
 		/////////////////////////////////////////////////////////////////////// Session 완료시 삭제
 		User tempSessionUser = new User();
 		
-		tempSessionUser.setId("businessuser1@gamsung.com"); // TS -3 저장
+		tempSessionUser.setId("businessuser3@gamsung.com"); // TS -3 저장
 		//tempSessionUser.setId("businessuser6@gamsung.com"); // TS -2 임시저장
 		//tempSessionUser.setId("businessuser9@gamsung.com"); // TS -1 발급 완료
 		//tempSessionUser.setId("businessuser11@gamsung.com");  // TS -0 발급 미완료
@@ -84,49 +93,68 @@ public class PaymentController {
 		} else {
 			return "redirect:/main.jsp";
 		}
+		
+		PaymentCode paymentCode = paymentService.getPaymentCodeInfo("P2");
+		model.addAttribute("paymentCode", paymentCode);	
+		
+		System.out.println(" paymentCodeCtrl managePoint : "+paymentCode);
 					
-		return "forward:/view/payment/managePoint.jsp";
+		return "forward:/view/payment/readyPayment.jsp";
 	}
-
 	
+	@RequestMapping(value = "updateChargePoint", method = RequestMethod.POST)
+	public String updateChargePoint(@ModelAttribute("payment") Payment payment) throws Exception {
+		
+		System.out.println("updatePoint payment : " + payment);
+		
+		PointTransfer pointTransfer = new PointTransfer();
+		pointTransfer.setSenderId("admin");
+		pointTransfer.setReceiverId(payment.getPaymentReceiver());		
+		pointTransfer.setPointAmount(payment.getPointChargeTotal());
+		
+		paymentService.pointTransferByUsers(pointTransfer);
+		
+		payment.setPaymentPriceTotal(payment.getPointChargeTotal());
+		payment.setPaymentPricePay(payment.getPointChargeTotal());
+		paymentService.addMakePayment(payment);		
+		
+		return "forward:/view/payment/resultPayment.jsp";
+	}
+	
+	@RequestMapping(value = "updateTransferPoint", method = RequestMethod.POST)
+	public String updateTransferPoint(@ModelAttribute("payment") Payment payment) throws Exception {
+		
+		System.out.println("updateTransferPoint payment : " + payment);
+		
+	
+		return "forward:/view/payment/resultPayment.jsp";
+	}
+		
 	/*
 	 *  Payment
 	 */
 	@RequestMapping(value = "readyPayment", method = RequestMethod.GET)
 	public String readyPayment(@ModelAttribute("payment") Payment payment) throws Exception {
 		
-	
+		char itemControl = payment.getPaymentCode().charAt(0);	
+			
+		if( itemControl == 'P' ){
+			
+		}
+		
+		if( itemControl == 'R' ){
+			
+		}
+		
+		if( itemControl == 'A' ){
+			
+		}
+		
+		if( itemControl == 'T' ){
+			
+		}
 		
 		return "forward:/view/payment/readyPayment.jsp";
-	}
-	
-	@RequestMapping(value = "addMakePayment", method = RequestMethod.GET)
-	public String addMakePayment(@ModelAttribute("payment") Payment payment) throws Exception {
-		
-		// test start
-		payment.setPaymentSender("businessuser10@gamsung.com");
-		payment.setPaymentReceiver("businessuser11@gamsung.com");
-		payment.setPaymentPriceTotal(10000);
-		// test end
-		
-		paymentService.addMakePayment(payment);	
-		
-		return "forward:/view/payment/addMakePayment.jsp";
-	}
-	
-	@RequestMapping(value = "addRefundPayment", method = RequestMethod.POST)
-	public String addRefundPayment(@ModelAttribute("payment") Payment payment) throws Exception {
-		
-		paymentService.addRefundPayment(payment);
-		
-		return "forward:/view/payment/addRefundPayment.jsp";
-	}
-	
-	@RequestMapping(value = "resultPayment", method = RequestMethod.POST)
-	public String resultPayment(@ModelAttribute("payment") Payment payment) throws Exception {
-		
-		
-		return "forward:/view/payment/resultPayment.jsp";
 	}
 	
 	@RequestMapping(value = "getPayment", method = RequestMethod.POST)

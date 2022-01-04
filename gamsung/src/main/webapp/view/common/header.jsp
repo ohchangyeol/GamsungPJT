@@ -12,17 +12,21 @@ pageEncoding="UTF-8"%>
       <ul class="nav navbar-nav navbar-right">    
 
         <li><a href="/campBusiness/goSubMainCampBusiness">CampBusiness</a></li> 
-      
+      	
         <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Payment</a>
           <ul class="dropdown-menu">
           	<li><a href="/payment/managePoint">ManagePoint</a></li>
            	<br>
+           	
+          	<li><a href="/payment/readyPayment">ReadyPayment</a></li>
+           	<br>
+           	           	
+           	<li><a href="/payment/listPayment">listPayment</a></li>
+           	<br>           	
+           	
            	<li><a href="/payment/listPaymentCode">PaymentCode</a></li>
            	<br>
-           	<li><a href="/payment/addMakePayment">MakePayment</a></li>
-           	<li><a href="/payment/addRefundPayment">RefundPayment</a></li>
-           	<li><a href="/payment/listPayment">listPayment</a></li>
-           	<br>
+           	
            	<li><a href="/payment/listSiteProfit">SiteProfit</a></li>          	      
           </ul>
         </li>
@@ -143,6 +147,7 @@ pageEncoding="UTF-8"%>
           </ul>
         </li>
  
+
         <li class="dropdown"><a class="dropdown-toggle" href="documentation.html" data-toggle="dropdown">Documentation</a>
           <ul class="dropdown-menu">
             <li><a href="documentation.html#contact">Contact Form</a></li>
@@ -153,6 +158,9 @@ pageEncoding="UTF-8"%>
             <li><a href="documentation.html#changelog">Changelog</a></li>
           </ul>
         </li>
+
+        <li><a href="/view/common/myPage.jsp">Mypage</a>
+
          <li>    
 	         <c:if test="${sessionScope.user.role!=null}">
 		     <a href="#"><button class="btn btn-border-w btn-round btn-xs" type="button" id="logout">LOGOUT</button></a>

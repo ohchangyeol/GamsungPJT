@@ -34,8 +34,8 @@ public class UserServiceTest {
 		User user = new User();
 
 
-		user.setId("test55@test.com");
-		user.setNickName("으어어");
+		user.setId("test55@nate.com");
+		user.setNickName("나야나");
 		user.setName("으어어");
 		user.setPassword("5555");
 		user.setRole("GENERAL");

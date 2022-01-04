@@ -260,7 +260,7 @@ MagnificPopup.prototype = {
 				_wrapClasses += ' mfp-close-btn-in';
 			}
 		}
-
+	
 		if(mfp.st.alignTop) {
 			_wrapClasses += ' mfp-align-top';
 		}
