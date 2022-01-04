@@ -65,10 +65,24 @@
 				$("#payForm").attr("method" , "POST").attr("action" , "/payment/paymentSystem").submit();	
 			});		
 			
-			$("#temp3").on("click" , function() {				
-				const paymentPriceTotal = $("#paymentPriceTotal").val();
+			$("#temp3").on("click" , function() {			
+				
 				
 				$("#paymentSender").val( $("#pay_buyerEmail").val() );
+				
+				$("#paymentReceiver").val();
+				$("#paymentCode").val();
+				
+				$("#paymentProduct").val();
+				$("#paymentPriceTotal").val();
+				$("#paymentReferenceNum").val();
+				
+				
+				
+				
+				const paymentPriceTotal = $("#paymentPriceTotal").val();
+				
+				
 				$("#paymentCode").val("r1");
 				$("#paymentPriceTotal").val(uncomma(paymentPriceTotal));
 			
@@ -605,6 +619,9 @@
 		</div>
 		
 		<form id="campForm">
+			<input type="hidden" id="campPaymentSender" name="campPaymentSender" value="${payment.paymentSender}">
+			<input type="hidden" id="campPaymentReceiver" name="campPaymentReceiver" value="${payment.paymentReceiver}">
+			<input type="hidden" id="campPaymentCode" name="campPaymentCode" value="${payment.paymentCode}">
 		
 				<div class="row">	
 					<div class="col-xs-3">	
@@ -613,10 +630,7 @@
 						</div>						
 					</div>
 					
-					
-								
-					<div class="col-xs-9">
-					
+					<div class="col-xs-9">					
 						<div class="row">							
 							<label class="col-xs-2">* 예약번호</label>
 							<div class="col-xs-3 form-group">
@@ -654,7 +668,7 @@
 						<div class="row">
 							<label class="col-xs-2">* 캠핑장명</label>
 							<div class="col-md-3 form-group">
-								${campReservation.camp.campName} 123
+								${campReservation.camp.user.campName} 123
 							</div>
 							<label class="col-xs-2 col-xs-offset-1">* 주요시설타입</label>
 							<div class="col-md-3 form-group">
@@ -735,9 +749,7 @@
 			<input type="hidden" id="paymentCode" name="paymentCode" value="unknownPC">	
 			<input type="hidden" id="pointChargeTotal" name="pointChargeTotal" value="unknownPCT">
 			
-			<input type="hidden" id="aaa" name="aaa" value="${payment.paymentSender}">
-			<input type="hidden" id="bbb" name="bbb" value="${payment.paymentReceiver}">
-			<input type="hidden" id="ccc" name="ccc" value="${payment.paymentCode}">				
+				
 			
 			<div class="row">
 				<div id="paySecond" class="row">			
