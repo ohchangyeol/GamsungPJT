@@ -13,7 +13,7 @@ if (typeof define === 'function' && define.amd) {
  factory(window.jQuery || window.Zepto); 
  } 
  }(function($) { 
-
+	
 /*>>core*/
 /**
  * 
@@ -1858,3 +1858,5 @@ $.magnificPopup.registerModule(RETINA_NS, {
 
 /*>>retina*/
  _checkInstance(); }));
+
+ 

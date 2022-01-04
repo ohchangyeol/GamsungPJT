@@ -1,30 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <head>
-		<!-- Web Fonts  -->
-		<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Shadows+Into+Light" rel="stylesheet" type="text/css">
-
-		<!-- Vendor CSS -->
-		<link rel="stylesheet" href="../../resources/lib/bootstrap/css/bootstrap.css" />
-		<link rel="stylesheet" href="../../resources/lib/font-awesome/css/font-awesome.css" />
-		<link rel="stylesheet" href="../../resources/lib/magnific-popup/magnific-popup.css" />
-		<link rel="stylesheet" href="../../resources/lib/bootstrap-datepicker/css/datepicker3.css" />
-
-		<!-- Specific Page Vendor CSS -->
-		<link rel="stylesheet" href="../../resources/lib/pnotify/pnotify.custom.css" />
-
-		<!-- Theme CSS -->
-		<link rel="stylesheet" href="../../resources/css/theme.css" />
-
-		<!-- Skin CSS -->
-		<link rel="stylesheet" href="../../resources/css/skins/default.css" />
-
-		<!-- Theme Custom CSS -->
-		<link rel="stylesheet" href="../../resources/css/theme-custom.css">
-
-		<!-- Head Libs -->
-		<script src="assets/vendor/modernizr/modernizr.js"></script>
-
 <meta charset="UTF-8">
 </head>
 <body>
@@ -67,19 +43,6 @@
 	</section>
 </div>
 
-
-<script src="../../resources/lib/jquery/jquery.js"></script>
-<script src="../../resources/lib/jquery-browser-mobile/jquery.browser.mobile.js"></script>
-<script src="../../resources/lib/bootStrap/js/bootstrap.js"></script>
-<script src="../../resources/lib/nanoscroller/nanoscroller.js"></script>
-<script src="../../resources/lib/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
-<script src="../../resources/lib/magnific-popup/magnific-popup.js"></script>
-<script src="../../resources/lib/jquery-placeholder/jquery.placeholder.js"></script>
-<script src="../../resources/lib/pnotify/pnotify.custom.js"></script>
-<script src="../../resources/js/theme.js"></script>
-<script src="../../resources/js/theme.custom.js"></script>
-<script src="../../resources/js/theme.init.js"></script>
-<script src="../../resources/js/ui-elements/examples.modals.js"></script>
 <script type="text/javascript">
 
     //============= logout Event =============	
@@ -184,7 +147,7 @@
 		}
 		 */
 		 
-		$("form").attr("method","POST").attr("action","/user/rest/findPassword").submit();
+		//$("form").attr("method","POST").attr("action","/user/rest/findPassword").submit();
 	});
 });
 		 	
