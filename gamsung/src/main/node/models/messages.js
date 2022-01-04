@@ -3,13 +3,14 @@ const detailSchema = new mongoose.Schema({
     sender : { type : String, required:true },
     receiver : { type : String, required:true },
     message : String
-},{
-    timeseries : true
+    
 })
 
 const msgSchema = new mongoose.Schema({
     room : {type : String},
-    content : detailSchema 
+    content : detailSchema ,
+    date : {type: Date , default: Date.now()}
+    
 })
 
 const Msg = mongoose.model('msg', msgSchema);

@@ -45,6 +45,12 @@
 	
 	<!-- SQL : Point ################################################################################################################### -->
 	
+	<update	id="pointUpdateById" parameterType="pointTransfer" >
+	   	UPDATE USERS
+	   	SET	having_point = having_point + #{pointAmount}		
+	   	WHERE user_id = #{userId}
+	</update>
+	
 	
 	<!-- SQL : Payment ################################################################################################################### -->
 	

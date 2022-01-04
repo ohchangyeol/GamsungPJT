@@ -32,11 +32,9 @@ package site.gamsung.service.domain;
 			결제등록번호					String 	paymentNo                  
 	(*결제)	주는사람					String 	paymentSender              
 	(*결제)	받는사람					String 	paymentReceiver              
-	(*결제)	결제방법(paymentMethod)		int 	paymentMethod                 
-			1-포인트결제              
-			2-현금결제                
-			3-카드결제                
-			4-간편결제     
+	(*결제)	결제방법(paymentMethod)		String 	paymentMethod                 
+			'point' - 포인트결제              
+			     
 			           
 	(*결제) 	결제 코드					String 	paymentCode                                   
 	 		결제등록일자					String 	paymentRegTime                           
@@ -53,6 +51,8 @@ package site.gamsung.service.domain;
 			환불 수수료금액				int 	paymentRefundPriceFee  
 	(*환불)	환불 참조번호				String 	paymentRefundReferenceNum   
 			환불 참조수수료율				int 	paymentRefundReferenceFee
+			
+			포인트충전양					int 	pointChargeTotal
 */
 
 public class Payment {
@@ -61,7 +61,7 @@ public class Payment {
 	private String paymentNo;
 	private String paymentSender;
 	private String paymentReceiver;
-	private int paymentMethod;
+	private String paymentMethod;	
 	
 	private String paymentCode;	
 	private String paymentRegTime;
@@ -69,7 +69,7 @@ public class Payment {
 	private int paymentPricePay;
 	private int paymentPriceFee;
 	private String paymentReferenceNum;
-	private int paymentReferenceFee;
+	private int paymentReferenceFee;	
 	
 	private String paymentRefundCode;		
 	private String paymentRefundRegTime;
@@ -78,7 +78,8 @@ public class Payment {
 	private int paymentRefundPriceFee;
 	private String paymentRefundReferenceNum;
 	private int paymentRefundReferenceFee;
-
+	
+	private int pointChargeTotal;
 	
 	/// Default Constructor
 	public Payment() {
@@ -110,11 +111,11 @@ public class Payment {
 		this.paymentReceiver = paymentReceiver;
 	}
 
-	public int getPaymentMethod() {
+	public String getPaymentMethod() {
 		return paymentMethod;
 	}
 
-	public void setPaymentMethod(int paymentMethod) {
+	public void setPaymentMethod(String paymentMethod) {
 		this.paymentMethod = paymentMethod;
 	}
 
@@ -230,6 +231,14 @@ public class Payment {
 		this.paymentRefundReferenceFee = paymentRefundReferenceFee;
 	}
 
+	public int getPointChargeTotal() {
+		return pointChargeTotal;
+	}
+
+	public void setPointChargeTotal(int pointChargeTotal) {
+		this.pointChargeTotal = pointChargeTotal;
+	}
+
 	// Override toString
 	public String toString() {
 		return "\n -- Payment --"
@@ -253,6 +262,8 @@ public class Payment {
 			+ "\n [paymentRefundPriceFee] : " + paymentRefundPriceFee
 			+ "\n [paymentRefundReferenceNum] : " + paymentRefundReferenceNum
 			+ "\n [paymentRefundReferenceFee] : " + paymentRefundReferenceFee
+			+ "\n "
+			+ "\n [pointChargeTotal] : " + pointChargeTotal	
 			+ "\n ---------------- \n";
 	}
 	
