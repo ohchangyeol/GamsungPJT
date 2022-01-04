@@ -45,32 +45,48 @@
   	
   	
   	<!-- 화면 Controller Start -->
-  	<script type="text/javascript">  	
-  			
-		$(function() {
-			
-			// 테스트용
+  	<script type="text/javascript">  
+  	
+ 		// 테스트용
+	  	$(function() {
+
 			$("#temp1").on("click" , function() {		
 				$(".container").show();
 				$("div").show();
 			});
 			
-			$("#temp2").on("click" , function() {			
-				const pointChargeTotal = $("#pointChargeTotal").val();			
-				const paymentPriceTotal = $("#paymentPriceTotal").val();				
-				$("#pointChargeTotal").val(uncomma(pointChargeTotal));
-				$("#paymentPriceTotal").val(uncomma(paymentPriceTotal));				
-				$("#chargeForm").attr("method" , "POST").attr("action" , "/payment/updateChargePoint").submit();
-			});
-			// 테스트용
+			$("#temp2").on("click" , function() {				
+				const paymentPriceTotal = $("#paymentPriceTotal").val();
+				
+				$("#paymentSender").val( $("#pay_buyerEmail").val() );
+				$("#paymentCode").val("P1");
+				$("#paymentPriceTotal").val(uncomma(paymentPriceTotal));
+			
+				$("#payForm").attr("method" , "POST").attr("action" , "/payment/paymentSystem").submit();	
+			});		
+			
+			$("#temp3").on("click" , function() {				
+				const paymentPriceTotal = $("#paymentPriceTotal").val();
+				
+				$("#paymentSender").val( $("#pay_buyerEmail").val() );
+				$("#paymentCode").val("r1");
+				$("#paymentPriceTotal").val(uncomma(paymentPriceTotal));
+			
+				$("#payForm").attr("method" , "POST").attr("action" , "/payment/paymentSystem").submit();	
+			});		
+	  		
+	  	}); 
+		// 테스트용
+  			
+		$(function() {
 					
 			$("#pointContainer").hide();
-			$("#campContainer").hide();
+			//$("#campContainer").hide();
 			$("#auctionContainer").hide();
 			$("#transferContainer").hide();
 			
 			$("#pointButtonContainer").hide();
-			$("#campButtonContainer").hide();
+			//$("#campButtonContainer").hide();
 			$("#pointPayButtonContainer").hide();
 						
 			const viewController = $("#viewController").val();
@@ -81,11 +97,12 @@
 			if( ctrlViewCode == "P" ){
 				$("#pointContainer").show();
 				$("#pointButtonContainer").show();
-			}
+			} 
 			
 			if(ctrlViewCode == "R"){
 				$("#campContainer").show();
 				$("#campButtonContainer").show();
+				$("#paySecond").show();
 			}
 			
 			if(ctrlViewCode == "A"){
@@ -145,6 +162,7 @@
 				if( afterWithdrawUc < 0 ){
 					alert("출금 할 포인트가 부족합니다.");
 					$("#pointWithdrawTotal").val("0");
+					return;
 				}
 				
 				$("#pointWithdrawTotal").val(comma(withdrawPointUc));								
@@ -153,7 +171,7 @@
 				
 			});			
 			
-			// 포인트 출금 페이지/버튼 로딩시 숨기기
+			// 포인트출금 페이지/버튼 로딩시 숨기기
 			$("#withdrawDiv").hide();
 			$("#point_withdrawButton").hide();
 			
@@ -234,6 +252,7 @@
 		function calculateNumber() {
 			
 			const havingPoint1 = uncomma($("#havingPoint1").val());
+			
 			const count1 = $("#count1").val();
 			const count2 = $("#count2").val();
 			const count3 = $("#count3").val();
@@ -241,20 +260,18 @@
 			const pointChargeTotaltext = parseInt(100000*count1) + parseInt(10000*count2) + parseInt(1000*count3);
 			const paymentPriceTotaltext = parseInt(95000*count1) + parseInt(10000*count2) + parseInt(100*count3);
 			const finalPointtext = parseInt(havingPoint1) + parseInt(pointChargeTotaltext);
-							
-			$("#pointChargeTotal").val(comma(pointChargeTotaltext));
-			$("#paymentPriceTotal").val(comma(paymentPriceTotaltext));
-			$("#finalPoint").val(comma(finalPointtext));
 			
-			sendPointInfoToPayform(paymentPriceTotaltext);			
-		}
-		
-		// 포인트 결제내용 동기화 
-		function sendPointInfoToPayform(pointPrice) {		
-			$("#pay_merchantname").val("포인트구매"+pointPrice+"[p]");			
-			$("#pay_merchantuid").val("chargePoint<" + pointPrice + "[p]>" + "[" + new Date().toISOString().substring(0, 19) + "][" + $("#pay_buyeremail").val() + "]");	
-			$("#pay_merchantamount").val(pointPrice);				
-		}
+			$("#finalPoint").val(comma(finalPointtext));
+			$("#pointChargeBalance").val(comma(pointChargeTotaltext));
+			$("#paymentPriceBalance").val(comma(paymentPriceTotaltext));
+						
+			// 포인트 결제내용 동기화 
+			$("#pointChargeTotal").val(pointChargeTotaltext);
+			$("#paymentPriceTotal").val(comma(paymentPriceTotaltext));					
+			$("#paymentProduct").val("포인트구매"+pointChargeTotaltext+"[p]");			
+			$("#paymentReferenceNum").val( "[PC/" + new Date().toISOString().substring(0, 19) +"/"+$("#pay_buyerEmail").val() + "]");
+
+		}	
 		
 	</script>		
   	<!-- 포인트관리 End --> 
@@ -264,26 +281,56 @@
 	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
   	
 	<script type="text/javascript">		
+	
+		// 포인트결제 사용 Y/N
+		$(function() {
+			
+			$("#useAllPoint").attr("disabled", true);
+			
+			const currentPoint = $("#currentPoint").val();			
+			$("#currentPoint").val(comma(currentPoint));			
+		  
+			$("input:checkbox[id=paymentMethodSecond]").click(function () {
+		        
+		        if ($("input:checkbox[id=paymentMethodSecond]").is(":checked")) { 
+		        	
+		        	$("#paymentPriceTotalSecond").removeAttr("readonly");	        	
+		        	$("#useAllPoint").removeAttr("disabled"); 
+		        
+		        } else { 
+		        	
+		        	$("#paymentPriceTotalSecond").attr("readonly", true);
+		        	$("#useAllPoint").attr("disabled", true);
+		        	$("#paymentPriceTotalSecond").val("0");
+		        	return;
+		        } 
+		    })	  	
+		    
+		    $("#useAllPoint").on("click" , function() {			    	 	
+		    	$("#paymentPriceTotalSecond").val(uncomma($("#currentPoint").val()));
+			});	
+	  	
+		}); 
 		
 		function iamport() {
 			
 			const payViewCode = $("#viewController").val().charAt();
 			
-			const vPaymethod = $("input[name=pay_paymethod]:checked").val();
-			const vMerchant_uid = $("#pay_merchantuid").val(); 
-			const vName = $("#pay_merchantname").val();
-			const vAmount = $("#pay_merchantamount").val();
+			const vPaymethod = $("input[name=paymentMethod]:checked").val();
+			const vMerchant_uid = $("#paymentReferenceNum").val(); 
+			const vName = $("#paymentProduct").val();
+			const vAmount = $("#paymentPriceTotal").val();			
+			const vBuyername = $("#paymentReceiver").val();
 			const vBuyeremail = $("#pay_buyeremail").val();
-			const vBuyername = $("#pay_buyername").val();
 			const vBuyertel = $("#pay_buyertel").val();
 			
-			console.log("vPaymethod : " + vPaymethod);
-			console.log("vMerchant_uid : " + vMerchant_uid);
-			console.log("vName : " + vName);
-			console.log("vAmount : " + vAmount);
-			console.log("vBuyeremail : " + vBuyeremail);
-			console.log("vBuyername : " + vBuyername);
-			console.log("vBuyertel : " + vBuyertel);
+			console.log("vPaymethod 	: " + vPaymethod);
+			console.log("vMerchant_uid 	: " + vMerchant_uid);
+			console.log("vName 			: " + vName);
+			console.log("vAmount		: " + vAmount);
+			console.log("vBuyername 	: " + vBuyername);
+			console.log("vBuyeremail 	: " + vBuyeremail);			
+			console.log("vBuyertel 		: " + vBuyertel);
 					
 			IMP.init('imp23070563');			//가맹점 식별코드
 			IMP.request_pay({
@@ -313,23 +360,25 @@
 						alert("결제가 완료 되었습니다.");
 						
 						console.log("payViewCode : "+payViewCode);
-
+						
+						//포인트 구매
 						if( payViewCode == "P" ){
-							console.log("payViewCode : P");
-												
-							const pointChargeTotal = $("#pointChargeTotal").val();			
+							
 							const paymentPriceTotal = $("#paymentPriceTotal").val();
 							
-							$("#paymentMethod").val(vPaymethod);							
-							$("#paymentReferenceNum").val(vMerchant_uid);
-							$("#pointChargeTotal").val(uncomma(pointChargeTotal));
-							$("#paymentPriceTotal").val(uncomma(paymentPriceTotal));	
-							
-							$("#chargeForm").attr("method" , "POST").attr("action" , "/payment/updateChargePoint").submit();					
+							$("#paymentSender").val( $("#pay_buyerEmail").val() );
+							$("#paymentCode").val("P1");
+							$("#paymentPriceTotal").val(uncomma(paymentPriceTotal));
+						
+							$("#payForm").attr("method" , "POST").attr("action" , "/payment/paymentSystem").submit();	
+											
 						}
 						
 						if(payViewCode == "R"){
 							console.log("payViewCode : R");
+							
+							
+							
 						}						
 						
 					} else {
@@ -353,9 +402,10 @@
 	    
 	    .form-horizontal .control-label{
 	        text-align: left;
-	    }
-	
+	    }	    
 	</style>	
+	
+	
 
 
 </head>
@@ -367,7 +417,7 @@
 	
 	
 	<!-- 화면 Controller Start -->  	
-  	<input type="hidden" id="viewController" name="viewController" value="${paymentCode.paymentCode}">
+  	<input type="hidden" id="viewController" name="viewController" value="${payment.paymentCode}">
   	<!-- 화면 Controller End -->
 	
 	
@@ -383,31 +433,26 @@
 				</div>					
 			</div>
 			
-			<form id="chargeForm">
-				<input type="hidden" id="paymentReceiver" name="paymentReceiver" value="${user.id}">
-				<input type="hidden" id="paymentMethod" name="paymentMethod" value="point">
-				<input type="hidden" id="paymentCode" name="paymentCode" value="P1">	
-				<input type="hidden" id="paymentReferenceNum" name="paymentReferenceNum" value="tempNum">									
-		
+			<form id="chargeForm">		
 				<div class="row">
-					<div class="col-xs-2">보유 포인트 (P)</div>
+					<label class="col-xs-2">* 보유 포인트 [P]</label>
 					<div class="col-md-3 form-group">
-						<input type="text" id="havingPoint1" name="havingPoint1" value="${user.havingPoint}" class="form-control" disabled>
+						<input type="text" id="havingPoint1" name="havingPoint1" value="${user.havingPoint}" class="form-control" readonly>
 					</div>					
-					<div class="col-xs-2 col-xs-offset-1">충전 후 포인트 (P)</div>
+					<label class="col-xs-2 col-xs-offset-1">* 구매 후 포인트 [P]</label>
 					<div class="col-md-3 form-group">
-						<input type="text" id="finalPoint" name="finalPoint" value="0" class="form-control" disabled>
+						<input type="text" id="finalPoint" name="finalPoint" value="0" class="form-control" readonly>
 					</div>										
 				</div>
 				<div class="row">
-					<div class="col-xs-2">충전 포인트 (P)</div>
+					<label class="col-xs-2">* 구매 포인트 [P]</label>
 					<div class="col-md-3 form-group">
-						<input type="text" id="pointChargeTotal" name="pointChargeTotal" value="0" class="form-control" readonly>
+						<input type="text" id="pointChargeBalance" name="pointChargeBalance" value="0" class="form-control" readonly>
 					</div>
 	
-					<div class="col-xs-2 col-xs-offset-1">충전 결제금액 (원)</div>
+					<label class="col-xs-2 col-xs-offset-1">* 구매 결제금액 (원)</label>
 					<div class="col-md-3 form-group">
-						<input type="text" id="paymentPriceTotal" name="paymentPriceTotal" value="0" class="form-control" readonly>
+						<input type="text" id="paymentPriceBalance" name="paymentPriceBalance" value="0" class="form-control" readonly>
 					</div>					
 				</div>				
 			</form>	
@@ -415,37 +460,55 @@
 			<hr>
 			<form id="chargeCountForm">
 				<div class="row">				
-					<div class="col-xs-4">
-						<div class="col-xs-12">- 95,000 원 -</div>
-						<div class="col-xs-12 form-group">
-							<input type="text" id="100k" name="100k" value="100,000 P 충전" class="form-control" readonly>
+					<div class="col-xs-2">
+						<div class="row">
+							<label class="col-xs-12">* 100,000[P] 구매</label>
+							<div class="col-xs-12 form-group">
+								<input type="text" id="100k" name="100k" value="95,000 원" class="form-control" readonly>
+							</div>
 						</div>
-						<div class="col-xs-6">- 수량 -</div>
-						<div class="col-xs-6 form-group">
-							<input type="number" id="count1" name="count1" value="0" min="0" max="10" class="form-control">
-						</div>
+					</div>	
+					<div class="col-xs-2">	
+						<div class="row">
+							<label class="col-xs-12">- 수량 -</label>
+							<div class="col-xs-12 form-group">
+								<input type="number" id="count1" name="count1" value="0" min="0" max="10" class="form-control">
+							</div>
+						</div>	
 					</div>
 						
-					<div class="col-xs-4">
-						<div class="col-xs-12">- 10,000 원 -</div>
-						<div class="col-xs-12 form-group">
-							<input type="text" id="10k" name="10k" value="10,000 P 충전" class="form-control" readonly>
-						</div>
-						<div class="col-xs-6">- 수량 -</div>
-						<div class="col-xs-6 form-group">
-							<input type="number" id="count2" name="count2" value="0" min="0" max="10" class="form-control">
+					<div class="col-xs-2">
+						<div class="row">
+							<label class="col-xs-12">* 10,000[P] 구매</label>
+							<div class="col-xs-12 form-group">
+								<input type="text" id="10k" name="10k" value="10,000 원" class="form-control" readonly>
+							</div>
 						</div>
 					</div>
+					<div class="col-xs-2">	
+						<div class="row">	
+							<label class="col-xs-12">- 수량 -</label>
+							<div class="col-xs-12 form-group">
+								<input type="number" id="count2" name="count2" value="0" min="0" max="10" class="form-control">
+							</div>
+						</div>	
+					</div>
 					
-					<div class="col-xs-4">	
-						<div class="col-xs-12">- 1,00 원 -</div>
-						<div class="col-xs-12 form-group">
-							<input type="text" id="1k" name="1k" value="1,000 P 충전" class="form-control" readonly>
-						</div>
-						<div class="col-xs-6">- 수량 -</div>
-						<div class="col-xs-6 form-group">
-							<input type="number" id="count3" name="count3" value="0" min="0" max="10" class="form-control">
-						</div>							
+					<div class="col-xs-2">
+						<div class="row">	
+							<label class="col-xs-12">* 1,000[P] 구매</label>
+							<div class="col-xs-12 form-group">
+								<input type="text" id="1k" name="1k" value="1,00 원" class="form-control" readonly>
+							</div>
+						</div>	
+					</div>
+					<div class="col-xs-2">
+						<div class="row">	
+							<label class="col-xs-12">- 수량 -</label>
+							<div class="col-xs-12 form-group">
+								<input type="number" id="count3" name="count3" value="0" min="0" max="10" class="form-control">
+							</div>
+						</div>								
 					</div>			
 				</div>
 			</form>		
@@ -465,8 +528,7 @@
 			<form id="withdrawForm">
 				<input type="hidden" id="paymentReceiver" name="paymentReceiver" value="${user.id}">
 				<input type="hidden" id="paymentMethod" name="paymentMethod" value="cash">
-				<input type="hidden" id="paymentCode" name="paymentCode" value="P2">
-				<input type="hidden" id="paymentRefundReferenceFee" name="paymentRefundReferenceFee" value="${paymentCode.paymentCodeFee}">				
+				<input type="hidden" id="paymentRefundReferenceFee" name="paymentRefundReferenceFee" value="${payment.paymentRefundReferenceFee}">				
 				
 				<div class="row">
 				<div class="col-xs-2">보유 포인트 (P)</div>
@@ -538,16 +600,81 @@
 		
 		<div class="row">
 			<div class="page-header">
-				<h4 class="text-info">캠핑예약 내역</h4>
+				<h4 class="text-info">캠핑장 예약내역</h4>
 			</div>					
 		</div>
 		
 		<form id="campForm">
 		
+				<div class="row">	
+					<div class="col-xs-3">	
+						<div class="row">
+							<label>* 캠핑장사진</label>				
+						</div>						
+					</div>
+					
+					
+								
+					<div class="col-xs-9">
+					
+						<div class="row">							
+							<label class="col-xs-2">* 예약번호</label>
+							<div class="col-xs-3 form-group">
+								${campReservation.reservationNo} 123
+							</div>		
+							<label class="col-xs-2 col-xs-offset-1"></label>
+							<div class="col-xs-3 form-group">
+					            <button id="goGetRsv" type="button" class="btn btn-info">예약상세</button>
+					            <input type="hidden" id="reservationNo" name="reservationNo" value="${campReservation.reservationNo}">
+					        </div>						        								
+						</div>					
+					
+						<div class="row">							
+							<label class="col-xs-2">* 예약등록일</label>
+							<div class="col-md-3 form-group">
+								${campReservation.reservationStatus} 123
+							</div>
+							<label class="col-xs-2 col-xs-offset-1">* 예약상태</label>
+							<div class="col-md-3 form-group">
+								예약완료/결제대기
+							</div>							
+						</div>
+							
+						<div class="row">
+							<label class="col-xs-2">* 예약자명</label>
+							<div class="col-md-3 form-group">
+								${campReservation.reservationUserName} 123
+							</div>
+							<label class="col-xs-2 col-xs-offset-1">* 예약결제금액</label>
+							<div class="col-md-3 form-group">
+								${campReservation.totalPaymentPrice} 123
+							</div>						
+						</div>	
+							
+						<div class="row">
+							<label class="col-xs-2">* 캠핑장명</label>
+							<div class="col-md-3 form-group">
+								${campReservation.camp.campName} 123
+							</div>
+							<label class="col-xs-2 col-xs-offset-1">* 주요시설타입</label>
+							<div class="col-md-3 form-group">
+								${campReservation.mainSite.mainSiteType} 123
+							</div>
+						</div>		
+												
+						<div class="row">
+							<label class="col-xs-2">* 예약시작일</label>
+							<div class="col-md-3 form-group">
+								${campReservation.reservationStartDate} 123
+							</div>
+							<label class="col-xs-2 col-xs-offset-1">* 예약종료일</label>
+							<div class="col-md-3 form-group">
+								${campReservation.reservationEndDate} 123
+							</div>	
+						</div>								
+					</div>
+				</div>
 		</form>
-			
-		캠핑 영역
-
 	</div>
 	<!-- 캠핑 end-->
 	
@@ -558,7 +685,7 @@
 		
 		<div class="row">
 			<div class="page-header">
-				<h4 class="text-info">경매확정 내역</h4>
+				<h4 class="text-info">경매 확정내역</h4>
 			</div>					
 		</div>
 		
@@ -568,7 +695,7 @@
 		
 		경매 영역
 	
-		</div>
+		
 	</div>
 	<!-- 경매 end -->
 	
@@ -589,7 +716,7 @@
 	
 		양도양수 영역
 	
-		</div>
+	
 	</div>
 	<!-- 양도양수 end -->
 	
@@ -602,74 +729,126 @@
 			</div>					
 		</div>
 		
-		<form id="payForm">
-		
-			<div class="col-xs-2">	
-				<div class="row">
-					<label for="card">* 결제 방법</label>				
-				</div>						
-				<br>
-				<div class="row">
-					<input type="radio" id="method_card" name="pay_paymethod" value="card" checked>
-			    	<label for="method_card">신용카드/간편결제</label>		
-				</div>
-	
-				<div class="row">
-					<input type="radio" id="method_samsung" name="pay_paymethod" value="samsung">
-			   		<label for="method_samsung">삼성페이</label>
-				</div>
-	
-				<div class="row">
-					<input type="radio" id="method_trans" name="pay_paymethod" value="trans">
-			    	<label for="method_trans">실시간계좌이체</label>
-				</div>
-		
-				<div class="row">
-					<input type="radio" id="method_vbank" name="pay_paymethod" value="vbank">
-			    	<label for="method_vbank">가상계좌</label>				
-				</div>
+		<form id="payForm">			
+			<input type="hidden" id="paymentSender" name="paymentSender" value="unknownPS">
+			<input type="hidden" id="paymentReceiver" name="paymentReceiver" value="unknownPR">	
+			<input type="hidden" id="paymentCode" name="paymentCode" value="unknownPC">	
+			<input type="hidden" id="pointChargeTotal" name="pointChargeTotal" value="unknownPCT">
 			
-				<div class="row">
-					<input type="radio" id="method_phone" name="pay_paymethod" value="phone">
-			    	<label for="method_phone">휴대폰소액결제</label>
-				</div>			
-			</div>
-		
-			<div class="col-xs-10">				
-				<div class="row">
-					<label class="col-xs-2">* 상품명</label>
-					<div class="col-md-4 form-group">
-						<input type="text" id="pay_merchantname" name="pay_merchantname" value="-" class="form-control" readonly>
+			<input type="hidden" id="aaa" name="aaa" value="${payment.paymentSender}">
+			<input type="hidden" id="bbb" name="bbb" value="${payment.paymentReceiver}">
+			<input type="hidden" id="ccc" name="ccc" value="${payment.paymentCode}">				
+			
+			<div class="row">
+				<div id="paySecond" class="row">			
+					<div class="col-xs-4">
+					    <div class="row">	
+					        <label class="col-xs-12"># 결제 전체 금액</label>
+					        <div class="col-xs-12 form-group">
+					            <input type="number" id="paymentProductPriceTotal" name="paymentProductPriceTotal" value="${payment.paymentProductPriceTotal}" class="form-control" >
+					        </div>    <!-- disabled -->
+					    </div>								
 					</div>
-					<label class="col-xs-2">* 가격</label>
-					<div class="col-md-4 form-group">
-						<input type="text" id="pay_merchantamount" name="pay_merchantamount" value="-" class="form-control" readonly>
-					</div>										
-				</div>				
-				<div class="row">
-					<label class="col-xs-2">* 상품참조번호</label>
-					<div class="col-md-10 form-group">
-						<input type="text" id="pay_merchantuid" name="pay_merchantuid" value="-" class="form-control" readonly>
+					<div class="col-xs-2">
+					    <div class="row">	
+					        <label class="col-xs-12">* 포인트 사용</label>
+					        <div class="col-xs-12 form-group">					       
+					            <input type="checkbox" id="paymentMethodSecond" name="paymentMethodSecond" value="point"/>
+					        </div>
+					    </div>								
 					</div>
-				</div>						
-				<div class="row">
-					<label class="col-xs-2">* 구매자 이름</label>
-					<div class="col-md-4 form-group">
-						<input type="text" id="pay_buyername" name="pay_buyername" value="${user.name}" class="form-control" readonly>
+					<div class="col-xs-2">
+					    <div class="row">	
+					        <label class="col-xs-12">* 보유 포인트</label>
+					        <div class="col-xs-12 form-group">
+					            <input type="text" id="currentPoint" name="currentPoint" value="${user.havingPoint}" class="form-control" disabled>
+					        </div>
+					    </div>								
 					</div>
-					<label class="col-xs-2">* 구매자 연락처</label>
-					<div class="col-md-4 form-group">
-						<input type="text" id="pay_buyertel" name="pay_buyertel" value="${user.phone}" class="form-control" readonly>
-					</div>									
+					<div class="col-xs-2">
+					    <div class="row">	
+					        <label class="col-xs-12">* 사용 포인트</label>
+					        <div class="col-xs-12 form-group">
+					            <input type="number" id="paymentPriceTotalSecond" name="paymentPriceTotalSecond" value="0" min="1" max="${user.havingPoint}" class="form-control" readonly>
+					        </div>
+					    </div>								
+					</div>
+					<div class="col-xs-2">
+					    <div class="row">	
+					        <label class="col-xs-12"></label>
+					        <br>
+					        <div class="col-xs-12 form-group">
+					            <button id="useAllPoint" type="button" class="btn btn-info">전액사용</button>
+					        </div>
+					    </div>								
+					</div>
+				</div>								
+				<hr>			
+				<div class="row">	
+					<div class="col-xs-2">	
+						<div class="row">
+							<label for="card">* 결제 방법</label>				
+						</div>						
+						<br>
+						<div class="row">
+							<input type="radio" id="method_card" name="paymentMethod" value="card" checked>
+					    	<label for="method_card">신용카드/간편결제</label>		
+						</div>	
+						<div class="row">
+							<input type="radio" id="method_samsung" name="paymentMethod" value="samsung">
+					   		<label for="method_samsung">삼성페이</label>
+						</div>	
+						<div class="row">
+							<input type="radio" id="method_trans" name="paymentMethod" value="trans">
+					    	<label for="method_trans">실시간계좌이체</label>
+						</div>		
+						<div class="row">
+							<input type="radio" id="method_vbank" name="paymentMethod" value="vbank">
+					    	<label for="method_vbank">가상계좌</label>				
+						</div>			
+						<div class="row">
+							<input type="radio" id="method_phone" name="paymentMethod" value="phone">
+					    	<label for="method_phone">휴대폰소액결제</label>
+						</div>			
+					</div>
+			
+					<div class="col-xs-10">
+						<br>				
+						<div class="row">
+							<label class="col-xs-2">* 상품명</label>
+							<div class="col-md-4 form-group">
+								<input type="text" id="paymentProduct" name="paymentProduct" value="-" class="form-control" readonly>
+							</div>
+							<label class="col-xs-2">* 결제 금액</label>
+							<div class="col-md-4 form-group">
+								<input type="text" id="paymentPriceTotal" name="paymentPriceTotal" value="-" class="form-control" readonly>
+							</div>										
+						</div>				
+						<div class="row">
+							<label class="col-xs-2">* 상품참조번호</label>
+							<div class="col-md-10 form-group">
+								<input type="text" id="paymentReferenceNum" name="paymentReferenceNum" value="-" class="form-control" readonly>
+							</div>
+						</div>						
+						<div class="row">
+							<label class="col-xs-2">* 구매자 이름</label>
+							<div class="col-md-4 form-group">
+								<input type="text" id="pay_buyerName" name="pay_buyerName" value="${user.name}" class="form-control" disabled>
+							</div>
+							<label class="col-xs-2">* 구매자 연락처</label>
+							<div class="col-md-4 form-group">
+								<input type="text" id="pay_buyerTel" name="pay_buyerTel" value="${user.phone}" class="form-control" disabled>
+							</div>									
+						</div>
+						<div class="row">				
+							<label class="col-xs-2">* 구매자 이메일</label>
+							<div class="col-md-10 form-group">
+								<input type="text" id="pay_buyerEmail" name="pay_buyerEmail" value="${user.id}" class="form-control" disabled>
+							</div>	
+						</div>
+					</div>
 				</div>
-				<div class="row">				
-					<label class="col-xs-2">* 구매자 이메일</label>
-					<div class="col-md-10 form-group">
-						<input type="text" id="pay_buyeremail" name="pay_buyeremail" value="${user.id}" class="form-control" readonly>
-					</div>	
-				</div>
-			</div>
-				
+			</div>				
 		</form>
 	
 	</div>
@@ -685,22 +864,16 @@
 	
 	<!-- 포인트관리 버튼 start -->
 	<div id="pointChargeButtonContainer" class="container">
-		<div class="row">
-		
+		<div class="row">		
 			<div class="col-xs-2">
 				<button id="point_showWithDraw" type="button" class="btn btn-warning" value="1">포인트 출금</button>
-			</div>
-			
+			</div>			
 			<div class="col-xs-2 col-xs-offset-5">
 	            <button id="point_withdrawButton" type="button" class="btn btn-primary">포인트 출금요청</button>
-	        </div>
-	        	    	        
+	        </div>	        	    	        
 	        <div class="col-xs-2 col-xs-offset-1">
 	            <button id="point_chargeButton" type="button" class="btn btn-primary">포인트 구매</button>
 	        </div>
-	        
-
-	
 		</div>
 	</div>
 	<!-- 포인트관리 버튼 end -->
@@ -708,10 +881,14 @@
 	
 	<!-- 캠핑 버튼 start -->
 	<div id="campButtonContainer" class="container">
-		<div class="row">
-		
-		캠핑 버튼 영역
-	
+		<div class="row">		
+			<div class="col-xs-2">
+				<button id="camp_cancle" type="button" class="btn btn-warning">취소</button>
+			</div>
+			
+			<div class="col-xs-2 col-xs-offset-8">
+	            <button id="camp_pay" type="button" class="btn btn-primary">예약내역 결제</button>
+	        </div>	        	    	        	
 		</div>
 	</div>
 	<!-- 캠핑 버튼 end -->
@@ -729,14 +906,19 @@
 	
 	<!-- 테스트 버튼 -->
 	<div class="container">		
-		<br>
+		<hr>
 		<div class="row">
+			<label class="col-xs-2">### 테스트 버튼 >>></label>
  			<div class="col-xs-2">
-	            <button id="temp1" type="button" class="btn btn-primary">임시모두보기</button>
+	            <button id="temp1" type="button" class="btn btn-primary">숨긴Div모두보기</button>
 	        </div>
 		
- 			<div class="col-xs-2">
+ 			<div class="col-xs-2 col-xs-offset-1">
 	            <button id="temp2" type="button" class="btn btn-primary">포인트충전</button>
+	        </div>
+	        
+	        <div class="col-xs-2 col-xs-offset-1">
+	            <button id="temp3" type="button" class="btn btn-primary">캠핑장 예약</button>
 	        </div>
 		</div>
 	</div>		

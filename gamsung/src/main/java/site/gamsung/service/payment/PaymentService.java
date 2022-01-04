@@ -21,7 +21,7 @@ public interface PaymentService {
 	/*
 	 *  Payment
 	 */	
-	public void addMakePayment(Payment payment) throws Exception;
+	public String addMakePayment(Payment payment) throws Exception;
 	
 	public void addRefundPayment(Payment payment) throws Exception;
 	

@@ -74,61 +74,43 @@ public class PaymentServiceImpl implements PaymentService{
 	 *  Payment
 	 */	
 	@Override
-	public void addMakePayment(Payment payment) throws Exception {
+	public String addMakePayment(Payment payment) throws Exception {
 		
-		String paymentMethod = payment.getPaymentMethod();
+		System.out.println("addMakePayment payment : " + payment); 											// 테스트
+		
 		String paymentCodeLetter = payment.getPaymentCode();
-		int paymentReferenceFee = paymentDAO.getPaymentCodeInfo(paymentCodeLetter).getPaymentCodeFee();
+		int paymentReferenceFee = paymentDAO.getPaymentCodeInfo(paymentCodeLetter).getPaymentCodeFee();		   	
 		
+		// 일반결제 DB저장
 		int paymentPriceTotal = payment.getPaymentPriceTotal();		
 		int paymentPriceFee = paymentPriceTotal * paymentReferenceFee / 100;
 		int paymentPricePay = paymentPriceTotal - paymentPriceFee;
-				
-		// 포인트결제              
-		if(paymentMethod.equals("point")) {
-			
-			//포인트 충전
-			if(paymentCodeLetter.equals("P1")) {
-				payment.setPaymentSender("pointCharge(PointManager)");
-			}									
-		}
-		
-		
-		// 현금결제
-		if(paymentMethod.equals("cash")) {
-			
-			//포인트 출금
-			if(paymentCodeLetter.equals("P2")) {
-				payment.setPaymentSender("pointWithdraw(PointManager)");
-			}						
-		}
-		
-		
-		// 카드결제
-		if(paymentMethod.equals("card")) {
-			
-		}
-		
-		
-		// 간편결제
-		if(paymentMethod.equals("simple")) {
-			
-		}
-		
-		payment.setPaymentPricePay(paymentPricePay);
 		payment.setPaymentPriceFee(paymentPriceFee);
-		payment.setPaymentReferenceFee(paymentReferenceFee);
+		payment.setPaymentPricePay(paymentPricePay);
 		
-		System.out.println("paymentCodeLetter : " + paymentCodeLetter);
-		System.out.println("paymentCodeInfo : " + paymentDAO.getPaymentCodeInfo(paymentCodeLetter));
-		System.out.println("paymentReferenceFee : " + paymentReferenceFee);
-		System.out.println("paymentPriceTotal : " + paymentPriceTotal);
+		System.out.println("paymentCodeLetter : " + paymentCodeLetter);										// 테스트
+		System.out.println("paymentCodeInfo : " + paymentDAO.getPaymentCodeInfo(paymentCodeLetter)); 		
+		System.out.println("paymentPriceTotal : " + paymentPriceTotal);										// 테스트
+		System.out.println("paymentPricePay : " + paymentPricePay);	
 		System.out.println("paymentPriceFee : " + paymentPriceFee);
-		System.out.println("paymentPricePay : " + paymentPricePay);						
-		System.out.println("payment : " + payment);
 		
-		paymentDAO.addMakePayment(payment);
+		// 포인트결제 DB저장
+		if(payment.getPaymentPriceTotalSecond() !=0) {
+			
+			int paymentPriceTotalSecond = payment.getPaymentPriceTotal();		
+			int paymentPriceFeeSecond = paymentPriceTotalSecond * paymentReferenceFee / 100;
+			int paymentPricePaySecond = paymentPriceTotalSecond - paymentPriceFeeSecond;			
+			payment.setPaymentPriceFee(paymentPriceFeeSecond);
+			payment.setPaymentPricePay(paymentPricePaySecond);	
+			
+			System.out.println("paymentPriceTotalSecond : " + paymentPriceTotalSecond);						// 테스트
+			System.out.println("paymentPricePaySecond : " + paymentPricePaySecond);	
+			System.out.println("paymentPriceFeeSecond : " + paymentPriceFeeSecond);
+		}					
 		
+		System.out.println("payment : " + payment);															// 테스트
+		
+		return paymentDAO.addMakePayment(payment);		
 	}
 	
 	@Override
