@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en-US" dir="ltr">
   <head>
@@ -10,7 +11,7 @@ pageEncoding="UTF-8"%>
     Document Title
     =============================================
     -->
-    <title>고객센터 홈</title>
+    <title>공지사항</title>
     <!--  
     Favicons
     =============================================
@@ -28,7 +29,7 @@ pageEncoding="UTF-8"%>
     <link rel="icon" type="image/png" sizes="32x32" href="../../resources/images/favicons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="96x96" href="../../resources/images/favicons/favicon-96x96.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../../resources/images/favicons/favicon-16x16.png">
-    <!-- <link rel="manifest" href="/manifest.json"> -->
+
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="../../resources/images/favicons/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
@@ -39,7 +40,6 @@ pageEncoding="UTF-8"%>
     -->
     <!-- Default stylesheets-->
     <link href="../../resources/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
     <!-- Template specific stylesheets-->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700" rel="stylesheet">
@@ -56,94 +56,48 @@ pageEncoding="UTF-8"%>
     <!-- Main stylesheet and color file-->
     <link href="../../resources/css/style.css" rel="stylesheet">
     <link id="color-scheme" href="../../resources/css/colors/default.css" rel="stylesheet">
-
+    
+    
     <link id="color-scheme" href="../../resources/css/serviceCenter.css" rel="stylesheet">
   </head>
   <body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
-    <main class="sc-main">
+    <main>
       <div class="page-loader">
         <div class="loader">Loading...</div>
       </div>
+      
       <!-- header -->
       <jsp:include page="../common/header.jsp"/>
       <!-- header End -->
-      <div class="main">
-        <section class="module bg-dark-60 service-page-header" data-background="../../resources/images/services_bg.jpg">
+
+      <div class="main sc-main">
+        <section class="module bg-dark-30 about-page-header" data-background="assets/images/about_bg.jpg">
           <div class="container">
             <div class="row">
               <div class="col-sm-6 col-sm-offset-3">
-                <h2 class="module-title font-alt">고객센터</h2>
-                <div class="module-subtitle font-serif">고객센터를 통해 궁금증을 해결하세요.</div>
+                <h1 class="module-title font-alt mb-0">공지사항입니다</h1>
               </div>
             </div>
           </div>
         </section>
-        <section class="module" id="services">
+        <section class="module">
           <div class="container">
-            <div class="row">
-              <div class="col-sm-6 col-sm-offset-3">
-                <h2 class="module-title font-alt"></h2>
-                <div class="module-subtitle font-serif"></div>
-              </div>
-            </div>
-            <div class="row multi-columns-row service-center-home">
-              <div class="col-md-3 col-sm-6 col-xs-12">
-                <div class="features-item">
-                  <div class="features-icon"><span class="icon-lightbulb"></span></div>
-                  <h3 class="features-title font-alt">공지사항</h3>
-                  <p>사이트 내 공지사항을 <br/>조회할 수 있습니다.</p>
-                  <button class="btn btn-d btn-round btn-block" type="button" data-btntype="1">
-                    <font style="vertical-align: inherit;">
-                      <font style="vertical-align: inherit;">공지사항 보기</font>
-                    </font>
-                  </button>
-                </div>
-              </div>
-              <div class="col-md-3 col-sm-6 col-xs-12">
-                <div class="features-item">
-                  <div class="features-icon"><span class="icon-bike"></span></div>
-                  <h3 class="features-title font-alt">Q&amp;A</h3>
-                  <p>사이트 내 궁금하신 점이나 <br/>의견을 남길 수 있습니다.</p>
-                  <button class="btn btn-d btn-round btn-block" type="button" data-btntype="2">
-                    <font style="vertical-align: inherit;">
-                      <font style="vertical-align: inherit;">Q&A 바로가기</font>
-                    </font>
-                  </button>
-                </div>
-              </div>
-              <div class="col-md-3 col-sm-6 col-xs-12">
-                <div class="features-item">
-                  <div class="features-icon"><span class="icon-tools"></span></div>
-                  <h3 class="features-title font-alt">신고하기</h3>
-                  <p>신속하게 해결하여 보다 나은 <br/>서비스를 만들어가도록 노력하겠습니다.</p>
-                  <button class="btn btn-d btn-round btn-block" type="button" data-btntype="3">
-                    <font style="vertical-align: inherit;">
-                      <font style="vertical-align: inherit;">신고 하기</font>
-                    </font>
-                  </button>
-                </div>
-              </div>
-              <div class="col-md-3 col-sm-6 col-xs-12">
-                <div class="features-item report-and-qna">
-                  <div class="features-icon"><span class="icon-gears"></span></div>
-                  <h3 class="features-title font-alt">내 신고 / Q&amp;A내역</h3>
-                  <p>내 신고 및 Q&amp;A 내역의 <br/> 진행 현황을 확인할 수 있습니다.</p>
-                  <button class="btn btn-d btn-round btn-block" type="button" data-btntype="4">
-                    <font style="vertical-align: inherit;">
-                      <font style="vertical-align: inherit;">신고내역</font>
-                    </font>
-                  </button>
-                  <button class="btn btn-d btn-round btn-block" type="button" data-btntype="5">
-                    <font style="vertical-align: inherit;">
-                      <font style="vertical-align: inherit;">내 Q&A</font>
-                    </font>
-                  </button>
-                </div>
-              </div>
-            </div>
+
+            <c:if test="${!empty noticeType}">
+            
+              <c:if test='${noticeType == "list"}'>
+                <jsp:include page="../servicecenter/listNotice.jsp"/>
+              </c:if>
+              <c:if test='${noticeType == "get"}'>
+                <jsp:include page="../servicecenter/getNotice.jsp"/>
+              </c:if>
+            </c:if>
+
+            
+            
+
           </div>
         </section>
-        
         <div class="module-small bg-dark">
           <div class="container">
             <div class="row">
@@ -184,14 +138,14 @@ pageEncoding="UTF-8"%>
                   <h5 class="widget-title font-alt">Popular Posts</h5>
                   <ul class="widget-posts">
                     <li class="clearfix">
-                      <div class="widget-posts-image"><a href="#"><img src="../../resources/images/rp-1.jpg" alt="Post Thumbnail"/></a></div>
+                      <div class="widget-posts-image"><a href="#"><img src="assets/images/rp-1.jpg" alt="Post Thumbnail"/></a></div>
                       <div class="widget-posts-body">
                         <div class="widget-posts-title"><a href="#">Designer Desk Essentials</a></div>
                         <div class="widget-posts-meta">23 january</div>
                       </div>
                     </li>
                     <li class="clearfix">
-                      <div class="widget-posts-image"><a href="#"><img src="../../resources/images/rp-2.jpg" alt="Post Thumbnail"/></a></div>
+                      <div class="widget-posts-image"><a href="#"><img src="assets/images/rp-2.jpg" alt="Post Thumbnail"/></a></div>
                       <div class="widget-posts-body">
                         <div class="widget-posts-title"><a href="#">Realistic Business Card Mockup</a></div>
                         <div class="widget-posts-meta">15 February</div>
@@ -237,6 +191,17 @@ pageEncoding="UTF-8"%>
     <script src="../../resources/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script>
     <script src="../../resources/js/plugins.js"></script>
     <script src="../../resources/js/main.js"></script>
-    <script src="../../resources/js/serivcecenterHome.js"></script>
+    
+    <script>
+      $(document).ready(function(){
+        console.log("notice list start ");
+        // console.log($(".notice-list ul li"));
+        $(".notice-list ul li").on("click" , (e)=>{
+          const noticeNo = $(e.currentTarget).find('.notice-no').text();
+          console.log(noticeNo);
+          self.location ="/servicecenter/getNotice?noticeNo="+noticeNo;
+        })
+      })
+    </script>
   </body>
 </html>

@@ -48,7 +48,10 @@ pageEncoding="UTF-8"%>
                
         <li class="dropdown"><a class="dropdown-toggle" href="/servicecenter/home" data-toggle="dropdown">고객센터</a>
         	<ul class="dropdown-menu">
-				<li><a href="/servicecenter/home">고객센터</a></li>
+				<li><a href="/servicecenter/listNotice">공지사항</a></li>
+        <li><a href="/servicecenter/home"> Q&A </a></li>
+        <li><a href="/servicecenter/home">내 신고 내역</a></li>
+
 			</ul>
         </li>
     

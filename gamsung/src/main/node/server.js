@@ -22,7 +22,7 @@ chatList.on('connection', sockat=>{
 
           Msg.findOne({"room" : data.room }).sort({date : -1})
           .then(msgData =>{
-            console.log(msgData.content.message);
+            // console.log(msgData.content.message);
             data._doc.lastMsg = msgData.content.message;
             // console.log("1");
           });
