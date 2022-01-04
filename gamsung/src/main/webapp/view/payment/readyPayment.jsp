@@ -44,100 +44,91 @@
   	<!-- ### headerCampBusiness resources End ### -->
   	
   	
-  	<!-- 화면 Controller Start -->
+  	
   	<script type="text/javascript">  
   	
  		// 테스트용
 	  	$(function() {
-
+			
+	  		// 모든div펼침
 			$("#temp1").on("click" , function() {		
 				$(".container").show();
 				$("div").show();
 			});
 			
+	  		// 포인트결제
 			$("#temp2").on("click" , function() {				
-				const paymentPriceTotal = $("#paymentPriceTotal").val();
-				
 				$("#paymentSender").val( $("#pay_buyerEmail").val() );
 				$("#paymentCode").val("P1");
-				$("#paymentPriceTotal").val(uncomma(paymentPriceTotal));
-			
+				$("#paymentPriceTotal").val(uncomma($("#paymentPriceTotal").val()));			
 				$("#payForm").attr("method" , "POST").attr("action" , "/payment/paymentSystem").submit();	
 			});		
 			
-			$("#temp3").on("click" , function() {			
-				
-				
+	  		// 캠핑결제
+			$("#temp3").on("click" , function() {						
 				$("#paymentSender").val( $("#pay_buyerEmail").val() );
-				
-				$("#paymentReceiver").val();
-				$("#paymentCode").val();
-				
-				$("#paymentProduct").val();
-				$("#paymentPriceTotal").val();
-				$("#paymentReferenceNum").val();
-				
-				
-				
-				
-				const paymentPriceTotal = $("#paymentPriceTotal").val();
-				
-				
-				$("#paymentCode").val("r1");
-				$("#paymentPriceTotal").val(uncomma(paymentPriceTotal));
-			
+				$("#paymentCode").val("R1");
+				$("#paymentPriceTotal").val(uncomma($("#paymentPriceTotal").val()));
+								
+				if( $("#paymentPriceTotal").val() == 0 ){
+					$("#paymentPriceTotal").val(uncomma($("#paymentPriceTotalSecond").val()));
+				}
+								
 				$("#payForm").attr("method" , "POST").attr("action" , "/payment/paymentSystem").submit();	
 			});		
+			
+			// 다중결제테스트
+			$("#tempPriceTotal").on("propertychange change keyup paste input", function() {
+				 $("#paymentPriceTotal").val($("#tempPriceTotal").val());	
+			});	
+			// 다중결제테스트
 	  		
 	  	}); 
 		// 테스트용
-  			
+  		
+		<!-- 화면 Controller Start -->		
+		// 로딩시 화면 컨트롤
 		$(function() {
 					
-			$("#pointContainer").hide();
-			//$("#campContainer").hide();
+			$("#pointContainer").hide();			
+			$("#campContainer").hide();
+			$("#paySecond").hide();			
+			
 			$("#auctionContainer").hide();
 			$("#transferContainer").hide();
 			
 			$("#pointButtonContainer").hide();
-			//$("#campButtonContainer").hide();
+			$("#campButtonContainer").hide();
 			$("#pointPayButtonContainer").hide();
 						
 			const viewController = $("#viewController").val();
-			const ctrlViewCode = viewController.charAt();
-			
-			console.log("ctrlViewCode : "+ctrlViewCode);
-
-			if( ctrlViewCode == "P" ){
+				
+			if( viewController == "P1" ){
 				$("#pointContainer").show();
 				$("#pointButtonContainer").show();
 			} 
 			
-			if(ctrlViewCode == "R"){
+			if(viewController == "R1"){
 				$("#campContainer").show();
 				$("#campButtonContainer").show();
-				$("#paySecond").show();
+				$("#paySecond").show();				
 			}
 			
-			if(ctrlViewCode == "A"){
+			if(viewController == "A"){
 				$("#auctionContainer").show();
 				$("#pointPayButtonContainer").show();
 			}
 			
-			if(ctrlViewCode == "T"){
+			if(viewController == "T"){
 				$("#transferContainer").show();
 				$("#pointPayButtonContainer").show();
 			}
 			
 		});
+		<!-- 화면 Controller End -->
 		
-	</script>
-	<!-- 화면 Controller End -->
-  	
-  	
-  	<!-- 포인트관리 Start -->
-  	<script type="text/javascript">  	
-  			
+		
+  		<!-- 포인트관리 Start -->	
   		// 포인트 금액 계산
 		$(function() {
 			
@@ -189,8 +180,7 @@
 			$("#withdrawDiv").hide();
 			$("#point_withdrawButton").hide();
 			
-		});	
-  		
+		});	  		
   		
 		// 포인트 버튼
 		$(function() {
@@ -250,18 +240,6 @@
 		
 		});	
 		
-		// 금액 "," 추가
-		function comma(str) {
-		    str = String(str);
-		    return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
-		}
-		
-		// 금액 "," 제거
-		function uncomma(str) {
-		    str = String(str);
-		    return str.replace(/[^\d]+/g, '');
-		}
-		
 		// 충전 포인트 계산
 		function calculateNumber() {
 			
@@ -286,23 +264,17 @@
 			$("#paymentReferenceNum").val( "[PC/" + new Date().toISOString().substring(0, 19) +"/"+$("#pay_buyerEmail").val() + "]");
 
 		}	
+		<!-- 포인트관리 End --> 
+
 		
-	</script>		
-  	<!-- 포인트관리 End --> 
-   	  	  	
-  	
-  	<!-- import 결제모둘 Start -->  	
-	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
-  	
-	<script type="text/javascript">		
-	
+		<!-- 캠핑예약결제 Start --> 	
 		// 포인트결제 사용 Y/N
 		$(function() {
 			
-			$("#useAllPoint").attr("disabled", true);
+			$("#paymentPriceTotal").val($("#tempPriceTotal").val());
 			
-			const currentPoint = $("#currentPoint").val();			
-			$("#currentPoint").val(comma(currentPoint));			
+			$("#useAllPoint").attr("disabled", true);	
+			$("#currentPoint").val(comma($("#currentPoint").val()));			
 		  
 			$("input:checkbox[id=paymentMethodSecond]").click(function () {
 		        
@@ -320,24 +292,122 @@
 		        } 
 		    })	  	
 		    
-		    $("#useAllPoint").on("click" , function() {			    	 	
-		    	$("#paymentPriceTotalSecond").val(uncomma($("#currentPoint").val()));
+		    // 전액사용 버튼
+		    $("#useAllPoint").on("click" , function() {
+		    	
+		    	const currentPointUC = uncomma($("#currentPoint").val());
+		    	const tempPriceTotalUC = uncomma($("#tempPriceTotal").val());					
+				const resultPaymentPriceTotal = tempPriceTotalUC - currentPointUC;
+				
+				if( resultPaymentPriceTotal < 0 ){
+				
+					$("#paymentPriceTotalSecond").val(tempPriceTotalUC);
+					
+					const paymentPriceTotalSecondUC = uncomma($("#paymentPriceTotalSecond").val());						
+					const resultPaymentPriceTotal = tempPriceTotalUC - paymentPriceTotalSecondUC;
+					
+					$("#paymentPriceTotal").val(resultPaymentPriceTotal);
+					$("#currentPoint").val(comma(currentPointUC-tempPriceTotalUC));					
+					return;
+				
+				} else {
+					
+					$("#paymentPriceTotalSecond").val(currentPointUC);
+					
+					const tempPriceTotalUC = uncomma($("#tempPriceTotal").val());
+					const paymentPriceTotalSecondUC = uncomma($("#paymentPriceTotalSecond").val());						
+					const resultPaymentPriceTotal = tempPriceTotalUC - paymentPriceTotalSecondUC;
+					
+					$("#paymentPriceTotal").val(resultPaymentPriceTotal);	
+				}	
+				
+				 
 			});	
-	  	
+						
+			// 캠핑장예약결제 버튼
+			$("#camp_pay").on("click" , function() {
+		
+				$("#paymentProduct").val( $("#paymentProduct").val( )+new Date().toISOString().substring(0, 19) );
+				$("#paymentReferenceNum").val( $("#paymentReferenceNum").val( )+new Date().toISOString().substring(0, 19) );
+				
+				if($("#paymentPriceTotal").val() > 0 ){
+					
+					alert("일반결제는 100원 이상부터 가능합니다.");
+					
+					if(!$("input:radio[name='paymentMethod']").is(":checked")){
+						$("#method_card").prop("checked", true);
+					}			
+					
+					iamport();
+					
+				} else {
+										
+					$("#paymentSender").val( $("#pay_buyerEmail").val() );
+					$("#paymentCode").val("R1");
+					$("#paymentPriceTotal").val(uncomma($("#paymentPriceTotal").val()));
+									
+					if( $("#paymentPriceTotal").val() == 0 ){						
+						$("#paymentProductPriceTotal").val(uncomma($("#paymentPriceTotalSecond").val()));						
+					}									
+					
+					$("#payForm").attr("method" , "POST").attr("action" , "/payment/paymentSystem").submit();	
+				}
+				
+				
+				
+			});					
+	  	  	
+			// 포인트 사용금액 입력
+			$("#paymentPriceTotalSecond").on("propertychange change keyup paste input", function() {
+								
+				const tempPriceTotalUC = uncomma($("#tempPriceTotal").val());
+				const paymentPriceTotalUC = uncomma($("#paymentPriceTotal").val());	
+				const paymentPriceTotalSecondUC = uncomma($("#paymentPriceTotalSecond").val());						
+				const resultPaymentPriceTotal = tempPriceTotalUC - paymentPriceTotalSecondUC;				
+			
+				if( resultPaymentPriceTotal < 0 ){
+					alert("결제 금액을 초과하였습니다.");
+					$("#paymentPriceTotalSecond").val(tempPriceTotalUC);
+					return;
+				}
+				
+				 $("#paymentPriceTotal").val(resultPaymentPriceTotal);	 
+							
+			});	
+			<!-- 캠핑예약결제 End -->		
+			
 		}); 
 		
+		// 금액 "," 추가
+		function comma(str) {
+		    str = String(str);
+		    return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+		}
+		
+		// 금액 "," 제거
+		function uncomma(str) {
+		    str = String(str);
+		    return str.replace(/[^\d]+/g, '');
+		}		
+			
+	</script>	  	
+  	
+  	
+  	<!-- import 결제모둘 Start -->  	
+	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>  	
+	<script type="text/javascript">
+	
 		function iamport() {
 			
-			const payViewCode = $("#viewController").val().charAt();
-			
+			const payViewCode = $("#viewController").val();			
 			const vPaymethod = $("input[name=paymentMethod]:checked").val();
 			const vMerchant_uid = $("#paymentReferenceNum").val(); 
 			const vName = $("#paymentProduct").val();
-			const vAmount = $("#paymentPriceTotal").val();			
+			const vAmount = uncomma($("#paymentPriceTotal").val());			
 			const vBuyername = $("#paymentReceiver").val();
 			const vBuyeremail = $("#pay_buyeremail").val();
 			const vBuyertel = $("#pay_buyertel").val();
-			
+					
 			console.log("vPaymethod 	: " + vPaymethod);
 			console.log("vMerchant_uid 	: " + vMerchant_uid);
 			console.log("vName 			: " + vName);
@@ -366,32 +436,34 @@
 					url : "/payment/rest/verifyIamport/" + rsp.imp_uid
 				
 				}).done(function(data) {
-
+	
 					console.log(data);
-
+	
 					// 위의 rsp.paid_amount 와 data.response.amount를 비교한후 로직 실행 (import 서버검증)
 					if(rsp.paid_amount == data.response.amount){
 						alert("결제가 완료 되었습니다.");
 						
 						console.log("payViewCode : "+payViewCode);
+						const paymentPriceTotal = $("#paymentPriceTotal").val();
 						
 						//포인트 구매
-						if( payViewCode == "P" ){
-							
-							const paymentPriceTotal = $("#paymentPriceTotal").val();
+						if( payViewCode == "P1" ){						
 							
 							$("#paymentSender").val( $("#pay_buyerEmail").val() );
 							$("#paymentCode").val("P1");
-							$("#paymentPriceTotal").val(uncomma(paymentPriceTotal));
-						
+							$("#paymentPriceTotal").val(uncomma(paymentPriceTotal));						
 							$("#payForm").attr("method" , "POST").attr("action" , "/payment/paymentSystem").submit();	
 											
 						}
 						
-						if(payViewCode == "R"){
-							console.log("payViewCode : R");
+						if(payViewCode == "R1"){
+																			
+							$("#paymentSender").val( $("#pay_buyerEmail").val() );
+							$("#paymentCode").val("R1");
+							$("#paymentPriceTotal").val(uncomma(paymentPriceTotal));
 							
-							
+							$("#paymentProductPriceTotal").val( parseInt(uncomma($("#paymentPriceTotal").val())) + parseInt(uncomma($("#paymentPriceTotalSecond").val())) );
+							$("#payForm").attr("method" , "POST").attr("action" , "/payment/paymentSystem").submit();	
 							
 						}						
 						
@@ -400,15 +472,13 @@
 					}
 				
 				});
-			});						
+			});	
+		}	
 		
-		}
-			
 	</script>	  	
   	<!-- import 결제모둘 End -->
+  	  	
   	
-  	 	
-
 	<style>
 	    body > div.container{
 	        margin-top: 20px;
@@ -419,9 +489,6 @@
 	    }	    
 	</style>	
 	
-	
-
-
 </head>
 
 <body>
@@ -635,10 +702,9 @@
 							<label class="col-xs-2">* 예약번호</label>
 							<div class="col-xs-3 form-group">
 								${campReservation.reservationNo} 123
-							</div>		
-							<label class="col-xs-2 col-xs-offset-1"></label>
-							<div class="col-xs-3 form-group">
-					            <button id="goGetRsv" type="button" class="btn btn-info">예약상세</button>
+							</div>	
+							<div class="col-xs-3 col-xs-offset-1 form-group">
+					            <button id="goGetRsv" type="button" class="btn btn-info">예약상세보기</button>
 					            <input type="hidden" id="reservationNo" name="reservationNo" value="${campReservation.reservationNo}">
 					        </div>						        								
 						</div>					
@@ -747,9 +813,8 @@
 			<input type="hidden" id="paymentSender" name="paymentSender" value="unknownPS">
 			<input type="hidden" id="paymentReceiver" name="paymentReceiver" value="unknownPR">	
 			<input type="hidden" id="paymentCode" name="paymentCode" value="unknownPC">	
-			<input type="hidden" id="pointChargeTotal" name="pointChargeTotal" value="unknownPCT">
-			
-				
+			<input type="hidden" id="pointChargeTotal" name="pointChargeTotal" value="0">
+			<input type="hidden" id="paymentProductPriceTotal" name="paymentProductPriceTotal" value="0">			
 			
 			<div class="row">
 				<div id="paySecond" class="row">			
@@ -757,8 +822,8 @@
 					    <div class="row">	
 					        <label class="col-xs-12"># 결제 전체 금액</label>
 					        <div class="col-xs-12 form-group">
-					            <input type="number" id="paymentProductPriceTotal" name="paymentProductPriceTotal" value="${payment.paymentProductPriceTotal}" class="form-control" >
-					        </div>    <!-- disabled -->
+					            <input type="number" id="tempPriceTotal" name="tempPriceTotal" value="100000" class="form-control" >
+					        </div>    <!-- disabled ${payment.paymentProductPriceTotal} -->
 					    </div>								
 					</div>
 					<div class="col-xs-2">
@@ -803,7 +868,7 @@
 						</div>						
 						<br>
 						<div class="row">
-							<input type="radio" id="method_card" name="paymentMethod" value="card" checked>
+							<input type="radio" id="method_card" name="paymentMethod" value="card">
 					    	<label for="method_card">신용카드/간편결제</label>		
 						</div>	
 						<div class="row">
@@ -875,7 +940,7 @@
 	
 	
 	<!-- 포인트관리 버튼 start -->
-	<div id="pointChargeButtonContainer" class="container">
+	<div id="pointButtonContainer" class="container">
 		<div class="row">		
 			<div class="col-xs-2">
 				<button id="point_showWithDraw" type="button" class="btn btn-warning" value="1">포인트 출금</button>
@@ -894,11 +959,7 @@
 	<!-- 캠핑 버튼 start -->
 	<div id="campButtonContainer" class="container">
 		<div class="row">		
-			<div class="col-xs-2">
-				<button id="camp_cancle" type="button" class="btn btn-warning">취소</button>
-			</div>
-			
-			<div class="col-xs-2 col-xs-offset-8">
+			<div class="col-xs-2 col-xs-offset-10">
 	            <button id="camp_pay" type="button" class="btn btn-primary">예약내역 결제</button>
 	        </div>	        	    	        	
 		</div>
@@ -916,6 +977,7 @@
 	</div>
 	<!-- 경매/양도양수 버튼 end -->
 	
+	
 	<!-- 테스트 버튼 -->
 	<div class="container">		
 		<hr>
@@ -929,9 +991,6 @@
 	            <button id="temp2" type="button" class="btn btn-primary">포인트충전</button>
 	        </div>
 	        
-	        <div class="col-xs-2 col-xs-offset-1">
-	            <button id="temp3" type="button" class="btn btn-primary">캠핑장 예약</button>
-	        </div>
 		</div>
 	</div>		
 

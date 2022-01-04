@@ -95,13 +95,13 @@ public class PaymentServiceImpl implements PaymentService{
 		System.out.println("paymentPriceFee : " + paymentPriceFee);
 		
 		// 포인트결제 DB저장
-		if(payment.getPaymentPriceTotalSecond() !=0) {
+		if(payment.getPaymentPriceTotalSecond() != 0) {
 			
 			int paymentPriceTotalSecond = payment.getPaymentPriceTotal();		
 			int paymentPriceFeeSecond = paymentPriceTotalSecond * paymentReferenceFee / 100;
 			int paymentPricePaySecond = paymentPriceTotalSecond - paymentPriceFeeSecond;			
-			payment.setPaymentPriceFee(paymentPriceFeeSecond);
-			payment.setPaymentPricePay(paymentPricePaySecond);	
+			payment.setPaymentPriceFeeSecond(paymentPriceFeeSecond);
+			payment.setPaymentPricePaySecond(paymentPricePaySecond);	
 			
 			System.out.println("paymentPriceTotalSecond : " + paymentPriceTotalSecond);						// 테스트
 			System.out.println("paymentPricePaySecond : " + paymentPricePaySecond);	

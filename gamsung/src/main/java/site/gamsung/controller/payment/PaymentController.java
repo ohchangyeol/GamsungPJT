@@ -87,6 +87,11 @@ public class PaymentController {
 								@RequestParam("paymentRefundReferenceFee") int paymentRefundReferenceFee, 
 								Model model, HttpSession httpSession) throws Exception {
 		
+		////////// 테스트
+		//payment.setPaymentCode("P1");
+		payment.setPaymentCode("R1");
+		//////////테스트
+		
 		System.out.println("1 payment : " + payment); 													// 테스트
 		System.out.println("2 pointWithdrawPaymentCode : " + pointWithdrawPaymentCode); 				// 테스트
 		System.out.println("3 paymentRefundReferenceFee : " + paymentRefundReferenceFee); 				// 테스트
@@ -101,7 +106,7 @@ public class PaymentController {
 			System.out.println("Session tempUser : " + tempUser);   									// 테스트
 			
 			if (tempUser != null) {
-				payment.setPaymentCode(pointWithdrawPaymentCode);
+				//payment.setPaymentCode(pointWithdrawPaymentCode);
 				payment.setPaymentRefundReferenceFee(paymentRefundReferenceFee);
 				model.addAttribute("user", tempUser);				
 			} 	
@@ -225,6 +230,7 @@ public class PaymentController {
 		String oriMethodSecond = payment.getPaymentMethodSecond();
 		int oriPriceTotalSecond = payment.getPaymentPriceTotalSecond();	
 		int oriPointChargeTotal = payment.getPointChargeTotal();
+		String payNo = "";
 
 		// 포인트구매 결제
 		if(oriPaymentCode.equals("P1")) {
@@ -260,7 +266,7 @@ public class PaymentController {
 			paymentPay.setPaymentMethod(oriMethod);							
 			paymentPay.setPaymentPriceTotal(oriPriceTotal);
 			paymentPay.setPaymentReferenceNum(oriReferenceNum);	
-			String payNo = paymentService.addMakePayment(paymentPay);		
+			payNo = paymentService.addMakePayment(paymentPay);		
 			System.out.println("payNo : "+payNo);
 			System.out.println("3 결제완료내역 저장 payment : " + paymentPay); 				// 테스트	
 			
@@ -269,6 +275,7 @@ public class PaymentController {
 			paymentResult.setPaymentProduct(oriProduct);
 			paymentResult.setPaymentSender(oriSenderId);
 			paymentResult.setPaymentCode(oriPaymentCode);
+			paymentResult.setPaymentProductPriceTotal(oriPointChargeTotal);
 			paymentResult.setPaymentReferenceNum(oriReferenceNum);
 			paymentResult.setPaymentMethod(oriMethod);
 			paymentResult.setPaymentPriceTotal(oriPriceTotal);
@@ -300,10 +307,12 @@ public class PaymentController {
 				
 				paymentResult.setPaymentMethodSecond(oriMethodSecond);
 				paymentResult.setPaymentPriceTotalSecond(oriPriceTotalSecond);
-				
+						
 				System.out.println("포인트사용 pointTransfer : " + pointTransfer); 		// 테스트				
 			} 		
-							
+			
+			payNo = paymentService.addMakePayment(paymentResult);
+			paymentResult.setPaymentNo(payNo);
 		}		
 
 			
