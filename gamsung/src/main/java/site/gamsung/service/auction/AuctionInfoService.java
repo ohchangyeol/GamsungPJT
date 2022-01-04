@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import site.gamsung.service.domain.AuctionInfo;
-import site.gamsung.service.domain.AuctionProduct;
 import site.gamsung.service.domain.User;
 
 public interface AuctionInfoService {
@@ -13,7 +12,7 @@ public interface AuctionInfoService {
 	
 	public List<AuctionInfo> listBidConcern(Map<String, Object> map);
 	
-	public List<AuctionProduct> listAuctionProductByRole(Map<String, Object> map);
+	public Map<String,Object> listAuctionProductByRole(Map<String, Object> map);
 	
 	public List<AuctionInfo> auctionHistory(Map<String, Object> map);
 	

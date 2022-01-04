@@ -1,11 +1,14 @@
 package site.gamsung.util.auction;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
+import org.springframework.messaging.simp.stomp.StompCommand;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.messaging.support.ChannelInterceptor;
 import org.springframework.messaging.support.MessageHeaderAccessor;
@@ -13,36 +16,124 @@ import org.springframework.messaging.support.MessageHeaderAccessor;
 @Configuration
 public class WebSocketInterceptor implements ChannelInterceptor{
 
-	Set<String> sessionSet = new HashSet<>();
+	Map<String,Set<String>> sessionMap = new HashMap<String,Set<String>>();
 
 	@Override
 	public Message<?> preSend(Message<?> message, MessageChannel channel) {
 		// TODO Auto-generated method stub
 		
-		String str = new String((byte[])message.getPayload());
-		StompHeaderAccessor stompHeaderAccessor = MessageHeaderAccessor.getAccessor(message, StompHeaderAccessor.class);
-		String sessionId = stompHeaderAccessor.getSessionId();        
-		System.out.println(stompHeaderAccessor.getCommand()+" : "+str);
-        
-        switch (stompHeaderAccessor.getCommand()) {
-            case CONNECT: // 유저가 Websocket으로 connect()를 한 뒤 호출됨
-            	sessionSet.add(sessionId); 
-                break;
-            case DISCONNECT:// 유저가 Websocket으로 disconnect() 를 한 뒤 호출됨 or 세션이 끊어졌을 때 발생함(페이지 이동~ 브라우저 닫기 등)
-            	sessionSet.remove(sessionId);
-            	break;
-            default:
-                break;
-        }
-       		
-        int realTimeViewCount = sessionSet.size();
-        System.out.println(realTimeViewCount);
-        
-        stompHeaderAccessor.addNativeHeader("realTimeViewCount", Integer.toString(realTimeViewCount));
-        System.out.println(message);
-        System.out.println(stompHeaderAccessor);
-        System.out.println(stompHeaderAccessor.getDestination());
-        
+		StompHeaderAccessor stompHeaderAccessor = MessageHeaderAccessor.getAccessor(message, StompHeaderAccessor.class); 
+		Set<String> sessionSet = null;
+		String sessionId = stompHeaderAccessor.getSessionId();
+		
+		switch(stompHeaderAccessor.getCommand()) {
+		
+		case CONNECT:
+//			System.out.println("==============================================================");
+//			System.out.println("getAck : "+stompHeaderAccessor.getAck());
+//			System.out.println("getDestination : "+stompHeaderAccessor.getDestination());
+//			System.out.println("getHost : "+stompHeaderAccessor.getHost());
+//			System.out.println("getLogin : "+stompHeaderAccessor.getLogin());
+//			System.out.println("getMessage : "+stompHeaderAccessor.getMessage());
+//			System.out.println("getMessageId : "+stompHeaderAccessor.getMessageId());
+//			System.out.println("getNack : "+stompHeaderAccessor.getNack());
+//			System.out.println("getPasscode : "+stompHeaderAccessor.getPasscode());
+//			System.out.println("getReceipt : "+stompHeaderAccessor.getReceipt());
+//			System.out.println("getReceiptId : "+stompHeaderAccessor.getReceiptId());
+//			System.out.println("getReplyChannel : "+stompHeaderAccessor.getReplyChannel());
+//			System.out.println("getSessionId : "+stompHeaderAccessor.getSessionId());
+//			System.out.println("getSubscriptionId : "+stompHeaderAccessor.getSubscriptionId());
+//			System.out.println("getVersion : "+stompHeaderAccessor.getVersion());
+//			System.out.println("getAcceptVersion : "+stompHeaderAccessor.getAcceptVersion());
+//			System.out.println("getCommand : "+stompHeaderAccessor.getCommand());
+//			System.out.println("getContentLength : "+stompHeaderAccessor.getContentLength());
+//			System.out.println("getContentType : "+stompHeaderAccessor.getContentType());
+//			System.out.println("getHeartbeat : "+stompHeaderAccessor.getHeartbeat());
+//			System.out.println("getId : "+stompHeaderAccessor.getId());
+//			System.out.println("getMessageHeaders : "+stompHeaderAccessor.getMessageHeaders());
+//			System.out.println("getMessageType : "+stompHeaderAccessor.getMessageType());
+//			System.out.println("getSessionAttributes : "+stompHeaderAccessor.getSessionAttributes());
+//			System.out.println("getTimestamp : "+stompHeaderAccessor.getTimestamp());
+//			System.out.println("getUser : "+stompHeaderAccessor.getUser());
+//			System.out.println("==============================================================");
+			break;
+		
+		case SEND:
+			if(stompHeaderAccessor.getDestination().indexOf("/app/join") != -1) {
+				
+				System.out.println("index of : "+stompHeaderAccessor.getDestination().indexOf("/app/join"));
+				System.out.println(sessionId+"입장");
+				String[] no = stompHeaderAccessor.getDestination().split("/");
+				
+				System.out.println("before : "+sessionSet);
+				sessionSet = sessionMap.get(no[3]);
+				System.out.println("after : "+sessionSet);
+				
+				if(sessionSet == null) {
+					System.out.println("sessionSet이 null이다.");
+					sessionSet = new HashSet<String>();
+					System.out.println("sessionSet에 셋팅했다");
+				}
+				sessionSet.add(sessionId);
+				System.out.println(sessionSet.size());
+				sessionMap.put(no[3], sessionSet);
+				stompHeaderAccessor.addNativeHeader("realTimeViewCount", Integer.toString(sessionSet.size()));		
+				
+			}else if(stompHeaderAccessor.getDestination().indexOf("/app/exit") != -1) {
+				
+				System.out.println("index of : "+stompHeaderAccessor.getDestination().indexOf("/app/exit"));
+				System.out.println(sessionId+"퇴장");
+				String[] no = stompHeaderAccessor.getDestination().split("/");
+				
+				System.out.println("before : "+sessionSet);
+				sessionSet = sessionMap.get(no[3]);
+				System.out.println("after : "+sessionSet);
+				
+				if(sessionSet == null) {
+					System.out.println("sessionSet이 null이다.");
+					sessionSet = new HashSet<String>();
+					System.out.println("sessionSet에 셋팅했다");
+				}
+				sessionSet.remove(sessionId);
+				System.out.println(sessionSet.size());
+				sessionMap.put(no[3], sessionSet);
+				stompHeaderAccessor.addNativeHeader("realTimeViewCount", Integer.toString(sessionSet.size()));				
+			}
+		break;
+		
+		case DISCONNECT:
+//			System.out.println("==============================================================");
+//			System.out.println("getAck : "+stompHeaderAccessor.getAck());
+//			System.out.println("getDestination : "+stompHeaderAccessor.getDestination());
+//			System.out.println("getHost : "+stompHeaderAccessor.getHost());
+//			System.out.println("getLogin : "+stompHeaderAccessor.getLogin());
+//			System.out.println("getMessage : "+stompHeaderAccessor.getMessage());
+//			System.out.println("getMessageId : "+stompHeaderAccessor.getMessageId());
+//			System.out.println("getNack : "+stompHeaderAccessor.getNack());
+//			System.out.println("getPasscode : "+stompHeaderAccessor.getPasscode());
+//			System.out.println("getReceipt : "+stompHeaderAccessor.getReceipt());
+//			System.out.println("getReceiptId : "+stompHeaderAccessor.getReceiptId());
+//			System.out.println("getReplyChannel : "+stompHeaderAccessor.getReplyChannel());
+//			System.out.println("getSessionId : "+stompHeaderAccessor.getSessionId());
+//			System.out.println("getSubscriptionId : "+stompHeaderAccessor.getSubscriptionId());
+//			System.out.println("getVersion : "+stompHeaderAccessor.getVersion());
+//			System.out.println("getAcceptVersion : "+stompHeaderAccessor.getAcceptVersion());
+//			System.out.println("getCommand : "+stompHeaderAccessor.getCommand());
+//			System.out.println("getContentLength : "+stompHeaderAccessor.getContentLength());
+//			System.out.println("getContentType : "+stompHeaderAccessor.getContentType());
+//			System.out.println("getHeartbeat : "+stompHeaderAccessor.getHeartbeat());
+//			System.out.println("getId : "+stompHeaderAccessor.getId());
+//			System.out.println("getMessageHeaders : "+stompHeaderAccessor.getMessageHeaders());
+//			System.out.println("getMessageType : "+stompHeaderAccessor.getMessageType());
+//			System.out.println("getSessionAttributes : "+stompHeaderAccessor.getSessionAttributes());
+//			System.out.println("getTimestamp : "+stompHeaderAccessor.getTimestamp());
+//			System.out.println("getUser : "+stompHeaderAccessor.getUser());
+			
+			break;
+		}
+		
+		
+		
 		return message;
 
 	}

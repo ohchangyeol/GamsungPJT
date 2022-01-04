@@ -66,7 +66,7 @@ pageEncoding="UTF-8"%>
       <ul class="nav navbar-nav navbar-right">    
 
         <li><a href="/campBusiness/goSubMainCampBusiness">CampBusiness</a></li> 
-      
+      	
         <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Payment</a>
           <ul class="dropdown-menu">
           	<li><a href="/payment/managePoint">ManagePoint</a></li>

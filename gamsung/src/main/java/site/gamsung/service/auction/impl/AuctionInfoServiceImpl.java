@@ -57,9 +57,15 @@ public class AuctionInfoServiceImpl implements AuctionInfoService{
 	}
 
 	@Override
-	public List<AuctionProduct> listAuctionProductByRole(Map<String, Object> map) {
+	public Map<String,Object> listAuctionProductByRole(Map<String, Object> map) {
 		// TODO Auto-generated method stub
-		return auctionInfoDAO.listAuctionProductByRole(map);
+		User user = (User)map.get("user");
+		int totalCount = auctionInfoDAO.countAuctionProductByRole(user.getId());
+		List<AuctionProduct> list = auctionInfoDAO.listAuctionProductByRole(map);
+		
+		map.put("list", list);
+		map.put("totalCount", totalCount);
+		return map;
 	}
 
 	@Override
