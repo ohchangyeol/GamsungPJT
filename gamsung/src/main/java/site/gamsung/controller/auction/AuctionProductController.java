@@ -1,12 +1,6 @@
 package site.gamsung.controller.auction;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,17 +11,17 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import site.gamsung.service.auction.AuctionProductDAO;
+import site.gamsung.service.auction.AuctionInfoService;
 import site.gamsung.service.auction.AuctionProductService;
+import site.gamsung.service.auction.AuctionReviewService;
 import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.AuctionInfo;
 import site.gamsung.service.domain.AuctionProduct;
@@ -38,15 +32,26 @@ import site.gamsung.util.auction.AuctionImgUpload;
 @Controller
 public class AuctionProductController {
 	
-	@Value("#{commonProperties['auctionPageSize']}")
-	int auctionPageSize;
-	
 	@Autowired
 	@Qualifier("auctionProductService")
 	private AuctionProductService auctionProductService;
-
+	
+	@Autowired
+	@Qualifier("auctionInfoService")
+	private AuctionInfoService auctionInfoService;
+	
+	@Autowired
+	@Qualifier("auctionReviewService")
+	private AuctionReviewService auctionReviewService;
+	
 	@Value("#{commonProperties['crawlingURL']}")
 	private String crawlingURL;
+	
+	@Value("#{commonProperties['auctionPageSize']}")
+	int auctionPageSize;
+	
+	@Value("#{commonProperties['auctionMypageSize']}")
+	int auctionMypageSize;
 	
 	public AuctionProductController() {
 		System.out.println(this.getClass());
@@ -57,6 +62,7 @@ public class AuctionProductController {
 	public String listCrawlingAuctionProduct(HttpSession httpSession, Model model, @ModelAttribute("search") Search search) {
 		
 		//출력할 개수을 commonProperties로 부터 받아오며, 1페이지가 고정값으로 들어간다.
+		search.setSortCondition("latestAsc");
 		search.setPageSize(auctionPageSize);
 		search.setCurrentPage(1);
 		
@@ -84,6 +90,7 @@ public class AuctionProductController {
 		model.addAttribute("auctionProduct",map.get("auctionProduct"));
 		model.addAttribute("auctionInfo", map.get("auctionInfo"));
 		model.addAttribute("registrantInfo", map.get("registrantInfo"));
+		model.addAttribute("ratingReview",map.get("ratingReview"));
 			
 		return "forward:/view/auction/getAuctionProduct.jsp";
 	}
@@ -99,7 +106,7 @@ public class AuctionProductController {
 	
 	//경매 진행 중인 상품 최초 8개 조회
 	@RequestMapping(value = "listAuctionProduct")
-	public String listAucitonProduct(HttpSession httpSession, Model model, @ModelAttribute("search") Search search) {
+	public String listAucitonProduct(Model model, @ModelAttribute("search") Search search) {
 		
 		//출력할 개수을 commonProperties로 부터 받아오며, 1페이지가 고정값으로 들어간다.
 		search.setPageSize(auctionPageSize);
@@ -117,10 +124,10 @@ public class AuctionProductController {
 	
 	//상품 등록 페이지 navigation
 	@GetMapping(value = "addAuctionProduct")
-	public String addAuctionProduct(HttpSession session, Model model) {
+	public String addAuctionProduct(HttpSession httpSession, Model model) {
 		
 		//세션으로 부터 요청한 유저의 정보를 가져온다.
-		User user = (User)session.getAttribute("user");
+		User user = (User)httpSession.getAttribute("user");
 
 		if(user == null) {
 			return "redirect:./listAuctionProduct";
@@ -128,6 +135,7 @@ public class AuctionProductController {
 		
 		//Id에 해당하는 임시 등록 정보가 있는지 확인한다.
 		AuctionProduct auctionProduct = auctionProductService.getTempSaveAuctionProduct(user.getId());
+		auctionInfoService.checkAndUpdateUserAuctionGrade(user);
 		
 		// 임시정보가 있다면 model에 담아 return한다.
 		if(auctionProduct != null) {
@@ -139,10 +147,10 @@ public class AuctionProductController {
 	
 	//상품 등록 확정 요청시 매핑된다.
 	@PostMapping(value = "addAuctionProduct")
-	public String addAuctionProduct(@ModelAttribute("auctionProduct") AuctionProduct auctionProduct, HttpSession session, MultipartHttpServletRequest mtfRequest) {
+	public String addAuctionProduct(@ModelAttribute("auctionProduct") AuctionProduct auctionProduct, HttpSession httpSession, MultipartHttpServletRequest mtfRequest) {
 		
 		//세션으로 부터 요청한 유저의 정보를 가져온다.
-		User user = (User)session.getAttribute("user");
+		User user = (User)httpSession.getAttribute("user");
 				
 		//user 정보가 존재하면 Id를 받는다.
 		if(user == null) {
@@ -179,10 +187,10 @@ public class AuctionProductController {
 	
 	//임시저장 요청시 매핑된다.
 	@PostMapping(value = "tempSaveAuctionProduct")
-	public String tempSaveAuctionProduct(@ModelAttribute("auctionProduct") AuctionProduct auctionProduct, HttpSession session, MultipartHttpServletRequest mtfRequest) { 
+	public String tempSaveAuctionProduct(@ModelAttribute("auctionProduct") AuctionProduct auctionProduct, HttpSession httpSession, MultipartHttpServletRequest mtfRequest) { 
 		
 		//세션으로 부터 요청한 유저의 정보를 가져온다.
-		User user = (User)session.getAttribute("user");
+		User user = (User)httpSession.getAttribute("user");
 						
 		//user 정보가 존재하면 Id를 받는다.
 		if(user == null) {
@@ -208,15 +216,12 @@ public class AuctionProductController {
 	}
 	
 	@GetMapping(value = "updateAuctionProduct")
-	public String updateAuctionProduct(@ModelAttribute("auctionInfo") AuctionInfo auctionInfo, HttpSession session, Model model) { 
+	public String updateAuctionProduct(@ModelAttribute("auctionInfo") AuctionInfo auctionInfo, HttpSession httpSession, Model model) { 
 		
-		User user = (User)session.getAttribute("user");
+		User user = (User)httpSession.getAttribute("user");
 		
 		if(user == null) {
-			return "redirect:./listAuctionProduct";
-		}
-		
-		if(!user.getId().equals(auctionInfo.getUser().getId())) {
+			
 			return "redirect:./listAuctionProduct";
 		}
 		
@@ -227,13 +232,14 @@ public class AuctionProductController {
 	}
 	
 	@PostMapping(value = "updateAuctionProduct")
-	public String updateAuctionProduct(@ModelAttribute("auctionProduct") AuctionProduct auctionProduct, HttpSession session, MultipartHttpServletRequest mtfRequest) { 
+	public String updateAuctionProduct(@ModelAttribute("auctionProduct") AuctionProduct auctionProduct, HttpSession httpSession, MultipartHttpServletRequest mtfRequest) { 
 		
-		User user = (User)session.getAttribute("user");
+		User user = (User)httpSession.getAttribute("user");
 		
 		if(user == null) {
 			return "redirect:./listAuctionProduct";
 		}
+		
 		auctionProduct.setRegistrantId(user.getId());
 		
 		if(auctionProduct.getProductImg1() == null) {
@@ -251,5 +257,37 @@ public class AuctionProductController {
 		
 		return "forward:/view/auction/updateAuctionProduct.jsp";
 	}
+	
+	@GetMapping(value = "addReview/{auctionProductNo}")
+	public String addReview(@PathVariable("auctionProductNo") String auctionProductNo, Model model) {
 		
+		model.addAttribute("auctionProductNo",auctionProductNo);
+		
+		return "forward:/view/auction/reviewModal.jsp";
+	}
+	
+	@GetMapping(value = "listMyAuctionProduct")
+	public String listMyAuctionProduct(	@ModelAttribute("search") Search search, Model model ,HttpSession httpSession) {
+		
+		User user = (User)httpSession.getAttribute("user");
+		
+		if(user == null) {
+			return "redirect:/";
+		}
+		
+		search.setPageSize(auctionMypageSize);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("search", search);
+		map.put("user", user);
+		
+		map = auctionInfoService.listAuctionProductByRole(map);
+		
+		model.addAttribute("search",search);
+		model.addAttribute("list",map.get("list"));
+		model.addAttribute("totalCount", map.get("totalCount"));
+		
+		return "forward:/view/auction/listMyAuctionProduct.jsp";
+	}
+
 }

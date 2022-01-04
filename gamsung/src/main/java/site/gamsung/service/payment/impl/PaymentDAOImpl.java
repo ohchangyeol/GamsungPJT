@@ -1,7 +1,7 @@
 package site.gamsung.service.payment.impl;
 
 import java.util.List;
-import java.util.Map;
+
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,11 +9,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import site.gamsung.service.common.Search;
-import site.gamsung.service.domain.Camp;
-import site.gamsung.service.domain.MainSite;
 import site.gamsung.service.domain.Payment;
 import site.gamsung.service.domain.PaymentCode;
-import site.gamsung.service.domain.SubSite;
+import site.gamsung.service.domain.PointTransfer;
 import site.gamsung.service.payment.PaymentDAO;
 
 @Repository("paymentDAOImpl")
@@ -51,22 +49,18 @@ public class PaymentDAOImpl implements PaymentDAO{
 	/*
 	 *  Point
 	 */	
-	public int pointCharge(Payment payment) {
-		
-		return 0;
+	public int pointUpdateById(PointTransfer pointTransfer) throws Exception {
+		return sqlSession.update("PaymentMapper.pointUpdateById", pointTransfer);
 	}
 	
-	public int pointWithdraw() {
-		return 0;		
-	}
-
 	
 	/*
 	 *  Payment
 	 */	
 	@Override
-	public void addMakePayment(Payment payment) throws Exception {
-		sqlSession.insert("PaymentMapper.addMakePayment", payment);		
+	public String addMakePayment(Payment payment) throws Exception {
+		sqlSession.insert("PaymentMapper.addMakePaymentIn", payment);	
+		return sqlSession.selectOne("PaymentMapper.addMakePaymentOut", payment);	
 	}
 	
 	@Override

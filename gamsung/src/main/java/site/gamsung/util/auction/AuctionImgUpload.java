@@ -11,7 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class AuctionImgUpload {
 	
-	private static final String TMP_PATH = "D:\\Main\\GamsungPJT\\gamsung\\src\\main\\webapp\\uploadfiles\\auctionimg\\product";
+	private static final String TMP_PATH = "C:\\Users\\muse1\\git\\GamsungPJT\\gamsung\\src\\main\\webapp\\uploadfiles\\auctionimg\\product";
 	
 	public List<String> imgUpload(List<MultipartFile> fileList) {
 			

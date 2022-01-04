@@ -18,10 +18,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import site.gamsung.service.auction.AuctionProductDAO;
 import site.gamsung.service.auction.AuctionProductService;
+import site.gamsung.service.auction.AuctionReviewDAO;
 import site.gamsung.service.auction.AuctionInfoDAO;
 import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.AuctionInfo;
 import site.gamsung.service.domain.AuctionProduct;
+import site.gamsung.service.domain.RatingReview;
 import site.gamsung.service.domain.User;
 import site.gamsung.util.auction.CrawlingData;
 import site.gamsung.util.user.SendMail;
@@ -39,6 +41,10 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 	private AuctionInfoDAO auctionInfoDao;
 	
 	@Autowired
+	@Qualifier("auctionReviewDAO")
+	private AuctionReviewDAO auctionReviewDAO;
+	
+	@Autowired
 	@Qualifier("crawlingData")
 	private CrawlingData crawlingData;
 	
@@ -52,8 +58,9 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 	@Override
 	public List<AuctionProduct> listCrawlingAuctionProduct(Search search) {
 		// TODO Auto-generated method stub
+		List<AuctionProduct> list = crawlingData.crawlingList(search);
 	
-		return crawlingData.crawlingList(search);
+		return list;
 	}
  
 	@Override
@@ -132,10 +139,8 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 		String registrantId = auctionProduct.getRegistrantId();
 		
 		int registrantGrade = auctionInfoDao.getUserAuctionGradeInfo(registrantId);
+		RatingReview ratingReview = auctionReviewDAO.getRegistrantAvgRating(registrantId);
 		
-		//리뷰를 추가해야한다.
-		//
-		//
 		AuctionInfo registrantInfo = new AuctionInfo();
 		
 		User user =  new User();
@@ -143,9 +148,9 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 		user.setAuctionGrade(registrantGrade);
 		
 		registrantInfo.setUser(user);
-
 		map.put("auctionProduct", auctionProduct);
 		map.put("registrantInfo", registrantInfo);
+		map.put("ratingReview", ratingReview);
 		
 		return map;
 	}
@@ -175,7 +180,7 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 	@Override
 	public void addAuctionProduct(AuctionProduct auctionProduct) {
 		// TODO Auto-generated method stub
-		auctionProductDAO.addAuctionProduct(auctionProduct);	
+		auctionProductDAO.addAuctionProduct(auctionProduct);
 	}
 	
 	public void updateAuctionProduct(AuctionProduct auctionProduct) {
@@ -213,13 +218,13 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 			}
 			
 			String remainTime = auctionProduct.getRemainAuctionTime();
-			System.out.println(remainTime);
-			System.out.println(remainTime.indexOf("-"));
+			
+			//경매 마감 10초전이라면 10초 연장
 			if(remainTime != null && remainTime.indexOf("-") == -1) {
 				
 				SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 				try {				
-					if(dateFormat.parse(auctionProduct.getRemainAuctionTime()).before(dateFormat.parse("00:00:10"))){
+					if(dateFormat.parse(auctionProduct.getRemainAuctionTime()).before(dateFormat.parse("00:00:11"))){
 						auctionProductDAO.updateBidEndTime(auctionInfo.getAuctionProductNo());
 					}
 				} catch (ParseException e) {
@@ -249,24 +254,26 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 	@Scheduled(cron = "*/1 * * * * *")
 	public void updateAuctionProductCondition() {
 		// TODO Auto-generated method stub
-		
+		//시분초 포멧 지정
 		SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 		
+		//모든 삭제 플래그가 Y가 아닌 모든 경매 상품을 뽑아온다.
 		List<AuctionProduct> auctionList = auctionProductDAO.listAuctionProduct(new Search());
 		List<AuctionInfo> bidderList = null;
-		
 		SendMail sendMail = new SendMail();
 		
 		AuctionInfo auctionInfo = new AuctionInfo();
 		
+		// enhanced for loop
 		for(AuctionProduct auctionProduct : auctionList) {
-		
+			
 			String auctionProductNo = auctionProduct.getAuctionProductNo();
 			
 			auctionProduct = auctionProductDAO.getAuctionProduct(auctionProductNo);
 			
 			try {
-
+				
+				//잔여 시간이 00:00:00초라면 경매 상태를 업데이트한디.
 				boolean isEnd = dateFormat.parse(auctionProduct.getRemainAuctionTime()).before(dateFormat.parse("00:00:01"));
 				
 				if(isEnd) {					
@@ -296,6 +303,7 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 						//낙찰 성공 여부에 따라 등수에 따른 메일 발송
 						for(AuctionInfo info : bidderList) {
 							if(info.getBidderRank() == 1) {
+								auctionProduct.setSuccessfulBidderId(info.getUser().getId());
 								sendMail.sendMail(info.getUser().getId(), tmpAuctionProduct.getAuctionProductName(), "낙찰 되셨습니다. \n 화상채팅 URL 추가 예정");
 							}else {
 								sendMail.sendMail(info.getUser().getId(), tmpAuctionProduct.getAuctionProductName(), "유찰 되셨습니다.");
@@ -316,29 +324,29 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 
 	//메인에 상품 등록
 	@Override
-	public String addMainAuctionProduct(AuctionProduct auctionProduct) {
+	public String addMainAuctionProduct(String auctionProductNo) {
 		// TODO Auto-generated method stub
 		
-		AuctionProduct tmpProduct = auctionProductDAO.getAuctionProduct(auctionProduct.getAuctionProductNo());
+		AuctionProduct tmpProduct = auctionProductDAO.getAuctionProduct(auctionProductNo);
 		
-		int isMain = auctionProductDAO.mainAuctionProductCount(auctionProduct);
-		String realEndTime = tmpProduct.getAuctionEndTime();
-		String checkEndtime = auctionProduct.getAuctionEndTime();
+		int isMain = auctionProductDAO.mainAuctionProductCount(auctionProductNo);
+		String remainTime = tmpProduct.getRemainAuctionTime();
+		
 
 		tmpProduct = null;
-		int mainCount = auctionProductDAO.mainAuctionProductCount(tmpProduct);
+		int mainCount = auctionProductDAO.mainAuctionProductCount(null);
 		
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 		
 		try {
 			if(isMain != 0){
 				return "이미 등록된 상품입니다.";
-			}else if(dateFormat.parse(realEndTime).before(dateFormat.parse(checkEndtime))) {
-				return "경매 종료 시간을 넘어서는 값을 등록하셨습니다.";
-			}else if(mainCount<= 12) {
-				auctionProductDAO.addMainAuctionProduct(auctionProduct);
-			}else {
+			}else if(dateFormat.parse(remainTime).before(dateFormat.parse("6:00:00"))) {
+				return "메인 상품에 등록 실패 하였습니다. 경매 마감 6시간 전입니다.";
+			}else if(mainCount >= 12) {
 				return "이미 12개의 상품이 등록 되어 있습니다. 잠시 후에 다시 시도해 주세요.";
+			}else {
+				auctionProductDAO.addMainAuctionProduct(auctionProductNo);
 			}
 						
 		} catch (ParseException e) {
@@ -391,14 +399,25 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 	}
 
 	@Override
-	public AuctionInfo deleteAuctionProduct(String auctionProductNo) {
+	public AuctionInfo deleteAuctionProduct(String auctionProductNo, String status) {
 		// TODO Auto-generated method stub
+
+		AuctionInfo auctionInfo = new AuctionInfo();
+		auctionInfo.setAuctionProductNo(auctionProductNo);
+		auctionInfo.setAuctionStatus(status);
+		
+		if(status.equals("CANCEL")) {
+			auctionProductDAO.deleteAuctionProduct(auctionInfo);
+			auctionInfo.setInfo("낙찰 취소 되셨습니다.");
+			return auctionInfo;	
+		}else if(status.equals("CONFIRM")){
+			auctionProductDAO.deleteAuctionProduct(auctionInfo);
+			auctionInfo.setInfo("경매 확정 되셨습니다.");
+			return auctionInfo;
+		}
 		
 		AuctionProduct auctionProduct = auctionProductDAO.getAuctionProduct(auctionProductNo);
-		AuctionInfo auctionInfo = new AuctionInfo();
-		auctionInfo.setAuctionStatus("Withdrawal");
-		auctionInfo.setAuctionProductNo(auctionProductNo);
-		
+
 		SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 		
 		try {
@@ -415,7 +434,23 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 		auctionInfo.setInfo("중도 철회 불가합니다.");
 		return auctionInfo;
 	}
-	
-	
+
+	@Override
+	public AuctionInfo updateBidEndTime(String auctionProductNo) {
+		// TODO Auto-generated method stub
+		int isSuccess = auctionProductDAO.updateBidEndTime(auctionProductNo);
+		
+		AuctionInfo auctionInfo = new AuctionInfo();
+		auctionInfo.setAuctionProductNo(auctionProductNo);
+		String info = "";
+		if(isSuccess != 1) {
+			info = "경매 시간 연장에 오류 발생하였습니다 관리자에게 문의하세요.";
+		}else {
+			info = "경매 시간이 10초 연장 되었습니다.";
+		}
+		auctionInfo.setInfo(info);
+		
+		return auctionInfo;
+	}	
 	
 }

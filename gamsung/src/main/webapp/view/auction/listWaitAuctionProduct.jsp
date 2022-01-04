@@ -70,12 +70,9 @@
             <form class="row">
               <div class="col-sm-4 mb-sm-20">
                 <select class="form-control">
-                  <option selected="selected">Default Sorting</option>
-                  <option>Popular</option>
-                  <option>Latest</option>
-                  <option>Average Price</option>
-                  <option>High Price</option>
-                  <option>Low Price</option>
+                  <option selected="selected" value="latestAsc">최신순</option>
+                  <option value="salePriceDesc">높은 가격 순</option>
+                  <option value="salePriceAsc">낮은 가격 순</option>
                 </select>
               </div>
               <div class="col-sm-2 mb-sm-20">
@@ -139,7 +136,7 @@
                     </div>
                   </div>
                   <h4 class="shop-item-title font-alt"><a href="#">${product.auctionProductName}</a></h4>
-                  <span>${product.hashtag1} ${product.hashtag2} ${product.hashtag2}</span>			
+                  <span>${product.hashtag1}+' '+${product.hashtag2}+' '+${product.hashtag2}</span>			
                 </div>
               </div>
             </c:forEach>
@@ -190,7 +187,8 @@
     
    	<script type="text/javascript">
    	$(function(){
-   		   		
+   		
+   		   		   		
   		var page = 2;
   		$(window).scroll(function() {
   			var sortCondition = $('#sortCondition').val();
@@ -269,6 +267,12 @@
   			});
   		
 	  		$('body').on('click','.btn-b',function(){
+	  			
+	  			if(${empty sessionScope.user}){
+	  				alert("로그인해 주세요.");
+	  				return;
+	  			}
+	  			
 	   			var auctionProductSubDetail = $(this).prev().text();
 	   			var auctionProductName = $(this).parent().parent().next().text();
 	   			var allhashtag = $(this).parent().parent().next().next().text();

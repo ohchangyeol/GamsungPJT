@@ -5,7 +5,7 @@ import java.sql.Date;
 public class RatingReview {
 
 	private Camp camp;
-	private AuctionProduct auctionProduct;
+	private AuctionInfo auctionInfo;
 	private User user;
 	private int ratingReviewNo;
 	private int ratingReviewStatus;
@@ -36,12 +36,12 @@ public class RatingReview {
 		this.camp = camp;
 	}
 
-	public AuctionProduct getAuctionProduct() {
-		return auctionProduct;
+	public AuctionInfo getAuctionInfo() {
+		return auctionInfo;
 	}
 
-	public void setAuctionProduct(AuctionProduct auctionProduct) {
-		this.auctionProduct = auctionProduct;
+	public void setAuctionInfo(AuctionInfo auctionInfo) {
+		this.auctionInfo = auctionInfo;
 	}
 
 	public User getUser() {
@@ -182,7 +182,7 @@ public class RatingReview {
 
 	@Override
 	public String toString() {
-		return "RatingReview [camp=" + camp + ", auctionProduct=" + auctionProduct + ", user=" + user
+		return "RatingReview [camp=" + camp + ", auctionInfo=" + auctionInfo + ", user=" + user
 				+ ", ratingReviewNo=" + ratingReviewNo + ", ratingReviewStatus=" + ratingReviewStatus
 				+ ", ratingReviewTitle=" + ratingReviewTitle + ", ratingReviewContent=" + ratingReviewContent
 				+ ", reviewRegDate=" + reviewRegDate + ", comment=" + comment + ", commentRegDate=" + commentRegDate

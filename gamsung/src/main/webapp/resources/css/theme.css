@@ -16,7 +16,7 @@ body {
 	margin: 0;
 	font-size: 13px;
 	overflow-x: hidden;
-	overflow-y: scroll;
+	overflow-y: hidden;
 }
 
 a {
@@ -50,7 +50,7 @@ a:active {
 .inner-wrapper {
 	display: table;
 	min-height: 100vh;
-	padding-top: 60px;
+	padding-top: 55px;
 	table-layout: fixed;
 	overflow: hidden;
 	width: 100%;
@@ -1532,7 +1532,7 @@ html.header-dark .header .input-search .input-group-btn .btn-default {
 }
 
 .sidebar-left .sidebar-header .sidebar-title {
-	color: #465162;
+	color: white;
 	padding: 15px;
 	font-size: 15px;
 	font-size: 1.5rem;

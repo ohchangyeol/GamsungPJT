@@ -2,8 +2,6 @@ package site.gamsung.controller.payment;
 
 import java.util.List;
 import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +12,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import site.gamsung.service.common.Page;
 import site.gamsung.service.common.Search;
-import site.gamsung.service.domain.Camp;
 import site.gamsung.service.domain.Payment;
 import site.gamsung.service.domain.PaymentCode;
+import site.gamsung.service.domain.PointTransfer;
 import site.gamsung.service.domain.User;
 import site.gamsung.service.payment.PaymentService;
 import site.gamsung.service.user.UserService;
@@ -54,80 +53,90 @@ public class PaymentController {
 	 *  Point
 	 */	
 	@RequestMapping(value = "managePoint", method = RequestMethod.GET)
-	public String managePoint(HttpSession httpSession, Model model) throws Exception {
+	public String managePoint(HttpSession httpSession) throws Exception {
 		
 		/////////////////////////////////////////////////////////////////////// Session 완료시 삭제
-		User tempSessionUser = new User();
+		User tempSessionUser = new User();		
 		
-		tempSessionUser.setId("businessuser1@gamsung.com"); // TS -3 저장
+		tempSessionUser.setId("businessuser3@gamsung.com"); // TS -3 저장
 		//tempSessionUser.setId("businessuser6@gamsung.com"); // TS -2 임시저장
 		//tempSessionUser.setId("businessuser9@gamsung.com"); // TS -1 발급 완료
 		//tempSessionUser.setId("businessuser11@gamsung.com");  // TS -0 발급 미완료
-		//tempSessionUser.setId("admin");					  // admin
+		//tempSessionUser.setId("admin");					  // admin		
 		
 		httpSession.setAttribute("user", tempSessionUser);
 		System.out.println("tempSessionUser : " + tempSessionUser);
 		/////////////////////////////////////////////////////////////////////// 여기까지 삭제
-
-		User tempUser = null;
-
-		if (httpSession != null) {
-			
-			// user 전체정보요청
-			tempUser = userService.getUser(((User) httpSession.getAttribute("user")).getId());
-			System.out.println("campSession tempUser : " + tempUser); // 테스트
-			
-			if (tempUser != null) {
-				model.addAttribute("user", tempUser);
-			} 
-			
-		} else {
-			return "redirect:/main.jsp";
-		}
-					
-		return "forward:/view/payment/managePoint.jsp";
+		
+		
+		// 포인트환불 수수료 코드입력
+		String pointWithdrawPaymentCode = "P2";		
+		int paymentRefundReferenceFee = paymentService.getPaymentCodeInfo(pointWithdrawPaymentCode).getPaymentCodeFee();		
+		
+		return "forward:/payment/readyPayment"
+				+ "?pointWithdrawPaymentCode="+pointWithdrawPaymentCode
+				+ "&paymentRefundReferenceFee="+paymentRefundReferenceFee;
 	}
-
-	
+		
 	/*
 	 *  Payment
-	 */
-	@RequestMapping(value = "readyPayment", method = RequestMethod.GET)
-	public String readyPayment(@ModelAttribute("payment") Payment payment) throws Exception {
+	 */	
+	@RequestMapping(value = "readyPayment")
+	public String readyPayment(@ModelAttribute("payment") Payment payment, 
+								@RequestParam("pointWithdrawPaymentCode") String pointWithdrawPaymentCode, 
+								@RequestParam("paymentRefundReferenceFee") int paymentRefundReferenceFee, 
+								Model model, HttpSession httpSession) throws Exception {
 		
-	
+		System.out.println("1 payment : " + payment); 													// 테스트
+		System.out.println("2 pointWithdrawPaymentCode : " + pointWithdrawPaymentCode); 				// 테스트
+		System.out.println("3 paymentRefundReferenceFee : " + paymentRefundReferenceFee); 				// 테스트
 		
-		return "forward:/view/payment/readyPayment.jsp";
+		// point관리 
+		if(pointWithdrawPaymentCode != null && paymentRefundReferenceFee != 0) {
+			System.out.println("1 point관리 : " + payment);												// 테스트
+			
+			// user 전체정보요청
+			User tempUser = userService.getUser( ((User) httpSession.getAttribute("user")).getId() );			
+			
+			System.out.println("Session tempUser : " + tempUser);   									// 테스트
+			
+			if (tempUser != null) {
+				payment.setPaymentCode(pointWithdrawPaymentCode);
+				payment.setPaymentRefundReferenceFee(paymentRefundReferenceFee);
+				model.addAttribute("user", tempUser);				
+			} 	
+			
+		} else {					
+			
+			System.out.println("2 캠핑/경매/양도 : " + payment); 											// 테스트
+			char itemControl = payment.getPaymentCode().charAt(0);	
+			
+			// 캠핑예약
+			if( itemControl == 'R' ){
+				
+				// 
+				String paymentCode = payment.getPaymentCode();		
+				int paymentReferenceFee = paymentService.getPaymentCodeInfo(paymentCode).getPaymentCodeFee();
+				
+					
+				
+			}
+			
+			if( itemControl == 'A' ){
+				
+			}
+			
+			if( itemControl == 'T' ){
+				
+			}				
+		}
+		
+		model.addAttribute("payment", payment);
+		System.out.println("3 paymentCodeCtrl readyPayment : "+payment); 								// 테스트
+		
+		return "forward:/view/payment/readyPayment.jsp";		
 	}
 	
-	@RequestMapping(value = "addMakePayment", method = RequestMethod.GET)
-	public String addMakePayment(@ModelAttribute("payment") Payment payment) throws Exception {
-		
-		// test start
-		payment.setPaymentSender("businessuser10@gamsung.com");
-		payment.setPaymentReceiver("businessuser11@gamsung.com");
-		payment.setPaymentPriceTotal(10000);
-		// test end
-		
-		paymentService.addMakePayment(payment);	
-		
-		return "forward:/view/payment/addMakePayment.jsp";
-	}
-	
-	@RequestMapping(value = "addRefundPayment", method = RequestMethod.POST)
-	public String addRefundPayment(@ModelAttribute("payment") Payment payment) throws Exception {
-		
-		paymentService.addRefundPayment(payment);
-		
-		return "forward:/view/payment/addRefundPayment.jsp";
-	}
-	
-	@RequestMapping(value = "resultPayment", method = RequestMethod.POST)
-	public String resultPayment(@ModelAttribute("payment") Payment payment) throws Exception {
-		
-		
-		return "forward:/view/payment/resultPayment.jsp";
-	}
 	
 	@RequestMapping(value = "getPayment", method = RequestMethod.POST)
 	public String getPayment(@ModelAttribute("payment") Payment payment, Model model) throws Exception {	
@@ -194,6 +203,114 @@ public class PaymentController {
 		return "forward:/view/payment/listSiteProfit.jsp";
 	}
 	
-	
+	/*
+	 * Private Method
+	 */
+		
+	@RequestMapping(value = "paymentSystem", method = RequestMethod.POST)
+	public String paymentSystem (@ModelAttribute("payment") Payment payment, HttpSession httpSession, Model model) throws Exception {	
+		
+		System.out.println("000 payment : " + payment); 							// 테스트	
+		Payment paymentResult = new Payment();
+		
+		// 결제기본
+		String oriPaymentCode = payment.getPaymentCode();
+		String oriProduct = payment.getPaymentProduct();
+		String oriSenderId = payment.getPaymentSender();
+		String oriReceiverId = payment.getPaymentReceiver();		
+		int oriPaymentProductPriceTotal = payment.getPaymentProductPriceTotal();
+		String oriReferenceNum = payment.getPaymentReferenceNum();		
+		String oriMethod = payment.getPaymentMethod();
+		int oriPriceTotal = payment.getPaymentPriceTotal();	
+		String oriMethodSecond = payment.getPaymentMethodSecond();
+		int oriPriceTotalSecond = payment.getPaymentPriceTotalSecond();	
+		int oriPointChargeTotal = payment.getPointChargeTotal();
 
+		// 포인트구매 결제
+		if(oriPaymentCode.equals("P1")) {
+			
+			// 포인트구매 User_DB
+			PointTransfer pointTransfer = new PointTransfer();
+			pointTransfer.setSenderId("admin");
+			pointTransfer.setReceiverId(oriSenderId);		
+			pointTransfer.setPointAmount(oriPointChargeTotal);		
+			paymentService.pointTransferByUsers(pointTransfer);
+			System.out.println("1 포인트구매 pointTransfer : " + pointTransfer); 			// 테스트
+			
+			// 포인트구매내역 Payment_DB 
+			Payment paymentPoint = new Payment();
+			paymentPoint.setPaymentProduct(oriProduct);
+			paymentPoint.setPaymentSender("[PointManageSystem-C]");
+			paymentPoint.setPaymentReceiver(oriSenderId);
+			paymentPoint.setPaymentCode(oriPaymentCode);
+			paymentPoint.setPaymentProductPriceTotal(oriPointChargeTotal);
+			paymentPoint.setPaymentMethod("point");				
+			paymentPoint.setPaymentPriceTotal(oriPointChargeTotal);
+			paymentPoint.setPaymentReferenceNum(oriReferenceNum);	
+			paymentService.addMakePayment(paymentPoint);		
+			System.out.println("2 포인트구매내역 DB저장 payment : " + paymentPoint); 			// 테스트
+					
+			// 결제완료내역 Payment_DB
+			Payment paymentPay = new Payment();
+			paymentPay.setPaymentProduct(oriProduct);
+			paymentPay.setPaymentSender(oriSenderId);
+			paymentPay.setPaymentReceiver("[PointManageSystem-C]");
+			paymentPay.setPaymentCode(oriPaymentCode);
+			paymentPay.setPaymentProductPriceTotal(oriPriceTotal);			
+			paymentPay.setPaymentMethod(oriMethod);							
+			paymentPay.setPaymentPriceTotal(oriPriceTotal);
+			paymentPay.setPaymentReferenceNum(oriReferenceNum);	
+			String payNo = paymentService.addMakePayment(paymentPay);		
+			System.out.println("payNo : "+payNo);
+			System.out.println("3 결제완료내역 저장 payment : " + paymentPay); 				// 테스트	
+			
+			// 결과 			
+			paymentResult.setPaymentNo(payNo);
+			paymentResult.setPaymentProduct(oriProduct);
+			paymentResult.setPaymentSender(oriSenderId);
+			paymentResult.setPaymentCode(oriPaymentCode);
+			paymentResult.setPaymentReferenceNum(oriReferenceNum);
+			paymentResult.setPaymentMethod(oriMethod);
+			paymentResult.setPaymentPriceTotal(oriPriceTotal);
+			paymentResult.setPointChargeTotal(oriPointChargeTotal);			
+			System.out.println("4 결과 paymentResult : " + paymentResult); 				// 테스트				
+			
+		}
+		
+		// 캠핑예약 결제
+		if(oriPaymentCode.equals("R1")) {
+			
+			paymentResult.setPaymentProduct(oriProduct);
+			paymentResult.setPaymentSender(oriSenderId);
+			paymentResult.setPaymentReceiver(oriReceiverId);
+			paymentResult.setPaymentProductPriceTotal(oriPaymentProductPriceTotal);
+			paymentResult.setPaymentCode(oriPaymentCode);
+			paymentResult.setPaymentReferenceNum(oriReferenceNum);
+			paymentResult.setPaymentMethod(oriMethod);
+			paymentResult.setPaymentPriceTotal(oriPriceTotal);
+
+			if (oriMethodSecond != null) {
+				
+				// 포인트처리 User_DB	
+				PointTransfer pointTransfer = new PointTransfer();
+				pointTransfer.setSenderId(oriSenderId);
+				pointTransfer.setReceiverId(oriReceiverId);		
+				pointTransfer.setPointAmount(oriPriceTotalSecond);				
+				paymentService.pointTransferByUsers(pointTransfer);
+				
+				paymentResult.setPaymentMethodSecond(oriMethodSecond);
+				paymentResult.setPaymentPriceTotalSecond(oriPriceTotalSecond);
+				
+				System.out.println("포인트사용 pointTransfer : " + pointTransfer); 		// 테스트				
+			} 		
+							
+		}		
+
+			
+		model.addAttribute("payment", paymentResult);
+		
+		return "forward:/view/payment/resultPayment.jsp";
+	}
+	
+	
 }

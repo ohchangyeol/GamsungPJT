@@ -65,7 +65,7 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public void addUser(User user) throws Exception {
+	public void addUser(User user){
 	
 		String salt = SHA256Util.generateSalt();
 		String pw = SHA256Util.getEncrypt(user.getPassword(), salt);
@@ -78,23 +78,25 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public User getUser(String id) throws Exception {
+	public User getUser(String id){
 		return userDAO.getUser(id);
 	}
 
 	@Override
-	public void updateUser(User user) throws Exception {
+	public void updateUser(User user){
 		
+		if(user.getSalt() !=null) {
 		String pw = user.getPassword();
 		String newPwd = SHA256Util.getEncrypt(pw, user.getSalt());
 		user.setPassword(newPwd);
+		}
 		
 		userDAO.updateUser(user);
 		
 	}
 
 	@Override
-	public UserWrapper listUser(Search search) throws Exception {
+	public UserWrapper listUser(Search search){
 		
 		UserWrapper userWrapper = new UserWrapper(userDAO.listUser(search), userDAO.getTotalCount(search));
 				
@@ -119,14 +121,14 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public void addLoginDate(User user) throws Exception {
+	public void addLoginDate(User user){
 		
 		userDAO.addLoginDate(user);
 	}
 
 	//update와 같이 쓸 수 있는방법 생각해보기. Controller에서 처리하면 됨
 	@Override
-	public void approvalBusinessUser(User user) throws Exception {
+	public void approvalBusinessUser(User user){
 		userDAO.updateUser(user);
 	}
 
@@ -138,17 +140,17 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public String getSaltById(String id) throws Exception {
+	public String getSaltById(String id){
 		
 		return userDAO.getSaltById(id);
 	}
 
 	@Override
-	public void updateTempPassword(User user) throws Exception {
+	public void updateTempPassword(User user){
 		
 		TempKey tmp = new TempKey();
 		String pw = tmp.generateKey(10);
-		
+		System.out.println("비밀번호"+pw);
 		String newPwd = SHA256Util.getEncrypt(pw, user.getSalt());
 		user.setPassword(newPwd);
 		
@@ -277,7 +279,7 @@ public class UserServiceImpl implements UserService{
     }
 
 	@Override
-	public String findId(String name, String phone) throws Exception {
+	public String findId(String name, String phone){
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("name", name);
@@ -287,7 +289,7 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public User findPassword(User user) throws Exception {
+	public User findPassword(User user){
 		
 		User dbUser=userDAO.getUser(user.getId());
 		
@@ -301,14 +303,14 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public void addSuspensionUser(User user) throws Exception {
+	public void addSuspensionUser(User user){
 		
 		userDAO.addSuspensionUser(user);
 		
 	}
 
 	@Override
-	public boolean addSecessionUser(User user) throws Exception {
+	public boolean addSecessionUser(User user){
 	
 		
 		if(campDAO.isSecessionUserReservationCondition(user.getId())&&auctionDAO.isSecessionUserAuctionCondition(user.getId())) {
@@ -319,66 +321,74 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public User checkIdPassword(User user) throws Exception {
+	public User checkIdPassword(User user){
 		
 		User dbUser = userDAO.getUser(user.getId());
-		String pw = user.getPassword();
-		System.out.println("비밀번호"+pw);
-		System.out.println("솔트"+dbUser.getSalt());
-		String newPwd = SHA256Util.getEncrypt(pw, dbUser.getSalt());
-		System.out.println("암호화"+newPwd);
-		
-		if(newPwd.equals(dbUser.getPassword())) {
-			return dbUser;
+		if(dbUser!=null) {
+			String pw = user.getPassword();
+			System.out.println("비밀번호"+pw);
+			System.out.println("솔트"+dbUser.getSalt());
+			String newPwd = SHA256Util.getEncrypt(pw, dbUser.getSalt());
+			System.out.println("암호화"+newPwd);
+			
+			if(newPwd.equals(dbUser.getPassword())) {
+				return dbUser;
+			}
 		}
+		
 		
 		return null;
 	}
 
 	@Override
 	@Scheduled(cron="0 0 12 * * *")
-	public void addDormantUser() throws Exception{
+	public void addDormantUser(){
 		
 		System.out.println("배치 도는지");
 		List<User> list=userDAO.listUser(new Search());
 		
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		Calendar cal = Calendar.getInstance();
-		cal.add(Calendar.YEAR , -1);
-		cal.add(Calendar.DAY_OF_MONTH, +1);
-		String TobeConvertedDate = sdf.format(cal.getTime());
-		
-		Calendar cal2 = Calendar.getInstance();
-		cal.add(Calendar.YEAR , -1);
-		cal.add(Calendar.DAY_OF_MONTH, -7);
-		String SendMailConvertedDate = sdf.format(cal2.getTime());
-		
-		for(User user : list) {
-			System.out.println("for문이 도는지");
-			System.out.println(user);
+		try {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			Calendar cal = Calendar.getInstance();
+			cal.add(Calendar.YEAR , -1);
+			cal.add(Calendar.DAY_OF_MONTH, +1);
+			String TobeConvertedDate = sdf.format(cal.getTime());
 			
-			Date currentDate=user.getCurrentLoginRegDate();
+			Calendar cal2 = Calendar.getInstance();
+			cal.add(Calendar.YEAR , -1);
+			cal.add(Calendar.DAY_OF_MONTH, -7);
+			String SendMailConvertedDate = sdf.format(cal2.getTime());
 			
-			if(currentDate == null) {
-				continue;
-			}
-				String loginDate=currentDate.toString();
+			for(User user : list) {
+				System.out.println("for문이 도는지");
+				System.out.println(user);
 				
-				System.out.println("들어오나");
-				if(user.getSecessionRegDate()==null&&user.getSuspensionDate()==null&&user.getDormantConversionDate()==null&&sdf.parse(SendMailConvertedDate).after(sdf.parse(loginDate))){
-				SendMail mail=new SendMail();
-				String info="[감성캠핑] 휴면회원 전환예정 안내메일 입니다.";
-				String text ="안녕하세요 회원님! 휴면회원으로 전환되기 7일 전입니다. 휴면회원으로 전환되길 원치 않으신다면 사이트 방문 후 로그인 부탁드립니다. 감사합니다^^";
-				mail.sendMail(user.getId(), info, text);
-				}else if(user.getSecessionRegDate()==null&&user.getSuspensionDate()==null&&user.getDormantConversionDate()==null&&sdf.parse(TobeConvertedDate).after(sdf.parse(loginDate))) {
-	            userDAO.addDormantUser(user);
-	            }
+				Date currentDate=user.getCurrentLoginRegDate();
+				
+				if(currentDate == null) {
+					continue;
+				}
+					String loginDate=currentDate.toString();
+					
+					System.out.println("들어오나");
+					if(user.getSecessionRegDate()==null&&user.getSuspensionDate()==null&&user.getDormantConversionDate()==null&&sdf.parse(SendMailConvertedDate).after(sdf.parse(loginDate))){
+					SendMail mail=new SendMail();
+					String info="[감성캠핑] 휴면회원 전환예정 안내메일 입니다.";
+					String text ="안녕하세요 회원님! 휴면회원으로 전환되기 7일 전입니다. 휴면회원으로 전환되길 원치 않으신다면 사이트 방문 후 로그인 부탁드립니다. 감사합니다^^";
+					mail.sendMail(user.getId(), info, text);
+					}else if(user.getSecessionRegDate()==null&&user.getSuspensionDate()==null&&user.getDormantConversionDate()==null&&sdf.parse(TobeConvertedDate).after(sdf.parse(loginDate))) {
+		            userDAO.addDormantUser(user);
+		            }
+				}
+			}catch(Exception e) {
+				e.printStackTrace();
 			}
+		
 			return; 
 		}
 			
 	@Override
-	public void updateDormantGeneralUserConvert(String id) throws Exception {
+	public void updateDormantGeneralUserConvert(String id){
 		userDAO.updateDormantGeneralUserConver(id);
 		
 	}

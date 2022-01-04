@@ -13,7 +13,7 @@ if (typeof define === 'function' && define.amd) {
  factory(window.jQuery || window.Zepto); 
  } 
  }(function($) { 
-
+	
 /*>>core*/
 /**
  * 
@@ -260,7 +260,7 @@ MagnificPopup.prototype = {
 				_wrapClasses += ' mfp-close-btn-in';
 			}
 		}
-
+	
 		if(mfp.st.alignTop) {
 			_wrapClasses += ' mfp-align-top';
 		}
@@ -1858,3 +1858,5 @@ $.magnificPopup.registerModule(RETINA_NS, {
 
 /*>>retina*/
  _checkInstance(); }));
+
+ 

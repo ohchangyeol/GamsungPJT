@@ -649,7 +649,7 @@ a,
 .btn {
   border-radius: 0;
   font-family: "Roboto Condensed", sans-serif;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   letter-spacing: 2px;
   font-size: 11px;
   padding: 8px 37px;
@@ -813,7 +813,7 @@ a,
 /* Forms common style */
 .form-control {
   font-family: "Roboto Condensed", sans-serif;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   letter-spacing: 2px;
   font-size: 11px;
   height: 33px;
@@ -889,7 +889,7 @@ blockquote {
 
 .font-alt {
   font-family: "Roboto Condensed", sans-serif;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   letter-spacing: 2px;
 }
 
@@ -1128,7 +1128,7 @@ Photography Page Slider
 
 .photography-page .image-caption .caption-text {
   font-size: 24px;
-  text-transform: capitalize;
+  /* text-transform: capitalize; */
   letter-spacing: 1px;
 }
 
@@ -1244,7 +1244,7 @@ General Styles - Owlcarousel
   border-radius: 0;
   z-index: 1000;
   font-family: "Roboto Condensed", sans-serif;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   letter-spacing: 3px;
   font-size: 11px;
   transition: background, padding 0.4s ease-in-out 0s;
@@ -1557,7 +1557,7 @@ Google map
 
 .features-title,
 .alt-features-title {
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   letter-spacing: 2px;
   font-weight: 400;
   font-size: 14px;
@@ -2232,7 +2232,7 @@ Google map
 .pagination a {
   border: 1px solid #eaeaea;
   display: inline-block;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   text-align: center;
   color: #999;
   padding: 4px 12px;
@@ -2973,7 +2973,7 @@ Google map
 	min-height: 520px !important;
 	max-height: 680px !important;
 	overflow: hidden !important;
-	font-family: NotoSansKR, NotoSansJP, -apple-system, BlinkMacSystemFont, "Helvetica Neue", "?? ??", "Yu Gothic", "Segoe UI", Roboto, "system-ui", "sans-serif" !important;
+	font-family: "Montserrat", "Noto Sans KR", "맑은 고딕", "Malgun Gothic", sans-serif !important;
 	background-color: transparent !important;
 	border-radius: 30px !important;
 	box-shadow: rgb(0 0 0 / 30%) 0px 12px 60px 5px !important;

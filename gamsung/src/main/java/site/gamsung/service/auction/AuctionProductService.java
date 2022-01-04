@@ -29,11 +29,14 @@ public interface AuctionProductService {
 	
 	public void updateAuctionProductCondition(); 
 	
-	public String addMainAuctionProduct(AuctionProduct auctionProduct);
+	public String addMainAuctionProduct(String auctionProductNo);
 	
 	public List<AuctionProduct> listMainAuctionProduct();
 	
 	public AuctionProduct auctionProductImgs(AuctionProduct auctionProduct, List<String> fileList);
 	
-	public AuctionInfo deleteAuctionProduct(String auctionProductNo);
+	public AuctionInfo deleteAuctionProduct(String auctionProductNo, String status);
+	
+	public AuctionInfo updateBidEndTime(String auctionProductNo);
+
 }
