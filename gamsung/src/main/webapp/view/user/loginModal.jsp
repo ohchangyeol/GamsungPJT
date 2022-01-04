@@ -2,7 +2,7 @@
 pageEncoding="UTF-8"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
- 
+
  <!-- 로그인 모달 -->
 
 <div id="modalBasic" class="mfp-hide white-popup-block">
@@ -38,7 +38,9 @@ pageEncoding="UTF-8"%>
 				<span>또는</span>
 			</div>
 			<div class="kakao">
-				<button class="btn btn-g btn-circle" type="button">
+			
+				<button id="kakaobtn" class="btn btn-g btn-circle"  type="button" onclick="javascript:kakaoLogin();">
+		
 					<img src="../../resources/images/kakao_login_large_narrow.png"/>
 					카카오 로그인
 				</button>

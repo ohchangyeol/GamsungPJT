@@ -295,7 +295,7 @@ public class UserServiceImpl implements UserService{
 		
 		System.out.println("dbUser##########"+dbUser);
 		
-		if(!(dbUser != null && user.getName().equals(dbUser.getName())&&user.getPhone().equals(dbUser.getPhone()))){
+		if(dbUser != null && !(user.getName().equals(dbUser.getName())&&user.getPhone().equals(dbUser.getPhone()))){
 			return null;
 		}
 			System.out.println("###############user############"+user);
