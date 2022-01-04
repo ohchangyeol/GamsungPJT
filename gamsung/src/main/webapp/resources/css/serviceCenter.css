@@ -1,0 +1,16 @@
+/* Notice Layout */
+html .body, .sc-main{font-family: "Montserrat", "Noto Sans Kr", "맑은 고딕", "Malgun Gothic", sans-serif !important}
+li {list-style: none;}
+.container .row h4 {font-size: 20px; font-weight: 600;}
+.notice-list ul li {font-size: 16px; padding: 10px 5px;transition: background-color 0.2s ease-in-out; cursor: pointer;}
+.notice-list ul li:hover {background-color: #f0f0f09d;}
+.notice-list ul li+li { margin-top: 10px;}
+.page-nav{width: 100%; text-align: center;margin: 40px 0;}
+
+/* get Notice */
+.getNotice .row .row {display: flex; justify-content: end;}
+.getNotice .notice-content .n-header .date-view{display: flex; justify-content: space-between;}
+.getNotice .notice-content .n-body .row .file-content {border: 1px solid #f0f0f0; border-radius: 7px; background-color:#f0f0f09d ;padding: 10px; box-sizing: border-box;}
+.getNotice .notice-content .n-body .content {margin-top: 20px ;}
+
+/* add Notoce */

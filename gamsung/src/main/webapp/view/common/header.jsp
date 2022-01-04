@@ -102,7 +102,10 @@ pageEncoding="UTF-8"%>
                
         <li class="dropdown"><a class="dropdown-toggle" href="/servicecenter/home" data-toggle="dropdown">고객센터</a>
         	<ul class="dropdown-menu">
-				<li><a href="/servicecenter/home">고객센터</a></li>
+				<li><a href="/servicecenter/listNotice">공지사항</a></li>
+        <li><a href="/servicecenter/home"> Q&A </a></li>
+        <li><a href="/servicecenter/home">내 신고 내역</a></li>
+
 			</ul>
         </li>
     
@@ -200,55 +203,7 @@ pageEncoding="UTF-8"%>
             <li><a href="typography.html"><i class="fa fa-font"></i> Typography</a></li>
           </ul>
         </li>
- 
-        <!--li.dropdown.navbar-cart-->
-        <!--    a.dropdown-toggle(href='#', data-toggle='dropdown')-->
-        <!--        span.icon-basket-->
-        <!--        |-->
-        <!--        span.cart-item-number 2-->
-        <!--    ul.dropdown-menu.cart-list(role='menu')-->
-        <!--        li-->
-        <!--            .navbar-cart-item.clearfix-->
-        <!--                .navbar-cart-img-->
-        <!--                    a(href='#')-->
-        <!--                        img(src='resources/images/shop/product-9.jpg', alt='')-->
-        <!--                .navbar-cart-title-->
-        <!--                    a(href='#') Short striped sweater-->
-        <!--                    |-->
-        <!--                    span.cart-amount 2 &times; $119.00-->
-        <!--                    br-->
-        <!--                    |-->
-        <!--                    strong.cart-amount $238.00-->
-        <!--        li-->
-        <!--            .navbar-cart-item.clearfix-->
-        <!--                .navbar-cart-img-->
-        <!--                    a(href='#')-->
-        <!--                        img(src='resources/images/shop/product-10.jpg', alt='')-->
-        <!--                .navbar-cart-title-->
-        <!--                    a(href='#') Colored jewel rings-->
-        <!--                    |-->
-        <!--                    span.cart-amount 2 &times; $119.00-->
-        <!--                    br-->
-        <!--                    |-->
-        <!--                    strong.cart-amount $238.00-->
-        <!--        li-->
-        <!--            .clearfix-->
-        <!--                .cart-sub-totle-->
-        <!--                    strong Total: $476.00-->
-        <!--        li-->
-        <!--            .clearfix-->
-        <!--                a.btn.btn-block.btn-round.btn-font-w(type='submit') Checkout-->
-        <!--li.dropdown-->
-        <!--    a.dropdown-toggle(href='#', data-toggle='dropdown') Search-->
-        <!--    ul.dropdown-menu(role='menu')-->
-        <!--        li-->
-        <!--            .dropdown-search-->
-        <!--                form(role='form')-->
-        <!--                    input.form-control(type='text', placeholder='Search...')-->
-        <!--                    |-->
-        <!--                    button.search-btn(type='submit')-->
-        <!--                        i.fa.fa-search-->
-        
+      
         <li class="dropdown"><a class="dropdown-toggle" href="documentation.html" data-toggle="dropdown">Documentation</a>
           <ul class="dropdown-menu">
             <li><a href="documentation.html#contact">Contact Form</a></li>

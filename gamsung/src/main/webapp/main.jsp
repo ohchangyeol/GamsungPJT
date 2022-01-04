@@ -253,5 +253,77 @@ pageEncoding="UTF-8"%>
     <script src="resources/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script>
     <script src="resources/js/plugins.js"></script>
     <script src="resources/js/main.js"></script>
+
+    
+<script type="text/javascript">
+  //============= logout Event =============	
+   $(function() {
+    //==> DOM Object GET 3���� ��� ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+     $("#logout").on("click" , function() {
+       //$(self.location).attr("href","/user/logout");
+      self.location = "/user/logout"
+    }); 
+    
+     $("#joinUser").on("click" , function() {
+      //$(self.location).attr("href","/user/logout");
+    self.location = "/user/addUser"
+  }); 
+    
+    $("#id").focus();
+  $("button:contains(로그인)").on("click" , function() {
+    //alert("gkgkgkgk");
+    var id=$("input:text").val();
+    var pwd=$("input:password").val();
+    
+    if(id == null || id.length <1) {
+      alert('ID 를 입력하지 않으셨습니다.');
+      $("#id").focus();
+      return;
+    }
+    
+    if(pwd == null || pwd.length <1) {
+      alert('패스워드를 입력하지 않으셨습니다.');
+      $("#pwd").focus();
+      return;
+    }
+    
+    $("form").attr("method","POST").attr("action","/user/login").submit();
+  });
+  });
+
+  //카카오로그인
+  function kakaoLogin() {
+
+  $.ajax({
+      url: '/user/getKakaoAuthUrl',
+      type: 'get',
+      async: false,
+      dataType: 'text',
+      success: function (res) {
+          location.href = res;
+      }
+  });
+
+  }
+
+  $(document).ready(function() {
+
+    var kakaoInfo = '${kakaoInfo}';
+
+    if(kakaoInfo != ""){
+        var data = JSON.parse(kakaoInfo);
+
+        alert("카카오로그인 성공 \n accessToken : " + data['accessToken']);
+        alert(
+        "user : \n" + "email : "
+        + data['email']  
+        + "\n nickname : " 
+        + data['nickname']);
+    }
+  });  
+     
+ 
+</script> 
+
   </body>
 </html>
