@@ -158,10 +158,7 @@ public class AuctionProductServiceTest {
 	//@Test
 	public void testAddMainAuctionProduct() {
 		
-		AuctionProduct auctionProduct = new AuctionProduct();
-		auctionProduct.setAuctionProductNo("PROD00006");
-		auctionProduct.setAuctionEndTime("2021-12-21 03:00:00");
-		String info = auctionProductService.addMainAuctionProduct(auctionProduct);
+		String info = auctionProductService.addMainAuctionProduct("PROD00006");
 		System.out.println(info);
 	}
 	

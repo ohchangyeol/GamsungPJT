@@ -150,6 +150,18 @@ public class AuctionRestController {
 		return auctionReviewService.deleteAuctionRatingReview(ratingReview);
 	}
 	
+	//메인 상품 등록
+	@GetMapping(value ="addMainAuctionProduct/{auctionProductNo}")
+	public AuctionInfo addMainAuctionProduct(@PathVariable("auctionProductNo") String auctionProductNo) {
+		
+		String info = auctionProductService.addMainAuctionProduct(auctionProductNo);
+		
+		AuctionInfo auctionInfo = new AuctionInfo();
+		auctionInfo.setInfo(info);
+		
+		return auctionInfo;
+	}
+	
 	
 	@MessageMapping("/join/{auctionProductNo}")
 	public void auctionJoin(AuctionInfo auctionInfo, StompHeaderAccessor stompHeaderAccessor) {

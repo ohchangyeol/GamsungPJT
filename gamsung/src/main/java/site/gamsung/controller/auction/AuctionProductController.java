@@ -223,14 +223,7 @@ public class AuctionProductController {
 		if(user == null) {
 			
 			return "redirect:./listAuctionProduct";
-			
-		
-		}else if(!user.getId().equals(auctionInfo.getUser().getId())) {
-		
-			return "redirect:./listAuctionProduct";
-			
 		}
-		
 		
 		AuctionProduct auctionProduct = (AuctionProduct)auctionProductService.getAuctionProduct(auctionInfo).get("auctionProduct");
 		model.addAttribute("auctionProduct",auctionProduct);
@@ -279,7 +272,7 @@ public class AuctionProductController {
 		User user = (User)httpSession.getAttribute("user");
 		
 		if(user == null) {
-			return "redirect:/main.jsp";
+			return "redirect:/";
 		}
 		
 		search.setPageSize(auctionMypageSize);
@@ -290,8 +283,9 @@ public class AuctionProductController {
 		
 		map = auctionInfoService.listAuctionProductByRole(map);
 		
+		model.addAttribute("search",search);
 		model.addAttribute("list",map.get("list"));
-		model.addAttribute("totalCount",map.get("totalCount"));
+		model.addAttribute("totalCount", map.get("totalCount"));
 		
 		return "forward:/view/auction/listMyAuctionProduct.jsp";
 	}

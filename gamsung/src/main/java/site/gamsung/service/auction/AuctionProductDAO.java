@@ -34,9 +34,9 @@ public interface AuctionProductDAO {
 	
 	public void updateAuctionProductCondition(AuctionProduct auctionProduct);
 	
-	public void addMainAuctionProduct(AuctionProduct auctionProduct);
+	public void addMainAuctionProduct(String auctionProductNo);
 	
-	public int mainAuctionProductCount(AuctionProduct auctionProduct);
+	public int mainAuctionProductCount(String auctionProductNo);
 	
 	public List<AuctionProduct> listMainAuctionProduct();
 	

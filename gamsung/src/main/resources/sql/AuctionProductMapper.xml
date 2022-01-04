@@ -191,23 +191,23 @@
 		WHERE product_no = #{auctionProductNo}
 	</update>
 	
-	<select id="addMainAuctionProduct" parameterType="auctionProduct">
+	<select id="addMainAuctionProduct" parameterType="String">
 		INSERT INTO MAIN_AUCTION_HISTORY(product_no, main_end_date)
-		VALUES(#{auctionProductNo}, #{auctionEndTime})
+		VALUES(#{auctionProductNo}, DATE_ADD(NOW(), INTERVAL 6 HOUR))
 	</select>
 	
-	<select id="mainAuctionProductCount" parameterType="auctionProduct" resultType="int">
+	<select id="mainAuctionProductCount" parameterType="String" resultType="int">
 		SELECT COUNT(main_product_no)
 		FROM MAIN_AUCTION_HISTORY
 		WHERE timeout_flag = 'N'
-		<if test='auctionProductNo != null'>
-			AND product_no = #{auctionProductNo}
+		<if test=' _parameter != null'>
+			AND product_no = #{value}
 		</if>
 		
 	</select>
 	
 	<select id="listMainAuctionProduct" parameterType="search" resultMap="auction">
-		SELECT ap.product_no, ap.product_name, ap.hopeful_bid_price, timediff(NOW(), mah.main_end_date) AS remain_time
+		SELECT ap.product_no AS product_no, product_name, hopeful_bid_price, product_img1, auction_end_time
 		FROM AUCTION_PRODUCT AS ap, MAIN_AUCTION_HISTORY AS mah
 		WHERE ap.product_no = mah.product_no AND timeout_flag = 'N'
 	</select>

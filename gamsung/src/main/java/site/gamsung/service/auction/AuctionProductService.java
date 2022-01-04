@@ -29,7 +29,7 @@ public interface AuctionProductService {
 	
 	public void updateAuctionProductCondition(); 
 	
-	public String addMainAuctionProduct(AuctionProduct auctionProduct);
+	public String addMainAuctionProduct(String auctionProductNo);
 	
 	public List<AuctionProduct> listMainAuctionProduct();
 	

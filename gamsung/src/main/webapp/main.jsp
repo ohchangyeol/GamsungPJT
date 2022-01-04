@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en-US" dir="ltr">
   <head>
@@ -63,6 +63,12 @@ pageEncoding="UTF-8"%>
             margin : auto;
             width: 100%;
             height: 250px;}
+            
+      .shop-item-title { 
+		    text-decoration: none;
+		    color: #333;
+		    text-overflow: ellipsis;
+		}
 
     </style>
 
@@ -162,49 +168,20 @@ pageEncoding="UTF-8"%>
               </div>
             </div>
             <div class="row">
-              <div class="owl-carousel text-center" data-items="5" data-pagination="false" data-navigation="false">
+              <div class="owl-carousel text-center" data-items="4" data-pagination="false" data-navigation="false">
+                <c:forEach var="auctionProduct" items="${productList}">
                 <div class="owl-item">
                   <div class="col-sm-12">
-                    <div class="ex-product"><a href="#"><img src="../../resources/images/shop/product-1.jpg" alt="Leather belt"/></a>
-                      <h4 class="shop-item-title font-alt"><a href="#">Leather belt</a></h4>£12.00
+                    <div class="ex-product">
+                      <a><img src="${auctionProduct.productImg1}"/></a>
+                      <input type="hidden" value="${auctionProduct.auctionProductNo}">
+                      <h4 class="shop-item-title"><a>${auctionProduct.auctionProductName}</a></h4>
+                      <h5><fmt:formatNumber type="number" maxFractionDigits="3" value="${auctionProduct.hopefulBidPrice}"/>원</h5>
+                      <h5>${auctionProduct.auctionEndTime}</h5>
                     </div>
                   </div>
                 </div>
-                <div class="owl-item">
-                  <div class="col-sm-12">
-                    <div class="ex-product"><a href="#"><img src="../../resources/images/shop/product-2.jpg" alt="Derby shoes"/></a>
-                      <h4 class="shop-item-title font-alt"><a href="#">Derby shoes</a></h4>£54.00
-                    </div>
-                  </div>
-                </div>
-                <div class="owl-item">
-                  <div class="col-sm-12">
-                    <div class="ex-product"><a href="#"><img src="../../resources/images/shop/product-3.jpg" alt="Leather belt"/></a>
-                      <h4 class="shop-item-title font-alt"><a href="#">Leather belt</a></h4>£19.00
-                    </div>
-                  </div>
-                </div>
-                <div class="owl-item">
-                  <div class="col-sm-12">
-                    <div class="ex-product"><a href="#"><img src="../../resources/images/shop/product-4.jpg" alt="Leather belt"/></a>
-                      <h4 class="shop-item-title font-alt"><a href="#">Leather belt</a></h4>£14.00
-                    </div>
-                  </div>
-                </div>
-                <div class="owl-item">
-                  <div class="col-sm-12">
-                    <div class="ex-product"><a href="#"><img src="../../resources/images/shop/product-5.jpg" alt="Chelsea boots"/></a>
-                      <h4 class="shop-item-title font-alt"><a href="#">Chelsea boots</a></h4>£44.00
-                    </div>
-                  </div>
-                </div>
-                <div class="owl-item">
-                  <div class="col-sm-12">
-                    <div class="ex-product"><a href="#"><img src="../../resources/images/shop/product-6.jpg" alt="Leather belt"/></a>
-                      <h4 class="shop-item-title font-alt"><a href="#">Leather belt</a></h4>£19.00
-                    </div>
-                  </div>
-                </div>
+                </c:forEach>
               </div>
             </div>
           </div>
@@ -253,5 +230,12 @@ pageEncoding="UTF-8"%>
     <script src="resources/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script>
     <script src="resources/js/plugins.js"></script>
     <script src="resources/js/main.js"></script>
+    
+    <script type="text/javascript">
+    	$('.shop-item-title').on('click',function(){
+    		window.location = '/auction/getAuctionProduct?auctionProductNo='+$(this).prev().val();
+    	});
+    </script>
+    
   </body>
 </html>

@@ -324,29 +324,29 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 
 	//메인에 상품 등록
 	@Override
-	public String addMainAuctionProduct(AuctionProduct auctionProduct) {
+	public String addMainAuctionProduct(String auctionProductNo) {
 		// TODO Auto-generated method stub
 		
-		AuctionProduct tmpProduct = auctionProductDAO.getAuctionProduct(auctionProduct.getAuctionProductNo());
+		AuctionProduct tmpProduct = auctionProductDAO.getAuctionProduct(auctionProductNo);
 		
-		int isMain = auctionProductDAO.mainAuctionProductCount(auctionProduct);
-		String realEndTime = tmpProduct.getAuctionEndTime();
-		String checkEndtime = auctionProduct.getAuctionEndTime();
+		int isMain = auctionProductDAO.mainAuctionProductCount(auctionProductNo);
+		String remainTime = tmpProduct.getRemainAuctionTime();
+		
 
 		tmpProduct = null;
-		int mainCount = auctionProductDAO.mainAuctionProductCount(tmpProduct);
+		int mainCount = auctionProductDAO.mainAuctionProductCount(null);
 		
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 		
 		try {
 			if(isMain != 0){
 				return "이미 등록된 상품입니다.";
-			}else if(dateFormat.parse(realEndTime).before(dateFormat.parse(checkEndtime))) {
-				return "경매 종료 시간을 넘어서는 값을 등록하셨습니다.";
-			}else if(mainCount<= 12) {
-				auctionProductDAO.addMainAuctionProduct(auctionProduct);
-			}else {
+			}else if(dateFormat.parse(remainTime).before(dateFormat.parse("6:00:00"))) {
+				return "메인 상품에 등록 실패 하였습니다. 경매 마감 6시간 전입니다.";
+			}else if(mainCount >= 12) {
 				return "이미 12개의 상품이 등록 되어 있습니다. 잠시 후에 다시 시도해 주세요.";
+			}else {
+				auctionProductDAO.addMainAuctionProduct(auctionProductNo);
 			}
 						
 		} catch (ParseException e) {
