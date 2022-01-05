@@ -3,6 +3,7 @@ package site.gamsung.controller.camp;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -19,6 +20,11 @@ import site.gamsung.service.camp.CampSearchService;
 import site.gamsung.service.common.Page;
 import site.gamsung.service.common.RatingReviewService;
 import site.gamsung.service.common.Search;
+import site.gamsung.service.domain.Camp;
+import site.gamsung.service.domain.CampReservation;
+import site.gamsung.service.domain.MainSite;
+import site.gamsung.service.domain.Payment;
+import site.gamsung.service.domain.User;
 import site.gamsung.service.payment.PaymentService;
 import site.gamsung.service.servicecenter.NoticeService;
 import site.gamsung.service.servicecenter.QnaService;
@@ -41,6 +47,8 @@ public class CampGeneralController {
 	
 	private PaymentService paymentService;
 	
+	@Autowired
+	@Qualifier("campRatingReviewServiceImpl")
 	private RatingReviewService ratingReviewService;
 	
 	private static final String FILE_SERVER_PATH = "";
@@ -81,8 +89,8 @@ public class CampGeneralController {
 	}
 	
 	@RequestMapping(value = "getCamp", method = RequestMethod.POST)
-	public String getCamp(@RequestParam("campNo") int campNo , Model model ) throws Exception{
-		System.out.println("/campGeneral/getCamp : GET");
+	public String getCamp(@RequestParam("campNo") int campNo ,@ModelAttribute("search") Search search,  Model model ) throws Exception{
+		System.out.println("/campGeneral/getCamp : POST");
 		
 		Map<String, Object> map = campSearchService.getCamp(campNo);
 		
@@ -95,6 +103,25 @@ public class CampGeneralController {
 		System.out.println(map.get("mainSite"));
 		System.out.println(map.get("subSite"));
 		System.out.println(map.get("mainSiteType"));
+		
+		
+		if (search.getCurrentPage() == 0) {
+			search.setCurrentPage(1);
+		}
+		
+		search.setPageSize(pageSize);
+		
+		Map<String, Object> reviewmap = ratingReviewService.listRatingReview(search, campNo);
+		
+		Page resultPage = new Page(search.getCurrentPage(), ((Integer) reviewmap.get("totalCount")).intValue(), pageUnit, pageSize);
+		System.out.println(resultPage);
+		
+		model.addAttribute("list", reviewmap.get("list"));
+		model.addAttribute("resultPage", resultPage);
+		model.addAttribute("search", search);
+		
+		System.out.println(search);
+		System.out.println(reviewmap.get("list"));
 		
 		return "forward:/view/camp/getCamp.jsp";
 	}
@@ -153,16 +180,83 @@ public class CampGeneralController {
 		return null;
 	}
 	
-	public String addReservation() throws Exception{
+	@RequestMapping(value = "addReservation", method = RequestMethod.POST)
+	public String addReservation(@RequestParam("mainSiteNo") int mainSiteNo, Model model, @ModelAttribute("campReservation") CampReservation campReservation,  HttpSession httpSession) throws Exception{
 		System.out.println("/campGeneral/addReservation : POST");
 		
-		return null;
+		User user = (User)httpSession.getAttribute("user");
+		MainSite mainSite = new MainSite();
+		mainSite.setMainSiteNo(mainSiteNo);
+		campReservation.setMainSite(mainSite);
+		
+		if(user == null) {
+			
+			return "redirect:/main.jsp";
+			
+		}else if(mainSiteNo == 0) {
+			
+			Map<String, Object> map = campSearchService.getCamp(campReservation.getCamp().getCampNo());
+			model.addAttribute("campReservation",campReservation);
+			model.addAttribute("mainSite", map.get("mainSite"));
+			model.addAttribute("camp", map.get("camp"));
+			System.out.println("1단계"+model);
+			
+			return "forward:/view/camp/addReservationFirst.jsp";
+
+		}else if(campReservation.getUseNum() == 0){
+			
+			MainSite resultMainSite = campSearchService.getMainSite(campReservation);
+			Camp camp = campSearchService.getCampByReservation(campReservation.getCamp().getCampNo());
+			model.addAttribute("campReservation",campReservation);
+			model.addAttribute("mainSite",resultMainSite);
+			model.addAttribute("camp",camp);
+			System.out.println("주요시설"+resultMainSite);
+			System.out.println("2단계"+model);
+			
+			return "forward:/view/camp/addReservationSecond.jsp";
+		
+		}else{
+			
+			MainSite resultMainSite = campSearchService.getMainSite(campReservation);
+			model.addAttribute("campReservation",campReservation);
+			model.addAttribute("mainSite",resultMainSite);
+			System.out.println("3단계"+model);
+			
+			return "forward:/view/camp/addReservationThird.jsp";
+		}
 	}
 	
-	public String addPayment() throws Exception{
+	@RequestMapping(value = "addPayment", method = RequestMethod.POST)
+	public String addPayment(@RequestParam("mainSiteNo") int mainSiteNo, Model model, @ModelAttribute("campReservation") CampReservation campReservation,  HttpSession httpSession) throws Exception{
 		System.out.println("/campGeneral/addPayment : POST");
 		
-		return null;
+		User user = (User)httpSession.getAttribute("user");
+		MainSite mainSite = new MainSite();
+		mainSite.setMainSiteNo(mainSiteNo);
+		campReservation.setMainSite(mainSite);
+		
+		if(user == null) {
+			
+			return "redirect:/main.jsp";
+			
+		}else {
+			
+			campReservation.setUser(user);
+			campReservation = campReservationService.addTempReservation(campReservation);
+			
+			Payment payment = new Payment();
+			payment.setPaymentSender(campReservation.getUser().getId());
+			payment.setPaymentReceiver(campReservation.getCamp().getUser().getId());
+			payment.setPaymentCode("R1");
+			payment.setPaymentPriceTotal(campReservation.getTotalPaymentPrice());
+			
+			model.addAttribute("campReservation", campReservation);
+			model.addAttribute("payment", payment);
+			System.out.println(model);
+			
+			return "forward:/view/payment/readyPayment.jsp";
+		}
+		
 	}
 	
 	public String listMyReservation() throws Exception{
@@ -183,10 +277,31 @@ public class CampGeneralController {
 		return null;
 	}
 	
-	public String listCampRatingReview() throws Exception{
+	@RequestMapping(value = "listCampRatingReview", method = RequestMethod.GET)
+	public String listCampRatingReview(@RequestParam("campNo") int campNo , @ModelAttribute("search") Search search , Model model ) throws Exception{
 		System.out.println("/campGeneral/listCampRatingReview : GET");
 		
-		return null;
+		if (search.getCurrentPage() == 0) {
+			search.setCurrentPage(1);
+		}
+		
+		search.setPageSize(pageSize);
+		
+		Map<String, Object> map = ratingReviewService.listRatingReview(search, campNo);
+		
+		Page resultPage = new Page(search.getCurrentPage(), ((Integer) map.get("totalCount")).intValue(), pageUnit, pageSize);
+		System.out.println(resultPage);
+		
+		model.addAttribute("list", map.get("list"));
+		model.addAttribute("resultPage", resultPage);
+		model.addAttribute("search", search);
+		model.addAttribute("campRating", map.get("campRating"));
+		model.addAttribute("campNo", campNo);
+		
+		System.out.println(search);
+		System.out.println(map.get("list"));
+			
+		return "forward:/view/camp/listRatingReview.jsp";
 	}
 	
 	public String addCampRatingReview() throws Exception{

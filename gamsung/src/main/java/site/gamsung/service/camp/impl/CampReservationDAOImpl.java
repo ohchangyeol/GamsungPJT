@@ -118,6 +118,11 @@ public class CampReservationDAOImpl implements CampReservationDAO {
 	}
 
 	@Override
+	public CampReservation getReservationByPayment(CampReservation campReservation) {
+		return sqlSession.selectOne("CampReservationMapper.getReservationByPayment", campReservation);
+	}
+
+	@Override
 	public List<CampReservation> sendMessageInfo() {
 		return sqlSession.selectList("CampReservationMapper.sendMessageInfo");
 	}

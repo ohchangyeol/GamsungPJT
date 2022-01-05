@@ -9,8 +9,10 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import site.gamsung.service.camp.CampRatingReviewDAO;
+import site.gamsung.service.camp.CampSearchDAO;
 import site.gamsung.service.common.RatingReviewService;
 import site.gamsung.service.common.Search;
+import site.gamsung.service.domain.Camp;
 import site.gamsung.service.domain.RatingReview;
 
 @Service("campRatingReviewServiceImpl")
@@ -19,6 +21,10 @@ public class CampRatingReviewServiceImpl implements RatingReviewService {
 	@Autowired
 	@Qualifier("campRatingReviewDAOImpl")
 	private CampRatingReviewDAO campRatingReviewDAO;
+	
+	@Autowired
+	@Qualifier("campSearchDAOImpl")
+	private CampSearchDAO campSearchDAO;
 	
 	public void setCampRatingReviewDAO(CampRatingReviewDAO campRatingReviewDAO) {
 		this.campRatingReviewDAO = campRatingReviewDAO;
@@ -59,9 +65,13 @@ public class CampRatingReviewServiceImpl implements RatingReviewService {
 		List<RatingReview> list = campRatingReviewDAO.listCampRatingReview(requestMap);
 		int totalCount = campRatingReviewDAO.getTotalCount(requestMap);
 		
+		Camp camp = campSearchDAO.getCamp(targetNo);
+		double campRating = camp.getCampRate();
+		
 		Map<String, Object> responseMap = new HashMap<String, Object>();
 		responseMap.put("list", list);
 		responseMap.put("totalCount", totalCount);
+		responseMap.put("campRating", campRating);
 		
 		return responseMap;
 	}

@@ -11,7 +11,9 @@ import site.gamsung.service.domain.ReservationStatistics;
 
 public interface CampReservationService {
 	
-	public void addReservation(CampReservation campReservation);
+	public CampReservation addTempReservation(CampReservation campReservation);
+	
+	public void updateTempReservationToReal(CampReservation campReservation);
 	
 	public List<MainSite> listPossibleReservation(Map<String, Object> map);
 	

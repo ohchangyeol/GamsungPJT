@@ -29,57 +29,75 @@ package site.gamsung.service.domain;
 		  
 	=== [ Payment domain ]===	  
 		
-			결제등록번호					String 	paymentNo                  
-	(*결제)	주는사람					String 	paymentSender              
-	(*결제)	받는사람					String 	paymentReceiver              
-	(*결제)	결제방법(paymentMethod)		String 	paymentMethod                 
-			'point' - 포인트결제              
-			     
+			결제등록번호					String 	paymentNo    
+	(*결제)	결제상품              			String 	paymentProduct;
+	(*결제)	주는사람						String 	paymentSender              
+	(*결제)	받는사람						String 	paymentReceiver              
+	(*결제)	결제방법						String 	paymentMethod                 
+			'point' 	- 포인트결제
+			'samsung' 	- 삼성페이
+			'trans' 	- 실시간계좌이체 
+			'vbank' 	- 가상계좌
+			'phone' 	- 휴대폰소액결제		     
 			           
-	(*결제) 	결제 코드					String 	paymentCode                                   
+	(*결제) 	결제 코드						String 	paymentCode                                   
 	 		결제등록일자					String 	paymentRegTime                           
-	(*결제) 	결제 원금					int 	paymentPriceTotal             
-			결제 실 금액				int 	paymentPricePay               
-			결제 수수료금액				int 	paymentPriceFee           
-	(*결제/*환불)	결제 참조번호			String 	paymentReferenceNum          
-			결제 참조수수료율				int 	paymentReferenceFee 
+	(*결제) 	결제 원금						int 	paymentPriceTotal             
+			결제 실 금액					int 	paymentPricePay               
+			결제 수수료금액					int 	paymentPriceFee           
+	(*결제/*환불)	결제 참조번호				String 	paymentReferenceNum          
+			결제 참조수수료율					int 	paymentReferenceFee 
 			       
-	(*환불) 	환불 코드					String 	paymentRefundCode 	
+	(*환불) 	환불 코드						String 	paymentRefundCode 	
 	 		환불등록일자					String 	paymentRefundRegTime             
-	(*환불) 	환불 원금					int 	paymentRefundPriceTotal     
-			환불 실 금액				int 	paymentRefundPricePay         
-			환불 수수료금액				int 	paymentRefundPriceFee  
-	(*환불)	환불 참조번호				String 	paymentRefundReferenceNum   
-			환불 참조수수료율				int 	paymentRefundReferenceFee
+	(*환불) 	환불 원금						int 	paymentRefundPriceTotal     
+			환불 실 금액					int 	paymentRefundPricePay         
+			환불 수수료금액					int 	paymentRefundPriceFee  
+	(*환불)	환불 참조번호					String 	paymentRefundReferenceNum   
+			환불 참조수수료율					int 	paymentRefundReferenceFee
 			
-			포인트충전양					int 	pointChargeTotal
+	(*충전)	충전하는 포인트가액				int 	pointChargeTotal
 */
 
 public class Payment {
 	
 	/// Field
 	private String paymentNo;
+	private String paymentProduct;	
 	private String paymentSender;
-	private String paymentReceiver;
-	private String paymentMethod;	
+	private String paymentReceiver;	
 	
-	private String paymentCode;	
+	private int paymentProductPriceTotal;	
 	private String paymentRegTime;
+	private String paymentCode;	
+	private String paymentReferenceNum;	
+	private int paymentReferenceFee;
+	
+	private String paymentMethod;
 	private int paymentPriceTotal;
 	private int paymentPricePay;
-	private int paymentPriceFee;
-	private String paymentReferenceNum;
-	private int paymentReferenceFee;	
+	private int paymentPriceFee;		
 	
-	private String paymentRefundCode;		
+	private String paymentMethodSecond;
+	private int paymentPriceTotalSecond;
+	private int paymentPricePaySecond;
+	private int paymentPriceFeeSecond;
+	
 	private String paymentRefundRegTime;
-	private int paymentRefundPriceTotal;
-	private int paymentRefundPricePay;
-	private int paymentRefundPriceFee;
-	private String paymentRefundReferenceNum;
+	private String paymentRefundCode;		
+	private String paymentRefundReferenceNum;	
 	private int paymentRefundReferenceFee;
 	
+	private int paymentRefundPriceTotal;
+	private int paymentRefundPricePay;
+	private int paymentRefundPriceFee;	
+	
+	private int paymentRefundPriceTotalSecond;
+	private int paymentRefundPricePaySecond;
+	private int paymentRefundPriceFeeSecond;
+	
 	private int pointChargeTotal;
+	private String paymentNotice;
 	
 	/// Default Constructor
 	public Payment() {
@@ -93,6 +111,14 @@ public class Payment {
 
 	public void setPaymentNo(String paymentNo) {
 		this.paymentNo = paymentNo;
+	}
+
+	public String getPaymentProduct() {
+		return paymentProduct;
+	}
+
+	public void setPaymentProduct(String paymentProduct) {
+		this.paymentProduct = paymentProduct;
 	}
 
 	public String getPaymentSender() {
@@ -111,12 +137,20 @@ public class Payment {
 		this.paymentReceiver = paymentReceiver;
 	}
 
-	public String getPaymentMethod() {
-		return paymentMethod;
+	public int getPaymentProductPriceTotal() {
+		return paymentProductPriceTotal;
 	}
 
-	public void setPaymentMethod(String paymentMethod) {
-		this.paymentMethod = paymentMethod;
+	public void setPaymentProductPriceTotal(int paymentProductPriceTotal) {
+		this.paymentProductPriceTotal = paymentProductPriceTotal;
+	}
+
+	public String getPaymentRegTime() {
+		return paymentRegTime;
+	}
+
+	public void setPaymentRegTime(String paymentRegTime) {
+		this.paymentRegTime = paymentRegTime;
 	}
 
 	public String getPaymentCode() {
@@ -127,12 +161,28 @@ public class Payment {
 		this.paymentCode = paymentCode;
 	}
 
-	public String getPaymentRegTime() {
-		return paymentRegTime;
+	public String getPaymentReferenceNum() {
+		return paymentReferenceNum;
 	}
 
-	public void setPaymentRegTime(String paymentRegTime) {
-		this.paymentRegTime = paymentRegTime;
+	public void setPaymentReferenceNum(String paymentReferenceNum) {
+		this.paymentReferenceNum = paymentReferenceNum;
+	}
+
+	public int getPaymentReferenceFee() {
+		return paymentReferenceFee;
+	}
+
+	public void setPaymentReferenceFee(int paymentReferenceFee) {
+		this.paymentReferenceFee = paymentReferenceFee;
+	}
+
+	public String getPaymentMethod() {
+		return paymentMethod;
+	}
+
+	public void setPaymentMethod(String paymentMethod) {
+		this.paymentMethod = paymentMethod;
 	}
 
 	public int getPaymentPriceTotal() {
@@ -159,20 +209,44 @@ public class Payment {
 		this.paymentPriceFee = paymentPriceFee;
 	}
 
-	public String getPaymentReferenceNum() {
-		return paymentReferenceNum;
+	public String getPaymentMethodSecond() {
+		return paymentMethodSecond;
 	}
 
-	public void setPaymentReferenceNum(String paymentReferenceNum) {
-		this.paymentReferenceNum = paymentReferenceNum;
+	public void setPaymentMethodSecond(String paymentMethodSecond) {
+		this.paymentMethodSecond = paymentMethodSecond;
 	}
 
-	public int getPaymentReferenceFee() {
-		return paymentReferenceFee;
+	public int getPaymentPriceTotalSecond() {
+		return paymentPriceTotalSecond;
 	}
 
-	public void setPaymentReferenceFee(int paymentReferenceFee) {
-		this.paymentReferenceFee = paymentReferenceFee;
+	public void setPaymentPriceTotalSecond(int paymentPriceTotalSecond) {
+		this.paymentPriceTotalSecond = paymentPriceTotalSecond;
+	}
+
+	public int getPaymentPricePaySecond() {
+		return paymentPricePaySecond;
+	}
+
+	public void setPaymentPricePaySecond(int paymentPricePaySecond) {
+		this.paymentPricePaySecond = paymentPricePaySecond;
+	}
+
+	public int getPaymentPriceFeeSecond() {
+		return paymentPriceFeeSecond;
+	}
+
+	public void setPaymentPriceFeeSecond(int paymentPriceFeeSecond) {
+		this.paymentPriceFeeSecond = paymentPriceFeeSecond;
+	}
+
+	public String getPaymentRefundRegTime() {
+		return paymentRefundRegTime;
+	}
+
+	public void setPaymentRefundRegTime(String paymentRefundRegTime) {
+		this.paymentRefundRegTime = paymentRefundRegTime;
 	}
 
 	public String getPaymentRefundCode() {
@@ -183,12 +257,20 @@ public class Payment {
 		this.paymentRefundCode = paymentRefundCode;
 	}
 
-	public String getPaymentRefundRegTime() {
-		return paymentRefundRegTime;
+	public String getPaymentRefundReferenceNum() {
+		return paymentRefundReferenceNum;
 	}
 
-	public void setPaymentRefundRegTime(String paymentRefundRegTime) {
-		this.paymentRefundRegTime = paymentRefundRegTime;
+	public void setPaymentRefundReferenceNum(String paymentRefundReferenceNum) {
+		this.paymentRefundReferenceNum = paymentRefundReferenceNum;
+	}
+
+	public int getPaymentRefundReferenceFee() {
+		return paymentRefundReferenceFee;
+	}
+
+	public void setPaymentRefundReferenceFee(int paymentRefundReferenceFee) {
+		this.paymentRefundReferenceFee = paymentRefundReferenceFee;
 	}
 
 	public int getPaymentRefundPriceTotal() {
@@ -215,20 +297,28 @@ public class Payment {
 		this.paymentRefundPriceFee = paymentRefundPriceFee;
 	}
 
-	public String getPaymentRefundReferenceNum() {
-		return paymentRefundReferenceNum;
+	public int getPaymentRefundPriceTotalSecond() {
+		return paymentRefundPriceTotalSecond;
 	}
 
-	public void setPaymentRefundReferenceNum(String paymentRefundReferenceNum) {
-		this.paymentRefundReferenceNum = paymentRefundReferenceNum;
+	public void setPaymentRefundPriceTotalSecond(int paymentRefundPriceTotalSecond) {
+		this.paymentRefundPriceTotalSecond = paymentRefundPriceTotalSecond;
 	}
 
-	public int getPaymentRefundReferenceFee() {
-		return paymentRefundReferenceFee;
+	public int getPaymentRefundPricePaySecond() {
+		return paymentRefundPricePaySecond;
 	}
 
-	public void setPaymentRefundReferenceFee(int paymentRefundReferenceFee) {
-		this.paymentRefundReferenceFee = paymentRefundReferenceFee;
+	public void setPaymentRefundPricePaySecond(int paymentRefundPricePaySecond) {
+		this.paymentRefundPricePaySecond = paymentRefundPricePaySecond;
+	}
+
+	public int getPaymentRefundPriceFeeSecond() {
+		return paymentRefundPriceFeeSecond;
+	}
+
+	public void setPaymentRefundPriceFeeSecond(int paymentRefundPriceFeeSecond) {
+		this.paymentRefundPriceFeeSecond = paymentRefundPriceFeeSecond;
 	}
 
 	public int getPointChargeTotal() {
@@ -239,31 +329,53 @@ public class Payment {
 		this.pointChargeTotal = pointChargeTotal;
 	}
 
+	public String getPaymentNotice() {
+		return paymentNotice;
+	}
+
+	public void setPaymentNotice(String paymentNotice) {
+		this.paymentNotice = paymentNotice;
+	}
+
 	// Override toString
 	public String toString() {
 		return "\n -- Payment --"
 			+ "\n [paymentNo] : " + paymentNo
+			+ "\n [paymentProduct] : " + paymentProduct
 			+ "\n [paymentSender] : " + paymentSender
-			+ "\n [paymentReceiver] : " + paymentReceiver
-			+ "\n [paymentMethod] : " + paymentMethod	
+			+ "\n [paymentReceiver] : " + paymentReceiver			
+			+ "\n [paymentProductPriceTotal] : " + paymentProductPriceTotal
 			+ "\n "
-			+ "\n [paymentRegTime] : " + paymentRegTime			
+			+ "\n [paymentRegTime] : " + paymentRegTime
 			+ "\n [paymentCode] : " + paymentCode 
+			+ "\n [paymentReferenceNum] : " + paymentReferenceNum 
+			+ "\n [paymentReferenceFee] : " + paymentReferenceFee 
+			+ "\n "			
+			+ "\n [paymentMethod] : " + paymentMethod		
 			+ "\n [paymentPriceTotal] : " + paymentPriceTotal 
 			+ "\n [paymentPricePay] : " + paymentPricePay 
 			+ "\n [paymentPriceFee] : " + paymentPriceFee 
-			+ "\n [paymentReferenceNum] : " + paymentReferenceNum 
-			+ "\n [paymentReferenceFee] : " + paymentReferenceFee 
+			+ "\n "
+			+ "\n [paymentMethodSecond] : " + paymentMethodSecond	
+			+ "\n [paymentPriceTotalSecond] : " + paymentPriceTotalSecond 
+			+ "\n [paymentPricePaySecond] : " + paymentPricePaySecond 
+			+ "\n [paymentPriceFeeSecond] : " + paymentPriceFeeSecond 
 			+ "\n "
 			+ "\n [paymentRefundRegTime] : " + paymentRefundRegTime			
 			+ "\n [paymentRefundCode] : " + paymentRefundCode	
-			+ "\n [paymentRefundPriceTotal] : " + paymentRefundPriceTotal 
-			+ "\n [paymentRefundPricePay] : " + paymentRefundPricePay
-			+ "\n [paymentRefundPriceFee] : " + paymentRefundPriceFee
 			+ "\n [paymentRefundReferenceNum] : " + paymentRefundReferenceNum
 			+ "\n [paymentRefundReferenceFee] : " + paymentRefundReferenceFee
 			+ "\n "
+			+ "\n [paymentRefundPriceTotal] : " + paymentRefundPriceTotal 
+			+ "\n [paymentRefundPricePay] : " + paymentRefundPricePay
+			+ "\n [paymentRefundPriceFee] : " + paymentRefundPriceFee
+			+ "\n "
+			+ "\n [paymentRefundPriceTotalSecond] : " + paymentRefundPriceTotalSecond 
+			+ "\n [paymentRefundPricePaySecond] : " + paymentRefundPricePaySecond
+			+ "\n [paymentRefundPriceFeeSecond] : " + paymentRefundPriceFeeSecond
+			+ "\n "
 			+ "\n [pointChargeTotal] : " + pointChargeTotal	
+			+ "\n [paymentNotice] : " + paymentNotice				
 			+ "\n ---------------- \n";
 	}
 	
