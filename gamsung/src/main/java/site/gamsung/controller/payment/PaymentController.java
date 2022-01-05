@@ -110,22 +110,20 @@ public class PaymentController {
 		return "forward:/view/payment/getPayment.jsp";
 	}
 	
-	@RequestMapping(value = "listPayment", method = RequestMethod.POST)
+	@RequestMapping(value = "listPayment", method = RequestMethod.GET)
 	public String listPayment(@ModelAttribute("search") Search search, Model model) throws Exception {
 		
-		if (search.getCurrentPage() == 0) {
-			search.setCurrentPage(1);
-		}
-
-		search.setPageSize(pageSize);
-		search.setSearchItemType("Payment");
-		Map<String, Object> map = paymentService.listPayment(search);
-		Page resultPage = 
-				new Page(search.getCurrentPage(), ((Integer) map.get("totalCount")).intValue(), pageUnit, pageSize);
-		
-		model.addAttribute("list", map.get("list"));
-		model.addAttribute("resultPage", resultPage);
-		model.addAttribute("search", search);		
+		/*
+		 * if (search.getCurrentPage() == 0) { search.setCurrentPage(1); }
+		 * 
+		 * search.setPageSize(pageSize); search.setSearchItemType("Payment");
+		 * Map<String, Object> map = paymentService.listPayment(search); Page resultPage
+		 * = new Page(search.getCurrentPage(), ((Integer)
+		 * map.get("totalCount")).intValue(), pageUnit, pageSize);
+		 * 
+		 * model.addAttribute("list", map.get("list")); model.addAttribute("resultPage",
+		 * resultPage); model.addAttribute("search", search);
+		 */	
 		
 		return "forward:/view/payment/listPayment.jsp";
 	}

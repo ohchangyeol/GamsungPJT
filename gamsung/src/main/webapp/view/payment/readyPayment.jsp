@@ -480,7 +480,7 @@
   	
 	<style>
 	    body > div.container{
-	        margin-top: 20px;
+	        margin-top: 40px;
 	    }
 	    
 	    .form-horizontal .control-label{
@@ -492,9 +492,9 @@
 
 <body>
 	
-	<!-- ToolBar -->
-	<jsp:include page="/view/common/headerCampBusiness.jsp" />
-	
+	<!-- header -->
+	<jsp:include page="/view/common/header.jsp"/>
+	<!-- header End -->
 	
 	<!-- 화면 Controller Start -->  	
   	<input type="hidden" id="viewController" name="viewController" value="${payment.paymentCode}">

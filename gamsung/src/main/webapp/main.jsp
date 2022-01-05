@@ -8,6 +8,7 @@ pageEncoding="UTF-8"%>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
     <!--  
     Document Title
     =============================================
@@ -69,9 +70,6 @@ pageEncoding="UTF-8"%>
 	<jsp:include page="/view/user/findIdModal.jsp"/>
 	
 	<!-- page-loader -->
-      <div class="page-loader">
-        <div class="loader">Loading...</div>
-      </div>
       
       <!-- header -->
       <jsp:include page="/view/common/header.jsp"/>

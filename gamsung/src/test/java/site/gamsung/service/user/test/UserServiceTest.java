@@ -32,9 +32,7 @@ public class UserServiceTest {
 	public void testAddUser() throws Exception{
 		
 		User user = new User();
-
-
-
+		
 		user.setId("test55@nate.com");
 		user.setNickName("나야나");
 		user.setName("으어어");
