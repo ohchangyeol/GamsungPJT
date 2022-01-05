@@ -78,7 +78,7 @@ pageEncoding="UTF-8"%>
       <!-- header End -->
       
       <!-- Search -->
-<%--       <jsp:include page="/view/camp/campSearch.jsp"/> --%>
+      <jsp:include page="/view/camp/campSearch.jsp"/>
       <!-- Search End -->
       
       <!-- page-start -->
