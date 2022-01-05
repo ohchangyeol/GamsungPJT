@@ -804,7 +804,21 @@
 							success: function (returnData) {
 
 								console.log('성공: ' + returnData);
-								if (returnData == 0) {
+								if (returnData == 5) {
+									$.ajax({
+										url: '/user/rest/kakaounlink',
+										headers: {
+											"Accept": "application/json",
+											"Content-Type": "application/json"
+										},
+										method: 'POST',
+										// dataType: 'json',
+										// data: JSON.stringify({
+										// 	"id": id,
+										// 	"password": password,
+										// }),
+									})
+								} else if (returnData == "0") {
 									Swal.fire({
 										title: '탈퇴하시겠습니까?',
 										text: "탈퇴후엔 같은 아이디로 재가입이 불가합니다!",

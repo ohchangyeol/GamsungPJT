@@ -134,7 +134,7 @@ public class UserServiceImpl implements UserService{
 
 
 	@Override
-	public String checkDuplication(User user){
+	public int checkDuplication(User user){
 		
 		return userDAO.checkDuplication(user);
 	}

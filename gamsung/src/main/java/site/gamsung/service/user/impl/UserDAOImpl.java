@@ -58,8 +58,8 @@ public class UserDAOImpl implements UserDAO{
 	}
 
 	@Override
-	public String checkDuplication(User user){
-		
+	public int checkDuplication(User user){
+
 		return sqlSession.selectOne("UserMapper.checkDuplication", user);
 	}
 

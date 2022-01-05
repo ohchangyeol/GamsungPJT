@@ -124,10 +124,10 @@ public class UserRestController {
 		System.out.println(user);
 		int isSuccess = 0;
 
-		String check = userService.checkDuplication(user);
+		int check = userService.checkDuplication(user);
 
 		System.out.println("check" + check);
-		if (check != null) { // 중복
+		if (check != 0) { // 중복
 			isSuccess = 1;
 		}
 		System.out.println("str" + isSuccess);
@@ -189,7 +189,7 @@ public class UserRestController {
 	}
 
 	@RequestMapping(value = "rest/addSecessionUser", method = RequestMethod.POST)
-	public int addSecessionUser(@RequestBody User user) {
+	public int addSecessionUser(@RequestBody User user, HttpSession session) {
 		
 		System.out.println("회원탈퇴 rest");
 		System.out.println("회원탈퇴 회원정보"+user);
@@ -197,13 +197,30 @@ public class UserRestController {
 		User dbUser = userService.checkIdPassword(user);
 		
 		if (dbUser != null && userService.addSecessionUser(dbUser)) {
-			System.out.println("탈퇴가능");
+			if(dbUser.getSnsId()!=null) {
+				System.out.println("어딜 타는거지");
+				System.out.println("세션에 토큰값 없나"+session.getAttribute("kakaoToken"));
+				//session.setAttribute("user", dbUser);
+				return 5;
+			}else {
+				System.out.println("탈퇴가능");
+			}
 			return 0;
 		}else {
 			System.out.println("탈퇴불가");
 			return 1 ;
 		}
 	}
+	
+	@RequestMapping(value="rest/kakaounlink") 
+	public void unlink(HttpSession session) { 
+		
+		System.out.println("들어오긴 하는건가");
+		System.out.println("토큰"+(String)session.getAttribute("kakaoToken"));
+		userService.unlink((String)session.getAttribute("kakaoToken")); 
+		session.invalidate();
+//		return 0;
+		}
 
 	@RequestMapping(value = "rest/updateDormantGeneralUserConvert", method = RequestMethod.POST)
 	public int updateDormantGeneralUserConvert(@RequestParam("id") String id, HttpSession session) {

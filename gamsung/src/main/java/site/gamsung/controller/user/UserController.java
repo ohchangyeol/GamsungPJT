@@ -124,26 +124,33 @@ public class UserController {
 		return "forward:/view/user/getGeneralUserUpdate.jsp";
 	}
 	
-	@RequestMapping( value="login", method=RequestMethod.GET )
-	public String login() throws Exception{
-		
-		System.out.println("/user/logon : GET");
-
-		return "forward:/view/user/loginView.jsp";
-	}
+//	@RequestMapping( value="login", method=RequestMethod.GET )
+//	public String login() throws Exception{
+//		
+//		System.out.println("/user/logon : GET");
+//
+//		return "/";
+//	}
 	
 
-	@RequestMapping(value="login", method=RequestMethod.POST)
+	@RequestMapping(value="login")
 	public String login(@ModelAttribute("user") User user, HttpSession session){
 		
 		System.out.println("/user/login : POST");
 		//Business Logic
 		System.out.println(user);
 		User dbUser=userService.checkIdPassword(user);
+		User kUser=userService.getUser(session.getAttribute("eamil").toString());
 		
 		if(dbUser == null) {
 			return "forward:/view/user/addGeneralUser.jsp";
 		}
+		
+//		if(kUser.getSnsId()!=null) {
+//			System.out.println("카카오 로그인");
+//			session.setAttribute("user", kUser);
+//			return "forward:/";
+//		}
 		
 		System.out.println(dbUser);
 //		System.out.println("1111111111111"+dbUser);
@@ -201,7 +208,7 @@ public class UserController {
 	public String logout(HttpSession session){
 		
 		System.out.println("/user/logout : GET");
-		
+
 		session.invalidate();
 		
 		return "redirect:/";
@@ -223,6 +230,7 @@ public class UserController {
 	// 카카오 연동정보 조회
 	@RequestMapping(value = "kakaoCallback")
 	public String oauthKakao(@RequestParam(value = "code", required = false) String code, Model model, HttpSession session){
+		
 		System.out.println("#########" + code);
         String accessToken = userService.getAccessToken(code);
         System.out.println("###access_Token#### : " + accessToken);
@@ -233,45 +241,45 @@ public class UserController {
         System.out.println("###userInfo#### : " + userInfo.get("email"));
         System.out.println("###nickname#### : " + userInfo.get("nickname"));
         System.out.println("###sns_id#### : " + userInfo.get("snsId"));
-       
+                       
         JSONObject kakaoInfo =  new JSONObject(userInfo);
         model.addAttribute("kakaoInfo", kakaoInfo);
+        System.out.println("카카오 인포"+kakaoInfo);
         User userEmail = userService.getUser(email);
         
         if(accessToken != null) {
 			session.setAttribute("kakaoToken", accessToken);
 		}
         
-        
-        if(userEmail != null) {
+        if(userEmail==null) {
+        	  User user= new User();
+              user.setId(userInfo.get("email").toString());
+              user.setNickName(userInfo.get("nickname").toString());
+              user.setSnsId(userInfo.get("snsId").toString());
+              session.setAttribute("user", user);
+              return "forward:/view/user/addKakaoUser.jsp";
+        }else {
               if(email.equals(userService.getUser(email).getId())) {
 	        	
 	        	if(userEmail.getSnsId() != null) {
 	        		session.setAttribute("user", userEmail);
-	        	   return "forward:/view/user/main.jsp";
+	        	   return "redirect:/";
 	        	} else {
 	        		//우리 회원임
-	        		return "redirect:/view/user/login.jsp";
+	        		return "redirect:/";
 	        	} 	
 	        } 
         }
-        return "forward:/view/user/addGeneralUser.jsp";
+        return "forward:/view/user/addKakaoUser.jsp";
 	}
 	
-	@RequestMapping(value="/kakaoLogout")
-	public String kakaoLogout(HttpSession session) {
-	userService.kakaoLogout((String)session.getAttribute("accessToken"));
-	session.invalidate();
-	return "redirect:/"; 
-	}
+//	@RequestMapping(value="/kakaoLogout")
+//	public String kakaoLogout(HttpSession session) {
+//	userService.kakaoLogout((String)session.getAttribute("accessToken"));
+//	session.invalidate();
+//	return "redirect:/"; 
+//	}
 	
-	@RequestMapping(value="/kakaounlink") 
-	public String unlink(HttpSession session) { 
-		userService.unlink((String)session.getAttribute("access_token")); 
-		session.invalidate();
-		return "redirect:/";
-		}
-
-
+	
 }
 
