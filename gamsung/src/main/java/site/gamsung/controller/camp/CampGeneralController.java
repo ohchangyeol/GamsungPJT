@@ -88,9 +88,9 @@ public class CampGeneralController {
 		return "forward:/view/camp/listCamp.jsp";
 	}
 	
-	@RequestMapping(value = "getCamp", method = RequestMethod.POST)
+	@RequestMapping(value = "getCamp")
 	public String getCamp(@RequestParam("campNo") int campNo ,@ModelAttribute("search") Search search,  Model model ) throws Exception{
-		System.out.println("/campGeneral/getCamp : POST");
+		System.out.println("/campGeneral/getCamp");
 		
 		Map<String, Object> map = campSearchService.getCamp(campNo);
 		

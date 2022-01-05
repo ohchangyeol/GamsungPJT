@@ -53,8 +53,8 @@ public class PaymentController {
 	 *  Point
 	 */	
 	@RequestMapping(value = "managePoint", method = RequestMethod.GET)
-	public String managePoint(HttpSession httpSession) throws Exception {	
-		
+	public String managePoint(HttpSession httpSession) throws Exception {
+				
 		// 포인트환불 수수료 코드입력
 		String pointWithdrawPaymentCode = "P2";		
 		int paymentRefundReferenceFee = paymentService.getPaymentCodeInfo(pointWithdrawPaymentCode).getPaymentCodeFee();		

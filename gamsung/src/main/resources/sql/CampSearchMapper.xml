@@ -29,9 +29,9 @@
 		<result property="campNature2" 					column="camp_nature2" 						jdbcType="VARCHAR"/>
 		<result property="campOperation1" 				column="camp_operation1" 					jdbcType="VARCHAR"/>
 		<result property="campOperation2" 				column="camp_operation2" 					jdbcType="VARCHAR"/>
-		<result property="user.campName" 					column="camp_name" 							jdbcType="VARCHAR"/>
+		<result property="user.campName" 				column="camp_name" 							jdbcType="VARCHAR"/>
 		<result property="user.addr" 					column="addr" 								jdbcType="VARCHAR"/>
-		<result property="user.campCall" 					column="camp_call" 							jdbcType="VARCHAR"/>
+		<result property="user.campCall" 				column="camp_call" 							jdbcType="VARCHAR"/>
 		<result property="campRate" 					column="camp_rating" 						jdbcType="FLOAT"/>
 	</resultMap>
 	
