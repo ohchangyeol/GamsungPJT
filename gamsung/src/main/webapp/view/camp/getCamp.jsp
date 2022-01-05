@@ -95,6 +95,11 @@ pageEncoding="UTF-8"%>
       img { display : block;
             margin : auto;}
 
+      iframe { width : 100%;
+               height : 800px; 
+               border : 0; 
+              }
+
     </style>
 
     
@@ -609,194 +614,15 @@ pageEncoding="UTF-8"%>
 
 
                   <div class="tab-pane" id="notice">
-                    <div calss="row" style="text-align: center; font-size: xx-large;">
-                        공지사항
-                    </div>
+                    <iframe src="listCampNotice?campNo=${camp.campNo}" scrolling="no"></iframe>
                   </div>
-
 
                   <div class="tab-pane" id="qna">
-                    <div calss="row" style="text-align: center; font-size: xx-large;">
-                      Q&A
-                    </div>
+                    <iframe src="listCampQna?campNo=${camp.campNo}" scrolling="no"></iframe>
                   </div>
-
-
-
+                
                   <div class="tab-pane" id="reviews">
-                    <div class="tab-pane" id="reviews">
-                      <div calss="row">
-                        <div calss="col-sm-12" style="text-align: center; font-size: large;">
-                          <span class="icon-happy"></span>&nbsp;평점&리뷰 (전체 <span style="color: rgb(230, 173, 17);">${resultPage.totalCount}건</span>)&nbsp;<span class="icon-happy"></span>
-                        </div>
-                        <div calss="row" >
-                          <div calss="col-sm-12" style="text-align: center; font-size: medium;">
-                            &nbsp;평균평점&nbsp;
-                            <c:set var="rating" value="${camp.campRate}" />
-                                  <c:if test="${rating < 1.0}">
-                                    <span><i class="fa fa-star star-off"></i></span>
-                                    <span><i class="fa fa-star star-off"></i></span>
-                                    <span><i class="fa fa-star star-off"></i></span>
-                                    <span><i class="fa fa-star star-off"></i></span>
-                                    <span><i class="fa fa-star star-off"></i></span>
-                                  </c:if>
-                                  <c:if test="${rating >= 1.0 && rating < 2.0}">
-                                    <span><i class="fa fa-star star"></i></span>
-                                    <span><i class="fa fa-star star-off"></i></span>
-                                    <span><i class="fa fa-star star-off"></i></span>
-                                    <span><i class="fa fa-star star-off"></i></span>
-                                    <span><i class="fa fa-star star-off"></i></span>
-                                  </c:if>
-                                  <c:if test="${rating >= 2.0 && rating < 3.0}">
-                                    <span><i class="fa fa-star star"></i></span>
-                                    <span><i class="fa fa-star star"></i></span>
-                                    <span><i class="fa fa-star star-off"></i></span>
-                                    <span><i class="fa fa-star star-off"></i></span>
-                                    <span><i class="fa fa-star star-off"></i></span>
-                                  </c:if>
-                                  <c:if test="${rating >= 3.0 && rating < 4.0}">
-                                    <span><i class="fa fa-star star"></i></span>
-                                    <span><i class="fa fa-star star"></i></span>
-                                    <span><i class="fa fa-star star"></i></span>
-                                    <span><i class="fa fa-star star-off"></i></span>
-                                    <span><i class="fa fa-star star-off"></i></span>
-                                  </c:if>
-                                  <c:if test="${rating >= 4.0 && rating < 5.0}">
-                                    <span><i class="fa fa-star star"></i></span>
-                                    <span><i class="fa fa-star star"></i></span>
-                                    <span><i class="fa fa-star star"></i></span>
-                                    <span><i class="fa fa-star star"></i></span>
-                                    <span><i class="fa fa-star star-off"></i></span>
-                                  </c:if>
-                                  <c:if test="${rating == 5.0}">
-                                    <span><i class="fa fa-star star"></i></span>
-                                    <span><i class="fa fa-star star"></i></span>
-                                    <span><i class="fa fa-star star"></i></span>
-                                    <span><i class="fa fa-star star"></i></span>
-                                    <span><i class="fa fa-star star"></i></span>
-                                  </c:if>
-                                <a class="open-tab section-scroll">&nbsp;(${camp.campRate})</a>
-                          </div>
-                          <!-- <div class="row">
-                            <div class="fa-hover col-xs-12" style="text-align: end;">  
-                             
-                              평점
-                              <i class="fa fa-arrow-down" id="statusRatings" data-camp_no="${camp.campNo}" data-sort_condition="평점 높은순" ></i>
-                              
-                              등록일
-                              
-                              <i class="fa fa-arrow-down" id="reviewRegDate" data-camp_no="${camp.campNo}" data-sort_condition="최근 등록일순"></i>
-                              
-                              &nbsp;&nbsp;&nbsp;
-                            </div>
-                          </div> -->
-                          <hr>
-                        </div>
-                      </div>
-            
-                      <form id="get_review">
-                        <c:set var="i" value="0" />
-                           <c:forEach var="review" items="${list}">
-                              <c:set var="i" value="${ i+1 }" />
-                              <div class="comments reviews">
-                                  <div class="comment clearfix">
-
-                                    <div class="img-responsive col-sm-3">
-                                      <a class="image-popup-vertical-fit" href="/uploadfiles/campimg/review/${review.img1}" >
-                                       <img class="img-responsive" src="/uploadfiles/campimg/review/${review.img1}" onerror="this.src='/uploadfiles/campimg/campbusiness/camp/no_image.jpg'"/>
-                                      </a>
-                                    </div>
-
-                                    <div class="comment-content clearfix col-sm-8" style="margin-left: 0px; margin-bottom: 0px;">
-                                      
-                                      <div class="comment-author">
-                                        <span style="font-size: large;">${review.user.nickName}</span>&nbsp;
-                                        <c:if test="${review.ratingReviewStatus == 1}">
-                                          (예약후기)
-                                        </c:if>
-                                        <c:if test="${review.ratingReviewStatus == 2}">
-                                          (커뮤니티글)
-                                        </c:if>
-                                        <span style="font-size: x-small;">&nbsp;&nbsp;&nbsp;${review.reviewRegDate}</span>
-                                      </div>
-                                                                              
-                                      <div class="comment-author">
-                                        <c:set var="rating" value="${review.statusRating}" />
-                                          <c:if test="${rating < 1.0}">
-                                            <span><i class="fa fa-star star-off"></i></span>
-                                            <span><i class="fa fa-star star-off"></i></span>
-                                            <span><i class="fa fa-star star-off"></i></span>
-                                            <span><i class="fa fa-star star-off"></i></span>
-                                            <span><i class="fa fa-star star-off"></i></span>
-                                          </c:if>
-                                          <c:if test="${rating >= 1.0 && rating < 2.0}">
-                                            <span><i class="fa fa-star star"></i></span>
-                                            <span><i class="fa fa-star star-off"></i></span>
-                                            <span><i class="fa fa-star star-off"></i></span>
-                                            <span><i class="fa fa-star star-off"></i></span>
-                                            <span><i class="fa fa-star star-off"></i></span>
-                                          </c:if>
-                                          <c:if test="${rating >= 2.0 && rating < 3.0}">
-                                            <span><i class="fa fa-star star"></i></span>
-                                            <span><i class="fa fa-star star"></i></span>
-                                            <span><i class="fa fa-star star-off"></i></span>
-                                            <span><i class="fa fa-star star-off"></i></span>
-                                            <span><i class="fa fa-star star-off"></i></span>
-                                          </c:if>
-                                          <c:if test="${rating >= 3.0 && rating < 4.0}">
-                                            <span><i class="fa fa-star star"></i></span>
-                                            <span><i class="fa fa-star star"></i></span>
-                                            <span><i class="fa fa-star star"></i></span>
-                                            <span><i class="fa fa-star star-off"></i></span>
-                                            <span><i class="fa fa-star star-off"></i></span>
-                                          </c:if>
-                                          <c:if test="${rating >= 4.0 && rating < 5.0}">
-                                            <span><i class="fa fa-star star"></i></span>
-                                            <span><i class="fa fa-star star"></i></span>
-                                            <span><i class="fa fa-star star"></i></span>
-                                            <span><i class="fa fa-star star"></i></span>
-                                            <span><i class="fa fa-star star-off"></i></span>
-                                          </c:if>
-                                          <c:if test="${rating == 5.0}">
-                                            <span><i class="fa fa-star star"></i></span>
-                                            <span><i class="fa fa-star star"></i></span>
-                                            <span><i class="fa fa-star star"></i></span>
-                                            <span><i class="fa fa-star star"></i></span>
-                                            <span><i class="fa fa-star star"></i></span>
-                                          </c:if>
-                                        <a class="open-tab section-scroll">&nbsp;(${review.statusRating})</a>
-                                      </div>
-                                      <div class="comment-body">
-                                        <p>${review.ratingReviewContent}</p>
-                                      </div>
-
-                                      <c:if test="${review.comment != null && review.comment != ''}">
-                                        <div class="row">
-                                        <div class="col-sm-1"></div>
-                                        <div class="comment-author font-alt">re : <span style="font-size: large;">${camp.user.campName}</span>
-                                          <span style="font-size: x-small;">&nbsp;${review.commentRegDate}</span></div>
-                                        </div>
-                                        <div class="row">
-                                          <div class="col-sm-1"></div>
-                                          <div class="comment-body">
-                                            <p>&nbsp;&nbsp;${review.comment}</p>
-                                          </div>
-                                        </div>
-                                      </c:if>
-                                     
-                                    </div>
-                                  </div>
-                                 </div>
-                                <hr>
-                        </c:forEach>
-
-                        <div class="row">
-                          <jsp:include page="../common/pageNavigator.jsp"/>
-                        </div>
-
-                    </form>
-                        
-                  </div>
+                    <iframe src="listCampRatingReview?campNo=${camp.campNo}" style="height : 1080px;" scrolling="no"></iframe>
                   </div>
 
               </div>
@@ -812,9 +638,7 @@ pageEncoding="UTF-8"%>
         
     </main>
   
-    <!-- <script src="../../resources/lib/jquery/jquery.js"></script>
-		<script src="../../resources/lib/jquery-browser-mobile/jquery.browser.mobile.js"></script> -->
-		<script src="../../resources/lib/bootstrap/js/bootstrap.js"></script>
+   	<script src="../../resources/lib/bootstrap/js/bootstrap.js"></script>
 		<script src="../../resources/lib/nanoscroller/nanoscroller.css"></script>
 		<script src="../../resources/lib/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
 		<script src="../../resources/lib/magnific-popup/magnific-popup.js"></script>
@@ -845,110 +669,47 @@ pageEncoding="UTF-8"%>
                     url : "/campGeneral/json/listReviews/"+Page+"/"+campNo,
                     method : "GET" ,
                     dataType : "json" ,
+                    traditional : true,
                     headers : {
                       "Accept" : "application/json",
                       "Content-Type" : "application/json"
                     },
-                    success : function(JSONData , status) {
-                      var append_node ="";      
-                      $.each(JSONData, function(i, ratingReview) {
-
-                        append_node += "<div class='comments reviews'>"
-                        append_node += "<div class='comment clearfix'>"
-                        append_node += "<div class='img-responsive col-sm-3'>"
-                        append_node += "<img class='img-responsive' src='/uploadfiles/campimg/review/"+ratingReview.img1+"'" + "onerror=this.src='/uploadfiles/campimg/campbusiness/camp/no_image.jpg' />"
-                        append_node += "</div>"
-                        append_node += "<div class='comment-content clearfix col-sm-8' style='margin-left: 0px; margin-bottom: 0px;'>"
-                        append_node += "<div class='comment-author'>"
-                        append_node += "<span style='font-size: large;'>"+ratingReview.user.nickName+"</span>&nbsp;"
-                          if(ratingReview.ratingReviewStatus == 1){
-                            append_node += "(예약후기)"
-                          }else if(ratingReview.ratingReviewStatus == 2){
-                            append_node += "(커뮤니티글)"
-                          }
-                       
-                        append_node += "</div>"
-                        append_node += "<div class='comment-author'>"
-
-                          if(ratingReview.statusRating < 1.0){
-                            append_node +="<span><i class='fa fa-star star-off'></i></span>"
-                            append_node +="<span><i class='fa fa-star star-off'></i></span>"
-                            append_node +="<span><i class='fa fa-star star-off'></i></span>"
-                            append_node +="<span><i class='fa fa-star star-off'></i></span>"
-                            append_node +="<span><i class='fa fa-star star-off'></i></span>"
-                          }
-                          if(ratingReview.statusRating >= 1.0 && ratingReview.statusRating < 2.0){
-                            append_node +="<span><i class='fa fa-star star'></i></span>"
-                            append_node +="<span><i class='fa fa-star star-off'></i></span>"
-                            append_node +="<span><i class='fa fa-star star-off'></i></span>"
-                            append_node +="<span><i class='fa fa-star star-off'></i></span>"
-                            append_node +="<span><i class='fa fa-star star-off'></i></span>"
-                          }
-                          if(ratingReview.statusRating >= 2.0 && ratingReview.statusRating < 3.0){
-                            append_node +="<span><i class='fa fa-star star'></i></span>"
-                            append_node +="<span><i class='fa fa-star star'></i></span>"
-                            append_node +="<span><i class='fa fa-star star-off'></i></span>"
-                            append_node +="<span><i class='fa fa-star star-off'></i></span>"
-                            append_node +="<span><i class='fa fa-star star-off'></i></span>"
-                          }
-                          if(ratingReview.statusRating >= 3.0 && ratingReview.statusRating < 4.0){
-                            append_node +="<span><i class='fa fa-star star'></i></span>"
-                            append_node +="<span><i class='fa fa-star star'></i></span>"
-                            append_node +="<span><i class='fa fa-star star'></i></span>"
-                            append_node +="<span><i class='fa fa-star star-off'></i></span>"
-                            append_node +="<span><i class='fa fa-star star-off'></i></span>"
-                          }
-                          if(ratingReview.statusRating >= 4.0 && ratingReview.statusRating < 5.0){
-                            append_node +="<span><i class='fa fa-star star'></i></span>"
-                            append_node +="<span><i class='fa fa-star star'></i></span>"
-                            append_node +="<span><i class='fa fa-star star'></i></span>"
-                            append_node +="<span><i class='fa fa-star star'></i></span>"
-                            append_node +="<span><i class='fa fa-star star-off'></i></span>"
-                          }
-                          if(ratingReview.statusRating == 5.0){
-                            append_node +="<span><i class='fa fa-star star'></i></span>"
-                            append_node +="<span><i class='fa fa-star star'></i></span>"
-                            append_node +="<span><i class='fa fa-star star'></i></span>"
-                            append_node +="<span><i class='fa fa-star star'></i></span>"
-                            append_node +="<span><i class='fa fa-star star'></i></span>"
-                          }
-                          
-                        append_node += "<a class='open-tab section-scroll'>&nbsp;("+ratingReview.statusRating+")</a>"
-                        append_node += "</div>"
-                        append_node += "<div class='comment-body'>"
-                        append_node += "<p>"+ratingReview.ratingReviewContent+"</p>"
-                        append_node += "</div>"
-
-                        if(ratingReview.comment != null && ratingReview.comment != ''){
-                          append_node += "<div class='row'>"
-                          append_node += "<div class='col-sm-1'></div>"
-                          append_node += "<div class='comment-author font-alt'>re : <span style='font-size: large;'>${camp.user.campName}</span>"
-                          append_node += "</div>"
-                          append_node += "<div class='row'>"
-                          append_node += "<div class='col-sm-1'></div>"
-                          append_node += "<div class='comment-body'>"
-                          append_node += "<p>&nbsp;&nbsp;"+ratingReview.comment+"</p>"
-                          append_node += "</div>"
-                          append_node += "</div>"
-                        }
-   
-                        append_node += "</div>";
-                        append_node += "</div>";
-                        append_node += "</div>";
-                        append_node += "<hr>";
-                       
-                      });
-                      $('#get_review').append(append_node);
+                    success : function(result) {
+                      $("#get_review").html(result);
                     }
-                   
                 });
         }
         
       $( function() {
+
+        // $(  "#rating_review"  ).on("click", function() {  
+        //     alert(11111);
+        //     var Page = 1;
+
+        //     $.ajax( 
+        //           {
+        //             url : "/campGeneral/json/listReviews/"+Page+"/"+campNo,
+        //             method : "GET" ,
+        //             dataType : "json" ,
+        //             traditional : true,
+        //             headers : {
+        //               "Accept" : "application/json",
+        //               "Content-Type" : "application/json"
+        //             }
+        //         });
+
+        // });
+
         $(  "#reservation"  ).on("click", function() {    
            var mainSiteNo = 0;
            $("#hidden").attr("method","POST").attr("action","/campGeneral/addReservation?mainSiteNo="+mainSiteNo).submit();
         }); 
+
+        $(  "#reservation"  ).on("click", function() {    
+           var mainSiteNo = 0;
+           $("#hidden").attr("method","POST").attr("action","/campGeneral/addReservation?mainSiteNo="+mainSiteNo).submit();
+        }); 
+        
       });
 
     </script>

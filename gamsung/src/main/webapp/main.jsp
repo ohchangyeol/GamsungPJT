@@ -69,10 +69,7 @@ pageEncoding="UTF-8"%>
 	<jsp:include page="/view/user/findIdModal.jsp"/>
 	
 	<!-- page-loader -->
-      <div class="page-loader">
-        <div class="loader">Loading...</div>
-      </div>
-      
+            
       <!-- header -->
       <jsp:include page="/view/common/header.jsp"/>
       <!-- header End -->

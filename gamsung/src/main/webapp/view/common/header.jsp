@@ -200,18 +200,6 @@ pageEncoding="UTF-8"%>
             <li><a href="typography.html"><i class="fa fa-font"></i> Typography</a></li>
           </ul>
         </li>
- 
-
-        <li class="dropdown"><a class="dropdown-toggle" href="documentation.html" data-toggle="dropdown">Documentation</a>
-          <ul class="dropdown-menu">
-            <li><a href="documentation.html#contact">Contact Form</a></li>
-            <li><a href="documentation.html#reservation">Reservation Form</a></li>
-            <li><a href="documentation.html#mailchimp">Mailchimp</a></li>
-            <li><a href="documentation.html#gmap">Google Map</a></li>
-            <li><a href="documentation.html#plugin">Plugins</a></li>
-            <li><a href="documentation.html#changelog">Changelog</a></li>
-          </ul>
-        </li>
 
         <li><a href="/view/common/myPage.jsp">Mypage</a>
 
