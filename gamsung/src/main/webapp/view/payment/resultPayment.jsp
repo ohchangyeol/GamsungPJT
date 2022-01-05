@@ -282,18 +282,20 @@
 	<div id="payformContainer" class="container">
 		<div class="row">
 			<div class="page-header">
-				<h4 class="text-info">구매 내역</h4>
+				<h4 class="text-info">결제 내역</h4>
 			</div>					
 		</div>
 		
 		<form id="payResultForm">
 			<div class="row">
 				<label class="col-xs-2">* 구매상품명</label>
-				<div class="col-md-3 form-group">
+				<div class="col-md-10 form-group">
 					${payment.paymentProduct}
 				</div>
-				<label class="col-xs-2 col-xs-offset-1">* 상품참조번호</label>
-				<div class="col-md-4 form-group">
+			<div class="row">
+			</div>	
+				<label class="col-xs-2">* 상품참조번호</label>
+				<div class="col-md-10 form-group">
 					${payment.paymentReferenceNum}
 				</div>
 			</div>								
@@ -310,34 +312,29 @@
 			<div class="row">
 				<label class="col-xs-2">* 결제 금액</label>
 				<div class="col-md-3 form-group">
-					${payment.paymentPriceTotal}
+					${payment.paymentProductPriceTotal}
 				</div>							
 				<label class="col-xs-2 col-xs-offset-1">* 결제방법</label>
+				<div class="col-md-3 form-group">					
+					<c:if test="${payment.paymentMethodSecond eq 'point'}">
+							포인트/ 
+					</c:if>
 					<c:if test="${payment.paymentMethod eq 'card'}">
-						<div class="col-md-3 form-group">
 							신용카드/간편결제
-						</div>
 					</c:if>
 					<c:if test="${payment.paymentMethod eq 'samsung'}">
-						<div class="col-md-3 form-group">
 							삼성페이
-						</div>
 					</c:if>					
 					<c:if test="${payment.paymentMethod eq 'trans'}">
-						<div class="col-md-3 form-group">
 							실시간 계좌이체
-						</div>
 					</c:if>					
 					<c:if test="${payment.paymentMethod eq 'vbank'}">
-						<div class="col-md-3 form-group">
 							가상 계좌
-						</div>
 					</c:if>					
 					<c:if test="${payment.paymentMethod eq 'phone'}">
-						<div class="col-md-3 form-group">
 							휴대폰 소액결제
-						</div>
-					</c:if>				
+					</c:if>	
+				</div>			
 			</div>					
 		</form>	
 	</div>
