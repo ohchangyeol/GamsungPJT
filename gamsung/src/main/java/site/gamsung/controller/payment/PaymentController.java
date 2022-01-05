@@ -58,7 +58,7 @@ public class PaymentController {
 		/////////////////////////////////////////////////////////////////////// Session 완료시 삭제
 		User tempSessionUser = new User();		
 		
-		tempSessionUser.setId("businessuser3@gamsung.com"); // TS -3 저장
+		//tempSessionUser.setId("businessuser3@gamsung.com"); // TS -3 저장
 		//tempSessionUser.setId("businessuser6@gamsung.com"); // TS -2 임시저장
 		//tempSessionUser.setId("businessuser9@gamsung.com"); // TS -1 발급 완료
 		//tempSessionUser.setId("businessuser11@gamsung.com");  // TS -0 발급 미완료
