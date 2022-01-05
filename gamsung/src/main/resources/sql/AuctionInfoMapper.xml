@@ -37,7 +37,9 @@
 	
 	<resultMap id="info" type="auctionInfo">
 		<result property="bidNo" 					column="bid_no"/>
+		<result property="bidNo" 					column="bid_concern_no"/>
 		<result property="auctionProductNo" 		column="product_no"/>
+		<result property="info" 					column="product_name"/>
 		<result property="user.id" 					column="user_id"/>
 		<result property="user.id" 					column="bidder_id"/>
 		<result property="bidderCount" 				column="bidder_count"/>
@@ -84,10 +86,19 @@
 	</delete>
 	
 	<select id="listBidConcern" parameterType="map" resultMap="info">
-		SELECT bid_concern_no, user_id, product_no, concern_reg_date
-		FROM BID_CONCERN
-		WHERE user_id = #{user.id}
-		LIMIT #{search.pageSize} OFFSET #{search.offset};
+		SELECT bid_concern_no, user_id, bc.product_no AS product_no, ap.product_name AS product_name, concern_reg_date
+		FROM BID_CONCERN AS bc, AUCTION_PRODUCT AS ap
+		WHERE user_id = #{user.id} AND bc.product_no = ap.product_no
+		<if test="search != null">
+			LIMIT #{search.pageSize} OFFSET #{search.offset};		
+		</if>
+	</select>
+	
+	<select id="countBidConcern" parameterType="user" resultType="int">
+		SELECT COUNT(bc.bid_concern_no)
+		FROM(	SELECT bid_concern_no, user_id, product_no, concern_reg_date
+				FROM BID_CONCERN
+				WHERE user_id = #{id}) AS bc
 	</select>
 	
 	<select id="listAuctionProductByRole" parameterType="map" resultMap="auction">
@@ -110,13 +121,17 @@
 	</select>
 	
 	<select id="AuctionHistory" parameterType="map" resultMap="info">
-		SELECT bid_no, product_no, bidder_id, bid_price, bid_date_time, auction_status
-		FROM AUCTION_HISTORY
-		WHERE bidder_id = #{auctionInfo.user.id}
-		<if test="auctionInfo.auctionProductNo != null">
-			AND product_no = #{auctionInfo.auctionProductNo}
-		</if>
+		SELECT bid_no, ap.product_no AS product_no, ap.product_name AS product_name, bidder_id, bid_price, bid_date_time, ap.auction_status AS auction_status
+		FROM AUCTION_HISTORY AS ah, AUCTION_PRODUCT AS ap
+		WHERE bidder_id = #{user.id} AND ah.product_no = ap.product_no
 		LIMIT #{search.pageSize} OFFSET #{search.offset};
+	</select>
+	
+	<select id="countAuctionHistory" parameterType="user" resultType="int">
+		SELECT COUNT(ah.bid_no)
+		FROM(	SELECT bid_no, ap.product_no AS product_no, ap.product_name AS product_name, bidder_id, bid_price, bid_date_time, ap.auction_status AS auction_status
+				FROM AUCTION_HISTORY AS ah, AUCTION_PRODUCT AS ap
+				WHERE bidder_id = #{id} AND ah.product_no = ap.product_no) AS ah
 	</select>
 	
 	<select id="auctionStatusTotalCount" parameterType="user" resultMap = "info">

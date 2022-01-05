@@ -427,7 +427,6 @@
 		</div>
 		<form>
 			<input type="hidden" name="auctionProductNo" value="${auctionProduct.auctionProductNo}">
-			<input type="hidden" name="user.id" value="${registrantInfo.user.id}">
 		</form>
 	</main>
 	
@@ -500,7 +499,18 @@
 		});	
 		//수정 버튼 클릭시 발생 이벤트
 		$('#updateBtn').on('click',function(){
-			$('form').attr('method','get').attr('action','/auction/updateAuctionProduct').submit();
+			
+			if($('#currentPrice').val().length != 0){
+				alert('입찰자가 있어 수정 불가능 합니다.');
+				return;
+			}
+			
+			if(${!empty auctionProduct.auctionProductSubDetail}){
+				alert('크롤링 상품은 수정 불가능 합니다.');
+				return;
+			}
+			
+			$('form').attr('method','GET').attr('action','/auction/updateAuctionProduct').submit();
 		});
 		
 		//낙찰 취소 클릭시 발생 이벤트
@@ -537,7 +547,7 @@
 			});
 		});
 		
-		//삭제 버튼 클릭시 발생 이벤트
+		//중도 철회 버튼 클릭시 발생 이벤트
 		$('#deleteBtn').on('click',function(){
 			$.ajax({
 				url : "/auction/rest/updateAuctionStatus/"+auctionProductNo+"/WITHDRAWAL",
@@ -549,9 +559,12 @@
 				dataType : "json",
 				success : function(JSONData, status) {
 					alert(JSONData.info);
+					if(JSONData.info == '중도 철회 불가합니다.'){
+						return;
+					}
 					deleteProduct();
 				}
-			});	
+			});
 		});
 		
 		//입찰 버튼 클릭시 발생 이벤트
@@ -607,6 +620,7 @@
 					},
 					dataType : "json",
 					success : function(JSONData, status) {
+						console.log(JSONData);
 						var stringHtml = '';
 						var addReviewCount = 0;
 						for (var i = 0; i < JSONData.length; i++) {
@@ -628,14 +642,18 @@
 		                       			+ratingMake(JSONData[i].avgRating)
 		                       			+JSONData[i].avgRating+'점'
 		                       			+nameCheck(JSONData[i].user.id,'${sessionScope.user.id}',JSONData[i].ratingReviewNo)
-		                       			+'<c:if test="${!empty ratingReview.commentRegDate && registrantInfo.user.id eq sessionScope.user.id}">'
-		                       			+'<input type="hidden" value="'+JSONData[i].ratingReviewNo+'"/>'
-		                       			+'<button class="btn btn-d btn-circle btn-xs replyBtn" type="button">답글</button>'
-		                       			+'</c:if>'
-		                       			+'<div></div><hr>'
-		                       			+'<div class="comment-author font-alt"><span class="icon-edit" aria-hidden="true">&nbsp;'+JSONData[i].auctionInfo.user.id+'</span></div>'
-		                       			+'<div>'+JSONData[i].comment+'</div>'
-		                       			+'</div></div></div>'
+		                       			if(JSONData[i].commentRegDate == null){
+		                       				str += '<c:if test="${registrantInfo.user.id eq sessionScope.user.id}">'
+			                       				+'<input type="hidden" value="'+JSONData[i].ratingReviewNo+'"/>'
+				                       			+'<button class="btn btn-d btn-circle btn-xs replyBtn" type="button">답글</button>'
+				                       			+'</c:if>'
+		                       			}
+		                       			str += '<div></div><hr>'
+		                       			if(JSONData[i].commentRegDate != null){
+			                       			str +='<div class="comment-author font-alt"><span class="icon-edit" aria-hidden="true">&nbsp;'+JSONData[i].auctionInfo.user.id+'</span></div>'
+			                       				+'<div>'+JSONData[i].comment+'</div>'	
+		                       			}
+		                       			str += '</div></div></div>'
 		                       	stringHtml += str
 		                       	addReviewCount=JSONData[i].auctionInfo.addReviewCount
 							}		                       			
@@ -651,8 +669,8 @@
 		$(document).on('click','.prodName',function(){
 			window.location = "/auction/getAuctionProduct?auctionProductNo="+$(this).next().val();
 		});
-		
-		$(document).on('click','.nav',function(){
+	
+		$(document).on('click','.pagenav',function(){
 			var currentPage = $(this).text()
 			$('#ratingReview').empty();
 			$.ajax({
@@ -673,31 +691,34 @@
 					for (var i = 0; i < JSONData.length; i++) {
 						if(JSONData[i].reviewDeleteFlag === "N"){	
 							var str	='<div class="comment clearfix">'
-									+'<div class="comment-avatar"><img src="'
-									+JSONData[i].img1
-									+'" alt="avatar"/></div>'
-	                     			+'<div class="comment-content clearfix">'
-	                       			+'<div class="comment-author font-alt"><a>'
-	                       			+JSONData[i].user.id
-	                       			+'</a></div>'
-	                       			+'<div><span class="prodName">상품명 : '+JSONData[i].auctionInfo.info.substring(0,30)+'...'+'</span></div>'
-	                       			+'<input type="hidden" value="'+JSONData[i].auctionInfo.auctionProductNo+'"/>'
-	                       			+'<div class="comment-body"><p>'
-	                       			+JSONData[i].ratingReviewContent
-	                       			+'</p></div><div class="comment-meta font-alt">'
-	                       			+getDate(JSONData[i].reviewRegDate)
-	                       			+ratingMake(JSONData[i].avgRating)
-	                       			+JSONData[i].avgRating+'점'
-	                       			+nameCheck(JSONData[i].user.id,'${sessionScope.user.id}',JSONData[i].ratingReviewNo)
-	                       			+'<c:if test="${!empty ratingReview.commentRegDate && registrantInfo.user.id eq sessionScope.user.id}">'
-	                       			+'<input type="hidden" value="'+JSONData[i].ratingReviewNo+'"/>'
-	                       			+'<button class="btn btn-d btn-circle btn-xs replyBtn" type="button">답글</button>'
-	                       			+'</c:if>'
-	                       			+'<div></div>'
-	                       			+'<div></div><hr>'
-	                       			+'<div class="comment-author font-alt"><span class="icon-edit" aria-hidden="true">&nbsp;'+JSONData[i].auctionInfo.user.id+'</span></div>'
-	                       			+'<div>'+JSONData[i].comment+'</div>'
-	                       			+'</div></div></div>'
+								+'<div class="comment-avatar"><img src="'
+								+JSONData[i].img1
+								+'" alt="avatar"/></div>'
+                     			+'<div class="comment-content clearfix">'
+                       			+'<div class="comment-author font-alt"><a>'
+                       			+JSONData[i].user.id
+                       			+'</a></div>'
+                       			+'<div><span class="prodName">상품명 : '+JSONData[i].auctionInfo.info.substring(0,30)+'...'+'</span></div>'
+                       			+'<input type="hidden" value="'+JSONData[i].auctionInfo.auctionProductNo+'"/>'
+                       			+'<div class="comment-body"><p>'
+                       			+JSONData[i].ratingReviewContent
+                       			+'</p></div><div class="comment-meta font-alt">'
+                       			+getDate(JSONData[i].reviewRegDate)
+                       			+ratingMake(JSONData[i].avgRating)
+                       			+JSONData[i].avgRating+'점'
+                       			+nameCheck(JSONData[i].user.id,'${sessionScope.user.id}',JSONData[i].ratingReviewNo)
+                       			if(JSONData[i].commentRegDate == null){
+                       				str += '<c:if test="${registrantInfo.user.id eq sessionScope.user.id}">'
+	                       				+'<input type="hidden" value="'+JSONData[i].ratingReviewNo+'"/>'
+		                       			+'<button class="btn btn-d btn-circle btn-xs replyBtn" type="button">답글</button>'
+		                       			+'</c:if>'
+                       			}
+                       			str += '<div></div><hr>'
+                       			if(JSONData[i].commentRegDate != null){
+	                       			str +='<div class="comment-author font-alt"><span class="icon-edit" aria-hidden="true">&nbsp;'+JSONData[i].auctionInfo.user.id+'</span></div>'
+	                       				+'<div>'+JSONData[i].comment+'</div>'	
+                       			}
+                       			str += '</div></div></div>'
 						
 	                    	stringHtml += str
 	                    	addReviewCount=JSONData[i].auctionInfo.addReviewCount
@@ -711,11 +732,13 @@
 			});
 		});
 		
+		/* 답글 버튼 생성 */
 		$(document).on('click','.replyBtn',function(){
 			$(this).next().html('<textarea name="comment" cols="100" rows="3"></textarea><div><button class="btn btn-d btn-circle btn-xs commentBtn" type="button">작성완료</button></div>');
 			$(this).remove();
 		});
 		
+		/* 답글 전송 버튼 이벤트 */
 		$(document).on('click','.commentBtn',function(){
 			var ratingReviewNo = $(this).parent().parent().prev().val()
 			var comment = $(this).parent().prev().val()
@@ -740,6 +763,7 @@
 			
 		});
 		
+		//리뷰 삭제 버튼 이벤트
 		$(document).on('click','.deleteReviewBtn', function(){
 			var ratingReviewNo = $(this).next().val();
 			$.ajax({
@@ -794,7 +818,7 @@
 	function navigationMake(addReviewCount){
 		var navigation = ""
 		for(var j=0; j<Math.ceil(addReviewCount/5); j++){
-			navigation += '<a class="active nav" >'+(j+1)+'</a>'
+			navigation += '<a class="active nav pagenav" >'+(j+1)+'</a>'
 		}
 		return navigation;
 	}
@@ -925,7 +949,7 @@
 		     $(".hours").html(hour);
 		     $(".minutes").html(min);
 		     $(".seconds").html(sec);
-		     
+		    
 	   }else if(nt>et){
 		   	$('#bidBtn').attr('disabled',true);
 	   		$("#bidBtn").html("경매 마감");

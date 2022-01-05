@@ -51,9 +51,16 @@ public class AuctionInfoServiceImpl implements AuctionInfoService{
 	}
 
 	@Override
-	public List<AuctionInfo> listBidConcern(Map<String, Object> map) {
+	public Map<String,Object> listBidConcern(Map<String, Object> map) {
 		// TODO Auto-generated method stub
-		return auctionInfoDAO.listBidConcern(map);
+		
+		List<AuctionInfo> list = auctionInfoDAO.listBidConcern(map);
+		int totalCount = auctionInfoDAO.countBidConcern((User)map.get("user"));
+		
+		map.put("totalCount", totalCount);
+		map.put("list", list);
+		
+		return map;
 	}
 
 	@Override
@@ -69,9 +76,15 @@ public class AuctionInfoServiceImpl implements AuctionInfoService{
 	}
 
 	@Override
-	public List<AuctionInfo> auctionHistory(Map<String, Object> map) {
+	public Map<String,Object> auctionHistory(Map<String, Object> map) {
 		// TODO Auto-generated method stub
-		return auctionInfoDAO.auctionHistory(map);
+		
+		int totalCount = auctionInfoDAO.countAuctionHistory((User)map.get("user"));
+		List<AuctionInfo> list = auctionInfoDAO.auctionHistory(map);
+		
+		map.put("totalCount", totalCount);
+		map.put("list", list);
+		return map;
 	}
 
 	@Override

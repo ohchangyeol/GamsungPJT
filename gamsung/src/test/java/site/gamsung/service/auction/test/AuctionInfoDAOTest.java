@@ -206,7 +206,7 @@ public class AuctionInfoDAOTest {
 	}
 	
 	// 탈퇴회원 경매 상태 test
-	//@Test
+	@Test
 	public void testIsSecessionUserAuctionCondition() {
 		
 		System.out.println(auctionInfoDAO.isSecessionUserAuctionCondition("user1@gamsung.com")); 

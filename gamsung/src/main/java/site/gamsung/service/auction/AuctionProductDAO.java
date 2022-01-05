@@ -14,6 +14,8 @@ public interface AuctionProductDAO {
 	
 	public List<AuctionProduct> listAuctionProduct(Search search);
 	
+	public List<String> autoComplete(String searchKeyword);
+	
 	public void tempSaveAuctionProduct(AuctionProduct auctionProduct);
 	
 	public AuctionProduct getTempSaveAuctionProduct(String registrantId);

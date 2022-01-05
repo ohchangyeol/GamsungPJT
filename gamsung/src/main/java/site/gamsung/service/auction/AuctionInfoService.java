@@ -10,11 +10,11 @@ public interface AuctionInfoService {
 	
 	public String addBidConcern(AuctionInfo auctionBidInfo);
 	
-	public List<AuctionInfo> listBidConcern(Map<String, Object> map);
+	public Map<String,Object> listBidConcern(Map<String, Object> map);
 	
 	public Map<String,Object> listAuctionProductByRole(Map<String, Object> map);
 	
-	public List<AuctionInfo> auctionHistory(Map<String, Object> map);
+	public Map<String,Object> auctionHistory(Map<String, Object> map);
 	
 	public AuctionInfo getAuctionTotalStatistics(User user);
 	

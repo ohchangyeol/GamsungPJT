@@ -1,5 +1,6 @@
 package site.gamsung.service.auction.test;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -39,17 +40,36 @@ public class AuctionProductServiceTest {
 	private AuctionProductService auctionProductService;
 	
 	//경매 상품 출력 service test
-	@Test
+	//@Test
 	public void testListAuctionProduct() {
 		
 		Search search = new Search();
+		search.setPageSize(10);
+		search.setCurrentPage(1);
 		
-		List<AuctionProduct> list = auctionProductService.listAuctionProduct(search);
+		User user = new User();
+		user.setId("gamsung@gmail.com");
+				
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("user", user);
+		map.put("search", search);
 		
-		for(AuctionProduct auctionProduct : list) {
+		map = auctionProductService.listAuctionProduct(map);
+		List<AuctionProduct> list = (List<AuctionProduct>)map.get("productList");
+		List<AuctionInfo> concern = (List<AuctionInfo>)map.get("concernList");
+		
+		System.out.println(list.size());
+		System.out.println(concern.size());
+		
+		for(AuctionProduct auctionProduct : list ) {
 			System.out.println("================================================");
 			System.out.println(auctionProduct);
-		}	
+		}
+		
+		for(AuctionInfo auctionInfo : concern ) {
+			System.out.println("================================================");
+			System.out.println(auctionInfo);
+		}
 	}
 	
 	//상품 상세정보 조회 및 조회수 증가 service test
@@ -194,6 +214,15 @@ public class AuctionProductServiceTest {
 		System.out.println(auctionProductService.deleteAuctionProduct("PROD00001","CANCEL").getInfo()); 
 		System.out.println(auctionProductService.deleteAuctionProduct("PROD00001","CONFIRM").getInfo()); 
 		System.out.println(auctionProductService.deleteAuctionProduct("PROD00001","WITHDRAWAL").getInfo()); 
+	}
+	
+	@Test
+	public void testAutoComplete() {
+		List<String> list =auctionProductService.autoComplete("슈");
+		
+		for(String str : list) {
+			System.out.println(str);
+		}
 	}
 }
 	

@@ -173,7 +173,7 @@ pageEncoding="UTF-8"%>
                 <div class="owl-item">
                   <div class="col-sm-12">
                     <div class="ex-product">
-                      <a><img src="${auctionProduct.productImg1}"/></a>
+                      <a><img class="shop-item-img" src="${auctionProduct.productImg1}"/></a>
                       <input type="hidden" value="${auctionProduct.auctionProductNo}">
                       <h4 class="shop-item-title"><a>${auctionProduct.auctionProductName}</a></h4>
                       <h5><fmt:formatNumber type="number" maxFractionDigits="3" value="${auctionProduct.hopefulBidPrice}"/>원</h5>
@@ -232,9 +232,17 @@ pageEncoding="UTF-8"%>
     <script src="resources/js/main.js"></script>
     
     <script type="text/javascript">
+    $(function(){
+    	
+    	$('.shop-item-img').on('click',function(){
+    		window.location = '/auction/getAuctionProduct?auctionProductNo='+$(this).parent().next().val();
+    	});
+    	
     	$('.shop-item-title').on('click',function(){
     		window.location = '/auction/getAuctionProduct?auctionProductNo='+$(this).prev().val();
-    	});
+    	});    	
+    	
+    })
     </script>
     
   </body>

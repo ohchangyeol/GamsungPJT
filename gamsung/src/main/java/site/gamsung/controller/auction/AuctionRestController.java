@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.collections4.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,6 +13,7 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -119,9 +121,9 @@ public class AuctionRestController {
 	//리뷰 리스트
 	@PostMapping(value = "listAuctionRatingReview/{currentPage}")
 	public List<RatingReview> listAuctionRatingReview(@RequestBody AuctionInfo auctionInfo, @PathVariable int currentPage){
-		
+	
 		Map<String, Object> map = auctionProductService.getAuctionProduct(auctionInfo);
-		
+	
 		Search search = new Search();
 		search.setCurrentPage(currentPage);
 		search.setPageSize(auctionReviewPageSize);
@@ -160,6 +162,47 @@ public class AuctionRestController {
 		auctionInfo.setInfo(info);
 		
 		return auctionInfo;
+	}
+	
+	//응찰 관심 등록 해제
+	@RequestMapping(value = "addBidConcern")
+	public AuctionInfo addBidConcern(@RequestBody AuctionInfo auctionInfo, HttpSession httpSession) {
+		
+		User user = (User)httpSession.getAttribute("user");
+		auctionInfo.setUser(user);
+		
+		String info = auctionInfoService.addBidConcern(auctionInfo);
+		
+		auctionInfo.setInfo(info);
+		
+		return auctionInfo;
+	}
+	
+	@RequestMapping(value = "autoComplete")
+	public List<String> autoComplete(@RequestBody Search search){
+		System.out.println(search.getSearchKeyword());
+		List<String> list = auctionProductService.autoComplete(search.getSearchKeyword());
+		return list;
+	}
+	
+	//검색 조건에 대한 리스트 출력
+	@RequestMapping(value = "listAuctionProduct")
+	public Map<String,Object> listAuctionProduct(@RequestBody Search search, Model model, HttpSession httpSession) {
+		
+		User user = (User)httpSession.getAttribute("user");
+		
+		search.setPageSize(auctionPageSize);
+		search.setCurrentPage(1);
+		
+		Map<String, Object> map = new HashedMap<String, Object>();
+		map.put("search", search);
+		map.put("user", user);
+		
+		//조건에 맞는 상위 8개의 상품 목록을 리스트로 받는다
+		map = auctionProductService.listAuctionProduct(map);
+		map.put("search", search);
+		
+		return map;
 	}
 	
 	

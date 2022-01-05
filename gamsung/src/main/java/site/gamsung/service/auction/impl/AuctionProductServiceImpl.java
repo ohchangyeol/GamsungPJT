@@ -3,8 +3,11 @@ package site.gamsung.service.auction.impl;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.collections4.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -113,34 +116,69 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 	}
 
 	@Override
-	public List<AuctionProduct> listAuctionProduct(Search search) {
+	public Map<String,Object> listAuctionProduct(Map<String,Object> map) {
 		// TODO Auto-generated method stub
-		return auctionProductDAO.listAuctionProduct(search);
+		
+		List<AuctionProduct> productList = auctionProductDAO.listAuctionProduct((Search)map.get("search"));
+		List<AuctionInfo> concernList = null;
+		
+		//user가 null이 아닐때만 실행한다.
+		if(map.get("user") != null) {
+			//모든 응찰 관심 목록을 뽑기 위해 search domain을 지운다.
+			map.remove("search");
+			concernList = auctionInfoDao.listBidConcern(map);
+		}
+		
+		map.clear();
+		map.put("productList", productList);
+		map.put("concernList", concernList);
+		return map;
+	}
+	
+	//검색 상품 자동완성
+	@Override
+	public List<String> autoComplete(String searchKeyword) {
+		// TODO Auto-generated method stub
+		List<String> pojoList= auctionProductDAO.autoComplete(searchKeyword);
+		
+		//기존 스트링 배열을 set을 이용하여 중복제거
+		Set<String> set = new HashSet<String>(pojoList);
+		List<String> list = new ArrayList<String>(set);
+		
+		return list;
 	}
 
+	//경매 상품 상세조회
 	@Override
 	public Map<String, Object> getAuctionProduct(AuctionInfo auctionInfo) {
 		// TODO Auto-generated method stub
 
 		Map<String, Object> map = new HashedMap<String, Object>();
 		
+		//조회수를 1증가 시킨다.
+		auctionProductDAO.updateAuctionProductViewCounter(auctionInfo.getAuctionProductNo());
+
 		//상품 정보를 가져왔다.
 		AuctionProduct auctionProduct = auctionProductDAO.getAuctionProduct(auctionInfo.getAuctionProductNo());
-		
+
 		//경매 조회자의 랭킹을 가져온다.
 		List<AuctionInfo> list = auctionInfoDao.getBidderRanking(auctionInfo);
-		
+
+		//조회자 경매의 입찰 내역이 있을 경우
 		if(list != null && list.size() != 0) {
 			auctionInfo = list.get(0);			
 			map.put("auctionInfo", auctionInfo);
 		}
-		
+
 		// 경매 등록자의 아이디를 가져와 경매 등급과 리뷰에 대한 정보를 가져온다.
 		String registrantId = auctionProduct.getRegistrantId();
 		
+		// 경매 등록자의 경매 등급을 조회한다.
 		int registrantGrade = auctionInfoDao.getUserAuctionGradeInfo(registrantId);
-		RatingReview ratingReview = auctionReviewDAO.getRegistrantAvgRating(registrantId);
 		
+		// 경매 등록자에 대한 모든 리뷰의 평균 평점을 반환 받는다.
+		RatingReview ratingReview = auctionReviewDAO.getRegistrantAvgRating(registrantId);
+
 		AuctionInfo registrantInfo = new AuctionInfo();
 		
 		User user =  new User();

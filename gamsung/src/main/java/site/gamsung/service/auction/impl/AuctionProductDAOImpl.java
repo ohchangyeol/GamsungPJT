@@ -46,6 +46,12 @@ public class AuctionProductDAOImpl implements AuctionProductDAO{
 		return sqlSession.selectList("AuctionProductMapper.listAuctionProduct",search);
 	}
 
+	@Override
+	public List<String> autoComplete(String searchKeyword) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("AuctionProductMapper.autoComplete",searchKeyword);
+	}
+
 	//임시 저장 상품 호출
 	@Override
 	public AuctionProduct getTempSaveAuctionProduct(String registrantId) {

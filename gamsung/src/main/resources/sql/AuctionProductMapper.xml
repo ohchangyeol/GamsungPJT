@@ -30,6 +30,7 @@
 		<result property="productImg4" column="product_img4"/>
 		<result property="productImg5" column="product_img5"/>
 		<result property="productViewCount" column="product_view_count"/>
+		<result property="bidderCount" column="bidder_count"/>
 		<result property="productRegDate" column="product_reg_date"/>
 		<result property="productRegDate" column="review_reg_date"/>
 		<result property="isConfirm" column="registrant_confirm_flag"/>
@@ -66,32 +67,31 @@
 	</select> 
 	
 	<select id="listAuctionProduct" parameterType="search" resultMap="auction">
-		SELECT product_no, product_name, product_detail, product_sub_detail ,product_view_count, start_bid_price, hopeful_bid_price, auction_start_time, auction_end_time,
-               timediff(auction_end_time , NOW()) AS remain_time, hashtag1, hashtag2, hashtag3, product_img1
-			FROM AUCTION_PRODUCT
+		SELECT 	ct.ctmp AS bidder_count, ap.product_no, product_name, product_detail, product_sub_detail ,product_view_count, start_bid_price, hopeful_bid_price, auction_start_time, auction_end_time,
+       	product_view_count,timediff(auction_end_time , NOW()) AS remain_time, hashtag1, hashtag2, hashtag3, product_img1
+		FROM AUCTION_PRODUCT AS ap
+		LEFT OUTER JOIN(	SELECT mp.product_no as product_no ,count(mp.maxprice) ctmp
+							FROM(	SELECT bidder_id, product_no, MAX(bid_price) AS maxPrice
+									FROM AUCTION_HISTORY ah
+									GROUP BY bidder_id, product_no)mp
+							GROUP BY mp.product_no) ct on ap.product_no = ct.product_no
 			WHERE temp_save_flag = 'N' AND auction_status = 'START'AND delete_flag = 'N' AND NOW() BETWEEN auction_start_time AND auction_end_time
-			<if test='role != null and role.equals("GENERAL")'>
-				
-			</if>
 			<if test="searchKeyword != null">
 				AND product_name LIKE CONCAT_WS(#{searchKeyword},'%','%')
 			</if>
 			<trim prefix="ORDER BY">
 				<if test="sortCondition != null ">
-					<if test='sortCondition.equals("희망 낙찰가 높은 순")'>
+					<if test='sortCondition.equals("높은 가격 순")'>
 						hopeful_bid_price DESC
 					</if>
-					<if test='sortCondition.equals("희망 낙찰가 낮은 순")'>
+					<if test='sortCondition.equals("낮은 가격 순")'>
 						hopeful_bid_price ASC
 					</if>
 					<if test='sortCondition.equals("조회수 높은 순")'>
 						product_view_count DESC
 					</if>
-					<if test='sortCondition.equals("경매 입박 순")'>
-						auction_end_time ASC
-					</if>
-					<if test='sortCondition.equals("조회수 순")'>
-						product_view_count DESC
+					<if test='sortCondition.equals("조회수 낮은 순")'>
+						product_view_count ASC
 					</if> 
 				</if>
 			</trim>
@@ -99,6 +99,13 @@
 				LIMIT #{pageSize} OFFSET #{offset}
 			</if>
 	</select>
+	
+	<select id="autoComplete" parameterType="String" resultType="String">
+		SELECT product_name
+		FROM AUCTION_PRODUCT
+		WHERE product_name LIKE CONCAT_WS(#{value},'%','%')
+	</select>				
+
 	
 	<select id="getTempSaveAuctionProduct" parameterType="String" resultMap="auction">
 		SELECT product_no, product_name, product_detail, product_sub_detail, start_bid_price, hopeful_bid_price, bid_unit, auction_start_time, auction_end_time,

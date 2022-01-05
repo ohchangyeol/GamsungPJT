@@ -1,6 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,40 +11,34 @@
 	
 	<title>상품 수정</title>
 	
-	<link rel="apple-touch-icon" sizes="57x57" href="../../resources/images/favicons/apple-icon-57x57.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="../../resources/images/favicons/apple-icon-60x60.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="../../resources/images/favicons/apple-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="../../resources/images/favicons/apple-icon-76x76.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="../../resources/images/favicons/apple-icon-114x114.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="../../resources/images/favicons/apple-icon-120x120.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="../../resources/images/favicons/apple-icon-144x144.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="../../resources/images/favicons/apple-icon-152x152.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="../../resources/images/favicons/apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="../../resources/images/favicons/android-icon-192x192.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="../../resources/images/favicons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="../../resources/images/favicons/favicon-96x96.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="../../resources/images/favicons/favicon-16x16.png">
-    <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="msapplication-TileImage" content="../../resources/images/favicons/ms-icon-144x144.png">
-    <meta name="theme-color" content="#ffffff">
-	
-    <link href="../../resources/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Template specific stylesheets-->
-    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Volkhov:400i" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
-    <link href="../../resources/lib/animate.css/animate.css" rel="stylesheet">
-    <link href="../../resources/lib/components-font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <link href="../../resources/lib/et-line-font/et-line-font.css" rel="stylesheet">
-    <link href="../../resources/lib/flexslider/flexslider.css" rel="stylesheet">
-    <link href="../../resources/lib/owl.carousel/dist/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="../../resources/lib/owl.carousel/dist/assets/owl.theme.default.min.css" rel="stylesheet">
-    <link href="../../resources/lib/magnific-popup/magnific-popup.css" rel="stylesheet">
-    <link href="../../resources/lib/simple-text-rotator/simpletextrotator.css" rel="stylesheet">
-    <!-- Main stylesheet and color file-->
-    <link href="../../resources/css/style.css" rel="stylesheet">
-    <link id="color-scheme" href="../../resources/css/colors/default.css" rel="stylesheet">
-    <link rel="stylesheet" href="assets/vendor/pnotify/pnotify.custom.css" /> 
+	<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Shadows+Into+Light" rel="stylesheet" type="text/css">
+
+	 	<link href="../../resources/css/style.css" rel="stylesheet">
+
+		<link rel="stylesheet" href="../../resources/lib/bootstrap/css/bootstrap.css" />
+		<link rel="stylesheet" href="../../resources/lib/font-awesome/css/font-awesome.css" />
+		<link rel="stylesheet" href="../../resources/lib/magnific-popup/magnific-popup.css" />
+		<link rel="stylesheet" href="../../resources/lib/bootstrap-datepicker/css/datepicker3.css" />
+
+		<link rel="stylesheet" href="../../resources/lib/jquery-ui/css/ui-lightness/jquery-ui-1.10.4.custom.css" />
+		<link rel="stylesheet" href="../../resources/lib/select2/select2.css" />
+		<link rel="stylesheet" href="../../resources/lib/bootstrap-multiselect/bootstrap-multiselect.css" />
+		<link rel="stylesheet" href="../../resources/lib/bootstrap-tagsinput/bootstrap-tagsinput.css" />
+		<link rel="stylesheet" href="../../resources/lib/bootstrap-colorpicker/css/bootstrap-colorpicker.css" />
+		<link rel="stylesheet" href="../../resources/lib/bootstrap-timepicker/css/bootstrap-timepicker.css" />
+		<link rel="stylesheet" href="../../resources/lib/dropzone/css/basic.css" />
+		<link rel="stylesheet" href="../../resources/lib/dropzone/css/dropzone.css" />
+		<link rel="stylesheet" href="../../resources/lib/bootstrap-markdown/css/bootstrap-markdown.min.css" />
+		<link rel="stylesheet" href="../../resources/lib/summernote/summernote.css" />
+		<link rel="stylesheet" href="../../resources/lib/summernote/summernote-bs3.css" />
+		<link rel="stylesheet" href="../../resources/lib/codemirror/lib/codemirror.css" />
+		<link rel="stylesheet" href="../../resources/lib/codemirror/theme/monokai.css" />
+
+		<link rel="stylesheet" href="../../resources/css/theme.css" />
+		<link rel="stylesheet" href="../../resources/css/skins/default.css" />
+		<link rel="stylesheet" href="../../resources/css/theme-custom.css">
+		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    	<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
  
  	<style>
  	
@@ -101,18 +96,6 @@
        		<div class="loader">Loading...</div>
      	</div>
   		<jsp:include page="../common/header.jsp"></jsp:include>
-		<div class="main">
-			<section class="module bg-dark-30 about-page-header"
-				data-background="assets/images/about_bg.jpg">
-				<div class="container">
-					<div class="row">
-						<div class="col-sm-6 col-sm-offset-3">
-							<h1 class="module-title font-alt mb-0">Forms</h1>
-						</div>
-					</div>
-				</div>
-			</section>
-		</div>
 		<section class="module">
           <div class="container">
             <div class="row">
@@ -121,37 +104,56 @@
 						<hr class="divider-w mt-10 mb-20">
 						<form class="form" role="form">
 							<div class="form-group">
-								<label for="auctionProductName" class="col-sm-offset-1 col-sm-3 control-label">상품명</label> 
+								<label for="auctionProductName" class="col-sm-3 control-label">상품명</label> 
 								<input id="auctionProductName" name="auctionProductName" class="form-control" type="text" value="${auctionProduct.auctionProductName}" />
 							</div>
 							<div class="form-group">
-								<label for="startBidPrice" class="col-sm-offset-1 col-sm-3 control-label">경매 시작가</label>
+								<label for="startBidPrice" class="col-sm-3 control-label">경매 시작가</label>
 								<input id="startBidPrice" name="startBidPrice" class="form-control" type="text" value="${auctionProduct.startBidPrice}"  />
 							</div>
 							<div class="form-group">
-								<label for="hopefulBidPrice" class="col-sm-offset-1 col-sm-3 control-label">희망 낙찰가</label>
+								<label for="hopefulBidPrice" class="col-sm-3 control-label">희망 낙찰가</label>
 								<input id="hopefulBidPrice" name="hopefulBidPrice" class="form-control" type="text" value="${auctionProduct.hopefulBidPrice}"  />
 							</div>
 							<div class="form-group">
-								<label for="bidUnit" class="col-sm-offset-1 col-sm-3 control-label">입찰 단위</label> 
+								<label for="bidUnit" class="col-sm-3 control-label">입찰 단위</label> 
 								<input id="bidUnit" name="bidUnit" class="form-control" type="text"	value="${auctionProduct.bidUnit}"  />
 							</div>
 							<div class="form-group">
-								<label for="auctionStartTime" class="col-sm-offset-1 col-sm-3 control-label">경매 시작 시간</label>
-								<input id="auctionStartTime" name="auctionStartTime" class="form-control" type="text" value="${auctionProduct.auctionStartTime}"  />
+								<label for="bidUnit" class="col-sm-3 control-label">경매 시작 시간</label> 
+								<div class="input-group">
+									<span class="input-group-addon">
+										<i class="fa fa-calendar"></i>
+									</span>
+									<input id="startDate" type="text" class="form-control" value="${fn:split(auctionProduct.auctionStartTime,' ')[0]}">
+									<span class="input-group-addon">
+										<i class="fa fa-clock-o"></i>
+									</span>
+									<input id="startTime" type="text" class="form-control" value="${fn:split(auctionProduct.auctionStartTime,' ')[1]}">
+								</div>
 							</div>
 							<div class="form-group">
-								<label for="auctionEndTime" class="col-sm-offset-1 col-sm-3 control-label">경매 종료 시간</label>
-								<input id="auctionEndTime" name="auctionEndTime" class="form-control" type="text" value="${auctionProduct.auctionEndTime}"  />
+								<label for="bidUnit" class="col-sm-3 control-label">경매 종료 시간</label> 
+								<div class="input-group">
+									<span class="input-group-addon">
+										<i class="fa fa-calendar"></i>
+									</span>
+									<input id="endDate" type="text" class="form-control" value="${fn:split(auctionProduct.auctionEndTime,' ')[0]}">
+									<span class="input-group-addon">
+										<i class="fa fa-clock-o"></i>
+									</span>
+									<input id="endTime" type="text" class="form-control" value="${fn:split(auctionProduct.auctionEndTime,' ')[1]}">
+								</div>
 							</div>
 							<div class="form-group">
-								<label for="bidableGrade" class="col-sm-offset-1 col-sm-3 control-label">입찰 가능 등급</label>
+								<label for="bidableGrade" class="col-sm-3 control-label">입찰 가능 등급</label>
 								<input id="bidableGrade" name="bidableGrade" class="form-control" type="text" value="${auctionProduct.bidableGrade}"  />
 							</div>
 							<div class="inputWrap">
 								<button type="button" id="fileUpload" class="btn btn-border-d btn-round">파일 업로드</button>
 								 <input type="file" id="inputImgs" name="inputImgs" multiple />
 							</div>
+							<div id="uploadForm">
 							<div>
 								<div class="imgsWrap">
 								<c:if test="${!empty auctionProduct.productImg1}">
@@ -181,8 +183,8 @@
 								</c:if>
 								</div>
 							</div>
-												
-							<textarea id="auctionProductDetail" name="auctionProductDetail" class="form-control" rows="7">${auctionProduct.auctionProductDetail}</textarea>
+							</div>				
+							<textarea id="auctionProductDetail" name="auctionProductDetail" class="form-control" rows="20">${auctionProduct.auctionProductDetail}</textarea>
 							<input id="allhashtag" name="allhashtag" class="form-control" type="text" value="${auctionProduct.hashtag1} ${auctionProduct.hashtag2} ${auctionProduct.hashtag3}" placeholder="해시태그를 #을 포함하여 입력하세요." />
 							<input type="hidden" id="auctionProductNo" name="auctionProductNo" value="${auctionProduct.auctionProductNo}">
 							<input type="hidden" id="inputImg1" name="productImg1" value="">
@@ -193,135 +195,118 @@
 							<input type="hidden" id="hashtag1" name="hashtag1" value="">
 						  	<input type="hidden" id="hashtag2" name="hashtag2" value="">
 							<input type="hidden" id="hashtag3" name="hashtag3" value="">  
+							<input type="hidden" id="auctionStartTime" name="auctionStartTime">
+							<input type="hidden" id="auctionEndTime" name="auctionEndTime">
 		                </form>
-                <div class="col-sm-4 col-sm-offset-2"></div>
-                <div class="col-sm-4 col-sm-offset-2">
-                <div class="row">
-                
-	            <button id="cancel" class="btn btn-border-d btn-circle" type="button">취소</button>
-	            <button id="update" class="btn btn-border-d btn-circle" type="button">수정</button>                
-            	</div>
-             </div>
+                <div class="col-sm-4"></div>
+	                <div class="container">
+					<div class=".col-md-3 .col-md-offset-3">
+		                <div class="row">
+				            <button id="cancel" class="btn btn-border-d btn-circle" type="button">취소</button>
+				            <button id="update" class="btn btn-border-d btn-circle" type="button">수정</button>                
+		            	</div>           
+                	</div>
+             	</div>
            </div>
          </div>
        </div>
      </section>
-	 <div class="module-small bg-dark">
-          <div class="container">
-            <div class="row">
-              <div class="col-sm-3">
-                <div class="widget">
-                  <h5 class="widget-title font-alt">About Titan</h5>
-                  <p>The languages only differ in their grammar, their pronunciation and their most common words.</p>
-                  <p>Phone: +1 234 567 89 10</p>Fax: +1 234 567 89 10
-                  <p>Email:<a href="#">somecompany@example.com</a></p>
-                </div>
-              </div>
-              <div class="col-sm-3">
-                <div class="widget">
-                  <h5 class="widget-title font-alt">Recent Comments</h5>
-                  <ul class="icon-list">
-                    <li>Maria on <a href="#">Designer Desk Essentials</a></li>
-                    <li>John on <a href="#">Realistic Business Card Mockup</a></li>
-                    <li>Andy on <a href="#">Eco bag Mockup</a></li>
-                    <li>Jack on <a href="#">Bottle Mockup</a></li>
-                    <li>Mark on <a href="#">Our trip to the Alps</a></li>
-                  </ul>
-                </div>
-              </div>
-              <div class="col-sm-3">
-                <div class="widget">
-                  <h5 class="widget-title font-alt">Blog Categories</h5>
-                  <ul class="icon-list">
-                    <li><a href="#">Photography - 7</a></li>
-                    <li><a href="#">Web Design - 3</a></li>
-                    <li><a href="#">Illustration - 12</a></li>
-                    <li><a href="#">Marketing - 1</a></li>
-                    <li><a href="#">Wordpress - 16</a></li>
-                  </ul>
-                </div>
-              </div>
-              <div class="col-sm-3">
-                <div class="widget">
-                  <h5 class="widget-title font-alt">Popular Posts</h5>
-                  <ul class="widget-posts">
-                    <li class="clearfix">
-                      <div class="widget-posts-image"><a href="#"><img src="assets/images/rp-1.jpg" alt="Post Thumbnail"/></a></div>
-                      <div class="widget-posts-body">
-                        <div class="widget-posts-title"><a href="#">Designer Desk Essentials</a></div>
-                        <div class="widget-posts-meta">23 january</div>
-                      </div>
-                    </li>
-                    <li class="clearfix">
-                      <div class="widget-posts-image"><a href="#"><img src="assets/images/rp-2.jpg" alt="Post Thumbnail"/></a></div>
-                      <div class="widget-posts-body">
-                        <div class="widget-posts-title"><a href="#">Realistic Business Card Mockup</a></div>
-                        <div class="widget-posts-meta">15 February</div>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <hr class="divider-d">
-        <footer class="footer bg-dark">
-          <div class="container">
-            <div class="row">
-              <div class="col-sm-6">
-                <p class="copyright font-alt">&copy; 2017&nbsp;<a href="index.html">TitaN</a>, All Rights Reserved</p>
-              </div>
-              <div class="col-sm-6">
-                <div class="footer-social-links"><a href="#"><i class="fa fa-facebook"></i></a><a href="#"><i class="fa fa-twitter"></i></a><a href="#"><i class="fa fa-dribbble"></i></a><a href="#"><i class="fa fa-skype"></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </footer>
-      <div class="scroll-up"><a href="#totop"><i class="fa fa-angle-double-up"></i></a></div>
-    </main>
-	<footer class="footer-box">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12">
-					<p class="footer-company-name">All Rights Reserved. &copy; 2018 <a href="#">Evento Christmas</a> Design By : <a href="https://html.design/">html design</a></p>
-				</div>
-			</div>
-		</div>
-	</footer>
+	 <jsp:include page="../common/footer.jsp"></jsp:include>
 
 	
-  	<script src="../../resources/lib/jquery/jquery.js"></script>
-    <script src="../../resources/lib/bootstrap/js/bootstrap.min.js"></script>
-    <script src="../../resources/lib/wow/wow.js"></script>
-    <script src="../../resources/lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js"></script>
-    <script src="../../resources/lib/isotope/isotope.pkgd.js"></script>
-    <script src="../../resources/lib/imagesloaded/imagesloaded.pkgd.js"></script>
-    <script src="../../resources/lib/flexslider/jquery.flexslider.js"></script>
-    <script src="../../resources/lib/owl.carousel/dist/owl.carousel.min.js"></script>
-    <script src="../../resources/lib/smoothscroll.js"></script>
-    <script src="../../resources/lib/magnific-popup/jquery.magnific-popup.js"></script>
-    <script src="../../resources/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script>
-    <script src="../../resources/js/plugins.js"></script>
-    <script src="../../resources/js/main.js"></script>
+  			<script src="../../resources/lib/jquery/jquery.js"></script>
+		<script src="../../resources/lib/jquery-browser-mobile/jquery.browser.mobile.js"></script>
+		<script src="../../resources/lib/bootstrap/js/bootstrap.js"></script>
+		<script src="../../resources/lib/nanoscroller/nanoscroller.js"></script>
+		<script src="../../resources/lib/magnific-popup/magnific-popup.js"></script>
+		<script src="../../resources/lib/jquery-placeholder/jquery.placeholder.js"></script>
+		
+		<!-- Specific Page Vendor -->
+		<script src="../../resources/lib/jquery-ui/js/jquery-ui-1.10.4.custom.js"></script>
+		<script src="../../resources/lib/jquery-ui-touch-punch/jquery.ui.touch-punch.js"></script>
+		<script src="../../resources/lib/select2/select2.js"></script>
+		<script src="../../resources/lib/bootstrap-multiselect/bootstrap-multiselect.js"></script>
+		<script src="../../resources/lib/jquery-maskedinput/jquery.maskedinput.js"></script>
+		<script src="../../resources/lib/bootstrap-tagsinput/bootstrap-tagsinput.js"></script>
+		<script src="../../resources/lib/fuelux/js/spinner.js"></script>
+		<script src="../../resources/lib/dropzone/dropzone.js"></script>
+		<script src="../../resources/lib/bootstrap-markdown/js/markdown.js"></script>
+		<script src="../../resources/lib/bootstrap-markdown/js/to-markdown.js"></script>
+		<script src="../../resources/lib/bootstrap-markdown/js/bootstrap-markdown.js"></script>
+		<script src="../../resources/lib/codemirror/lib/codemirror.js"></script>
+		<script src="../../resources/lib/codemirror/addon/selection/active-line.js"></script>
+		<script src="../../resources/lib/codemirror/addon/edit/matchbrackets.js"></script>
+		<script src="../../resources/lib/codemirror/mode/javascript/javascript.js"></script>
+		<script src="../../resources/lib/codemirror/mode/xml/xml.js"></script>
+		<script src="../../resources/lib/codemirror/mode/htmlmixed/htmlmixed.js"></script>
+		<script src="../../resources/lib/codemirror/mode/css/css.js"></script>
+		<script src="../../resources/lib/summernote/summernote.js"></script>
+		<script src="../../resources/lib/bootstrap-maxlength/bootstrap-maxlength.js"></script>
+		<script src="../../resources/lib/ios7-switch/ios7-switch.js"></script>
+		
+		<!-- Theme Base, Components and Settings -->
+		<script src="../../resources/js/theme.js"></script>
+		
+		<!-- Theme Custom -->
+		<script src="../../resources/js/theme.custom.js"></script>
+		
+		<!-- Theme Initialization Files -->
+		<script src="../../resources/js/theme.init.js"></script>
+
+
+		<!-- Examples -->
+		<script src="../../resources/js/forms/examples.advanced.form.js" /></script>
+		
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+	    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>  
+	    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
+	    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
 	
 	<script>
-		
+	
+	var today = new Date();
+		var mindate = today.setDate(today.getDate() - 1);
+		var maxdate = today.setDate(today.getDate() + 7);
 		$(function(){
+			
+			
+			$('#startDate').datetimepicker({
+			    format: 'YYYY-MM-DD',
+			    useCurrent: false,
+			    minDate: mindate
+			});
+			
+			
+			$('#startTime').datetimepicker({
+				format: 'HH:mm:ss'
+			});
+			
+			$('#endDate').datetimepicker({
+			    format: 'YYYY-MM-DD',
+			    useCurrent: false,
+				minDate : mindate,
+				maxDate : maxdate
+			});
+			
+			
+			$('#endTime').datetimepicker({
+				format: 'HH:mm:ss'
+			});
+		
 			var auctionProduct = "${auctionProduct.auctionProductNo}";
 			var imgCount = $('.selProductFile').length;
-										
-			$('#auctionProductName').on('keypress',function(){
-				
-			});
 			
 			$("#cancel").on('click', function(){
 				window.location.href = "/auction/listAuctionProduct";
 			});
-						
+			
 			$("#update").on('click',function(){
 				
+				if($('#auctionProductName').val().length == 0){
+					alert("상품명을 입력하세요");
+					$('#auctionProductName').focus();
+					return;
+				}
 				
 				if( !$.isNumeric( $('#startBidPrice').val() ) ){
 					$('#startBidPrice').focus();
@@ -332,9 +317,66 @@
 					$('#hopefulBidPrice').focus();
 					return;
 				}
-
+				
+				if( Number($('#startBidPrice').val() ) >= Number( $('#hopefulBidPrice').val() ) ){
+					alert("입찰 희망가는 시작가보다 작을 수 없습니다.");
+					$('#startBidPrice').focus();
+					return
+				}
+				
+				if( !$.isNumeric( $('#bidUnit').val() ) ){
+					$('#bidUnit').focus();
+					return;
+				}
+				
+				if( Number($('#bidUnit').val() ) > ( Number( $('#hopefulBidPrice').val() ) - Number( $('#startBidPrice').val() ) ) ){
+					alert("입찰 단위는 희망낙찰가 시작가 차보다 작아야 합니다.");
+					$('#bidUnit').focus();
+					return;
+				}
+				
+			 	if($('#startDate').val().length != 10){
+			 		alert("시작 날짜를 확인해 주세요");
+			 		$('#startDate').focus();
+			 		return;
+			 	}
+			 	
+			 	if($('#startTime').val().length != 8){
+			 		alert("시작 시간를 확인해 주세요");
+			 		$('#startTime').focus();
+			 		return;
+			 	}
+			 	
+			 	if($('#endDate').val().length != 10){
+			 		alert("종료 날짜를 확인해 주세요");
+			 		$('#endDate').focus();
+			 		return;
+			 	}
+			 	
+			 	if($('#endTime').val().length != 8){
+			 		alert("시작 시간를 확인해 주세요");
+			 		$('#endTime').focus();
+			 		return;
+			 	}
+			 	
+			 	if($('#startDate').val() == $('#endDate').val()){
+			 		if($('#startTime').val() == $('#endTime').val()){
+			 			alert('시작 시간과 종료 시간이 같을 수 없습니다.');
+			 			return;
+			 		}
+			 	}
+				
+			 	if(dateCompare($('#startDate').val()+' '+$('#startTime').val(),$('#endDate').val()+' '+$('#endTime').val())){
+			 		alert('진행 시간이 10분 보다 짧을 수 없습니다.');
+			 		$('#endTime').focus();
+			 		return;
+			 	}
+				
+				 
 				if($('.selProductFile').length == 0){
 					alert("1~5장의 사진이 필요합니다.");
+					$('#fileUpload').click();
+					$('#uploadForm').attr('hidden',true);
 					return;
 				}
 				
@@ -349,7 +391,12 @@
 					
 					dataSet(imgCount, tagCount, hashtags);
 				}
+
+				$('#auctionStartTime').val($('#startDate').val()+' '+$('#startTime').val());
+				$('#auctionEndTime').val($('#endDate').val()+' '+$('#endTime').val());
 				
+				alert($('#auctionStartTime').val());
+				alert($('#auctionEndTime').val());
 				$('form').attr('method','post').attr('action','/auction/updateAuctionProduct').attr("enctype","multipart/form-data").submit();
 			});
 			
@@ -357,6 +404,19 @@
 			$("#inputImgs").on("change",handleImgFileSelect);
 			
 		});
+		
+		function dateCompare(time1,time2) {
+			
+			var time1_pojo = new Date(time1);
+			var time2_pojo = new Date(time2);
+			
+			var time_compare = time1_pojo.setMinutes(time1_pojo.getMinutes()+10);
+			if(time2_pojo < time_compare){
+				return true;
+			}else{
+				return false;				
+			}
+		}
 		
 		function dataSet(imgCount, tagCount, hashtags){
 			
@@ -413,6 +473,8 @@
 		
 		function handleImgFileSelect(e){
 			
+			$('#uploadForm').attr('hidden',false);
+			
 			sel_files = [];
 			$(".imgsWrap").empty();
 			
@@ -435,8 +497,11 @@
 			
 			filesArray.forEach(function(f){
 				
+				$('#uploadForm').attr('hidden',false);
+				
 				if(!f.type.match("image.*")){
 					alert("이미지만 업로드 가능합니다.");
+					$('#uploadForm').attr('hidden',true);
 					return;
 				}
 			
@@ -461,7 +526,16 @@
             var inputImg = "#inputImg"+(1*index+1)
             $(imgId).remove();
             $(inputImg).val("");
+            
+            if(sel_files.length == 0){
+            	$('#uploadForm').attr('hidden',true);
+            }
         }
+		
+		
+		
+		
+		
 	</script>
 </body>
 </html>

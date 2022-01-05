@@ -25,6 +25,7 @@ public class AuctionProduct {
 	private String productImg4;
 	private String productImg5;
 	private int productViewCount;
+	private int bidderCount;
 	private String productRegDate;
 	private String auctionStatus;
 	private String isConfirm;
@@ -190,6 +191,12 @@ public class AuctionProduct {
 	public void setProductViewCount(int productViewCount) {
 		this.productViewCount = productViewCount;
 	}
+	public int getBidderCount() {
+		return bidderCount;
+	}
+	public void setBidderCount(int bidderCount) {
+		this.bidderCount = bidderCount;
+	}
 	public String getProductRegDate() {
 		return productRegDate;
 	}
@@ -231,8 +238,8 @@ public class AuctionProduct {
 				+ ", bidableGrade=" + bidableGrade + ", allhashtag=" + allhashtag + ", hashtag1=" + hashtag1
 				+ ", hashtag2=" + hashtag2 + ", hashtag3=" + hashtag3 + ", productImg1=" + productImg1
 				+ ", productImg2=" + productImg2 + ", productImg3=" + productImg3 + ", productImg4=" + productImg4
-				+ ", productImg5=" + productImg5 + ", productViewCount=" + productViewCount + ", productRegDate="
-				+ productRegDate + ", auctionStatus=" + auctionStatus + ", isConfirm=" + isConfirm + ", isTempSave="
-				+ isTempSave + ", isDelete=" + isDelete + "]";
+				+ ", productImg5=" + productImg5 + ", productViewCount=" + productViewCount + ", bidderCount="
+				+ bidderCount + ", productRegDate=" + productRegDate + ", auctionStatus=" + auctionStatus
+				+ ", isConfirm=" + isConfirm + ", isTempSave=" + isTempSave + ", isDelete=" + isDelete + "]";
 	}
 }

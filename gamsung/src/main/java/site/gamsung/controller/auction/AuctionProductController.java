@@ -22,6 +22,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import site.gamsung.service.auction.AuctionInfoService;
 import site.gamsung.service.auction.AuctionProductService;
 import site.gamsung.service.auction.AuctionReviewService;
+import site.gamsung.service.common.RatingReviewService;
 import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.AuctionInfo;
 import site.gamsung.service.domain.AuctionProduct;
@@ -39,6 +40,10 @@ public class AuctionProductController {
 	@Autowired
 	@Qualifier("auctionInfoService")
 	private AuctionInfoService auctionInfoService;
+	
+	@Autowired
+	@Qualifier("auctionReviewService")
+	private RatingReviewService ratingReviewService;
 	
 	@Autowired
 	@Qualifier("auctionReviewService")
@@ -106,18 +111,26 @@ public class AuctionProductController {
 	
 	//경매 진행 중인 상품 최초 8개 조회
 	@RequestMapping(value = "listAuctionProduct")
-	public String listAucitonProduct(Model model, @ModelAttribute("search") Search search) {
+	public String listAucitonProduct(@ModelAttribute("search") Search search, Model model, HttpSession httpSession) {
+		
+		//세션에서 로그인 유저 정보를 가져온다.
+		User user = (User)httpSession.getAttribute("user");
 		
 		//출력할 개수을 commonProperties로 부터 받아오며, 1페이지가 고정값으로 들어간다.
 		search.setPageSize(auctionPageSize);
 		search.setCurrentPage(1);
 		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("user", user);
+		map.put("search", search);
+		System.out.println(search);
 		//조건에 맞는 상위 8개의 상품 목록을 리스트로 받는다.
-		List<AuctionProduct> list = auctionProductService.listAuctionProduct(search);
+		map = auctionProductService.listAuctionProduct(map);
 		
-		//받은 상품 목록을 model에 담아 return한다.
-		model.addAttribute("list",list);
-	
+		//받은 상품 목록과 응찰 관심 목록을 model에 담아 return한다.
+		model.addAttribute("productList",map.get("productList"));
+		model.addAttribute("concernList",map.get("concernList"));
+		model.addAttribute("search", search);
 		return "forward:/view/auction/listAuctionProduct.jsp";
 		
 	}
@@ -255,7 +268,7 @@ public class AuctionProductController {
 		
 		auctionProductService.updateAuctionProduct(auctionProduct);
 		
-		return "forward:/view/auction/updateAuctionProduct.jsp";
+		return "forward:./listAuctionProduct";
 	}
 	
 	@GetMapping(value = "addReview/{auctionProductNo}")
@@ -266,8 +279,9 @@ public class AuctionProductController {
 		return "forward:/view/auction/reviewModal.jsp";
 	}
 	
-	@GetMapping(value = "listMyAuctionProduct")
-	public String listMyAuctionProduct(	@ModelAttribute("search") Search search, Model model ,HttpSession httpSession) {
+	@RequestMapping(value = "listMyAuctionProduct/{option}")
+	public String listMyPage(	@ModelAttribute("search") Search search, @PathVariable("option") String option,
+								Model model ,HttpSession httpSession) {
 		
 		User user = (User)httpSession.getAttribute("user");
 		
@@ -281,11 +295,31 @@ public class AuctionProductController {
 		map.put("search", search);
 		map.put("user", user);
 		
-		map = auctionInfoService.listAuctionProductByRole(map);
+		AuctionInfo auctionInfo = new AuctionInfo();
+		auctionInfo.setUser(user);
+		auctionInfo.setInfo(option);
 		
+		switch(option) {
+		case "add":
+			map = auctionInfoService.listAuctionProductByRole(map);
+			break;
+		case "history":
+			map = auctionInfoService.auctionHistory(map);
+			break;
+		case "bid":
+			map = auctionInfoService.listBidConcern(map);
+			break;
+		case "review":
+			map = auctionReviewService.listMyRatingReview(map);
+			break;
+		}
+		
+		if(map != null) {
+			model.addAttribute("list", map.get("list"));
+			model.addAttribute("totalCount", map.get("totalCount"));			
+		}
+		model.addAttribute("auctionInfo", auctionInfo);
 		model.addAttribute("search",search);
-		model.addAttribute("list",map.get("list"));
-		model.addAttribute("totalCount", map.get("totalCount"));
 		
 		return "forward:/view/auction/listMyAuctionProduct.jsp";
 	}

@@ -17,11 +17,15 @@ public interface AuctionInfoDAO {
 	
 	public List<AuctionInfo> listBidConcern(Map<String, Object> map);
 	
+	public int countBidConcern(User user);
+	
 	public List<AuctionProduct> listAuctionProductByRole(Map<String, Object> map);
 	
 	public int countAuctionProductByRole(String userId);
 	
 	public List<AuctionInfo> auctionHistory(Map<String, Object> map);
+	
+	public int countAuctionHistory(User user);
 	
 	public AuctionInfo auctionStatusTotalCount(User user);
 	
