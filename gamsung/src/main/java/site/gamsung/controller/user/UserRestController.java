@@ -1,7 +1,5 @@
 package site.gamsung.controller.user;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
 
 import javax.servlet.http.HttpSession;
@@ -190,20 +188,35 @@ public class UserRestController {
 		 
 	}
 
-	@RequestMapping(value = "addSecessionUser")
-	public String addSecessionUser(@RequestBody User user) {
+	@RequestMapping(value = "rest/addSecessionUser", method = RequestMethod.POST)
+	public int addSecessionUser(@RequestBody User user) {
+		
+		System.out.println("회원탈퇴 rest");
+		System.out.println("회원탈퇴 회원정보"+user);
 
-		user = userService.checkIdPassword(user);
-		if (user != null && userService.addSecessionUser(user)) {
-
-			return "탈퇴";
+		User dbUser = userService.checkIdPassword(user);
+		
+		if (dbUser != null && userService.addSecessionUser(dbUser)) {
+			System.out.println("탈퇴가능");
+			return 0;
+		}else {
+			System.out.println("탈퇴불가");
+			return 1 ;
 		}
-		return "탈퇴안됨";
 	}
 
-	@RequestMapping(value = "updateDormantGeneralUserConvert", method = RequestMethod.GET)
-	public void updateDormantGeneralUserConvert(HttpSession session) {
-		userService.updateDormantGeneralUserConvert(session.getId());
+	@RequestMapping(value = "rest/updateDormantGeneralUserConvert", method = RequestMethod.POST)
+	public int updateDormantGeneralUserConvert(@RequestParam("id") String id, HttpSession session) {
+		System.out.println("실행되는가");
+		System.out.println(id);
+		if(id!=null) {
+			userService.updateDormantGeneralUserConvert(id);
+			if(id!=null) {
+				return 1;
+			}
+		} return 0;
+		
 	}
+
 
 }

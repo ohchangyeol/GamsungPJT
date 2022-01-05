@@ -225,6 +225,15 @@ public class UserServiceTest {
 			
 		}
 		
+		@Test
+		public void testUpdateDormantGeneralUserConver() throws Exception{
+			 
+			User user = new User();
+			user.setId("TEST@TEST.COM");
+			
+			userService.updateDormantGeneralUserConvert(user.getId());
+			
+		}
 		
 	
 }

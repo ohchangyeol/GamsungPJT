@@ -101,6 +101,8 @@ $(document).ready(function(){
  		var id=$("#findPwdId").val();
 		var name=$("#findPwdName").val();
 		var phone=$("#findPwdPhone").val();
+		var split = id.split('@');
+		var result = split[0].replace(/(?<=.{3})./gi,"*")+"@"+split[1];
 		
 		if(name == null || name.length <1) {
 			alert('이름을 입력하지 않으셨습니다.');
@@ -133,7 +135,7 @@ $(document).ready(function(){
 				console.log('성공: '+data);
 				if(data==1){
 					
-					result="아이디로 임시 비밀번호가 발송되었습니다";
+					result=id+"로 임시 비밀번호가 발송되었습니다";
 					Swal.fire(result).then(()=>{
 						self.location = "/";
 					});

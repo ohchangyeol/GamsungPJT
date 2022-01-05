@@ -82,24 +82,24 @@ public class UserDAOImpl implements UserDAO{
 
 	@Override
 	public void addSuspensionUser(User user){
-		sqlSession.insert("UserMapper.addSusepsionUser", user);
+		sqlSession.update("UserMapper.addSusepsionUser", user);
 		
 	}
 
 	@Override
 	public void addSecessionUser(User user){
-		sqlSession.insert("UserMapper.addSecessionUser", user);
+		sqlSession.update("UserMapper.addSecessionUser", user);
 		
 	}
 
 	@Override
 	public void addDormantUser(User user){
-		sqlSession.insert("UserMapper.addDormantUser", user);	
+		sqlSession.update("UserMapper.addDormantUser", user);	
 	}
 
 	@Override
 	public void updateDormantGeneralUserConver(String id){
-		sqlSession.insert("UserMapper.updateDormantGeneralUserConver", id);
+		sqlSession.update("UserMapper.updateDormantGeneralUserConvert", id);
 		
 	}
 

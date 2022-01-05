@@ -104,8 +104,8 @@
 	 </update>	
 	 
 	  <!-- SQL : updateDormantGeneralUserConver -->
-	 <update	id="updateDormantGeneralUserConver"	parameterType="String" >
-	   	DELETE USERS
+	 <update id="updateDormantGeneralUserConvert" parameterType="String" >
+	   	UPDATE USERS
 	   	<set>
 	   		dormant_reg_date = null
 	   	</set>

@@ -158,14 +158,16 @@ public class UserController {
 			session.setAttribute("user", dbUser);
 			return "관리자메인.jsp";
 		}else if(dbUser.getDormantConversionDate() != null) {
-			return "휴면회원임.일반으로 전환할건지?.jsp";
+			session.setAttribute("id", user.getId());
+			System.out.println("휴면회원 아이디"+user.getId());
+			return "/view/user/updateDormantGeneralUserConvert.jsp";
 		}else if(dbUser.getSecessionRegDate() != null) {
 			return "탈퇴회원안내.jsp";
 		}else if(dbUser.getSuspensionDate() != null) {
 			return "이용정지된 회원임.jsp";
 		}
 		
-		String jsp ="forward:/main.jsp";
+		String jsp ="/";
 //		String pw = user.getPassword();
 //		System.out.println("비밀번호"+pw);
 //		System.out.println("솔트"+dbUser.getSalt());
@@ -202,7 +204,7 @@ public class UserController {
 		
 		session.invalidate();
 		
-		return "redirect:/main.jsp";
+		return "redirect:/";
 		
 	}
 		
@@ -256,11 +258,11 @@ public class UserController {
         return "forward:/view/user/addGeneralUser.jsp";
 	}
 	
-	@RequestMapping(value="/kakaologout")
+	@RequestMapping(value="/kakaoLogout")
 	public String kakaoLogout(HttpSession session) {
 	userService.kakaoLogout((String)session.getAttribute("accessToken"));
 	session.invalidate();
-	return "redirect:/main.jsp"; 
+	return "redirect:/"; 
 	}
 	
 	@RequestMapping(value="/kakaounlink") 

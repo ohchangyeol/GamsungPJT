@@ -31,7 +31,7 @@
                                         <div class="col-sm-9">
                                             <div class="form-group">
                                                 <input id="findIdPhone" name="phone" class="form-control " type="text"
-                                                    placeholder="휴대폰 번호를 숫자만 입력해주세요" maxlength="11" />
+                                                    placeholder="휴대폰 번호를 숫자만 입력해주세요." maxlength="11" />
                                             </div>
                                         </div>
                                         <div class="col-sm-3">
@@ -51,7 +51,7 @@
                                     </div>
 
                                     <div class="find-btn">
-                                        <div align="right"><button type="button" class="btn btn-default btn-sm"
+                                        <div align="right"><button type="button" class="btn btn-d btn-circle btn-sm"
                                                 id="findId">아이디찾기</button></div>
                                     </div>
                                 </form>
@@ -71,10 +71,10 @@
                                     </div>
                                     <div class="form-group">
                                         <input type="text" class="form-control" id="findPwdPhone"
-                                            placeholder="연락처를 입력하세요." name="phone" required>
+                                            placeholder="휴대폰 번호를 숫자만 입력해주세요." name="phone" required>
                                     </div>
                                     <div align="right" class="find-btn"><button type="button"
-                                            class="btn btn-default btn-sm" id="findPwd">비밀번호찾기</button></div>
+                                            class="btn btn-d btn-circle btn-sm" id="findPwd">비밀번호찾기</button></div>
                                 </form>
                             </div>
                         </div>

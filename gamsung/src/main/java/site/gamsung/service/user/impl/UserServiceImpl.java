@@ -311,13 +311,16 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public boolean addSecessionUser(User user){
-	
-		
+		System.out.println("탈퇴 서비스임쁠 타는지");
+		System.out.println(user);
 		if(campDAO.isSecessionUserReservationCondition(user.getId())&&auctionDAO.isSecessionUserAuctionCondition(user.getId())) {
+		System.out.println(campDAO.isSecessionUserReservationCondition(user.getId()));
+		System.out.println(auctionDAO.isSecessionUserAuctionCondition(user.getId()));
 		 userDAO.addSecessionUser(user);
 		 return true;
-		}		
+		}else {	
 		return false;
+		}
 	}
 
 	@Override
