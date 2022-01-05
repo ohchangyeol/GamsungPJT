@@ -12,8 +12,9 @@ pageEncoding="UTF-8"%>
           <div class="row">
             <div style="text-align: end; padding-right: 15px;">
               <a class="modal-with-form btn btn-success" href="#modalForm" style="padding: 5px;">상세검색+</a>
-              <div id="modalForm" class="modal-block modal-block-primary mfp mfp-hide">
               
+              <!-- 상세검색 모달 시작 -->
+              <div id="modalForm" class="modal-block modal-block-primary mfp mfp-hide">
                 <section class="panel">
                   <header class="panel-heading">
                     <h4 class="panel-title">캠핑장을 상세하게 검색 하세요!</h4>
@@ -233,6 +234,7 @@ pageEncoding="UTF-8"%>
                 </section>
               
               </div>
+              <!-- 상세검색 모달 시작 -->
             </div>
           </div>
 

@@ -110,43 +110,38 @@ pageEncoding="UTF-8"%>
             </div>
             <div class="col-sm-6 col-md-4 col-lg-4">
               <div class="post">
-                <div class="post-thumbnail"><a href="#"><img class="campImg" src="/uploadfiles/campimg/campbusiness/camp/thumb5.jpg" alt="Blog-post Thumbnail"></a></div>
+                <div class="post-thumbnail"><img class="campImg" campNo="${topView.campNo}" src="/uploadfiles/campimg/campbusiness/camp/${topView.campImg1}" alt="Blog-post Thumbnail"></div>
                 <div class="post-header font-alt">
                   <h2 class="post-title">조회수 TOP</a></h2>
-                  <div class="post-meta">By&nbsp;<a href="#">Mark Stone</a>&nbsp;| 23 November | 3 Comments
-                  </div>
                 </div>
+                <div class="post-more">${topView.user.campName} 캠핑장 <span style="color: rgb(230, 173, 17);">(${topView.campViewCountCurrentMonth}건)</span></div>
                 <div class="post-entry">
-                  <p>A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart.</p>
+                  <p>${topView.user.addr}</p>
                 </div>
-                <div class="post-more"><a class="more-link" href="#">Read more</a></div>
               </div>
             </div>
             <div class="col-sm-6 col-md-4 col-lg-4">
               <div class="post">
-                <div class="post-thumbnail"><a href="#"><img class="campImg" src="/uploadfiles/campimg/campbusiness/camp/thumb1.jpg" alt="Blog-post Thumbnail"></a></div>
+                <div class="post-thumbnail"><img class="campImg" campNo="${topRating.campNo}" src="/uploadfiles/campimg/campbusiness/camp/${topRating.campImg1}" alt="Blog-post Thumbnail"></div>
                 <div class="post-header font-alt">
                   <h2 class="post-title">평점 TOP</a></h2>
-                  <div class="post-meta">By&nbsp;<a href="#">Mark Stone</a>&nbsp;| 23 November | 3 Comments
-                  </div>
                 </div>
+                <div class="post-more">${topRating.user.campName} 캠핑장 <span style="color: rgb(230, 173, 17);">(${topRating.campRate}점)</span></div>
                 <div class="post-entry">
-                  <p>A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart.</p>
+                  <p>${topRating.user.addr}</p>
                 </div>
-                <div class="post-more"><a class="more-link" href="#">Read more</a></div>
               </div>
             </div><div class="col-sm-6 col-md-4 col-lg-4">
               <div class="post">
-                <div class="post-thumbnail"><a href="#"><img class="campImg" src="/uploadfiles/campimg/campbusiness/camp/img2.jpg" alt="Blog-post Thumbnail"></a></div>
+                <div class="post-thumbnail"><img class="campImg" campNo="${topReservation.campNo}" src="/uploadfiles/campimg/campbusiness/camp/${topReservation.campImg1}" alt="Blog-post Thumbnail"></div>
                 <div class="post-header font-alt">
                   <h2 class="post-title">예약자수 TOP</a></h2>
-                  <div class="post-meta">By&nbsp;<a href="#">Mark Stone</a>&nbsp;| 23 November | 3 Comments
-                  </div>
                 </div>
+                <div class="post-more">${topReservation.user.campName} 캠핑장 <span style="color: rgb(230, 173, 17);">(${topReservation.campReservationCount}건)</span></div>
                 <div class="post-entry">
-                  <p>A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart.</p>
+                  <p>${topReservation.user.addr}</p>
                 </div>
-                <div class="post-more"><a class="more-link" href="#">Read more</a></div>
+                
               </div>
             </div>
            
@@ -215,6 +210,9 @@ pageEncoding="UTF-8"%>
     <script type="text/javascript">
     	$('.shop-item-title').on('click',function(){
     		window.location = '/auction/getAuctionProduct?auctionProductNo='+$(this).prev().val();
+    	});
+      $('.campImg').on('click',function(){
+    		window.location = '/campGeneral/getCamp?campNo='+$(this).attr('campNo');
     	});
     </script>
 
