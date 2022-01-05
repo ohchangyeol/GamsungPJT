@@ -78,7 +78,7 @@ pageEncoding="UTF-8"%>
       <!-- header End -->
       
       <!-- Search -->
-<%--       <jsp:include page="/view/camp/campSearch.jsp"/> --%>
+      <jsp:include page="/view/camp/campSearch.jsp"/> 
       <!-- Search End -->
       
       <!-- page-start -->
@@ -211,11 +211,14 @@ pageEncoding="UTF-8"%>
       <iframe src="/chat/chatlist" frameborder="1" style="position:relative!important;height:100%;width:100%!important;border:none!important;"></iframe>
     </div>
     
+    <script src="resources/js/campSearch.js"></script>
     <script type="text/javascript">
     	$('.shop-item-title').on('click',function(){
     		window.location = '/auction/getAuctionProduct?auctionProductNo='+$(this).prev().val();
     	});
     </script>
+
+
 
   </body>
 </html>

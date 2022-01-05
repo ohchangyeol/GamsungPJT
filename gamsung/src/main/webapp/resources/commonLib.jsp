@@ -29,6 +29,8 @@
 <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Volkhov:400i" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
+<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Shadows+Into+Light" rel="stylesheet" type="text/css">
+
 <link href="resources/lib/animate.css/animate.css" rel="stylesheet">
 <link href="resources/lib/components-font-awesome/css/font-awesome.min.css" rel="stylesheet">
 <link href="resources/lib/et-line-font/et-line-font.css" rel="stylesheet">
@@ -38,7 +40,12 @@
 <link href="resources/lib/magnific-popup/magnific-popup.css" rel="stylesheet">
 <link href="resources/lib/simple-text-rotator/simpletextrotator.css" rel="stylesheet">
 
-<!-- Main stylesheet and color file-->
+<link href="resources/lib/bootstrap-datepicker/css/datepicker3.css" rel="stylesheet" />
+
+<link rel="stylesheet" href="resources/css/theme.css" />
+<link rel="stylesheet" href="resources/css/theme-custom.css">
+<link rel="stylesheet" href="resources/lib/pnotify/pnotify.custom.css" />
+
 <link href="resources/css/style.css" rel="stylesheet">
 <link href="resources/css/header.css" rel="stylesheet">
 <link id="color-scheme" href="resources/css/colors/default.css" rel="stylesheet">
@@ -66,6 +73,7 @@
 <script src="resources/lib/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
 <script src="resources/lib/pnotify/pnotify.custom.js"></script>
 <script src="resources/lib/nanoscroller/nanoscroller.js"></script>
+<script src="../../resources/lib/jquery-browser-mobile/jquery.browser.mobile.js"></script>
 
 <script src="resources/lib/modernizr/modernizr.js"></script>
 <script src="resources/js/theme.js"></script>

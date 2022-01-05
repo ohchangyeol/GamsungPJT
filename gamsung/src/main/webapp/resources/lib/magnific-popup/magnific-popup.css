@@ -10,17 +10,6 @@
   background: #0b0b0b;
   opacity: 0.8; }
 
-  .white-popup-block {
-    position: relative;
-    background: #FFF;
-    padding: 20px;
-    width: auto;
-    max-width: 500px;
-    margin: 20px auto;
-    border-radius: 30px;
-    text-align: center;
-  }
-
 .mfp-wrap {
   top: 0;
   left: 0;
