@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import site.gamsung.service.camp.CampReservationService;
 import site.gamsung.service.camp.CampSearchService;
+import site.gamsung.service.common.Page;
 import site.gamsung.service.common.RatingReviewService;
 import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.Camp;
@@ -63,24 +65,48 @@ public class CampGeneralRestController {
 	int pageSize;
 	
 	@RequestMapping( value="json/listReviews/{currentPage}/{campNo}", method=RequestMethod.GET)
-	public  List<RatingReview> listReviews (@PathVariable int currentPage, @PathVariable int campNo) throws Exception{
+	public  String listReviews (@PathVariable int currentPage, @PathVariable int campNo, Model model) throws Exception{
 		
 		System.out.println("/campGeneral/json/listReviews : GET");
 		
+		System.out.println("currentPage : "+currentPage);
 		System.out.println("캠핑장 번호 : "+campNo);
 		
+//		Search search = new Search();
+//		search.setCurrentPage(currentPage);
+//		search.setPageSize(pageSize);
+//		
+//		System.out.println(search);
+//		
+//		Map<String , Object> map= ratingReviewService.listRatingReview(search, campNo);
+//	
+//		List<RatingReview> review = (List<RatingReview>) map.get("list");
+//		System.out.println(review);
+//		
+//		model.addAttribute("review", review);
+		
 		Search search = new Search();
-		search.setCurrentPage(currentPage);
+		
+			if (currentPage == 0) {
+			search.setCurrentPage(1);
+		}
+		
+		search.setCurrentPage(1);
 		search.setPageSize(pageSize);
 		
 		System.out.println(search);
+		System.out.println(campNo);
 		
-		Map<String , Object> map= ratingReviewService.listRatingReview(search, campNo);
-	
-		List<RatingReview> list = (List<RatingReview>) map.get("list");
-		System.out.println(list);
-				
-		return list;
+		Map<String, Object> reviewmap = ratingReviewService.listRatingReview(search, campNo);
+		
+		Page resultPage = new Page(search.getCurrentPage(), ((Integer) reviewmap.get("totalCount")).intValue(), pageUnit, pageSize);
+		System.out.println(resultPage);
+		
+		model.addAttribute("list", reviewmap.get("list"));
+		model.addAttribute("resultPage", resultPage);
+		model.addAttribute("search", search);
+			
+		return "/view/camp/listRatingReview.jsp";
 	}
 	
 	@RequestMapping( value="json/possibleMainsite/{start}/{end}/{campNo}", method=RequestMethod.GET)
