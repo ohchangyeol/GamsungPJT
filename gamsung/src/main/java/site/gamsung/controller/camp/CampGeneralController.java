@@ -174,11 +174,12 @@ public class CampGeneralController {
 			
 			return "redirect:/main.jsp";
 			
-		}else {
+		} else {
 			
 			campReservation.setUser(user);
 			campReservation = campReservationService.addTempReservation(campReservation);
 			campReservation.setUser(user);
+
 			Payment payment = new Payment();
 			payment.setPaymentSender(campReservation.getUser().getId());
 			payment.setPaymentReceiver(campReservation.getCamp().getUser().getId());

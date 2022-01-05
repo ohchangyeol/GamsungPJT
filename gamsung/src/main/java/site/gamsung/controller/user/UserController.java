@@ -153,7 +153,7 @@ public class UserController {
 		Date currentDate=dbUser.getCurrentLoginRegDate();
 //		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 //		java.sql.Date date = java.sql.Date.valueOf(now);
-		
+			
 		if(dbUser.getRole().equals("ADMIN")) {
 			session.setAttribute("user", dbUser);
 			return "관리자메인.jsp";

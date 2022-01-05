@@ -25,6 +25,8 @@ public interface PaymentService {
 	
 	public void addRefundPayment(Payment payment) throws Exception;
 	
+	public String internalPointPayment(Payment payment) throws Exception;
+	
 	public List<Payment> getPayment(Payment payment) throws Exception;
 	
 	public Map<String, Object> listPayment(Search search) throws Exception;

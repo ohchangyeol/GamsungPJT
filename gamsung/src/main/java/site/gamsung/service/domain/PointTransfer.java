@@ -7,7 +7,7 @@ public class PointTransfer {
 	private String receiverId;
 	private String adminId;
 	private int pointAmount;
-	private int feeAmount;
+	private int feeRate;
 	private String notice;	
 	
 	/// Default Constructor
@@ -66,13 +66,13 @@ public class PointTransfer {
 	}
 
 
-	public int getFeeAmount() {
-		return feeAmount;
+	public int getFeeRate() {
+		return feeRate;
 	}
 
 
-	public void setFeeAmount(int feeAmount) {
-		this.feeAmount = feeAmount;
+	public void setFeeRate(int feeRate) {
+		this.feeRate = feeRate;
 	}
 
 
@@ -94,7 +94,7 @@ public class PointTransfer {
 			+ "\n [receiverId] : " + receiverId
 			+ "\n [adminId] : " + adminId
 			+ "\n [pointAmount] : " + pointAmount
-			+ "\n [feeAmount] : " + feeAmount
+			+ "\n [feeRate] : " + feeRate
 			+ "\n [notice] : " + notice			
 			+ "\n ---------------- \n";
 	}

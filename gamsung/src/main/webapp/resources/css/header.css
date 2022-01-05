@@ -13,3 +13,120 @@
 #modalBasic .panel footer .kakao {margin-top: 15px;}
 #modalBasic .panel footer .kakao button {background-color: #ffeb00; padding: 0; height: 50px; width: 70%; overflow: hidden; color: rgb(95, 60, 32);}
 #modalBasic .panel footer .kakao button img {height: 100%;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.white-popup-block {
+    position: relative;
+    background: #FFF;
+    padding: 20px;
+    width: auto;
+    max-width: 500px;
+    margin: 20px auto;
+    border-radius: 30px;
+    text-align: center !important;
+  }
+  .panel-heading {
+    background: #fff;
+    border-radius: initial;
+    border-bottom: none;
+    padding: initial;
+    position: initial;
+}
+
+#modalBasic .panel footer {border-top: solid 1px #fff;}
