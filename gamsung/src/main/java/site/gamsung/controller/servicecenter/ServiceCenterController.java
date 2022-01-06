@@ -90,9 +90,10 @@ public class ServiceCenterController {
 //	|							   Q&A									\
 //	*===================================================================*
 	@GetMapping("addQna")
-	public String addQna() throws Exception {
+	public String addQna(Model model) throws Exception {
 		
-		return "forward:/view/servicecenter/report/addQna.jsp";
+		model.addAttribute("qnaType", "add"); 
+		return "forward:/view/servicecenter/qna/qnaLayout.jsp";
 	}
 	
 	@PostMapping("addQna")
@@ -104,13 +105,14 @@ public class ServiceCenterController {
 	@PostMapping("addQnaAnswer")
 	public String addQnaAnswer(@ModelAttribute("qna") Qna qna ) throws Exception {
 //		아직
-		return "forward:/view/servicecenter/report/getQna.jsp";
+		return null ;
 	}
 	
 	@GetMapping("getQna")
 	public String getQna(@RequestParam("qnaNo") int QnaNo , Model model) throws Exception {
 		
-		return "forward:/view/servicecenter/report/getQna.jsp";
+		model.addAttribute("qnaType", "get");
+		return "forward:/view/servicecenter/qna/qnaLayout.jsp";
 	}
 	
 	@RequestMapping("listQna")
@@ -124,8 +126,8 @@ public class ServiceCenterController {
 //		NoticeWrapper wrapper = noticeService.listNotice(search);
 		
 //		model.addAttribute("wrapper" , wrapper);
-//		model.addAttribute("noticeType", "list");
-		return "forward:/view/servicecenter/report/listQna.jsp";
+		model.addAttribute("qnaType", "list");
+		return "forward:/view/servicecenter/qna/qnaLayout.jsp";
 	}
 	
 //	*===================================================================*
