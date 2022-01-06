@@ -61,7 +61,7 @@ pageEncoding="UTF-8"%>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
   </head>
-<body id = "changebody" data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
+<body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
 
           
   <div class="row">
@@ -102,7 +102,7 @@ pageEncoding="UTF-8"%>
           
             <div class="row">
               <div class="col-sm-2 center">${ i }</div>
-              <div class="col-sm-6 notice-title"  style="cursor: pointer;" value=${notice.noticeNo}>${notice.noticeTitle}</div>
+              <div class="col-sm-6 notice-title" value=${notice.noticeNo}>${notice.noticeTitle}</div>
               <div class="col-sm-2 notice-view-count"><i class="fa fa-fw"></i> ${notice.viewCount}</div>
               <div class="col-sm-2 notice-reg-date">${notice.regDate}</div>
             </div>
@@ -149,8 +149,6 @@ pageEncoding="UTF-8"%>
 
       <script>
 
-        parent.AdjustIframeHeight(document.getElementById("changebody").scrollHeight);
-
         $( function() {
 
           $(".notice-title").on("click" , function() {
@@ -159,6 +157,5 @@ pageEncoding="UTF-8"%>
           
           });
         })
-        
       </script>
 </html>

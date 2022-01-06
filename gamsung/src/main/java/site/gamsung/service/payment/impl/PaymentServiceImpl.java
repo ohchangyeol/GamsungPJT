@@ -185,8 +185,8 @@ public class PaymentServiceImpl implements PaymentService{
 	}
 	
 	@Override
-	public List<Payment> getPayment(Payment payment) throws Exception {
-		return paymentDAO.getPayment(payment);		
+	public Payment getPayment(int paymentNo) throws Exception {
+		return paymentDAO.getPayment(paymentNo);		
 	}
 	
 	@Override

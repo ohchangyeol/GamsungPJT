@@ -58,25 +58,94 @@ pageEncoding="UTF-8"%>
     <!-- Document Title -->
     <title>listRatingReview</title>
 
+    <script type="text/javascript">
+
+      var campNo = $("body").data("campno");
+      var currentPage = 1;
     
+      function fncGetList(currentPage) {
+          $("#currentPage").val(currentPage)
+          $("#pagenavi").attr("method","POST").attr("action","/campGeneral/listCampRatingReview").submit();
+        }
+        
+        $( function() {
+  
+          $("#statusRatings").on("click" , function() {
+              $("#rating_order").attr("method","POST").attr("action","/campGeneral/listCampRatingReview").submit();
+          });
+          
+          $("#reviewRegDate").on("click" , function() {
+              $("#regdate_order").attr("method","POST").attr("action","/campGeneral/listCampRatingReview").submit();
+          });
+  
+        });
+      </script>
+
   </head>
   
-  <body data-spy="scroll" data-target=".onpage-navigation" data-offset="60" style="overflow: hidden; width: 100%; height: 100%;" >
+  <body id = "changebody" data-spy="scroll" data-target=".onpage-navigation" data-offset="60" style="overflow: hidden; width: 100%; height: 100%;" data-campno="${campNo}" >
     <div calss="row" >
       <div calss="col-sm-12" style="text-align: center; font-size: large;">
         <span class="icon-happy"></span>&nbsp;평점&리뷰 (전체 <span style="color: rgb(230, 173, 17);">${resultPage.totalCount}건</span>)&nbsp;<span class="icon-happy"></span>
       </div>
+      
       <div calss="row" >
-        
+        <div calss="col-sm-12" style="text-align: center; font-size: medium;">
+          &nbsp;평균평점&nbsp;
+          <c:set var="rating" value="${campRating}" />
+                <c:if test="${rating < 1.0}">
+                  <span><i class="fa fa-star star-off"></i></span>
+                  <span><i class="fa fa-star star-off"></i></span>
+                  <span><i class="fa fa-star star-off"></i></span>
+                  <span><i class="fa fa-star star-off"></i></span>
+                  <span><i class="fa fa-star star-off"></i></span>
+                </c:if>
+                <c:if test="${rating >= 1.0 && rating < 2.0}">
+                  <span><i class="fa fa-star star"></i></span>
+                  <span><i class="fa fa-star star-off"></i></span>
+                  <span><i class="fa fa-star star-off"></i></span>
+                  <span><i class="fa fa-star star-off"></i></span>
+                  <span><i class="fa fa-star star-off"></i></span>
+                </c:if>
+                <c:if test="${rating >= 2.0 && rating < 3.0}">
+                  <span><i class="fa fa-star star"></i></span>
+                  <span><i class="fa fa-star star"></i></span>
+                  <span><i class="fa fa-star star-off"></i></span>
+                  <span><i class="fa fa-star star-off"></i></span>
+                  <span><i class="fa fa-star star-off"></i></span>
+                </c:if>
+                <c:if test="${rating >= 3.0 && rating < 4.0}">
+                  <span><i class="fa fa-star star"></i></span>
+                  <span><i class="fa fa-star star"></i></span>
+                  <span><i class="fa fa-star star"></i></span>
+                  <span><i class="fa fa-star star-off"></i></span>
+                  <span><i class="fa fa-star star-off"></i></span>
+                </c:if>
+                <c:if test="${rating >= 4.0 && rating < 5.0}">
+                  <span><i class="fa fa-star star"></i></span>
+                  <span><i class="fa fa-star star"></i></span>
+                  <span><i class="fa fa-star star"></i></span>
+                  <span><i class="fa fa-star star"></i></span>
+                  <span><i class="fa fa-star star-off"></i></span>
+                </c:if>
+                <c:if test="${rating == 5.0}">
+                  <span><i class="fa fa-star star"></i></span>
+                  <span><i class="fa fa-star star"></i></span>
+                  <span><i class="fa fa-star star"></i></span>
+                  <span><i class="fa fa-star star"></i></span>
+                  <span><i class="fa fa-star star"></i></span>
+                </c:if>
+              <a class="open-tab section-scroll">&nbsp;(${campRating})</a>
+        </div>
         <div class="row">
           <div class="fa-hover col-xs-12" style="text-align: end;">  
            
             평점
-            <i class="fa fa-arrow-down" id="statusRatings" data-camp_no="${camp.campNo}" data-sort_condition="평점 높은순" ></i>
+            <i class="fa fa-arrow-down"  style="cursor: pointer;" id="statusRatings" data-camp_no="${camp.campNo}" data-sort_condition="평점 높은순" ></i>
             
             등록일
             
-            <i class="fa fa-arrow-down" id="reviewRegDate" data-camp_no="${camp.campNo}" data-sort_condition="최근 등록일순"></i>
+            <i class="fa fa-arrow-down"  style="cursor: pointer;" id="reviewRegDate" data-camp_no="${camp.campNo}" data-sort_condition="최근 등록일순"></i>
             
             &nbsp;&nbsp;&nbsp;
           </div>
@@ -162,7 +231,7 @@ pageEncoding="UTF-8"%>
                     <c:if test="${review.comment != null && review.comment != ''}">
                       <div class="row">
                       <div class="col-sm-1"></div>
-                      <div class="comment-author font-alt">re : <span style="font-size: large;">${camp.user.campName}</span>
+                      <div class="comment-author font-alt">re : <span style="font-size: large;">${review.camp.user.campName}</span>
                         <span style="font-size: x-small;">&nbsp;${review.commentRegDate}</span></div>
                       </div>
                       <div class="row">
@@ -186,9 +255,20 @@ pageEncoding="UTF-8"%>
 
   </form>
     
-    <script type="text/javascript">
-      document.body.style.overflow = "hidden";
-    </script>
+    <form id="rating_order">  
+      <input type="hidden" name="sortCondition" value="평점 높은순">
+      <input type="hidden" name="campNo" value="${campNo}"/>
+    </form>
+    <form id="regdate_order">  
+      <input type="hidden" name="sortCondition" value="최근 등록일순">
+      <input type="hidden" name="campNo" value="${campNo}"/>
+    </form>
+
+    <form id="pagenavi">
+      <input type="hidden" id="currentPage" name="currentPage" value="0"/>
+      <input type="hidden" name="sortCondition" value="${search.sortCondition}">
+      <input type="hidden" name="campNo" value="${campNo}"/>
+    </form>
 
 
     <script src="../../resources/lib/bootstrap/js/bootstrap.js"></script>
@@ -206,6 +286,10 @@ pageEncoding="UTF-8"%>
 		<script src="../../resources/js/theme.init.js"></script>
     <!-- Examples -->
 		<script src="../../resources/js/examples.lightbox.js"></script>
+
+    <script type="text/javascript">
+      parent.AdjustIframeHeight(document.getElementById("changebody").scrollHeight);
+    </script>
 
 </body>
 </html>

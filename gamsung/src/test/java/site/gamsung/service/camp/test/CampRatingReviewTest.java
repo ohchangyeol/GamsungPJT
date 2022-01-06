@@ -74,7 +74,9 @@ public class CampRatingReviewTest {
 		
 		int campNo = 10000;
 		
-		Map<String, Object> map = ratingReviewService.listRatingReview(search, campNo);
+		search.setCampNo(campNo);
+		
+		Map<String, Object> map = ratingReviewService.listRatingReview(search);
 		
 		List<RatingReview> list = (List<RatingReview>)map.get("list");
 		
