@@ -14,7 +14,7 @@ pageEncoding="UTF-8"%>
     -->
     <title>GamsungCamp</title>
     
-	<jsp:include page="resources/commonLib.jsp"></jsp:include>
+    <jsp:include page="resources/commonLib.jsp"></jsp:include>
 	
     <style>
 
