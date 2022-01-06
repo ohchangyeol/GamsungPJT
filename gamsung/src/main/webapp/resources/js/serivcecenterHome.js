@@ -2,7 +2,10 @@ $(document).ready(function(){
     console.log("hello service Center");
     $('.btn').on('click' , (e)=>{
         // console.log($(e.currentTarget));
-        const btnType = $(e.currentTarget).data('btntype');
+        // console.log("this ",$(this));
+        // console.log("target ",$(e.currentTarget));
+
+        const btnType = $(e.currentTarget).data('btntype');$(this)
         console.log(btnType)
         switch (btnType) {
             case 1:

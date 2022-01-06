@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
-<head>
-    <meta charset="UTF-8">
-</head>
+
+
+<!-- admin Sidebar -->
 <aside id="sidebar-left" class="sidebar-left">
 				
     <div class="sidebar-header">
@@ -419,33 +419,26 @@ pageEncoding="UTF-8"%>
                     <li class="nav-parent">
                         <a>
                             <i class="fa fa-align-left" aria-hidden="true"></i>
-                            <span>Menu Levels</span>
+                            <span>고객 센터</span>
                         </a>
                         <ul class="nav nav-children">
-                            <li>
-                                <a>First Level</a>
-                            </li>
+                            
                             <li class="nav-parent">
-                                <a>Second Level</a>
+                                <a>공지사항</a>
                                 <ul class="nav nav-children">
-                                    <li class="nav-parent">
-                                        <a>Third Level</a>
-                                        <ul class="nav nav-children">
-                                            <li>
-                                                <a>Third Level Link #1</a>
-                                            </li>
-                                            <li>
-                                                <a>Third Level Link #2</a>
-                                            </li>
-                                        </ul>
+                                    <li>
+                                        <a href="../../view/servicecenter/addNotice.jsp">공지사항 등록</a>
                                     </li>
                                     <li>
-                                        <a>Second Level Link #1</a>
-                                    </li>
-                                    <li>
-                                        <a>Second Level Link #2</a>
+                                        <a href="/servicecenter/listNotice">공지사항 목록</a>
                                     </li>
                                 </ul>
+                            </li>
+                            <li>
+                                <a>Q & A</a>
+                            </li>
+                            <li>
+                                <a href="/view/servicecenter/listRpoert.jsp">신고 내역</a>
                             </li>
                         </ul>
                     </li>
