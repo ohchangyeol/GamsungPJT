@@ -703,7 +703,7 @@
 						<div class="modal-body">
 							<form action="" class="was-validated">
 								<div class="form-group">
-									<input type="text" class="form-control" id="secessionn-userId"
+									<input type="text" class="form-control" id="secession-userId"
 										placeholder="아이디를 입력하세요" name="id" required>
 								</div>
 								<div class="form-group">
@@ -779,15 +779,16 @@
 			<script src="../../resources/js/dashboard/examples.dashboard.js"></script>
 
 			<script>
-				$(function () {
+				$(document).ready(function () {
 					$('#listMyProduct').on('click', function () {
 						window.location = "/auction/listMyAuctionProduct?currentPage=1";
 					});
 
 					$("#addSecession").on('click', function () {
 
-						var id = $("#secessionn-userId").val();
+						var id = $("#secession-userId").val();
 						var password = $("#secession-userPwd").val();
+						alert("여기는 들어오나");
 
 						$.ajax({
 							url: '/user/rest/addSecessionUser',
@@ -817,8 +818,39 @@
 										// 	"id": id,
 										// 	"password": password,
 										// }),
+
+										success: function (kData) {
+											console.log('성공: ' + kData);
+											if (kData == 0) {
+
+												Swal.fire({
+													title: '탈퇴하시겠습니까?',
+													text: "탈퇴후엔 같은 아이디로 재가입이 불가합니다!",
+													icon: 'warning',
+													showCancelButton: true,
+													confirmButtonColor: '#3085d6',
+													cancelButtonColor: '#d33',
+													confirmButtonText: '탈퇴',
+													cancelButtonText: '취소'
+												}).then((result) => {
+													if (result.isConfirmed) {
+														Swal.fire(
+															'탈퇴완료!',
+															'success'
+														).then(() => {
+															self.location = "/";
+														})
+													}
+												})
+
+
+											}
+
+										}
 									})
-								} else if (returnData == "0") {
+								}
+
+								else if (returnData == "0") {
 									Swal.fire({
 										title: '탈퇴하시겠습니까?',
 										text: "탈퇴후엔 같은 아이디로 재가입이 불가합니다!",

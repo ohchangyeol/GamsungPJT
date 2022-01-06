@@ -140,8 +140,9 @@ public class UserController {
 		//Business Logic
 		System.out.println(user);
 		User dbUser=userService.checkIdPassword(user);
-		User kUser=userService.getUser(session.getAttribute("eamil").toString());
-		
+//		if(session.getAttribute("eamil")!=null) {
+//		User kUser=userService.getUser(session.getAttribute("eamil").toString());
+//		}
 		if(dbUser == null) {
 			return "forward:/view/user/addGeneralUser.jsp";
 		}
@@ -209,6 +210,10 @@ public class UserController {
 		
 		System.out.println("/user/logout : GET");
 
+		if((String)session.getAttribute("kakaoToken")!=null) {
+			userService.kakaoLogout((String)session.getAttribute("accessToken"));
+			session.invalidate();
+		}
 		session.invalidate();
 		
 		return "redirect:/";

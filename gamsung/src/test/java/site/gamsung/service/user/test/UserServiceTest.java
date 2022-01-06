@@ -125,13 +125,16 @@ public class UserServiceTest {
 		System.out.println(totalCount);
 	}
 	
-	//@Test
+	@Test
 	public void testCheckDuplication() throws Exception{
 		
 		User user = new User();
 		user.setId("user1@gamsung.com");
 		System.out.println(user);
-		userService.checkDuplication(user);
+		
+		int result=userService.checkDuplication(user);
+		
+		System.out.println(result);
 	}
 	
 	//@Test
@@ -144,7 +147,7 @@ public class UserServiceTest {
 		
 	}
 	
-	@Test
+	//@Test
 	public void testUpdateTempPassword() throws Exception{
 		
 		User user = new User();
@@ -225,7 +228,7 @@ public class UserServiceTest {
 			
 		}
 		
-		@Test
+		//@Test
 		public void testUpdateDormantGeneralUserConver() throws Exception{
 			 
 			User user = new User();

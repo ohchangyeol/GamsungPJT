@@ -199,7 +199,7 @@ public class UserRestController {
 		if (dbUser != null && userService.addSecessionUser(dbUser)) {
 			if(dbUser.getSnsId()!=null) {
 				System.out.println("어딜 타는거지");
-				System.out.println("세션에 토큰값 없나"+session.getAttribute("kakaoToken"));
+				//System.out.println("세션에 토큰값 없나"+session.getAttribute("kakaoToken"));
 				//session.setAttribute("user", dbUser);
 				return 5;
 			}else {
@@ -213,13 +213,13 @@ public class UserRestController {
 	}
 	
 	@RequestMapping(value="rest/kakaounlink") 
-	public void unlink(HttpSession session) { 
+	public int unlink(HttpSession session) { 
 		
 		System.out.println("들어오긴 하는건가");
 		System.out.println("토큰"+(String)session.getAttribute("kakaoToken"));
 		userService.unlink((String)session.getAttribute("kakaoToken")); 
 		session.invalidate();
-//		return 0;
+		return 0;
 		}
 
 	@RequestMapping(value = "rest/updateDormantGeneralUserConvert", method = RequestMethod.POST)

@@ -182,22 +182,23 @@
 	 
 	 <!-- SQL : CHECK duplication -->
 	 <select id="checkDuplication" parameterType="user" resultType="int">
-		SELECT COUNT(check.user_id)
-		FORM 	(SELECT user_id, nick_name, phone, tourism_business_num
+		SELECT COUNT(*)
+		FROM (SELECT user_id, nick_name, phone, tourism_business_num
 				 FROM USERS
-				 WHERE 
+				<trim prefix="WHERE" prefixOverrides="OR">
 				 	<if test="id != null">
-						user_id = #{id}
+						OR user_id = #{id}
 					</if>
 					<if test="nickName != null">
-						nick_name = #{nickName}
+						OR nick_name = #{nickName}
 					</if>
 					<if test="phone != null">
-						phone = #{phone}
+						OR phone = #{phone}
 					</if>
 					<if test="tourismBusinessNum != null">
-						tourism_business_num = #{tourismBusinessNum}
-					</if>) check
+						OR tourism_business_num = #{tourismBusinessNum}
+					</if>
+				</trim>) c
 	 </select>
 		
 
