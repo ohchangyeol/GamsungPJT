@@ -45,7 +45,7 @@ public class AuctionInfoServiceTest {
 	}
 	
 	//응찰 관심을 등록한 상품을 출력 test
-	@Test
+	//@Test
 	public void testListBidConcern() {
 		
 		User user = new User();
@@ -144,6 +144,15 @@ public class AuctionInfoServiceTest {
 		
 		auctionInfoService.getBidderRanking(auctionInfo);
 		
+	}
+	
+	@Test
+	public void testCheckAndUpdateUserGrade() {
+		
+		User user = new User();
+		user.setId("yim3370@gmail.com");
+		user.setRole("GENERAL");
+		auctionInfoService.checkAndUpdateUserAuctionGrade(user);
 	}
 
 

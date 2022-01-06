@@ -266,7 +266,6 @@
 		
 		var today = new Date();
 		var mindate = today.setDate(today.getDate() - 1);
-		var maxdate = today.setDate(today.getDate() + 7);
 		$(function(){
 			
 			
@@ -285,7 +284,6 @@
 			    format: 'YYYY-MM-DD',
 			    useCurrent: false,
 				minDate : mindate,
-				maxDate : maxdate
 			});
 			
 			
@@ -327,6 +325,78 @@
 			});
 			
 			$("#tempSave").on('click',function(){
+				
+				if($('#auctionProductName').val().length == 0){
+					alert("상품명을 입력하세요");
+					$('#auctionProductName').focus();
+					return;
+				}
+				
+				if( !$.isNumeric( $('#startBidPrice').val() ) ){
+					$('#startBidPrice').focus();
+					return;
+				}
+				
+				if( !$.isNumeric( $('#hopefulBidPrice').val() ) ){
+					$('#hopefulBidPrice').focus();
+					return;
+				}
+				
+				if( Number($('#startBidPrice').val() ) >= Number( $('#hopefulBidPrice').val() ) ){
+					alert("입찰 희망가는 시작가보다 작을 수 없습니다.");
+					$('#startBidPrice').focus();
+					return
+				}
+				
+				if( !$.isNumeric( $('#bidUnit').val() ) ){
+					$('#bidUnit').focus();
+					return;
+				}
+				
+				if( Number($('#bidUnit').val() ) > ( Number( $('#hopefulBidPrice').val() ) - Number( $('#startBidPrice').val() ) ) ){
+					alert("입찰 단위는 희망낙찰가 시작가 차보다 작아야 합니다.");
+					$('#bidUnit').focus();
+					return;
+				}
+				
+				if($('#startDate').val().length != 10){
+			 		alert("시작 날짜를 확인해 주세요");
+			 		$('#startDate').focus();
+			 		return;
+			 	}
+			 	
+			 	if($('#startTime').val().length != 8){
+			 		alert("시작 시간를 확인해 주세요");
+			 		$('#startTime').focus();
+			 		return;
+			 	}
+			 	
+			 	if($('#endDate').val().length != 10){
+			 		alert("종료 날짜를 확인해 주세요");
+			 		$('#endDate').focus();
+			 		return;
+			 	}
+			 	
+			 	if($('#endTime').val().length != 8){
+			 		alert("시작 시간를 확인해 주세요");
+			 		$('#endTime').focus();
+			 		return;
+			 	}
+			 	
+				
+				if(!$.isNumeric( $('#bidableGrade').val() ) ){
+			 		alert('입찰 가능 등급이 숫자가 아닙니다.');
+			 		$('#bidableGrade').focus();
+			 		return;
+				}else if( Number($('#bidableGrade').val() )<1){
+			 		alert('입찰 가능 등급은 1보다 작을 수 없습니다.');
+			 		$('#bidableGrade').focus();
+			 		return;
+			 	}else if( Number($('#bidableGrade').val() )>100){
+			 		alert('입찰 가능 등급은 100보다 클 수 없습니다.');
+			 		$('#bidableGrade').focus();
+			 		return;
+			 	}
 				
 				$('#uploadForm').attr('hidden',true);
 				
@@ -370,12 +440,6 @@
 					return;
 				}
 				
-				if( Number($('#bidUnit').val() ) > ( Number( $('#hopefulBidPrice').val() ) - Number( $('#startBidPrice').val() ) ) ){
-					alert("입찰 단위는 희망낙찰가 시작가 차보다 작아야 합니다.");
-					$('#bidUnit').focus();
-					return;
-				}
-				
 			 	if($('#startDate').val().length != 10){
 			 		alert("시작 날짜를 확인해 주세요");
 			 		$('#startDate').focus();
@@ -406,13 +470,32 @@
 			 			return;
 			 		}
 			 	}
-				
+			 	
 			 	if(dateCompare($('#startDate').val()+' '+$('#startTime').val(),$('#endDate').val()+' '+$('#endTime').val())){
 			 		alert('진행 시간이 10분 보다 짧을 수 없습니다.');
 			 		$('#endTime').focus();
 			 		return;
 			 	}
-				
+			 	
+			 	if(dayCompare($('#startDate').val()+' '+$('#startTime').val(),$('#endDate').val()+' '+$('#endTime').val())){
+			 		alert('진행 가능일은 최대 7일 입니다.');
+			 		$('#endTime').focus();
+			 		return;
+			 	}
+			 	
+			 	if(!$.isNumeric( $('#bidableGrade').val() ) ){
+			 		alert('입찰 가능 등급이 숫자가 아닙니다.');
+			 		$('#bidableGrade').focus();
+			 		return;
+				}else if( Number($('#bidableGrade').val() )<1){
+			 		alert('입찰 가능 등급은 1보다 작을 수 없습니다.');
+			 		$('#bidableGrade').focus();
+			 		return;
+			 	}else if( Number($('#bidableGrade').val() )>100){
+			 		alert('입찰 가능 등급은 100보다 클 수 없습니다.');
+			 		$('#bidableGrade').focus();
+			 		return;
+			 	}
 				 
 				if($('.selProductFile').length == 0){
 					alert("1~5장의 사진이 필요합니다.");
@@ -451,6 +534,19 @@
 			
 			var time_compare = time1_pojo.setMinutes(time1_pojo.getMinutes()+10);
 			if(time2_pojo < time_compare){
+				return true;
+			}else{
+				return false;				
+			}
+		}
+		
+		function dayCompare(time1,time2) {
+			
+			var time1_pojo = new Date(time1);
+			var time2_pojo = new Date(time2);
+			
+			var time_compare = time1_pojo.setDate(time1_pojo.getDate()+7);
+			if(time2_pojo > time_compare){
 				return true;
 			}else{
 				return false;				

@@ -111,6 +111,7 @@ public class AuctionReviewServiceImpl implements RatingReviewService, AuctionRev
 			if(tmpRatingReview.getCommentRegDate() != null) {
 				info = "판매자의 답글이 달려 삭제 불가능 합니다.";
 			}else {
+				auctionReviewDAO.deleteAuctionRatingReview(ratingReview);
 				info = "삭제 완료하였습니다.";				
 			}
 			auctionInfo.setInfo(info);

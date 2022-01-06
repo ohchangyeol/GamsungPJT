@@ -146,7 +146,17 @@ public class AuctionProductDAOImpl implements AuctionProductDAO{
 		// TODO Auto-generated method stub
 		return sqlSession.update("AuctionProductMapper.deleteAuctionProduct",auctionInfo);
 	}
-	
-	
+
+	@Override
+	public void viewUserLog(AuctionInfo auctionInfo) {
+		// TODO Auto-generated method stub
+		sqlSession.insert("AuctionProductMapper.viewUserLog",auctionInfo);
+	}
+
+	@Override
+	public AuctionInfo getUserLog(AuctionInfo auctionInfo) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("AuctionProductMapper.getUserLog",auctionInfo);
+	}
 
 }

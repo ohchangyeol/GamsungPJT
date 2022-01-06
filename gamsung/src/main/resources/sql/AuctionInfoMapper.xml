@@ -187,7 +187,7 @@
 		(	SELECT COUNT(rating_review_no) AS add_Review_Count
 			FROM rating_review
 			<if test='role.equals("GENERAL")'>
-				WHERE user_id = #{id}
+				WHERE user_id = #{id} AND review_reg_date IS NOT NULL	
 			</if>
 		) AS RRC,
 		
@@ -199,20 +199,20 @@
 							ELSE @rownum := 1 
 							END) prodrank, 
 						(@prodno := ah.product_no) as prodno
-						FROM AUCTION_HISTORY ah, (	SELECT 	@prodno :='',
-															@rownum := 0 
-															FROM DUAL
-												 ) as rownum,
-												 (	SELECT product_no, COUNT(product_no) AS prodcount
-												 	FROM AUCTION_HISTORY
-												 	GROUP BY product_no) AS pc
+						FROM(	SELECT 	@prodno :='',
+								@rownum := 0 
+								FROM DUAL) as rownum,
+							(	SELECT product_no, COUNT(product_no) AS prodcount
+								FROM AUCTION_HISTORY
+								GROUP BY product_no) AS pc,
+							(	SELECT product_no, bidder_id, bid_price
+								FROM AUCTION_HISTORY
+								ORDER BY bid_price desc) ah
 
 						WHERE ah.product_no = pc.product_no						 	
 						ORDER BY ah.product_no
 				 ) AS pbr
-				
-			
-			WHERE bidder_id = #{id} AND pbr.prodrank BETWEEN (pbr.tcount-2) AND (pbr.tcount-1)
+			WHERE prodrank BETWEEN 2 AND 3 AND bidder_id = 'yim3370@gmail.com'
 		) AS TRC;
 	</select>
 	

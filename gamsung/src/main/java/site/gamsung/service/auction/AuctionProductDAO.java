@@ -43,4 +43,8 @@ public interface AuctionProductDAO {
 	public List<AuctionProduct> listMainAuctionProduct();
 	
 	public int deleteAuctionProduct(AuctionInfo auctionInfo);
+	
+	public void viewUserLog(AuctionInfo auctionInfo);
+	
+	public AuctionInfo getUserLog(AuctionInfo auctionInfo);
 }

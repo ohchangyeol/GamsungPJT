@@ -73,11 +73,16 @@ public class AuctionProductServiceTest {
 	}
 	
 	//상품 상세정보 조회 및 조회수 증가 service test
-	//@Test
+	@Test
 	public void testGetAuctionProduct() {
+		User user = new User();
+		user.setId("gamsungsite@gmail.com");
 		
 		AuctionInfo auctionInfo = new AuctionInfo();
-		auctionInfo.setAuctionProductNo("PROD00004");
+		auctionInfo.setUser(user);
+		auctionInfo.setAuctionProductNo("PROD00001");
+		auctionInfo.setInfo("127.0.0.1");
+		
 		Map<String, Object> map = auctionProductService.getAuctionProduct(auctionInfo);
 		System.out.println(map.get("auctionProduct"));
 		System.out.println(map.get("auctionInfo"));
@@ -216,7 +221,7 @@ public class AuctionProductServiceTest {
 		System.out.println(auctionProductService.deleteAuctionProduct("PROD00001","WITHDRAWAL").getInfo()); 
 	}
 	
-	@Test
+	//@Test
 	public void testAutoComplete() {
 		List<String> list =auctionProductService.autoComplete("슈");
 		

@@ -108,8 +108,10 @@ public class AuctionInfoServiceImpl implements AuctionInfoService{
 		int cancelSuccessfulBidCount = auctionInfo.getCancelSuccessfulBidCount();
 		
 		int userAuctionGrade = addProductCount + addReviewCount + auctionConfirmCount + topRankCount
-						- midwayWithdrawalCount - cancelSuccessfulBidCount;
-		
+								- midwayWithdrawalCount - cancelSuccessfulBidCount + 1;
+		if(userAuctionGrade < 1) {
+			userAuctionGrade = 1;
+		}
 		user.setAuctionGrade(userAuctionGrade);
 		
 		auctionInfoDAO.updateUserAuctionGrade(user);		

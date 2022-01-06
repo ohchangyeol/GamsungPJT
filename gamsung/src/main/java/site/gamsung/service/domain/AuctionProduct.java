@@ -6,6 +6,7 @@ public class AuctionProduct {
 	private String auctionProductDetail;
 	private String auctionProductSubDetail;
 	private String registrantId;
+	private String registrantNickName;
 	private String successfulBidderId;
 	private int startBidPrice;
 	private int hopefulBidPrice;
@@ -64,6 +65,12 @@ public class AuctionProduct {
 	}
 	public void setRegistrantId(String registrantId) {
 		this.registrantId = registrantId;
+	}
+	public String getRegistrantNickName() {
+		return registrantNickName;
+	}
+	public void setRegistrantNickName(String registrantNickName) {
+		this.registrantNickName = registrantNickName;
 	}
 	public String getSuccessfulBidderId() {
 		return successfulBidderId;

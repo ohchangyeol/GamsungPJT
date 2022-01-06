@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -88,15 +91,23 @@ public class AuctionProductController {
 		User user = (User)httpSession.getAttribute("user");
 		auctionInfo.setUser(user);
 		
+		HttpServletRequest req = ((ServletRequestAttributes)RequestContextHolder.currentRequestAttributes()).getRequest();
+		String ip = req.getHeader("X-FORWARDED-FOR");
+		if(ip == null) {
+			ip = req.getRemoteAddr();			
+		}
+		auctionInfo.setInfo(ip);
+		
 		//조회수를 1증가 시키며, 상품 번호에 대한 상세정보를 받아온다.
 		Map<String, Object> map = auctionProductService.getAuctionProduct(auctionInfo);
-			
+		
 		//받은 상품정보를 model에 담아 return한다.
 		model.addAttribute("auctionProduct",map.get("auctionProduct"));
 		model.addAttribute("auctionInfo", map.get("auctionInfo"));
 		model.addAttribute("registrantInfo", map.get("registrantInfo"));
 		model.addAttribute("ratingReview",map.get("ratingReview"));
-			
+		model.addAttribute("auctionGrade", map.get("auctionGrade"));
+		
 		return "forward:/view/auction/getAuctionProduct.jsp";
 	}
 	
@@ -188,12 +199,18 @@ public class AuctionProductController {
 		if(tmpAuctionProduct != null) {
 			auctionProduct.setAuctionProductNo(tmpAuctionProduct.getAuctionProductNo());
 			auctionProductService.updateAuctionProduct(auctionProduct);
+			
+			//사용자 경매 등급 재설정한다.
+			auctionInfoService.checkAndUpdateUserAuctionGrade(user);
 			return "redirect:./listAuctionProduct";
 		}
 		
 		
+		
 		//상품정보를 등록한다.
 		auctionProductService.addAuctionProduct(auctionProduct);
+		//사용자 경매 등급 재설정한다.
+		auctionInfoService.checkAndUpdateUserAuctionGrade(user);
 					
 		return "redirect:./listAuctionProduct";
 	}

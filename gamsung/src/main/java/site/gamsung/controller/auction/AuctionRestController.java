@@ -3,6 +3,7 @@ package site.gamsung.controller.auction;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.collections4.map.HashedMap;
@@ -20,6 +21,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import site.gamsung.service.auction.AuctionInfoService;
 import site.gamsung.service.auction.AuctionProductService;
@@ -112,6 +115,8 @@ public class AuctionRestController {
 		
 		try {
 			ratingReviewService.addRatingReview(ratingReview);
+			//사용자 경매 등급 재설정한다.
+			auctionInfoService.checkAndUpdateUserAuctionGrade(user);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -120,8 +125,18 @@ public class AuctionRestController {
 	
 	//리뷰 리스트
 	@PostMapping(value = "listAuctionRatingReview/{currentPage}")
-	public List<RatingReview> listAuctionRatingReview(@RequestBody AuctionInfo auctionInfo, @PathVariable int currentPage){
-	
+	public List<RatingReview> listAuctionRatingReview(@RequestBody AuctionInfo auctionInfo, HttpSession httpSession, @PathVariable int currentPage){
+		
+		User user = (User)httpSession.getAttribute("user");
+		auctionInfo.setUser(user);
+		
+		HttpServletRequest req = ((ServletRequestAttributes)RequestContextHolder.currentRequestAttributes()).getRequest();
+		String ip = req.getHeader("X-FORWARDED-FOR");
+		if(ip == null) {
+			ip = req.getRemoteAddr();			
+		}
+		auctionInfo.setInfo(ip);
+		
 		Map<String, Object> map = auctionProductService.getAuctionProduct(auctionInfo);
 	
 		Search search = new Search();
@@ -148,8 +163,15 @@ public class AuctionRestController {
 	
 	//리뷰 삭제
 	@PostMapping(value = "deleteAuctionRatingReview")
-	public AuctionInfo deleteAuctionRatingReview(@RequestBody RatingReview ratingReview){
-		return auctionReviewService.deleteAuctionRatingReview(ratingReview);
+	public AuctionInfo deleteAuctionRatingReview(@RequestBody RatingReview ratingReview, HttpSession httpSession){
+		
+		AuctionInfo auctionInfo = auctionReviewService.deleteAuctionRatingReview(ratingReview); 
+		
+		//사용자 경매 등급 재설정한다.
+		User user = (User)httpSession.getAttribute("user");
+		auctionInfoService.checkAndUpdateUserAuctionGrade(user);
+		
+		return auctionInfo;
 	}
 	
 	//메인 상품 등록
@@ -178,6 +200,7 @@ public class AuctionRestController {
 		return auctionInfo;
 	}
 	
+	//상품명 자동 완성
 	@RequestMapping(value = "autoComplete")
 	public List<String> autoComplete(@RequestBody Search search){
 		System.out.println(search.getSearchKeyword());
@@ -267,7 +290,6 @@ public class AuctionRestController {
 	@MessageMapping("/exit/{auctionProductNo}")
 	public void exitAuction(AuctionInfo auctionInfo, StompHeaderAccessor stompHeaderAccessor) {
 		
-		System.out.println("/topic/exit");
 		List<String> list = stompHeaderAccessor.getNativeHeader("realTimeViewCount");
 		for(String string : list) {
 			auctionInfo.setRealTimeViewCount(Integer.parseInt(string));

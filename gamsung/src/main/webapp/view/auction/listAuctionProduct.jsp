@@ -242,7 +242,7 @@
 		                  		<a class="btn btn-d btn-circle btn-xs bidCocern"><i class="fa fa-bell-o"></i>응찰관심</a>
 		                  	</c:if>
 		                  	<span hidden="hidden">${product.auctionProductNo}</span>
-	                    	<a class="btn btn-round btn-b notCrawl">입찰하기</a>
+	                    	<a class="btn btn-d btn-circle btn-xs notCrawl"><i class="fa fa-gavel"></i>입찰하기</a>
 	                    </div>
 	                  </div>
 	                  <h4 class="shop-item-title font-alt target"><a href="#">${product.auctionProductName}</a></h4>

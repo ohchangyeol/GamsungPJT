@@ -150,13 +150,29 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 
 	//경매 상품 상세조회
 	@Override
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW ) //get* read-only가 설정되어 있어 예외로 새로운 트렌젝션을 탈수 있도록 설정
 	public Map<String, Object> getAuctionProduct(AuctionInfo auctionInfo) {
 		// TODO Auto-generated method stub
-
-		Map<String, Object> map = new HashedMap<String, Object>();
 		
-		//조회수를 1증가 시킨다.
-		auctionProductDAO.updateAuctionProductViewCounter(auctionInfo.getAuctionProductNo());
+		//STOMP를 통해 상품을 조회할 경우 증가를 제거하기 위해 IP의 .을 이용하여 걸려준다.
+		if(auctionInfo.getInfo() != null && auctionInfo.getInfo().indexOf('.') > 2) {
+			AuctionInfo viewLog = auctionProductDAO.getUserLog(auctionInfo);
+			if(viewLog == null) {
+				//조회 정보를 추가하며 1증가 시킨다..
+				auctionProductDAO.viewUserLog(auctionInfo);
+				auctionProductDAO.updateAuctionProductViewCounter(auctionInfo.getAuctionProductNo());
+			}			
+		}
+		
+		int auctionGrade = 0;
+		//조회자의 경매 등급을 가져온다.
+		if(auctionInfo.getUser() != null) {
+			auctionGrade = auctionInfoDao.getUserAuctionGradeInfo(auctionInfo.getUser().getId());
+		}
+		
+		
+		//조회한 적이 있는 상품인지 확인한다.
+		Map<String, Object> map = new HashedMap<String, Object>();
 
 		//상품 정보를 가져왔다.
 		AuctionProduct auctionProduct = auctionProductDAO.getAuctionProduct(auctionInfo.getAuctionProductNo());
@@ -186,10 +202,12 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 		user.setAuctionGrade(registrantGrade);
 		
 		registrantInfo.setUser(user);
+		
+		
 		map.put("auctionProduct", auctionProduct);
 		map.put("registrantInfo", registrantInfo);
 		map.put("ratingReview", ratingReview);
-		
+		map.put("auctionGrade",auctionGrade);
 		return map;
 	}
 

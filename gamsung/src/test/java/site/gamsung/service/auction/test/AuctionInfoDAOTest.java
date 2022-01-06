@@ -156,11 +156,14 @@ public class AuctionInfoDAOTest {
 	}
 	
 	// 경매에 관련된 횟수 role에 따라 구분 test
-	//@Test
+	@Test
 	public void testAuctionStatusTotalCount() {
-		
+		System.out.println(3/2);
+		System.out.println(1/2);
+		System.out.println(1/3);
+		System.out.println(1/2);
 		User user = new User();
-		user.setId("user1@gamsung.com");
+		user.setId("yim3370@gmail.com");
 		user.setRole("GENERAL");
 //		user.setRole("ADMIN");
 		
@@ -214,7 +217,7 @@ public class AuctionInfoDAOTest {
 	}
 	
 	
-	@Test
+	//@Test
 	public void testGetBidderRanking() {
 		
 		AuctionInfo auctionInfo = new AuctionInfo();
