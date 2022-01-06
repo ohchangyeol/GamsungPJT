@@ -132,6 +132,8 @@ pageEncoding="UTF-8"%>
 
         <li><a href="/view/common/myPage.jsp">Mypage</a>
         
+        <li><a href="/view/common/adminPage.jsp">Adminpage</a>
+        
         <c:if test="${sessionScope.user.role == 'BUSINESS' || sessionScope.user.role == 'ADMIN'}">
 			<li><a href="/campBusiness/goSubMainCampBusiness">사업자전용</a></li>
 		</c:if>

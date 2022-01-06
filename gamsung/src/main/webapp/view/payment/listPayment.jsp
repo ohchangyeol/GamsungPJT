@@ -82,48 +82,104 @@
 	  <div class="col-xs-12">
 	    
 	    <div class="row">	      
-			<h3 class="col-sm-7 mb-0">&nbsp;&nbsp;&nbsp;&nbsp;결제내역</h3>	      
+			<h3 class="col-sm-7 mb-0">&nbsp;&nbsp;&nbsp;&nbsp;결제내역 - ${user.role}</h3>	      
 		    <div class="col-sm-5">
-		      	<div class="row">	          
-					<form role="form" class="notice-search">
-						
-						<br>
-						<div class="col-sm-4">
-						  <select class="form-control">
-						    <option selected="selected">제목+내용</option>
-						    <option>제목</option>
-						    <option>내용</option>
-						  </select>
-						</div>
-						
-						<div class="col-sm-6">
-						  <div class="search-box">
-						    <input class="form-control" type="text" placeholder="Search...">
-						    <button class="search-btn" type="submit"><i class="fa fa-search"></i></button>
-						  </div>
-						</div>
+		    
+	      		<form role="form" class="notice-search">					
+					<br>
+					<div class="col-sm-4">
+					  <select class="form-control" name="searchCondition">
 					  
-					</form>	        
-				</div>		    
+						<c:if test="${! empty user.role && user.role == 'ADMIN'}">
+							<option value="paymentSender" ${! empty search.searchCondition && search.searchCondition == 'paymentSender' ? "selected" : "" }>주는사람</option>			
+							<option value="paymentReceiver" ${! empty search.searchCondition && search.searchCondition == 'paymentReceiver' ? "selected" : "" }>받는사람</option>
+							<option value="paymentNo" ${! empty search.searchCondition && search.searchCondition == 'paymentNo' ? "selected" : "" }>결제 번호</option>
+							<option></option>
+						    <option value="paymentProduct" ${! empty search.searchCondition && search.searchCondition == 'paymentProduct' ? "selected" : "" }>결제 상품</option>
+						    <option value="paymentProductPriceTotal" ${! empty search.searchCondition && search.searchCondition == 'paymentProductPriceTotal' ? "selected" : "" }>결제 전체금액</option>
+						    <option></option>
+						    <option value="paymentRegTime" ${! empty search.searchCondition && search.searchCondition == 'paymentRegTime' ? "selected" : "" }>결제 등록일자</option>						    
+						    <option value="paymentCode" ${! empty search.searchCondition && search.searchCondition == 'paymentCode' ? "paymentCode" : "" }>결제 유형</option>
+						    <option value="paymentReferenceNum" ${! empty search.searchCondition && search.searchCondition == 'paymentReferenceNum' ? "selected" : "" }>결제 참조번호</option>						    
+						    <option value="paymentMethod" ${! empty search.searchCondition && search.searchCondition == 'paymentMethod' ? "selected" : "" }>결제 방법</option>
+						    <option></option>
+						    <option value="paymentPriceTotal" ${! empty search.searchCondition && search.searchCondition == 'paymentPriceTotal' ? "selected" : "" }>일반결제 총금액</option>
+						    <option value="paymentPricePay" ${! empty search.searchCondition && search.searchCondition == 'paymentPricePay' ? "selected" : "" }>일반결제 상품대금</option>
+						    <option value="paymentPriceFee" ${! empty search.searchCondition && search.searchCondition == 'paymentPriceFee' ? "selected" : "" }>일반결제 수수료</option>
+						    <option></option>
+						    <option value="paymentMethodSecond" ${! empty search.searchCondition && search.searchCondition == 'paymentMethodSecond' ? "selected" : "" }>포인트결제 유무</option>
+						    <option value="paymentPriceTotalSecond" ${! empty search.searchCondition && search.searchCondition == 'paymentPriceTotalSecond' ? "selected" : "" }>포인트결제 총금액</option>
+						    <option value="paymentPricePaySecond" ${! empty search.searchCondition && search.searchCondition == 'paymentPricePaySecond' ? "selected" : "" }>포인트결제 상품대금</option>
+						    <option value="paymentPriceFeeSecond" ${! empty search.searchCondition && search.searchCondition == 'paymentPriceFeeSecond' ? "selected" : "" }>포인트결제 수수료</option>
+						    <option></option>
+						    <option value="paymentRefundRegTime" ${! empty search.searchCondition && search.searchCondition == 'paymentRefundRegTime' ? "selected" : "" }>환불 등록일자</option>
+						    <option value="paymentRefundCode" ${! empty search.searchCondition && search.searchCondition == 'paymentRefundCode' ? "selected" : "" }>환불 유형</option>
+						    <option value="paymentRefundReferenceNum" ${! empty search.searchCondition && search.searchCondition == 'paymentRefundReferenceNum' ? "selected" : "" }>환불 참조번호</option>
+						    <option></option>
+						    <option value="paymentRefundPriceTotal" ${! empty search.searchCondition && search.searchCondition == 'paymentRefundPriceTotal' ? "selected" : "" }>일반환불 금액합계</option>
+						    <option value="paymentRefundPricePay" ${! empty search.searchCondition && search.searchCondition == 'paymentRefundPricePay' ? "selected" : "" }>일반환불 상품대금</option>
+						    <option value="paymentRefundPriceFee" ${! empty search.searchCondition && search.searchCondition == 'paymentRefundPriceFee' ? "selected" : "" }>일반환불 수수료</option>
+						    <option></option>
+						    <option value="paymentRefundPriceTotalSecond" ${! empty search.searchCondition && search.searchCondition == 'paymentRefundPriceTotalSecond' ? "selected" : "" }>포인트환불 금액합계</option>
+						    <option value="paymentRefundPricePaySecond" ${! empty search.searchCondition && search.searchCondition == 'paymentRefundPricePaySecond' ? "selected" : "" }>포인트환불 상품대금</option>
+						    <option value="paymentRefundPriceFeeSecond" ${! empty search.searchCondition && search.searchCondition == 'paymentRefundPriceFeeSecond' ? "selected" : "" }>포인트환불 수수료</option>			
+						</c:if>	
+						
+						<c:if test="${! empty user.role && user.role != 'ADMIN'}">
+						    <option value="paymentProduct" ${! empty search.searchCondition && search.searchCondition == 'paymentProduct' ? "selected" : "" }>결제 상품</option>
+						    <option value="paymentProductPriceTotal" ${! empty search.searchCondition && search.searchCondition == 'paymentProductPriceTotal' ? "selected" : "" }>결제 전체금액</option>
+						    <option></option>
+						    <option value="paymentRegTime" ${! empty search.searchCondition && search.searchCondition == 'paymentRegTime' ? "selected" : "" }>결제 등록일자</option>						    
+						    <option value="paymentCode" ${! empty search.searchCondition && search.searchCondition == 'paymentCode' ? "paymentCode" : "" }>결제 유형</option>
+						    <option value="paymentReferenceNum" ${! empty search.searchCondition && search.searchCondition == 'paymentReferenceNum' ? "selected" : "" }>결제 참조번호</option>						    
+						    <option value="paymentMethod" ${! empty search.searchCondition && search.searchCondition == 'paymentMethod' ? "selected" : "" }>결제 방법</option>
+						    <option value="paymentPriceTotal" ${! empty search.searchCondition && search.searchCondition == 'paymentPriceTotal' ? "selected" : "" }>일반결제 총금액</option>
+						    <option value="paymentMethodSecond" ${! empty search.searchCondition && search.searchCondition == 'paymentMethodSecond' ? "selected" : "" }>포인트결제 유무</option>
+						    <option value="paymentPriceTotalSecond" ${! empty search.searchCondition && search.searchCondition == 'paymentPriceTotalSecond' ? "selected" : "" }>포인트결제 총금액</option>
+						    <option></option>
+						    <option value="paymentRefundRegTime" ${! empty search.searchCondition && search.searchCondition == 'paymentRefundRegTime' ? "selected" : "" }>환불 등록일자</option>
+						    <option value="paymentRefundCode" ${! empty search.searchCondition && search.searchCondition == 'paymentRefundCode' ? "selected" : "" }>환불 유형</option>
+						    <option value="paymentRefundReferenceNum" ${! empty search.searchCondition && search.searchCondition == 'paymentRefundReferenceNum' ? "selected" : "" }>환불 참조번호</option>
+						    <option value="paymentRefundPriceTotal" ${! empty search.searchCondition && search.searchCondition == 'paymentRefundPriceTotal' ? "selected" : "" }>일반환불 금액합계</option>
+						    <option value="paymentRefundPriceTotalSecond" ${! empty search.searchCondition && search.searchCondition == 'paymentRefundPriceTotalSecond' ? "selected" : "" }>포인트환불 금액합계</option>
+						</c:if>								  
+					  
+					    
+					  </select>
+					</div>
+					
+					<div class="col-sm-6">
+					  <div class="search-box">
+					    <input class="form-control" id="searchKeyword" name="searchKeyword" type="text" placeholder="Search...">
+					    <button class="search-btn" type="submit"><i class="fa fa-search"></i></button>
+					  </div>
+					</div>				  
+				</form>	  
+					    
 		    </div>
 	    </div>
 	   
 	    <hr class="divider-w mt-10 mb-20">
-	    <div class="notice-list">
-	      <ul>
-	        <!-- list Start -->
-	        <c:forEach var ="notice" items="${wrapper.notices}">
-	        <li>
-	          <div class="row">
-	            <div class="col-sm-2 notice-no">${notice.noticeNo}</div>
-	            <div class="col-sm-6 notice-title">${notice.noticeTitle}</div>
-	            <div class="col-sm-2 notice-view-count"><i class="fa fa-fw"></i> ${notice.viewCount}</div>
-	            <div class="col-sm-2 notice-reg-date">${notice.regDate}</div>
-	          </div>
-	        </li>
-	      </c:forEach>
-	        
-	      </ul>
+	   	<div class="row" style="white-space:nowrap; overflow:auto;  width:500px; height:150px;">	          
+					
+		    <div class="notice-list">
+		      <ul>
+
+		        <!-- list Start -->
+				<c:forEach var ="notice" items="${wrapper.notices}">
+					<li>
+					  <div class="row">
+					    <div class="col-sm-2">${notice.noticeNo}</div>
+						<div class="col-sm-6">${notice.noticeTitle}</div>
+						<div class="col-sm-2"><i class="fa fa-fw"></i> ${notice.viewCount}</div>
+						<div class="col-sm-2">${notice.regDate}</div>
+					  </div>
+					</li>
+				</c:forEach>
+		        
+		      </ul>
+		    </div>
+			    
 	    </div>
 	    
 	  </div>	

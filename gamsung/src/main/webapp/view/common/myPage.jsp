@@ -220,31 +220,6 @@
 											</li>
 										</ul>
 									</li>
-									
-									<hr class="separator" />
-									<li class="nav-parent">
-										<a>
-											<i class="fa fa-university" aria-hidden="true"></i>
-											<span>결제관리 [관리자]</span>
-										</a>
-										<ul class="nav nav-children">
-											<li>
-												<a href="/payment/listSiteProfit">
-													 관리자 사이트수익
-												</a>
-											</li>
-											<li>
-												<a href="/payment/listPayment">
-													 관리자 결제내역
-												</a>
-											</li>
-											<li>
-												<a href="/payment/listPaymentCode">
-													 관리자 결제코드관리
-												</a>
-											</li>
-										</ul>
-									</li>
 
 									<hr class="separator" />
 									<hr class="separator" />

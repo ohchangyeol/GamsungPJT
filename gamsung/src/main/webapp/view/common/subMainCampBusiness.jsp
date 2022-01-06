@@ -35,51 +35,34 @@ pageEncoding="UTF-8"%>
     <!-- Main stylesheet and color file-->
     <link href="/resources/css/style.css" rel="stylesheet">
     <link id="color-scheme" href="/resources/css/colors/default.css" rel="stylesheet">  
-    
-    
-    <!-- Unknown -->    
-    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Volkhov:400i" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">    
-       
-    <link rel="apple-touch-icon" sizes="57x57" href="resources/images/favicons/apple-icon-57x57.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="resources/images/favicons/apple-icon-60x60.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="resources/images/favicons/apple-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="resources/images/favicons/apple-icon-76x76.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="resources/images/favicons/apple-icon-114x114.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="resources/images/favicons/apple-icon-120x120.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="resources/images/favicons/apple-icon-144x144.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="resources/images/favicons/apple-icon-152x152.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="resources/images/favicons/apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="resources/images/favicons/android-icon-192x192.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="resources/images/favicons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="resources/images/favicons/favicon-96x96.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="resources/images/favicons/favicon-16x16.png">  
    
-  
-        
-  </head>
-  
-  <body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
-   
-    <main>
-
-
+	<!-- fullcalendar CDN -->
+	<link href='/resources/fullcalendar-5.6.0/lib/main.css' rel='stylesheet'/>
+	<script src='/resources/fullcalendar-5.6.0/lib/main.js'></script>
+	<script>
+	      document.addEventListener('DOMContentLoaded', function() {
+	        var calendarEl = document.getElementById('calendar');
+	        var calendar = new FullCalendar.Calendar(calendarEl, {
+	          initialView: 'dayGridMonth'
+	        });
+	        calendar.render();
+	      });
+	</script>
+	
+</head>
+	  
+<body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
+	
 	<jsp:include page="headerCampBusiness.jsp" />
-
-	 
-	 <br>
-	 <br>
-	 <br>
-	 <br>
-	 <br>
-	 
-	 
-	 <h1 align="center">Test Business Main</h1>
-	 
- 
-    
-    </main>
+	
+	<div id='calendar'>
+	
+	
+	
+	
+	
+	</div>
+	     
     <!-- JavaScripts -->
     <script src="/resources/lib/jquery/jquery.js"></script>
     <script src="/resources/lib/bootstrap/js/bootstrap.min.js"></script>
@@ -95,5 +78,6 @@ pageEncoding="UTF-8"%>
     <script src="/resources/js/plugins.js"></script>
     <script src="/resources/js/main.js"></script>
       
-  </body>
+</body>
+
 </html>

@@ -102,10 +102,10 @@ public class PaymentController {
 	
 	
 	@RequestMapping(value = "getPayment", method = RequestMethod.POST)
-	public String getPayment(@ModelAttribute("payment") Payment payment, Model model) throws Exception {	
+	public String getPayment(@RequestParam("paymentNo") int paymentNo, Model model) throws Exception {	
 		
-		List<Payment> list = paymentService.getPayment(payment);
-		model.addAttribute("list", list);
+		Payment payment = paymentService.getPayment(paymentNo);
+		model.addAttribute("payment", payment);
 		
 		return "forward:/view/payment/getPayment.jsp";
 	}
