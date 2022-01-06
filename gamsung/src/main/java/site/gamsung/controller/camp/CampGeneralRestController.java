@@ -5,14 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,12 +19,7 @@ import site.gamsung.service.camp.CampSearchService;
 import site.gamsung.service.common.Page;
 import site.gamsung.service.common.RatingReviewService;
 import site.gamsung.service.common.Search;
-import site.gamsung.service.domain.Camp;
 import site.gamsung.service.domain.MainSite;
-import site.gamsung.service.domain.RatingReview;
-import site.gamsung.service.payment.PaymentService;
-import site.gamsung.service.servicecenter.NoticeService;
-import site.gamsung.service.servicecenter.QnaService;
 
 @RestController
 @RequestMapping("/campGeneral/*")
@@ -42,17 +34,9 @@ public class CampGeneralRestController {
 	@Qualifier("campReservationServiceImpl")
 	private CampReservationService campReservationService;
 	
-	private NoticeService noticeService;
-	
-	private QnaService qnaService;
-	
-	private PaymentService paymentService;
-	
 	@Autowired
 	@Qualifier("campRatingReviewServiceImpl")
 	private RatingReviewService ratingReviewService;
-	
-	private static final String FILE_SERVER_PATH = "";
 	
 	public CampGeneralRestController() {
 		System.out.println(this.getClass());
@@ -69,22 +53,6 @@ public class CampGeneralRestController {
 		
 		System.out.println("/campGeneral/json/listReviews : GET");
 		
-		System.out.println("currentPage : "+currentPage);
-		System.out.println("캠핑장 번호 : "+campNo);
-		
-//		Search search = new Search();
-//		search.setCurrentPage(currentPage);
-//		search.setPageSize(pageSize);
-//		
-//		System.out.println(search);
-//		
-//		Map<String , Object> map= ratingReviewService.listRatingReview(search, campNo);
-//	
-//		List<RatingReview> review = (List<RatingReview>) map.get("list");
-//		System.out.println(review);
-//		
-//		model.addAttribute("review", review);
-		
 		Search search = new Search();
 		
 			if (currentPage == 0) {
@@ -93,11 +61,12 @@ public class CampGeneralRestController {
 		
 		search.setCurrentPage(1);
 		search.setPageSize(pageSize);
+		search.setCampNo(campNo);
 		
 		System.out.println(search);
 		System.out.println(campNo);
 		
-		Map<String, Object> reviewmap = ratingReviewService.listRatingReview(search, campNo);
+		Map<String, Object> reviewmap = ratingReviewService.listRatingReview(search);
 		
 		Page resultPage = new Page(search.getCurrentPage(), ((Integer) reviewmap.get("totalCount")).intValue(), pageUnit, pageSize);
 		System.out.println(resultPage);

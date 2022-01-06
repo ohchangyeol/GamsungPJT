@@ -69,6 +69,7 @@ pageEncoding="UTF-8"%>
 
         $(  ".image"  ).on("click", function() {    
            var campNo = $(this).data("campno");
+           console.log(campNo);
            $("#get_camp").attr("method","POST").attr("action","/campGeneral/getCamp?campNo="+campNo).submit()
         });   
 
