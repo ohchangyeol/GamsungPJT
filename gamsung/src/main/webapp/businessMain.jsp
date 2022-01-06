@@ -53,7 +53,7 @@ pageEncoding="UTF-8"%>
 	  
 <body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
 	
-	<jsp:include page="headerCampBusiness.jsp" />
+	<jsp:include page="/view/common/headerCampBusiness.jsp" />
 	
 	<div id='calendar'>
 	
