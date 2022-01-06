@@ -69,8 +69,8 @@ public class PaymentDAOImpl implements PaymentDAO{
 	}
 	
 	@Override
-	public List<Payment> getPayment(Payment payment) throws Exception {
-		return sqlSession.selectList("PaymentMapper.getPayment", payment);		
+	public Payment getPayment(int paymentNo) throws Exception {
+		return sqlSession.selectOne("PaymentMapper.getPayment", paymentNo);		
 	}
 	
 	@Override

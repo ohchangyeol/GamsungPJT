@@ -115,17 +115,29 @@
 	<!-- 화면 Controller End -->
   	
   	
-  	<!-- 포인트관리 Start -->
-  	<script type="text/javascript">  	
-  			
-  		
+  	<!-- 버튼 Start -->
+  	<script type="text/javascript">  
+  	
+		$(function() {
+	   
+		    // 확인
+		    $("#payment_confirm").on("click" , function() {
+		    			 
+			});	
+		    
+		    // 결제취소
+		    $("#payment_cancle").on("click" , function() {
+		    	 
+			});	
+		    
+		});  			
+	  		
 	</script>		
-  	<!-- 포인트관리 End --> 
+  	<!-- 버튼 End --> 
    	  	  	
   	
   	<!-- import 결제모둘 Start -->  	
-	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
-  	
+	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>  	
 	<script type="text/javascript">		
 		
 	
@@ -151,8 +163,9 @@
 
 <body>
 	
-	<!-- ToolBar -->
-	<jsp:include page="/view/common/headerCampBusiness.jsp" />
+	<!-- header -->
+	<jsp:include page="/view/common/header.jsp"/>
+	<!-- header End -->
 	
 	
 	<!-- 화면 Controller Start -->  	
@@ -296,6 +309,7 @@
 			</div>	
 				<label class="col-xs-2">* 상품참조번호</label>
 				<div class="col-md-10 form-group">
+					<input type="hidden" id="campFormReservationNo" name="campFormReservationNo" value="${campReservation.reservationNo}">
 					${payment.paymentReferenceNum}
 				</div>
 			</div>								
@@ -363,29 +377,6 @@
 		</div>
 	</div>
 	<!-- 포인트관리 버튼 end -->
-	
-	
-	<!-- 캠핑 버튼 start -->
-	<div id="campButtonContainer" class="container">
-		<div class="row">
-		
-		캠핑 버튼 영역
-	
-		</div>
-	</div>
-	<!-- 캠핑 버튼 end -->
-	
-	
-	<!-- 경매/양도양수 버튼 start -->
-	<div id="pointPayButtonContainer" class="container">
-		<div class="row">
-		
-		경매/양도양수 버튼 영역
-	
-		</div>
-	</div>
-	<!-- 경매/양도양수 버튼 end -->
-	
 	
 	
 	<!-- 테스트 버튼 -->

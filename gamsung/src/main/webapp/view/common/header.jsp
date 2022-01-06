@@ -10,27 +10,7 @@ pageEncoding="UTF-8"%>
     </div>
     <div class="collapse navbar-collapse" id="custom-collapse">
       <ul class="nav navbar-nav navbar-right">    
-
-        <li><a href="/campBusiness/goSubMainCampBusiness">CampBusiness</a></li> 
-      	
-        <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Payment</a>
-          <ul class="dropdown-menu">
-          	<li><a href="/payment/managePoint">ManagePoint</a></li>
-           	<br>
-           	
-          	<li><a href="/payment/readyPayment">ReadyPayment</a></li>
-           	<br>
-           	           	
-           	<li><a href="/payment/listPayment">listPayment</a></li>
-           	<br>           	
-           	
-           	<li><a href="/payment/listPaymentCode">PaymentCode</a></li>
-           	<br>
-           	
-           	<li><a href="/payment/listSiteProfit">SiteProfit</a></li>          	      
-          </ul>
-        </li>
-
+  
         <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">중고상품</a>
 
           <ul class="dropdown-menu">
@@ -149,21 +129,9 @@ pageEncoding="UTF-8"%>
             <li><a href="typography.html"><i class="fa fa-font"></i> Typography</a></li>
           </ul>
         </li>
- 
-
-        <li class="dropdown"><a class="dropdown-toggle" href="documentation.html" data-toggle="dropdown">Documentation</a>
-          <ul class="dropdown-menu">
-            <li><a href="documentation.html#contact">Contact Form</a></li>
-            <li><a href="documentation.html#reservation">Reservation Form</a></li>
-            <li><a href="documentation.html#mailchimp">Mailchimp</a></li>
-            <li><a href="documentation.html#gmap">Google Map</a></li>
-            <li><a href="documentation.html#plugin">Plugins</a></li>
-            <li><a href="documentation.html#changelog">Changelog</a></li>
-          </ul>
-        </li>
 
         <li><a href="/view/common/myPage.jsp">Mypage</a>
-
+                
          <li>    
 	         <c:if test="${sessionScope.user.role!=null}">
 		     <a href="#"><button class="btn btn-border-w btn-round btn-xs" type="button" id="logout">LOGOUT</button></a>
@@ -174,10 +142,13 @@ pageEncoding="UTF-8"%>
 		       </a>
 	        </c:if>
 	    </li>
+	     
         </ul>
     </div>
   </div>
 </nav>
-
+<!-- loginModal -->
 <jsp:include page="../user/loginModal.jsp"/>
+<!-- findIdModal -->
+<jsp:include page="/view/user/findIdModal.jsp"/>
 

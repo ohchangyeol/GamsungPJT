@@ -117,10 +117,11 @@ public class AuctionInfoDAOImpl implements AuctionInfoDAO{
 		
 		List<AuctionProduct> list = sqlSession.selectList("AuctionInfoMapper.isSecessionUserAuctionCondition", userId);
 		
-		if(list == null) {
+		if(list.size()==0) {
+			System.out.println("옥션 탈퇴가능");
 			return true;
 		}
-		
+		System.out.println("옥션 탈퇴불가");
 		return false;
 	}
 	

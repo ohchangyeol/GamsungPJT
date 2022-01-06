@@ -1,9 +1,10 @@
-<%@ page contentType="text/html; charset=EUC-KR" %>
+<%@ page contentType="text/html; charset=utf-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="utf-8">
 
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	
@@ -58,18 +59,18 @@
 		
 		<div class="row">
 			<div class="page-header">
-	       		<h1 class=" text-info">Æ÷ÀÎÆ® °ü¸®</h1>
+	       		<h1 class=" text-info">í¬ì¸íŠ¸ ê´€ë¦¬</h1>
 	    	</div>
 		</div>
 		
 		<div class="row">
 			<div class="page-header">
-	       		<h3 class=" text-info">Æ÷ÀÎÆ® ÃæÀü</h3>
+	       		<h3 class=" text-info">í¬ì¸íŠ¸ ì¶©ì „</h3>
 	   		</div>
 		</div>
 	
 		<div class="row">
-			<div class="col-xs-2">º¸À¯ Æ÷ÀÎÆ®</div>
+			<div class="col-xs-2">ë³´ìœ  í¬ì¸íŠ¸</div>
 			<div class="col-md-3 form-group">
 				<input type="text" id="havingPoint" name="havingPoint" value="${user.havingPoint}" class="form-control" readonly>
 			</div>    
@@ -81,32 +82,32 @@
 			<div class="col-lg-5">
 				<div class="row">
 					<div class="col-lg-7">
-						<div class="col-xs-12">- 95,000 ¿ø -</div>
+						<div class="col-xs-12">- 95,000 ì› -</div>
 						<div class="col-xs-12 form-group">
-							<input type="text" id="100k" name="100k" value="100,000 P ÃæÀü" class="form-control" readonly>
+							<input type="text" id="100k" name="100k" value="100,000 P ì¶©ì „" class="form-control" readonly>
 						</div>
 						
-						<div class="col-xs-12">- 10,000 ¿ø -</div>
+						<div class="col-xs-12">- 10,000 ì› -</div>
 						<div class="col-xs-12 form-group">
-							<input type="text" id="10k" name="10k" value="10,000 P ÃæÀü" class="form-control" readonly>
+							<input type="text" id="10k" name="10k" value="10,000 P ì¶©ì „" class="form-control" readonly>
 						</div>
 						
-						<div class="col-xs-12">- 1,000 ¿ø -</div>						
+						<div class="col-xs-12">- 1,000 ì› -</div>						
 						<div class="col-xs-12 form-group">
-							<input type="text" id="1k" name="1k" value="1,000 P ÃæÀü" class="form-control" readonly>
+							<input type="text" id="1k" name="1k" value="1,000 P ì¶©ì „" class="form-control" readonly>
 						</div>
 					</div>
 					
 					<div class="col-lg-5">
-						<div class="col-xs-12">- ¼ö·® -</div>
+						<div class="col-xs-12">- ìˆ˜ëŸ‰ -</div>
 						<div class="col-xs-12 form-group">
 							<input type="number" id="count1" name="count1" value="0" min="0" max="10" class="form-control">
 						</div>
-						<div class="col-xs-12">- ¼ö·® -</div>
+						<div class="col-xs-12">- ìˆ˜ëŸ‰ -</div>
 						<div class="col-xs-12 form-group">
 							<input type="number" id="count2" name="count2" value="0" min="0" max="10" class="form-control">
 						</div>				
-						<div class="col-xs-12">- ¼ö·® -</div>		
+						<div class="col-xs-12">- ìˆ˜ëŸ‰ -</div>		
 						<div class="col-xs-12 form-group">
 							<input type="number" id="count3" name="count3" value="0" min="0" max="10" class="form-control">
 						</div>						
@@ -120,38 +121,38 @@
 		    <input type="hidden" id="paymentCode" name="paymentCode" value="P1">
 		    
 		    <div class="col-lg-5">
-	  	    	<div class="col-xs-12">ÃæÀü Æ÷ÀÎÆ®</div>
+	  	    	<div class="col-xs-12">ì¶©ì „ í¬ì¸íŠ¸</div>
 				<div class="col-md-10 form-group">
 					<input type="text" id="pointChargeTotal" name="pointChargeTotal" value="" class="form-control" readonly>
 				</div>
 		
-				<div class="col-xs-12">ÃæÀü °áÁ¦±Ý¾×(¿ø)</div>
+				<div class="col-xs-12">ì¶©ì „ ê²°ì œê¸ˆì•¡(ì›)</div>
 				<div class="col-md-10 form-group">
 					<input type="text" id="paymentPriceTotal" name="paymentPriceTotal" value="" class="form-control" readonly>
 				</div>
 				
 				<div class="row">
-					<div class="col-xs-12">°áÁ¦ ¹æ¹ý</div>
+					<div class="col-xs-12">ê²°ì œ ë°©ë²•</div>
 				</div>					
 				<div class="row">						
 					<div class="col-xs-3">
 						<input type="radio" id="cash" name="paymentMethod" value="2" checked>
-						<label for="cash">Çö±Ý°áÁ¦</label>
+						<label for="cash">í˜„ê¸ˆê²°ì œ</label>
 					</div>  							
 					<div class="col-xs-3">
 						<input type="radio" id="card" name="paymentMethod" value="3">
-						<label for="card">Ä«µå°áÁ¦</label>
+						<label for="card">ì¹´ë“œê²°ì œ</label>
 					</div>  							
 					<div class="col-xs-3">
 						<input type="radio" id="simple" name="paymentMethod" value="4">
-						<label for="simple">°£Æí°áÁ¦</label>
+						<label for="simple">ê°„íŽ¸ê²°ì œ</label>
 					</div>						
 				</div>
 		    </div>
 		    
 		    <div class="col-lg-2">
 		      	<div id="charge" style="background-color: #00aaff; width: 150px; height: 150px; border-radius: 10px; display: flex; justify-content: center; align-items: center">
-		      	<div style="font-size:30px; color:white">ÃæÀü</div></div>				    	
+		      	<div style="font-size:30px; color:white">ì¶©ì „</div></div>				    	
     		</div>
     		</form>   
     	</div>
@@ -160,7 +161,7 @@
     	
     	<div class="row">
 			<div class="page-header">
-	       		<h3 class=" text-info">Æ÷ÀÎÆ® Ãâ±Ý</h3>
+	       		<h3 class=" text-info">í¬ì¸íŠ¸ ì¶œê¸ˆ</h3>
 	   		</div>
 		</div>
 		
@@ -173,17 +174,17 @@
 			<div class="col-lg-10">
 				<div class="row">
 					<br>
-			    	<div class="col-xs-2">Ãâ±ÝÆ÷ÀÎÆ®</div>
+			    	<div class="col-xs-2">ì¶œê¸ˆí¬ì¸íŠ¸</div>
 					<div class="col-md-2 form-group">
 						<input type="text" id="pointWithdrawTotal" name="pointWithdrawTotal" value="" class="form-control">
 					</div>
 						
-					<div class="col-xs-2">ÀÜ¿©Æ÷ÀÎÆ®</div>
+					<div class="col-xs-2">ìž”ì—¬í¬ì¸íŠ¸</div>
 					<div class="col-md-2 form-group">
 						<input type="text" id="pointAfterWithdraw" name="pointAfterWithdraw" value="" class="form-control" readonly>
 					</div>
 					
-					<div class="col-xs-2">Çö±ÝÁö±Þ¾×(¿ø)</div>
+					<div class="col-xs-2">í˜„ê¸ˆì§€ê¸‰ì•¡(ì›)</div>
 					<div class="col-md-2 form-group">
 						<input type="text" id="paymentRefundPriceTotal" name="paymentRefundPriceTotal" value="" class="form-control" readonly>
 					</div>
@@ -192,7 +193,7 @@
 				<hr>
 				
 				<div class="row">
-					<div class="col-xs-2">ÀÔ±Ý °èÁÂÁ¤º¸</div>
+					<div class="col-xs-2">ìž…ê¸ˆ ê³„ì¢Œì •ë³´</div>
 				</div>
 								
 				<div class="row">
@@ -212,7 +213,7 @@
 		    
 		    <div class="col-lg-2 text-center" style="">
 		      	<div id="withdraw" style="background-color: #ff4400; width: 150px; height: 150px; border-radius: 10px; display: flex; justify-content: center; align-items: center">
-		      	<div style="font-size:30px; color:white">Ãâ±Ý</div></div>		  
+		      	<div style="font-size:30px; color:white">ì¶œê¸ˆ</div></div>		  
     		</div>   
     	</div>
     	</form>    	

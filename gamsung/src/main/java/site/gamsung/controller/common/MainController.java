@@ -28,6 +28,8 @@ public class MainController {
 	@RequestMapping
 	public String mainPage(Model model) {
 		
+		System.out.println("메인 타는가");
+		
 		List<AuctionProduct> productList = auctionProductService.listMainAuctionProduct();
 		
 		Map<String, Object> map = campSearchService.getTopCamp();

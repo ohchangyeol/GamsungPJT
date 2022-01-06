@@ -289,3 +289,5 @@ pageEncoding="UTF-8"%>
     </div>
   </div>
 </section>
+
+<script src="../../resources/lib/modals/examples.modals.js"></script>

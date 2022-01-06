@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import site.gamsung.service.camp.CampRatingReviewDAO;
+import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.RatingReview;
 
 @Repository("campRatingReviewDAOImpl")
@@ -28,32 +29,37 @@ public class CampRatingReviewDAOImpl implements CampRatingReviewDAO {
 	}
 
 	@Override
-	public int addCampRatingReview(RatingReview ratingReview) throws Exception {
+	public int addCampRatingReview(RatingReview ratingReview) {
 		return sqlSession.insert("CampRatingReviewMapper.addCampRatingReview", ratingReview);
 	}
 	
 	@Override
-	public List<RatingReview> listCampRatingReview(Map<String, Object> map) throws Exception {
-		return sqlSession.selectList("CampRatingReviewMapper.listCampRatingReview", map);
+	public List<RatingReview> listCampRatingReview(Search search) {
+		return sqlSession.selectList("CampRatingReviewMapper.listCampRatingReview", search);
+	}
+	
+	@Override
+	public List<RatingReview> listMyRatingReview(Search search) {
+		return sqlSession.selectList("CampRatingReviewMapper.listMyRatingReview", search);
 	}
 
 	@Override
-	public int getTotalCount(Map<String, Object> map) throws Exception {
-		return sqlSession.selectOne("CampRatingReviewMapper.getTotalCount", map);
+	public int getTotalCount(Search search) {
+		return sqlSession.selectOne("CampRatingReviewMapper.getTotalCount", search);
 	}
 
 	@Override
-	public List<Double> getCampRating(int campNo) throws Exception {
+	public List<Double> getCampRating(int campNo) {
 		return sqlSession.selectList("CampRatingReviewMapper.getCampRating", campNo);
 	}
 
 	@Override
-	public int updateCampAvgRating(Map<String, Object> map) throws Exception {
+	public int updateCampAvgRating(Map<String, Object> map) {
 		return sqlSession.update("CampRatingReviewMapper.updateCampAvgRating", map);
 	}
 
 	@Override
-	public int updateCampRatingReview(RatingReview ratingReview) throws Exception {
+	public int updateCampRatingReview(RatingReview ratingReview) {
 		return sqlSession.update("CampRatingReviewMapper.updateCampRatingReview", ratingReview);
 	}
 	

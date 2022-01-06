@@ -19,12 +19,74 @@ pageEncoding="UTF-8"%>
             <nav id="menu" class="nav-main" role="navigation">
                 <ul class="nav nav-main">
                     <li class="nav-active">
-                        <a href="index.html">
+                        <a href="main.jsp">
                             <i class="fa fa-home" aria-hidden="true"></i>
-                            <span>Dashboard</span>
+                            <span>메인화면</span>
                         </a>
                     </li>
-                    <li>
+                    
+                    <hr class="separator" />
+					<li class="nav-parent">
+						<a>
+							<i class="fa fa-money" aria-hidden="true"></i>
+							<span>결제관리</span>
+						</a>
+						<ul class="nav nav-children">
+							<li>
+								<a href="/payment/listSiteProfit">
+									 사이트수익
+								</a>
+							</li>
+							<li>
+								<a href="/payment/listPayment">
+									 결제내역
+								</a>
+							</li>
+							<li>
+								<a href="/payment/listPaymentCode">
+									 결제코드관리
+								</a>
+							</li>
+							<li>
+								<a href="/payment/managePoint">
+									 포인트관리
+								</a>
+							</li>	
+						</ul>
+					</li>
+					
+					<hr class="separator" />
+					<li class="nav-parent">
+						<a>
+							<i class="fa fa-copy" aria-hidden="true"></i>
+							<span>xxx</span>
+						</a>
+						<ul class="nav nav-children">
+							<li>
+								<a href="a">
+									 a
+								</a>
+							</li>
+							<li>
+								<a href="b">
+									 b
+								</a>
+							</li>
+							<li>
+								<a href="c">
+									c
+								</a>
+							</li>
+							<li>
+								<a href="d">
+									d
+								</a>
+							</li>	
+						</ul>
+					</li>
+					
+					<hr class="separator" />      
+      		        <li>
                         <a href="mailbox-folder.html">
                             <span class="pull-right label label-primary">182</span>
                             <i class="fa fa-envelope" aria-hidden="true"></i>

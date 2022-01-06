@@ -64,25 +64,10 @@
 				$("#payForm").attr("method" , "POST").attr("action" , "/payment/paymentSystem").submit();	
 			});		
 			
-	  		// 캠핑결제
-			$("#temp3").on("click" , function() {						
-				$("#paymentSender").val( $("#pay_buyerEmail").val() );
-				$("#paymentCode").val("R1");
-				$("#paymentPriceTotal").val(uncomma($("#paymentPriceTotal").val()));
-								
-				if( $("#paymentPriceTotal").val() == 0 ){
-					$("#paymentPriceTotal").val(uncomma($("#paymentPriceTotalSecond").val()));
-				}
-								
-				$("#payForm").attr("method" , "POST").attr("action" , "/payment/paymentSystem").submit();	
-			});		
-			
-			// 다중결제테스트
-			$("#tempPriceTotal").on("propertychange change keyup paste input", function() {
-				 $("#paymentPriceTotal").val($("#tempPriceTotal").val());	
-			});	
-			// 다중결제테스트
-	  		
+			$("#temp3").on("click" , function() {		
+				checkPaymentMethod();
+			});
+
 	  	}); 
 		// 테스트용
   		
@@ -111,7 +96,7 @@
 			if(viewController == "R1"){
 				$("#campContainer").show();
 				$("#campButtonContainer").show();
-				$("#paySecond").show();				
+				$("#paySecond").show();		
 			}
 			
 			if(viewController == "A"){
@@ -142,15 +127,18 @@
 			
 			// 포인트 충전금액 계산 버튼
 			$("#count1").on("propertychange change keyup paste input", function() {				
-				calculateNumber();								
+				calculateNumber();
+				checkPaymentMethod();
 			});
 			
 			$("#count2").on("propertychange change keyup paste input", function() {
 				calculateNumber();
+				checkPaymentMethod();
 			});
 						
 			$("#count3").on("propertychange change keyup paste input", function() {
 				calculateNumber();
+				checkPaymentMethod();
 			});
 			
 			// 포인트 출금금액 계산 입력
@@ -225,12 +213,12 @@
 				const count2 = $("#count2").val();
 				const count3 = $("#count3").val();
 				
-				if( count1 != 0 || count2 != 0 || count3 != 0 ){
+				if( count1 != 0 || count2 != 0 || count3 != 0 ){									
 					iamport();
+					
 				} else {
 					alert("수량을 선택하세요.");
-				}					
-				
+				}						
 			});	
 			
 			// 포인트출금 버튼
@@ -326,22 +314,25 @@
 						
 			// 캠핑장예약결제 버튼
 			$("#camp_pay").on("click" , function() {
-		
-				$("#paymentProduct").val( $("#paymentProduct").val( )+new Date().toISOString().substring(0, 19) );
-				$("#paymentReferenceNum").val( $("#paymentReferenceNum").val( )+new Date().toISOString().substring(0, 19) );
-				
-				if($("#paymentPriceTotal").val() > 0 ){
-					
-					alert("일반결제는 100원 이상부터 가능합니다.");
-					
-					if(!$("input:radio[name='paymentMethod']").is(":checked")){
-						$("#method_card").prop("checked", true);
-					}			
-					
-					iamport();
+										
+				if( $("#paymentPriceTotal").val() > 0 ) {
+					 
+					if( $("#paymentPriceTotal").val() <= 99 ) {
+						alert("일반결제는 100원 이상부터 가능합니다.");
+						
+					} else {
+						
+						$("#paymentProduct").val( "[" + $("#campFormCampName").val( ) +"/" + new Date().toISOString().substring(0, 10) + "]");
+						$("#paymentReferenceNum").val( "[" + $("#campFormReservationNo").val( ) + "/" + new Date().toISOString().substring(0, 19) + "]");
+						
+						checkPaymentMethod();				
+						iamport();						
+					}								
 					
 				} else {
-										
+					
+					$("#paymentProduct").val( "[" + $("#campFormCampName").val( ) +"/" + new Date().toISOString().substring(0, 10) + "]");
+					$("#paymentReferenceNum").val( "[" + $("#campFormReservationNo").val( ) + "/" + new Date().toISOString().substring(0, 19) + "]");										
 					$("#paymentSender").val( $("#pay_buyerEmail").val() );
 					$("#paymentCode").val("R1");
 					$("#paymentPriceTotal").val(uncomma($("#paymentPriceTotal").val()));
@@ -352,8 +343,6 @@
 					
 					$("#payForm").attr("method" , "POST").attr("action" , "/payment/paymentSystem").submit();	
 				}
-				
-				
 				
 			});					
 	  	  	
@@ -378,6 +367,15 @@
 			
 		}); 
 		
+		
+		<!-- 공통 Start -->			
+		//결제방법 라디오버튼체크
+		function checkPaymentMethod() {					
+			if(!$("input:radio[name='paymentMethod']").is(":checked")){
+				$("#method_card").prop("checked", true);
+			}
+		}
+		
 		// 금액 "," 추가
 		function comma(str) {
 		    str = String(str);
@@ -390,7 +388,8 @@
 		    return str.replace(/[^\d]+/g, '');
 		}		
 			
-	</script>	  	
+	</script>
+	<!-- 공통 End -->	  	
   	
   	
   	<!-- import 결제모둘 Start -->  	
@@ -481,7 +480,7 @@
   	
 	<style>
 	    body > div.container{
-	        margin-top: 20px;
+	        margin-top: 40px;
 	    }
 	    
 	    .form-horizontal .control-label{
@@ -493,9 +492,9 @@
 
 <body>
 	
-	<!-- ToolBar -->
-	<jsp:include page="/view/common/headerCampBusiness.jsp" />
-	
+	<!-- header -->
+	<jsp:include page="/view/common/header.jsp"/>
+	<!-- header End -->
 	
 	<!-- 화면 Controller Start -->  	
   	<input type="hidden" id="viewController" name="viewController" value="${payment.paymentCode}">
@@ -693,7 +692,9 @@
 				<div class="row">	
 					<div class="col-xs-3">	
 						<div class="row">
-							<label>* 캠핑장사진</label>				
+							<div class="image" style="width: 200px; height: 150px; border-radius: 10px; display: flex; justify-content: center; align-items: center">
+	                        	<img src="/uploadfiles/campimg/campbusiness/camp/${campReservation.camp.campImg1}" onerror="this.src='/uploadfiles/campimg/campbusiness/camp/no_image.jpg'"  alt="캠핑장 대표이미지" >
+	                        </div>			
 						</div>						
 					</div>
 					
@@ -701,18 +702,18 @@
 						<div class="row">							
 							<label class="col-xs-2">* 예약번호</label>
 							<div class="col-xs-3 form-group">
-								${campReservation.reservationNo} 123
+								${campReservation.reservationNo}
 							</div>	
 							<div class="col-xs-3 col-xs-offset-1 form-group">
 					            <button id="goGetRsv" type="button" class="btn btn-info">예약상세보기</button>
-					            <input type="hidden" id="reservationNo" name="reservationNo" value="${campReservation.reservationNo}">
+					            <input type="hidden" id="campFormReservationNo" name="campFormReservationNo" value="${campReservation.reservationNo}">
 					        </div>						        								
 						</div>					
 					
 						<div class="row">							
 							<label class="col-xs-2">* 예약등록일</label>
 							<div class="col-md-3 form-group">
-								${campReservation.reservationStatus} 123
+								${campReservation.reservationRegDate}
 							</div>
 							<label class="col-xs-2 col-xs-offset-1">* 예약상태</label>
 							<div class="col-md-3 form-group">
@@ -723,33 +724,33 @@
 						<div class="row">
 							<label class="col-xs-2">* 예약자명</label>
 							<div class="col-md-3 form-group">
-								${campReservation.reservationUserName} 123
+								${campReservation.reservationUserName}
 							</div>
 							<label class="col-xs-2 col-xs-offset-1">* 예약결제금액</label>
 							<div class="col-md-3 form-group">
-								${campReservation.totalPaymentPrice} 123
+								${campReservation.totalPaymentPrice}
 							</div>						
 						</div>	
 							
 						<div class="row">
 							<label class="col-xs-2">* 캠핑장명</label>
 							<div class="col-md-3 form-group">
-								${campReservation.camp.user.campName} 123
+								<input type="text" id="campFormCampName" name="campFormCampName" value="${campReservation.camp.user.campName}">								
 							</div>
 							<label class="col-xs-2 col-xs-offset-1">* 주요시설타입</label>
 							<div class="col-md-3 form-group">
-								${campReservation.mainSite.mainSiteType} 123
+								${campReservation.mainSite.mainSiteType}
 							</div>
 						</div>		
 												
 						<div class="row">
 							<label class="col-xs-2">* 예약시작일</label>
 							<div class="col-md-3 form-group">
-								${campReservation.reservationStartDate} 123
+								${campReservation.reservationStartDate}
 							</div>
 							<label class="col-xs-2 col-xs-offset-1">* 예약종료일</label>
 							<div class="col-md-3 form-group">
-								${campReservation.reservationEndDate} 123
+								${campReservation.reservationEndDate}
 							</div>	
 						</div>								
 					</div>
@@ -811,7 +812,7 @@
 		
 		<form id="payForm">			
 			<input type="hidden" id="paymentSender" name="paymentSender" value="unknownPS">
-			<input type="hidden" id="paymentReceiver" name="paymentReceiver" value="unknownPR">	
+			<input type="hidden" id="paymentReceiver" name="paymentReceiver" value="${payment.paymentReceiver}">	
 			<input type="hidden" id="paymentCode" name="paymentCode" value="unknownPC">	
 			<input type="hidden" id="pointChargeTotal" name="pointChargeTotal" value="0">
 			<input type="hidden" id="paymentProductPriceTotal" name="paymentProductPriceTotal" value="0">			
@@ -822,7 +823,7 @@
 					    <div class="row">	
 					        <label class="col-xs-12"># 결제 전체 금액</label>
 					        <div class="col-xs-12 form-group">
-					            <input type="number" id="tempPriceTotal" name="tempPriceTotal" value="100000" class="form-control" >
+					            <input type="number" id="tempPriceTotal" name="tempPriceTotal" value="${campReservation.totalPaymentPrice}" class="form-control" disabled>
 					        </div>    <!-- disabled ${payment.paymentProductPriceTotal} -->
 					    </div>								
 					</div>
@@ -859,8 +860,9 @@
 					        </div>
 					    </div>								
 					</div>
-				</div>								
-				<hr>			
+				<hr>	
+				</div>						
+							
 				<div class="row">	
 					<div class="col-xs-2">	
 						<div class="row">
@@ -989,6 +991,10 @@
 		
  			<div class="col-xs-2 col-xs-offset-1">
 	            <button id="temp2" type="button" class="btn btn-primary">포인트충전</button>
+	        </div>
+	        
+	        <div class="col-xs-2 col-xs-offset-1">
+	            <button id="temp3" type="button" class="btn btn-primary">test</button>
 	        </div>
 	        
 		</div>

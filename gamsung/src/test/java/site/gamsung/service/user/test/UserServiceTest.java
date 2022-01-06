@@ -32,9 +32,7 @@ public class UserServiceTest {
 	public void testAddUser() throws Exception{
 		
 		User user = new User();
-
-
-
+		
 		user.setId("test55@nate.com");
 		user.setNickName("나야나");
 		user.setName("으어어");
@@ -132,7 +130,10 @@ public class UserServiceTest {
 		User user = new User();
 		user.setId("user1@gamsung.com");
 		System.out.println(user);
-		userService.checkDuplication(user);
+		
+		int result=userService.checkDuplication(user);
+		
+		System.out.println(result);
 	}
 	
 	//@Test
@@ -149,13 +150,14 @@ public class UserServiceTest {
 	public void testUpdateTempPassword() throws Exception{
 		
 		User user = new User();
-		String id = "businessuser1@gamsung.com";
+		String id = "admin";
 		user = userService.getUser(id);
 		if(user.getSalt()==null) {
-			SHA256Util salt=new SHA256Util();
-			String newSalt=salt.generateSalt();
-			user.setSalt(newSalt.toString());
+			String newSalt=SHA256Util.generateSalt();
+			System.out.println(newSalt);
+			user.setSalt(newSalt);
 			userService.updateUser(user);
+			System.out.println(user);
 		}else {
 		
 		System.out.println(user);
@@ -226,6 +228,15 @@ public class UserServiceTest {
 			
 		}
 		
+		//@Test
+		public void testUpdateDormantGeneralUserConver() throws Exception{
+			 
+			User user = new User();
+			user.setId("TEST@TEST.COM");
+			
+			userService.updateDormantGeneralUserConvert(user.getId());
+			
+		}
 		
 	
 }

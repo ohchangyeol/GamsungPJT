@@ -106,7 +106,7 @@ width: 50%;
 						<div class="container">
 							<!-- <div class="row"> -->
 							<div class="col-sm-8 col-sm-offset-2">
-								<h4 class="font-alt mb-0">일반회원 회원가입</h4>
+								<h4 class="font-alt mb-0">SNS 간편 회원가입</h4>
 								<hr class="divider-w mt-10 mb-20">
 								<form class="form" role="form">
 									<div id="email" class="form-group row">
@@ -114,19 +114,10 @@ width: 50%;
 										<label for="id"
 											class="col-sm-offset-1 col-sm-3 control-label"><strong>아이디</strong></label>
 										<div class="col-sm-6">
-											<input id="id" name="id" class="form-control " type="text"
+											<input id="id" name="id" class="form-control " type="text" value="${user.id}"
 												placeholder="아이디는 이메일 형식만 가능합니다." />
 										</div>
-										<div>
-											<button id="mailAuthNum" class="btn btn-circle btn-xs" type="button">인증번호
-												받기</button>
-										</div>
-										<div id="checkMailAuth" class="col-sm-offset-3 col-sm-6" style="display:none;">
-											<input id="checkMailAuthNum" name="checkMailAuthNum" class="form-control "
-												type="text" placeholder="인증번호를 입력하세요." maxlength="6" />
-										</div>
 										<div id="check-email" class='col-sm-offset-3 col-sm-6'></div>
-										<div id="check-email-auth" class='col-sm-offset-3 col-sm-6'></div>
 									</div>
 
 									<div class="form-group row">
@@ -157,7 +148,7 @@ width: 50%;
 											class="col-sm-offset-1 col-sm-3 control-label"><strong>닉네임</strong></label>
 										<div class="col-sm-6">
 											<input id="nickName" name="nickName" class="form-control" type="text"
-												placeholder="닉네임을 입력해 주세요." />
+												value="${user.nickName}" placeholder="닉네임을 입력해 주세요." />
 										</div>
 										<div></div>
 										<div id="check-nickName" class='col-sm-offset-3 col-sm-6'></div>
@@ -195,23 +186,8 @@ width: 50%;
 										<div id="check-phone" class='col-sm-offset-3 col-sm-6'></div>
 										<div id="check-phone-auth" class='col-sm-offset-3 col-sm-6'></div>
 									</div>
-
-									<div class="form-group row">
-										<label for="addr"
-											class="col-sm-offset-1 col-sm-3 control-label"><strong>주소</strong></label>
-										<div class="col-sm-6">
-											<input id="addr" name="addr" class="form-control" type="text"
-												placeholder="주소를 입력하세요." />
-										</div>
-									</div>
-
-									<div class="form-group row">
-										<label for="userAddr" class="col-sm-offset-1 col-sm-3 control-label"></label>
-										<div class="col-sm-6">
-											<input id="userAddr" name="userAddr" class="form-control" type="text"
-												placeholder="상세주소를 입력하세요." /> <input type="hidden" name="allAddr" />
-										</div>
-									</div>
+									<div>
+									<input id="snsId" hidden="hidden" name="snsId" value="${user.snsId}"></div>
 								</form>
 
 							</div>
@@ -293,52 +269,7 @@ alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+
 						});
 					});
 
-					//이메일 인증번호 받기
-					$("#mailAuthNum").on("click", function () {
-
-						var id = $("#id").val();
-
-						if (id != (id.indexOf('@') < 1 || id.indexOf('.') == -1)) {
-
-							//$("#mailAuthNum").hide();
-							$("#mailAuthNum").text("인증번호 재발송");
-							$("#check-email").html("");
-							$("#checkMailAuth").show();
-							//$("#reMailAuth").show();
-
-							$.ajax({
-								url: '/user/rest/sendEmailAuthNum/' + id,
-								headers: {
-									"Accept": "application/json",
-									"Content-Type": "application/json"
-								},
-								method: 'GET',
-								//dataType:'json',
-								//data : JSON.stringify(data),	
-								success: function (data) {
-									//console.log(JSON.stringify(data));
-									console.log('성공: ' + data);
-									//console.log('성공: '+data.id);
-
-									$("input[name='checkMailAuthNum']").on("keyup", function () {
-										console.log('되는가');
-										var aa = $("input[name='checkMailAuthNum']").val();
-
-										if (aa.length > 0) {
-											if (data == aa) {
-												$("#check-email-auth").html("인증번호가 일치합니다.");
-											} else {
-												$("#check-email-auth").html('인증번호를 확인하세요.');
-											}
-										} else {
-											$("#check-email-auth").html("");
-										}
-									});
-								}
-							});
-						}
-					});
-
+					
 					//비밀번호
 					$('#password').on("keyup", function () {
 						var regExp = /[ㄱ-ㅎㅏ-ㅣ가-힣]/g; //한글입력 불가
@@ -492,11 +423,11 @@ alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+
 					function fncAddUser() {
 
 						//var id=$("input[name='userId']").val();
-						var pw = $("input[name='password']").val();
-						var pw_confirm = $("input[name='confirmPassword']").val();
-						var name = $("input[name='name']").val();
+						var pw = $("#password").val();
+						var pw_confirm = $("#confirmPassword").val();
+						var name = $("#name").val();
 						var nickName = $("input[name='nickName']").val();
-						var phone = $("input[name='phone']").val();
+						var phone = $("#phone").val();
 
 
 						if (id == null || id.length < 1) {
@@ -508,11 +439,11 @@ alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+
 							alert("패스워드는  반드시 입력하셔야 합니다.");
 							return;
 						}
-
+/* 
 						if (7 < password.length < 16) {
 							alert("패스워드는 8~15자까지 가능합니다.");
 							return;
-						}
+						} */
 
 						if (confirmPassword == null || confirmPassword.length < 1) {
 							alert("패스워드 확인은  반드시 입력하셔야 합니다.");
@@ -524,12 +455,12 @@ alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+
 							return;
 						}
 
-						if (password != confirmPassword) {
+				/* 		if (password != confirmPassword) {
 							alert("비밀번호 확인이 일치하지 않습니다.");
 							$("input:text[name='confirmPassword']").focus();
 							return;
 						}
-
+ */
 						if (nickName == null || nickName.length < 1) {
 							alert("닉네임은 반드시 입력하셔야 합니다.");
 							return;

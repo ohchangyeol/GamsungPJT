@@ -64,20 +64,6 @@ public class CampBusinessController {
 	@RequestMapping(value = "goSubMainCampBusiness", method = RequestMethod.GET)
 	public String goSubMainCampBusiness(HttpSession httpSession) throws Exception {
 			
-		/////////////////////////////////////////////////////////////////////// Session 완료시 삭제
-		User tempSessionUser = new User();
-		
-		tempSessionUser.setId("businessuser1@gamsung.com"); // TS -3 저장
-		//tempSessionUser.setId("businessuser6@gamsung.com"); // TS -2 임시저장
-		//tempSessionUser.setId("businessuser9@gamsung.com"); // TS -1 발급 완료
-		//tempSessionUser.setId("businessuser11@gamsung.com");  // TS -0 발급 미완료
-		//tempSessionUser.setId("admin");					  // admin
-		
-		httpSession.setAttribute("user", tempSessionUser);
-		System.out.println("tempSessionUser : " + tempSessionUser);
-		/////////////////////////////////////////////////////////////////////// 여기까지 삭제
-
-		
 		Camp campSession = new Camp();
 		User tempUser = null;
 

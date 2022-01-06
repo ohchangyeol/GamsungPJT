@@ -294,6 +294,10 @@ public class User {
 		return snsId;
 	}
 
+	public void setSnsId(String snsId) {
+		this.snsId = snsId;
+	}
+
 	@Override
 	public String toString() {
 		return "User [role="+role+", id="+id+", name="+name+", nickName="+nickName+

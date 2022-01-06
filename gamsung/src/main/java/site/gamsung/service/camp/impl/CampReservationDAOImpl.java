@@ -54,10 +54,14 @@ public class CampReservationDAOImpl implements CampReservationDAO {
 		
 		List<CampReservation> list= sqlSession.selectList("CampReservationMapper.getReservationStatus", id);
 		
+		System.out.println("캠프 DAO"+list);
+		
 		//리턴 값이 있으면 회원 탈퇴 불가 : flag false. 리턴 값이 없으면 회원 탈퇴 가능 : flag true.
 		if(list.size() != 0) {
+			System.out.println("캠프 탈퇴불가");
 			return false;
 		}else {
+			System.out.println("캠프 탈퇴가능");
 			return true;
 		}
 	}
