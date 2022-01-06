@@ -67,7 +67,7 @@ pageEncoding="UTF-8"%>
 	
 	<li>
 		<a href="/view/common/adminPage.jsp">
-			Mypage
+			adminPage
 		</a>
 	</li>	
 	<li>
