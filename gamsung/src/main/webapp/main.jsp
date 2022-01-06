@@ -8,6 +8,7 @@ pageEncoding="UTF-8"%>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
     <!--  
     Document Title
     =============================================
@@ -69,7 +70,7 @@ pageEncoding="UTF-8"%>
 	<jsp:include page="/view/user/findIdModal.jsp"/>
 	
 	<!-- page-loader -->
-            
+
       <!-- header -->
       <jsp:include page="/view/common/header.jsp"/>
       <!-- header End -->
@@ -208,7 +209,8 @@ pageEncoding="UTF-8"%>
     	$('.shop-item-title').on('click',function(){
     		window.location = '/auction/getAuctionProduct?auctionProductNo='+$(this).prev().val();
     	});
-      $('.campImg').on('click',function(){
+     	
+    	$('.campImg').on('click',function(){
     		window.location = '/campGeneral/getCamp?campNo='+$(this).attr('campNo');
     	});
     </script>

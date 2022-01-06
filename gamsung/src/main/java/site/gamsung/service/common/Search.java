@@ -2,6 +2,8 @@ package site.gamsung.service.common;
 
 import java.util.List;
 
+import site.gamsung.service.domain.Payment;
+
 public class Search {
 	
 	///Field
@@ -222,7 +224,7 @@ public class Search {
 			+ "\n [mainSite] : " + mainSite 
 			+ "\n [subSite] : " + subSite 
 			+ "\n [theme] : " + theme 
-			+ "\n [price] : " + price 
+			+ "\n [price] : " + price 		
 			+ "\n [currentPage] : " + currentPage
 			+ "\n [pageSize] : " + pageSize
 			+ "\n [startRowNum] : " + startRowNum

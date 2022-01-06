@@ -163,8 +163,9 @@
 
 <body>
 	
-	<!-- ToolBar -->
-	<jsp:include page="/view/common/headerCampBusiness.jsp" />
+	<!-- header -->
+	<jsp:include page="/view/common/header.jsp"/>
+	<!-- header End -->
 	
 	
 	<!-- 화면 Controller Start -->  	

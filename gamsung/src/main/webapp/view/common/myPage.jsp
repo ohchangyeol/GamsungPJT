@@ -6,11 +6,13 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
     <!--  
     Document Title
     =============================================
     -->
-    <title>Titan | Multipurpose HTML5 Template</title>
+    <title>GamsungCamp</title>
+    
     <!--  
     Favicons
     =============================================
@@ -71,9 +73,6 @@
 </head>
   <body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
     <main>
-      <div class="page-loader">
-        <div class="loader">Loading...</div>
-      </div>
 		<jsp:include page="header.jsp"></jsp:include>
      	 <div class="inner-wrapper">
 				<!-- start: sidebar -->
@@ -201,6 +200,7 @@
 											</li>
 										</ul>
 									</li>
+
 									<hr class="separator" />
 									<li class="nav-parent">
 										<a>
@@ -209,17 +209,18 @@
 										</a>
 										<ul class="nav nav-children">
 											<li>
-												<a href="forms-basic.html">
+												<a href="/payment/managePoint">
 													 포인트 충전/출금
 												</a>
 											</li>
 											<li>
-												<a href="forms-advanced.html">
+												<a href="/payment/listPayment">
 													 내 결제/포인트 내역
 												</a>
 											</li>
 										</ul>
 									</li>
+
 									<hr class="separator" />
 									<hr class="separator" />
 									<li>
@@ -234,7 +235,7 @@
 									<hr class="separator" />
 									<hr class="separator" />
 									<li>
-										<span class="text-center">회원틸퇴</span>
+										<span class="text-center">회원탈퇴</span>
 									</li>
 								</ul>
 								
