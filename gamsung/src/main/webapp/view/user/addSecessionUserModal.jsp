@@ -15,6 +15,34 @@
 
 		<!-- Latest compiled JavaScript -->
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+		<style type="text/css">
+			.sidebar-left {
+				background-color: #171717 !important;
+			}
+
+			#addSecessionModal .modal-dialog .modal-content .was-validated .form-group .form-control {
+				border-radius: 100px;
+				padding-left: 20px;
+				height: 40px;
+				font-size: 13px;
+			}
+
+
+			#addSecessionModal {
+
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translateY(-50%) translateX(-50%);
+			}
+
+			#Secession-btn {
+				display: flex;
+				justify-content: end;
+				gap: 15px;
+			}
+		</style>
 	</head>
 
 	<body>
@@ -31,12 +59,10 @@
 			<div class="collapse navbar-collapse" id="collapsibleNavbar">
 				<ul class="navbar-nav">
 					<li class="nav-item">
-						<a class="nav-link" href="#" data-toggle="modal" data-target="#login">
-							로그인
-						</a>
+
 						<!-- The Modal -->
-						<div class="modal" id="login">
-							<div class="modal-dialog">
+						<div class="modal" id="addSecessionModal">
+							<div class="modal-dialog-centered">
 								<div class="modal-content">
 
 									<!-- Modal Header -->
@@ -48,26 +74,26 @@
 									<div class="modal-body">
 										<form action="" class="was-validated">
 											<div class="form-group">
-												<label for="secessionn-userId">아이디 </label>
-												<input type="text" class="form-control" id="secessionn-userId"
+												<input type="text" class="form-control" id="secession-userId"
 													placeholder="아이디를 입력하세요" name="id" required>
 											</div>
 											<div class="form-group">
-												<label for="secession-userPwd">비밀번호 </label>
-												<input type="password" class="form-control" id="userPwd"
+												<input type="password" class="form-control" id="secession-userPwd"
 													placeholder="비밀번호를 입력하세요" name="password" required>
 											</div>
-
-											<button type="submit" class="btn btn-primary">탈퇴하기</button>
-											<button type="button" class="btn btn-danger"
-												data-dismiss="modal">취소</button>
-
+											<div id="Secession-btn">
+												<button type="button" class="btn btn-primary"
+													id="addSecession">탈퇴하기</button>
+												<button type="button" class="btn btn-danger"
+													data-dismiss="modal">취소</button>
+											</div>
 										</form>
 									</div>
 
 								</div>
 							</div>
 						</div>
+
 					</li>
 				</ul>
 			</div>

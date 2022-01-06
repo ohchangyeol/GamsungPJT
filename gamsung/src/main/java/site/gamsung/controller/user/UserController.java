@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -164,7 +165,7 @@ public class UserController {
 			
 		if(dbUser.getRole().equals("ADMIN")) {
 			session.setAttribute("user", dbUser);
-			return "관리자메인.jsp";
+			return "forward:/adminMain.jsp";
 		}else if(dbUser.getDormantConversionDate() != null) {
 			session.setAttribute("id", user.getId());
 			System.out.println("휴면회원 아이디"+user.getId());
@@ -191,7 +192,7 @@ public class UserController {
 			if(dbUser.getNickName() != null) {
 				jsp = "redirect:/main.jsp";
 			}else if(dbUser.getBusinessUserApprovalFlag() != null && dbUser.getBusinessUserApprovalFlag().equals("Y")) {
-				jsp = "forward:/campbusiness/goSubMainCampBusiness.jsp"; 
+				jsp = "forward:/campBusiness/goSubMainCampBusiness"; 
 		    }else {
 		    	return "아직 회원가입 승인안됨.jsp";
 		    }
@@ -284,6 +285,16 @@ public class UserController {
 //	session.invalidate();
 //	return "redirect:/"; 
 //	}
+	
+	@RequestMapping(value="addSuspensionUser", method= RequestMethod.POST)
+	public String addSuspensionUser(User user) {
+		System.out.println("이용정지 컨트롤러");
+		System.out.println("이용정지 유저"+user);
+		userService.addSuspensionUser(user);
+		
+		return "회원 리스트.jsp";
+	}
+	
 	
 	
 }

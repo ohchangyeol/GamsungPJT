@@ -305,6 +305,7 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public void addSuspensionUser(User user){
 		
+		System.out.println("이용정지 등록 서비스임쁠");
 		userDAO.addSuspensionUser(user);
 		
 	}
@@ -344,7 +345,7 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	@Scheduled(cron="0 0 12 * * *")
+	@Scheduled(cron="0 0 9 * * *")
 	public void addDormantUser(){
 		
 		System.out.println("배치 도는지");

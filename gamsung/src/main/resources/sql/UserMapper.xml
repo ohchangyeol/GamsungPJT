@@ -70,6 +70,7 @@
 			bank = #{bank:VARCHAR},
 			account_holder = #{accountHolder:VARCHAR},
 			account_num = #{accountNum:VARCHAR},
+			salt=#{salt:VARCHAR},
 			entry_approval_flag = #{businessUserApprovalFlag:VARCHAR}		
 	   	</set>
 	   	WHERE user_id = #{id}

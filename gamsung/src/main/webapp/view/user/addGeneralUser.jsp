@@ -325,7 +325,7 @@ alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+
 										var aa = $("input[name='checkMailAuthNum']").val();
 
 										if (aa.length > 0) {
-											if (data === aa) {
+											if (data == aa) {
 												$("#check-email-auth").html("인증번호가 일치합니다.");
 											} else {
 												$("#check-email-auth").html('인증번호를 확인하세요.');

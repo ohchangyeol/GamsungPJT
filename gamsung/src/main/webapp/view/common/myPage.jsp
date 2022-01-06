@@ -1,4 +1,4 @@
-<<<<<<< HEAD <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 		<!DOCTYPE html>
 		<html>
@@ -8,110 +8,96 @@
 			<meta http-equiv="X-UA-Compatible" content="IE=edge">
 			<meta name="viewport" content="width=device-width, initial-scale=1">
 			<!--  
-=======
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    
-    <!--  
->>>>>>> refs/heads/developer
+
     Document Title
     =============================================
-    -->
+
 			<<<<<<< HEAD <title>Titan | Multipurpose HTML5 Template</title>
-				<!--  
+			 
 =======
     <title>GamsungCamp</title>
     
-    <!--  
+  
 >>>>>>> refs/heads/developer
     Favicons
     =============================================
     -->
-				<link rel="apple-touch-icon" sizes="57x57" href="../../resources/images/favicons/apple-icon-57x57.png">
-				<link rel="apple-touch-icon" sizes="60x60" href="../../resources/images/favicons/apple-icon-60x60.png">
-				<link rel="apple-touch-icon" sizes="72x72" href="../../resources/images/favicons/apple-icon-72x72.png">
-				<link rel="apple-touch-icon" sizes="76x76" href="../../resources/images/favicons/apple-icon-76x76.png">
-				<link rel="apple-touch-icon" sizes="114x114"
-					href="../../resources/images/favicons/apple-icon-114x114.png">
-				<link rel="apple-touch-icon" sizes="120x120"
-					href="../../resources/images/favicons/apple-icon-120x120.png">
-				<link rel="apple-touch-icon" sizes="144x144"
-					href="../../resources/images/favicons/apple-icon-144x144.png">
-				<link rel="apple-touch-icon" sizes="152x152"
-					href="../../resources/images/favicons/apple-icon-152x152.png">
-				<link rel="apple-touch-icon" sizes="180x180"
-					href="../../resources/images/favicons/apple-icon-180x180.png">
-				<link rel="icon" type="image/png" sizes="192x192"
-					href="../../resources/images/favicons/android-icon-192x192.png">
-				<link rel="icon" type="image/png" sizes="32x32"
-					href="../../resources/images/favicons/favicon-32x32.png">
-				<link rel="icon" type="image/png" sizes="96x96"
-					href="../../resources/images/favicons/favicon-96x96.png">
-				<link rel="icon" type="image/png" sizes="16x16"
-					href="../../resources/images/favicons/favicon-16x16.png">
-				<meta name="msapplication-TileColor" content="#ffffff">
-				<meta name="msapplication-TileImage" content="../../resources/images/favicons/ms-icon-144x144.png">
-				<meta name="theme-color" content="#ffffff">
+			<link rel="apple-touch-icon" sizes="57x57" href="../../resources/images/favicons/apple-icon-57x57.png">
+			<link rel="apple-touch-icon" sizes="60x60" href="../../resources/images/favicons/apple-icon-60x60.png">
+			<link rel="apple-touch-icon" sizes="72x72" href="../../resources/images/favicons/apple-icon-72x72.png">
+			<link rel="apple-touch-icon" sizes="76x76" href="../../resources/images/favicons/apple-icon-76x76.png">
+			<link rel="apple-touch-icon" sizes="114x114" href="../../resources/images/favicons/apple-icon-114x114.png">
+			<link rel="apple-touch-icon" sizes="120x120" href="../../resources/images/favicons/apple-icon-120x120.png">
+			<link rel="apple-touch-icon" sizes="144x144" href="../../resources/images/favicons/apple-icon-144x144.png">
+			<link rel="apple-touch-icon" sizes="152x152" href="../../resources/images/favicons/apple-icon-152x152.png">
+			<link rel="apple-touch-icon" sizes="180x180" href="../../resources/images/favicons/apple-icon-180x180.png">
+			<link rel="icon" type="image/png" sizes="192x192"
+				href="../../resources/images/favicons/android-icon-192x192.png">
+			<link rel="icon" type="image/png" sizes="32x32" href="../../resources/images/favicons/favicon-32x32.png">
+			<link rel="icon" type="image/png" sizes="96x96" href="../../resources/images/favicons/favicon-96x96.png">
+			<link rel="icon" type="image/png" sizes="16x16" href="../../resources/images/favicons/favicon-16x16.png">
+			<meta name="msapplication-TileColor" content="#ffffff">
+			<meta name="msapplication-TileImage" content="../../resources/images/favicons/ms-icon-144x144.png">
+			<meta name="theme-color" content="#ffffff">
 
-				<link href="../../resources/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-				<!-- Template specific stylesheets-->
-				<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700" rel="stylesheet">
-				<link href="https://fonts.googleapis.com/css?family=Volkhov:400i" rel="stylesheet">
-				<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Shadows+Into+Light"
-					rel="stylesheet">
-				<link href="../../resources/lib/animate.css/animate.css" rel="stylesheet">
-				<link href="../../resources/lib/components-font-awesome/css/font-awesome.min.css" rel="stylesheet">
-				<link href="../../resources/lib/et-line-font/et-line-font.css" rel="stylesheet">
-				<link href="../../resources/lib/flexslider/flexslider.css" rel="stylesheet">
-				<link href="../../resources/lib/owl.carousel/dist/assets/owl.carousel.min.css" rel="stylesheet">
-				<link href="../../resources/lib/owl.carousel/dist/assets/owl.theme.default.min.css" rel="stylesheet">
-				<link href="../../resources/lib/magnific-popup/magnific-popup.css" rel="stylesheet">
-				<link href="../../resources/lib/simple-text-rotator/simpletextrotator.css" rel="stylesheet">
+			<link href="../../resources/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+			<!-- Template specific stylesheets-->
+			<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700" rel="stylesheet">
+			<link href="https://fonts.googleapis.com/css?family=Volkhov:400i" rel="stylesheet">
+			<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Shadows+Into+Light"
+				rel="stylesheet">
+			<link href="../../resources/lib/animate.css/animate.css" rel="stylesheet">
+			<link href="../../resources/lib/components-font-awesome/css/font-awesome.min.css" rel="stylesheet">
+			<link href="../../resources/lib/et-line-font/et-line-font.css" rel="stylesheet">
+			<link href="../../resources/lib/flexslider/flexslider.css" rel="stylesheet">
+			<link href="../../resources/lib/owl.carousel/dist/assets/owl.carousel.min.css" rel="stylesheet">
+			<link href="../../resources/lib/owl.carousel/dist/assets/owl.theme.default.min.css" rel="stylesheet">
+			<link href="../../resources/lib/magnific-popup/magnific-popup.css" rel="stylesheet">
+			<link href="../../resources/lib/simple-text-rotator/simpletextrotator.css" rel="stylesheet">
 
-				<link href="../../resources/css/style.css" rel="stylesheet">
-				<link id="color-scheme" href="../../resources/css/colors/default.css" rel="stylesheet">
+			<link href="../../resources/css/style.css" rel="stylesheet">
+			<link id="color-scheme" href="../../resources/css/colors/default.css" rel="stylesheet">
 
 
-				<link rel="stylesheet" href="../../resources/lib/bootstrap/css/bootstrap.css" />
-				<link rel="stylesheet" href="../../resources/lib/font-awesome/css/font-awesome.css" />
-				<link rel="stylesheet" href="../../resources/lib/magnific-popup/magnific-popup.css" />
-				<link rel="stylesheet" href="../../resources/lib/bootstrap-datepicker/css/datepicker3.css" />
-				<link rel="stylesheet"
-					href="../../resources/lib/jquery-ui/css/ui-lightness/jquery-ui-1.10.4.custom.css" />
-				<link rel="stylesheet" href="../../resources/lib/bootstrap-multiselect/bootstrap-multiselect.css" />
-				<link rel="stylesheet" href="../../resources/lib/morris/morris.css" />
-				<link rel="stylesheet" href="../../resources/css/theme.css" />
-				<link rel="stylesheet" href="../../resources/css/skins/default.css" />
-				<link rel="stylesheet" href="../../resources/css/theme-custom.css">
-				<script src="../../resources/lib/modernizr/modernizr.js"></script>
+			<link rel="stylesheet" href="../../resources/lib/bootstrap/css/bootstrap.css" />
+			<link rel="stylesheet" href="../../resources/lib/font-awesome/css/font-awesome.css" />
+			<link rel="stylesheet" href="../../resources/lib/magnific-popup/magnific-popup.css" />
+			<link rel="stylesheet" href="../../resources/lib/bootstrap-datepicker/css/datepicker3.css" />
+			<link rel="stylesheet" href="../../resources/lib/jquery-ui/css/ui-lightness/jquery-ui-1.10.4.custom.css" />
+			<link rel="stylesheet" href="../../resources/lib/bootstrap-multiselect/bootstrap-multiselect.css" />
+			<link rel="stylesheet" href="../../resources/lib/morris/morris.css" />
+			<link rel="stylesheet" href="../../resources/css/theme.css" />
+			<link rel="stylesheet" href="../../resources/css/skins/default.css" />
+			<link rel="stylesheet" href="../../resources/css/theme-custom.css">
+			<script src="../../resources/lib/modernizr/modernizr.js"></script>
 
-				<style type="text/css">
-					.sidebar-left {
-						background-color: #171717 !important;
-					}
+			<style type="text/css">
+				.sidebar-left {
+					background-color: #171717 !important;
+				}
 
-					#addSecessionModal .modal-dialog .modal-content .was-validated .form-group .form-control {
-						border-radius: 100px;
-						padding-left: 20px;
-						height: 40px;
-						font-size: 13px;
-					}
+				#addSecessionModal .modal-dialog .modal-content .was-validated .form-group .form-control {
+					border-radius: 100px;
+					padding-left: 20px;
+					height: 40px;
+					font-size: 13px;
+				}
 
 
-					#addSecessionModal {
+				#addSecessionModal {
 
-						position: absolute;
-						top: 50%;
-						left: 50%;
-						transform: translateY(-50%) translateX(-50%);
-					}
-				</style>
+					position: absolute;
+					top: 50%;
+					left: 50%;
+					transform: translateY(-50%) translateX(-50%);
+				}
+
+				#Secession-btn {
+					display: flex;
+					justify-content: end;
+					gap: 15px;
+				}
+			</style>
 
 		</head>
 
@@ -558,7 +544,7 @@
 													<div class="row">
 														<button id="cancel" class="btn btn-border-d btn-circle"
 															type="button">취소</button>
-														<button id="updateUser" class="btn btn-border-d btn-circle"
+														<button id="updateUser-btn" class="btn btn-border-d btn-circle"
 															type="submit">수정하기</button>
 
 													</div>
@@ -741,7 +727,7 @@
 			</main>
 			<!-- The Modal -->
 			<div class="modal" id="addSecessionModal">
-				<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-dialog-centered">
 					<div class="modal-content">
 
 						<!-- Modal Header -->
@@ -760,7 +746,7 @@
 									<input type="password" class="form-control" id="secession-userPwd"
 										placeholder="비밀번호를 입력하세요" name="password" required>
 								</div>
-								<div class="row" style="margin-left: 70%;">
+								<div id="Secession-btn">
 									<button type="button" class="btn btn-primary" id="addSecession">탈퇴하기</button>
 									<button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
 								</div>
@@ -829,7 +815,7 @@
 			<script src="../../resources/js/dashboard/examples.dashboard.js"></script>
 
 			<script>
-				$(document).ready(function () {
+				$(function () {
 					$('#listMyProduct').on('click', function () {
 						window.location = "/auction/listMyAuctionProduct?currentPage=1";
 					});
@@ -932,6 +918,230 @@
 							}
 
 						});
+					});
+					//비밀번호
+					$('#password').on("keyup", function () {
+						var regExp = /[ㄱ-ㅎㅏ-ㅣ가-힣]/g; //한글입력 불가
+						var pwd = $('#password').val();
+
+						if (pwd.length < 1) {
+							$("#check-pwd-exp").html("");
+
+						} else if (regExp.test(pwd)) {
+							$("#check-pwd-exp").html("한글은 입력 불가합니다.");
+							$("#check-pwd-exp").css('color', 'red');
+						}
+
+					});
+
+					//비밀번호 확인
+					$('#confirmPassword').on("keyup", function () {
+
+
+						if ($('#confirmPassword').val().length < 0) {
+							$("#check-pwd").html("");
+						} else if ($('#password').val() != $('#confirmPassword').val() || $('#confirmPassword').val() != '') {
+							$("#check-pwd").html('비밀번호가 일치하지 않습니다.');
+							$("#check-pwd").css('color', 'red');
+							$('#confirmPassword').focus();
+						}
+						if ($('#password').val() == $('#confirmPassword').val()) {
+							$("#check-pwd").html('비밀번호가 일치합니다.');
+							$("#check-pwd").css('color', 'green');
+						}
+					});
+
+					//닉네임 중복체크
+					$("input[name='nickName']").on("keyup", function () {
+
+						var nickName = $("input[name='nickName']").val();
+
+						$.ajax({
+							url: '/user/rest/checkDuplication',
+							headers: {
+								"Accept": "application/json",
+								"Content-Type": "application/json"
+							},
+							method: 'POST',
+							dataType: 'json',
+							data: JSON.stringify({ "nickName": nickName }),
+							success: function (result) {
+								console.log('성공: ' + result);
+								if (result == 0) {
+									if (nickName.length > 2) {
+										$("#check-nickName").html('사용 가능한 닉네임입니다.');
+										$("#check-nickName").css('color', 'green');
+									} else {
+										$("#check-nickName").html("");
+									}
+								} else {
+									$("#check-nickName").html('이미 사용중이거나 중복된 닉네임 입니다.');
+									$("#check-nickName").css('color', 'red');
+								}
+							}
+						});
+
+					});
+
+					//휴대폰번호 중복체크
+					$("input[name='phone']").on("keyup", function () {
+
+						var regExp = /^[0-9]*$/;
+						var phone = $("input[name='phone']").val();
+
+						$.ajax({
+							url: '/user/rest/checkDuplication',
+							headers: {
+								"Accept": "application/json",
+								"Content-Type": "application/json"
+							},
+							method: 'POST',
+							dataType: 'json',
+							data: JSON.stringify({ "phone": phone }),
+							success: function (result) {
+								console.log('성공: ' + result);
+
+								if (result == 0) {
+									if (email != "") {
+										if (!(regExp.test(phone))) {
+											$("#phone").val("");
+											$("#check-phone").html("휴대폰번호는 숫자로만 입력 가능합니다.");
+										} else if (phone.length == 11) {
+											$("#check-phone").html('사용 가능한 번호입니다.');
+											$("#check-phone").css('color', 'green');
+										} else if (phone.length > 11) {
+											$("#phone").val("");
+											$("#check-phone").html("휴대폰번호는 11자리만 가능합니다.");
+										} else {
+											$("#check-phone").html("");
+										}
+
+									} else {
+										$("#check-phone").html('이미 사용중이거나 중복된 휴대폰번호 입니다.');
+										$("#check-phone").css('color', 'red');
+									}
+								}
+							}
+						});
+
+					});
+
+					//휴대폰 인증번호 받기
+					$("#phoneAuthNum").on("click", function () {
+
+						$("#phoneAuthNum").text("인증번호 재발송");
+						$("#check-phone").hide();
+						$("#checkPhoneAuth").show();
+						//세션에 담긴 값이랑 입력된 값이 맞는지 비교하기 #check-phone-auth
+						var phone = $("input[name='phone']").val();
+
+						$.ajax({
+							url: '/user/rest/sendPhoneAuthNum/' + phone,
+							headers: {
+								"Accept": "application/json",
+								"Content-Type": "application/json"
+							},
+							method: 'GET',
+							//dataType:'json',
+							//data : JSON.stringify({"phone" : phone}),	
+							success: function (dataa) {
+								console.log('성공: ' + dataa);
+
+								$("input[name='checkPhoneAuthNum']").on("keyup", function () {
+									console.log('되는가');
+									var ab = $("input[name='checkPhoneAuthNum']").val();
+
+									if (ab.length > 0) {
+										if (dataa == ab) {
+											$("#check-phone-auth").html("인증번호가 일치합니다.");
+										} else {
+											$("#check-phone-auth").html('인증번호를 확인하세요.');
+										}
+									}
+								});
+							}
+						});
+					});
+
+
+					//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+					$("#updateUser").on("click", function () {
+						console.log("뭐지");
+						fncupdateUser();
+					});
+
+					function fncupdateUser() {
+
+						var id = $("#id").val();
+						var pw = $("input[name='password']").val();
+						var pw_confirm = $("input[name='confirmPassword']").val();
+						var name = $("input[name='name']").val();
+						var nickName = $("input[name='nickName']").val();
+						var phone = $("input[name='phone']").val();
+
+
+
+						/* if(id == null || id.length <1){
+							alert("아이디는 반드시 입력하셔야 합니다.");
+							return;
+						} *
+						
+						if(password == null || password.length <1){
+							alert("패스워드는  반드시 입력하셔야 합니다.");
+							return;
+						}
+						
+						if(7<password.length <16){
+							alert("패스워드는 8~15자까지 가능합니다.");
+							return;
+						}
+						
+						if(confirmPassword == null || confirmPassword.length <1){
+							alert("패스워드 확인은  반드시 입력하셔야 합니다.");
+							return;
+						}
+						
+						if(name == null || name.length <1){
+							alert("이름은  반드시 입력하셔야 합니다.");
+							return;
+						}
+						
+						if( password != confirmPassword ) {				
+							alert("비밀번호 확인이 일치하지 않습니다.");
+							$("input:text[name='confirmPassword']").focus();
+							return;
+						}
+						
+						if(nickName == null || nickName.length <1){
+							alert("닉네임은 반드시 입력하셔야 합니다.");
+							return;
+						}
+						
+						if(phone == null || phone.length <1){
+							alert("휴대폰번호는 반드시 입력하셔야 합니다.");
+							return;
+						}*/
+
+						var addr = "";
+						if ($("input:text[name='addr']").val() != "" && $("input:text[name='userAddr']").val() != "") {
+							var value = $("input[name='addr']").val() + ""
+								+ $("input[name='userAddr']").val();
+						}
+
+						$("input:hidden[name='allAddr']").val(value);
+
+						$("form").attr("method", "POST").attr("action", "/user/updateUser").submit();
+					}
+
+
+					//주소검색
+					document.getElementById("addr").addEventListener("click", function () { //주소입력칸을 클릭하면
+						new daum.Postcode({
+							oncomplete: function (data) { //선택시 입력값 세팅
+								document.getElementById("addr").value = data.address; // 주소 넣기
+								document.querySelector("input[name=userAddr]").focus(); //상세입력 포커싱
+							}
+						}).open();
 					});
 				});
 			</script>

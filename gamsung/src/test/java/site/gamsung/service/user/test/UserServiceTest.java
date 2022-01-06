@@ -124,7 +124,7 @@ public class UserServiceTest {
 		System.out.println(totalCount);
 	}
 	
-	@Test
+	//@Test
 	public void testCheckDuplication() throws Exception{
 		
 		User user = new User();
@@ -146,17 +146,18 @@ public class UserServiceTest {
 		
 	}
 	
-	//@Test
+	@Test
 	public void testUpdateTempPassword() throws Exception{
 		
 		User user = new User();
-		String id = "businessuser1@gamsung.com";
+		String id = "admin";
 		user = userService.getUser(id);
 		if(user.getSalt()==null) {
-			SHA256Util salt=new SHA256Util();
-			String newSalt=salt.generateSalt();
-			user.setSalt(newSalt.toString());
+			String newSalt=SHA256Util.generateSalt();
+			System.out.println(newSalt);
+			user.setSalt(newSalt);
 			userService.updateUser(user);
+			System.out.println(user);
 		}else {
 		
 		System.out.println(user);
