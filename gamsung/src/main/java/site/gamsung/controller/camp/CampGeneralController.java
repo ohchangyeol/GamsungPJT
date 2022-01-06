@@ -71,6 +71,9 @@ public class CampGeneralController {
 	@Value("#{commonProperties['pageSize']}")
 	int pageSize;
 	
+	@Value("#{commonProperties['campPageSize']}")
+	int campPageSize;
+	
 	@RequestMapping(value = "listCamp", method = RequestMethod.POST)
 	public String listCamp(@ModelAttribute("search") Search search, Model model) throws Exception{
 		System.out.println("/campGeneral/listCamp : POST");
@@ -126,7 +129,7 @@ public class CampGeneralController {
 		
 		if(user == null) {
 			
-			return "redirect:/main.jsp";
+			return "redirect:/";
 			
 		}else if(mainSiteNo == 0) {
 			
@@ -195,10 +198,38 @@ public class CampGeneralController {
 		
 	}
 	
-	public String listMyReservation() throws Exception{
+	@RequestMapping(value = "listMyReservation", method = RequestMethod.GET)
+	public String listMyReservation(@ModelAttribute("search") Search search, Model model ,HttpSession httpSession) throws Exception{
 		System.out.println("/campGeneral/listMyReservation : GET");
 		
-		return null;
+		User user = (User)httpSession.getAttribute("user");
+		
+		if (search.getCurrentPage() == 0) {
+			search.setCurrentPage(1);
+		}
+		
+		search.setPageSize(pageSize);
+		
+		if(user == null) {
+			
+			return "redirect:/";
+			
+		} else {
+			
+			Map<String, Object> map = campReservationService.listMyReservation(search, user.getId());
+			
+			Page resultPage = new Page(search.getCurrentPage(), ((Integer) map.get("totalCount")).intValue(), pageUnit, pageSize);
+			System.out.println(resultPage);
+			
+			model.addAttribute("list", map.get("list"));
+			model.addAttribute("resultPage", resultPage);
+			model.addAttribute("search", search);
+			model.addAttribute("user", user);
+			
+			System.out.println(model);
+					
+			return "forward:/view/camp/listMyReservation.jsp";
+		}
 	}
 	
 	public String updateMyReservation() throws Exception{
@@ -212,21 +243,22 @@ public class CampGeneralController {
 		
 		return null;
 	}
-	
-	@RequestMapping(value = "listCampRatingReview", method = RequestMethod.GET)
+		
+	@RequestMapping(value = "listCampRatingReview")
 	public String listCampRatingReview(@RequestParam("campNo") int campNo , @ModelAttribute("search") Search search , Model model ) throws Exception{
 	
-		System.out.println("/campGeneral/listCampRatingReview : GET");
+		System.out.println("/campGeneral/listCampRatingReview : GET / POST");	
 		
 		if (search.getCurrentPage() == 0) {
-			search.setCurrentPage(1);
+			search.setCurrentPage(1);	
 		}
 		
-		search.setPageSize(pageSize);
+		search.setPageSize(campPageSize);
+		search.setCampNo(campNo);
 		
-		Map<String, Object> map = ratingReviewService.listRatingReview(search, campNo);
+		Map<String, Object> map = ratingReviewService.listRatingReview(search);
 		
-		Page resultPage = new Page(search.getCurrentPage(), ((Integer) map.get("totalCount")).intValue(), pageUnit, pageSize);
+		Page resultPage = new Page(search.getCurrentPage(), ((Integer) map.get("totalCount")).intValue(), pageUnit, campPageSize);
 		System.out.println(resultPage);
 		
 		model.addAttribute("list", map.get("list"));
@@ -325,10 +357,42 @@ public class CampGeneralController {
 		return null;
 	}
 	
-	public String listMyCampQna() throws Exception{
+	@RequestMapping(value = "listMyQna", method = RequestMethod.GET)
+	public String listMyCampQna(@ModelAttribute("search") Search search, Model model ,HttpSession httpSession) throws Exception{
 		System.out.println("/campGeneral/listMyCampQna : GET");
+
+		User user = (User)httpSession.getAttribute("user");
 		
-		return null;
+		if (search.getCurrentPage() == 0) {
+			search.setCurrentPage(1);
+		}
+		
+		search.setPageSize(pageSize);
+		
+		if(user == null) {
+			
+			return "redirect:/";
+			
+		} else {
+			
+			search.setId(user.getId());
+			
+			QnaWrapper qnaWrapper = qnaService.listQna(search);
+			
+			Page resultPage = new Page(search.getCurrentPage(), qnaWrapper.getTotalCount(), pageUnit, pageSize);
+			System.out.println(resultPage);
+			
+			model.addAttribute("wrapper", qnaWrapper);
+			model.addAttribute("resultPage", resultPage);
+			model.addAttribute("search", search);
+			model.addAttribute("user", user);
+			
+			System.out.println(search);
+			System.out.println(qnaWrapper);
+			
+			return "forward:/view/camp/listMyQna.jsp";
+		}
+	
 	}
 	
 	public String updateMyCampQna() throws Exception{
@@ -349,10 +413,41 @@ public class CampGeneralController {
 		return null;
 	}
 	
-	public String listMyCampRatingReview() throws Exception{
+	@RequestMapping(value = "listMyReview", method = RequestMethod.GET)
+	public String listMyCampRatingReview(@ModelAttribute("search") Search search, Model model ,HttpSession httpSession) throws Exception{
 		System.out.println("/campGeneral/listMyCampRatingReview : GET");
 		
-		return null;
+		User user = (User)httpSession.getAttribute("user");
+		
+		if (search.getCurrentPage() == 0) {
+			search.setCurrentPage(1);
+		}
+		
+		search.setPageSize(campPageSize);
+		
+		if(user == null) {
+			
+			return "redirect:/";
+			
+		} else {
+			
+			search.setId(user.getId());
+			Map<String, Object> map = ratingReviewService.listRatingReview(search);
+			
+			Page resultPage = new Page(search.getCurrentPage(), ((Integer) map.get("totalCount")).intValue(), pageUnit, campPageSize);
+			System.out.println(resultPage);
+			
+			model.addAttribute("list", map.get("list"));
+			model.addAttribute("resultPage", resultPage);
+			model.addAttribute("search", search);
+			model.addAttribute("user", user);
+			
+			System.out.println(search);
+			System.out.println(map.get("list"));
+
+			return "forward:/view/camp/listMyRatingReview.jsp";
+		}
+		
 	}
 	
 	public String updateMyCampRatingReview() throws Exception{

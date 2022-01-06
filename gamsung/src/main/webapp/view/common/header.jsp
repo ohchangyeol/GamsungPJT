@@ -149,6 +149,8 @@ pageEncoding="UTF-8"%>
     </div>
   </div>
 </nav>
-
+<!-- loginModal -->
 <jsp:include page="../user/loginModal.jsp"/>
+<!-- findIdModal -->
+<jsp:include page="/view/user/findIdModal.jsp"/>
 

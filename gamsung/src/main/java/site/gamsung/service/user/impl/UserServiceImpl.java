@@ -134,7 +134,7 @@ public class UserServiceImpl implements UserService{
 
 
 	@Override
-	public String checkDuplication(User user){
+	public int checkDuplication(User user){
 		
 		return userDAO.checkDuplication(user);
 	}
@@ -295,7 +295,7 @@ public class UserServiceImpl implements UserService{
 		
 		System.out.println("dbUser##########"+dbUser);
 		
-		if(!(dbUser != null && user.getName().equals(dbUser.getName())&&user.getPhone().equals(dbUser.getPhone()))){
+		if(dbUser != null && !(user.getName().equals(dbUser.getName())&&user.getPhone().equals(dbUser.getPhone()))){
 			return null;
 		}
 			System.out.println("###############user############"+user);
@@ -305,19 +305,23 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public void addSuspensionUser(User user){
 		
+		System.out.println("이용정지 등록 서비스임쁠");
 		userDAO.addSuspensionUser(user);
 		
 	}
 
 	@Override
 	public boolean addSecessionUser(User user){
-	
-		
+		System.out.println("탈퇴 서비스임쁠 타는지");
+		System.out.println(user);
 		if(campDAO.isSecessionUserReservationCondition(user.getId())&&auctionDAO.isSecessionUserAuctionCondition(user.getId())) {
+		System.out.println(campDAO.isSecessionUserReservationCondition(user.getId()));
+		System.out.println(auctionDAO.isSecessionUserAuctionCondition(user.getId()));
 		 userDAO.addSecessionUser(user);
 		 return true;
-		}		
+		}else {	
 		return false;
+		}
 	}
 
 	@Override
@@ -341,7 +345,7 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	@Scheduled(cron="0 0 12 * * *")
+	@Scheduled(cron="0 0 9 * * *")
 	public void addDormantUser(){
 		
 		System.out.println("배치 도는지");

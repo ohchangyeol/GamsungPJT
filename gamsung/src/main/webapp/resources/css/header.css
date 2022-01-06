@@ -1,132 +1,120 @@
-#modalBasic .panel{ padding: 15px;}
-#modalBasic .panel .panel-body form .form-group input{ border-radius: 100px;padding-left: 20px;height: 50px;font-size: 16px;}
-#modalBasic .panel .panel-body form div #loginBtn{ width: 100%;height: 50px; font-size: 16px; font-weight: 700;}
-#modalBasic .panel .panel-body form .find-content{margin-top: 20px;}
-#modalBasic .panel .panel-body form .find-content ul{ padding: 0; display: flex; justify-content: center; }
-#modalBasic .panel .panel-body form .find-content ul li{list-style: none;position: relative; cursor: pointer; transition: all 0.1s ease-in-out;}
-#modalBasic .panel .panel-body form .find-content ul li:hover { color: #2d2d2d; font-weight: bold; text-decoration: underline;}
-#modalBasic .panel .panel-body form .find-content ul li+li{ margin-left: 20px;}
-#modalBasic .panel .panel-body form .find-content ul li+li:before{ content: "";width: 1px;height: 14px; background-color: #ccc; position: absolute; top: 4px; left: -10px; }
-#modalBasic .panel footer .f-and{ position: relative;}
-#modalBasic .panel footer .f-and span {padding: 0 27px ; background-color: #fff; z-index: 1; position: relative;}
-#modalBasic .panel footer .f-and::before {content: "";width: 100%;height: 1px; background-color: #ccc; position: absolute; top: 50%;left: 0;}
-#modalBasic .panel footer .kakao {margin-top: 15px;}
-#modalBasic .panel footer .kakao button {background-color: #ffeb00; padding: 0; height: 50px; width: 70%; overflow: hidden; color: rgb(95, 60, 32);}
-#modalBasic .panel footer .kakao button img {height: 100%;}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.white-popup-block {
-    position: relative;
-    background: #FFF;
-    padding: 20px;
-    width: auto;
-    max-width: 500px;
-    margin: 20px auto;
-    border-radius: 30px;
-    text-align: center !important;
-  }
-  .panel-heading {
-    background: #fff;
-    border-radius: initial;
-    border-bottom: none;
-    padding: initial;
-    position: initial;
+#modalBasic .panel {
+  padding: 15px;
+}
+#modalBasic .panel .panel-body form .form-group input {
+  border-radius: 100px;
+  padding-left: 20px;
+  height: 50px;
+  font-size: 16px;
+}
+#modalBasic .panel .panel-body form div #loginBtn {
+  width: 100%;
+  height: 50px;
+  font-size: 16px;
+  font-weight: 700;
+}
+#modalBasic .panel .panel-body form .find-content {
+  margin-top: 20px;
+}
+#modalBasic .panel .panel-body form .find-content ul {
+  padding: 0;
+  display: flex;
+  justify-content: center;
+}
+#modalBasic .panel .panel-body form .find-content ul li {
+  list-style: none;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.1s ease-in-out;
+}
+#modalBasic .panel .panel-body form .find-content ul li:hover {
+  color: #2d2d2d;
+  font-weight: bold;
+  text-decoration: underline;
+}
+#modalBasic .panel .panel-body form .find-content ul li + li {
+  margin-left: 20px;
+}
+#modalBasic .panel .panel-body form .find-content ul li + li:before {
+  content: "";
+  width: 1px;
+  height: 14px;
+  background-color: #ccc;
+  position: absolute;
+  top: 4px;
+  left: -10px;
+}
+#modalBasic .panel footer .f-and {
+  position: relative;
+}
+#modalBasic .panel footer .f-and span {
+  padding: 0 27px;
+  background-color: #fff;
+  z-index: 1;
+  position: relative;
+}
+#modalBasic .panel footer .f-and::before {
+  content: "";
+  width: 100%;
+  height: 1px;
+  background-color: #ccc;
+  position: absolute;
+  top: 50%;
+  left: 0;
+}
+#modalBasic .panel footer .kakao {
+  margin-top: 15px;
+}
+#modalBasic .panel footer .kakao button {
+  background-color: #ffeb00;
+  padding: 0;
+  height: 50px;
+  width: 70%;
+  overflow: hidden;
+  color: rgb(95, 60, 32);
+}
+#modalBasic .panel footer .kakao button img {
+  height: 100%;
 }
 
-#modalBasic .panel footer {border-top: solid 1px #fff;}
+#findIdModal {
+  z-index: 1041;
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+}
+#findIdModal .find {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
+  width: 490px;
+  height: 365px;
+}
+
+#findIdModal .find .panel .tab-content .tab-pane .panel-body .form-group input {
+  border-radius: 100px;
+  padding-left: 20px;
+  height: 40px;
+  font-size: 13px;
+}
+
+#findIdModal
+  .find
+  .panel
+  .tab-content
+  .tab-pane
+  .panel-body
+  #findIdCheckPhoneAuth
+  input {
+  border-radius: 100px;
+  padding-left: 20px;
+  height: 40px;
+  font-size: 13px;
+}
+
+.find-btn {
+  position: absolute;
+  bottom: 10%;
+  right: 7%;
+}

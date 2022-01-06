@@ -252,13 +252,6 @@
 											value="${user.accountHolder}" placeholder="예금주" />
 									</div>
 								</div>
-								<div class="form-group">
-											<label class="col-sm-offset-1 col-sm-3 control-label"></label>
-											<div class="col-sm-6">
-												<input id="accountNum" name="accountNum" class="form-control"
-													type="text" placeholder="계좌번호를 숫자만 입력하세요" maxlength="14" />
-											</div>
-										</div>
 								<div id="entryDate" class="form-group">
 									<label for="entryDate"
 										class="col-sm-offset-1 col-sm-3 control-label"><strong>회원가입 일자</strong></label>
@@ -306,7 +299,7 @@
 	<script src="../../resources/js/plugins.js"></script>
 	<script src="../../resources/js/main.js"></script>
 
-	<script type="text/javascript">
+	<script>
 	
 	$(function(){
 		

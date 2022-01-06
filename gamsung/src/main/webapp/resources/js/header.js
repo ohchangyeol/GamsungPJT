@@ -32,9 +32,9 @@ $(document).ready(function(){
 			success : function(dataa) {
 				console.log('성공: '+dataa);
 				
-				$("input[name='findIdCheckPhoneAuthNum']").on("keyup", function() {
+				$("#findIdCheckPhoneAuthNum").on("keyup", function() {
 					console.log('되는가');
-					var ab=$("input[name='findIdCheckPhoneAuthNum']").val();
+					var ab=$("#findIdCheckPhoneAuthNum").val();
 					
 					if(ab.length>0){
 						if(dataa == ab){
@@ -96,6 +96,55 @@ $(document).ready(function(){
 		 		 
 	});
 
+	$("button:contains(비밀번호찾기)").on("click" , function() {
+		//alert("gkgkgkgk");
+ 		var id=$("#findPwdId").val();
+		var name=$("#findPwdName").val();
+		var phone=$("#findPwdPhone").val();
+		var split = id.split('@');
+		var result = split[0].replace(/(?<=.{3})./gi,"*")+"@"+split[1];
+		
+		if(name == null || name.length <1) {
+			alert('이름을 입력하지 않으셨습니다.');
+			$("#findIdName").focus();
+			return;
+		}
+		
+		if(phone == null || phone.length <1) {
+			alert('휴대폰번호를 입력하지 않으셨습니다.');
+			$("#findIdPhone").focus();
+			return;
+		}
+		
+		
+ 		$.ajax({
+			url : '/user/rest/findPassword',
+		 	 headers :{
+				"Accept" : "application/json",
+				"Content-Type" : "application/json"
+			},  
+			method : 'POST',
+			dataType:'json',
+			data : JSON.stringify({
+				"id" : id,
+				"name" :name,
+				"phone":phone
+			}),
+			success : function(data) {
+				
+				console.log('성공: '+data);
+				if(data==1){
+					
+					result=id+"로 임시 비밀번호가 발송되었습니다";
+					Swal.fire(result).then(()=>{
+						self.location = "/";
+					});
+				} 
+			}
+		});	   
+		 		 
+	});
+
 	
 	// 로그아웃
 	$("#logout").on("click" , function() {
@@ -113,7 +162,7 @@ $(document).ready(function(){
 	}); 
 				
 	// $("#id").focus();
-	$("button:contains(로그인)").on("click" , function() {
+	$("#loginBtn").on("click" , function() {
 		//alert("gkgkgkgk");
 		var id=$("input:text").val();
 		var pwd=$("input:password").val();
@@ -146,6 +195,8 @@ $(document).ready(function(){
 		//	$('#findIdModal').modal('show');
 			
 	}); 
+
+	$("#kakaobtn").on("click", kakaoLogin);
 
 	function kakaoLogin() {
 
