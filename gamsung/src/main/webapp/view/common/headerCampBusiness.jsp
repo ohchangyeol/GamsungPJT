@@ -147,9 +147,6 @@
         </li>
                 
         <c:if test="${campSession.campTempSave == '3' || campSession.user.role == 'ADMIN'}">			
-			<ul class="nav navbar-nav navbar-right">
-				<li><a href="#">캠핑</a></li>	
-			</ul>	
 			
 			<ul class="nav navbar-nav navbar-right">
 				<li><a href="#">사이트 고객센터</a></li>

@@ -7,30 +7,9 @@
 			<meta charset="utf-8">
 			<meta http-equiv="X-UA-Compatible" content="IE=edge">
 			<meta name="viewport" content="width=device-width, initial-scale=1">
-			<!--  
-<<<<<<< HEAD
 
-=======
->>>>>>> refs/heads/developer
-    Document Title
-    =============================================
-<<<<<<< HEAD
-
-			<<<<<<< HEAD <title>Titan | Multipurpose HTML5 Template</title>
-			 
-=======
-    <title>GamsungCamp</title>
-    
-  
->>>>>>> refs/heads/developer
-=======
-    -->
 			<title>Titan | Multipurpose HTML5 Template</title>
-			<!--  
->>>>>>> refs/heads/developer
-    Favicons
-    =============================================
-    -->
+
 			<link rel="apple-touch-icon" sizes="57x57" href="../../resources/images/favicons/apple-icon-57x57.png">
 			<link rel="apple-touch-icon" sizes="60x60" href="../../resources/images/favicons/apple-icon-60x60.png">
 			<link rel="apple-touch-icon" sizes="72x72" href="../../resources/images/favicons/apple-icon-72x72.png">
@@ -40,8 +19,7 @@
 			<link rel="apple-touch-icon" sizes="144x144" href="../../resources/images/favicons/apple-icon-144x144.png">
 			<link rel="apple-touch-icon" sizes="152x152" href="../../resources/images/favicons/apple-icon-152x152.png">
 			<link rel="apple-touch-icon" sizes="180x180" href="../../resources/images/favicons/apple-icon-180x180.png">
-			<link rel="icon" type="image/png" sizes="192x192"
-				href="../../resources/images/favicons/android-icon-192x192.png">
+			<link rel="icon" type="image/png" sizes="192x192" href="../../resources/images/favicons/android-icon-192x192.png">
 			<link rel="icon" type="image/png" sizes="32x32" href="../../resources/images/favicons/favicon-32x32.png">
 			<link rel="icon" type="image/png" sizes="96x96" href="../../resources/images/favicons/favicon-96x96.png">
 			<link rel="icon" type="image/png" sizes="16x16" href="../../resources/images/favicons/favicon-16x16.png">
@@ -250,14 +228,10 @@
 											</a>
 											<ul class="nav nav-children">
 												<li>
-													<a href="forms-basic.html">
-														포인트 충전/출금
-													</a>
+													<a href="/payment/managePoint">포인트 충전/출금	</a>
 												</li>
 												<li>
-													<a href="forms-advanced.html">
-														내 결제/포인트 내역
-													</a>
+													<a href="/payment/listPayment">내 결제/포인트 내역</a>
 												</li>
 											</ul>
 										</li>
