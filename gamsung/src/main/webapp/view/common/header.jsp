@@ -131,6 +131,8 @@ pageEncoding="UTF-8"%>
         </li>
 
         <li><a href="/view/common/myPage.jsp">Mypage</a>
+        
+        <li><a href="/campBusiness/goSubMainCampBusiness">사업자회원</a>
                 
          <li>    
 	         <c:if test="${sessionScope.user.role!=null}">
