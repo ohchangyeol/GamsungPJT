@@ -150,7 +150,7 @@ public class UserServiceTest {
 	public void testUpdateTempPassword() throws Exception{
 		
 		User user = new User();
-		String id = "admin";
+		String id = "businessuser5@gamsung.com";
 		user = userService.getUser(id);
 		if(user.getSalt()==null) {
 			String newSalt=SHA256Util.generateSalt();

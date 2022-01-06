@@ -118,3 +118,25 @@
   bottom: 10%;
   right: 7%;
 }
+
+.white-popup-block {
+  position: relative;
+  background: #fff;
+  padding: 20px;
+  width: auto;
+  max-width: 500px;
+  margin: 20px auto;
+  border-radius: 30px;
+  text-align: center !important;
+}
+.panel-heading {
+  background: #fff;
+  border-radius: initial;
+  border-bottom: none;
+  padding: initial;
+  position: initial;
+}
+
+#modalBasic .panel footer {
+  border-top: solid 1px #fff;
+}

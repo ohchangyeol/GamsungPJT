@@ -25,7 +25,7 @@
                     width: 140px;
                 }
 
-                #suspension-btn {
+                #suspension-confirm-btn {
                     padding-top: 15px;
                     display: flex;
                     justify-content: end;
@@ -60,7 +60,6 @@
                     <section class="module">
                         <div class="container">
                             <div class="col-sm-8 col-sm-offset-2">
-                                <h5 class="font-alt mb-0">회원 이용정지 등록</h5>
                                 <hr class="divider-w mt-10 mb-20">
                                 <form class="form" role="form">
                                     <div id="" class="form-group row">
@@ -68,8 +67,9 @@
                                         <label for=""
                                             class="col-sm-offset-1 col-sm-3 control-label"><strong>아이디</strong></label>
                                         <div class="col-sm-6">
-                                            <input id="addSuspention-id" name="id" class="form-control " type="text"
-                                                value="" placeholder="아이디를 입력하세요." style="border-radius:10px;" />
+                                            <input id="suspention-id" name="id" class="form-control " type="text"
+                                                value="${user.id}" placeholder="아이디를 입력하세요." style="border-radius:10px;"
+                                                readonly />
                                         </div>
 
                                     </div>
@@ -79,9 +79,9 @@
                                             class="col-sm-offset-1 col-sm-3 col-form-label"><strong>이용정지
                                                 사유</strong></label>
                                         <div class="col-sm-6">
-                                            <textarea class="form-control" id="message-text" name="suspensionContent"
-                                                placeholder="이용정지 사유를 입력하세요." style="border-radius:10px;"
-                                                maxlength="200"> </textarea>
+                                            <textarea class="form-control" id="suspension-message-text"
+                                                name="suspensionContent" value="${user.suspensionContent}"
+                                                style="border-radius:10px;" readonly> </textarea>
                                         </div>
                                     </div>
 
@@ -90,10 +90,9 @@
                             </div>
                             <div class="col-sm-3 col-sm-offset-2"></div>
                             <div class="col-sm-3 col-sm-offset-2">
-                                <div id="suspension-btn">
+                                <div id="suspension-confirm-btn">
                                     <button id="cancel" class="btn btn-border-d btn-circle" type="button">취소</button>
-                                    <button id="addSuspension-user" class="btn btn-border-d btn-circle"
-                                        type="button">확인</button>
+                                    <button id="ok" class="btn btn-border-d btn-circle" type="button">확인</button>
 
                                 </div>
                             </div>
@@ -105,11 +104,6 @@
 
 
             <script type="text/javascript">
-                $(function () {
-                    $("#addSuspension-user").on('click', function () {
-                        $("form").attr("method", "POST").attr("action", "/user/addSuspensionUser").submit();
-                    });
-                });
             </script>
         </body>
 

@@ -125,16 +125,16 @@ public class UserController {
 		return "forward:/view/user/getGeneralUserUpdate.jsp";
 	}
 	
-//	@RequestMapping( value="login", method=RequestMethod.GET )
-//	public String login() throws Exception{
-//		
-//		System.out.println("/user/logon : GET");
-//
-//		return "/";
-//	}
+	@RequestMapping( value="login", method=RequestMethod.GET )
+	public String login() throws Exception{
+		
+		System.out.println("/user/logon : GET");
+
+		return "/";
+	}
 	
 
-	@RequestMapping(value="login")
+	@RequestMapping(value="login", method=RequestMethod.POST)
 	public String login(@ModelAttribute("user") User user, HttpSession session){
 		
 		System.out.println("/user/login : POST");
@@ -190,7 +190,7 @@ public class UserController {
 			//비밀번호를 확인하세요 있어야됨.
 			
 			if(dbUser.getNickName() != null) {
-				jsp = "redirect:/main.jsp";
+				jsp = "redirect:/";
 			}else if(dbUser.getBusinessUserApprovalFlag() != null && dbUser.getBusinessUserApprovalFlag().equals("Y")) {
 				jsp = "forward:/campBusiness/goSubMainCampBusiness"; 
 		    }else {
