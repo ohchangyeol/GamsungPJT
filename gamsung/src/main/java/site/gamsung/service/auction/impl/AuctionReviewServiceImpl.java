@@ -108,7 +108,7 @@ public class AuctionReviewServiceImpl implements RatingReviewService, AuctionRev
 
 	//empty method
 	@Override
-	public Map<String, Object> listRatingReview(Search search, int targetNo) {
+	public Map<String, Object> listRatingReview(Search search) {
 		// TODO Auto-generated method stub
 		return null;
 	}

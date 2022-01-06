@@ -118,18 +118,18 @@
 										</a>
 										<ul class="nav nav-children">
 											<li>
-												<a href="forms-basic.html">
-													 예약
+												<a id="listMyReservation">
+													 캠핑장 예약 목록
 												</a>
 											</li>
 											<li>
-												<a href="forms-advanced.html">
-													  Q&A
+												<a id="listMyQna">
+													  내 캠핑장 Q&A 목록
 												</a>
 											</li>
 											<li>
-												<a href="forms-advanced.html">
-													  리뷰
+												<a id="listMyReview">
+													  내 캠핑장 리뷰
 												</a>
 											</li>
 										</ul>
@@ -1203,6 +1203,18 @@
 		$(function(){
 			$('#listMyProduct').on('click',function(){
 				window.location = "/auction/listMyAuctionProduct?currentPage=1";
+			});
+
+			$('#listMyReservation').on('click',function(){
+				window.location = "/campGeneral/listMyReservation?currentPage=1";
+			});
+
+			$('#listMyQna').on('click',function(){
+				window.location = "/campGeneral/listMyQna?currentPage=1";
+			});
+
+			$('#listMyReview').on('click',function(){
+				window.location = "/campGeneral/listMyReview?currentPage=1";
 			});
 		});
 	</script>
