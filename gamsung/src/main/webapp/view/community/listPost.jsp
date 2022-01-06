@@ -425,14 +425,14 @@
                     //console.log("인덱스의 값 => ", list[i]);
                     //console.log(" => ", list[i].postNo.postNo);
 
-                    let postNo = list[i].postNo.postNo;
+                    let postNoo = list[i].postNo.postNo;
                     let commentNo = list[i].commentNo;
                     let commentContent = list[i].commentContent;
                     let commentWriter = list[i].commentWriter.id;
                     let commentRegdate = list[i].commentRegdate;
                     let deleteFlag = list[i].deleteFlag;
 
-                    console.log(postNo, commentNo, commentContent, commentWriter, commentRegdate, deleteFlag);
+                    console.log(postNoo, commentNo, commentContent, commentWriter, commentRegdate, deleteFlag);
 
                     if (!commentNo) {
 
@@ -467,11 +467,11 @@
 
 
 
-                          listHtml += "<button type='button'>&nbsp;댓글수정</button>";
+                          listHtml += "<a href='#''>&nbsp;댓글수정</a>";
                           listHtml += "<a href='#''>&nbsp;댓글삭제</a>";
 
                         }
-                        console.log("${userId}");
+                        console.log("userId::::::::" + "${userId}");
                         console.log(commentWriter);
 
                         listHtml += "</div>";
@@ -488,14 +488,32 @@
 
                   listHtml += "<div class='comment-form'>";
                   listHtml += "<div class='form-group'>";
-                  listHtml += "<textarea class='form-control' id='comment' name='comment' rows='4'placeholder='댓글을 등록해주세요'>";
+                  listHtml += "<textarea class='form-control' id='comment' value='' name='comment' data-postno='" + postNo + "' data-userid='" + ${ userId } +"' +rows='4'placeholder='댓글을 등록해주세요'>";
                   listHtml += "</textarea>";
                   listHtml += "</div>";
                   listHtml += "<p class='help-block text-danger'></p>";
                   listHtml += "<button class='btn btn-round btn-d' type='submit'>댓글 등록</button>";
                   listHtml += "</div>";
 
+
+                  $('button.btn.btn-round.btn-d').on('click', function () {
+                    $('#comment').click();
+
+
+                    console.log('data-postNo', $(this).attr('data-postno'));
+                    console.log('data-userId', $(this).attr('data-userid'));
+                    console.log('data-userId', $(this).data("userid"));
+                    console.log('value', $(this).attr('value'));
+                    console.log('value', $(this).val());
+
+                  });
+
                   $(".post" + postNo).html(listHtml);
+
+
+
+
+
                 }
               });//ajax END 비동기 처리
               // console.log("3", listHtml)
