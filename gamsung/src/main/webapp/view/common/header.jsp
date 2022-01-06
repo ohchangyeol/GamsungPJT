@@ -90,9 +90,9 @@ pageEncoding="UTF-8"%>
           </ul>
         </li>
         
-        <li class="dropdown"><a class="dropdown-toggle" href="/community/listCommunity" data-toggle="dropdown">커뮤니티</a>
+        <li class="dropdown"><a class="dropdown-toggle" href="/community/listPost" data-toggle="dropdown">커뮤니티</a>
         	<ul class="dropdown-menu">
-				<li><a href="/community/listCommunity">커뮤니티</a></li>
+				<li><a href="/community/listPost">커뮤니티</a></li>
 			</ul>
         </li>
                

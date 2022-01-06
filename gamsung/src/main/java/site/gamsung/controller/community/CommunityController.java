@@ -34,8 +34,9 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import site.gamsung.service.common.Search; 
-  import site.gamsung.service.community.CommunityService; 
-  import site.gamsung.service.domain.Post; 
+  import site.gamsung.service.community.CommunityService;
+import site.gamsung.service.domain.AuctionProduct;
+import site.gamsung.service.domain.Post; 
   import site.gamsung.service.domain.User;
 
   
@@ -54,38 +55,42 @@ import site.gamsung.service.common.Search;
   }
     
 // 커뮤니티 List navigation  
-  @RequestMapping (value = "listCommunity") 
-  public String listCommunity (@ModelAttribute("search") Search search , Model model , HttpSession session) throws Exception{
+  @RequestMapping (value = "listPost") 
+  public String listPost (@ModelAttribute("search") Search search , Model model , HttpSession session) throws Exception{
   
-  System.out.println("listProduct");
-  
-	User user = (User)session.getAttribute("user");
+	System.out.println("listPost"); // listPost 시작 
+
+	User user = (User)session.getAttribute("user"); //Session에서 user받아서 user setting하기. 
 	
 	if(user == null) {
 	return "redirect:/"; 
-	}
+	} // user가 null이면 main으로 navigation
   
-  if(search.getCurrentPage() == 0 ){ 
+	search.setPageSize(communityPageSize); 
+
+	if(search.getCurrentPage() == 0 ){ 
 	 search.setCurrentPage(1); 
-	 }
+	}
+	
+    //출력할 개수을 commonProperties로 부터 받아오며, 1페이지가 고정값으로 들어간다.
+  	
+	HashMap<String, Object> map = new HashMap<String, Object>();  
+
+	map.put("userId",user.getId());
+	map.put("search",search);
   
-  search.setPageSize(communityPageSize); //search에 현재 page와 pagesize 3
+	List<Post> list = communityService.listPost(map);
   
-  HashMap<String, Object> map = new HashMap<String, Object>();  
+	// Model 과 View 연결 
+	
+	model.addAttribute("list", list );
+	model.addAttribute("userId", user.getId());
   
-  map.put("userId", "user2@gamsung.com"); map.put("search", search);
-  
-  List<Post> list = communityService.listPost(map);
-  
-  // Model 과 View 연결 model.addAttribute("list", list );
-  
-  return "redirect:/view/community/listCommunity.jsp";
+	return "forward:/view/community/listPost.jsp";
 
   }
 
-  
-  
-  
+
   
   //게시물 등록 페이지 navigation 
   @GetMapping(value = "addPost") 
@@ -110,7 +115,7 @@ import site.gamsung.service.common.Search;
 	public String addPost( @ModelAttribute("post") Post post, @RequestParam("postImg") MultipartFile[] postImg, HttpSession session) throws Exception {
 	
 	System.out.println("addPost Post Start");
-	
+			
 	int	index = 1;
 	
 	for(MultipartFile multpartfile: postImg) {
@@ -118,6 +123,10 @@ import site.gamsung.service.common.Search;
 	//MultipartFile로 받은 postImg에서 file이름을 originalPostImg에 넣는다. 
 	String originalPostImg = multpartfile.getOriginalFilename(); 
 	
+    System.out.println("originalPostImg::::"+originalPostImg+"!");
+	
+    if(originalPostImg != null && originalPostImg != "") {
+    
 	//그 파일명 .의 인덱스 숫자까지 잘라서 확장자만 추출 (ex .jsp)
 	String originalFileExtension = originalPostImg.substring(originalPostImg.lastIndexOf("."));
 	
@@ -138,22 +147,22 @@ import site.gamsung.service.common.Search;
    
 
 		if (index == 1) {
-			post.setPostImg1(file.getPath());
+			post.setPostImg1(storedFileName);
 		} else if (index == 2 ) {
-			post.setPostImg2(file.getPath());
+			post.setPostImg2(storedFileName);
 		} else {
-			post.setPostImg3(file.getPath());        
+			post.setPostImg3(storedFileName);        
 		}
 	
 		index ++;
+		}
 	}
-	
 	User user = (User)session.getAttribute("user"); 
 	
 	post.setWriter(user);	
 	
 	communityService.addPost(post);
 	
-	return "redirect:/view/community/listCommunity.jsp";
+	return "redirect:/view/community/listPost.jsp";
 	}//등록 method 종료	
 }
