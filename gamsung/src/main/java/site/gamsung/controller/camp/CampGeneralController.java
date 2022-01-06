@@ -3,6 +3,7 @@ package site.gamsung.controller.camp;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -19,9 +20,18 @@ import site.gamsung.service.camp.CampSearchService;
 import site.gamsung.service.common.Page;
 import site.gamsung.service.common.RatingReviewService;
 import site.gamsung.service.common.Search;
+import site.gamsung.service.domain.Camp;
+import site.gamsung.service.domain.CampReservation;
+import site.gamsung.service.domain.MainSite;
+import site.gamsung.service.domain.Notice;
+import site.gamsung.service.domain.NoticeWrapper;
+import site.gamsung.service.domain.Payment;
+import site.gamsung.service.domain.QnaWrapper;
+import site.gamsung.service.domain.User;
 import site.gamsung.service.payment.PaymentService;
 import site.gamsung.service.servicecenter.NoticeService;
 import site.gamsung.service.servicecenter.QnaService;
+import site.gamsung.service.user.UserService;
 
 @Controller
 @RequestMapping("/campGeneral/*")
@@ -35,15 +45,21 @@ public class CampGeneralController {
 	@Qualifier("campReservationServiceImpl")
 	private CampReservationService campReservationService;
 	
+	@Autowired
+	@Qualifier("noticeServiceImpl")
 	private NoticeService noticeService;
 	
+	@Autowired
+	@Qualifier("qnaServiceImpl")
 	private QnaService qnaService;
-	
-	private PaymentService paymentService;
-	
+		
+	@Autowired
+	@Qualifier("campRatingReviewServiceImpl")
 	private RatingReviewService ratingReviewService;
 	
-	private static final String FILE_SERVER_PATH = "";
+	@Autowired
+	@Qualifier("userServiceImpl")
+	private UserService userService;
 		
 	public CampGeneralController() {
 		System.out.println(this.getClass());
@@ -80,9 +96,9 @@ public class CampGeneralController {
 		return "forward:/view/camp/listCamp.jsp";
 	}
 	
-	@RequestMapping(value = "getCamp", method = RequestMethod.POST)
-	public String getCamp(@RequestParam("campNo") int campNo , Model model ) throws Exception{
-		System.out.println("/campGeneral/getCamp : GET");
+	@RequestMapping(value = "getCamp")
+	public String getCamp(@RequestParam("campNo") int campNo ,@ModelAttribute("search") Search search,  Model model ) throws Exception{
+		System.out.println("/campGeneral/getCamp");
 		
 		Map<String, Object> map = campSearchService.getCamp(campNo);
 		
@@ -95,33 +111,207 @@ public class CampGeneralController {
 		System.out.println(map.get("mainSite"));
 		System.out.println(map.get("subSite"));
 		System.out.println(map.get("mainSiteType"));
-		
+				
 		return "forward:/view/camp/getCamp.jsp";
 	}
 	
-	public String getCampMap() throws Exception{
-		System.out.println("/campGeneral/getCampMap : GET");
+	@RequestMapping(value = "addReservation", method = RequestMethod.POST)
+	public String addReservation(@RequestParam("mainSiteNo") int mainSiteNo, Model model, @ModelAttribute("campReservation") CampReservation campReservation,  HttpSession httpSession) throws Exception{
+		System.out.println("/campGeneral/addReservation : POST");
+		
+		User user = (User)httpSession.getAttribute("user");
+		MainSite mainSite = new MainSite();
+		mainSite.setMainSiteNo(mainSiteNo);
+		campReservation.setMainSite(mainSite);
+		
+		if(user == null) {
+			
+			return "redirect:/main.jsp";
+			
+		}else if(mainSiteNo == 0) {
+			
+			Map<String, Object> map = campSearchService.getCamp(campReservation.getCamp().getCampNo());
+			model.addAttribute("campReservation",campReservation);
+			model.addAttribute("mainSite", map.get("mainSite"));
+			model.addAttribute("camp", map.get("camp"));
+			System.out.println("1단계"+model);
+			
+			return "forward:/view/camp/addReservationFirst.jsp";
+
+		}else if(campReservation.getUseNum() == 0){
+			
+			MainSite resultMainSite = campSearchService.getMainSite(campReservation);
+			Camp camp = campSearchService.getCampByReservation(campReservation.getCamp().getCampNo());
+			model.addAttribute("campReservation",campReservation);
+			model.addAttribute("mainSite",resultMainSite);
+			model.addAttribute("camp",camp);
+			System.out.println("주요시설"+resultMainSite);
+			System.out.println("2단계"+model);
+			
+			return "forward:/view/camp/addReservationSecond.jsp";
+		
+		}else{
+			
+			MainSite resultMainSite = campSearchService.getMainSite(campReservation);
+			model.addAttribute("campReservation",campReservation);
+			model.addAttribute("mainSite",resultMainSite);
+			System.out.println("3단계"+model);
+			
+			return "forward:/view/camp/addReservationThird.jsp";
+		}
+	}
+	
+	@RequestMapping(value = "addPayment", method = RequestMethod.POST)
+	public String addPayment(@RequestParam("mainSiteNo") int mainSiteNo, Model model, @ModelAttribute("campReservation") CampReservation campReservation,  HttpSession httpSession) throws Exception{
+		System.out.println("/campGeneral/addPayment : POST");
+		
+		User user = (User)httpSession.getAttribute("user");
+		MainSite mainSite = new MainSite();
+		mainSite.setMainSiteNo(mainSiteNo);
+		campReservation.setMainSite(mainSite);
+		
+		if(user == null) {
+			
+			return "redirect:/main.jsp";
+			
+		} else {
+			
+			campReservation.setUser(user);
+			campReservation = campReservationService.addTempReservation(campReservation);
+			campReservation.setUser(user);
+
+			Payment payment = new Payment();
+			payment.setPaymentSender(campReservation.getUser().getId());
+			payment.setPaymentReceiver(campReservation.getCamp().getUser().getId());
+			payment.setPaymentCode("R1");
+			payment.setPaymentPriceTotal(campReservation.getTotalPaymentPrice());
+			
+			model.addAttribute("campReservation", campReservation);
+			model.addAttribute("payment", payment);
+			System.out.println(model);
+			
+			return "forward:/view/payment/readyPayment.jsp";
+		}
+		
+	}
+	
+	public String listMyReservation() throws Exception{
+		System.out.println("/campGeneral/listMyReservation : GET");
 		
 		return null;
 	}
 	
-	public String listCampNotice() throws Exception{
+	public String updateMyReservation() throws Exception{
+		System.out.println("/campGeneral/updateMyReservation : GET");
+		
+		return null;
+	}
+	
+	public String cancleMyReservation() throws Exception{
+		System.out.println("/campGeneral/cancleMyReservation : GET");
+		
+		return null;
+	}
+	
+	@RequestMapping(value = "listCampRatingReview", method = RequestMethod.GET)
+	public String listCampRatingReview(@RequestParam("campNo") int campNo , @ModelAttribute("search") Search search , Model model ) throws Exception{
+	
+		System.out.println("/campGeneral/listCampRatingReview : GET");
+		
+		if (search.getCurrentPage() == 0) {
+			search.setCurrentPage(1);
+		}
+		
+		search.setPageSize(pageSize);
+		
+		Map<String, Object> map = ratingReviewService.listRatingReview(search, campNo);
+		
+		Page resultPage = new Page(search.getCurrentPage(), ((Integer) map.get("totalCount")).intValue(), pageUnit, pageSize);
+		System.out.println(resultPage);
+		
+		model.addAttribute("list", map.get("list"));
+		model.addAttribute("resultPage", resultPage);
+		model.addAttribute("search", search);
+		model.addAttribute("campRating", map.get("campRating"));
+		model.addAttribute("campNo", campNo);
+		
+		System.out.println(search);
+		System.out.println(map.get("list"));
+			
+		return "forward:/view/camp/listRatingReview.jsp";
+	}
+	
+	@RequestMapping(value = "listCampNotice", method = RequestMethod.GET)
+	public String listCampNotice(@RequestParam("campNo") int campNo , @ModelAttribute("search") Search search , Model model ) throws Exception{
+
 		System.out.println("/campGeneral/listCampNotice : GET");
 		
-		return null;
+		if (search.getCurrentPage() == 0) {
+			search.setCurrentPage(1);
+		}
+		
+		search.setPageSize(pageSize);
+		search.setCampNo(campNo);
+		
+		NoticeWrapper noticeWrapper = noticeService.listNotice(search);
+		
+		Page resultPage = new Page(search.getCurrentPage(), noticeWrapper.getTotalCount(), pageUnit, pageSize);
+		System.out.println(resultPage);
+		
+		model.addAttribute("wrapper", noticeWrapper);
+		model.addAttribute("resultPage", resultPage);
+		model.addAttribute("search", search);
+		model.addAttribute("campNo", campNo);
+		
+				
+		System.out.println(search);
+		System.out.println(noticeWrapper.getNotices());
+		
+		return "forward:/view/camp/listCampNotice.jsp";
 	}
 	
-	public String getcampNotice() throws Exception{
+	@RequestMapping("getcampNotice")
+	public String getcampNotice(@RequestParam int noticeNo, Model model) throws Exception{
 		System.out.println("/campGeneral/getcampNotice : GET");
 		
-		return null;
+		noticeService.updateViewCount(noticeNo);
+		Notice notice = noticeService.getNotice(noticeNo);
+		
+		System.out.println(notice);
+
+		model.addAttribute("notice" , notice);
+		model.addAttribute("noticeType", "get");
+		
+		return "forward:/view/camp/getCampNotice.jsp";
 	}
 	
-	public String listCampQna() throws Exception{
-		System.out.println("/campGeneral/listCampQna : GET");
-		
-		return null;
-	}
+//	@RequestMapping(value = "listCampQna", method = RequestMethod.GET)
+//	public String listCampQna(@RequestParam("campNo") int campNo , @ModelAttribute("search") Search search , Model model ) throws Exception{
+//		System.out.println("/campGeneral/listCampQna : GET");
+//		
+//		if (search.getCurrentPage() == 0) {
+//			search.setCurrentPage(1);
+//		}
+//		
+//		search.setPageSize(pageSize);
+//		search.setCampNo(campNo);
+//		
+//		QnaWrapper qnaWrapper = qnaService.listQna(search);
+//		
+//		Page resultPage = new Page(search.getCurrentPage(), qnaWrapper.getTotalCount(), pageUnit, pageSize);
+//		System.out.println(resultPage);
+//		
+//		model.addAttribute("wrapper", qnaWrapper);
+//		model.addAttribute("resultPage", resultPage);
+//		model.addAttribute("search", search);
+//		model.addAttribute("campNo", campNo);
+//		
+//				
+//		System.out.println(search);
+//				
+//		return "forward:/view/camp/listCampqna.jsp";
+//		
+//	}
 	
 	public String getCampQna() throws Exception{
 		System.out.println("/campGeneral/getCampQna : GET");
@@ -149,42 +339,6 @@ public class CampGeneralController {
 	
 	public String deleteMyCampQna() throws Exception{
 		System.out.println("/campGeneral/deleteCampQna : GET");
-		
-		return null;
-	}
-	
-	public String addReservation() throws Exception{
-		System.out.println("/campGeneral/addReservation : POST");
-		
-		return null;
-	}
-	
-	public String addPayment() throws Exception{
-		System.out.println("/campGeneral/addPayment : POST");
-		
-		return null;
-	}
-	
-	public String listMyReservation() throws Exception{
-		System.out.println("/campGeneral/listMyReservation : GET");
-		
-		return null;
-	}
-	
-	public String updateMyReservation() throws Exception{
-		System.out.println("/campGeneral/updateMyReservation : GET");
-		
-		return null;
-	}
-	
-	public String cancleMyReservation() throws Exception{
-		System.out.println("/campGeneral/cancleMyReservation : GET");
-		
-		return null;
-	}
-	
-	public String listCampRatingReview() throws Exception{
-		System.out.println("/campGeneral/listCampRatingReview : GET");
 		
 		return null;
 	}

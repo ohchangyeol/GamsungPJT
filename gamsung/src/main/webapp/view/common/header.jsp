@@ -10,27 +10,7 @@ pageEncoding="UTF-8"%>
     </div>
     <div class="collapse navbar-collapse" id="custom-collapse">
       <ul class="nav navbar-nav navbar-right">    
-
-        <li><a href="/campBusiness/goSubMainCampBusiness">CampBusiness</a></li> 
-      	
-        <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Payment</a>
-          <ul class="dropdown-menu">
-          	<li><a href="/payment/managePoint">ManagePoint</a></li>
-           	<br>
-           	
-          	<li><a href="/payment/readyPayment">ReadyPayment</a></li>
-           	<br>
-           	           	
-           	<li><a href="/payment/listPayment">listPayment</a></li>
-           	<br>           	
-           	
-           	<li><a href="/payment/listPaymentCode">PaymentCode</a></li>
-           	<br>
-           	
-           	<li><a href="/payment/listSiteProfit">SiteProfit</a></li>          	      
-          </ul>
-        </li>
-
+  
         <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">중고상품</a>
 
           <ul class="dropdown-menu">
@@ -48,7 +28,10 @@ pageEncoding="UTF-8"%>
                
         <li class="dropdown"><a class="dropdown-toggle" href="/servicecenter/home" data-toggle="dropdown">고객센터</a>
         	<ul class="dropdown-menu">
-				<li><a href="/servicecenter/home">고객센터</a></li>
+				<li><a href="/servicecenter/listNotice">공지사항</a></li>
+        <li><a href="/servicecenter/home"> Q&A </a></li>
+        <li><a href="/servicecenter/home">내 신고 내역</a></li>
+
 			</ul>
         </li>
     
@@ -148,6 +131,10 @@ pageEncoding="UTF-8"%>
         </li>
 
         <li><a href="/view/common/myPage.jsp">Mypage</a>
+        
+        <c:if test="${sessionScope.user.role == 'BUSINESS' || sessionScope.user.role == 'ADMIN'}">
+			<li><a href="/campBusiness/goSubMainCampBusiness">사업자전용</a></li>
+		</c:if>
 
          <li>    
 	         <c:if test="${sessionScope.user.role!=null}">
@@ -159,6 +146,7 @@ pageEncoding="UTF-8"%>
 		       </a>
 	        </c:if>
 	    </li>
+	     
         </ul>
     </div>
   </div>

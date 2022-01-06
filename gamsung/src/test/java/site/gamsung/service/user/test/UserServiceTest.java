@@ -32,13 +32,12 @@ public class UserServiceTest {
 	public void testAddUser() throws Exception{
 		
 		User user = new User();
-
-
+		
 		user.setId("test55@nate.com");
 		user.setNickName("나야나");
 		user.setName("으어어");
-		user.setPassword("5555");
-		user.setRole("GENERAL");
+		user.setPassword("a");
+		user.setRole("BUSINESS");
 		user.setPhone("01001123333");
 				
 		userService.addUser(user);

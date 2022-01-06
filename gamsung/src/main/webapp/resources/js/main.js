@@ -7,6 +7,12 @@ console.log('%c Proudly Crafted with ZiOn.', 'background: #222; color: #bada55')
     $(window).on('load', function() {
         $('.loader').fadeOut();
         $('.page-loader').delay(350).fadeOut('slow');
+
+        $("#messenger-btn").on("click", (e)=>{
+            e.stopImmediatePropagation();
+            console.log("클릭");
+            $("#messenger-iframe").attr("class", "ch-desk-messenger rightPosition");
+        });
     });
 
     $(document).ready(function() {
@@ -848,10 +854,7 @@ console.log('%c Proudly Crafted with ZiOn.', 'background: #222; color: #bada55')
     });
 
     
-    $("#messenger-btn").on("click", ()=>{
-        console.log("클릭");
-        $("#messenger-iframe").attr("class", "ch-desk-messenger rightPosition");
-    })
+    
 
     
 })(jQuery);

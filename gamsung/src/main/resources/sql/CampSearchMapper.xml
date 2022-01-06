@@ -29,9 +29,9 @@
 		<result property="campNature2" 					column="camp_nature2" 						jdbcType="VARCHAR"/>
 		<result property="campOperation1" 				column="camp_operation1" 					jdbcType="VARCHAR"/>
 		<result property="campOperation2" 				column="camp_operation2" 					jdbcType="VARCHAR"/>
-		<result property="user.campName" 					column="camp_name" 							jdbcType="VARCHAR"/>
+		<result property="user.campName" 				column="camp_name" 							jdbcType="VARCHAR"/>
 		<result property="user.addr" 					column="addr" 								jdbcType="VARCHAR"/>
-		<result property="user.campCall" 					column="camp_call" 							jdbcType="VARCHAR"/>
+		<result property="user.campCall" 				column="camp_call" 							jdbcType="VARCHAR"/>
 		<result property="campRate" 					column="camp_rating" 						jdbcType="FLOAT"/>
 	</resultMap>
 	
@@ -96,26 +96,26 @@
 				</foreach>
 			</if>
 			<if test="circumstance !=null and circumstance.size !=0">
-	 			AND c.camp_nature1 IN
+	 			AND (c.camp_nature1 IN
 				<foreach collection="circumstance" item="item" index="index" open="(" close=")" separator=",">
 					#{item}
 				</foreach>
 			</if>
 			<if test="circumstance !=null and circumstance.size !=0">
-	 			AND c.camp_nature2 IN
-				<foreach collection="circumstance" item="item" index="index" open="(" close=")" separator=",">
+	 			OR c.camp_nature2 IN
+				<foreach collection="circumstance" item="item" index="index" open="(" close="))" separator=",">
 					#{item}
 				</foreach>
 			</if>
 			<if test="theme !=null and theme.size !=0">
-	 			AND c.camp_theme1 IN
+	 			AND (c.camp_theme1 IN
 				<foreach collection="theme" item="item" index="index" open="(" close=")" separator=",">
 					#{item}
 				</foreach>
 			</if>
 			<if test="theme !=null and theme.size !=0">
-	 			AND c.camp_theme2 IN
-				<foreach collection="theme" item="item" index="index" open="(" close=")" separator=",">
+	 			OR c.camp_theme2 IN
+				<foreach collection="theme" item="item" index="index" open="(" close="))" separator=",">
 					#{item}
 				</foreach>
 			</if>
@@ -167,26 +167,26 @@
 						</foreach>
 					</if>
 					<if test="circumstance !=null and circumstance.size !=0">
-			 			AND c.camp_nature1 IN
+			 			AND (c.camp_nature1 IN
 						<foreach collection="circumstance" item="item" index="index" open="(" close=")" separator=",">
 							#{item}
 						</foreach>
 					</if>
 					<if test="circumstance !=null and circumstance.size !=0">
-			 			AND c.camp_nature2 IN
-						<foreach collection="circumstance" item="item" index="index" open="(" close=")" separator=",">
+			 			OR c.camp_nature2 IN
+						<foreach collection="circumstance" item="item" index="index" open="(" close="))" separator=",">
 							#{item}
 						</foreach>
 					</if>
 					<if test="theme !=null and theme.size !=0">
-			 			AND c.camp_theme1 IN
+			 			AND (c.camp_theme1 IN
 						<foreach collection="theme" item="item" index="index" open="(" close=")" separator=",">
 							#{item}
 						</foreach>
 					</if>
 					<if test="theme !=null and theme.size !=0">
-			 			AND c.camp_theme2 IN
-						<foreach collection="theme" item="item" index="index" open="(" close=")" separator=",">
+			 			OR c.camp_theme2 IN
+						<foreach collection="theme" item="item" index="index" open="(" close="))" separator=",">
 							#{item}
 						</foreach>
 					</if>
@@ -214,6 +214,14 @@
 		FROM MAINSITE
 		WHERE camp_no = #{value} AND delete_flag = 'N'
 		ORDER BY mainsite_type
+	</select>
+	
+	<select id="getMainsiteByReservation"  parameterType="campReservation"  resultMap="MainSiteSelectMap">
+		SELECT mainsite_no, camp_no, mainsite_type, mainsite_name, mainsite_section, mainsite_size, mainsite_min_capacity, 
+			   mainsite_max_capacity, mainsite_min_price, mainsite_add_price, mainsite_parking_size, mainsite_info, 
+			   mainsite_reg_date, mainsite_img1, mainsite_img2, mainsite_img3
+		FROM MAINSITE
+		WHERE camp_no = #{camp.campNo} AND mainsite_no = #{mainSite.mainSiteNo} AND delete_flag = 'N'
 	</select>
 	
 	<select id="getSubSite"  parameterType="int"  resultMap="SubSiteSelectMap">
