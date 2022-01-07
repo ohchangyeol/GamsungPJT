@@ -61,7 +61,7 @@ pageEncoding="UTF-8"%>
     <link id="color-scheme" href="../../resources/css/serviceCenter.css" rel="stylesheet">
   </head>
 
-<body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
+<body id="getnotice" data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
 <div class="row getNotice">
   <div class="col-xs-12">
     <div class="row">
@@ -106,20 +106,16 @@ pageEncoding="UTF-8"%>
         <div class="content">
           ${notice.noticeContent}
         </div>
-        <hr class="divider-w mt-10 mb-20">
+        <hr>
       </div>
     </div>
   </div>
 </div>
 
-<!--  
-    JavaScripts
-    =============================================
-    -->
     <script src="../../resources/lib/jquery/jquery.js"></script>
     <script src="../../resources/lib/bootstrap/js/bootstrap.min.js"></script>
     <script src="../../resources/lib/wow/wow.js"></script>
-    <script src="../../resources/lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js"></script>.
+    <script src="../../resources/lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js"></script>
     <script src="../../resources/lib/isotope/isotope.pkgd.js"></script>
     <script src="../../resources/lib/imagesloaded/imagesloaded.pkgd.js"></script>
     <script src="../../resources/lib/flexslider/jquery.flexslider.js"></script>
@@ -131,4 +127,8 @@ pageEncoding="UTF-8"%>
     <script src="../../resources/js/main.js"></script>
 
 </body>
+
+    <script type="text/javascript">
+      parent.noticeIframeHeight(document.getElementById("getnotice").scrollHeight);
+    </script>
 </html>

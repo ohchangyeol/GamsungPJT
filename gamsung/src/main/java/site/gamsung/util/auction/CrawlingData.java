@@ -139,8 +139,17 @@ public class CrawlingData {
 							break;
 						}
 					}
-					String price = doc.select(".total-price").text().replaceAll(",","").replaceAll("원","").replaceAll(" ","").trim();
-					int intPrice = Integer.parseInt(price);
+					String price = doc.select(".total-price").text().replaceAll(",","").replaceAll("원","").trim();
+					
+					int intPrice = 0;
+					
+					if(price.indexOf(" ") != -1) {
+						String[] str = price.split(" ");
+						intPrice = Integer.parseInt(str[0]);
+					}else {
+						intPrice = Integer.parseInt(price);
+						
+					}
 					auctionProduct.setHopefulBidPrice(intPrice);
 					auctionProduct.setStartBidPrice(intPrice/2);
 					auctionProduct.setBidUnit(intPrice/10);

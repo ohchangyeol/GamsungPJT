@@ -60,8 +60,14 @@ pageEncoding="UTF-8"%>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
+    <script>
+
+     
+      
+    </script>
+
   </head>
-<body id = "changebody" data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
+<body id = "noticechange" data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
 
           
   <div class="row">
@@ -73,21 +79,21 @@ pageEncoding="UTF-8"%>
         <h4 class="col-sm-7 mb-0"></h4>
         <div class="col-sm-5 mb-sm-0">
           <div class="row">
-            <form role="form" class="notice-search">
+            <form role="form" class="notice-search" id="searchform">
               <div class="col-sm-4">
-                <select class="form-control">
-                  <option selected="selected">제목+내용</option>
-                  <option>제목</option>
-                  <option>내용</option>
+                <select class="form-control" name="searchCondition">
+                  <option value="0" ${! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>제목+내용</option>
+						      <option value="1" ${! empty search.searchCondition && search.searchCondition==1 ? "selected" : "" }>제목</option>
+						      <option value="2" ${! empty search.searchCondition && search.searchCondition==2 ? "selected" : "" }>내용</option>
                 </select>
               </div>
               <div class="col-sm-8">
                 <div class="search-box">
-                  <input class="form-control" type="text" placeholder="Search...">
-                  <button class="search-btn" type="submit"><i class="fa fa-search"></i></button>
+                  <input class="form-control" type="text" name="searchKeyword" placeholder="Search...">
+                  <button class="search-btn" type="submit" id="search"><i class="fa fa-search"></i></button>
                 </div>
               </div>
-              
+              <input type="hidden" name="campNo" value="${campNo}"/>
             </form>
           </div>
         </div>
@@ -95,12 +101,20 @@ pageEncoding="UTF-8"%>
       <hr class="divider-w mt-10 mb-20">
       <div class="notice-list">
         <ul>
+          <div class="row" style="text-align: center;">
+            <div class="col-sm-2 center" style="font-size: large; font-weight: bold;">번호</div>
+            <div class="col-sm-6 notice-title" style="font-size: large; font-weight: bold;">제목</div>
+            <div class="col-sm-2 notice-view-count" style="font-size: large; font-weight: bold;">조회수</div>
+            <div class="col-sm-2 notice-reg-date" style="font-size: large; font-weight: bold;">등록일</div>
+          </div>
+          <hr>
+
           <!-- list Start -->
           <c:set var ="i" value="0" />
           <c:forEach var ="notice" items="${wrapper.notices}">
             <c:set var ="i" value="${i+1}" />
           
-            <div class="row">
+            <div class="row" style="text-align: center;">
               <div class="col-sm-2 center">${ i }</div>
               <div class="col-sm-6 notice-title"  style="cursor: pointer;" value=${notice.noticeNo}>${notice.noticeTitle}</div>
               <div class="col-sm-2 notice-view-count"><i class="fa fa-fw"></i> ${notice.viewCount}</div>
@@ -116,9 +130,10 @@ pageEncoding="UTF-8"%>
     
 </div>
             
-
         <form id="pagenavi">
           <input type="hidden" id="currentPage" name="currentPage" value="0"/>
+          <input type="hidden" name="searchKeyword" value="${search.searchKeyword}">
+          <input type="hidden" name="searchCondition" value="${search.searchCondition}">
           <input type="hidden" name="campNo" value="${campNo}"/>
         </form>
 
@@ -126,10 +141,8 @@ pageEncoding="UTF-8"%>
          <div class="row">
           <jsp:include page="../common/pageNavigator.jsp"/>
        </div>
-       </form>
-
        
-   	<script src="../../resources/lib/bootstrap/js/bootstrap.js"></script>
+   	 <script src="../../resources/lib/bootstrap/js/bootstrap.js"></script>
      <script src="../../resources/lib/nanoscroller/nanoscroller.css"></script>
      <script src="../../resources/lib/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
      <script src="../../resources/lib/magnific-popup/magnific-popup.js"></script>
@@ -147,9 +160,16 @@ pageEncoding="UTF-8"%>
     
 </body>
 
-      <script>
+      <script type="text/javascript">
 
-        parent.AdjustIframeHeight(document.getElementById("changebody").scrollHeight);
+        var currentPage = 1;
+      
+        function fncGetList(currentPage) {
+
+              $("#currentPage").val(currentPage);
+              $("#pagenavi").attr("method","POST").attr("action","/campGeneral/listCampNotice").submit();
+
+            }
 
         $( function() {
 
@@ -159,6 +179,22 @@ pageEncoding="UTF-8"%>
           
           });
         })
-        
+
+        $("#searchKeyword").keypress(function(e) { 
+            if (e.keyCode == 13){
+              $("#searchform").attr("method","POST").attr("action","/campGeneral/listCampNotice").submit();
+            }    
+        });
+
+        $("#search").on("click" , function() {
+          $("#searchform").attr("method","POST").attr("action","/campGeneral/listCampNotice").submit();
+        });
+
+          
       </script>
+
+      <script type="text/javascript">
+        parent.noticeIframeHeight(document.getElementById("noticechange").scrollHeight);
+      </script>
+
 </html>

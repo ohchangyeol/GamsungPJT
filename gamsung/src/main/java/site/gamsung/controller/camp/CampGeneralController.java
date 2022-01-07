@@ -198,9 +198,9 @@ public class CampGeneralController {
 		
 	}
 	
-	@RequestMapping(value = "listMyReservation", method = RequestMethod.GET)
+	@RequestMapping(value = "listMyReservation")
 	public String listMyReservation(@ModelAttribute("search") Search search, Model model ,HttpSession httpSession) throws Exception{
-		System.out.println("/campGeneral/listMyReservation : GET");
+		System.out.println("/campGeneral/listMyReservation : GET / POST");
 		
 		User user = (User)httpSession.getAttribute("user");
 		
@@ -219,14 +219,14 @@ public class CampGeneralController {
 			Map<String, Object> map = campReservationService.listMyReservation(search, user.getId());
 			
 			Page resultPage = new Page(search.getCurrentPage(), ((Integer) map.get("totalCount")).intValue(), pageUnit, pageSize);
-			System.out.println(resultPage);
-			
+						
 			model.addAttribute("list", map.get("list"));
 			model.addAttribute("resultPage", resultPage);
 			model.addAttribute("search", search);
 			model.addAttribute("user", user);
-			
-			System.out.println(model);
+			System.out.println(search);
+			System.out.println(resultPage);
+//			System.out.println(model);
 					
 			return "forward:/view/camp/listMyReservation.jsp";
 		}
@@ -273,18 +273,17 @@ public class CampGeneralController {
 		return "forward:/view/camp/listRatingReview.jsp";
 	}
 	
-	@RequestMapping(value = "listCampNotice", method = RequestMethod.GET)
-	public String listCampNotice(@RequestParam("campNo") int campNo , @ModelAttribute("search") Search search , Model model ) throws Exception{
+	@RequestMapping(value = "listCampNotice")
+	public String listCampNotice(@ModelAttribute("search") Search search , Model model ) throws Exception{
 
-		System.out.println("/campGeneral/listCampNotice : GET");
+		System.out.println("/campGeneral/listCampNotice : GET / POST");
 		
 		if (search.getCurrentPage() == 0) {
 			search.setCurrentPage(1);
 		}
 		
 		search.setPageSize(pageSize);
-		search.setCampNo(campNo);
-		
+				
 		NoticeWrapper noticeWrapper = noticeService.listNotice(search);
 		
 		Page resultPage = new Page(search.getCurrentPage(), noticeWrapper.getTotalCount(), pageUnit, pageSize);
@@ -293,7 +292,7 @@ public class CampGeneralController {
 		model.addAttribute("wrapper", noticeWrapper);
 		model.addAttribute("resultPage", resultPage);
 		model.addAttribute("search", search);
-		model.addAttribute("campNo", campNo);
+		model.addAttribute("campNo", search.getCampNo());
 		
 				
 		System.out.println(search);

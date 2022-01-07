@@ -52,6 +52,12 @@ public class AuctionInfoDAOImpl implements AuctionInfoDAO{
 	}
 
 	@Override
+	public int countBidConcern(User user) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("AuctionInfoMapper.countBidConcern",user);
+	}
+
+	@Override
 	public List<AuctionProduct> listAuctionProductByRole(Map<String, Object> map) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("AuctionInfoMapper.listAuctionProductByRole", map);
@@ -67,6 +73,12 @@ public class AuctionInfoDAOImpl implements AuctionInfoDAO{
 	public List<AuctionInfo> auctionHistory(Map<String, Object> map) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("AuctionInfoMapper.AuctionHistory", map);
+	}
+
+	@Override
+	public int countAuctionHistory(User user) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("AuctionInfoMapper.countAuctionHistory",user);
 	}
 
 	@Override
@@ -118,10 +130,8 @@ public class AuctionInfoDAOImpl implements AuctionInfoDAO{
 		List<AuctionProduct> list = sqlSession.selectList("AuctionInfoMapper.isSecessionUserAuctionCondition", userId);
 		
 		if(list.size()==0) {
-			System.out.println("옥션 탈퇴가능");
 			return true;
 		}
-		System.out.println("옥션 탈퇴불가");
 		return false;
 	}
 	

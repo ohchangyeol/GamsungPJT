@@ -3,8 +3,11 @@ package site.gamsung.service.auction.impl;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.collections4.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -113,34 +116,85 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 	}
 
 	@Override
-	public List<AuctionProduct> listAuctionProduct(Search search) {
+	public Map<String,Object> listAuctionProduct(Map<String,Object> map) {
 		// TODO Auto-generated method stub
-		return auctionProductDAO.listAuctionProduct(search);
+		
+		List<AuctionProduct> productList = auctionProductDAO.listAuctionProduct((Search)map.get("search"));
+		List<AuctionInfo> concernList = null;
+		
+		//user가 null이 아닐때만 실행한다.
+		if(map.get("user") != null) {
+			//모든 응찰 관심 목록을 뽑기 위해 search domain을 지운다.
+			map.remove("search");
+			concernList = auctionInfoDao.listBidConcern(map);
+		}
+		
+		map.clear();
+		map.put("productList", productList);
+		map.put("concernList", concernList);
+		return map;
+	}
+	
+	//검색 상품 자동완성
+	@Override
+	public List<String> autoComplete(String searchKeyword) {
+		// TODO Auto-generated method stub
+		List<String> pojoList= auctionProductDAO.autoComplete(searchKeyword);
+		
+		//기존 스트링 배열을 set을 이용하여 중복제거
+		Set<String> set = new HashSet<String>(pojoList);
+		List<String> list = new ArrayList<String>(set);
+		
+		return list;
 	}
 
+	//경매 상품 상세조회
 	@Override
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW ) //get* read-only가 설정되어 있어 예외로 새로운 트렌젝션을 탈수 있도록 설정
 	public Map<String, Object> getAuctionProduct(AuctionInfo auctionInfo) {
 		// TODO Auto-generated method stub
-
-		Map<String, Object> map = new HashedMap<String, Object>();
 		
+		//STOMP를 통해 상품을 조회할 경우 증가를 제거하기 위해 IP의 .을 이용하여 걸려준다.
+		if(auctionInfo.getInfo() != null && auctionInfo.getInfo().indexOf('.') > 2) {
+			AuctionInfo viewLog = auctionProductDAO.getUserLog(auctionInfo);
+			if(viewLog == null) {
+				//조회 정보를 추가하며 1증가 시킨다..
+				auctionProductDAO.viewUserLog(auctionInfo);
+				auctionProductDAO.updateAuctionProductViewCounter(auctionInfo.getAuctionProductNo());
+			}			
+		}
+		
+		int auctionGrade = 0;
+		//조회자의 경매 등급을 가져온다.
+		if(auctionInfo.getUser() != null) {
+			auctionGrade = auctionInfoDao.getUserAuctionGradeInfo(auctionInfo.getUser().getId());
+		}
+		
+		
+		//조회한 적이 있는 상품인지 확인한다.
+		Map<String, Object> map = new HashedMap<String, Object>();
+
 		//상품 정보를 가져왔다.
 		AuctionProduct auctionProduct = auctionProductDAO.getAuctionProduct(auctionInfo.getAuctionProductNo());
-		
+
 		//경매 조회자의 랭킹을 가져온다.
 		List<AuctionInfo> list = auctionInfoDao.getBidderRanking(auctionInfo);
-		
+
+		//조회자 경매의 입찰 내역이 있을 경우
 		if(list != null && list.size() != 0) {
 			auctionInfo = list.get(0);			
 			map.put("auctionInfo", auctionInfo);
 		}
-		
+
 		// 경매 등록자의 아이디를 가져와 경매 등급과 리뷰에 대한 정보를 가져온다.
 		String registrantId = auctionProduct.getRegistrantId();
 		
+		// 경매 등록자의 경매 등급을 조회한다.
 		int registrantGrade = auctionInfoDao.getUserAuctionGradeInfo(registrantId);
-		RatingReview ratingReview = auctionReviewDAO.getRegistrantAvgRating(registrantId);
 		
+		// 경매 등록자에 대한 모든 리뷰의 평균 평점을 반환 받는다.
+		RatingReview ratingReview = auctionReviewDAO.getRegistrantAvgRating(registrantId);
+
 		AuctionInfo registrantInfo = new AuctionInfo();
 		
 		User user =  new User();
@@ -148,10 +202,12 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 		user.setAuctionGrade(registrantGrade);
 		
 		registrantInfo.setUser(user);
+		
+		
 		map.put("auctionProduct", auctionProduct);
 		map.put("registrantInfo", registrantInfo);
 		map.put("ratingReview", ratingReview);
-		
+		map.put("auctionGrade",auctionGrade);
 		return map;
 	}
 

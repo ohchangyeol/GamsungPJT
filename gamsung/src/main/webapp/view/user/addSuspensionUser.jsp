@@ -80,7 +80,8 @@
                                                 사유</strong></label>
                                         <div class="col-sm-6">
                                             <textarea class="form-control" id="message-text" name="suspensionContent"
-                                                placeholder="이용정지 사유를 입력하세요." style="border-radius:10px;"> </textarea>
+                                                placeholder="이용정지 사유를 입력하세요." style="border-radius:10px;"
+                                                maxlength="200"> </textarea>
                                         </div>
                                     </div>
 

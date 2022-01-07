@@ -11,6 +11,10 @@ public interface AuctionReviewDAO {
 	
 	public int addAuctionRatingReviewComment(RatingReview ratingReview);
 	
+	public List<RatingReview> listMyRatingReview(Map<String, Object> map);
+	
+	public int countMyRatingReview(String userId);
+	
 	public List<RatingReview> listAuctionRatingReview(Map<String, Object> map);
 	
 	public RatingReview getAuctionRatingReview(int ratingReviewNo);

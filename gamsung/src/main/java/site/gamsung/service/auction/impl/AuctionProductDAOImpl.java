@@ -46,6 +46,12 @@ public class AuctionProductDAOImpl implements AuctionProductDAO{
 		return sqlSession.selectList("AuctionProductMapper.listAuctionProduct",search);
 	}
 
+	@Override
+	public List<String> autoComplete(String searchKeyword) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("AuctionProductMapper.autoComplete",searchKeyword);
+	}
+
 	//임시 저장 상품 호출
 	@Override
 	public AuctionProduct getTempSaveAuctionProduct(String registrantId) {
@@ -140,7 +146,17 @@ public class AuctionProductDAOImpl implements AuctionProductDAO{
 		// TODO Auto-generated method stub
 		return sqlSession.update("AuctionProductMapper.deleteAuctionProduct",auctionInfo);
 	}
-	
-	
+
+	@Override
+	public void viewUserLog(AuctionInfo auctionInfo) {
+		// TODO Auto-generated method stub
+		sqlSession.insert("AuctionProductMapper.viewUserLog",auctionInfo);
+	}
+
+	@Override
+	public AuctionInfo getUserLog(AuctionInfo auctionInfo) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("AuctionProductMapper.getUserLog",auctionInfo);
+	}
 
 }

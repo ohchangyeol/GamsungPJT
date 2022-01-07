@@ -13,7 +13,9 @@ public interface AuctionProductService {
 	
 	public AuctionProduct getCrawlingAuctionProductNo(AuctionProduct auctionProduct);
 
-	public List<AuctionProduct> listAuctionProduct(Search search);
+	public Map<String,Object> listAuctionProduct(Map<String,Object> map);
+	
+	public List<String> autoComplete(String searchKeyword);
 	
 	public Map<String, Object> getAuctionProduct(AuctionInfo auctionInfo);
 	

@@ -100,6 +100,11 @@ public class CampReservationServiceImpl implements CampReservationService {
 	}
 
 	@Override
+	public List<CampReservation> listMyReservationTable(Search search) {
+		return campReservationDAO.listMyReservationTable(search);
+	}
+
+	@Override
 	public ReservationStatistics getReservationStatistics(){
 		return campReservationDAO.getReservationStatistics();
 	}

@@ -121,7 +121,8 @@
 
 .white-popup-block {
   position: relative;
-  background: #FFF;
+
+  background: #fff;
   padding: 20px;
   width: auto;
   max-width: 500px;
@@ -137,4 +138,6 @@
   position: initial;
 }
 
-#modalBasic .panel footer {border-top: solid 1px #fff;}
+#modalBasic .panel footer {
+  border-top: solid 1px #fff;
+}

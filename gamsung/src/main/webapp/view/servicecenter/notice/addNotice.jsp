@@ -16,9 +16,9 @@ pageEncoding="UTF-8"%>
 		<jsp:include page="/resources/commonCssAdmin.jsp"/>
 
 		<!-- Specific Page Vendor CSS -->
-		<link rel="stylesheet" href="../../resources/lib/bootstrap-tagsinput/bootstrap-tagsinput.css" />
-		<link rel="stylesheet" href="../../resources/lib/summernote/summernote.css" />
-		<link rel="stylesheet" href="../../resources/lib/summernote/summernote-bs3.css" />
+		<link rel="stylesheet" href="../../../resources/lib/bootstrap-tagsinput/bootstrap-tagsinput.css" />
+		<link rel="stylesheet" href="../../../resources/lib/summernote/summernote.css" />
+		<link rel="stylesheet" href="../../../resources/lib/summernote/summernote-bs3.css" />
 		<style>
 			.inner-body{border-top-width: 60px !important;margin-left: 0!important;padding-top: 80px;}
             .inner-body .form-group.form-group-invisible h2 {padding-left: 50px;}
@@ -37,13 +37,13 @@ pageEncoding="UTF-8"%>
 		<section class="body">
 
 			<!-- start: header -->
-			<jsp:include page="../../view/common/adminHeader.jsp"/>
+			<jsp:include page="../../../view/common/adminHeader.jsp"/>
 			
 			<!-- end: header -->
 
 			<div class="inner-wrapper">
 				<!-- start: sidebar -->
-				<jsp:include page="../../view/common/adminSidebar.jsp"/>
+				<jsp:include page="../../../view/common/adminSidebar.jsp"/>
 				<!-- end: sidebar -->
 
 				<section role="main" class="content-body">

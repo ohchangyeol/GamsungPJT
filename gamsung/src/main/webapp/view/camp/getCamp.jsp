@@ -12,56 +12,11 @@
         <!-- Document Title -->
         <title>GetCamp</title>
 
-        <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Shadows+Into+Light"
-          rel="stylesheet" type="text/css">
-        <!-- Vendor CSS -->
-        <link href="../../resources/lib/bootstrap/css/bootstrap.css" rel="stylesheet" />
-        <link href="../../resources/lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
-        <link href="../../resources/lib/magnific-popup/magnific-popup.css" rel="stylesheet" />
-        <link href="../../resources/lib/bootstrap-datepicker/css/datepicker3.css" rel="stylesheet" />
-        <!-- Theme CSS -->
-        <link href="../../resources/css/theme.css" rel="stylesheet" />
-        <!-- Skin CSS -->
-        <link href="../../resources/css/skins/default.css" rel="stylesheet" />
-        <!-- Theme Custom CSS -->
-        <link href="../../resources/css/theme-custom.css" rel="stylesheet">
-        <!-- Head Libs -->
-        <script src="../../resources/lib/modernizr/modernizr.js"></script>
-        <!-- JavaScripts -->
-        <script src="../../resources/lib/jquery/jquery.js"></script>
-        <script src="../../resources/lib/bootstrap/js/bootstrap.min.js"></script>
-        <script src="../../resources/lib/wow/wow.js"></script>
-        <script src="../../resources/lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js"></script>
-        <script src="../../resources/lib/isotope/isotope.pkgd.js"></script>
-        <script src="../../resources/lib/imagesloaded/imagesloaded.pkgd.js"></script>
-        <script src="../../resources/lib/flexslider/jquery.flexslider.js"></script>
-        <script src="../../resources/lib/owl.carousel/dist/owl.carousel.min.js"></script>
-        <script src="../../resources/lib/smoothscroll.js"></script>
-        <script src="../../resources/lib/magnific-popup/magnific-popup.js"></script>
-        <script src="../../resources/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script>
-        <script src="../../resources/js/plugins.js"></script>
-        <script src="../../resources/js/main.js"></script>
-        <!-- Kakao Map-->
-        <script type="text/javascript"
-          src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6f8199ad71211c3df709f290a0e83244&libraries=services"></script>
-        <!-- Default stylesheets-->
-        <link href="../../resources/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-        <!-- Template specific stylesheets-->
-        <link href="../../resources/lib/animate.css/animate.css" rel="stylesheet">
-        <link href="../../resources/lib/components-font-awesome/css/font-awesome.min.css" rel="stylesheet">
-        <link href="../../resources/lib/et-line-font/et-line-font.css" rel="stylesheet">
-        <link href="../../resources/lib/flexslider/flexslider.css" rel="stylesheet">
-        <link href="../../resources/lib/owl.carousel/dist/assets/owl.carousel.min.css" rel="stylesheet">
-        <link href="../../resources/lib/owl.carousel/dist/assets/owl.theme.default.min.css" rel="stylesheet">
-        <link href="../../resources/lib/magnific-popup/magnific-popup.css" rel="stylesheet">
-        <link href="../../resources/lib/simple-text-rotator/simpletextrotator.css" rel="stylesheet">
-        <!-- Main stylesheet and color file-->
-        <link href="../../resources/css/style.css" rel="stylesheet">
-        <link id="color-scheme" href="../../resources/css/colors/default.css" rel="stylesheet">
+        <jsp:include page="../../resources/commonLib.jsp"/>
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-
+ 
+        <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6f8199ad71211c3df709f290a0e83244&libraries=services"></script>
+        
         <style>
           .map_wrap,
           .map_wrap * {
@@ -780,23 +735,23 @@
 
 
                     <div class="tab-pane teb-iframe" id="notice">
-                      <iframe src="listCampNotice?campNo=${camp.campNo}" scrolling="no"  class="change" id="noticechange" onload="change()"></iframe>
+                      <iframe src="/campGeneral/listCampNotice?campNo=${camp.campNo}" scrolling="no" id="noticeschange"></iframe>
                       <script type="text/javascript">
-                        function AdjustIframeHeight(i) { document.getElementsByClassName("noticechange").style.height = parseInt(i) + "px"; }
+                         function noticeIframeHeight(i) { document.getElementById("noticeschange").style.height = parseInt(i) + "px"; }
                       </script>
                     </div>
 
                     <div class="tab-pane teb-iframe" id="qna">
-                      <iframe src="listCampQna?campNo=${camp.campNo}" scrolling="no"  class="change" id="qnachange" onload="change()"></iframe>
+                      <iframe src="/campGeneral/listCampQna?campNo=${camp.campNo}" scrolling="no" id="qnaschange"></iframe>
                       <script type="text/javascript">
-                        function AdjustIframeHeight(i) { document.getElementsByClassName("qnachange").style.height = parseInt(i) + "px"; }
+                         function AdjustIframeHeight(i) { document.getElementById("qnaschange").style.height = parseInt(i) + "px"; }
                       </script>
                     </div>
 
                     <div class="tab-pane teb-iframe" id="reviews">
-                      <iframe src="listCampRatingReview?campNo=${camp.campNo}" scrolling="no"  class="change" id="reviewschange" onload="change()"></iframe>
+                      <iframe src="/campGeneral/listCampRatingReview?campNo=${camp.campNo}" scrolling="no" id="reviewschange"></iframe>
                       <script type="text/javascript">
-                        function AdjustIframeHeight(i) { document.getElementById("reviewschange").style.height = parseInt(i) + "px"; }
+                        function reviewIframeHeight(i) { document.getElementById("reviewschange").style.height = parseInt(i) + "px"; }
                       </script>
                     </div>
 
@@ -839,14 +794,8 @@
               var mainSiteNo = 0;
               $("#hidden").attr("method", "POST").attr("action", "/campGeneral/addReservation?mainSiteNo=" + mainSiteNo).submit();
             });
-
-            $("#reservation").on("click", function () {
-              var mainSiteNo = 0;
-              $("#hidden").attr("method", "POST").attr("action", "/campGeneral/addReservation?mainSiteNo=" + mainSiteNo).submit();
-            });
             
             $(".li-btn").on("click", function(){
-              console.log("클릭");
               var iframeHeight = $(".tab-pane.active iframe").contents().find("html").height();
               $(".teb-iframe.active iframe").height(iframeHeight);
             });
