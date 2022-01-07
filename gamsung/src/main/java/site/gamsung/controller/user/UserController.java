@@ -190,7 +190,7 @@ public class UserController {
 			//비밀번호를 확인하세요 있어야됨.
 			
 			if(dbUser.getNickName() != null) {
-				jsp = "redirect:/main.jsp";
+				jsp = "redirect:/";
 			}else if(dbUser.getBusinessUserApprovalFlag() != null && dbUser.getBusinessUserApprovalFlag().equals("Y")) {
 				jsp = "forward:/campBusiness/goSubMainCampBusiness"; 
 		    }else {
