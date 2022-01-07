@@ -82,12 +82,12 @@ public class UserController {
 		
 		model.addAttribute("user", user);
 		
-		return "forward:/view/user/updateUser.jsp";
+		return "forward:/view/common/myPage.jsp";
 		
 	}
 	
 	@RequestMapping(value="updateUser", method=RequestMethod.POST)
-	public String updateUser(User user, Model model, HttpSession session) {
+	public String updateUser(@ModelAttribute("user") User user, Model model, HttpSession session) {
 		
 		System.out.println("/user/updateUser : POST");
 		
@@ -95,21 +95,25 @@ public class UserController {
 		
 		
 		User sessionUser=(User)session.getAttribute("user");
+		User dbUser=userService.getUser(user.getId());
 			
 		System.out.println("세션유저"+sessionUser);
-		System.out.println("유저 솔트값"+user.getSalt());
-		System.out.println("유저 비밀번호"+user.getPassword());
+		System.out.println("유저 솔트값"+dbUser.getSalt());
+		System.out.println("유저 비밀번호"+dbUser.getPassword());
 
 		if(sessionUser.getId().equals(user.getId())){
+			System.out.println("이프문 안이다");
 			if(user.getPassword()==null || user.getPassword()=="") {
-			user.setPassword(sessionUser.getPassword());
+			System.out.println("패스워드가 널이다");
+			dbUser.setPassword(sessionUser.getPassword());
 			System.out.println(sessionUser.getPassword());
 			}else {
-				user.setSalt(sessionUser.getSalt());
+				System.out.println("널이 아니다");
+				dbUser.setSalt(sessionUser.getSalt());
 			}	
 		}
 			
-			userService.updateUser(user);
+			userService.updateUser(dbUser);
 						
 //			User upUser=userService.getUser(user.getId());
 			session.setAttribute("user", user);
@@ -123,7 +127,7 @@ public class UserController {
 //		
 //		System.out.println("변경이 되었는가"+upSession);
 		
-		return "forward:/view/user/getGeneralUserUpdate.jsp";
+		return "forward:/view/common/myPage.jsp";
 	}
 	
 	@RequestMapping( value="login", method=RequestMethod.GET )
