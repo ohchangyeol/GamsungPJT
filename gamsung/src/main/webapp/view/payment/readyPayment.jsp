@@ -283,9 +283,18 @@
 		    // 전액사용 버튼
 		    $("#useAllPoint").on("click" , function() {
 		    	
+		    	let useAllPointPushCount = 0;
+		    	useAllPointPushCount++;
+		    	
 		    	const currentPointUC = uncomma($("#currentPoint").val());
 		    	const tempPriceTotalUC = uncomma($("#tempPriceTotal").val());					
 				const resultPaymentPriceTotal = tempPriceTotalUC - currentPointUC;
+				
+				if(useAllPointPushCount == 1){
+					alert("이미 포인트가 적용되었습니다.");
+					$("#useAllPoint").attr("disabled", true);
+				}
+				
 				
 				if( resultPaymentPriceTotal < 0 ){
 				
@@ -357,6 +366,7 @@
 				if( resultPaymentPriceTotal < 0 ){
 					alert("결제 금액을 초과하였습니다.");
 					$("#paymentPriceTotalSecond").val(tempPriceTotalUC);
+					$("input:checkbox[id='paymentMethodSecond']").attr("checked", true);
 					return;
 				}
 				
