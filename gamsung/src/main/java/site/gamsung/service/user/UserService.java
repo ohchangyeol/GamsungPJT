@@ -28,8 +28,8 @@ public interface UserService {
 	//회원 정보 리스트
 	public UserWrapper listUser(Search search);
 	
-	//아이디, 닉네임, 휴대폰번호 중복체크
-	public String checkDuplication(User user);
+	//아이디, 닉네임, 휴대폰번호, 사업자등록번호 중복체크
+	public int checkDuplication(User user);
 	
 	//인증메일 발송
 	public void sendEmailAuthNum(String id, String key);

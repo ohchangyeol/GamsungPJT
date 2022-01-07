@@ -6,48 +6,50 @@
 
 <mapper namespace="AuctionProductMapper">
 		<resultMap id="auction" type="auctionProduct">
-		<result property="auctionProductNo" column="product_no"/>
-		<result property="registrantId" column="registrant_id"/>
-		<result property="successfulBidderId" column="successful_bidder_id"/>
-		<result property="successfulBidderId" column="bidder_id"/>
-		<result property="auctionProductName" column="product_name"/>
-		<result property="auctionProductDetail" column="product_detail"/>
-		<result property="auctionProductSubDetail" column="product_sub_detail"/>
-		<result property="startBidPrice" column="start_bid_price"/>
-		<result property="hopefulBidPrice" column="hopeful_bid_price"/>
-		<result property="bidUnit" column="bid_unit"/>
-		<result property="currentBidPrice" column="bid_price"/>
-		<result property="auctionStartTime" column="auction_start_time"/>
-		<result property="auctionEndTime" column="auction_end_time"/>
-		<result property="remainAuctionTime" column="remain_time"/>
-		<result property="bidableGrade" column="bidable_grade"/>
-		<result property="hashtag1" column="hashtag1"/>
-		<result property="hashtag2" column="hashtag2"/>
-		<result property="hashtag3" column="hashtag3"/>
-		<result property="productImg1" column="product_img1"/>
-		<result property="productImg2" column="product_img2"/>
-		<result property="productImg3" column="product_img3"/>
-		<result property="productImg4" column="product_img4"/>
-		<result property="productImg5" column="product_img5"/>
-		<result property="productViewCount" column="product_view_count"/>
-		<result property="productRegDate" column="product_reg_date"/>
-		<result property="productRegDate" column="review_reg_date"/>
-		<result property="isConfirm" column="registrant_confirm_flag"/>
-		<result property="isConfirm" column="successful_bidder_confirm_flag"/>
-		<result property="auctionStatus" column="auction_status"/>
-		<result property="isTempSave" column="temp_save_flag"/>
-		<result property="isDelete" column="delete_flag"/>
+		<result property="auctionProductNo" 		column="product_no"/>
+		<result property="registrantId" 			column="registrant_id"/>
+		<result property="registrantNickName" 		column="nick_name"/>
+		<result property="successfulBidderId" 		column="successful_bidder_id"/>
+		<result property="successfulBidderId" 		column="bidder_id"/>
+		<result property="auctionProductName" 		column="product_name"/>
+		<result property="auctionProductDetail" 	column="product_detail"/>
+		<result property="auctionProductSubDetail" 	column="product_sub_detail"/>
+		<result property="startBidPrice" 			column="start_bid_price"/>
+		<result property="hopefulBidPrice" 			column="hopeful_bid_price"/>
+		<result property="bidUnit" 					column="bid_unit"/>
+		<result property="currentBidPrice" 			column="bid_price"/>
+		<result property="auctionStartTime" 		column="auction_start_time"/>
+		<result property="auctionEndTime" 			column="auction_end_time"/>
+		<result property="remainAuctionTime" 		column="remain_time"/>
+		<result property="bidableGrade" 			column="bidable_grade"/>
+		<result property="hashtag1" 				column="hashtag1"/>
+		<result property="hashtag2" 				column="hashtag2"/>
+		<result property="hashtag3" 				column="hashtag3"/>
+		<result property="productImg1" 				column="product_img1"/>
+		<result property="productImg2" 				column="product_img2"/>
+		<result property="productImg3" 				column="product_img3"/>
+		<result property="productImg4" 				column="product_img4"/>
+		<result property="productImg5" 				column="product_img5"/>
+		<result property="productViewCount" 		column="product_view_count"/>
+		<result property="bidderCount" 				column="bidder_count"/>
+		<result property="productRegDate" 			column="product_reg_date"/>
+		<result property="productRegDate" 			column="review_reg_date"/>
+		<result property="isConfirm" 				column="registrant_confirm_flag"/>
+		<result property="isConfirm"				column="successful_bidder_confirm_flag"/>
+		<result property="auctionStatus" 			column="auction_status"/>
+		<result property="isTempSave" 				column="temp_save_flag"/>
+		<result property="isDelete" 				column="delete_flag"/>
 	</resultMap>
 	
 	<resultMap id="info" type="auctionInfo">
-		<result property="bidNo" column="bid_no"/>
-		<result property="auctionProductNo" column="product_no"/>
-		<result property="user.id" column="user_id"/>
-		<result property="user.nickName" column="nick_name"/>
-		<result property="user.auctionGrade" column="auction_grade"/>
-		<result property="bidPrice" column="bid_price"/>
-		<result property="bidDateTime" column="bid_date_time"/>
-		<result property="auctionStatus" column="auction_status"/>
+		<result property="bidNo" 					column="bid_no"/>
+		<result property="auctionProductNo" 		column="product_no"/>
+		<result property="user.id" 					column="user_id"/>
+		<result property="user.nickName" 			column="nick_name"/>
+		<result property="user.auctionGrade"		column="auction_grade"/>
+		<result property="bidPrice" 				column="bid_price"/>
+		<result property="bidDateTime" 				column="bid_date_time"/>
+		<result property="auctionStatus" 			column="auction_status"/>
 	</resultMap>
 	
 	<!-- //////////////////////////////////////////////////////AuctionProductDAO Mapper////////////////////////////////////////////////////// -->
@@ -66,32 +68,31 @@
 	</select> 
 	
 	<select id="listAuctionProduct" parameterType="search" resultMap="auction">
-		SELECT product_no, product_name, product_detail, product_sub_detail ,product_view_count, start_bid_price, hopeful_bid_price, auction_start_time, auction_end_time,
-               timediff(auction_end_time , NOW()) AS remain_time, hashtag1, hashtag2, hashtag3, product_img1
-			FROM AUCTION_PRODUCT
-			WHERE temp_save_flag = 'N' AND auction_status = 'START'AND delete_flag = 'N' AND NOW() BETWEEN auction_start_time AND auction_end_time
-			<if test='role != null and role.equals("GENERAL")'>
-				
-			</if>
+		SELECT 	ct.ctmp AS bidder_count, ap.product_no, product_name, product_detail, product_sub_detail ,product_view_count, start_bid_price, hopeful_bid_price, auction_start_time, auction_end_time,
+       	product_view_count,timediff(auction_end_time , NOW()) AS remain_time, hashtag1, hashtag2, hashtag3, product_img1
+		FROM AUCTION_PRODUCT AS ap
+		LEFT OUTER JOIN(	SELECT mp.product_no as product_no ,count(mp.maxprice) ctmp
+							FROM(	SELECT bidder_id, product_no, MAX(bid_price) AS maxPrice
+									FROM AUCTION_HISTORY ah
+									GROUP BY bidder_id, product_no)mp
+							GROUP BY mp.product_no) ct on ap.product_no = ct.product_no
+			WHERE temp_save_flag = 'N' AND auction_status = 'START'AND delete_flag = 'N'
 			<if test="searchKeyword != null">
 				AND product_name LIKE CONCAT_WS(#{searchKeyword},'%','%')
 			</if>
 			<trim prefix="ORDER BY">
 				<if test="sortCondition != null ">
-					<if test='sortCondition.equals("희망 낙찰가 높은 순")'>
+					<if test='sortCondition.equals("높은 가격 순")'>
 						hopeful_bid_price DESC
 					</if>
-					<if test='sortCondition.equals("희망 낙찰가 낮은 순")'>
+					<if test='sortCondition.equals("낮은 가격 순")'>
 						hopeful_bid_price ASC
 					</if>
 					<if test='sortCondition.equals("조회수 높은 순")'>
 						product_view_count DESC
 					</if>
-					<if test='sortCondition.equals("경매 입박 순")'>
-						auction_end_time ASC
-					</if>
-					<if test='sortCondition.equals("조회수 순")'>
-						product_view_count DESC
+					<if test='sortCondition.equals("조회수 낮은 순")'>
+						product_view_count ASC
 					</if> 
 				</if>
 			</trim>
@@ -99,6 +100,13 @@
 				LIMIT #{pageSize} OFFSET #{offset}
 			</if>
 	</select>
+	
+	<select id="autoComplete" parameterType="String" resultType="String">
+		SELECT product_name
+		FROM AUCTION_PRODUCT
+		WHERE product_name LIKE CONCAT_WS(#{value},'%','%')
+	</select>				
+
 	
 	<select id="getTempSaveAuctionProduct" parameterType="String" resultMap="auction">
 		SELECT product_no, product_name, product_detail, product_sub_detail, start_bid_price, hopeful_bid_price, bid_unit, auction_start_time, auction_end_time,
@@ -150,13 +158,14 @@
 	</update>
 	
 	<select id="getAuctionProduct" parameterType="String" resultMap="auction">
-		SELECT 	registrant_id, ap.product_no AS product_no, product_name, successful_bidder_id,product_detail, product_sub_detail  , start_bid_price , hopeful_bid_price, bid_unit , auction_start_time, 
-				auction_end_time, ap.auction_status AS auction_status , ah.bid_price AS bid_price, timediff(auction_end_time , NOW()) AS remain_time, bidable_grade, 
+		SELECT 	registrant_id, us.nick_name AS nick_name, ap.product_no AS product_no, product_name, successful_bidder_id,product_detail, product_sub_detail  , start_bid_price , hopeful_bid_price, 
+				bid_unit , auction_start_time, auction_end_time, ap.auction_status AS auction_status , ah.bid_price AS bid_price, timediff(auction_end_time , NOW()) AS remain_time, bidable_grade, 
 				hashtag1, hashtag2, hashtag3, product_img1, product_img2, product_img3, product_img4, product_img5, product_view_count, rr.review_reg_date AS review_reg_date
-		FROM AUCTION_PRODUCT AS ap
+		FROM AUCTION_PRODUCT AS ap 
 		LEFT OUTER JOIN AUCTION_HISTORY AS ah ON ap.product_no = ah.product_no 
-		LEFT OUTER JOIN RATING_REVIEW AS rr ON ap.product_no = rr.product_no 
-		WHERE ap.product_no = #{auctionProductNo} 
+		LEFT OUTER JOIN RATING_REVIEW AS rr ON ap.product_no = rr.product_no  AND review_reg_date IS NOT NULL
+		LEFT OUTER JOIN USERS AS us ON registrant_id = us.user_id 
+		WHERE ap.product_no = #{auctionProductNo}
 		ORDER BY bid_date_time DESC
 		LIMIT 1
 	</select>
@@ -207,7 +216,7 @@
 	</select>
 	
 	<select id="listMainAuctionProduct" parameterType="search" resultMap="auction">
-		SELECT ap.product_no AS product_no, product_name, hopeful_bid_price, product_img1, auction_end_time
+		SELECT ap.product_no AS product_no, product_name, hopeful_bid_price, product_img1, auction_end_time, product_sub_detail
 		FROM AUCTION_PRODUCT AS ap, MAIN_AUCTION_HISTORY AS mah
 		WHERE ap.product_no = mah.product_no AND timeout_flag = 'N'
 	</select>
@@ -220,5 +229,28 @@
 		</if>
 		WHERE product_no = #{auctionProductNo}
 	</update>
+	
+	<insert id="viewUserLog" parameterType="auctionInfo">
+		INSERT INTO AUCTION_VIEW_LOG (product_no, user_id, user_ip) 
+		<if test="user != null">
+			VALUES (#{auctionProductNo}, #{user.id}, #{info})
+		</if>
+		<if test="user == null">
+			VALUES (#{auctionProductNo}, 'ANONYMOUS', #{info})
+		</if>
+	</insert>
+	
+	<select id="getUserLog" parameterType="auctionInfo" resultMap="info">
+		SELECT log_no, product_no, user_id, user_ip
+		FROM AUCTION_VIEW_LOG
+		<where>
+			<if test="user != null">
+				user_id = #{user.id} AND product_no = #{auctionProductNo}
+			</if>
+			<if test="user == null">
+				user_ip = #{info} AND product_no = #{auctionProductNo} AND user_id = 'ANONYMOUS'
+			</if>
+		</where>
+	</select>
 
 </mapper>

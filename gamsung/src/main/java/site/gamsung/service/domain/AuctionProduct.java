@@ -6,6 +6,7 @@ public class AuctionProduct {
 	private String auctionProductDetail;
 	private String auctionProductSubDetail;
 	private String registrantId;
+	private String registrantNickName;
 	private String successfulBidderId;
 	private int startBidPrice;
 	private int hopefulBidPrice;
@@ -25,6 +26,7 @@ public class AuctionProduct {
 	private String productImg4;
 	private String productImg5;
 	private int productViewCount;
+	private int bidderCount;
 	private String productRegDate;
 	private String auctionStatus;
 	private String isConfirm;
@@ -63,6 +65,12 @@ public class AuctionProduct {
 	}
 	public void setRegistrantId(String registrantId) {
 		this.registrantId = registrantId;
+	}
+	public String getRegistrantNickName() {
+		return registrantNickName;
+	}
+	public void setRegistrantNickName(String registrantNickName) {
+		this.registrantNickName = registrantNickName;
 	}
 	public String getSuccessfulBidderId() {
 		return successfulBidderId;
@@ -190,6 +198,12 @@ public class AuctionProduct {
 	public void setProductViewCount(int productViewCount) {
 		this.productViewCount = productViewCount;
 	}
+	public int getBidderCount() {
+		return bidderCount;
+	}
+	public void setBidderCount(int bidderCount) {
+		this.bidderCount = bidderCount;
+	}
 	public String getProductRegDate() {
 		return productRegDate;
 	}
@@ -231,8 +245,8 @@ public class AuctionProduct {
 				+ ", bidableGrade=" + bidableGrade + ", allhashtag=" + allhashtag + ", hashtag1=" + hashtag1
 				+ ", hashtag2=" + hashtag2 + ", hashtag3=" + hashtag3 + ", productImg1=" + productImg1
 				+ ", productImg2=" + productImg2 + ", productImg3=" + productImg3 + ", productImg4=" + productImg4
-				+ ", productImg5=" + productImg5 + ", productViewCount=" + productViewCount + ", productRegDate="
-				+ productRegDate + ", auctionStatus=" + auctionStatus + ", isConfirm=" + isConfirm + ", isTempSave="
-				+ isTempSave + ", isDelete=" + isDelete + "]";
+				+ ", productImg5=" + productImg5 + ", productViewCount=" + productViewCount + ", bidderCount="
+				+ bidderCount + ", productRegDate=" + productRegDate + ", auctionStatus=" + auctionStatus
+				+ ", isConfirm=" + isConfirm + ", isTempSave=" + isTempSave + ", isDelete=" + isDelete + "]";
 	}
 }

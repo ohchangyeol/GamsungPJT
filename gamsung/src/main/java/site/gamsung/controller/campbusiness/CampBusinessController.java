@@ -67,7 +67,13 @@ public class CampBusinessController {
 		Camp campSession = new Camp();
 		User tempUser = null;
 
-		if (httpSession != null) {
+		if (httpSession == null) {
+			
+			return "redirect:/main.jsp";			
+
+		} else {
+			
+			System.out.println("campSession httpSession : " + (User) httpSession.getAttribute("user")); // 테스트
 			
 			// user 전체정보요청
 			tempUser = userService.getUser(((User) httpSession.getAttribute("user")).getId());
@@ -75,7 +81,20 @@ public class CampBusinessController {
 			
 			if (tempUser != null) {
 				
-				// role = business
+				
+				// role = GENERAL
+				if (tempUser.getRole().equals("GENERAL")) {
+					return "forward:/main.jsp";
+				}			
+				
+				// role = ADMIN
+				if (tempUser.getRole().equals("ADMIN")) {
+					campSession.setUser(tempUser);
+					httpSession.setAttribute("campSession", campSession);
+					return "forward:/businessMain.jsp";
+				}
+				
+				// role = BUSINESS
 				if (tempUser.getRole().equals("BUSINESS")) {
 					
 					// 캠핑장정보 미등록시 캠핑장 등록화면 이동
@@ -87,17 +106,7 @@ public class CampBusinessController {
 						return "forward:/campBusiness/addCampView";
 					}
 				}
-				
-				// role = admin
-				if (tempUser.getRole().equals("ADMIN")) {
-					campSession.setUser(tempUser);
-					httpSession.setAttribute("campSession", campSession);
-					return "forward:/view/common/subMainCampBusiness.jsp";
-				}
 			}
-
-		} else {
-			return "redirect:/main.jsp";
 		}
 
 		// session 에 load
@@ -107,7 +116,7 @@ public class CampBusinessController {
 		System.out.println("campSession o camp : " + campSession); // 테스트
 
 		// 사업자 메인으로 이동
-		return "forward:/view/common/subMainCampBusiness.jsp";
+		return "forward:/businessMain.jsp";
 	}
 
 

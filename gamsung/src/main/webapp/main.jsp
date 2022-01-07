@@ -164,7 +164,12 @@ pageEncoding="UTF-8"%>
                 <div class="owl-item">
                   <div class="col-sm-12">
                     <div class="ex-product">
-                      <a><img src="${auctionProduct.productImg1}"/></a>
+                      <c:if test="${!empty auctionProduct.auctionProductSubDetail}">
+                      <a><img class="shop-item-img" src="${auctionProduct.productImg1}"/></a>
+                    </c:if>
+                    <c:if test="${empty auctionProduct.auctionProductSubDetail}">
+                      <a><img class="shop-item-img" src="/uploadfiles/auctionimg/product/${auctionProduct.productImg1}"/></a>
+                    </c:if>
                       <input type="hidden" value="${auctionProduct.auctionProductNo}">
                       <h4 class="shop-item-title"><a>${auctionProduct.auctionProductName}</a></h4>
                       <h5><fmt:formatNumber type="number" maxFractionDigits="3" value="${auctionProduct.hopefulBidPrice}"/>원</h5>
@@ -208,13 +213,20 @@ pageEncoding="UTF-8"%>
     <script src="../../resources/lib/modals/examples.modals.js"></script>
     <script src="resources/js/campSearch.js"></script>
     <script type="text/javascript">
-    	$('.shop-item-title').on('click',function(){
-    		window.location = '/auction/getAuctionProduct?auctionProductNo='+$(this).prev().val();
-    	});
-     	
-    	$('.campImg').on('click',function(){
-    		window.location = '/campGeneral/getCamp?campNo='+$(this).attr('campNo');
-    	});
+    $(function(){
+	          $('.shop-item-title').on('click', function () {
+	            window.location = '/auction/getAuctionProduct?auctionProductNo=' + $(this).prev().val();
+	          });
+	
+	          $('.campImg').on('click', function () {
+	            window.location = '/campGeneral/getCamp?campNo=' + $(this).attr('campNo');
+	          });
+          
+          	
+          	$('.shop-item-img').on('click',function(){
+          		window.location = '/auction/getAuctionProduct?auctionProductNo='+$(this).parent().next().val();
+          	});
+    });
     </script>
 
 

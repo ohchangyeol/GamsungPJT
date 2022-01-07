@@ -128,7 +128,7 @@
       
       	<li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">캠핑장 관리</a>
           <ul class="dropdown-menu">
-			<c:if test="${campSession.campTempSave == '3'}">
+			<c:if test="${campSession.campTempSave == '3' || campSession.user.role == 'ADMIN'}">
 				<li><a href="#">캠핑장정보 조회</a></li>
 			    <li><br></li>
 			    <li><a href="#">주요시설 목록</a></li>
@@ -146,10 +146,7 @@
           </ul>
         </li>
                 
-        <c:if test="${campSession.campTempSave == '3'}">			
-			<ul class="nav navbar-nav navbar-right">
-				<li><a href="#">캠핑</a></li>	
-			</ul>	
+        <c:if test="${campSession.campTempSave == '3' || campSession.user.role == 'ADMIN'}">			
 			
 			<ul class="nav navbar-nav navbar-right">
 				<li><a href="#">사이트 고객센터</a></li>

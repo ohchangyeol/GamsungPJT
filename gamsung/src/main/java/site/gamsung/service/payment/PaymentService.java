@@ -31,6 +31,8 @@ public interface PaymentService {
 	
 	public Map<String, Object> listPayment(Search search) throws Exception;
 	
+	public List<Payment> listPaymentJSON(Search search) throws Exception;
+	
 	
 	/*
 	 *  PaymentCode

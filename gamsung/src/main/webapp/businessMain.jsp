@@ -32,30 +32,22 @@ pageEncoding="UTF-8"%>
     <link href="/resources/lib/magnific-popup/magnific-popup.css" rel="stylesheet">
     <link href="/resources/lib/simple-text-rotator/simpletextrotator.css" rel="stylesheet">       
     
-    <!-- Main stylesheet and color file-->
+    <!-- Main stylesheet and color -->
     <link href="/resources/css/style.css" rel="stylesheet">
     <link id="color-scheme" href="/resources/css/colors/default.css" rel="stylesheet">  
    
-	<!-- fullcalendar CDN -->
-	<link href='/resources/fullcalendar-5.6.0/lib/main.css' rel='stylesheet'/>
-	<script src='/resources/fullcalendar-5.6.0/lib/main.js'></script>
-	<script>
-	      document.addEventListener('DOMContentLoaded', function() {
-	        var calendarEl = document.getElementById('calendar');
-	        var calendar = new FullCalendar.Calendar(calendarEl, {
-	          initialView: 'dayGridMonth'
-	        });
-	        calendar.render();
-	      });
-	</script>
-	
+
 </head>
 	  
-<body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
-	
+<body>
+
+	<!-- header -->
 	<jsp:include page="/view/common/headerCampBusiness.jsp" />
+	<!-- header End -->
 	
-	<div id='calendar'>
+	<div class="container">
+	
+	
 	
 	<br>
 	<br>
@@ -63,33 +55,31 @@ pageEncoding="UTF-8"%>
 	<br>
 	<br>
 	
+	${user.role}
 	
+	<br>
+	<br>
+	<li><a href="/adminMain.jsp">adminMain</a></li>
 	
-	<li>
-		<a href="/view/common/adminPage.jsp">
-			adminPage
-		</a>
-	</li>	
-	<li>
-		<a href="/payment/listSiteProfit">
-			 사이트수익
-		</a>
-	</li>
-	<li>
-		<a href="/payment/listPayment">
-			 결제내역
-		</a>
-	</li>
-	<li>
-		<a href="/payment/listPaymentCode">
-			 결제코드관리
-		</a>
-	</li>
-	<li>
-		<a href="/payment/managePoint">
-			 포인트관리
-		</a>
-	</li>		
+	<br>
+	<br>
+	<li><a href="/payment/listSiteProfit">사이트수익</a></li>
+	
+	<br>
+	<br>
+	<li><a href="/payment/listPayment">결제내역</a></li>
+	
+	<br>
+	<br>
+	<li><a href="/payment/listPaymentCode">결제코드관리</a></li>
+	
+	<br>
+	<br>
+	<li><a href="/payment/managePoint">포인트관리</a></li>	
+	
+	<br>
+	<br>
+	<li><a href="/view/payment/listSiteProfit.jsp">temp</a></li>		
 	
 	
 	

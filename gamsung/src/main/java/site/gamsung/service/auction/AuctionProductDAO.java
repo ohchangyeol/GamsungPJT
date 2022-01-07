@@ -14,6 +14,8 @@ public interface AuctionProductDAO {
 	
 	public List<AuctionProduct> listAuctionProduct(Search search);
 	
+	public List<String> autoComplete(String searchKeyword);
+	
 	public void tempSaveAuctionProduct(AuctionProduct auctionProduct);
 	
 	public AuctionProduct getTempSaveAuctionProduct(String registrantId);
@@ -41,4 +43,8 @@ public interface AuctionProductDAO {
 	public List<AuctionProduct> listMainAuctionProduct();
 	
 	public int deleteAuctionProduct(AuctionInfo auctionInfo);
+	
+	public void viewUserLog(AuctionInfo auctionInfo);
+	
+	public AuctionInfo getUserLog(AuctionInfo auctionInfo);
 }
