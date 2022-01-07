@@ -47,9 +47,7 @@ import site.gamsung.service.domain.Post;
     
   @Autowired
   @Qualifier("communityServiceImpl") private CommunityService communityService;
-  
-  private static final String FILE_PATH = "F:\\Git\\GamsungPJT\\gamsung\\src\\main\\webapp\\uploadfiles\\community\\img\\";
-   
+     
   public CommunityController() { 
 	  System.out.println(this.getClass()); 
   }
@@ -112,7 +110,7 @@ import site.gamsung.service.domain.Post;
 //게시물 등록 Mapping
   
 	@RequestMapping(value="addPost", method=RequestMethod.POST) //RequestParam의 별칭은 file type속성의 name과 맞춘다. 
-	public String addPost( @ModelAttribute("post") Post post, @RequestParam("postImg") MultipartFile[] postImg, HttpSession session) throws Exception {
+	public String addPost( @ModelAttribute("post") Post post, @RequestParam("postImg") MultipartFile[] postImg, HttpServletRequest req, HttpSession session) throws Exception {
 	
 	System.out.println("addPost Post Start");
 			
@@ -131,10 +129,13 @@ import site.gamsung.service.domain.Post;
 	String originalFileExtension = originalPostImg.substring(originalPostImg.lastIndexOf("."));
 	
 	// UUID로 랜덤하게 생성한거에 -가 있으면 없애고 확장자를 붙임 (ex 359498a2ff1a40b8a8e16f6c43dd2bf3.jpg)
+	String root_path = req.getSession().getServletContext().getRealPath("/");  
+	String attach_path = "uploadfiles/community/img/";
     String storedFileName = UUID.randomUUID().toString().replaceAll("-", "") + originalFileExtension;
     
+    System.out.println(root_path);
     //File을 생성해서 주소랑 새로 만든 파일이름을 넣는다. 
-    File file = new File(FILE_PATH + storedFileName);	
+    File file = new File(root_path + attach_path + storedFileName);	
     
     System.out.println("file::::"+file);
 	   
@@ -163,6 +164,6 @@ import site.gamsung.service.domain.Post;
 	
 	communityService.addPost(post);
 	
-	return "redirect:/view/community/listPost.jsp";
+	return "redirect:listPost";
 	}//등록 method 종료	
 }

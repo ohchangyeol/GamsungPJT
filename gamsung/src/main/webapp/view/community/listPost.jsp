@@ -230,7 +230,7 @@
                         </div>
                       </div><!-- post-header end -->
 
-                      <div class="post-thumbnail"><img src="/../../uploadfiles/community/img/${post.postImg1}" /></div>
+                      <div class="post-thumbnail"><img src="/uploadfiles/community/img/${post.postImg1}" /></div>
                       <!-- src 해석필요함.. 절대경로 상대경로 공부가 필요함.. ㅠ_ㅠ.. 완벽한 이해가 되질않음..  -->
 
                       <div> ${post.postContent}</div>
@@ -254,7 +254,7 @@
                         <span style="color: #2d2d2d;">${post.postConcernCount}&nbsp;</span>
 
                         <span>댓글</span>
-                        <button type="button" class="reply" name="reply" value="${post.postNo}">
+                        <button type="button" class="reply" name="reply" id="${userId}" value="${post.postNo}">
                           <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor"
                             class="bi bi-chat-dots" viewBox="0 0 16 16">
                             <path
@@ -388,6 +388,7 @@
 
 
             var postNo = $(this).val(); //그 button의 val값을 가지고와서 담는다. 
+            var userId = $(this).attr('id');
             var params = { "postNo": postNo }; //담은 value값을 json형식으로 object에 담아 보낸다. 
             var listHtml = "";
             // var userid = ${ userId };
@@ -488,7 +489,7 @@
 
                   listHtml += "<div class='comment-form'>";
                   listHtml += "<div class='form-group'>";
-                  listHtml += "<textarea class='form-control' id='comment' value='' name='comment' data-postno='" + postNo + "' data-userid='" + ${ userId } +"' +rows='4'placeholder='댓글을 등록해주세요'>";
+                  listHtml += "<textarea class='form-control' id='comment' value='' name='comment' data-postno='" + postNo + "' data-userid='"+userId+"' rows='4'placeholder='댓글을 등록해주세요'>";
                   listHtml += "</textarea>";
                   listHtml += "</div>";
                   listHtml += "<p class='help-block text-danger'></p>";
@@ -496,7 +497,7 @@
                   listHtml += "</div>";
 
 
-                  $('button.btn.btn-round.btn-d').on('click', function () {
+                  $('button.btn.btn-round.btn-d').on('click', function () { // 버튼으로 누르면 댓글창이 클릭됨. 
                     $('#comment').click();
 
 
@@ -507,12 +508,8 @@
                     console.log('value', $(this).val());
 
                   });
-
+              
                   $(".post" + postNo).html(listHtml);
-
-
-
-
 
                 }
               });//ajax END 비동기 처리
