@@ -89,6 +89,7 @@ public class PaymentController {
 				payment.setPaymentRefundReferenceFee(paymentRefundReferenceFee);
 				System.out.println("1 point관리 : " + payment);											// 테스트
 				
+				httpSession.removeAttribute("user");
 				httpSession.setAttribute("user", tempUser);
 				model.addAttribute("user", tempUser);				
 			} 	
@@ -215,12 +216,7 @@ public class PaymentController {
 			paymentNo = paymentService.addMakePayment(paymentPay);		
 			System.out.println("paymentNo : "+paymentNo);
 			System.out.println("3 결제완료내역 저장 payment : " + paymentPay); 				// 테스트	
-			
-			// Session 정보업데이트
-			tempUser = userService.getUser( ((User) httpSession.getAttribute("user")).getId() );
-			httpSession.removeAttribute("user");
-			httpSession.setAttribute("user", tempUser);
-			
+						
 			// 결과 			
 			paymentResult.setPaymentNo(paymentNo);
 			paymentResult.setPaymentProduct(oriProduct);
@@ -266,8 +262,12 @@ public class PaymentController {
 			paymentNo = paymentService.addMakePayment(paymentResult);
 			paymentResult.setPaymentNo(paymentNo);
 		}		
-
-			
+		
+		
+		// Session 정보업데이트
+		tempUser = userService.getUser( ((User) httpSession.getAttribute("user")).getId() );
+		httpSession.removeAttribute("user");
+		httpSession.setAttribute("user", tempUser);
 		model.addAttribute("payment", paymentResult);
 		
 		return "forward:/view/payment/resultPayment.jsp";
