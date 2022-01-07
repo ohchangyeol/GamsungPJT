@@ -427,7 +427,7 @@ pageEncoding="UTF-8"%>
                                 <a>공지사항</a>
                                 <ul class="nav nav-children">
                                     <li>
-                                        <a href="../../view/servicecenter/addNotice.jsp">공지사항 등록</a>
+                                        <a href="/servicecenter/addNotice">공지사항 등록</a>
                                     </li>
                                     <li>
                                         <a href="/servicecenter/listNotice">공지사항 목록</a>

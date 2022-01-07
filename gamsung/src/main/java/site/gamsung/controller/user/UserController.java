@@ -95,25 +95,25 @@ public class UserController {
 		
 		
 		User sessionUser=(User)session.getAttribute("user");
-		User dbUser=userService.getUser(user.getId());
 			
 		System.out.println("세션유저"+sessionUser);
-		System.out.println("유저 솔트값"+dbUser.getSalt());
-		System.out.println("유저 비밀번호"+dbUser.getPassword());
+		System.out.println("유저 솔트값"+user.getSalt());
+		System.out.println("유저 비밀번호"+user.getPassword());
 
 		if(sessionUser.getId().equals(user.getId())){
 			System.out.println("이프문 안이다");
 			if(user.getPassword()==null || user.getPassword()=="") {
 			System.out.println("패스워드가 널이다");
-			dbUser.setPassword(sessionUser.getPassword());
+			user.setPassword(sessionUser.getPassword());
 			System.out.println(sessionUser.getPassword());
 			}else {
 				System.out.println("널이 아니다");
-				dbUser.setSalt(sessionUser.getSalt());
+				user.setPassword(user.getPassword());
+				user.setSalt(sessionUser.getSalt());
 			}	
 		}
 			
-			userService.updateUser(dbUser);
+			userService.updateUser(user);
 						
 //			User upUser=userService.getUser(user.getId());
 			session.setAttribute("user", user);
@@ -337,7 +337,7 @@ public class UserController {
 		model.addAttribute("resultPage", resultPage);
 		model.addAttribute("search", search);
 		
-		return "forward:/user/listUser.jsp";
+		return "forward:/view/user/listUser.jsp";
 	}
 	
 	
