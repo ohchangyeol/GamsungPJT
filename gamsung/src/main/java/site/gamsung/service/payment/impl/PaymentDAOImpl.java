@@ -36,7 +36,7 @@ public class PaymentDAOImpl implements PaymentDAO{
 	public int getTotalCount(Search search) throws Exception {
 				
 		if(search.getSearchItemType().equals("Payment")) {
-			return sqlSession.selectOne("PaymentMapper.getTotalCountPayment", search);
+			return sqlSession.selectOne("PaymentMapper.getTotalCountPayment");
 		}
 		
 		if(search.getSearchItemType().equals("SiteProfit")) {

@@ -10,6 +10,8 @@ public interface AuctionReviewService {
 	
 	public AuctionInfo addAuctionRatingReviewComment(RatingReview ratingReview);
 	
+	public Map<String, Object> listMyRatingReview(Map<String, Object> map);
+	
 	public List<RatingReview> listAuctionRatingReview(Map<String, Object> map);
 	
 	public AuctionInfo updateAuctionRatingReview(RatingReview ratingReview);
