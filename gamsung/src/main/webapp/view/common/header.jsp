@@ -20,17 +20,17 @@ pageEncoding="UTF-8"%>
           </ul>
         </li>
         
-        <li class="dropdown"><a class="dropdown-toggle" href="/community/listCommunity" data-toggle="dropdown">커뮤니티</a>
+        <li class="dropdown"><a class="dropdown-toggle" href="/community/listPost" data-toggle="dropdown">커뮤니티</a>
         	<ul class="dropdown-menu">
-				<li><a href="/community/listCommunity">커뮤니티</a></li>
+				<li><a href="/community/listPost">커뮤니티</a></li>
 			</ul>
         </li>
                
         <li class="dropdown"><a class="dropdown-toggle" href="/servicecenter/home" data-toggle="dropdown">고객센터</a>
         	<ul class="dropdown-menu">
 				<li><a href="/servicecenter/listNotice">공지사항</a></li>
-        <li><a href="/servicecenter/home"> Q&A </a></li>
-        <li><a href="/servicecenter/home">내 신고 내역</a></li>
+        <li><a href="/servicecenter/listQna"> Q&A </a></li>
+        <li><a href="/servicecenter/listReport/my">내 신고 내역</a></li>
 
 			</ul>
         </li>

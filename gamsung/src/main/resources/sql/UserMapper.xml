@@ -145,18 +145,18 @@
 		on u.user_id = h.user_id 
 			<if test="searchCondition != null">
 				<where>
-					<if test='searchCondition != "GENERAL"'>
-						u.role = #{searchCondition}
+					<if test='searchCondition != "1"'>
+						u.role = "GENERAL"
+					</if>
+					<if test='searchCondition != "2"'>
+						u.role = "BUSINESS"
 					</if>
 					<if test='searchCondition == 3'>
-						u.role = 'BUSINESS' AND u.entry_approval_flag = 'N'
+						u.role = 'BUSINESS' AND (u.entry_approval_flag = 'N' OR u.entry_approval_flag is null)
 					</if>
 					
 					<if test="searchKeyword !='' and searchKeyword !=null">
 						AND u.user_id LIKE CONCAT('%',#{searchKeyword},'%')
-					</if>
-					<if test='searchCondition == "3"'>
-						u.role ='business' AND u.entry_approval_flag is null
 					</if>
 				</where>
 			</if>

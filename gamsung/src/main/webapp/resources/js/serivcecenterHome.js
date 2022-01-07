@@ -1,6 +1,6 @@
 $(document).ready(function(){
     console.log("hello service Center");
-    $('.btn').on('click' , (e)=>{
+    $('.btn[data-btntype]').on('click' , (e)=>{
         // console.log($(e.currentTarget));
         // console.log("this ",$(this));
         // console.log("target ",$(e.currentTarget));
@@ -15,22 +15,22 @@ $(document).ready(function(){
         
             case 2:
                 // Q&A
-                self.location = "/servicecenter/listNotice"
+                self.location = "/servicecenter/listQna"
                 break;
         
             case 3:
                 // 신고하기
-                self.location = "/servicecenter/listNotice"
+                self.location = "/servicecenter/addReport"
                 break;
         
             case 4:
                 // 신고 내역
-                self.location = "/servicecenter/listNotice"
+                self.location = "/servicecenter/listReport/my"
                 break;
             
             case 5:
                 // 내 Q&A
-                self.location = "/servicecenter/listNotice"
+                self.location = "/servicecenter/listQna/my"
                 break;
             
             default:

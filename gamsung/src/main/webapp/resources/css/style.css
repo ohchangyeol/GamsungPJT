@@ -12,6 +12,7 @@ body {
   font: 400 12px/1.8 "Open Sans", sans-serif;
   color: #666;
   -webkit-font-smoothing: antialiased;
+  padding-top: 55px;
 }
 
 img {
@@ -908,7 +909,7 @@ blockquote {
 
 .module-title {
   position: relative;
-  letter-spacing: 4px;
+/*   letter-spacing: 4px; */
   text-align: center;
   font-weight: 400;
   font-size: 30px;
