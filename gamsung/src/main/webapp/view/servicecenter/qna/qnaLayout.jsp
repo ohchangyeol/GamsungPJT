@@ -3,7 +3,7 @@ pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
-<html lang="en-US" dir="ltr">
+<html lang="ko" dir="ltr">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -28,10 +28,11 @@ pageEncoding="UTF-8"%>
       .panel-group .panel-default .panel-heading {height: 55px; background-color: transparent; display: flex; align-items: center; }
       .panel-group .panel-default .panel-heading .panel-title{ width: 100%;}
 
-      .module .container .sub-title{ display: flex; align-items: center;gap: 20px;}
+      .module .container .sub-title{ display: flex; align-items: center;gap: 20px; position: relative;}
+      .module .container .sub-title button{position: absolute; right: 0;}
       .module .container .panel-group{border-bottom: 2px solid #979797;}
-      .qna-btn{position: absolute; display: flex; flex-direction: column; row-gap: 20px; top: 100px;right: 0;z-index: 100;}
-      .qna-btn .btn-round{background-color: #fff;}
+      .qna-btn-box{position: absolute; display: flex; flex-direction: column; row-gap: 20px; top: 100px;right: 0;z-index: 100;}
+      .qna-btn-box .btn-round{background-color: #fff;}
 
     </style>
 
@@ -69,7 +70,32 @@ pageEncoding="UTF-8"%>
         </section>
         
         <section class="module">
-
+          <div class="container">
+            <c:if test="${!empty qnaType}">
+              <c:choose>
+                <c:when test='${qnaType == "list"}'>
+                  <div class="sub-title">
+                    <h4>전체 Q&A </h4>
+                    <sub> 8 건</sub>
+                  </div>
+                </c:when>
+                <c:when test='${qnaType == "get"}'>
+                  <div class="sub-title">
+                    <h4>Q&A 상세</h4>
+                    <button class="btn btn-d btn-round" type="button" onclick="history.back()">목록가기</button>
+                  </div>
+                </c:when>
+                <c:when test='${qnaType == "add"}'>
+                  <div class="sub-title">
+                    <h4>Q&A 등록</h4>
+                    <button class="btn btn-d btn-round" type="button" onclick="history.back()">목록가기</button>
+                  </div>
+                </c:when>
+                <c:otherwise></c:otherwise>
+              </c:choose>
+            </c:if>
+            
+            <hr class="divider-w mt-10 mb-20">
           <c:if test="${!empty qnaType}">
             <c:choose>
               <c:when test='${qnaType == "list"}'><jsp:include page="../qna/listQna.jsp"/></c:when>
@@ -78,7 +104,7 @@ pageEncoding="UTF-8"%>
               <c:otherwise></c:otherwise>
             </c:choose>
           </c:if>
-            
+          </div>
         </section>
 
         <div class="module-small bg-dark">
@@ -156,21 +182,35 @@ pageEncoding="UTF-8"%>
         </footer>
       </div>
       <div class="scroll-up"><a href="#totop"><i class="fa fa-angle-double-up"></i></a></div>
-      <div class="qna-btn">
-        <button class="btn btn-border-d btn-round" type="submit">내 Q&A 0 건</button>
-        <button class="btn btn-border-d btn-round" type="submit">Q&A 글쓰기</button>
+      <div class="qna-btn-box">
+        <button class="btn btn-border-d btn-round qna-btn" type="button" data-type="1">내 Q&A 0 건</button>
+        <button class="btn btn-border-d btn-round qna-btn" type="button" data-type="2">Q&A 글쓰기</button>
       </div>
     </main>
     
     <script>
       $(document).ready(function(){
-        console.log("notice list start ");
-        // console.log($(".notice-list ul li"));
-        $(".notice-list ul li").on("click" , (e)=>{
-          const noticeNo = $(e.currentTarget).find('.notice-no').text();
-          console.log(noticeNo);
-          self.location ="/servicecenter/getNotice?noticeNo="+noticeNo;
-        })
+        console.log("QnA list start ");
+
+        $(".qna-btn").on("click", (e)=>{
+          
+          console.log(typeof $(e.currentTarget).data("type") );
+          const qnaType = $(e.currentTarget).data("type");
+          switch (qnaType) {
+            case 1:
+              self.location ="/servicecenter/listQna/my";
+              break;
+
+            case 2:
+              self.location ="/servicecenter/addQna";
+              break;
+            default:
+              alert("잘못된 선택입니다.");
+              break;
+          }
+          
+        });
+
       })
     </script>
   </body>

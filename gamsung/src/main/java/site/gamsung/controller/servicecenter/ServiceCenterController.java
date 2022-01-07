@@ -52,7 +52,7 @@ public class ServiceCenterController {
 	}
 	@PostMapping("addNotice")
 	public String addNotice(@ModelAttribute Notice notice) throws Exception {
-//		아직...
+//		
 		return null;
 	}
 	

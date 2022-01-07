@@ -2,12 +2,6 @@
 pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<div class="container">
-  <div class="sub-title">
-    <h4>전체 Q&A </h4>
-    <sub> 8 건</sub>
-  </div>
-  <hr class="divider-w mt-10 mb-20">
   <div class="row">
     <div  iv class="col-sm-6">
       <!-- start list -->
@@ -151,4 +145,3 @@ pageEncoding="UTF-8"%>
 
     </div>
   </div>
-</div>
