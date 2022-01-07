@@ -126,8 +126,12 @@ public class UserController {
 //		User upSession=(User)session.getAttribute("user");
 //		
 //		System.out.println("변경이 되었는가"+upSession);
+		if(user.getRole().equals("GENERAL")) {
+			return "forward:/view/common/myPage.jsp";
+		}else {
+			return "forward:/view/user/getBusinessUserUpdate.jsp";
+		}
 		
-		return "forward:/view/common/myPage.jsp";
 	}
 	
 	@RequestMapping( value="login", method=RequestMethod.GET )
