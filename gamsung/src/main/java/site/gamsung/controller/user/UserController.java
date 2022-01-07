@@ -3,6 +3,7 @@ package site.gamsung.controller.user;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -14,15 +15,16 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import site.gamsung.service.common.Page;
+import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.User;
+import site.gamsung.service.domain.UserWrapper;
 import site.gamsung.service.user.UserService;
-import site.gamsung.util.user.SHA256Util;
 
 @Controller
 @RequestMapping("/user/*")
@@ -67,8 +69,7 @@ public class UserController {
 		User user = userService.getUser(id);
 		
 		model.addAttribute("user", user);
-		
-		
+				
 		return "forward:/view/user/getUser.jsp";
 	}
 	
@@ -293,6 +294,42 @@ public class UserController {
 		userService.addSuspensionUser(user);
 		
 		return "회원 리스트.jsp";
+	}
+	
+	@RequestMapping( value="listUser" )
+	public String listUser( @ModelAttribute("search") Search search , Model model , HttpServletRequest request) throws Exception{
+		
+		System.out.println("/user/listUser : GET / POST");
+		
+		if(search.getCurrentPage() == 0 ){
+			search.setCurrentPage(1);
+		}
+		search.setPageSize(pageSize);
+		
+		// Business logic 수행
+		UserWrapper userWrapper=userService.listUser(search);
+		
+		List<User> list = userWrapper.getUsers();
+		Integer totalCount = userWrapper.getTotalCount();
+		
+		search.setCurrentPage(1);
+	 	search.setPageSize(10);
+		
+		userWrapper = userService.listUser(search);
+		
+		list = userWrapper.getUsers();
+		totalCount = (Integer)userWrapper.getTotalCount();
+		Page resultPage = new Page( search.getCurrentPage(),totalCount, pageUnit, pageSize);
+		
+		System.out.println(list);
+		System.out.println(totalCount);
+				
+		// Model 과 View 연결
+		model.addAttribute("list", list);
+		model.addAttribute("resultPage", resultPage);
+		model.addAttribute("search", search);
+		
+		return "forward:/user/listUser.jsp";
 	}
 	
 	
