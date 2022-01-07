@@ -909,7 +909,7 @@ blockquote {
 
 .module-title {
   position: relative;
-  letter-spacing: 4px;
+/*   letter-spacing: 4px; */
   text-align: center;
   font-weight: 400;
   font-size: 30px;
