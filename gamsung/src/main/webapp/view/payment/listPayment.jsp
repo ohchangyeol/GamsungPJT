@@ -45,14 +45,87 @@
   	<!-- ### headerCampBusiness resources End ### -->
   	
   	
+  	<!-- ### listPayment resources Start ### -->
+ 	<link rel="stylesheet" href="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.css"/> 
+ 	<script src="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.js"></script>
+  	
+  	<script type="text/javascript">
+  				
+		$(document).ready(function(){
+			
+			$.extend( $.fn.dataTable.defaults, { 
+		  	       language: {
+		  	          url: "http://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Korean.json"
+		  	       } 
+		  	}); 
+			
+		    $('#listPayment > thead > tr').children().each(function (indexInArray, valueOfElement) { 
+		        $('#select').append('<option>'+valueOfElement.innerHTML+'</option>');
+		    });
+
+			
+			$("#listPayment").DataTable({
+				"columnDefs": [{
+			        "defaultContent": "-",
+			        "targets": "_all"
+			      }],
+				pageLength: 10,
+				bPaginate: true,
+				bLengthChange: true,
+				lengthMenu : [ [ 3, 5, 10, -1 ], [ 3, 5, 10, "All" ] ],				
+				processing: true,
+				serverSide: false,
+				scrollX: true,
+				scrollY: true,
+				ordering: true,				
+				searching: true,  
+				ajax : {
+				    url :"/payment/rest/listPayment",
+				    type :"POST",
+				    dataSrc :''	    
+				},
+				columns : [
+				    {data: "paymentNo"},
+				    {data: "paymentProduct"},
+				    {data: "paymentSender"},
+				    {data: "paymentReceiver"},
+				    {data: "paymentProductPriceTotal"},
+				    {data: "paymentRegTime"},
+				    {data: "paymentCode"},
+				    {data: "paymentReferenceNum"},
+				    {data: "paymentReferenceFee"},
+				    {data: "paymentMethod"},
+				    {data: "paymentPriceTotal"},
+				    {data: "paymentPricePay"},
+				    {data: "paymentPriceFee"},
+				    {data: "paymentMethodSecond"},
+				    {data: "paymentPriceTotalSecond"},
+				    {data: "paymentPricePaySecond"},
+				    {data: "paymentPriceFeeSecond"},
+				    {data: "paymentRefundRegTime"},
+				    {data: "paymentRefundCode"},
+				    {data: "paymentRefundReferenceNum"},
+				    {data: "paymentRefundReferenceFee"},
+				    {data: "paymentRefundPriceTotal"},
+				    {data: "paymentRefundPricePay"},
+				    {data: "paymentRefundPriceFee"},
+				    {data: "paymentRefundPriceTotalSecond"},
+				    {data: "paymentRefundPricePaySecond"},
+				    {data: "paymentRefundPriceFeeSecond"}
+				]
+			
+			});
+		
+		});
+		
+		
+	</script>
+  	<!-- ### listPayment resources End ### -->
+  	
+  	
   	<!-- 버튼 Start -->
   	<script type="text/javascript">  	
-  			
-		$(function() {
-			
-		
-			
-		});
+
 		
 	</script>
 	<!-- 버튼 End --> 	 	
@@ -73,138 +146,57 @@
 
 <body>
 
-	<!-- header -->
-	<jsp:include page="/view/common/header.jsp"/>
-	<!-- header End -->
+<div class="container-fluid">	
+	<form role="form" class="notice-search">
+		
+	<!-- 상단 Start -->
+	<div class="row">  
+		<h3 class="col-sm-2 mb-0">&nbsp;&nbsp;&nbsp;&nbsp;결제내역 - ${user.role}</h3>	  		
+	</div>
+	<!-- 상단 End -->
+		
+	<hr class="divider-w mt-10 mb-20">
 	
-	<div class="container-fluid">	
-		<form role="form" class="notice-search">
-		
-		<!-- 상단 Start -->
-		<div class="row">	      
-			<h3 class="col-sm-2 mb-0">&nbsp;&nbsp;&nbsp;&nbsp;결제내역 - ${user.role}</h3>	  
-		  
-			<div class="col-sm-10">	
-			<br>
-				<div class="col-sm-2 col-xs-offset-1">
-					<select class="form-control" name="searchCondition" >			  
-						<c:if test="${! empty user.role && user.role == 'ADMIN'}">
-							<option value="xxx" selected }>Keyword</option>	
-							<option value="paymentSender" ${! empty search.searchCondition && search.searchCondition == 'paymentSender' ? "selected" : "" }>주는사람</option>			
-							<option value="paymentReceiver" ${! empty search.searchCondition && search.searchCondition == 'paymentReceiver' ? "selected" : "" }>받는사람</option>
-							<option value="paymentNo" ${! empty search.searchCondition && search.searchCondition == 'paymentNo' ? "selected" : "" }>결제 번호</option>
-							<option></option>
-							<option value="paymentProduct" ${! empty search.searchCondition && search.searchCondition == 'paymentProduct' ? "selected" : "" }>결제 상품</option>
-							<option value="paymentProductPriceTotal" ${! empty search.searchCondition && search.searchCondition == 'paymentProductPriceTotal' ? "selected" : "" }>결제 전체금액</option>
-							<option></option>
-							<option value="paymentRegTime" ${! empty search.searchCondition && search.searchCondition == 'paymentRegTime' ? "selected" : "" }>결제 등록일자</option>						    
-							<option value="paymentCode" ${! empty search.searchCondition && search.searchCondition == 'paymentCode' ? "paymentCode" : "" }>결제 유형</option>
-							<option value="paymentReferenceNum" ${! empty search.searchCondition && search.searchCondition == 'paymentReferenceNum' ? "selected" : "" }>결제 참조번호</option>						    
-							<option value="paymentMethod" ${! empty search.searchCondition && search.searchCondition == 'paymentMethod' ? "selected" : "" }>결제 방법</option>
-							<option></option>
-							<option value="paymentPriceTotal" ${! empty search.searchCondition && search.searchCondition == 'paymentPriceTotal' ? "selected" : "" }>일반결제 총금액</option>
-							<option value="paymentPricePay" ${! empty search.searchCondition && search.searchCondition == 'paymentPricePay' ? "selected" : "" }>일반결제 상품대금</option>
-							<option value="paymentPriceFee" ${! empty search.searchCondition && search.searchCondition == 'paymentPriceFee' ? "selected" : "" }>일반결제 수수료</option>
-							<option></option>
-							<option value="paymentMethodSecond" ${! empty search.searchCondition && search.searchCondition == 'paymentMethodSecond' ? "selected" : "" }>포인트결제 유무</option>
-							<option value="paymentPriceTotalSecond" ${! empty search.searchCondition && search.searchCondition == 'paymentPriceTotalSecond' ? "selected" : "" }>포인트결제 총금액</option>
-							<option value="paymentPricePaySecond" ${! empty search.searchCondition && search.searchCondition == 'paymentPricePaySecond' ? "selected" : "" }>포인트결제 상품대금</option>
-							<option value="paymentPriceFeeSecond" ${! empty search.searchCondition && search.searchCondition == 'paymentPriceFeeSecond' ? "selected" : "" }>포인트결제 수수료</option>
-							<option></option>
-							<option value="paymentRefundRegTime" ${! empty search.searchCondition && search.searchCondition == 'paymentRefundRegTime' ? "selected" : "" }>환불 등록일자</option>
-							<option value="paymentRefundCode" ${! empty search.searchCondition && search.searchCondition == 'paymentRefundCode' ? "selected" : "" }>환불 유형</option>
-							<option value="paymentRefundReferenceNum" ${! empty search.searchCondition && search.searchCondition == 'paymentRefundReferenceNum' ? "selected" : "" }>환불 참조번호</option>
-							<option></option>
-							<option value="paymentRefundPriceTotal" ${! empty search.searchCondition && search.searchCondition == 'paymentRefundPriceTotal' ? "selected" : "" }>일반환불 금액합계</option>
-							<option value="paymentRefundPricePay" ${! empty search.searchCondition && search.searchCondition == 'paymentRefundPricePay' ? "selected" : "" }>일반환불 상품대금</option>
-							<option value="paymentRefundPriceFee" ${! empty search.searchCondition && search.searchCondition == 'paymentRefundPriceFee' ? "selected" : "" }>일반환불 수수료</option>
-							<option></option>
-							<option value="paymentRefundPriceTotalSecond" ${! empty search.searchCondition && search.searchCondition == 'paymentRefundPriceTotalSecond' ? "selected" : "" }>포인트환불 금액합계</option>
-							<option value="paymentRefundPricePaySecond" ${! empty search.searchCondition && search.searchCondition == 'paymentRefundPricePaySecond' ? "selected" : "" }>포인트환불 상품대금</option>
-							<option value="paymentRefundPriceFeeSecond" ${! empty search.searchCondition && search.searchCondition == 'paymentRefundPriceFeeSecond' ? "selected" : "" }>포인트환불 수수료</option>			
-						</c:if>	
-					
-						<c:if test="${! empty user.role && user.role != 'ADMIN'}">
-							<option value="paymentProduct" ${! empty search.searchCondition && search.searchCondition == 'paymentProduct' ? "selected" : "" }>결제 상품</option>
-							<option value="paymentProductPriceTotal" ${! empty search.searchCondition && search.searchCondition == 'paymentProductPriceTotal' ? "selected" : "" }>결제 전체금액</option>
-							<option></option>
-							<option value="paymentRegTime" ${! empty search.searchCondition && search.searchCondition == 'paymentRegTime' ? "selected" : "" }>결제 등록일자</option>						    
-							<option value="paymentCode" ${! empty search.searchCondition && search.searchCondition == 'paymentCode' ? "paymentCode" : "" }>결제 유형</option>
-							<option value="paymentReferenceNum" ${! empty search.searchCondition && search.searchCondition == 'paymentReferenceNum' ? "selected" : "" }>결제 참조번호</option>						    
-							<option value="paymentMethod" ${! empty search.searchCondition && search.searchCondition == 'paymentMethod' ? "selected" : "" }>결제 방법</option>
-							<option value="paymentPriceTotal" ${! empty search.searchCondition && search.searchCondition == 'paymentPriceTotal' ? "selected" : "" }>일반결제 총금액</option>
-							<option value="paymentMethodSecond" ${! empty search.searchCondition && search.searchCondition == 'paymentMethodSecond' ? "selected" : "" }>포인트결제 유무</option>
-							<option value="paymentPriceTotalSecond" ${! empty search.searchCondition && search.searchCondition == 'paymentPriceTotalSecond' ? "selected" : "" }>포인트결제 총금액</option>
-							<option></option>
-							<option value="paymentRefundRegTime" ${! empty search.searchCondition && search.searchCondition == 'paymentRefundRegTime' ? "selected" : "" }>환불 등록일자</option>
-							<option value="paymentRefundCode" ${! empty search.searchCondition && search.searchCondition == 'paymentRefundCode' ? "selected" : "" }>환불 유형</option>
-							<option value="paymentRefundReferenceNum" ${! empty search.searchCondition && search.searchCondition == 'paymentRefundReferenceNum' ? "selected" : "" }>환불 참조번호</option>
-							<option value="paymentRefundPriceTotal" ${! empty search.searchCondition && search.searchCondition == 'paymentRefundPriceTotal' ? "selected" : "" }>일반환불 금액합계</option>
-							<option value="paymentRefundPriceTotalSecond" ${! empty search.searchCondition && search.searchCondition == 'paymentRefundPriceTotalSecond' ? "selected" : "" }>포인트환불 금액합계</option>
-						</c:if>  
-					</select>
-				</div>
-			
-				<div class="col-sm-3">
-				  <div class="search-box">
-				    <input class="form-control" id="searchKeyword" name="searchKeyword" type="text" placeholder="Search...">
-				    <button class="search-btn" type="submit"><i class="fa fa-search"></i></button>
-				  </div>
-				</div>	
+	<!-- 목록 Start -->			   
+	<div class="row">
+	
+	<table id="listPayment">
+		<thead>
+			<tr>			  	  
+				<th scope="col">결제번호</th>
+				<th scope="col">상품</th>
+				<th scope="col">주는사람</th>
+				<th scope="col">받는사람</th>
+				<th scope="col">총 금액</th>
+				<th scope="col">등록일자</th>
+				<th scope="col">결제유형</th>
+				<th scope="col">참조번호</th>
+				<th scope="col">수수료율</th>
+				<th scope="col">일반결제유형</th>
+				<th scope="col">일반결제총금액</th>
+				<th scope="col">일반결제실금액</th>
+				<th scope="col">일반결제수수료</th>
+				<th scope="col">포인트결제</th>
+				<th scope="col">포인트결제총금액</th>
+				<th scope="col">포인트결제실금액</th>
+				<th scope="col">포인트결제수수료</th>
+				<th scope="col">환불일자</th>
+				<th scope="col">환불유형</th>
+				<th scope="col">환불참조번호</th>
+				<th scope="col">환불수수료율</th>
+				<th scope="col">환불일반총금액</th>
+				<th scope="col">환불일반실금액</th>
+				<th scope="col">환불결제수수료</th>
+				<th scope="col">환불포인트총금액</th>
+				<th scope="col">환불포인트실금액</th>
+				<th scope="col">환불포인트수수료</th>	  
+			</tr>
+		</thead>
+	</table>
+       	  
+	</div>
+	<!-- 목록 End -->	
 
-				
-				<div class="col-sm-2 col-xs-offset-1">
-				  <div class="search-box">
-				    <input class="form-control" id="searchKeyword" name="searchKeyword" type="text" placeholder="시작일자">
-				  </div>
-				</div>	
-				
-				<div class="col-sm-2">					
-				  <div class="search-box">
-				  	<input class="form-control" id="searchKeyword" name="searchKeyword" type="text" placeholder="종료일자">
-				  </div>
-				</div>	
-						
-						  
-			 </div>
-		</div>
-		<!-- 상단 End -->
-		
-		<hr class="divider-w mt-10 mb-20">
-		
-		<!-- 목록 Start -->			   
-		<div class="row" style="white-space:nowrap; overflow:auto;  width:1800px; height:700px; margin:0 auto;">
-		
-			<div class="row">	          
-		
-			</div>
-			
-			<div class="row">
-				<ul>
-			
-		
-				<c:forEach var ="notice" items="${wrapper.notices}">
-				<li>
-				  <div class="row">
-				    <div class="col-sm-2">${notice.noticeNo}</div>
-				<div class="col-sm-6">${notice.noticeTitle}</div>
-				<div class="col-sm-2"><i class="fa fa-fw"></i> ${notice.viewCount}</div>
-				<div class="col-sm-2">${notice.regDate}</div>
-				  </div>
-				</li>
-				</c:forEach>
-			     
-				</ul>
-			</div>
-		  
-		</div>
-		<!-- 목록 End -->	
-		
-		<!-- PageNavigation Start -->
-		<div class="row">			
-			<jsp:include page="../common/pageNavigator.jsp"/>
-		</div>	
-		<!-- PageNavigation End -->
 
 	</form>		
 </div>

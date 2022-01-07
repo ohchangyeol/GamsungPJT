@@ -21,6 +21,8 @@ public interface CampReservationService {
 	
 	public Map<String, Object> listMyReservation(Search search, String id);
 	
+	public List<CampReservation> listMyReservationTable(Search search);
+	
 	public ReservationStatistics getReservationStatistics();
 	
 	public Map<String, Object> listCampReservationStatisticsByDay(Search search); 

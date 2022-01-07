@@ -81,7 +81,7 @@ public class AuctionRatingReviewServiceTest {
 		Map<String, Object> map = new HashedMap<String, Object>();
 		
 		AuctionProduct auctionProduct = new AuctionProduct();
-		auctionProduct.setRegistrantId("admin");
+		auctionProduct.setRegistrantId("gamsungsite@gmail.com");
 		
 		Search search = new Search();
 		search.setCurrentPage(1);
