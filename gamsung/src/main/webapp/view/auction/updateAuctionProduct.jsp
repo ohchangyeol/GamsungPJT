@@ -91,10 +91,9 @@
 	
 </head>
 <body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
-   <main>
-		<div class="page-loader">
+		<!-- <div class="page-loader">
        		<div class="loader">Loading...</div>
-     	</div>
+     	</div> -->
   		<jsp:include page="../common/header.jsp"></jsp:include>
 		<section class="module">
           <div class="container">
@@ -187,14 +186,14 @@
 							<textarea id="auctionProductDetail" name="auctionProductDetail" class="form-control" rows="20">${auctionProduct.auctionProductDetail}</textarea>
 							<input id="allhashtag" name="allhashtag" class="form-control" type="text" value="${auctionProduct.hashtag1} ${auctionProduct.hashtag2} ${auctionProduct.hashtag3}" placeholder="해시태그를 #을 포함하여 입력하세요." />
 							<input type="hidden" id="auctionProductNo" name="auctionProductNo" value="${auctionProduct.auctionProductNo}">
-							<input type="hidden" id="inputImg1" name="productImg1" value="">
-						  	<input type="hidden" id="inputImg2" name="productImg2" value="">
-						  	<input type="hidden" id="inputImg3" name="productImg3" value="">
-						  	<input type="hidden" id="inputImg4" name="productImg4" value="">
-							<input type="hidden" id="inputImg5" name="productImg5" value=""> 
-							<input type="hidden" id="hashtag1" name="hashtag1" value="">
-						  	<input type="hidden" id="hashtag2" name="hashtag2" value="">
-							<input type="hidden" id="hashtag3" name="hashtag3" value="">  
+							<input type="hidden" id="inputImg1" name="productImg1" value="${auctionProduct.productImg1}">
+						  	<input type="hidden" id="inputImg2" name="productImg2" value="${auctionProduct.productImg2}">
+						  	<input type="hidden" id="inputImg3" name="productImg3" value="${auctionProduct.productImg3}">
+						  	<input type="hidden" id="inputImg4" name="productImg4" value="${auctionProduct.productImg4}">
+							<input type="hidden" id="inputImg5" name="productImg5" value="${auctionProduct.productImg5}"> 
+							<input type="hidden" id="hashtag1" name="hashtag1" value="${auctionProduct.hashtag1}">
+						  	<input type="hidden" id="hashtag2" name="hashtag2" value="${auctionProduct.hashtag2}">
+							<input type="hidden" id="hashtag3" name="hashtag3" value="${auctionProduct.hashtag3}">  
 							<input type="hidden" id="auctionStartTime" name="auctionStartTime">
 							<input type="hidden" id="auctionEndTime" name="auctionEndTime">
 		                </form>
@@ -284,8 +283,7 @@
 			$('#endDate').datetimepicker({
 			    format: 'YYYY-MM-DD',
 			    useCurrent: false,
-				minDate : mindate,
-				maxDate : maxdate
+				minDate : mindate
 			});
 			
 			
@@ -394,9 +392,7 @@
 
 				$('#auctionStartTime').val($('#startDate').val()+' '+$('#startTime').val());
 				$('#auctionEndTime').val($('#endDate').val()+' '+$('#endTime').val());
-				
-				alert($('#auctionStartTime').val());
-				alert($('#auctionEndTime').val());
+
 				$('form').attr('method','post').attr('action','/auction/updateAuctionProduct').attr("enctype","multipart/form-data").submit();
 			});
 			
@@ -420,7 +416,7 @@
 		
 		function dataSet(imgCount, tagCount, hashtags){
 			
-			switch (imgCount) {
+			/* switch (imgCount) {
 			  case 1 :
 			      $('#inputImg1').val($($('.selProductFile')[0]).attr('data-file'));
 			      break;
@@ -446,7 +442,7 @@
 				  $('#inputImg4').val($($('.selProductFile')[3]).attr('data-file'));
 				  $('#inputImg5').val($($('.selProductFile')[4]).attr('data-file'));
 				  break;
-			}
+			} */
 			
 			switch(tagCount){
 				case 2 :

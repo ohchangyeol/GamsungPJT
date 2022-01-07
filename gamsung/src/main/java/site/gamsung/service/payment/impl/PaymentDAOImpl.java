@@ -58,8 +58,9 @@ public class PaymentDAOImpl implements PaymentDAO{
 	 *  Payment
 	 */	
 	@Override
-	public void addMakePayment(Payment payment) throws Exception {
-		sqlSession.insert("PaymentMapper.addMakePayment", payment);		
+	public String addMakePayment(Payment payment) throws Exception {
+		sqlSession.insert("PaymentMapper.addMakePaymentIn", payment);	
+		return sqlSession.selectOne("PaymentMapper.addMakePaymentOut", payment);	
 	}
 	
 	@Override
@@ -68,8 +69,8 @@ public class PaymentDAOImpl implements PaymentDAO{
 	}
 	
 	@Override
-	public List<Payment> getPayment(Payment payment) throws Exception {
-		return sqlSession.selectList("PaymentMapper.getPayment", payment);		
+	public Payment getPayment(int paymentNo) throws Exception {
+		return sqlSession.selectOne("PaymentMapper.getPayment", paymentNo);		
 	}
 	
 	@Override

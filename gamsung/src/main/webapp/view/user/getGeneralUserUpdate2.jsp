@@ -9,7 +9,7 @@
 <meta name="viewport"
 	content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-<title>회원가입</title>
+<title>내정보 조회/수정</title>
 
 <link rel="apple-touch-icon" sizes="57x57"
 	href="../../resources/images/favicons/apple-icon-57x57.png">
@@ -144,37 +144,33 @@
 				<div class="container">
 					<div class="row">
 						<div class="col-sm-8 col-sm-offset-2">
-							<h4 class="font-alt mb-0">일반회원 회원가입</h4>
+							<h4 class="font-alt mb-0">내정보 조회/수정</h4>
 							<hr class="divider-w mt-10 mb-20">
 							<form class="form" role="form">
 								<div id="email" class="form-group">
 								<div><input id="role" name="role" value="GENERAL" hidden="hidden"></div>
-									<label for="id" class="col-sm-offset-1 col-sm-3 control-label">아이디</label>
+									<label for="id" class="col-sm-offset-1 col-sm-3 control-label"><strong>아이디</strong></label>
 									<div class="col-sm-6">
-										<input id="id" name="id" class="form-control " type="text" placeholder="아이디는 이메일 형식만 가능합니다." />
+										<input id="id" name="id" class="form-control " value="${user.id}" readonly/>
 									</div>
-									<div>
-										<button id="mailAuthNum" class="btn btn-circle btn-xs" type="button">인증번호 받기</button>
-									</div>
-									<div id="checkMailAuth" class="col-sm-offset-3 col-sm-6" style="display:none;">
-									<input id="checkMailAuthNum" name="checkMailAuthNum" class="form-control " type="text" placeholder="인증번호를 입력하세요." maxlength="6"/>
-									</div>
-									<div id="check-email" class='col-sm-offset-3 col-sm-6'></div>
-									<div id="check-email-auth" class='col-sm-offset-3 col-sm-6'></div>
+									<div class='col-sm-offset-3 col-sm-6'><span id="helpBlock" class="help-block">
+		      						<strong class="text-danger">아이디는 수정이 불가합니다.</strong>
+		    						  </span></div>
 								</div>
 
 								<div class="form-group">
 									<label for="password"
-										class="col-sm-offset-1 col-sm-3 control-label">비밀번호</label>
+										class="col-sm-offset-1 col-sm-3 control-label"><strong>비밀번호 변경</strong></label>
 									<div class="col-sm-6">
 										<input id="password" name="password" class="form-control "
-											type="password" placeholder="비밀번호는 8~15자까지 입력 가능합니다." />
+											 type="password" placeholder="변경할 비밀번호를 입력해 주세요." />
 									</div>
+									<div id="check-pwd-exp" class='col-sm-offset-3 col-sm-6'></div>
 								</div>
 
 								<div class="form-group">
 									<label for="confirmPassword"
-										class="col-sm-offset-1 col-sm-3 control-label">비밀번호 재확인</label>
+										class="col-sm-offset-1 col-sm-3 control-label"><strong>비밀번호 재확인</strong></label>
 									<div class="col-sm-6">
 										<input id="confirmPassword" name="confirmPassword"
 											class="form-control" type="password"
@@ -185,10 +181,10 @@
 
 								<div id="nick-name" class="form-group">
 									<label for="nickName"
-										class="col-sm-offset-1 col-sm-3 control-label">닉네임</label>
+										class="col-sm-offset-1 col-sm-3 control-label"><strong>닉네임</strong></label>
 									<div class="col-sm-6">
 										<input id="nickName" name="nickName" class="form-control"
-											type="text" placeholder="닉네임을 입력해 주세요."/>
+											type="text" value="${user.nickName}" placeholder="닉네임을 입력해 주세요."/>
 									</div>
 									<div id="check-nickName" class='col-sm-offset-3 col-sm-6'></div>
 								</div>
@@ -196,18 +192,18 @@
 
 								<div class="form-group">
 									<label for="name"
-										class="col-sm-offset-1 col-sm-3 control-label">이름</label>
+										class="col-sm-offset-1 col-sm-3 control-label"><strong>이름</strong></label>
 									<div class="col-sm-6">
 										<input id="name" name="name" class="form-control" type="text"
-											placeholder="이름을 입력하세요" />
+											value="${user.name}" placeholder="이름을 입력하세요" />
 									</div>
 								</div>
-
+								
 								<div class="form-group">
 									<label for="phone"
-										class="col-sm-offset-1 col-sm-3 control-label">휴대폰번호</label>
+										class="col-sm-offset-1 col-sm-3 control-label"><strong>휴대폰번호</strong></label>
 									<div class="col-sm-6">
-										<input id="phone" name="phone" class="form-control " type="text" placeholder="숫자만 입력해주세요" maxlength="11"/>
+										<input id="phone" name="phone" class="form-control " type="text" value="${user.phone}" placeholder="숫자만 입력해주세요" maxlength="11"/>
 											
 									</div>
 									<button id="phoneAuthNum" class="btn btn-circle btn-xs" type="button">인증번호 받기</button>
@@ -220,9 +216,9 @@
 
 								<div class="form-group">
 									<label for="addr"
-										class="col-sm-offset-1 col-sm-3 control-label">주소</label>
+										class="col-sm-offset-1 col-sm-3 control-label"><strong>주소</strong></label>
 									<div class="col-sm-6">
-										<input id="addr" name="addr" class="form-control" type="text"
+										<input id="addr" name="addr" class="form-control" type="text" value="${user.addr}"
 											placeholder="주소를 입력하세요." />
 									</div>
 								</div>
@@ -236,19 +232,47 @@
 											type="hidden" name="allAddr" />
 									</div>
 								</div>
+								
+								<div class="form-group">
+									<label for="accountInfo"
+										class="col-sm-offset-1 col-sm-3 control-label"><strong>계좌정보</strong></label>
+									<div class="col-sm-3">
+										<select class="form-control" name="bank" id="bank">
+										<option value="${user.bank}">은행</option>
+									     <option value="KB국민은행" <c:if test="${user.bank eq 'KB국민은행'}">selected="selected"</c:if>>KB국민은행</option>
+									      <option value="신한은행" <c:if test="${user.bank eq '신한은행'}">selected="selected"</c:if>>신한은행</option>
+									      <option value="우리은행" <c:if test="${user.bank eq '우리은행'}">selected="selected"</c:if>>우리은행</option>
+									      <option value="하나은행" <c:if test="${user.bank eq '하나은행'}">selected="selected"</c:if>>하나은행</option>
+									      <option value="NH농협은행" <c:if test="${user.bank eq 'NH농협은행'}">selected="selected"</c:if>>NH농협은행</option>
+									      <option value="카카오뱅크" <c:if test="${user.bank eq '카카오뱅크'}">selected="selected"</c:if>>카카오뱅크</option>  
+										 </select>
+									</div>
+									<div class="col-sm-3">
+										<input id="accountHolder" name="accountHolder" class="form-control" type="text"
+											value="${user.accountHolder}" placeholder="예금주" />
+									</div>
+								</div>
+								<div id="entryDate" class="form-group">
+									<label for="entryDate"
+										class="col-sm-offset-1 col-sm-3 control-label"><strong>회원가입 일자</strong></label>
+									<div class="col-sm-6">
+										<input id="entryDate" name="addUserRegDate" class="form-control"
+											type="text" value="${user.addUserRegDate}" readonly/>
+									</div>
+								</div>
 							</form>
 
 						</div>
 					</div>
 
-
-					<div class="col-sm-4 col-sm-offset-2"></div>
-					<div class="col-sm-4 col-sm-offset-2">
+						<br/>
+					<div class="col-sm-3 col-sm-offset-2"></div>
+					<div class="col-sm-3 col-sm-offset-2">
 						<div class="row">
 							<button id="cancel" class="btn btn-border-d btn-circle"
 								type="button">취소</button>
-							<button id="joinAddUser" class="btn btn-border-d btn-circle"
-								type="submit">가입하기</button>
+							<button id="updateUser" class="btn btn-border-d btn-circle"
+								type="submit">수정하기</button>
 
 						</div>
 					</div>
@@ -279,93 +303,20 @@
 	
 	$(function(){
 		
-		//아이디 유효성 및 중복체크
-		 $("input[name='id']").on("keyup", function() {
-			// console.log("가나다");
-		 var email = $("#id").val();
-		    console.log(email);
-		    console.log(email);
-			$.ajax({
-				url : '/user/rest/checkDuplication',
-				headers :{
-					"Accept" : "application/json",
-					"Content-Type" : "application/json"
-				},
-				method : 'POST',
-				dataType:'json',
-				data : JSON.stringify({"id" : email}),	
-				success : function(result) {
-
-					console.log('성공: '+result);
-
-					if(result== 0){
-						if(email != ""){
-							if(email.indexOf('@') < 1 || email.indexOf('.') == -1 ){
-								$("#check-email").html("Email형식이 아닙니다.");
-							}else{
-								$("#check-email").html('사용 가능한 아이디입니다.');
-								$("#check-email").css('color','green');
-							}
-						}else{
-							$("#check-email").html("");
-						}
-						
-					}else{
-						$("#check-email").html('이미 사용중이거나 중복된 아이디 입니다.');
-						$("#check-email").css('color','red');
-					} 
-					
-				} /* ,error :  function(request,status,error){// 에러발생시 실행할 함수
-					alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-					}*/
-			});
-		});
-			 
-		//이메일 인증번호 받기
-		$("#mailAuthNum").on("click", function() {
+		//비밀번호
+		$('#password').on("keyup",function(){
+			var regExp = /[ㄱ-ㅎㅏ-ㅣ가-힣]/g; //한글입력 불가
+			var pwd=$('#password').val();
 			
-			var id = $("#id").val();
-		
-			if(id != (id.indexOf('@') < 1 || id.indexOf('.') == -1)){
-
-				//$("#mailAuthNum").hide();
-				$("#mailAuthNum").text("인증번호 재발송");
-				$("#check-email").html("");
-				$("#checkMailAuth").show();
-				//$("#reMailAuth").show();
-
-					$.ajax({
-						url : '/user/rest/sendEmailAuthNum/'+id,
-						headers :{
-							"Accept" : "application/json",
-							"Content-Type" : "application/json"
-						},
-						method : 'GET',
-						//dataType:'json',
-						//data : JSON.stringify(data),	
-						success : function(data) {
-							//console.log(JSON.stringify(data));
-							console.log('성공: '+data);
-							//console.log('성공: '+data.id);
-							
-						 $("input[name='checkMailAuthNum']").on("keyup", function() {
-							 console.log('되는가');
-							 var aa=$("input[name='checkMailAuthNum']").val();
-							 
-							if(aa.length>0){
-								if(data=== aa){
-										$("#check-email-auth").html("인증번호가 일치합니다.");
-									}else{
-										$("#check-email-auth").html('인증번호를 확인하세요.');
-								}
-							}else{
-								$("#check-email-auth").html("");
-							}
-						});	 
-					}
-				});						
+			if(pwd.length<1){
+				$("#check-pwd-exp").html("");
+				
+			}else if(regExp.test(pwd)){
+				$("#check-pwd-exp").html("한글은 입력 불가합니다.");
+				$("#check-pwd-exp").css('color','red');
 			}
-		});
+			
+		}); 
 		
 	   //비밀번호 확인
 		$('#confirmPassword').on("keyup",function(){
@@ -415,7 +366,7 @@
 			});
 	
 		});
-		
+	
 	//휴대폰번호 중복체크
 	 $("input[name='phone']").on("keyup" , function() {
 
@@ -495,14 +446,15 @@
 				}
 			});
 		});
+
 	
 		//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-		$( "#joinAddUser" ).on("click" , function() {
+		$( "#updateUser" ).on("click" , function() {
 			console.log("뭐지");
-			fncAddUser();
+			fncupdateUser();
 		});
 	 
-	 function fncAddUser() {
+	 function fncupdateUser() {
 			
 			//var id=$("input[name='userId']").val();
 			var pw=$("input[name='password']").val();
@@ -561,7 +513,7 @@
 
 			$("input:hidden[name='allAddr']").val( value );
 			
-			$("form").attr("method" , "POST").attr("action" , "/user/addUser").submit();
+			$("form").attr("method" , "POST").attr("action" , "/user/updateUser").submit();
 		}		
 
 		

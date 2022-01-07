@@ -70,6 +70,7 @@
 			bank = #{bank:VARCHAR},
 			account_holder = #{accountHolder:VARCHAR},
 			account_num = #{accountNum:VARCHAR},
+			salt=#{salt:VARCHAR},
 			entry_approval_flag = #{businessUserApprovalFlag:VARCHAR}		
 	   	</set>
 	   	WHERE user_id = #{id}
@@ -104,8 +105,8 @@
 	 </update>	
 	 
 	  <!-- SQL : updateDormantGeneralUserConver -->
-	 <update	id="updateDormantGeneralUserConver"	parameterType="String" >
-	   	DELETE USERS
+	 <update id="updateDormantGeneralUserConvert" parameterType="String" >
+	   	UPDATE USERS
 	   	<set>
 	   		dormant_reg_date = null
 	   	</set>
@@ -181,19 +182,24 @@
 	 </select>
 	 
 	 <!-- SQL : CHECK duplication -->
-	 <select id="checkDuplication" parameterType="user" resultType="String">
-		 SELECT user_id, nick_name, phone
-		 FROM USERS
-		 WHERE 
-		 	<if test="id != null">
-				user_id = #{id}
-			</if>
-			<if test="nickName != null">
-				nick_name = #{nickName}
-			</if>
-			<if test="phone != null">
-				phone = #{phone}
-			</if>
+	 <select id="checkDuplication" parameterType="user" resultType="int">
+		SELECT COUNT(*)
+		FROM (SELECT user_id, nick_name, phone, tourism_business_num
+				 FROM USERS
+				<trim prefix="WHERE" prefixOverrides="OR">
+				 	<if test="id != null">
+						OR user_id = #{id}
+					</if>
+					<if test="nickName != null">
+						OR nick_name = #{nickName}
+					</if>
+					<if test="phone != null">
+						OR phone = #{phone}
+					</if>
+					<if test="tourismBusinessNum != null">
+						OR tourism_business_num = #{tourismBusinessNum}
+					</if>
+				</trim>) c
 	 </select>
 		
 

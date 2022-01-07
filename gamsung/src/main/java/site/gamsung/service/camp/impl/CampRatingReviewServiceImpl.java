@@ -1,5 +1,6 @@
 package site.gamsung.service.camp.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,8 +10,10 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import site.gamsung.service.camp.CampRatingReviewDAO;
+import site.gamsung.service.camp.CampSearchDAO;
 import site.gamsung.service.common.RatingReviewService;
 import site.gamsung.service.common.Search;
+import site.gamsung.service.domain.Camp;
 import site.gamsung.service.domain.RatingReview;
 
 @Service("campRatingReviewServiceImpl")
@@ -19,6 +22,10 @@ public class CampRatingReviewServiceImpl implements RatingReviewService {
 	@Autowired
 	@Qualifier("campRatingReviewDAOImpl")
 	private CampRatingReviewDAO campRatingReviewDAO;
+	
+	@Autowired
+	@Qualifier("campSearchDAOImpl")
+	private CampSearchDAO campSearchDAO;
 	
 	public void setCampRatingReviewDAO(CampRatingReviewDAO campRatingReviewDAO) {
 		this.campRatingReviewDAO = campRatingReviewDAO;
@@ -30,7 +37,7 @@ public class CampRatingReviewServiceImpl implements RatingReviewService {
 	
 
 	@Override
-	public void addRatingReview(RatingReview ratingReview) throws Exception {
+	public void addRatingReview(RatingReview ratingReview) {
 		campRatingReviewDAO.addCampRatingReview(ratingReview);
 		int campNo = ratingReview.getCamp().getCampNo();
 		List<Double> ratingList = campRatingReviewDAO.getCampRating(campNo);
@@ -50,34 +57,41 @@ public class CampRatingReviewServiceImpl implements RatingReviewService {
 	}
 
 	@Override
-	public Map<String, Object> listRatingReview(Search search, int targetNo) throws Exception {
+	public Map<String, Object> listRatingReview(Search search) {
 		
-		Map<String, Object> requestMap = new HashMap<String, Object>();
-		requestMap.put("search", search);
-		requestMap.put("campNo", targetNo);
+		List<RatingReview> list = new ArrayList<RatingReview>();
+		Map<String, Object> map = new HashMap<String, Object>();
 		
-		List<RatingReview> list = campRatingReviewDAO.listCampRatingReview(requestMap);
-		int totalCount = campRatingReviewDAO.getTotalCount(requestMap);
+		if(search.getCampNo() != 0) {
+			list = campRatingReviewDAO.listCampRatingReview(search);
+			Camp camp = campSearchDAO.getCamp(search.getCampNo());
+			double campRating = camp.getCampRate();
+			map.put("campRating", campRating);
+			
+		}else {
+			list = campRatingReviewDAO.listMyRatingReview(search);
+		}
 		
-		Map<String, Object> responseMap = new HashMap<String, Object>();
-		responseMap.put("list", list);
-		responseMap.put("totalCount", totalCount);
-		
-		return responseMap;
+		int totalCount = campRatingReviewDAO.getTotalCount(search);
+				
+		map.put("list", list);
+		map.put("totalCount", totalCount);
+				
+		return map;
 	}
-
+	
 	@Override
-	public RatingReview getRatingReview(int ratingReviewNo) throws Exception {
-		return null;
-	}
-
-	@Override
-	public void updateRatingReview(RatingReview ratingReviewNo) throws Exception {
+	public void updateRatingReview(RatingReview ratingReviewNo) {
 		campRatingReviewDAO.updateCampRatingReview(ratingReviewNo);
 	}
 
 	@Override
-	public void deleteRatingReview(int ratingReviewNo) throws Exception {
+	public RatingReview getRatingReview(int ratingReviewNo) {
+		return null;
+	}
+
+	@Override
+	public void deleteRatingReview(int ratingReviewNo) {
 	
 	}
 	

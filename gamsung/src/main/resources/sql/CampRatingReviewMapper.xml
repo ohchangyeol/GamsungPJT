@@ -8,9 +8,12 @@
 	
 	<resultMap id="RatingReviewSelectMap" type="ratingReview">
 		<result property="camp.campNo"					 	column="camp_no" 					jdbcType="NUMERIC"/>
+		<result property="camp.user.campName"				column="camp_name" 					jdbcType="VARCHAR"/>
+		<result property="camp.user.campName"				column="cname" 						jdbcType="VARCHAR"/>
 		<result property="auctionProduct.auctionProductNo"	column="product_no" 				jdbcType="CHAR"/>
 		<result property="user.id" 							column="user_id" 					jdbcType="VARCHAR"/>
 		<result property="user.role" 						column="role"	 					jdbcType="VARCHAR"/>
+		<result property="user.nickName" 					column="nick_name"	 				jdbcType="VARCHAR"/>
 		<result property="ratingReviewNo" 					column="rating_review_no" 			jdbcType="NUMERIC"/>
 		<result property="ratingReviewStatus"				column="rating_review_status" 		jdbcType="NUMERIC"/>
 		<result property="ratingReviewTitle"				column="rating_review_title" 		jdbcType="VARCHAR"/>
@@ -37,19 +40,62 @@
 		       #{ratingReviewContent}, NOW(), #{statusRating}, #{img1:VARCHAR}, #{img2:VARCHAR}, #{img3:VARCHAR});
 	</insert>
 	
-	<select id="listCampRatingReview" parameterType="map" resultMap="RatingReviewSelectMap">
-		SELECT rating_review_no, user_id, camp_no, product_no, rating_review_status, rating_review_title, rating_review_content, 
-			   review_reg_date, comment, comment_reg_date, status_rating, review_img1, review_img2, review_img3
-		FROM RATING_REVIEW
-		WHERE camp_no = #{campNo} AND review_delete_flag = 'N' AND comment_delete_flag = 'N'
-		LIMIT #{search.pageSize} offset #{search.offset}
+	<select id="listCampRatingReview" parameterType="search" resultMap="RatingReviewSelectMap">
+		SELECT r.rating_review_no, r.user_id, r.camp_no, r.product_no, r.rating_review_status, r.rating_review_title, r.rating_review_content, 
+			   r.review_reg_date, r.comment, r.comment_reg_date, r.status_rating, r.review_img1, r.review_img2, r.review_img3, u.nick_name, cn.cname 
+		FROM RATING_REVIEW r, USERS u, 
+			(SELECT u.camp_name cname
+			 FROM USERS u, CAMP c
+			 WHERE u.user_id = c.user_id AND c.camp_no = #{campNo}) cn
+		WHERE u.user_id = r.user_id AND r.review_delete_flag = 'N' AND r.comment_delete_flag = 'N' AND r.camp_no = #{campNo}
+			  
+		<trim prefix="ORDER BY">
+            <if test="sortCondition != null ">
+               <if test='sortCondition.equals("평점 높은순")'>
+                  r.status_rating DESC
+               </if>
+               <if test='sortCondition.equals("최근 등록일순")'>
+                  r.review_reg_date DESC
+               </if>
+            </if>
+         </trim>
+		LIMIT #{pageSize} offset #{offset}
 	</select>
 	
-	<select  id="getTotalCount"  parameterType="map" resultType="int">
+	<select id="listMyRatingReview" parameterType="search" resultMap="RatingReviewSelectMap">
+		SELECT r.rating_review_no, r.user_id, r.camp_no, r.product_no, r.rating_review_status, r.rating_review_title, r.rating_review_content, 
+			   r.review_reg_date, r.comment, r.comment_reg_date, r.status_rating, r.review_img1, r.review_img2, r.review_img3, u.camp_name, un.nick_name 
+		FROM RATING_REVIEW r, USERS u, CAMP c, 
+			 (SELECT nick_name 
+			  FROM USERS
+			  WHERE user_id = #{id}) un
+		WHERE r.review_delete_flag = 'N' AND r.comment_delete_flag = 'N' and r.camp_no = c.camp_no and c.user_id = u.user_id 
+		AND r.user_id = #{id} AND r.camp_no IS NOT NULL
+			  
+		<trim prefix="ORDER BY">
+            <if test="sortCondition != null ">
+               <if test='sortCondition.equals("평점 높은순")'>
+                  r.status_rating DESC
+               </if>
+               <if test='sortCondition.equals("최근 등록일순")'>
+                  r.review_reg_date
+               </if>
+            </if>
+         </trim>
+		LIMIT #{pageSize} offset #{offset}
+	</select>
+	
+	<select  id="getTotalCount"  parameterType="search" resultType="int">
 		SELECT COUNT(*)
 		FROM(SELECT rating_review_no
 			 FROM RATING_REVIEW
-			 WHERE camp_no = #{campNo} AND review_delete_flag = 'N' AND comment_delete_flag = 'N') countTable
+			 WHERE review_delete_flag = 'N' AND comment_delete_flag = 'N' 
+				   <if test="campNo != null">
+				  	AND camp_no = #{campNo}
+				  </if>	  
+				  <if test="id != null">
+					AND user_id = #{id} AND camp_no IS NOT NULL	  
+				  </if>) countTable
 	</select>
 		
 	<select id="getCampRating" parameterType="int" resultType="Double">

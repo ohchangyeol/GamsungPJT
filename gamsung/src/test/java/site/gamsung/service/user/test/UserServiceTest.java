@@ -14,6 +14,7 @@ import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.User;
 import site.gamsung.service.domain.UserWrapper;
 import site.gamsung.service.user.UserService;
+import site.gamsung.util.user.SHA256Util;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -27,17 +28,16 @@ public class UserServiceTest {
 	@Qualifier("userServiceImpl")
 	private UserService userService;
 
-	@Test
+	//@Test
 	public void testAddUser() throws Exception{
 		
 		User user = new User();
-
-
+		
 		user.setId("test55@nate.com");
 		user.setNickName("나야나");
 		user.setName("으어어");
-		user.setPassword("5555");
-		user.setRole("GENERAL");
+		user.setPassword("a");
+		user.setRole("BUSINESS");
 		user.setPhone("01001123333");
 				
 		userService.addUser(user);
@@ -53,7 +53,7 @@ public class UserServiceTest {
 	//@Test
 	public void testGetUser() throws Exception{
 		User user= new User();
-		user=userService.getUser("businessuser1@gamsung.com");
+		user=userService.getUser("test1@test.com");
 		
 		System.out.println("########### "+user);
 	}
@@ -130,7 +130,10 @@ public class UserServiceTest {
 		User user = new User();
 		user.setId("user1@gamsung.com");
 		System.out.println(user);
-		userService.checkDuplication(user);
+		
+		int result=userService.checkDuplication(user);
+		
+		System.out.println(result);
 	}
 	
 	//@Test
@@ -143,17 +146,25 @@ public class UserServiceTest {
 		
 	}
 	
-	//@Test
+	@Test
 	public void testUpdateTempPassword() throws Exception{
 		
 		User user = new User();
-		String id = "muse1264@nate.com";
+		String id = "admin";
 		user = userService.getUser(id);
+		if(user.getSalt()==null) {
+			String newSalt=SHA256Util.generateSalt();
+			System.out.println(newSalt);
+			user.setSalt(newSalt);
+			userService.updateUser(user);
+			System.out.println(user);
+		}else {
 		
 		System.out.println(user);
 		System.out.println(user.getSalt());
-		
+		}
 		userService.updateTempPassword(user);
+		
 	}
 	
 	//@Test
@@ -217,6 +228,15 @@ public class UserServiceTest {
 			
 		}
 		
+		//@Test
+		public void testUpdateDormantGeneralUserConver() throws Exception{
+			 
+			User user = new User();
+			user.setId("TEST@TEST.COM");
+			
+			userService.updateDormantGeneralUserConvert(user.getId());
+			
+		}
 		
 	
 }

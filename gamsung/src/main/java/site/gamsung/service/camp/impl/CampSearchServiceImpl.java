@@ -16,6 +16,7 @@ import site.gamsung.service.camp.CampSearchDAO;
 import site.gamsung.service.camp.CampSearchService;
 import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.Camp;
+import site.gamsung.service.domain.CampReservation;
 import site.gamsung.service.domain.MainSite;
 import site.gamsung.service.domain.SubSite;
 
@@ -84,6 +85,16 @@ public class CampSearchServiceImpl implements CampSearchService{
 		map.put("mainSiteType", mainSiteType);
 		
 		return map;
+	}
+	
+	@Override
+	public Camp getCampByReservation(int campNo) {
+		return campSearchDAO.getCamp(campNo);
+	}
+
+	@Override
+	public MainSite getMainSite(CampReservation campReservation) {
+		return campSearchDAO.getMainsiteByReservation(campReservation);
 	}
 
 	@Override

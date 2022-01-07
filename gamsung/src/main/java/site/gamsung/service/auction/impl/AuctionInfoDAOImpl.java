@@ -132,7 +132,6 @@ public class AuctionInfoDAOImpl implements AuctionInfoDAO{
 		if(list.size()==0) {
 			return true;
 		}
-		
 		return false;
 	}
 	

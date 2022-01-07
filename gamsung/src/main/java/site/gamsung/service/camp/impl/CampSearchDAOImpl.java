@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import site.gamsung.service.camp.CampSearchDAO;
 import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.Camp;
+import site.gamsung.service.domain.CampReservation;
 import site.gamsung.service.domain.MainSite;
 import site.gamsung.service.domain.SubSite;
 
@@ -46,6 +47,11 @@ public class CampSearchDAOImpl implements CampSearchDAO {
 	@Override
 	public List<MainSite> getMainSite(int campNo){
 		return sqlSession.selectList("CampSearchMapper.getMainSite", campNo);
+	}
+
+	@Override
+	public MainSite getMainsiteByReservation(CampReservation campReservation) {
+		return sqlSession.selectOne("CampSearchMapper.getMainsiteByReservation",campReservation);
 	}
 
 	@Override

@@ -183,12 +183,14 @@ public class AuctionProductController {
 		
 		auctionProduct.setRegistrantId(user.getId());
 		
+		String path = httpSession.getServletContext().getRealPath("/");
+
 		if(auctionProduct.getProductImg1() == null) {
 			
 			List<MultipartFile> fileList = mtfRequest.getFiles("inputImgs");
 			
 			AuctionImgUpload auctionImgUpload = new AuctionImgUpload();
-			List<String> fileName = auctionImgUpload.imgUpload(fileList);
+			List<String> fileName = auctionImgUpload.imgUpload(fileList, path);
 			
 			auctionProduct = auctionProductService.auctionProductImgs(auctionProduct, fileName);
 			
@@ -229,12 +231,14 @@ public class AuctionProductController {
 			
 		auctionProduct.setRegistrantId(user.getId());
 		
+		String path = httpSession.getServletContext().getRealPath("/");
+		
 		if(auctionProduct.getProductImg1() == null) {
 			
 			List<MultipartFile> fileList = mtfRequest.getFiles("inputImgs");
 			
 			AuctionImgUpload auctionImgUpload = new AuctionImgUpload();
-			List<String> fileName = auctionImgUpload.imgUpload(fileList);
+			List<String> fileName = auctionImgUpload.imgUpload(fileList,path);
 			
 			auctionProduct = auctionProductService.auctionProductImgs(auctionProduct, fileName);
 			
@@ -272,17 +276,20 @@ public class AuctionProductController {
 		
 		auctionProduct.setRegistrantId(user.getId());
 		
+		String path = httpSession.getServletContext().getRealPath("/");
+		System.out.println("before:"+auctionProduct);
 		if(auctionProduct.getProductImg1() == null) {
 			
 			List<MultipartFile> fileList = mtfRequest.getFiles("inputImgs");
 			
 			AuctionImgUpload auctionImgUpload = new AuctionImgUpload();
-			List<String> fileName = auctionImgUpload.imgUpload(fileList);
+			List<String> fileName = auctionImgUpload.imgUpload(fileList,path);
 			
 			auctionProduct = auctionProductService.auctionProductImgs(auctionProduct, fileName);
 			
 		}
-		
+
+		System.out.println("after:"+auctionProduct);
 		auctionProductService.updateAuctionProduct(auctionProduct);
 		
 		return "forward:./listAuctionProduct";

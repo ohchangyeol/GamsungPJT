@@ -72,9 +72,18 @@
 							aria-hidden="true"></i> <span>내 정보</span>
 					</a>
 						<ul class="nav nav-children">
-							<li><a href="forms-basic.html"> 샬라샬라 </a></li>
-							<li><a href="forms-advanced.html"> 샬라샬라 </a></li>
-						</ul></li>
+							<li>
+								<a href="/view/common/myPage.jsp">
+									내정보 조회/수정
+								</a>
+							</li>
+							<li id="Secession">
+								<a href="#" data-toggle="modal" data-target="#addSecessionModal">
+									회원탈퇴
+								</a>
+							</li>
+						</ul>
+					</li>
 					<hr class="separator" />
 					<li class="nav-parent"><a> <i class="fa fa-camera"
 							aria-hidden="true"></i> <span>캠핑</span>

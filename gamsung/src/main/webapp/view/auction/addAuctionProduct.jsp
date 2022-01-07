@@ -9,7 +9,7 @@
 	
 	<title>상품 등록</title>
 	        
-    	<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Shadows+Into+Light" rel="stylesheet" type="text/css">
+    	<!-- <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Shadows+Into+Light" rel="stylesheet" type="text/css">
 
 	 	<link href="../../resources/css/style.css" rel="stylesheet">
 
@@ -34,7 +34,9 @@
 
 		<link rel="stylesheet" href="../../resources/css/theme.css" />
 		<link rel="stylesheet" href="../../resources/css/skins/default.css" />
-		<link rel="stylesheet" href="../../resources/css/theme-custom.css">
+		<link rel="stylesheet" href="../../resources/css/theme-custom.css"> -->
+		<jsp:include page="/resources/commonLib.jsp"></jsp:include>
+		
 		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     	<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
 		
@@ -94,10 +96,9 @@
 	
 </head>
 <body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
-   <main>
-		<div class="page-loader">
+	<!-- 	<div class="page-loader">
        		<div class="loader">Loading...</div>
-     	</div>
+     	</div> -->
   		<jsp:include page="../common/header.jsp"></jsp:include>
 		<section class="module">
           <div class="container">
@@ -215,14 +216,14 @@
          <jsp:include page="../common/footer.jsp"></jsp:include>
 
 	 
-		<script src="../../resources/lib/jquery/jquery.js"></script>
+		<!-- <script src="../../resources/lib/jquery/jquery.js"></script>
 		<script src="../../resources/lib/jquery-browser-mobile/jquery.browser.mobile.js"></script>
 		<script src="../../resources/lib/bootstrap/js/bootstrap.js"></script>
 		<script src="../../resources/lib/nanoscroller/nanoscroller.js"></script>
 		<script src="../../resources/lib/magnific-popup/magnific-popup.js"></script>
 		<script src="../../resources/lib/jquery-placeholder/jquery.placeholder.js"></script>
 		
-		<!-- Specific Page Vendor -->
+		Specific Page Vendor
 		<script src="../../resources/lib/jquery-ui/js/jquery-ui-1.10.4.custom.js"></script>
 		<script src="../../resources/lib/jquery-ui-touch-punch/jquery.ui.touch-punch.js"></script>
 		<script src="../../resources/lib/select2/select2.js"></script>
@@ -241,25 +242,27 @@
 		<script src="../../resources/lib/codemirror/mode/xml/xml.js"></script>
 		<script src="../../resources/lib/codemirror/mode/htmlmixed/htmlmixed.js"></script>
 		<script src="../../resources/lib/codemirror/mode/css/css.js"></script>
-		<script src="../../resources/lib/summernote/summernote.js"></script>
+		<script src="../../resources/lib/summernote/summernote.js"></script> -->
+		
 		<script src="../../resources/lib/bootstrap-maxlength/bootstrap-maxlength.js"></script>
 		<script src="../../resources/lib/ios7-switch/ios7-switch.js"></script>
-		
 		<!-- Theme Base, Components and Settings -->
-		<script src="../../resources/js/theme.js"></script>
+		<!-- <script src="../../resources/js/theme.js"></script> -->
 		
 		<!-- Theme Custom -->
-		<script src="../../resources/js/theme.custom.js"></script>
+<!-- 		<script src="../../resources/js/theme.custom.js"></script> -->
 		
 		<!-- Theme Initialization Files -->
-		<script src="../../resources/js/theme.init.js"></script>
+<!-- 		<script src="../../resources/js/theme.init.js"></script> -->
 
 
 		<!-- Examples -->
-		<script src="../../resources/js/forms/examples.advanced.form.js" /></script>
+<!-- 		<script src="../../resources/js/forms/examples.advanced.form.js" /></script> -->
+		
+		
 		
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
-	    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>  
+<!-- 	    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>   -->
 	    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
 	    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>  
 	<script>
@@ -555,7 +558,7 @@
 		
 		function dataSet(imgCount, tagCount, hashtags){
 			
-			switch (imgCount) {
+			/* switch (imgCount) {
 			  case 1 :
 			      $('#inputImg1').val($($('.selProductFile')[0]).attr('data-file'));
 			      break;
@@ -581,7 +584,7 @@
 				  $('#inputImg4').val($($('.selProductFile')[3]).attr('data-file'));
 				  $('#inputImg5').val($($('.selProductFile')[4]).attr('data-file'));
 				  break;
-			}
+			} */
 			
 			switch(tagCount){
 				case 2 :

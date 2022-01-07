@@ -8,55 +8,15 @@ pageEncoding="UTF-8"%>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
     <!--  
     Document Title
     =============================================
     -->
     <title>GamsungCamp</title>
-    <!--  
-    Favicons
-    =============================================
-    -->
-    <link rel="apple-touch-icon" sizes="57x57" href="resources/images/favicons/apple-icon-57x57.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="resources/images/favicons/apple-icon-60x60.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="resources/images/favicons/apple-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="resources/images/favicons/apple-icon-76x76.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="resources/images/favicons/apple-icon-114x114.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="resources/images/favicons/apple-icon-120x120.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="resources/images/favicons/apple-icon-144x144.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="resources/images/favicons/apple-icon-152x152.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="resources/images/favicons/apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="resources/images/favicons/android-icon-192x192.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="resources/images/favicons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="resources/images/favicons/favicon-96x96.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="resources/images/favicons/favicon-16x16.png">
-    <!-- <link rel="manifest" href="/manifest.json"> -->
-    <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="msapplication-TileImage" content="resources/images/favicons/ms-icon-144x144.png">
-    <meta name="theme-color" content="#ffffff">
-    <!--  
-    Stylesheets
-    =============================================
     
-    -->
-    <!-- Default stylesheets-->
-    <link href="resources/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Template specific stylesheets-->
-    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Volkhov:400i" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
-    <link href="resources/lib/animate.css/animate.css" rel="stylesheet">
-    <link href="resources/lib/components-font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <link href="resources/lib/et-line-font/et-line-font.css" rel="stylesheet">
-    <link href="resources/lib/flexslider/flexslider.css" rel="stylesheet">
-    <link href="resources/lib/owl.carousel/dist/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="resources/lib/owl.carousel/dist/assets/owl.theme.default.min.css" rel="stylesheet">
-    <link href="resources/lib/magnific-popup/magnific-popup.css" rel="stylesheet">
-    <link href="resources/lib/simple-text-rotator/simpletextrotator.css" rel="stylesheet">
-    <!-- Main stylesheet and color file-->
-    <link href="resources/css/style.css" rel="stylesheet">
-    <link id="color-scheme" href="resources/css/colors/default.css" rel="stylesheet">
-
+	<jsp:include page="resources/commonLib.jsp"></jsp:include>
+	
     <style>
 
       .campImg { display : block;
@@ -64,6 +24,35 @@ pageEncoding="UTF-8"%>
             width: 100%;
             height: 250px;}
             
+   
+		#findIdModal {
+			z-index: 1041;
+			position: fixed;
+        	width: 100%;
+        	height: 100vh;
+		    /* top: 50% */
+		    /* left: 0; */
+		    /* right: 0; */
+		    /* bottom: 0; */
+		    /*background: #0b0b0b6b;*/
+		    /*display: inline-block;*/
+    		/*vertical-align: middle;*/
+    		/* transform: translateY(-50%); */
+    	}
+      .find {
+			/* z-index: 1041; */
+		    position: absolute;
+		    top: 50%;
+		    left: 50%;
+		    /* right: 0; */
+		    /* bottom: 0; */
+		    /*background: #0b0b0b6b;*/
+		    /*display: inline-block;*/
+    		/*vertical-align: middle;*/
+    		transform: translateY(-50%) translateX(-50%);
+    	}
+    	
+
       .shop-item-title { 
 		    text-decoration: none;
 		    color: #333;
@@ -74,16 +63,23 @@ pageEncoding="UTF-8"%>
 
   </head>
   <body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
+     
     <main>
-      <div class="page-loader">
-        <div class="loader">Loading...</div>
-      </div>
+      	
+	<!-- findIdModal -->
+	<jsp:include page="/view/user/findIdModal.jsp"/>
+	
+	<!-- page-loader -->
+
       <!-- header -->
       <jsp:include page="/view/common/header.jsp"/>
       <!-- header End -->
+      
       <!-- Search -->
-      <jsp:include page="/view/camp/campSearch.jsp"/>
+      <jsp:include page="/view/camp/campSearch.jsp"/> 
       <!-- Search End -->
+      
+      <!-- page-start -->
       </section>
       <div class="main showcase-page">
         <section class="module-extra-small bg-dark">
@@ -112,43 +108,38 @@ pageEncoding="UTF-8"%>
             </div>
             <div class="col-sm-6 col-md-4 col-lg-4">
               <div class="post">
-                <div class="post-thumbnail"><a href="#"><img class="campImg" src="/uploadfiles/campimg/campbusiness/camp/thumb5.jpg" alt="Blog-post Thumbnail"></a></div>
+                <div class="post-thumbnail"><img class="campImg" campNo="${topView.campNo}" src="/uploadfiles/campimg/campbusiness/camp/${topView.campImg1}" alt="Blog-post Thumbnail"></div>
                 <div class="post-header font-alt">
                   <h2 class="post-title">조회수 TOP</a></h2>
-                  <div class="post-meta">By&nbsp;<a href="#">Mark Stone</a>&nbsp;| 23 November | 3 Comments
-                  </div>
                 </div>
+                <div class="post-more">${topView.user.campName} 캠핑장 <span style="color: rgb(230, 173, 17);">(${topView.campViewCountCurrentMonth}건)</span></div>
                 <div class="post-entry">
-                  <p>A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart.</p>
+                  <p>${topView.user.addr}</p>
                 </div>
-                <div class="post-more"><a class="more-link" href="#">Read more</a></div>
               </div>
             </div>
             <div class="col-sm-6 col-md-4 col-lg-4">
               <div class="post">
-                <div class="post-thumbnail"><a href="#"><img class="campImg" src="/uploadfiles/campimg/campbusiness/camp/thumb1.jpg" alt="Blog-post Thumbnail"></a></div>
+                <div class="post-thumbnail"><img class="campImg" campNo="${topRating.campNo}" src="/uploadfiles/campimg/campbusiness/camp/${topRating.campImg1}" alt="Blog-post Thumbnail"></div>
                 <div class="post-header font-alt">
                   <h2 class="post-title">평점 TOP</a></h2>
-                  <div class="post-meta">By&nbsp;<a href="#">Mark Stone</a>&nbsp;| 23 November | 3 Comments
-                  </div>
                 </div>
+                <div class="post-more">${topRating.user.campName} 캠핑장 <span style="color: rgb(230, 173, 17);">(${topRating.campRate}점)</span></div>
                 <div class="post-entry">
-                  <p>A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart.</p>
+                  <p>${topRating.user.addr}</p>
                 </div>
-                <div class="post-more"><a class="more-link" href="#">Read more</a></div>
               </div>
             </div><div class="col-sm-6 col-md-4 col-lg-4">
               <div class="post">
-                <div class="post-thumbnail"><a href="#"><img class="campImg" src="/uploadfiles/campimg/campbusiness/camp/img2.jpg" alt="Blog-post Thumbnail"></a></div>
+                <div class="post-thumbnail"><img class="campImg" campNo="${topReservation.campNo}" src="/uploadfiles/campimg/campbusiness/camp/${topReservation.campImg1}" alt="Blog-post Thumbnail"></div>
                 <div class="post-header font-alt">
                   <h2 class="post-title">예약자수 TOP</a></h2>
-                  <div class="post-meta">By&nbsp;<a href="#">Mark Stone</a>&nbsp;| 23 November | 3 Comments
-                  </div>
                 </div>
+                <div class="post-more">${topReservation.user.campName} 캠핑장 <span style="color: rgb(230, 173, 17);">(${topReservation.campReservationCount}건)</span></div>
                 <div class="post-entry">
-                  <p>A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart.</p>
+                  <p>${topReservation.user.addr}</p>
                 </div>
-                <div class="post-more"><a class="more-link" href="#">Read more</a></div>
+                
               </div>
             </div>
            
@@ -173,7 +164,7 @@ pageEncoding="UTF-8"%>
                 <div class="owl-item">
                   <div class="col-sm-12">
                     <div class="ex-product">
-                    <c:if test="${!empty auctionProduct.auctionProductSubDetail}">
+                      <c:if test="${!empty auctionProduct.auctionProductSubDetail}">
                       <a><img class="shop-item-img" src="${auctionProduct.productImg1}"/></a>
                     </c:if>
                     <c:if test="${empty auctionProduct.auctionProductSubDetail}">
@@ -213,42 +204,35 @@ pageEncoding="UTF-8"%>
     </main>
     
     <!-- chatting -->
-    <div id="messenger-btn" class="chatting-btn"><i class="fa fa-fw"></i></span></div>
+    <div id="messenger-btn" class="chatting-btn"><i class="fa fa-fw"></i></div>
     <div id="messenger-iframe" class="ch-messenger-hidden">
       <iframe src="/chat/chatlist" frameborder="1" style="position:relative!important;height:100%;width:100%!important;border:none!important;"></iframe>
     </div>
     
-     <!--  
-    JavaScripts
-    =============================================
-    -->
-    <script src="resources/lib/jquery/jquery.js"></script>
-    <script src="resources/lib/bootstrap/js/bootstrap.min.js"></script>
-    <script src="resources/lib/wow/wow.js"></script>
-    <script src="resources/lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js"></script>
-    <script src="resources/lib/isotope/isotope.pkgd.js"></script>
-    <script src="resources/lib/imagesloaded/imagesloaded.pkgd.js"></script>
-    <script src="resources/lib/flexslider/jquery.flexslider.js"></script>
-    <script src="resources/lib/owl.carousel/dist/owl.carousel.min.js"></script>
-    <script src="resources/lib/smoothscroll.js"></script>
-    <script src="resources/lib/magnific-popup/magnific-popup.js"></script>
-    <script src="resources/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script>
-    <script src="resources/js/plugins.js"></script>
-    <script src="resources/js/main.js"></script>
-    
+
+    <script src="../../resources/lib/modals/examples.modals.js"></script>
+    <script src="resources/js/campSearch.js"></script>
     <script type="text/javascript">
     $(function(){
-    	
-    	$('.shop-item-img').on('click',function(){
-    		window.location = '/auction/getAuctionProduct?auctionProductNo='+$(this).parent().next().val();
-    	});
-    	
-    	$('.shop-item-title').on('click',function(){
-    		window.location = '/auction/getAuctionProduct?auctionProductNo='+$(this).prev().val();
-    	});    	
-    	
-    })
+	          $('.shop-item-title').on('click', function () {
+	            window.location = '/auction/getAuctionProduct?auctionProductNo=' + $(this).prev().val();
+	          });
+	
+	          $('.campImg').on('click', function () {
+	            window.location = '/campGeneral/getCamp?campNo=' + $(this).attr('campNo');
+	          });
+          
+          	
+          	$('.shop-item-img').on('click',function(){
+          		window.location = '/auction/getAuctionProduct?auctionProductNo='+$(this).parent().next().val();
+          	});
+    });
     </script>
-    
+
+
+
   </body>
+
 </html>
+
+

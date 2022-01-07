@@ -24,11 +24,11 @@ public interface PaymentDAO {
 	/*
 	 *  Payment
 	 */	
-	public void addMakePayment(Payment payment) throws Exception;
+	public String addMakePayment(Payment payment) throws Exception;
 	
 	public void addRefundPayment(Payment payment) throws Exception;
 	
-	public List<Payment> getPayment(Payment payment) throws Exception;
+	public Payment getPayment(int paymentNo) throws Exception;
 	
 	public List<Payment> listPayment(Search search) throws Exception ;
 	

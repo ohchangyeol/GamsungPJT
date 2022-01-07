@@ -11,20 +11,20 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class AuctionImgUpload {
 	
-	private static final String TMP_PATH = "D:\\Main\\GamsungPJT\\gamsung\\src\\main\\webapp\\uploadfiles\\auctionimg\\product";
-	
-	public List<String> imgUpload(List<MultipartFile> fileList) {
+	public List<String> imgUpload(List<MultipartFile> fileList, String path) {
 			
 		List<String> fileNames = new ArrayList<String>();
 		UUID uuid = null;
 		File file = null;
+		String subPath = "uploadfiles\\auctionImg\\product\\";
 		
 		for (MultipartFile multipartFile : fileList) {
 			
             uuid = UUID.randomUUID();
             String fileName = uuid.toString()+"_"+multipartFile.getOriginalFilename();
             
-            file = new File(TMP_PATH,fileName);
+            
+            file = new File(path+subPath,fileName);
             
             try {
 				FileCopyUtils.copy(multipartFile.getBytes(), file);
