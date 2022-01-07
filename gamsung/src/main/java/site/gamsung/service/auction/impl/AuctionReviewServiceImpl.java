@@ -13,6 +13,7 @@ import site.gamsung.service.common.RatingReviewService;
 import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.AuctionInfo;
 import site.gamsung.service.domain.RatingReview;
+import site.gamsung.service.domain.User;
 
 @Service("auctionReviewService")
 public class AuctionReviewServiceImpl implements RatingReviewService, AuctionReviewService{
@@ -46,6 +47,21 @@ public class AuctionReviewServiceImpl implements RatingReviewService, AuctionRev
 		return auctionInfo;
 	}
 	
+	@Override
+	public Map<String, Object> listMyRatingReview(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		List<RatingReview> list = auctionReviewDAO.listMyRatingReview(map);
+		
+		User user = (User)map.get("user");
+		int totalCount = auctionReviewDAO.countMyRatingReview(user.getId());
+		
+		map.clear();
+		map.put("list", list);
+		map.put("totalCount", totalCount);
+		
+		return null;
+	}
+
 	@Override
 	public List<RatingReview> listAuctionRatingReview(Map<String, Object> map) {
 		// TODO Auto-generated method stub
@@ -94,9 +110,12 @@ public class AuctionReviewServiceImpl implements RatingReviewService, AuctionRev
 			RatingReview tmpRatingReview = auctionReviewDAO.getAuctionRatingReview(ratingReview.getRatingReviewNo());
 			if(tmpRatingReview.getCommentRegDate() != null) {
 				info = "판매자의 답글이 달려 삭제 불가능 합니다.";
-				
-				return auctionInfo;
+			}else {
+				auctionReviewDAO.deleteAuctionRatingReview(ratingReview);
+				info = "삭제 완료하였습니다.";				
 			}
+			auctionInfo.setInfo(info);
+			return auctionInfo;
 		}
 		
 		auctionReviewDAO.deleteAuctionRatingReview(ratingReview);

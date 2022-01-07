@@ -49,7 +49,7 @@ public class AuctionInfoServiceTest {
 	public void testListBidConcern() {
 		
 		User user = new User();
-		user.setId("user1@gamsung.com");
+		user.setId("test44@test.com");
 		
 		Search search = new Search();
 		search.setCurrentPage(1);
@@ -60,12 +60,15 @@ public class AuctionInfoServiceTest {
 		map.put("user", user);
 		map.put("search", search);
 		
-		List<AuctionInfo> list = auctionInfoService.listBidConcern(map);
+		map = auctionInfoService.listBidConcern(map);
+		List<AuctionInfo> list = (List) map.get("list");
+		int count = (int) map.get("totalCount");
 		
-		for(AuctionInfo auctionBidInfo : list) {
-			System.out.println(auctionBidInfo);
+		System.out.println(count);
+		
+		for(AuctionInfo auctionInfo : list) {
+			System.out.println(auctionInfo);
 		}
-
 	}
 	
 	//role에 따라 상품 리스트를 출력해줌, 마이페이지, 관리자페이지 test
@@ -113,11 +116,8 @@ public class AuctionInfoServiceTest {
 		map.put("auctionInfo", auctionInfo);
 		map.put("search", search);
 		
-		List<AuctionInfo> list = auctionInfoService.auctionHistory(map);
-		
-		for(AuctionInfo bidInfo : list) {
-			System.out.println(bidInfo);
-		}	
+		auctionInfoService.auctionHistory(map);
+			
 	}
 	
 	//사이트의 총 경매 리뷰 등록 등 회수를 출력 test
@@ -144,6 +144,15 @@ public class AuctionInfoServiceTest {
 		
 		auctionInfoService.getBidderRanking(auctionInfo);
 		
+	}
+	
+	@Test
+	public void testCheckAndUpdateUserGrade() {
+		
+		User user = new User();
+		user.setId("yim3370@gmail.com");
+		user.setRole("GENERAL");
+		auctionInfoService.checkAndUpdateUserAuctionGrade(user);
 	}
 
 

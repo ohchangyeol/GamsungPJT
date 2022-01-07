@@ -38,6 +38,18 @@ public class AuctionReviewDAOImpl implements AuctionReviewDAO{
 	}
 
 	@Override
+	public List<RatingReview> listMyRatingReview(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("AuctionRatingReviewMapper.listMyRatingReview", map);
+	}
+
+	@Override
+	public int countMyRatingReview(String userId) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("AuctionRatingReviewMapper.countMyRatingReview", userId);
+	}
+
+	@Override
 	public List<RatingReview> listAuctionRatingReview(Map<String, Object> map) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("AuctionRatingReviewMapper.listAuctionRatingReview", map);

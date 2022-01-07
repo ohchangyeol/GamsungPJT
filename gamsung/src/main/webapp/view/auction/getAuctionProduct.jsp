@@ -10,39 +10,40 @@
 
 <title>${auctionProduct.auctionProductName}</title>
 
-<link rel="apple-touch-icon" sizes="57x57"	href="../../resources/images/favicons/apple-icon-57x57.png">
-<link rel="apple-touch-icon" sizes="60x60"	href="../../resources/images/favicons/apple-icon-60x60.png">
-<link rel="apple-touch-icon" sizes="72x72"	href="../../resources/images/favicons/apple-icon-72x72.png">
-<link rel="apple-touch-icon" sizes="76x76"	href="../../resources/images/favicons/apple-icon-76x76.png">
-<link rel="apple-touch-icon" sizes="114x114" href="../../resources/images/favicons/apple-icon-114x114.png">
-<link rel="apple-touch-icon" sizes="120x120" href="../../resources/images/favicons/apple-icon-120x120.png">
-<link rel="apple-touch-icon" sizes="144x144" href="../../resources/images/favicons/apple-icon-144x144.png">
-<link rel="apple-touch-icon" sizes="152x152" href="../../resources/images/favicons/apple-icon-152x152.png">
-<link rel="apple-touch-icon" sizes="180x180" href="../../resources/images/favicons/apple-icon-180x180.png">
-<link rel="icon" type="image/png" sizes="192x192" href="../../resources/images/favicons/android-icon-192x192.png">
-<link rel="icon" type="image/png" sizes="32x32" href="../../resources/images/favicons/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="96x96" href="../../resources/images/favicons/favicon-96x96.png">
-<link rel="icon" type="image/png" sizes="16x16" href="../../resources/images/favicons/favicon-16x16.png">
-<meta name="msapplication-TileColor" content="#ffffff">
-<meta name="msapplication-TileImage" content="../../resources/images/favicons/ms-icon-144x144.png">
-<meta name="theme-color" content="#ffffff">
+<!-- <link rel="apple-touch-icon" sizes="57x57"	href="../../resources/images/favicons/apple-icon-57x57.png"> -->
+<!-- <link rel="apple-touch-icon" sizes="60x60"	href="../../resources/images/favicons/apple-icon-60x60.png"> -->
+<!-- <link rel="apple-touch-icon" sizes="72x72"	href="../../resources/images/favicons/apple-icon-72x72.png"> -->
+<!-- <link rel="apple-touch-icon" sizes="76x76"	href="../../resources/images/favicons/apple-icon-76x76.png"> -->
+<!-- <link rel="apple-touch-icon" sizes="114x114" href="../../resources/images/favicons/apple-icon-114x114.png"> -->
+<!-- <link rel="apple-touch-icon" sizes="120x120" href="../../resources/images/favicons/apple-icon-120x120.png"> -->
+<!-- <link rel="apple-touch-icon" sizes="144x144" href="../../resources/images/favicons/apple-icon-144x144.png"> -->
+<!-- <link rel="apple-touch-icon" sizes="152x152" href="../../resources/images/favicons/apple-icon-152x152.png"> -->
+<!-- <link rel="apple-touch-icon" sizes="180x180" href="../../resources/images/favicons/apple-icon-180x180.png"> -->
+<!-- <link rel="icon" type="image/png" sizes="192x192" href="../../resources/images/favicons/android-icon-192x192.png"> -->
+<!-- <link rel="icon" type="image/png" sizes="32x32" href="../../resources/images/favicons/favicon-32x32.png"> -->
+<!-- <link rel="icon" type="image/png" sizes="96x96" href="../../resources/images/favicons/favicon-96x96.png"> -->
+<!-- <link rel="icon" type="image/png" sizes="16x16" href="../../resources/images/favicons/favicon-16x16.png"> -->
+<!-- <meta name="msapplication-TileColor" content="#ffffff"> -->
+<!-- <meta name="msapplication-TileImage" content="../../resources/images/favicons/ms-icon-144x144.png"> -->
+<!-- <meta name="theme-color" content="#ffffff"> -->
 
-<link href="../../resources/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-<!-- Template specific stylesheets-->
-<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700"	rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Volkhov:400i" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
-<link href="../../resources/lib/animate.css/animate.css" rel="stylesheet">
-<link href="../../resources/lib/components-font-awesome/css/font-awesome.min.css" rel="stylesheet">
-<link href="../../resources/lib/et-line-font/et-line-font.css" rel="stylesheet">
-<link href="../../resources/lib/flexslider/flexslider.css" rel="stylesheet">
-<link href="../../resources/lib/owl.carousel/dist/assets/owl.carousel.min.css" rel="stylesheet">
-<link href="../../resources/lib/owl.carousel/dist/assets/owl.theme.default.min.css"	rel="stylesheet">
-<link href="../../resources/lib/magnific-popup/magnific-popup.css" rel="stylesheet">
-<link href="../../resources/lib/simple-text-rotator/simpletextrotator.css" rel="stylesheet">
-<!-- Main stylesheet and color file-->
-<link href="../../resources/css/style.css" rel="stylesheet">
-<link id="color-scheme" href="../../resources/css/colors/default.css" rel="stylesheet">
+<!-- <link href="../../resources/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet"> -->
+<!-- <!-- Template specific stylesheets--> -->
+<!-- <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700"	rel="stylesheet"> -->
+<!-- <link href="https://fonts.googleapis.com/css?family=Volkhov:400i" rel="stylesheet"> -->
+<!-- <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet"> -->
+<!-- <link href="../../resources/lib/animate.css/animate.css" rel="stylesheet"> -->
+<!-- <link href="../../resources/lib/components-font-awesome/css/font-awesome.min.css" rel="stylesheet"> -->
+<!-- <link href="../../resources/lib/et-line-font/et-line-font.css" rel="stylesheet"> -->
+<!-- <link href="../../resources/lib/flexslider/flexslider.css" rel="stylesheet"> -->
+<!-- <link href="../../resources/lib/owl.carousel/dist/assets/owl.carousel.min.css" rel="stylesheet"> -->
+<!-- <link href="../../resources/lib/owl.carousel/dist/assets/owl.theme.default.min.css"	rel="stylesheet"> -->
+<!-- <link href="../../resources/lib/magnific-popup/magnific-popup.css" rel="stylesheet"> -->
+<!-- <link href="../../resources/lib/simple-text-rotator/simpletextrotator.css" rel="stylesheet"> -->
+<!-- <!-- Main stylesheet and color file--> -->
+<!-- <link href="../../resources/css/style.css" rel="stylesheet"> -->
+<!-- <link id="color-scheme" href="../../resources/css/colors/default.css" rel="stylesheet"> -->
+<jsp:include page="/resources/commonLib.jsp"></jsp:include>
 
 <style type="text/css">
 	.product-title {
@@ -119,12 +120,14 @@
 						</c:if>
 						</div>
 						<div class="col-sm-6">
+						<div class="row mb-20">
 							<div class="col-sm-12">
-								<span>${registrantInfo.user.auctionGrade}LV</span>
-								<span>${registrantInfo.user.id}</span>
+								<span class="userNick"><i class="fa fa-user"></i>${registrantInfo.user.auctionGrade}LV</span>
+								<span>${auctionProduct.registrantNickName}</span>
 								<span id="avgRating"></span>
 								<a class="open-tab section-scroll" href="#reviews">${ratingReview.avgRating}</a>
 							</div>
+						</div>
 						<div class="row mb-20">
 							<div class="col-sm-12">
 								<div class="price font-alt">
@@ -141,7 +144,7 @@
 						<div class="row mb-20">
 							<div class="col-sm-12">
 								<div class="description">
-									<h3 class="font-alt">현재입찰가</h3>
+									<h3 class="font-alt bidPricing">현재입찰가</h3>
 									<h4 id="currentPrice" class="font-alt"><fmt:formatNumber type="number" maxFractionDigits="3" value="${auctionProduct.currentBidPrice}" />원</h4>										
 								</div>
 							</div>
@@ -188,6 +191,9 @@
 								  <span class="col">:</span>
 								  <span class="seconds"></span>
 								</c:if>
+							</c:if>
+							<c:if test="${empty sessionScope.user}">
+								<span style="color: red">로그인 시 확인 가능합니다.</span>
 							</c:if>
 						</div>
 						<div class="row mb-20">
@@ -427,7 +433,6 @@
 		</div>
 		<form>
 			<input type="hidden" name="auctionProductNo" value="${auctionProduct.auctionProductNo}">
-			<input type="hidden" name="user.id" value="${registrantInfo.user.id}">
 		</form>
 	</main>
 	
@@ -435,21 +440,21 @@
     JavaScripts
     =============================================
     -->
-	<script src="../../resources/lib/jquery/jquery.js"></script>
-	<script src="../../resources/lib/wow/wow.js"></script>
-	<script src="../../resources/lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js"></script>
-	<script src="../../resources/lib/isotope/isotope.pkgd.js"></script>
-	<script src="../../resources/lib/imagesloaded/imagesloaded.pkgd.js"></script>
-	<script src="../../resources/lib/flexslider/jquery.flexslider.js"></script>
-	<script src="../../resources/lib/owl.carousel/dist/owl.carousel.min.js"></script>
-	<script src="../../resources/lib/smoothscroll.js"></script>
-	<script src="../../resources/lib/magnific-popup/jquery.magnific-popup.js"></script>
-	<script src="../../resources/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script>
-	<script src="../../resources/js/plugins.js"></script>
-	<script src="../../resources/js/main.js"></script>
+<!-- 	<script src="../../resources/lib/jquery/jquery.js"></script> -->
+<!-- 	<script src="../../resources/lib/wow/wow.js"></script> -->
+<!-- 	<script src="../../resources/lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js"></script> -->
+<!-- 	<script src="../../resources/lib/isotope/isotope.pkgd.js"></script> -->
+<!-- 	<script src="../../resources/lib/imagesloaded/imagesloaded.pkgd.js"></script> -->
+<!-- 	<script src="../../resources/lib/flexslider/jquery.flexslider.js"></script> -->
+<!-- 	<script src="../../resources/lib/owl.carousel/dist/owl.carousel.min.js"></script> -->
+<!-- 	<script src="../../resources/lib/smoothscroll.js"></script> -->
+<!-- 	<script src="../../resources/lib/magnific-popup/jquery.magnific-popup.js"></script> -->
+<!-- 	<script src="../../resources/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script> -->
+<!-- 	<script src="../../resources/js/plugins.js"></script> -->
+<!-- 	<script src="../../resources/js/main.js"></script> -->
+	
 	<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
 	<script src="../../resources/js/stomp.min.js"></script>
-	
 	<script>
 
 	document.addEventListener("DOMContentLoaded",function(){
@@ -467,6 +472,13 @@
 	
 	$(function(){
 		
+			console.log('kkkkkkkkkkkkkkkkk')
+			var infoDiv = $('#logout').parent();
+			console.log('aaa'+infoDiv.html())
+			$('#logout').parent().empty();
+			infoDiv.html('<div>${sessionScope.user.nickName}님 환영합니다.</div><div>경매등급 : '+${auctionGrade}+'LV</div>');
+			infoDiv.css('font-weight', 'bold');
+	
 		auctionProductNo = $('#auctionProductNo').val();
 		userId = $('#userId').val(); 
 		nickName = $('#nickName').val();
@@ -500,7 +512,18 @@
 		});	
 		//수정 버튼 클릭시 발생 이벤트
 		$('#updateBtn').on('click',function(){
-			$('form').attr('method','get').attr('action','/auction/updateAuctionProduct').submit();
+			
+			if(Number($('#currentPrice').text().replace('원','')) != 0){
+				alert('입찰자가 있어 수정 불가능 합니다.');
+				return;
+			}
+			
+			if(${!empty auctionProduct.auctionProductSubDetail}){
+				alert('크롤링 상품은 수정 불가능 합니다.');
+				return;
+			}
+			
+			$('form').attr('method','GET').attr('action','/auction/updateAuctionProduct').submit();
 		});
 		
 		//낙찰 취소 클릭시 발생 이벤트
@@ -537,7 +560,7 @@
 			});
 		});
 		
-		//삭제 버튼 클릭시 발생 이벤트
+		//중도 철회 버튼 클릭시 발생 이벤트
 		$('#deleteBtn').on('click',function(){
 			$.ajax({
 				url : "/auction/rest/updateAuctionStatus/"+auctionProductNo+"/WITHDRAWAL",
@@ -549,9 +572,12 @@
 				dataType : "json",
 				success : function(JSONData, status) {
 					alert(JSONData.info);
+					if(JSONData.info == '중도 철회 불가합니다.'){
+						return;
+					}
 					deleteProduct();
 				}
-			});	
+			});
 		});
 		
 		//입찰 버튼 클릭시 발생 이벤트
@@ -607,6 +633,7 @@
 					},
 					dataType : "json",
 					success : function(JSONData, status) {
+						console.log(JSONData);
 						var stringHtml = '';
 						var addReviewCount = 0;
 						for (var i = 0; i < JSONData.length; i++) {
@@ -617,25 +644,34 @@
 										+'" alt="avatar"/></div>'
 		                     			+'<div class="comment-content clearfix">'
 		                       			+'<div class="comment-author font-alt"><a>'
-		                       			+JSONData[i].user.id
-		                       			+'</a></div>'
-		                       			+'<div><span class="prodName">상품명 : '+JSONData[i].auctionInfo.info.substring(0,30)+'...'+'</span></div>'
+		                       			+JSONData[i].auctionInfo.user.nickName
+		                       			+'</a></div><div>'
+		                       			+ratingMake(JSONData[i].avgRating)
+		                       			+JSONData[i].avgRating+'점</div>'
+		                       			+'<span class="prodName">상품명 : '+JSONData[i].auctionInfo.info.substring(0,30)+'...'+'</span>'
 		                       			+'<input type="hidden" value="'+JSONData[i].auctionInfo.auctionProductNo+'"/>'
 		                       			+'<div class="comment-body"><p>'
 		                       			+JSONData[i].ratingReviewContent
 		                       			+'</p></div><div class="comment-meta font-alt">'
 		                       			+getDate(JSONData[i].reviewRegDate)
-		                       			+ratingMake(JSONData[i].avgRating)
-		                       			+JSONData[i].avgRating+'점'
 		                       			+nameCheck(JSONData[i].user.id,'${sessionScope.user.id}',JSONData[i].ratingReviewNo)
-		                       			+'<c:if test="${!empty ratingReview.commentRegDate && registrantInfo.user.id eq sessionScope.user.id}">'
-		                       			+'<input type="hidden" value="'+JSONData[i].ratingReviewNo+'"/>'
-		                       			+'<button class="btn btn-d btn-circle btn-xs replyBtn" type="button">답글</button>'
-		                       			+'</c:if>'
-		                       			+'<div></div><hr>'
-		                       			+'<div class="comment-author font-alt"><span class="icon-edit" aria-hidden="true">&nbsp;'+JSONData[i].auctionInfo.user.id+'</span></div>'
-		                       			+'<div>'+JSONData[i].comment+'</div>'
-		                       			+'</div></div></div>'
+		                       			if(JSONData[i].commentRegDate == null){
+		                       				str += '<c:if test="${registrantInfo.user.id eq sessionScope.user.id}">'
+			                       				+'<input type="hidden" value="'+JSONData[i].ratingReviewNo+'"/>'
+				                       			+'<button class="btn btn-d btn-circle btn-xs replyBtn" type="button">답글</button>'
+				                       			+'</c:if>'
+		                       			}
+		                       			str += '<div></div><hr>'
+		                       			if(JSONData[i].commentRegDate != null){
+			                       			str +='<div class="comment-author font-alt"><span class="icon-edit" aria-hidden="true">&nbsp;'+JSONData[i].user.nickName+'</span></div>'
+			                       				+'<div>'+JSONData[i].comment+'</div>'
+			                       				+'<div>'+getDate(JSONData[i].commentRegDate)
+			                       				+'<c:if test="${registrantInfo.user.id eq sessionScope.user.id}">'
+			                       				+'<button class="btn btn-d btn-circle btn-xs deleteCommentBtn" type="button">삭제</button>'
+			                       	   			+'<input type="hidden" value="'+JSONData[i].ratingReviewNo+'">'
+				                       			+'</c:if></div>'
+		                       			}
+		                       			str += '</div></div></div>'
 		                       	stringHtml += str
 		                       	addReviewCount=JSONData[i].auctionInfo.addReviewCount
 							}		                       			
@@ -651,8 +687,8 @@
 		$(document).on('click','.prodName',function(){
 			window.location = "/auction/getAuctionProduct?auctionProductNo="+$(this).next().val();
 		});
-		
-		$(document).on('click','.nav',function(){
+	
+		$(document).on('click','.pagenav',function(){
 			var currentPage = $(this).text()
 			$('#ratingReview').empty();
 			$.ajax({
@@ -678,26 +714,33 @@
 									+'" alt="avatar"/></div>'
 	                     			+'<div class="comment-content clearfix">'
 	                       			+'<div class="comment-author font-alt"><a>'
-	                       			+JSONData[i].user.id
-	                       			+'</a></div>'
-	                       			+'<div><span class="prodName">상품명 : '+JSONData[i].auctionInfo.info.substring(0,30)+'...'+'</span></div>'
+	                       			+JSONData[i].auctionInfo.user.nickName
+	                       			+'</a></div><div>'
+	                       			+ratingMake(JSONData[i].avgRating)
+	                       			+JSONData[i].avgRating+'점</div>'
+	                       			+'<span class="prodName">상품명 : '+JSONData[i].auctionInfo.info.substring(0,30)+'...'+'</span>'
 	                       			+'<input type="hidden" value="'+JSONData[i].auctionInfo.auctionProductNo+'"/>'
 	                       			+'<div class="comment-body"><p>'
 	                       			+JSONData[i].ratingReviewContent
 	                       			+'</p></div><div class="comment-meta font-alt">'
 	                       			+getDate(JSONData[i].reviewRegDate)
-	                       			+ratingMake(JSONData[i].avgRating)
-	                       			+JSONData[i].avgRating+'점'
 	                       			+nameCheck(JSONData[i].user.id,'${sessionScope.user.id}',JSONData[i].ratingReviewNo)
-	                       			+'<c:if test="${!empty ratingReview.commentRegDate && registrantInfo.user.id eq sessionScope.user.id}">'
-	                       			+'<input type="hidden" value="'+JSONData[i].ratingReviewNo+'"/>'
-	                       			+'<button class="btn btn-d btn-circle btn-xs replyBtn" type="button">답글</button>'
-	                       			+'</c:if>'
-	                       			+'<div></div>'
-	                       			+'<div></div><hr>'
-	                       			+'<div class="comment-author font-alt"><span class="icon-edit" aria-hidden="true">&nbsp;'+JSONData[i].auctionInfo.user.id+'</span></div>'
-	                       			+'<div>'+JSONData[i].comment+'</div>'
-	                       			+'</div></div></div>'
+	                       			if(JSONData[i].commentRegDate == null){
+	                       				str += '<c:if test="${registrantInfo.user.id eq sessionScope.user.id}">'
+		                       				+'<input type="hidden" value="'+JSONData[i].ratingReviewNo+'"/>'
+			                       			+'<button class="btn btn-d btn-circle btn-xs replyBtn" type="button">답글</button>'
+			                       			+'</c:if>'
+	                       			}
+	                       			str += '<div></div><hr>'
+	                       			if(JSONData[i].commentRegDate != null){
+		                       			str +='<div class="comment-author font-alt"><span class="icon-edit" aria-hidden="true">&nbsp;'+JSONData[i].user.nickName+'</span></div>'
+		                       			+'<div>'+getDate(JSONData[i].commentRegDate)
+	                       				+'<c:if test="${registrantInfo.user.id eq sessionScope.user.id}">'
+	                       				+'<button class="btn btn-d btn-circle btn-xs deleteCommentBtn" type="button">삭제</button>'
+	                       	   			+'<input type="hidden" value="'+JSONData[i].ratingReviewNo+'">'
+		                       			+'</c:if></div>'
+	                       			}
+	                       			str += '</div></div></div>'
 						
 	                    	stringHtml += str
 	                    	addReviewCount=JSONData[i].auctionInfo.addReviewCount
@@ -711,21 +754,25 @@
 			});
 		});
 		
+		/* 답글 버튼 생성 */
 		$(document).on('click','.replyBtn',function(){
 			$(this).next().html('<textarea name="comment" cols="100" rows="3"></textarea><div><button class="btn btn-d btn-circle btn-xs commentBtn" type="button">작성완료</button></div>');
 			$(this).remove();
 		});
 		
+		/* 답글 전송 버튼 이벤트 */
 		$(document).on('click','.commentBtn',function(){
 			var ratingReviewNo = $(this).parent().parent().prev().val()
 			var comment = $(this).parent().prev().val()
 			var auctionProductNo = $(this).parent().parent().parent().prev().prev().val()
+			var reviewRegDate = $(this).parent().parent().parent().text().replace('작성완료','')
 			$.ajax({
 				url : "/auction/rest/addReviewComment/"+auctionProductNo,
 				method : "POST",
 				data : JSON.stringify({
 					ratingReviewNo : ratingReviewNo,
-					comment : comment
+					comment : comment,
+					reviewRegDate : reviewRegDate
 				}),
 				headers : {
 					"Accept" : "application/json",
@@ -733,15 +780,16 @@
 				},
 				dataType : "json",
 				success : function(JSONData, status) {
-					alert(JSONData.info);
 					location.reload();
 				}
 			});
 			
 		});
 		
+		//리뷰 삭제 버튼 이벤트
 		$(document).on('click','.deleteReviewBtn', function(){
 			var ratingReviewNo = $(this).next().val();
+			var location = $(this).parent().parent().parent();
 			$.ajax({
 				url : "/auction/rest/deleteAuctionRatingReview",
 				method : "POST",
@@ -756,10 +804,37 @@
 				dataType : "json",
 				success : function(JSONData, status) {
 					alert(JSONData.info);
-					location.reload();
+					if(JSONData.info.indexOf('판매자') == -1){
+						location.empty();						
+					}
 				}
 			});
 		});
+		
+		//답글 삭제 버튼
+		$(document).on('click','.deleteCommentBtn', function(){
+			var ratingReviewNo = $(this).next().val();
+			$(this).parent().prev().remove();
+			$(this).parent().prev().remove();
+			$(this).parent().remove();
+			$.ajax({
+				url : "/auction/rest/deleteAuctionRatingReview",
+				method : "POST",
+				data : JSON.stringify({
+					ratingReviewNo : ratingReviewNo,
+					ratingReviewStatus : 1
+				}),
+				headers : {
+					"Accept" : "application/json",
+					"Content-Type" : "application/json"
+				},
+				dataType : "json",
+				success : function(JSONData, status) {
+				}
+			}); 
+		});
+		
+		
 	});
 	
 	function nameCheck(jsonId, sessionId, reviewNo){
@@ -770,6 +845,7 @@
    		}
 		return str;
 	}
+	
 	
 	function ratingMake(avgRating){
 		var rating = ""
@@ -794,7 +870,7 @@
 	function navigationMake(addReviewCount){
 		var navigation = ""
 		for(var j=0; j<Math.ceil(addReviewCount/5); j++){
-			navigation += '<a class="active nav" >'+(j+1)+'</a>'
+			navigation += '<a class="active nav pagenav" >'+(j+1)+'</a>'
 		}
 		return navigation;
 	}
@@ -844,7 +920,9 @@
   						success : function(JSONData, status) {
   							if(JSONData.bidderRank != 0){
 	  							var info = nickName+'님은 '+JSONData.bidderCount+'명 중 '+JSONData.bidderRank+'등 입니다.';
-	  							$('#userInfo').text(info);  								
+	  							if(${!empty sessionScope.user}){
+	  								$('#userInfo').text(info);  									  								
+	  							}
   							}
   						}
 					});
@@ -901,7 +979,7 @@
 	    var now = new Date();
 	    var open = new Date(startTime);
 	    var end = new Date(endTime);
-	   
+
 	    var nt = now.getTime();
 	    var ot = open.getTime();
 	    var et = end.getTime();
@@ -911,10 +989,10 @@
 		   
 			 $('#bidBtn').attr('disabled',true);
 		     $(".time").fadeIn();
+		     $('.bidPricing').text('경매 시작전 입니다.');
+		     $('#currentPrice').empty();
 		     $("div.time-title").html("경매 시작까지 남은 시간");
 		     sec =parseInt(ot - nt) / 1000;
-		     day  = parseInt(sec/60/60/24);
-		     sec = (sec - (day * 60 * 60 * 24));
 		     hour = parseInt(sec/60/60);
 		     sec = (sec - (hour*60*60));
 		     min = parseInt(sec/60);
@@ -925,20 +1003,19 @@
 		     $(".hours").html(hour);
 		     $(".minutes").html(min);
 		     $(".seconds").html(sec);
-		     
+		    
 	   }else if(nt>et){
 		   	$('#bidBtn').attr('disabled',true);
 	   		$("#bidBtn").html("경매 마감");
+	   		$('.bidPricing').text('경매 마감가');
 	    	$(".time").fadeOut();
 	    	
 	   }else {
-		   
+		   	
 		     $(".time").fadeIn();
 		     $("div.time-title").html("경매 마감까지 남은 시간");
 		     $('#bidBtn').attr('disabled',false);
-		     sec =parseInt(et - nt) / 1000;
-		     day  = parseInt(sec/60/60/24);
-		     sec = (sec - (day * 60 * 60 * 24));
+		     sec = parseInt(et - nt) / 1000;
 		     hour = parseInt(sec/60/60);
 		     sec = (sec - (hour*60*60));
 		     min = parseInt(sec/60);
@@ -949,7 +1026,6 @@
 		     $(".hours").html(hour);
 		     $(".minutes").html(min);
 		     $(".seconds").html(sec);
-		     
 	   }
 	 }
 	 setInterval(remaindTime,1000);
