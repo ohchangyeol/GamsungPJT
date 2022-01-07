@@ -83,7 +83,7 @@ pageEncoding="UTF-8"%>
 
   </head>
   
-  <body id = "changebody" data-spy="scroll" data-target=".onpage-navigation" data-offset="60" style="overflow: hidden; width: 100%; height: 100%;" data-campno="${campNo}" >
+  <body id = "reviewchange" data-spy="scroll" data-target=".onpage-navigation" data-offset="60" style="overflow: hidden; width: 100%; height: 100%;" data-campno="${campNo}" >
     <div calss="row" >
       <div calss="col-sm-12" style="text-align: center; font-size: large;">
         <span class="icon-happy"></span>&nbsp;평점&리뷰 (전체 <span style="color: rgb(230, 173, 17);">${resultPage.totalCount}건</span>)&nbsp;<span class="icon-happy"></span>
@@ -288,7 +288,7 @@ pageEncoding="UTF-8"%>
 		<script src="../../resources/js/examples.lightbox.js"></script>
 
     <script type="text/javascript">
-      parent.AdjustIframeHeight(document.getElementById("changebody").scrollHeight);
+      parent.reviewIframeHeight(document.getElementById("reviewchange").scrollHeight);
     </script>
 
 </body>

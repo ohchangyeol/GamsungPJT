@@ -3,6 +3,7 @@ package site.gamsung.controller.user;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -14,15 +15,16 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import site.gamsung.service.common.Page;
+import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.User;
+import site.gamsung.service.domain.UserWrapper;
 import site.gamsung.service.user.UserService;
-import site.gamsung.util.user.SHA256Util;
 
 @Controller
 @RequestMapping("/user/*")
@@ -67,8 +69,7 @@ public class UserController {
 		User user = userService.getUser(id);
 		
 		model.addAttribute("user", user);
-		
-		
+				
 		return "forward:/view/user/getUser.jsp";
 	}
 	
@@ -81,12 +82,12 @@ public class UserController {
 		
 		model.addAttribute("user", user);
 		
-		return "forward:/view/user/updateUser.jsp";
+		return "forward:/view/common/myPage.jsp";
 		
 	}
 	
 	@RequestMapping(value="updateUser", method=RequestMethod.POST)
-	public String updateUser(User user, Model model, HttpSession session) {
+	public String updateUser(@ModelAttribute("user") User user, Model model, HttpSession session) {
 		
 		System.out.println("/user/updateUser : POST");
 		
@@ -94,21 +95,25 @@ public class UserController {
 		
 		
 		User sessionUser=(User)session.getAttribute("user");
+		User dbUser=userService.getUser(user.getId());
 			
 		System.out.println("세션유저"+sessionUser);
-		System.out.println("유저 솔트값"+user.getSalt());
-		System.out.println("유저 비밀번호"+user.getPassword());
+		System.out.println("유저 솔트값"+dbUser.getSalt());
+		System.out.println("유저 비밀번호"+dbUser.getPassword());
 
 		if(sessionUser.getId().equals(user.getId())){
+			System.out.println("이프문 안이다");
 			if(user.getPassword()==null || user.getPassword()=="") {
-			user.setPassword(sessionUser.getPassword());
+			System.out.println("패스워드가 널이다");
+			dbUser.setPassword(sessionUser.getPassword());
 			System.out.println(sessionUser.getPassword());
 			}else {
-				user.setSalt(sessionUser.getSalt());
+				System.out.println("널이 아니다");
+				dbUser.setSalt(sessionUser.getSalt());
 			}	
 		}
 			
-			userService.updateUser(user);
+			userService.updateUser(dbUser);
 						
 //			User upUser=userService.getUser(user.getId());
 			session.setAttribute("user", user);
@@ -121,20 +126,24 @@ public class UserController {
 //		User upSession=(User)session.getAttribute("user");
 //		
 //		System.out.println("변경이 되었는가"+upSession);
+		if(user.getRole().equals("GENERAL")) {
+			return "forward:/view/common/myPage.jsp";
+		}else {
+			return "forward:/view/user/getBusinessUserUpdate.jsp";
+		}
 		
-		return "forward:/view/user/getGeneralUserUpdate.jsp";
 	}
 	
-//	@RequestMapping( value="login", method=RequestMethod.GET )
-//	public String login() throws Exception{
-//		
-//		System.out.println("/user/logon : GET");
-//
-//		return "/";
-//	}
+	@RequestMapping( value="login", method=RequestMethod.GET )
+	public String login() throws Exception{
+		
+		System.out.println("/user/logon : GET");
+
+		return "/";
+	}
 	
 
-	@RequestMapping(value="login")
+	@RequestMapping(value="login", method=RequestMethod.POST)
 	public String login(@ModelAttribute("user") User user, HttpSession session){
 		
 		System.out.println("/user/login : POST");
@@ -293,6 +302,42 @@ public class UserController {
 		userService.addSuspensionUser(user);
 		
 		return "회원 리스트.jsp";
+	}
+	
+	@RequestMapping( value="listUser" )
+	public String listUser( @ModelAttribute("search") Search search , Model model , HttpServletRequest request) throws Exception{
+		
+		System.out.println("/user/listUser : GET / POST");
+		
+		if(search.getCurrentPage() == 0 ){
+			search.setCurrentPage(1);
+		}
+		search.setPageSize(pageSize);
+		
+		// Business logic 수행
+		UserWrapper userWrapper=userService.listUser(search);
+		
+		List<User> list = userWrapper.getUsers();
+		Integer totalCount = userWrapper.getTotalCount();
+		
+		search.setCurrentPage(1);
+	 	search.setPageSize(10);
+		
+		userWrapper = userService.listUser(search);
+		
+		list = userWrapper.getUsers();
+		totalCount = (Integer)userWrapper.getTotalCount();
+		Page resultPage = new Page( search.getCurrentPage(),totalCount, pageUnit, pageSize);
+		
+		System.out.println(list);
+		System.out.println(totalCount);
+				
+		// Model 과 View 연결
+		model.addAttribute("list", list);
+		model.addAttribute("resultPage", resultPage);
+		model.addAttribute("search", search);
+		
+		return "forward:/user/listUser.jsp";
 	}
 	
 	

@@ -1,17 +1,16 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html>
-<html>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+		<!DOCTYPE html>
+		<html>
 
-<head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+		<head>
+			<meta charset="utf-8">
+			<meta http-equiv="X-UA-Compatible" content="IE=edge">
+			<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>MyPage</title>
+			<title>MyPage</title>
 
-<link rel="apple-touch-icon" sizes="57x57"
+			<!-- <link rel="apple-touch-icon" sizes="57x57"
 	href="../../resources/images/favicons/apple-icon-57x57.png">
 <link rel="apple-touch-icon" sizes="60x60"
 	href="../../resources/images/favicons/apple-icon-60x60.png">
@@ -44,7 +43,7 @@
 
 <link href="../../resources/lib/bootstrap/css/bootstrap.min.css"
 	rel="stylesheet">
-<!-- Template specific stylesheets-->
+Template specific stylesheets
 <link
 	href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700"
 	rel="stylesheet">
@@ -95,333 +94,299 @@
 <link rel="stylesheet" href="../../resources/css/theme.css" />
 <link rel="stylesheet" href="../../resources/css/skins/default.css" />
 <link rel="stylesheet" href="../../resources/css/theme-custom.css">
-<script src="../../resources/lib/modernizr/modernizr.js"></script>
+<script src="../../resources/lib/modernizr/modernizr.js"></script> -->
+			<jsp:include page="/resources/commonLib.jsp"></jsp:include>
 
-<style type="text/css">
-.sidebar-left {
-	background-color: #171717 !important;
-}
+			<style type="text/css">
+				.sidebar-left {
+					background-color: #171717 !important;
+				}
 
-#addSecessionModal .modal-dialog .modal-content .was-validated .form-group .form-control
-	{
-	border-radius: 100px;
-	padding-left: 20px;
-	height: 40px;
-	font-size: 13px;
-}
+				#addSecessionModal .modal-dialog .modal-content .was-validated .form-group .form-control {
+					border-radius: 100px;
+					padding-left: 20px;
+					height: 40px;
+					font-size: 13px;
+				}
 
-#addSecessionModal {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translateY(-50%) translateX(-50%);
-}
+				#addSecessionModal {
+					position: absolute;
+					top: 50%;
+					left: 50%;
+					transform: translateY(-50%) translateX(-50%);
+				}
 
-#Secession-btn {
-	display: flex;
-	justify-content: end;
-	gap: 15px;
-}
+				#Secession-btn {
+					display: flex;
+					justify-content: end;
+					gap: 15px;
+				}
 
-display
-:
- 
-flex
-;
+				.time {
+					display: flex;
+				}
 
-											 
-flex
-:
- 
-1
- 
-auto
-;
-
-										 
-}
-* /
-.time {
-	display: flex;
-}
-
-/* .form-group .form-control{
+				/* .form-group .form-control{
 											 display:inline-block;
 											 width: 50%;
 										 } */
-.form-group .btn {
-	height: 26px;
-	padding-top: 0;
-	padding-bottom: 0;
-	margin: auto 10px;
-	color: blue;
-}
+				.form-group .btn {
+					height: 26px;
+					padding-top: 0;
+					padding-bottom: 0;
+					margin: auto 10px;
+					color: blue;
+				}
 
-.form-group label {
-	width: 140px;
-}
+				.form-group label {
+					width: 140px;
+				}
 
-#checkMailAuthNum {
-	margin: 14px;
-}
+				#checkMailAuthNum {
+					margin: 14px;
+				}
 
-#checkPhoneAuthNum {
-	margin: 14px;
-}
-</style>
+				#checkPhoneAuthNum {
+					margin: 14px;
+				}
+			</style>
 
-<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-<script
-	src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-<script
-	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+			<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+			<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+			<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 
-</head>
+		</head>
 
-<body data-spy="scroll" data-target=".onpage-navigation"
-	data-offset="60">
-	<main>
-		<div class="page-loader">
-			<div class="loader">Loading...</div>
-		</div>
-		<jsp:include page="header.jsp"></jsp:include>
-		<div class="inner-wrapper">
-			<jsp:include page="userSideBar.jsp"></jsp:include>
-			<section role="main" class="content-body">
-				<div class="row">
-					<section class="module">
-						<div class="container">
-							<div class="row">
-								<div class="col-sm-8 col-sm-offset-2">
-									<h4 class="font-alt mb-0">내정보 조회/수정</h4>
-									<hr class="divider-w mt-10 mb-20">
-									<form class="form" role="form">
-										<div id="email" class="form-group">
-											<div>
-												<input id="role" name="role" value="GENERAL" hidden="hidden">
-											</div>
-											<label for="id"
-												class="col-sm-offset-1 col-sm-3 control-label"><strong>아이디</strong></label>
-											<div class="col-sm-6">
-												<input id="id" name="id" class="form-control "
-													value="${user.id}" readonly />
-											</div>
-											<div class='col-sm-offset-3 col-sm-6'>
-												<span id="helpBlock" class="help-block"> <strong
-													class="text-danger">아이디는 수정이 불가합니다.</strong>
-												</span>
-											</div>
+		<body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
+			<main>
+				<div class="page-loader">
+					<div class="loader">Loading...</div>
+				</div>
+				<jsp:include page="header.jsp"></jsp:include>
+				<div class="inner-wrapper">
+					<jsp:include page="userSideBar.jsp"></jsp:include>
+					<section role="main" class="content-body">
+						<div class="row">
+							<section class="module">
+								<div class="container">
+									<div class="row">
+										<div class="col-sm-8 col-sm-offset-2">
+											<h4 class="font-alt mb-0">내정보 조회/수정</h4>
+											<hr class="divider-w mt-10 mb-20">
+											<form id="updateForm">
+												<div id="email" class="form-group">
+													<div>
+														<input id="role" name="role" value="GENERAL" hidden="hidden">
+													</div>
+													<label for="id"
+														class="col-sm-offset-1 col-sm-3 control-label"><strong>아이디</strong></label>
+													<div class="col-sm-6">
+														<input id="id" name="id" class="form-control "
+															value="${user.id}" readonly />
+													</div>
+													<div class='col-sm-offset-3 col-sm-6'>
+														<span id="helpBlock" class="help-block"> <strong
+																class="text-danger">아이디는 수정이 불가합니다.</strong>
+														</span>
+													</div>
+												</div>
+
+												<div class="form-group">
+													<label for="password"
+														class="col-sm-offset-1 col-sm-3 control-label"><strong>비밀번호
+															변경</strong></label>
+													<div class="col-sm-6">
+														<input id="password" name="password" class="form-control "
+															type="password" placeholder="변경할 비밀번호를 입력해 주세요." />
+													</div>
+													<div id="check-pwd-exp" class='col-sm-offset-3 col-sm-6'></div>
+												</div>
+
+												<div class="form-group">
+													<label for="confirmPassword"
+														class="col-sm-offset-1 col-sm-3 control-label"><strong>비밀번호
+															재확인</strong></label>
+													<div class="col-sm-6">
+														<input id="confirmPassword" name="confirmPassword"
+															class="form-control" type="password"
+															placeholder="비밀번호를 입력해 주세요." />
+													</div>
+													<div id="check-pwd" class='col-sm-offset-3 col-sm-6'></div>
+												</div>
+
+												<div id="nick-name" class="form-group">
+													<label for="nickName"
+														class="col-sm-offset-1 col-sm-3 control-label"><strong>닉네임</strong></label>
+													<div class="col-sm-6">
+														<input id="nickName" name="nickName" class="form-control"
+															type="text" value="${user.nickName}"
+															placeholder="닉네임을 입력해 주세요." />
+													</div>
+													<div id="check-nickName" class='col-sm-offset-3 col-sm-6'></div>
+												</div>
+
+
+												<div class="form-group">
+													<label for="name"
+														class="col-sm-offset-1 col-sm-3 control-label"><strong>이름</strong></label>
+													<div class="col-sm-6">
+														<input id="name" name="name" class="form-control" type="text"
+															value="${user.name}" placeholder="이름을 입력하세요" />
+													</div>
+												</div>
+
+												<div class="form-group">
+													<label for="phone"
+														class="col-sm-offset-1 col-sm-3 control-label"><strong>휴대폰번호</strong></label>
+													<div class="col-sm-6">
+														<input id="phone" name="phone" class="form-control " type="text"
+															value="${user.phone}" placeholder="숫자만 입력해주세요"
+															maxlength="11" />
+
+													</div>
+													<button id="phoneAuthNum" class="btn btn-circle btn-xs"
+														type="button">인증번호 받기</button>
+													<div id="checkPhoneAuth" class="col-sm-offset-3 col-sm-6"
+														style="display: none;">
+														<input id="checkPhoneAuthNum" name="checkPhoneAuthNum"
+															class="form-control " type="text" placeholder="인증번호를 입력하세요."
+															maxlength="4" />
+													</div>
+													<div id="check-phone" class='col-sm-offset-3 col-sm-6'>
+													</div>
+													<div id="check-phone-auth" class='col-sm-offset-3 col-sm-6'></div>
+												</div>
+
+												<div class="form-group">
+													<label for="addr"
+														class="col-sm-offset-1 col-sm-3 control-label"><strong>주소</strong></label>
+													<div class="col-sm-6">
+														<input id="addr" name="addr" class="form-control" type="text"
+															value="${user.addr}" placeholder="주소를 입력하세요." />
+													</div>
+												</div>
+
+												<div class="form-group">
+													<label for="userAddr"
+														class="col-sm-offset-1 col-sm-3 control-label"></label>
+													<div class="col-sm-6">
+														<input id="userAddr" name="userAddr" class="form-control"
+															type="text" placeholder="상세주소를 입력하세요." /> <input
+															type="hidden" name="allAddr" />
+													</div>
+												</div>
+
+												<div class="form-group">
+													<label for="accountInfo"
+														class="col-sm-offset-1 col-sm-3 control-label"><strong>계좌정보</strong></label>
+													<div class="col-sm-3">
+														<select class="form-control" name="bank" id="bank">
+															<option value="${user.bank}">은행</option>
+															<option value="KB국민은행" <c:if
+																test="${user.bank eq 'KB국민은행'}">
+																selected="selected"</c:if>>KB국민은행</option>
+															<option value="신한은행" <c:if test="${user.bank eq '신한은행'}">
+																selected="selected"</c:if>>신한은행</option>
+															<option value="우리은행" <c:if test="${user.bank eq '우리은행'}">
+																selected="selected"</c:if>>우리은행</option>
+															<option value="하나은행" <c:if test="${user.bank eq '하나은행'}">
+																selected="selected"</c:if>>하나은행</option>
+															<option value="NH농협은행" <c:if
+																test="${user.bank eq 'NH농협은행'}">
+																selected="selected"</c:if>>NH농협은행</option>
+															<option value="카카오뱅크" <c:if test="${user.bank eq '카카오뱅크'}">
+																selected="selected"</c:if>>카카오뱅크</option>
+														</select>
+													</div>
+													<div class="col-sm-3">
+														<input id="accountHolder" name="accountHolder"
+															class="form-control" type="text"
+															value="${user.accountHolder}" placeholder="예금주" />
+													</div>
+												</div>
+
+												<div class="form-group">
+													<label class="col-sm-offset-1 col-sm-3 control-label"></label>
+													<div class="col-sm-6">
+														<input id="accountNum" name="accountNum" class="form-control"
+															type="text" placeholder="계좌번호를 숫자만 입력하세요" maxlength="14" />
+													</div>
+												</div>
+
+												<div id="entryDate" class="form-group">
+													<label for="entryDate"
+														class="col-sm-offset-1 col-sm-3 control-label"><strong>회원가입
+															일자</strong></label>
+													<div class="col-sm-6">
+														<input id="entryDate" name="addUserRegDate" class="form-control"
+															type="text" value="${user.addUserRegDate}" readonly />
+													</div>
+												</div>
+											</form>
+
 										</div>
+									</div>
 
-										<div class="form-group">
-											<label for="password"
-												class="col-sm-offset-1 col-sm-3 control-label"><strong>비밀번호
-													변경</strong></label>
-											<div class="col-sm-6">
-												<input id="password" name="password" class="form-control "
-													type="password" placeholder="변경할 비밀번호를 입력해 주세요." />
-											</div>
-											<div id="check-pwd-exp" class='col-sm-offset-3 col-sm-6'></div>
+									<br />
+									<div class="col-sm-3 col-sm-offset-2"></div>
+									<div class="col-sm-3 col-sm-offset-2">
+										<div class="row">
+											<button id="cancel" class="btn btn-border-d btn-circle"
+												type="button">취소</button>
+											<button id="updateUser-btn" class="btn btn-border-d btn-circle"
+												type="submit">수정하기</button>
+
 										</div>
-
-										<div class="form-group">
-											<label for="confirmPassword"
-												class="col-sm-offset-1 col-sm-3 control-label"><strong>비밀번호
-													재확인</strong></label>
-											<div class="col-sm-6">
-												<input id="confirmPassword" name="confirmPassword"
-													class="form-control" type="password"
-													placeholder="비밀번호를 입력해 주세요." />
-											</div>
-											<div id="check-pwd" class='col-sm-offset-3 col-sm-6'></div>
-										</div>
-
-										<div id="nick-name" class="form-group">
-											<label for="nickName"
-												class="col-sm-offset-1 col-sm-3 control-label"><strong>닉네임</strong></label>
-											<div class="col-sm-6">
-												<input id="nickName" name="nickName" class="form-control"
-													type="text" value="${user.nickName}"
-													placeholder="닉네임을 입력해 주세요." />
-											</div>
-											<div id="check-nickName" class='col-sm-offset-3 col-sm-6'></div>
-										</div>
-
-
-										<div class="form-group">
-											<label for="name"
-												class="col-sm-offset-1 col-sm-3 control-label"><strong>이름</strong></label>
-											<div class="col-sm-6">
-												<input id="name" name="name" class="form-control"
-													type="text" value="${user.name}" placeholder="이름을 입력하세요" />
-											</div>
-										</div>
-
-										<div class="form-group">
-											<label for="phone"
-												class="col-sm-offset-1 col-sm-3 control-label"><strong>휴대폰번호</strong></label>
-											<div class="col-sm-6">
-												<input id="phone" name="phone" class="form-control "
-													type="text" value="${user.phone}" placeholder="숫자만 입력해주세요"
-													maxlength="11" />
-
-											</div>
-											<button id="phoneAuthNum" class="btn btn-circle btn-xs"
-												type="button">인증번호 받기</button>
-											<div id="checkPhoneAuth" class="col-sm-offset-3 col-sm-6"
-												style="display: none;">
-												<input id="checkPhoneAuthNum" name="checkPhoneAuthNum"
-													class="form-control " type="text"
-													placeholder="인증번호를 입력하세요." maxlength="4" />
-											</div>
-											<div id="check-phone" class='col-sm-offset-3 col-sm-6'>
-											</div>
-											<div id="check-phone-auth" class='col-sm-offset-3 col-sm-6'></div>
-										</div>
-
-										<div class="form-group">
-											<label for="addr"
-												class="col-sm-offset-1 col-sm-3 control-label"><strong>주소</strong></label>
-											<div class="col-sm-6">
-												<input id="addr" name="addr" class="form-control"
-													type="text" value="${user.addr}" placeholder="주소를 입력하세요." />
-											</div>
-										</div>
-
-										<div class="form-group">
-											<label for="userAddr"
-												class="col-sm-offset-1 col-sm-3 control-label"></label>
-											<div class="col-sm-6">
-												<input id="userAddr" name="userAddr" class="form-control"
-													type="text" placeholder="상세주소를 입력하세요." /> <input
-													type="hidden" name="allAddr" />
-											</div>
-										</div>
-
-										<div class="form-group">
-											<label for="accountInfo"
-												class="col-sm-offset-1 col-sm-3 control-label"><strong>계좌정보</strong></label>
-											<div class="col-sm-3">
-												<select class="form-control" name="bank" id="bank">
-													<option value="${user.bank}">은행</option>
-													<option value="KB국민은행"
-														<c:if
-																			test="${user.bank eq 'KB국민은행'}">
-																			selected="selected"</c:if>>KB국민은행</option>
-													<option value="신한은행"
-														<c:if
-																			test="${user.bank eq '신한은행'}">
-																			selected="selected"</c:if>>신한은행</option>
-													<option value="우리은행"
-														<c:if
-																			test="${user.bank eq '우리은행'}">
-																			selected="selected"</c:if>>우리은행</option>
-													<option value="하나은행"
-														<c:if
-																			test="${user.bank eq '하나은행'}">
-																			selected="selected"</c:if>>하나은행</option>
-													<option value="NH농협은행"
-														<c:if
-																			test="${user.bank eq 'NH농협은행'}">
-																			selected="selected"</c:if>>NH농협은행</option>
-													<option value="카카오뱅크"
-														<c:if
-																			test="${user.bank eq '카카오뱅크'}">
-																			selected="selected"</c:if>>카카오뱅크</option>
-												</select>
-											</div>
-											<div class="col-sm-3">
-												<input id="accountHolder" name="accountHolder"
-													class="form-control" type="text"
-													value="${user.accountHolder}" placeholder="예금주" />
-											</div>
-										</div>
-
-										<div class="form-group">
-											<label class="col-sm-offset-1 col-sm-3 control-label"></label>
-											<div class="col-sm-6">
-												<input id="accountNum" name="accountNum"
-													class="form-control" type="text"
-													placeholder="계좌번호를 숫자만 입력하세요" maxlength="14" />
-											</div>
-										</div>
-
-										<div id="entryDate" class="form-group">
-											<label for="entryDate"
-												class="col-sm-offset-1 col-sm-3 control-label"><strong>회원가입
-													일자</strong></label>
-											<div class="col-sm-6">
-												<input id="entryDate" name="addUserRegDate"
-													class="form-control" type="text"
-													value="${user.addUserRegDate}" readonly />
-											</div>
-										</div>
-									</form>
-
+									</div>
 								</div>
-							</div>
-
-							<br />
-							<div class="col-sm-3 col-sm-offset-2"></div>
-							<div class="col-sm-3 col-sm-offset-2">
-								<div class="row">
-									<button id="cancel" class="btn btn-border-d btn-circle"
-										type="button">취소</button>
-									<button id="updateUser-btn" class="btn btn-border-d btn-circle"
-										type="submit">수정하기</button>
-
-								</div>
-							</div>
+							</section>
 						</div>
 					</section>
 				</div>
-			</section>
-		</div>
-	</main>
-	<jsp:include page="footer.jsp"></jsp:include>
+			</main>
+			<jsp:include page="footer.jsp"></jsp:include>
 
 
 
 
-	<!-- The Modal -->
-	<div class="modal" id="addSecessionModal">
-		<div class="modal-dialog-centered">
-			<div class="modal-content">
+			<!-- The Modal -->
+			<div class="modal" id="addSecessionModal">
+				<div class="modal-dialog-centered">
+					<div class="modal-content">
 
-				<!-- Modal Header -->
-				<div class="modal-header">
-					<h5 class="modal-title">회원탈퇴</h5>
+						<!-- Modal Header -->
+						<div class="modal-header">
+							<h5 class="modal-title">회원탈퇴</h5>
+						</div>
+
+						<!-- Modal body -->
+						<div class="modal-body">
+							<form action="" class="was-validated">
+								<div class="form-group">
+									<input type="text" class="form-control" id="secession-userId"
+										placeholder="아이디를 입력하세요" name="id" required>
+								</div>
+								<div class="form-group">
+									<input type="password" class="form-control" id="secession-userPwd"
+										placeholder="비밀번호를 입력하세요" name="password" required>
+								</div>
+								<div id="Secession-btn">
+									<button type="button" class="btn btn-primary" id="addSecession">탈퇴하기</button>
+									<button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
+								</div>
+							</form>
+						</div>
+
+					</div>
 				</div>
-
-				<!-- Modal body -->
-				<div class="modal-body">
-					<form action="" class="was-validated">
-						<div class="form-group">
-							<input type="text" class="form-control" id="secession-userId"
-								placeholder="아이디를 입력하세요" name="id" required>
-						</div>
-						<div class="form-group">
-							<input type="password" class="form-control"
-								id="secession-userPwd" placeholder="비밀번호를 입력하세요" name="password"
-								required>
-						</div>
-						<div id="Secession-btn">
-							<button type="button" class="btn btn-primary" id="addSecession">탈퇴하기</button>
-							<button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
-						</div>
-					</form>
-				</div>
-
 			</div>
-		</div>
-	</div>
 
-	<!--  
+			<!--  
     JavaScripts
     =============================================
     -->
-	<script src="../../resources/lib/jquery/jquery.js"></script>
+			<!-- <script src="../../resources/lib/jquery/jquery.js"></script>
 	<script src="../../resources/lib/bootstrap/js/bootstrap.min.js"></script>
 	<script src="../../resources/lib/wow/wow.js"></script>
 	<script
@@ -488,9 +453,9 @@ auto
 	<script src="../../resources/js/theme.js"></script>
 	<script src="../../resources/js/theme.custom.js"></script>
 	<script src="../../resources/js/theme.init.js"></script>
-	<script src="../../resources/js/dashboard/examples.dashboard.js"></script>
+	<script src="../../resources/js/dashboard/examples.dashboard.js"></script> -->
 
-	<script>
+			<script>
 				$(function () {
 					$('#listMyProduct').on('click', function () {
 						window.location = "/auction/listMyAuctionProduct?currentPage=1";
@@ -741,7 +706,7 @@ auto
 
 
 					//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-					$("#updateUser").on("click", function () {
+					$("#updateUser-btn").on("click", function () {
 						console.log("뭐지");
 						fncupdateUser();
 					});
@@ -749,11 +714,12 @@ auto
 					function fncupdateUser() {
 
 						var id = $("#id").val();
-						var pw = $("input[name='password']").val();
-						var pw_confirm = $("input[name='confirmPassword']").val();
-						var name = $("input[name='name']").val();
-						var nickName = $("input[name='nickName']").val();
-						var phone = $("input[name='phone']").val();
+						var pw = $("#password").val();
+						var pw_confirm = $("#confirmPassword").val();
+						var name = $("#name").val();
+						var nickName = $("#nickName").val();
+						var phone = $("#phone").val();
+						console.log("안찍히니" + id + pw + name + nickName + phone);
 
 
 
@@ -806,9 +772,10 @@ auto
 
 						$("input:hidden[name='allAddr']").val(value);
 
-						$("form").attr("method", "POST").attr("action", "/user/updateUser").submit();
-					}
+						$("#updateForm").attr("method", "POST").attr("action", "/user/updateUser").submit();
 
+
+					}
 
 					//주소검색
 					document.getElementById("addr").addEventListener("click", function () { //주소입력칸을 클릭하면
@@ -821,6 +788,6 @@ auto
 					});
 				});
 			</script>
-</body>
+		</body>
 
-</html>
+		</html>
