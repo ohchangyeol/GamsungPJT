@@ -45,7 +45,12 @@
     <link href="../../resources/css/style.css" rel="stylesheet">
     <link id="color-scheme" href="../../resources/css/colors/default.css" rel="stylesheet">
   
-  
+  <style>
+  	.prodName{
+  		 text-decoration: none;
+		 text-overflow: ellipsis;
+  	}
+  </style>
   
   </head>
   <body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
@@ -55,12 +60,12 @@
       </div>
   	<jsp:include page="../common/header.jsp"></jsp:include>
     <div class="main">
-      <section class="module bg-dark-60 shop-page-header" data-background="../../resources/images/shop/product-page-bg.jpg">
+      <section class="module bg-dark-60 shop-page-header" data-background="../../resources/images/6041bd81f941c55ff784f622_8-Tips-when-buying-at-auction.jpg">
           <div class="container">
             <div class="row">
               <div class="col-sm-6 col-sm-offset-3">
-                <h2 class="module-title font-alt">Shop Products</h2>
-                <div class="module-subtitle font-serif">A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart.</div>
+                <h2 class="module-title font-alt">Auction Products</h2>
+                <div class="module-subtitle font-serif">관리자가 등록한 경매 상품입니다. 10분 동안만 진행됩니다.</div>
               </div>
             </div>
           </div>
@@ -70,7 +75,7 @@
           <div class="container">
             <div class="row">
               <div class="col-sm-6 col-sm-offset-3">
-                <h2 class="module-title font-alt">경매 진행 전 상품</h2>
+                <h2 class="module-title font-alt">관리자 경매 상품</h2>
               </div>
             </div>
             <div class="row multi-columns-row">
@@ -86,7 +91,7 @@
                     	<a class="btn btn-round btn-b">경매 시작하기!</a>
                     </div>
                   </div>
-                  <h4 class="shop-item-title font-alt"><a href="#">${product.auctionProductName}</a></h4>
+                  <h4 class="shop-item-title font-alt prodNmae"><a href="#">${product.auctionProductName}</a></h4>
                   <span>${product.hashtag1} ${product.hashtag2} ${product.hashtag2}</span>			
                 </div>
               </div>
@@ -102,7 +107,7 @@
                     	<a class="btn btn-round btn-b">경매 시작하기!</a>
                     </div>
                   </div>
-                  <h4 class="shop-item-title font-alt"><a href="#">${product.auctionProductName}</a></h4>
+                  <h4 class="shop-item-title font-alt prodNmae"><a href="#">${product.auctionProductName}</a></h4>
                   <span>${product.hashtag1} ${product.hashtag2} ${product.hashtag2}</span>			
                 </div>
               </div>
@@ -187,7 +192,7 @@
 				                  				+ '<div class="shop-item-detail"><span hidden="hidden">'
 				                  				+ JSONData[i].auctionProductSubDetail
 				                  				+ '</span><a class="btn btn-round btn-b">경매 시작하기!</a></div></div>'
-				                  				+ '</span><h4 class="shop-item-title font-alt"><a href="#">'
+				                  				+ '</span><h4 class="shop-item-title font-alt prodNmae"><a href="#">'
 				                   				+ JSONData[i].auctionProductName
 				                   				+ '</a></h4> <span>'
 				                   				+ JSONData[i].hashtag1
@@ -211,7 +216,7 @@
 				              					+ '<div class="shop-item-detail"><span hidden="hidden">'
 				                  				+ JSONData[i].auctionProductSubDetail
 				                  				+ '</span><a class="btn btn-round btn-b">경매 시작하기!</a></div></div>'
-				                  				+ '<h4 class="shop-item-title font-alt"><a href="#">'
+				                  				+ '<h4 class="shop-item-title font-alt prodNmae"><a href="#">'
 				                   				+ JSONData[i].auctionProductName
 				                   				+ '</a></h4> <span>'
 				                   				+ JSONData[i].hashtag1
