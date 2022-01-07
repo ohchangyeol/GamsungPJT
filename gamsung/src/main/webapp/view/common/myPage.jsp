@@ -123,10 +123,24 @@
 	gap: 15px;
 }
 
-/* .form-group{
-											 display: flex;
-											 flex: 1 auto;
-										 } */
+display
+:
+ 
+flex
+;
+
+											 
+flex
+:
+ 
+1
+ 
+auto
+;
+
+										 
+}
+* /
 .time {
 	display: flex;
 }
@@ -810,4 +824,3 @@
 </body>
 
 </html>
->>>>>>> refs/heads/developer

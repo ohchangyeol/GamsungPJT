@@ -40,6 +40,10 @@ pageEncoding="UTF-8"%>
 </head>
 	  
 <body>
+
+	<!-- header -->
+	<jsp:include page="/view/common/headerCampBusiness.jsp" />
+	<!-- header End -->
 	
 	<div class="container">
 	
@@ -51,33 +55,31 @@ pageEncoding="UTF-8"%>
 	<br>
 	<br>
 	
+	${user.role}
 	
+	<br>
+	<br>
+	<li><a href="/adminMain.jsp">adminMain</a></li>
 	
-	<li>
-		<a href="/adminMain.jsp">
-			adminMain
-		</a>
-	</li>
-	<li>
-		<a href="/payment/listSiteProfit">
-			 사이트수익
-		</a>
-	</li>
-	<li>
-		<a href="/payment/listPayment">
-			 결제내역
-		</a>
-	</li>
-	<li>
-		<a href="/payment/listPaymentCode">
-			 결제코드관리
-		</a>
-	</li>
-	<li>
-		<a href="/payment/managePoint">
-			 포인트관리
-		</a>
-	</li>		
+	<br>
+	<br>
+	<li><a href="/payment/listSiteProfit">사이트수익</a></li>
+	
+	<br>
+	<br>
+	<li><a href="/payment/listPayment">결제내역</a></li>
+	
+	<br>
+	<br>
+	<li><a href="/payment/listPaymentCode">결제코드관리</a></li>
+	
+	<br>
+	<br>
+	<li><a href="/payment/managePoint">포인트관리</a></li>	
+	
+	<br>
+	<br>
+	<li><a href="/view/payment/listSiteProfit.jsp">temp</a></li>		
 	
 	
 	

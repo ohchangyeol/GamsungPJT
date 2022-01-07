@@ -191,6 +191,7 @@ public class PaymentServiceImpl implements PaymentService{
 	
 	@Override
 	public Map<String, Object> listPayment(Search search) throws Exception {
+		
 		List<Payment> list= paymentDAO.listPayment(search);
 		int totalCount = paymentDAO.getTotalCount(search);
 		
@@ -199,6 +200,11 @@ public class PaymentServiceImpl implements PaymentService{
 		map.put("totalCount", new Integer(totalCount));
 		
 		return map;		
+	}
+	
+	@Override
+	public List<Payment> listPaymentJSON(Search search) throws Exception {
+		return paymentDAO.listPayment(search);	
 	}	
 	
 	

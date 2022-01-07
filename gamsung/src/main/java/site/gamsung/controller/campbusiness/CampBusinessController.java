@@ -81,14 +81,20 @@ public class CampBusinessController {
 			
 			if (tempUser != null) {
 				
-				// role = admin
+				
+				// role = GENERAL
+				if (tempUser.getRole().equals("GENERAL")) {
+					return "forward:/main.jsp";
+				}			
+				
+				// role = ADMIN
 				if (tempUser.getRole().equals("ADMIN")) {
 					campSession.setUser(tempUser);
 					httpSession.setAttribute("campSession", campSession);
 					return "forward:/businessMain.jsp";
 				}
 				
-				// role = business
+				// role = BUSINESS
 				if (tempUser.getRole().equals("BUSINESS")) {
 					
 					// 캠핑장정보 미등록시 캠핑장 등록화면 이동

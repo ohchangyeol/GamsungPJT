@@ -1,23 +1,39 @@
 package site.gamsung.controller.payment;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.siot.IamportRestClient.IamportClient;
 import com.siot.IamportRestClient.exception.IamportResponseException;
 import com.siot.IamportRestClient.response.IamportResponse;
 
+import site.gamsung.service.common.Page;
+import site.gamsung.service.common.Search;
+import site.gamsung.service.domain.Payment;
+import site.gamsung.service.domain.User;
 import site.gamsung.service.payment.PaymentService;
 
 @Controller
@@ -52,6 +68,28 @@ public class PaymentRestController {
 			@PathVariable(value= "imp_uid") String imp_uid) throws IamportResponseException, IOException {
 		
 			return api.paymentByImpUid(imp_uid);
+	}
+	
+	
+	@RequestMapping(value = "listPayment", method = RequestMethod.POST)
+	private @ResponseBody String getUserList(@ModelAttribute("search") Search search, HttpSession httpSession) throws Exception {
+		
+		User tempUser = (User) httpSession.getAttribute("user");
+		
+		System.out.println("tempUser ID : " + tempUser.getId());
+		System.out.println("tempUser role : " + tempUser.getRole());
+		System.out.println("Session tempUser : " + tempUser);
+		System.out.println("Session search : " + search); 
+		
+		if (tempUser.getRole().equals("ADMIN")) {
+			search.setId(null);
+		}	
+		
+		List<Payment> paymentList = paymentService.listPaymentJSON(search);
+		Gson data = new GsonBuilder().serializeNulls().create();
+		
+		return data.toJson(paymentList);
+
 	}
 
 }
