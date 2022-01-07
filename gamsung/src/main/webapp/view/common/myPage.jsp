@@ -122,15 +122,7 @@ Template specific stylesheets
 					gap: 15px;
 				}
 
-				display: flex;
-
-
-				flex: 1 auto;
-
-
-				}
-
-				* / .time {
+				.time {
 					display: flex;
 				}
 
@@ -784,7 +776,6 @@ Template specific stylesheets
 
 
 					}
-
 
 					//주소검색
 					document.getElementById("addr").addEventListener("click", function () { //주소입력칸을 클릭하면

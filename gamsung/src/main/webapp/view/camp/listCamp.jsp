@@ -12,69 +12,10 @@ pageEncoding="UTF-8"%>
     <!-- Document Title -->
     <title>ListCamp</title>
     
-           <!-- JavaScripts -->
-    <script src="../../resources/lib/jquery/jquery.js"></script>
-    <script src="../../resources/lib/bootstrap/js/bootstrap.min.js"></script>
-    <script src="../../resources/lib/wow/wow.js"></script>
-    <script src="../../resources/lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js"></script>
-    <script src="../../resources/lib/isotope/isotope.pkgd.js"></script>
-    <script src="../../resources/lib/imagesloaded/imagesloaded.pkgd.js"></script>
-    <script src="../../resources/lib/flexslider/jquery.flexslider.js"></script>
-    <script src="../../resources/lib/owl.carousel/dist/owl.carousel.min.js"></script>
-    <script src="../../resources/lib/smoothscroll.js"></script>
-    <script src="../../resources/lib/magnific-popup/magnific-popup.js"></script>
-    <script src="../../resources/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script>
-    <script src="../../resources/js/plugins.js"></script>
-    <script src="../../resources/js/main.js"></script>
+    <jsp:include page="../../resources/commonLib.jsp"/>
+     
+
     
-    <!-- Default stylesheets-->
-    <link href="../../resources/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    
-    <!-- Template specific stylesheets-->
-    <link href="../../resources/lib/animate.css/animate.css" rel="stylesheet">
-    <link href="../../resources/lib/components-font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <link href="../../resources/lib/et-line-font/et-line-font.css" rel="stylesheet">
-    <link href="../../resources/lib/flexslider/flexslider.css" rel="stylesheet">
-    <link href="../../resources/lib/owl.carousel/dist/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="../../resources/lib/owl.carousel/dist/assets/owl.theme.default.min.css" rel="stylesheet">
-    <link href="../../resources/lib/magnific-popup/magnific-popup.css" rel="stylesheet">
-    <link href="../../resources/lib/simple-text-rotator/simpletextrotator.css" rel="stylesheet">       
-    
-    <!-- Main stylesheet and color file-->
-    <link href="../../resources/css/style.css" rel="stylesheet">
-    <link id="color-scheme" href="../../resources/css/colors/default.css" rel="stylesheet">  
-
-    <script type="text/javascript">
-    
-    var currentPage = 1;
-
-    function fncGetList(currentPage) {
-        $("#currentPage").val(currentPage)
-        $("#pagenavi").attr("method","POST").attr("action","/campGeneral/listCamp").submit();
-      }
-      
-      $( function() {
-
-        $("#view").on("click" , function() {
-              $("#view_order").attr("method","POST").attr("action","/campGeneral/listCamp").submit();
-          });
-
-        $("#rating").on("click" , function() {
-            $("#rating_order").attr("method","POST").attr("action","/campGeneral/listCamp").submit();
-        });
-        
-        $("#regdate").on("click" , function() {
-            $("#regdate_order").attr("method","POST").attr("action","/campGeneral/listCamp").submit();
-        });
-
-        $(  ".image"  ).on("click", function() {    
-           var campNo = $(this).data("campno");
-           console.log(campNo);
-           $("#get_camp").attr("method","POST").attr("action","/campGeneral/getCamp?campNo="+campNo).submit()
-        });   
-
-      });
-    </script>
   </head>
   <body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
     <main>
@@ -293,5 +234,40 @@ pageEncoding="UTF-8"%>
            <jsp:include page="../common/pageNavigator.jsp"/>
         </div>
   
+
+        <script src="../../resources/lib/modals/examples.modals.js"></script>
+        <script src="../../resources/js/campSearch.js"></script>
+
+        <script type="text/javascript">
+    
+          var currentPage = 1;
+      
+          function fncGetList(currentPage) {
+            $("#currentPage").val(currentPage)
+            $("#pagenavi").attr("method","POST").attr("action","/campGeneral/listCamp").submit();
+          }
+          
+          $( function() {
+    
+            $("#view").on("click" , function() {
+                  $("#view_order").attr("method","POST").attr("action","/campGeneral/listCamp").submit();
+              });
+    
+            $("#rating").on("click" , function() {
+                $("#rating_order").attr("method","POST").attr("action","/campGeneral/listCamp").submit();
+            });
+            
+            $("#regdate").on("click" , function() {
+                $("#regdate_order").attr("method","POST").attr("action","/campGeneral/listCamp").submit();
+            });
+    
+            $(  ".image"  ).on("click", function() {    
+                var campNo = $(this).data("campno");
+                console.log(campNo);
+                $("#get_camp").attr("method","POST").attr("action","/campGeneral/getCamp?campNo="+campNo).submit()
+            });   
+    
+          });
+        </script>
   </body>
 </html>

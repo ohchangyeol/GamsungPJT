@@ -44,7 +44,7 @@ public class NoticeServiceTest {
 		noticeService.addNotice(notice);
 	}
 	
-	@Test
+	//@Test
 	//@Transactional(readOnly = false)
 	public void getNoticeServiceTest() throws Exception {
 		
@@ -55,7 +55,7 @@ public class NoticeServiceTest {
 		System.out.println("==> "+ notice);
 	}
 	
-	//@Test
+	@Test
 	public void listNoticeServiceTest() throws Exception {
 		Search search = new Search();
 		
@@ -63,8 +63,8 @@ public class NoticeServiceTest {
 		search.setPageSize(pageSize);
 		 
 		//제목 + 내용 검색
-//		search.setSearchCondition("0");
-//		search.setSearchKeyword("내용");
+		search.setSearchCondition("0");
+		search.setSearchKeyword("공지");
 		 
 		// 제목 
 //		search.setSearchCondition("1");
@@ -75,7 +75,7 @@ public class NoticeServiceTest {
 //		search.setSearchKeyword("내용");
 		
 		//캠핑장일 경우
-//		search.setCampNo(10002);
+		search.setCampNo(10000);
 		 
 		System.out.println("==> Search : " + search);
 		

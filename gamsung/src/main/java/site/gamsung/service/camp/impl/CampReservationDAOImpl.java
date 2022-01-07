@@ -70,6 +70,11 @@ public class CampReservationDAOImpl implements CampReservationDAO {
 	public List<CampReservation> listReservation(Map<String, Object> map){
 		return sqlSession.selectList("CampReservationMapper.listReservation", map);
 	}
+	
+	@Override
+	public List<CampReservation> listMyReservationTable(Search search) {
+		return sqlSession.selectList("CampReservationMapper.listMyReservationTable", search);
+	}
 
 	@Override
 	public int getTotalCount(Map<String, Object> map){
