@@ -22,6 +22,8 @@ public interface CampReservationDAO {
 	
 	public List<CampReservation> listReservation(Map<String, Object> map);
 	
+	public List<CampReservation> listMyReservationTable(Search search);
+	
 	public int getTotalCount(Map<String, Object> map);
 	
 	public ReservationStatistics getReservationStatistics();

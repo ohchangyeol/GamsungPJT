@@ -7,7 +7,7 @@ pageEncoding="UTF-8"%>
       <div class="col-xs-12">
         <div class="col-xs-4"></div>
         <div class="col-xs-4" style="text-align: center;">
-        <h2  style="margin-bottom: 20px;">캠핑장을 검색 하세요!</h2>
+           <h2  style="margin-bottom: 20px;">캠핑장을 검색 하세요!</h2>
         <div class="row">
           <div class="row">
             <div style="text-align: end; padding-right: 15px;">
@@ -17,7 +17,7 @@ pageEncoding="UTF-8"%>
               <div id="modalForm" class="modal-block modal-block-primary mfp mfp-hide">
                 <section class="panel">
                   <header class="panel-heading">
-                    <h4 class="panel-title">캠핑장을 상세하게 검색 하세요!</h4>
+                      <h4 class="panel-title">캠핑장을 상세하게 검색 하세요!</h4>
                   </header>
                   <div class="panel-body">
                     <form id="detailSearch" class="form-horizontal mb-lg" novalidate="novalidate">
@@ -290,4 +290,4 @@ pageEncoding="UTF-8"%>
   </div>
 </section>
 
-<script src="../../resources/lib/modals/examples.modals.js"></script>
+

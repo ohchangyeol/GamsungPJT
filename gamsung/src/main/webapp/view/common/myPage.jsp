@@ -117,7 +117,7 @@
 										</a>
 										<ul class="nav nav-children">
 											<li>
-												<a id="listMyReservation">
+												<a href="../camp/listMyReservation.jsp" id="listMyReservation">
 													 캠핑장 예약 목록
 												</a>
 											</li>
@@ -1206,9 +1206,9 @@
 				window.location = "/auction/listMyAuctionProduct?currentPage=1";
 			});
 
-			$('#listMyReservation').on('click',function(){
-				window.location = "/campGeneral/listMyReservation?currentPage=1";
-			});
+			// $('#listMyReservation').on('click',function(){
+			// 	window.location = "/campGeneral/listMyReservation?currentPage=1";
+			// });
 
 			$('#listMyQna').on('click',function(){
 				window.location = "/campGeneral/listMyQna?currentPage=1";
