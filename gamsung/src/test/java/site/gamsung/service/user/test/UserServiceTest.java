@@ -234,8 +234,7 @@ public class UserServiceTest {
 			User user = new User();
 			user.setId("TEST@TEST.COM");
 			
-			userService.updateDormantGeneralUserConvert(user.getId());
-			
+			userService.updateDormantGeneralUserConvert(user.getId());	
 		}
 		
 	

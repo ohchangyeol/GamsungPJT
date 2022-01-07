@@ -20,7 +20,7 @@ pageEncoding="UTF-8"%>
 		<link rel="stylesheet" href="../../../resources/lib/summernote/summernote.css" />
 		<link rel="stylesheet" href="../../../resources/lib/summernote/summernote-bs3.css" />
 		<style>
-			.inner-body{border-top-width: 60px !important;margin-left: 0!important;padding-top: 80px;}
+			.inner-body{border-top-width: 3px !important;margin-left: 0!important;padding-top: 80px;}
             .inner-body .form-group.form-group-invisible h2 {padding-left: 50px;}
             .inner-body .inner-toolbar{position: absolute !important;left: 0 !important;top: 0 !important;}
             .inner-body .inner-toolbar ul li.notice-btn{cursor: pointer; }
