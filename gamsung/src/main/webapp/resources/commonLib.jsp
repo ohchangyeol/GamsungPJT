@@ -19,7 +19,6 @@
     <meta name="msapplication-TileImage" content="/resources/images/favicons/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
 
-
     <!-- Stylesheets ============================================= -->
 
     <!-- Default stylesheets-->
@@ -51,8 +50,6 @@
     <link href="/resources/css/header.css" rel="stylesheet">
     <link id="color-scheme" href="/resources/css/colors/default.css" rel="stylesheet">
 
-
-
     <!-- JavaScripts ============================================= -->
     <script src="/resources/lib/jquery/jquery.js"></script>
     <script src="/resources/lib/bootstrap/js/bootstrap.min.js"></script>
@@ -74,13 +71,11 @@
     <script src="/resources/lib/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
     <script src="/resources/lib/pnotify/pnotify.custom.js"></script>
     <script src="/resources/lib/nanoscroller/nanoscroller.js"></script>
-    <script src="../..//resources/lib/jquery-browser-mobile/jquery.browser.mobile.js"></script>
+    <script src="/resources/lib/jquery-browser-mobile/jquery.browser.mobile.js"></script>
 
     <script src="/resources/lib/modernizr/modernizr.js"></script>
     <script src="/resources/js/theme.js"></script>
     <script src="/resources/js/theme.custom.js"></script>
     <script src="/resources/js/theme.init.js"></script>
-
-
 
     <script src="/resources/js/header.js"></script>

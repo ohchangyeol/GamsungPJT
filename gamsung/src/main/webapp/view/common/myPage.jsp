@@ -123,23 +123,6 @@
 	gap: 15px;
 }
 
-display
-:
- 
-flex
-;
-
-											 
-flex
-:
- 
-1
- 
-auto
-;
-
-										 
-}
 * /
 .time {
 	display: flex;
@@ -186,6 +169,7 @@ auto
 			<div class="loader">Loading...</div>
 		</div>
 		<jsp:include page="header.jsp"></jsp:include>
+
 		<div class="inner-wrapper">
 			<jsp:include page="userSideBar.jsp"></jsp:include>
 			<section role="main" class="content-body">
@@ -808,7 +792,6 @@ auto
 
 						$("form").attr("method", "POST").attr("action", "/user/updateUser").submit();
 					}
-
 
 					//주소검색
 					document.getElementById("addr").addEventListener("click", function () { //주소입력칸을 클릭하면
