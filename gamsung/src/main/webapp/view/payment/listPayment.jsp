@@ -47,17 +47,7 @@
   	
   	<!-- ### listPayment resources Start ### -->
  	<link rel="stylesheet" href="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.css"/> 
- 	<script src="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.js"></script>
- 	
- 	<!-- Design CDN -->
- 	<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
- 	<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
- 	<script src="https://cdn.datatables.net/1.11.3/js/dataTables.semanticui.min.js"></script>
- 	<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script>
- 	<link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css" rel="stylesheet">
- 	<link href="https://cdn.datatables.net/1.11.3/css/dataTables.semanticui.min.css" rel="stylesheet">
-
- 	
+ 	<script src="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.js"></script> 	
   	
   	<script type="text/javascript">
   				
@@ -68,15 +58,105 @@
 			        "defaultContent": "-",
 			        "targets": "_all"
 			      }],
-				pageLength: 10,
+				pageLength: 100,
 				bPaginate: true,	
 				processing: true,
 				serverSide: false,
 				responsive: true,
 				scrollX: true,
-				scrollY: 450,
+				scrollY: 550,
 				ordering: true,				
-				searching: true, 
+				searching: true,
+				footerCallback:function(){
+					
+					var api = this.api(), data;
+					var result = 0;
+					
+					api.column(4, {search:'applied'}).data().each(function(data,index){
+					    result += parseFloat(data);
+					});
+					$(api.column(4).footer()).html(result.toLocaleString()+'원'); 
+					
+					result=0;
+					api.column(10, {search:'applied'}).data().each(function(data,index){
+					    result += parseFloat(data);
+					});
+					$(api.column(10).footer()).html(result.toLocaleString()+'원');
+					
+					result=0;
+					api.column(11, {search:'applied'}).data().each(function(data,index){
+					    result += parseFloat(data);
+					});
+					$(api.column(11).footer()).html(result.toLocaleString()+'원');
+					
+					result=0;
+					api.column(12, {search:'applied'}).data().each(function(data,index){
+					    result += parseFloat(data);
+					});
+					$(api.column(12).footer()).html(result.toLocaleString()+'원');
+					
+					result=0;
+					api.column(14, {search:'applied'}).data().each(function(data,index){
+					    result += parseFloat(data);
+					});
+					$(api.column(14).footer()).html(result.toLocaleString()+'원');
+					
+					result=0;
+					api.column(15, {search:'applied'}).data().each(function(data,index){
+					    result += parseFloat(data);
+					});
+					$(api.column(15).footer()).html(result.toLocaleString()+'원');
+					
+					result=0;
+					api.column(16, {search:'applied'}).data().each(function(data,index){
+					    result += parseFloat(data);
+					});
+					$(api.column(16).footer()).html(result.toLocaleString()+'원');
+					
+					result=0;
+					api.column(20, {search:'applied'}).data().each(function(data,index){
+					    result += parseFloat(data);
+					});
+					$(api.column(20).footer()).html(result.toLocaleString()+'원');
+					
+					result=0;
+					api.column(21, {search:'applied'}).data().each(function(data,index){
+					    result += parseFloat(data);
+					});
+					$(api.column(21).footer()).html(result.toLocaleString()+'원');
+					
+					result=0;
+					api.column(22, {search:'applied'}).data().each(function(data,index){
+					    result += parseFloat(data);
+					});
+					$(api.column(22).footer()).html(result.toLocaleString()+'원');
+					
+					result=0;
+					api.column(23, {search:'applied'}).data().each(function(data,index){
+					    result += parseFloat(data);
+					});
+					$(api.column(23).footer()).html(result.toLocaleString()+'원');
+					
+					result=0;
+					api.column(24, {search:'applied'}).data().each(function(data,index){
+					    result += parseFloat(data);
+					});
+					$(api.column(24).footer()).html(result.toLocaleString()+'원');
+					
+					result=0;
+					api.column(25, {search:'applied'}).data().each(function(data,index){
+					    result += parseFloat(data);
+					});
+					$(api.column(25).footer()).html(result.toLocaleString()+'원');
+					
+					result=0;
+					api.column(26, {search:'applied'}).data().each(function(data,index){
+					    result += parseFloat(data);
+					});
+					$(api.column(26).footer()).html(result.toLocaleString()+'원');				
+				
+				},
+
 				columnDefs: [
 					{ targets: 0,  width: 80 },
 					{ targets: 1,  width: 150 },
@@ -87,24 +167,24 @@
 					{ targets: 6,  width: 80 },
 					{ targets: 7,  width: 300 },
 					{ targets: 8,  width: 80 },
-					{ targets: 9,  width: 80 },
+					{ targets: 9,  width: 100 },
 					{ targets: 10, width: 100 },
 					{ targets: 11, width: 100 },
 					{ targets: 12, width: 100 },
 					{ targets: 13, width: 80 },
-					{ targets: 14, width: 100 },
-					{ targets: 15, width: 100 },
-					{ targets: 16, width: 100 },
+					{ targets: 14, width: 120 },
+					{ targets: 15, width: 120 },
+					{ targets: 16, width: 120 },
 					{ targets: 17, width: 200 },
 					{ targets: 18, width: 80 },
 					{ targets: 19, width: 300 },
-					{ targets: 20, width: 80 },
+					{ targets: 20, width: 100 },
 					{ targets: 21, width: 100 },
 					{ targets: 22, width: 100 },
 					{ targets: 23, width: 100 },
-					{ targets: 24, width: 100 },
-					{ targets: 25, width: 100 },
-					{ targets: 26, width: 100 }
+					{ targets: 24, width: 120 },
+					{ targets: 25, width: 120 },
+					{ targets: 26, width: 120 }
 				],
 				ajax : {
 				    url :"/payment/rest/listPayment",
@@ -144,27 +224,28 @@
 			});
 			
 			/* Column별 검색기능 추가 */
-			$("#myTable_filter").prepend(
-					"<input type='text' id='fromDate' placeholder='YYYY-MM-DD'>"
-					+ "<input type='text' id='toDate' placeholder='yyyy-MM-dd'>"
-					+ "<select id='selectT'></select>");
+			$('#myTable_filter').prepend(
+					'<input type="text" id="fromDate" placeholder="등록일 YYYY-MM-DD">~'
+					+'<input type="text" id="toDate" placeholder="등록일 YYYY-MM-DD"> '
+					+'<select id="select"></select>');
 			
-			$("#myTable > thead > tr").children().each(function (indexInArray, valueOfElement) { 
-				$("#select").append("<option>"+valueOfElement.innerHTML+"</option>");
+			$('#myTable > thead > tr').children().each(function (indexInArray, valueOfElement) { 
+				$('#select').append('<option>'+valueOfElement.innerHTML+'</option>');
 			});
 				
-			$(".dataTables_filter input").unbind().bind('keyup', function () {
-		        var colIndex = document.querySelector('#selectT').selectedIndex;
+			$('.dataTables_filter input').unbind().bind('keyup', function () {
+		        var colIndex = document.querySelector('#select').selectedIndex;
 		        table.column(colIndex).search(this.value).draw();
 		    });
-	
-		    $.fn.dataTable.ext.search.push(
+			
+			$.fn.dataTable.ext.search.push(
 	    	    
 		    	function(settings, data, dataIndex){
 	    	    
-		    		var min = Date.parse($("#fromDate").val());
-	    	        var max = Date.parse($("#toDate").val());
-	    	        var targetDate = Date.parse(data[5]);
+		    		var min = Date.parse($('#fromDate').val());
+	    	        var max = Date.parse($('#toDate').val());
+	    	        
+	    	        var targetDate = Date.parse(data[6]);
 	    	 
 	    	        if( (isNaN(min) && isNaN(max) ) || 
 	    	            (isNaN(min) && targetDate <= max )|| 
@@ -197,7 +278,7 @@
 
 	<style>
 	    body > div.container-fluid{
-	        margin-top: 70px;
+	        margin-top: 20px;
 	    }
 	    
 	    .form-horizontal .control-label{
@@ -219,7 +300,7 @@
 			
 			<!-- 상단 Start -->
 			<div class="row">  
-				<h3 class="col-sm-2 mb-0">&nbsp;&nbsp;&nbsp;&nbsp;결제내역 - ${user.role}</h3>	  		
+				<h3 class="col-sm-2 mb-0">&nbsp;&nbsp;&nbsp;&nbsp;결제내역</h3>	  		
 			</div>
 			<!-- 상단 End -->
 				
@@ -264,8 +345,34 @@
 				
 				<tfoot>
 					<tr>
-						<th colspan="2" style="text-align:right;white-space:nowrap;">TOTAL : </th>
-						<th colspan="6" style="text-align:left;white-space:nowrap;"></th>
+						<!-- 하단 합계 -->
+						<th></th>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th></th>
 					</tr>
 				</tfoot>
 				
