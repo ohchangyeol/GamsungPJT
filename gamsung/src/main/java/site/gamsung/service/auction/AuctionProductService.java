@@ -40,5 +40,6 @@ public interface AuctionProductService {
 	public AuctionInfo deleteAuctionProduct(String auctionProductNo, String status);
 	
 	public AuctionInfo updateBidEndTime(String auctionProductNo);
-
+	
+	public AuctionProduct paymentSubInfo(String registrantId);
 }

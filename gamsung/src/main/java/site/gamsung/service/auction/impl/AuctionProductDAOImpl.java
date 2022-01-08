@@ -159,4 +159,10 @@ public class AuctionProductDAOImpl implements AuctionProductDAO{
 		return sqlSession.selectOne("AuctionProductMapper.getUserLog",auctionInfo);
 	}
 
+	@Override
+	public AuctionProduct paymentSubInfo(String registrantId) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("AuctionProductMapper.paymentSubInfo",registrantId);
+	}
+
 }

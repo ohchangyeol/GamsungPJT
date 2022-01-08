@@ -29,7 +29,10 @@ import site.gamsung.service.common.RatingReviewService;
 import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.AuctionInfo;
 import site.gamsung.service.domain.AuctionProduct;
+import site.gamsung.service.domain.Payment;
+import site.gamsung.service.domain.PaymentCode;
 import site.gamsung.service.domain.User;
+import site.gamsung.service.payment.PaymentService;
 import site.gamsung.util.auction.AuctionImgUpload;
 
 @RequestMapping("/auction/*")
@@ -51,6 +54,10 @@ public class AuctionProductController {
 	@Autowired
 	@Qualifier("auctionReviewService")
 	private AuctionReviewService auctionReviewService;
+	
+	@Autowired
+	@Qualifier("paymentServiceImpl")
+	private PaymentService paymentService;
 	
 	@Value("#{commonProperties['crawlingURL']}")
 	private String crawlingURL;
@@ -159,7 +166,9 @@ public class AuctionProductController {
 		
 		//Id에 해당하는 임시 등록 정보가 있는지 확인한다.
 		AuctionProduct auctionProduct = auctionProductService.getTempSaveAuctionProduct(user.getId());
-		auctionInfoService.checkAndUpdateUserAuctionGrade(user);
+		user = auctionInfoService.checkAndUpdateUserAuctionGrade(user);
+		//user 정보를 새로 세팅한다.
+		httpSession.setAttribute("user", user);
 		
 		// 임시정보가 있다면 model에 담아 return한다.
 		if(auctionProduct != null) {
@@ -171,15 +180,25 @@ public class AuctionProductController {
 	
 	//상품 등록 확정 요청시 매핑된다.
 	@PostMapping(value = "addAuctionProduct")
-	public String addAuctionProduct(@ModelAttribute("auctionProduct") AuctionProduct auctionProduct, HttpSession httpSession, MultipartHttpServletRequest mtfRequest) {
+	public String addAuctionProduct(@ModelAttribute("auctionProduct") AuctionProduct auctionProduct, HttpSession httpSession, MultipartHttpServletRequest mtfRequest, Model model) {
 		
 		//세션으로 부터 요청한 유저의 정보를 가져온다.
 		User user = (User)httpSession.getAttribute("user");
-				
+		
 		//user 정보가 존재하면 Id를 받는다.
 		if(user == null) {
 			return "redirect:./listAuctionProduct";
 		}
+		
+		//희망 낙찰가*등급별 수수료 보다 보유 포인트가 적을 경우 충전페이지로 redirect 시킨다. 
+		PaymentCode paymentCode = auctionInfoService.getPaymentInfo(user.getAuctionGrade());
+
+		int deductionPoint = auctionProduct.getHopefulBidPrice()*paymentCode.getPaymentCodeFee()/100;
+
+		if(user.getHavingPoint() < deductionPoint) {
+			return "redirect:/payment/managePoint";
+		}
+		
 		
 		auctionProduct.setRegistrantId(user.getId());
 		
@@ -197,24 +216,43 @@ public class AuctionProductController {
 		}
 		
 		AuctionProduct tmpAuctionProduct = auctionProductService.getTempSaveAuctionProduct(user.getId());
-		
+		String navigation = "";
 		if(tmpAuctionProduct != null) {
 			auctionProduct.setAuctionProductNo(tmpAuctionProduct.getAuctionProductNo());
 			auctionProductService.updateAuctionProduct(auctionProduct);
 			
 			//사용자 경매 등급 재설정한다.
-			auctionInfoService.checkAndUpdateUserAuctionGrade(user);
-			return "redirect:./listAuctionProduct";
+			user = auctionInfoService.checkAndUpdateUserAuctionGrade(user);
+			navigation = "redirect:./listAuctionProduct";
+		}else {
+			//상품정보를 등록한다.
+			auctionProductService.addAuctionProduct(auctionProduct);
+			//사용자 경매 등급 재설정한다.
+			user = auctionInfoService.checkAndUpdateUserAuctionGrade(user);
+			navigation =  "redirect:./listAuctionProduct";
 		}
 		
+		//user 정보를 새로 세팅한다.
+		httpSession.setAttribute("user", user);
 		
+		//결제 담당자가 서비스를 통해 처리하여 payment domain을 생성하여 인자로 준다.
+		AuctionProduct tmpInfo = auctionProductService.paymentSubInfo(user.getId());
+		System.out.println(tmpInfo);
+		Payment payment = new Payment();
+		payment.setPaymentProduct(tmpInfo.getAuctionProductName());
+		payment.setPaymentSender(user.getId());
+		payment.setPaymentReceiver("admin");
+		payment.setPaymentReferenceNum(tmpInfo.getAuctionProductNo());
+		payment.setPaymentCode(paymentCode.getPaymentCode());
+		payment.setPaymentPriceTotalSecond(deductionPoint);
+		try {
+			paymentService.internalPointPayment(payment);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		//상품정보를 등록한다.
-		auctionProductService.addAuctionProduct(auctionProduct);
-		//사용자 경매 등급 재설정한다.
-		auctionInfoService.checkAndUpdateUserAuctionGrade(user);
-					
-		return "redirect:./listAuctionProduct";
+		return navigation;
 	}
 	
 	//임시저장 요청시 매핑된다.

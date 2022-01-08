@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import site.gamsung.service.auction.AuctionInfoDAO;
 import site.gamsung.service.domain.AuctionInfo;
 import site.gamsung.service.domain.AuctionProduct;
+import site.gamsung.service.domain.PaymentCode;
 import site.gamsung.service.domain.User;
 
 @Repository("auctionInfoDAO")
@@ -42,7 +43,7 @@ public class AuctionInfoDAOImpl implements AuctionInfoDAO{
 	@Override
 	public void deleteBidConcern(AuctionInfo auctionInfo) {
 		// TODO Auto-generated method stub
-		sqlSession.delete("AuctionInfoMapper.deleteBidConcern",auctionInfo);
+		sqlSession.update("AuctionInfoMapper.deleteBidConcern",auctionInfo);
 	}
 
 	@Override
@@ -121,6 +122,26 @@ public class AuctionInfoDAOImpl implements AuctionInfoDAO{
 	public List<AuctionInfo> getBidderRanking(AuctionInfo auctionInfo) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("AuctionInfoMapper.getBidderRanking",auctionInfo);
+	}
+	
+	@Override
+	public PaymentCode getPaymentInfo(int auctionGrade) {
+		return sqlSession.selectOne("AuctionInfoMapper.getPaymentInfo",auctionGrade);
+	}
+	
+	@Override
+	public void auctionSuspension(User user) {
+		// TODO Auto-generated method stub
+		sqlSession.update("AuctionInfoMapper.auctionSuspension",user);
+	}
+
+	@Override
+	public boolean isSuspension(User user) {
+		// TODO Auto-generated method stub
+		if((int)sqlSession.selectOne("AuctionInfoMapper.isSuspension",user) == 1) {
+			return true;
+		}
+		return false;
 	}
 
 	@Override

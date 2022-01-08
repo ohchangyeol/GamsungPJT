@@ -93,13 +93,13 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 		//#기준으로 파싱하여 해시태그 재정의
 		if(hashtags.length == 2) {
 			auctionProduct.setHashtag1("#"+hashtags[1].trim());			
-		}else if(hashtags.length <=3) {
+		}else if(hashtags.length ==3) {
 			auctionProduct.setHashtag1("#"+hashtags[1].trim());	
-			auctionProduct.setHashtag1("#"+hashtags[2].trim());			
+			auctionProduct.setHashtag2("#"+hashtags[2].trim());			
 		}else if(hashtags.length > 3) {
 			auctionProduct.setHashtag1("#"+hashtags[1].trim());	
-			auctionProduct.setHashtag1("#"+hashtags[2].trim());	
-			auctionProduct.setHashtag1("#"+hashtags[3].trim());			
+			auctionProduct.setHashtag2("#"+hashtags[2].trim());	
+			auctionProduct.setHashtag3("#"+hashtags[3].trim());			
 		}
 		
 		//데이터를 저장한다. 등록자는 관리자가 Default이다.
@@ -507,6 +507,12 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 		auctionInfo.setInfo(info);
 		
 		return auctionInfo;
+	}
+
+	@Override
+	public AuctionProduct paymentSubInfo(String registrantId) {
+		// TODO Auto-generated method stub
+		return auctionProductDAO.paymentSubInfo(registrantId);
 	}	
 	
 }

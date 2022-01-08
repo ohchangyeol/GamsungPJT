@@ -53,6 +53,11 @@
 	.sidebar-left{
 		background-color: #171717 !important;
 	}
+	
+	aside{
+		margin-top:-55px;
+	}
+	
 	</style>
 <aside id="sidebar-left" class="sidebar-left">
 	<div class="sidebar-header">

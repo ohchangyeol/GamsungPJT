@@ -47,4 +47,6 @@ public interface AuctionProductDAO {
 	public void viewUserLog(AuctionInfo auctionInfo);
 	
 	public AuctionInfo getUserLog(AuctionInfo auctionInfo);
+	
+	public AuctionProduct paymentSubInfo(String registrantId);
 }

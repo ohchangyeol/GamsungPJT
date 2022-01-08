@@ -79,7 +79,7 @@
             <div class="row">
               <div class="col-sm-6 col-sm-offset-3">
                 <h2 class="module-title font-alt">Auction Products</h2>
-                <div class="module-subtitle font-serif">일반 회원이 등록한 경매 상품입니다. 사기 행위에 유의하세요.</div>
+                <div class="module-subtitle font-serif">진행 중인 경매 상품입니다. 사기 행위에 유의하세요.</div>
               </div>
             </div>
           </div>
@@ -110,7 +110,7 @@
           <div class="container">
             <div class="row">
               <div class="col-sm-6 col-sm-offset-3">
-                <h2 class="module-title font-alt">일반 회원 경매 상품</h2>
+                <h2 class="module-title font-alt">경매 진행 중 상품</h2>
               </div>
             </div>
             <div class="row multi-columns-row">

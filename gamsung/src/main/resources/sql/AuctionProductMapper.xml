@@ -101,6 +101,14 @@
 			</if>
 	</select>
 	
+	<select id="paymentSubInfo" parameterType="String" resultMap="auction">
+		SELECT product_no, product_name
+		FROM AUCTION_PRODUCT
+		WHERE registrant_id = #{value}
+		ORDER BY product_reg_date
+		LIMIT 1
+	</select>
+	
 	<select id="autoComplete" parameterType="String" resultType="String">
 		SELECT product_name
 		FROM AUCTION_PRODUCT

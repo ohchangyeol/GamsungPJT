@@ -5,6 +5,7 @@ import java.util.Map;
 
 import site.gamsung.service.domain.AuctionInfo;
 import site.gamsung.service.domain.AuctionProduct;
+import site.gamsung.service.domain.PaymentCode;
 import site.gamsung.service.domain.User;
 
 public interface AuctionInfoDAO {
@@ -40,6 +41,12 @@ public interface AuctionInfoDAO {
 	public void updateUserAuctionGrade(User user);
 	
 	public List<AuctionInfo> getBidderRanking(AuctionInfo auctionInfo);
+	
+	public PaymentCode getPaymentInfo(int auctionGrade);
+	
+	public void auctionSuspension(User user);
+	
+	public boolean isSuspension(User user);
 	
 	public boolean isSecessionUserAuctionCondition(String userId);
 }

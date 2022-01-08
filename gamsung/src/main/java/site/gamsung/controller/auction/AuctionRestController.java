@@ -87,9 +87,16 @@ public class AuctionRestController {
 	
 	@GetMapping(value = "updateAuctionStatus/{auctionProductNo}/{status}")
 	public AuctionInfo updateAuctionStatus(	@PathVariable("auctionProductNo") String auctionProductNo,
-											@PathVariable("status") String status) {
-			
-		 return auctionProductService.deleteAuctionProduct(auctionProductNo,status);
+											@PathVariable("status") String status, HttpSession httpSession) {
+		
+		AuctionInfo info = auctionProductService.deleteAuctionProduct(auctionProductNo,status);
+		
+		User user = (User)httpSession.getAttribute("user");
+		//사용자 경매 등급 재설정한다.
+		user = auctionInfoService.checkAndUpdateUserAuctionGrade(user);
+		httpSession.setAttribute("user", user);
+		
+		return info;
 		
 	}
 	
@@ -116,7 +123,8 @@ public class AuctionRestController {
 		try {
 			ratingReviewService.addRatingReview(ratingReview);
 			//사용자 경매 등급 재설정한다.
-			auctionInfoService.checkAndUpdateUserAuctionGrade(user);
+			user = auctionInfoService.checkAndUpdateUserAuctionGrade(user);
+			httpSession.setAttribute("user", user);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -169,8 +177,8 @@ public class AuctionRestController {
 		
 		//사용자 경매 등급 재설정한다.
 		User user = (User)httpSession.getAttribute("user");
-		auctionInfoService.checkAndUpdateUserAuctionGrade(user);
-		
+		user = auctionInfoService.checkAndUpdateUserAuctionGrade(user);
+		httpSession.setAttribute("user", user);
 		return auctionInfo;
 	}
 	
@@ -279,7 +287,8 @@ public class AuctionRestController {
 		
 		auctionInfo.setUser(user);
 		
-		auctionInfoService.checkAndUpdateUserAuctionGrade(user);
+		user = auctionInfoService.checkAndUpdateUserAuctionGrade(user);
+		httpSession.setAttribute("user", user);
 		
 		auctionInfo.setInfo("해당 상품은 중도 철회 되었습니다.");
 		

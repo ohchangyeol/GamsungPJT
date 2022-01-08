@@ -11,12 +11,12 @@ pageEncoding="UTF-8"%>
     <div class="collapse navbar-collapse" id="custom-collapse">
       <ul class="nav navbar-nav navbar-right">    
   
-        <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">중고상품</a>
+        <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">경매상품</a>
 
           <ul class="dropdown-menu">
-            <li><a href="/auction/addAuctionProduct" >상품 등록</a></li>
-            <li><a href="/auction/listWaitAuctionProduct" >경매 진행 전</a></li>
-            <li><a href="/auction/listAuctionProduct" >경매 진행 중</a></li>
+            <li><a id="addProduct">상품 등록</a></li>
+            <li><a id="adminProduct">관리자 경매 상품</a></li>
+            <li><a id="listProduct">경매 진행 중</a></li>
           </ul>
         </li>
         
@@ -153,4 +153,35 @@ pageEncoding="UTF-8"%>
 <jsp:include page="../user/loginModal.jsp"/>
 <!-- findIdModal -->
 <jsp:include page="/view/user/findIdModal.jsp"/>
-
+<script>
+	$(function(){
+		
+		$('#addProduct').on('click',function(){
+			if(${empty sessionScope.user}){
+				alert('로그인 후 이용 가능합니다.');
+				return;
+			}else if(${sessionScope.user.auctionSuspension != null}){
+				alert('경매 이용 정지되었습니다. 관리자에게 문의하세요.');
+				return;
+			}else{
+				window.location = '/auction/addAuctionProduct';
+			}
+		});
+		
+		$('#adminProduct').on('click',function(){
+			if(${sessionScope.user.auctionSuspension != null}){
+				alert('경매 이용 정지되었습니다. 관리자에게 문의하세요.');
+				return;
+			}
+			window.location = "/auction/listWaitAuctionProduct";
+		});
+		
+		$('#listProduct').on('click',function(){
+			if(${sessionScope.user.auctionSuspension != null}){
+				alert('경매 이용 정지되었습니다. 관리자에게 문의하세요.');
+				return;
+			}
+			window.location = "/auction/listAuctionProduct";
+		});
+	});
+</script>
