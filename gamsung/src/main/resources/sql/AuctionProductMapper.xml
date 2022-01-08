@@ -21,6 +21,7 @@
 		<result property="auctionStartTime" 		column="auction_start_time"/>
 		<result property="auctionEndTime" 			column="auction_end_time"/>
 		<result property="remainAuctionTime" 		column="remain_time"/>
+		<result property="remainAuctionTime" 		column="main_end_date"/>
 		<result property="bidableGrade" 			column="bidable_grade"/>
 		<result property="hashtag1" 				column="hashtag1"/>
 		<result property="hashtag2" 				column="hashtag2"/>
@@ -33,6 +34,7 @@
 		<result property="productViewCount" 		column="product_view_count"/>
 		<result property="bidderCount" 				column="bidder_count"/>
 		<result property="productRegDate" 			column="product_reg_date"/>
+		<result property="productRegDate" 			column="main_reg_date"/>
 		<result property="productRegDate" 			column="review_reg_date"/>
 		<result property="isConfirm" 				column="registrant_confirm_flag"/>
 		<result property="isConfirm"				column="successful_bidder_confirm_flag"/>
@@ -220,11 +222,16 @@
 		<if test=' _parameter != null'>
 			AND product_no = #{value}
 		</if>
-		
 	</select>
+	<update id="deleteMainAuctionProduct" parameterType="String">
+		UPDATE MAIN_AUCTION_HISTORY
+		SET timeout_flag = 'Y'
+		WHERE product_no = #{value}
+	</update>
 	
 	<select id="listMainAuctionProduct" parameterType="search" resultMap="auction">
-		SELECT ap.product_no AS product_no, product_name, hopeful_bid_price, product_img1, auction_end_time, product_sub_detail
+		SELECT 	ap.product_no AS product_no, product_name, hopeful_bid_price, product_img1, main_end_date, main_reg_date, 
+				auction_end_time, product_sub_detail
 		FROM AUCTION_PRODUCT AS ap, MAIN_AUCTION_HISTORY AS mah
 		WHERE ap.product_no = mah.product_no AND timeout_flag = 'N'
 	</select>

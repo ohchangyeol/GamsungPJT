@@ -134,6 +134,12 @@ public class AuctionProductDAOImpl implements AuctionProductDAO{
 		return sqlSession.selectOne("AuctionProductMapper.mainAuctionProductCount",auctionProductNo);
 	}
 
+	@Override
+	public void deleteMainAuctionProduct(String auctionProductNo) {
+		// TODO Auto-generated method stub
+		sqlSession.update("AuctionProductMapper.deleteMainAuctionProduct",auctionProductNo);
+	}
+
 	//메인 상품 리스트 출력
 	@Override
 	public List<AuctionProduct> listMainAuctionProduct() {

@@ -33,6 +33,8 @@ public interface AuctionProductService {
 	
 	public String addMainAuctionProduct(String auctionProductNo);
 	
+	public void checkMainAUctionProductRemainTime();
+	
 	public List<AuctionProduct> listMainAuctionProduct();
 	
 	public AuctionProduct auctionProductImgs(AuctionProduct auctionProduct, List<String> fileList);

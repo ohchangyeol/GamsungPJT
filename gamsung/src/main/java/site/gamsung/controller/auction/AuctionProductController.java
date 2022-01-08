@@ -59,6 +59,10 @@ public class AuctionProductController {
 	@Qualifier("paymentServiceImpl")
 	private PaymentService paymentService;
 	
+	@Autowired
+	@Qualifier("auctionImgUpload")
+	private AuctionImgUpload auctionImgUpload;
+	
 	@Value("#{commonProperties['crawlingURL']}")
 	private String crawlingURL;
 	
@@ -73,7 +77,7 @@ public class AuctionProductController {
 	}
 	
 	//경매 진행 중인 상품 최초 8개 조회
-	@RequestMapping(value = "listWaitAuctionProduct")
+	@RequestMapping( "listWaitAuctionProduct")
 	public String listCrawlingAuctionProduct(HttpSession httpSession, Model model, @ModelAttribute("search") Search search) {
 		
 		//출력할 개수을 commonProperties로 부터 받아오며, 1페이지가 고정값으로 들어간다.
@@ -92,12 +96,13 @@ public class AuctionProductController {
 	}
 	
 	//상품 상세 조회 페이지 출력
-	@GetMapping(value = "getAuctionProduct")
+	@GetMapping( "getAuctionProduct")
 	public String getAuctionProduct(AuctionInfo auctionInfo, HttpSession httpSession, Model model) {
 		
 		User user = (User)httpSession.getAttribute("user");
 		auctionInfo.setUser(user);
 		
+		//로그인 유저의 IP를 헤더를 통해 획득한다.
 		HttpServletRequest req = ((ServletRequestAttributes)RequestContextHolder.currentRequestAttributes()).getRequest();
 		String ip = req.getHeader("X-FORWARDED-FOR");
 		if(ip == null) {
@@ -119,7 +124,7 @@ public class AuctionProductController {
 	}
 	
 	//상품 상세 조회 페이지 출력
-	@PostMapping(value = "getAuctionProduct")
+	@PostMapping( "getAuctionProduct")
 	public String getCrawlingAuctionProductNo(@ModelAttribute("auctionProduct") AuctionProduct auctionProduct) {
 		
 		auctionProduct = auctionProductService.getCrawlingAuctionProductNo(auctionProduct);
@@ -128,7 +133,7 @@ public class AuctionProductController {
 	}
 	
 	//경매 진행 중인 상품 최초 8개 조회
-	@RequestMapping(value = "listAuctionProduct")
+	@RequestMapping( "listAuctionProduct")
 	public String listAucitonProduct(@ModelAttribute("search") Search search, Model model, HttpSession httpSession) {
 		
 		//세션에서 로그인 유저 정보를 가져온다.
@@ -154,7 +159,7 @@ public class AuctionProductController {
 	}
 	
 	//상품 등록 페이지 navigation
-	@GetMapping(value = "addAuctionProduct")
+	@GetMapping( "addAuctionProduct")
 	public String addAuctionProduct(HttpSession httpSession, Model model) {
 		
 		//세션으로 부터 요청한 유저의 정보를 가져온다.
@@ -179,7 +184,7 @@ public class AuctionProductController {
 	}
 	
 	//상품 등록 확정 요청시 매핑된다.
-	@PostMapping(value = "addAuctionProduct")
+	@PostMapping( "addAuctionProduct")
 	public String addAuctionProduct(@ModelAttribute("auctionProduct") AuctionProduct auctionProduct, HttpSession httpSession, MultipartHttpServletRequest mtfRequest, Model model) {
 		
 		//세션으로 부터 요청한 유저의 정보를 가져온다.
@@ -207,8 +212,7 @@ public class AuctionProductController {
 		if(auctionProduct.getProductImg1() == null) {
 			
 			List<MultipartFile> fileList = mtfRequest.getFiles("inputImgs");
-			
-			AuctionImgUpload auctionImgUpload = new AuctionImgUpload();
+		
 			List<String> fileName = auctionImgUpload.imgUpload(fileList, path);
 			
 			auctionProduct = auctionProductService.auctionProductImgs(auctionProduct, fileName);
@@ -256,7 +260,7 @@ public class AuctionProductController {
 	}
 	
 	//임시저장 요청시 매핑된다.
-	@PostMapping(value = "tempSaveAuctionProduct")
+	@PostMapping("tempSaveAuctionProduct")
 	public String tempSaveAuctionProduct(@ModelAttribute("auctionProduct") AuctionProduct auctionProduct, HttpSession httpSession, MultipartHttpServletRequest mtfRequest) { 
 		
 		//세션으로 부터 요청한 유저의 정보를 가져온다.
@@ -269,13 +273,13 @@ public class AuctionProductController {
 			
 		auctionProduct.setRegistrantId(user.getId());
 		
+		//context root를 가져온다.
 		String path = httpSession.getServletContext().getRealPath("/");
 		
 		if(auctionProduct.getProductImg1() == null) {
 			
 			List<MultipartFile> fileList = mtfRequest.getFiles("inputImgs");
 			
-			AuctionImgUpload auctionImgUpload = new AuctionImgUpload();
 			List<String> fileName = auctionImgUpload.imgUpload(fileList,path);
 			
 			auctionProduct = auctionProductService.auctionProductImgs(auctionProduct, fileName);
@@ -287,7 +291,7 @@ public class AuctionProductController {
 		return "redirect:./listAuctionProduct";
 	}
 	
-	@GetMapping(value = "updateAuctionProduct")
+	@GetMapping("updateAuctionProduct")
 	public String updateAuctionProduct(@ModelAttribute("auctionInfo") AuctionInfo auctionInfo, HttpSession httpSession, Model model) { 
 		
 		User user = (User)httpSession.getAttribute("user");
@@ -303,7 +307,7 @@ public class AuctionProductController {
 		return "forward:/view/auction/updateAuctionProduct.jsp";
 	}
 	
-	@PostMapping(value = "updateAuctionProduct")
+	@PostMapping("updateAuctionProduct")
 	public String updateAuctionProduct(@ModelAttribute("auctionProduct") AuctionProduct auctionProduct, HttpSession httpSession, MultipartHttpServletRequest mtfRequest) { 
 		
 		User user = (User)httpSession.getAttribute("user");
@@ -319,8 +323,7 @@ public class AuctionProductController {
 		if(auctionProduct.getProductImg1() == null) {
 			
 			List<MultipartFile> fileList = mtfRequest.getFiles("inputImgs");
-			
-			AuctionImgUpload auctionImgUpload = new AuctionImgUpload();
+
 			List<String> fileName = auctionImgUpload.imgUpload(fileList,path);
 			
 			auctionProduct = auctionProductService.auctionProductImgs(auctionProduct, fileName);
@@ -333,7 +336,7 @@ public class AuctionProductController {
 		return "forward:./listAuctionProduct";
 	}
 	
-	@GetMapping(value = "addReview/{auctionProductNo}")
+	@GetMapping("addReview/{auctionProductNo}")
 	public String addReview(@PathVariable("auctionProductNo") String auctionProductNo, Model model) {
 		
 		model.addAttribute("auctionProductNo",auctionProductNo);
@@ -341,7 +344,7 @@ public class AuctionProductController {
 		return "forward:/view/auction/reviewModal.jsp";
 	}
 	
-	@RequestMapping(value = "listMyAuctionProduct/{option}")
+	@RequestMapping("listMyAuctionProduct/{option}")
 	public String listMyPage(	@ModelAttribute("search") Search search, @PathVariable("option") String option,
 								Model model ,HttpSession httpSession) {
 		
@@ -384,6 +387,42 @@ public class AuctionProductController {
 		model.addAttribute("search",search);
 		
 		return "forward:/view/auction/listMyAuctionProduct.jsp";
+	}
+	
+	//허용되지 않은 매핑 방식 일 경우 mainPage로 redirect 시킨다.
+	@GetMapping("tempSaveAuctionProduct")
+	public String tempSaveAuctionProduct() {
+		return "redirect:/";
+	}
+	
+	@GetMapping("infiniteScroll")
+	public String InfiniteScroll() {
+		return "redirect:/";
+	}
+	
+	@GetMapping("getBidderRanking")
+	public String getBidderRanking() {
+		return "redirect:/";
+	}
+	
+	@GetMapping("listAuctionRatingReview/{currentPage}")
+	public String listAuctionRatingReview(){
+		return "redirect:/";
+	}
+	
+	@GetMapping("addReviewComment/{auctionProductNo}")
+	public String addReviewComment(){
+		return "redirect:/";
+	}
+	
+	@GetMapping( "deleteAuctionRatingReview")
+	public String deleteAuctionRatingReview(){
+		return "redirect:/";
+	}
+	
+	@PostMapping("addMainAuctionProduct/{auctionProductNo}")
+	public String addMainAuctionProduct() {
+		return "redirect:/";
 	}
 
 }

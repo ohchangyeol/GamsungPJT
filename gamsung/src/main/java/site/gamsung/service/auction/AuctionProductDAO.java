@@ -40,6 +40,8 @@ public interface AuctionProductDAO {
 	
 	public int mainAuctionProductCount(String auctionProductNo);
 	
+	public void deleteMainAuctionProduct(String auctionProductNo);
+	
 	public List<AuctionProduct> listMainAuctionProduct();
 	
 	public int deleteAuctionProduct(AuctionInfo auctionInfo);
