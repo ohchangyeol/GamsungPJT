@@ -157,7 +157,7 @@
 
 
     <body data-spy="scroll" data-target=".onpage-navigation" data-offset="60"
-      style="overflow-y:initial !important; overflow-x: initial !important;">
+      style="overflow-y:initial !important; overflow-x: initial !important;" data-userid="${user.id}">
 
       <main class="community">
 
@@ -196,7 +196,7 @@
                 <div class="col-sm-8 col-sm-offset-1">
 
                   <c:forEach var="post" items="${list}">
-                    <div class="post">
+                    <div class="post" data-postno = "${post.postNo}">
 
                       <div class="post-header">
                         <div class="post-meta">
@@ -384,11 +384,42 @@
       <script>
 
         $(function () {
-          $("button:button[name='reply']").on("click", function () { //name이 reply인 button을 click했을때 
+          $("button:button[name='reply']").on("click", listComment); 
+          //name이 reply인 button을 click했을때  listComment는 param값이 없다.
+          // 그렇지만 클릭시 버튼에 걸린 event값이 event object 객체로 전달됨. 
 
 
-            var postNo = $(this).val(); //그 button의 val값을 가지고와서 담는다. 
-            var userId = $(this).attr('id');
+          function listComment(paramiter) {
+              
+            // var postNo = $(this).val(); //그 button의 val값을 가지고와서 담는다. 
+            // var userId = $(this).attr('id');
+            // var postNo = 0;
+            console.log(paramiter); //Object가 찍힌다. 
+
+            // if( paramiter instanceof Object ){ // paramiter가 object이면 
+            //   var parent = $(paramiter.currentTarget).closest("div[data-postno]"); //그 button의 val값을 가지고와서 담는다. 
+            //   postNo = parent.data("postno");
+            //   console.log("if in ::",postNo);
+            // }else{
+            //   postNo = paramiter;
+            //   console.log("else in ::",postNo);
+            // }
+
+              var parent = $(paramiter.currentTarget).closest("div[data-postno]"); //그 button의 val값을 가지고와서 담는다. 
+              var postNo = parent.data("postno");
+              console.log("if in ::",postNo);
+
+
+            console.log("들어온 post nunber :: ", postNo);
+
+            // var parent = $(this).closest("div[data-postno]"); //그 button의 val값을 가지고와서 담는다. 
+            // var  postNo = parent.data("postno");
+            
+            var userId = $("body").data("userid");
+
+            // console.log("this = > " , $(this)) ;
+            // console.log("t", typeof postNo, postNo ,userId);
+            
             var params = { "postNo": postNo }; //담은 value값을 json형식으로 object에 담아 보낸다. 
             var listHtml = "";
             // var userid = ${ userId };
@@ -400,6 +431,7 @@
               listHtml += " 세션이 만료되었습니다. 재로그인해주세요";
               listHtml += " <div> ";
               $(".post" + postNo).html(listHtml);
+
             } else {
 
               $.ajax({
@@ -462,61 +494,197 @@
 
                         if ("${userId}" == commentWriter) {
 
-                          console.log("${userId}");
-                          console.log(commentWriter);
+                          //console.log("${userId}");
+                          //console.log(commentWriter);
 
 
 
 
-                          listHtml += "<a href='#''>&nbsp;댓글수정</a>";
-                          listHtml += "<a href='#''>&nbsp;댓글삭제</a>";
+                          listHtml += "<a href='#' class='update-comment' id='"+commentNo+"' >&nbsp;댓글수정</a>";
+                          listHtml += "<a href='#' class='delete-comment' id='"+commentNo+"' >&nbsp;댓글삭제</a>";
 
                         }
-                        console.log("userId::::::::" + "${userId}");
-                        console.log(commentWriter);
+                        // console.log("userId::::::::" + "${userId}");
+                        // console.log(commentWriter);
 
                         listHtml += "</div>";
                         listHtml += "</div>";
                         listHtml += "</div>";
+                        listHtml += "<div class='updatecomment"+commentNo+"'></div>";
 
                       };
                       // console.log("1", listHtml)
 
 
                     };
-                    // console.log("2", listHtml)
-                  };
+                    // console.log("2", listHtml) //이 안에서 commentno를 뽑아야한다.. 
+                    // console.log("댓글 번호 !! ㅎㅎ ",commentNo);
+
+                    // console.log(" 내 댓글 ㅎㅎ!! ",  $(".update-comment"+commentNo );
+                    // $('.update-comment'+commentNo).on('click', updateClickComment); 
+                  }; 
 
                   listHtml += "<div class='comment-form'>";
                   listHtml += "<div class='form-group'>";
-                  listHtml += "<textarea class='form-control' id='comment' value='' name='comment' data-postno='" + postNo + "' data-userid='"+userId+"' rows='4'placeholder='댓글을 등록해주세요'>";
+                  listHtml += "<textarea class='form-control' id='comment' value='' name='comment' data-postno='" + postNo + "' data-userid='" + userId + "' rows='4'placeholder='댓글을 등록해주세요'>";
                   listHtml += "</textarea>";
                   listHtml += "</div>";
                   listHtml += "<p class='help-block text-danger'></p>";
-                  listHtml += "<button class='btn btn-round btn-d' type='submit'>댓글 등록</button>";
+                  listHtml += "<button class='btn btn-round btn-d add-comment' type='submit'>댓글 등록</button>";
                   listHtml += "</div>";
 
 
-                  $('button.btn.btn-round.btn-d').on('click', function () { // 버튼으로 누르면 댓글창이 클릭됨. 
-                    $('#comment').click();
 
+                  $(".post" + postNo).html(listHtml); //html이 완성된 다음에 function 호출 
 
-                    console.log('data-postNo', $(this).attr('data-postno'));
-                    console.log('data-userId', $(this).attr('data-userid'));
-                    console.log('data-userId', $(this).data("userid"));
-                    console.log('value', $(this).attr('value'));
-                    console.log('value', $(this).val());
+                  $('.add-comment').on('click', addClickComment); // 호출은 안에서하고 함수는 바깥에 있는 이유?? 
 
-                  });
-              
-                  $(".post" + postNo).html(listHtml);
+                  
+                  $('.delete-comment').on('click', deleteClickComment); 
+                  // $(".up-btn").on("click", updateClickComment);
+                  $('.update-comment').on('click', updateClickComment); 
+
+                  
 
                 }
+
               });//ajax END 비동기 처리
               // console.log("3", listHtml)
             }
+          
+          };//button END
 
-          });//button function END
+          function addClickComment(e) { //여기에 event를 써야 이 함수를 호출한 click 이벤트에대한 정보를 객체로 받을 수 있다. 
+
+            // console.log($(this).closest(".comment-form")); //가장 가까운 상위요소를 클래스로 잡고
+            // console.log($(this).closest(".comment-form").find("textarea")); //하위요소를 잡고 
+            var el = $(this).closest(".comment-form").find("textarea"); // 변수에 저장하고
+
+            // console.log(el.data("postno"));// 그 변수의 데이타옵션의 postno 이름을 가진 속성의 값을 가져온다.  
+            // console.log(el.data("userid"));
+            // console.log(el.val()); //value 뽑아온다. 
+
+            // var elData = el.data(); <- data로 뽑아오면 {} object형식이다.
+            // console.log(elData);
+
+
+            var postno = el.data("postno");
+            var userid = el.data("userid");
+            var val = el.val();
+
+            val = val.trim(); // 공백을 제거합니다.
+
+            if (val == "") {
+              alert("글을 입력하세요");
+            } else {
+
+              $(this).closest(".comment-form").find("textarea").val("");
+
+              addComment(postno, userid, val);
+
+              function addComment(postno, userid, val) {//  const addComment = function (postno, userid, val) {  으로 사용하면 addComment가 밑에 있으므로 위에  addComment(postno,userid,val);가 실행될 수 없다.
+
+                console.log("1::" + postno , typeof postno);
+                console.log("2::" + userid);
+                console.log("2::" + val);
+
+                $.ajax({
+                  type: "post",
+                  url: "/community/rest/addComment",
+                  data: {
+
+                    postno: postno,
+                    userid: userid,
+                    val: val
+
+                  },
+
+                  success: function (get) {
+
+                    console.log("get::::" + get);
+
+                    listComment(e); // 
+                    // listComment(postno); // 이렇게 호출했을때 this는 없다. 이벤트가 걸리지않았기때문에 ! 
+
+                  },
+                  error: function () {
+
+                    console.log("error::::");
+                  }
+
+
+
+                });
+
+              }
+
+
+
+            }
+
+          };//add commenet END
+
+          function updateClickComment(e) {
+
+        	e.preventDefault();
+            
+            var commentno = $(this).attr('id');
+            
+            console.log("commentno::::"+commentno);
+            
+            var listHtml ="";
+
+            listHtml += " <textarea class='form-control' value=''  placeholder='수정할 내용을 입력하세요'> ";
+            listHtml += " </textarea> ";  
+
+            console.log("listHtml::::"+listHtml);
+
+            $(".updatecomment"+commentno).html(listHtml); //html이 완성된 다음에 function 호출             
+
+          }
+
+          function deleteClickComment(e) {
+
+            e.preventDefault();//기본값 방지 a링크 눌렀을때 새로고침이 되지않도록 방지하는 ()
+
+            //.delete-comment을 click시 이벤트값이 object값이 e로 넘어온다. 
+
+            var commentno = $(this).attr('id');
+
+            console.log("id::"+commentno);
+
+            $.ajax({
+                  type: "get",
+                  url: "/community/rest/deleteComment",
+                  data: {
+
+                    commentno: commentno,
+ 
+                  },
+
+                  success: function (data) {
+
+                    //여기서 data를 받아올때 총 댓글수를 받아올 것.
+                    //그래서 $('.class명').text(data.??)로 총 댓글수를 변경해주자.  
+
+                    console.log("data::::" + data);
+
+                    listComment(e); //.delete-comment 클릭시 넘어온 event object를 넘긴다.                   
+
+                  },
+                  error: function () {
+                    
+                    console.log("deleteComment error::::");
+
+                  }
+
+                });
+
+
+          } //deleteClickComment END 
+
+
+
 
         }); //function END
 
