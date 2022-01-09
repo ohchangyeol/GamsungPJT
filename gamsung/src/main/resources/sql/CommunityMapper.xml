@@ -7,7 +7,7 @@
 <mapper namespace="CommunityMapper">
 
 	<resultMap id="postMapper" type="post">
-		<result property="postTile"    		 column="post_title"       jdbcType="VARCHAR"/>
+		<result property="postTitle"    	 column="post_title"       jdbcType="VARCHAR"/>
 		<result property="postNo"	   		 column="post_no" 	       jdbcType="NUMERIC" />
 		<result property="postContent"       column="post_content"     jdbcType="VARCHAR" />
 		<result property="writer.id"  		 column="user_id" 	       jdbcType="VARCHAR" />
@@ -48,7 +48,7 @@
     <insert    id="addPost"      parameterType="post" >
       INSERT 
       INTO  GAMSUNG.POST(user_id,post_type,post_title,post_content,post_Img1,post_Img2,post_Img3,post_hashtag1,post_hashtag2,post_hashtag3,video)
-      VALUES    (#{writer.id}, #{postType}, #{postTile:VARCHAR}, #{postContent:VARCHAR}, #{postImg1:VARCHAR}, #{postImg2:VARCHAR}, #{postImg3:VARCHAR}, #{hashtag1:VARCHAR}, #{hashtag2:VARCHAR}, #{hashtag3:VARCHAR}, #{video:VARCHAR})                                     
+      VALUES    (#{writer.id}, #{postType}, #{postTitle:VARCHAR}, #{postContent:VARCHAR}, #{postImg1:VARCHAR}, #{postImg2:VARCHAR}, #{postImg3:VARCHAR}, #{hashtag1:VARCHAR}, #{hashtag2:VARCHAR}, #{hashtag3:VARCHAR}, #{video:VARCHAR})                                     
     </insert>
 
 	<!-- 댓글 등록 -->	 
@@ -87,13 +87,17 @@
 		FROM (SELECT p.*,com.com_num,con.con_num, CASE WHEN cop.flag = 'Y' THEN 'Y'
 		                                          WHEN cop.flag = 'N' THEN 'N'
 		                                          ELSE 'Y' END AS con_deleteFlag
-			  FROM POST p LEFT JOIN (SELECT post_no, count(*) com_num
-								     FROM comment 
-									 GROUP BY post_no) com <!-- 게시물당 코멘트 총 수  -->
+			  FROM POST p LEFT JOIN (SELECT CO.post_no, count(*) com_num
+									 FROM (SELECT *
+	  									   FROM comment 
+	  									   WHERE delete_flag = 'N') CO
+									  GROUP BY CO.post_no)	com <!-- 게시물당 코멘트 총 수  -->
 			  ON p.post_no = com.post_no 
-						  LEFT JOIN (SELECT post_no, count(*) con_num
-									FROM post_concern 
-									GROUP BY post_no) con <!-- 게시물당 추천 총 수  -->
+						  LEFT JOIN (SELECT PO.post_no, count(*) con_num
+									 FROM (SELECT *
+	  									   FROM post_concern  
+	  								       WHERE delete_flag = 'N') PO
+	                                 GROUP BY PO.post_no) con <!-- 게시물당 추천 총 수  -->
 			  ON p.post_no = con.post_no	
 			  			 LEFT JOIN (SELECT post_no, delete_flag flag
 						            FROM post_concern pc
@@ -101,7 +105,7 @@
 						          	) cop  <!-- 회원의 게시물 추천 유무 Y는 빈하트 표출   -->
 			   ON p.post_no = cop.post_no			            								
 	  		  WHERE p.delete_flag = 'N' 
-	  		  <if test="postType != null">		
+	  		  <if test="post.postType != null and post.postType != 0">		
 	  		  AND p.post_type = #{post.postType}
 	  		  </if>
 			      <if test="search.searchCondition != null">		
@@ -161,7 +165,7 @@
 	<update	id="updatePost"	parameterType="post" >
 	UPDATE POST
 	   	<set>
-	   		post_title= #{postTile:VARCHAR},
+	   		post_title= #{postTitle:VARCHAR},
 	   		post_no= #{postNo},
 	   		post_content= #{postContent},
 	   		user_id= #{writer.id},
@@ -225,7 +229,7 @@
 	   	<set>
 	   		delete_flag= 'X'
 	   	</set>
-	   	WHERE comment_no= #{commentNo}s
+	   	WHERE comment_no= #{commentNo}
 	</update>
 
 
@@ -237,6 +241,35 @@
 	   	</set>
 	   	WHERE post_no= #{postNo} AND user_id = #{userId}
 	 </update> 
+	 
+	    <!-- 총 댓글수를 update해준다.-->
+	<!-- 코멘트 번호가 해당 번호일때의 포스트 정보를 가지고 온다.  -->
+ 	<select  id="updatetotalComment"  parameterType="int"	resultMap="postMapper"> 	
+		select post_no,count(*) com_num
+		from comment
+		where post_no = (select post_no
+			   			 from comment 
+			   			 where comment_no = #{value})
+	    and delete_flag = 'n'
+	 </select> 
+	 
+  	<select  id="updatetotalComment2"  parameterType="int"	resultMap="postMapper"> 	
+	select post_no,count(*) com_num
+	from comment
+	where post_no = #{value}
+    and delete_flag = 'n'
+	 </select> 
+	 
+	<!-- 총 추천수를 update해준다.-->
+	<!-- 코멘트 번호가 해당 번호일때의 포스트 정보를 가지고 온다.  -->
+<!--  	<select  id="UpdatetotalConcern"  parameterType="int"	resultMap="postMapper"> 	
+	select p.*
+	from post p, post_concern con
+	where p.post_no = con.post_no
+	and con.count_no = #{value}
+	 </select> 	  -->
+	 
+	 
 	 
    <!-- 총 추천수 -->
 <!-- 	<select  id="totalConcern"  parameterType="int"	resultType="int">

@@ -8,7 +8,7 @@ public class Post {
 	
 	//field
 	
-	private String postTile; //게시물제목
+	private String postTitle; //게시물제목
 	private int postNo; //게시물번호
 	private String postContent; //게시물내용
 	private User writer; //작성자
@@ -17,7 +17,7 @@ public class Post {
 	private String postRegdate; //게시물등록일자
 	private String video;// 게시물 비디오
 	private String deleteFlag; //블라인드 유무
-	private int commentTotalCount; // 댓글 총 수
+	private int commentTotalCount; // 댓글 총 수 // int는 디폴트 0이고 스트링은 null임.. 
 	private String postImg1; //게시물이미지
 	private String postImg2; //게시물이미지1
 	private String postImg3; //게시물이미지2
@@ -28,12 +28,14 @@ public class Post {
 	private String conDeleteFlag; // 추천 등록삭제 확인여부
 	private String concernType;
 	
-	public String getPostTile() {
-		return postTile;
+	
+	public String getPostTitle() {
+		return postTitle;
 	}
-	public void setPostTile(String postTile) {
-		this.postTile = postTile;
+	public void setPostTitle(String postTitle) {
+		this.postTitle = postTitle;
 	}
+
 	public int getPostNo() {
 		return postNo;
 	}
@@ -144,12 +146,13 @@ public class Post {
 	}
 	@Override
 	public String toString() {
-		return "DomainPost : postTile=[" + postTile + "], postNo=[" + postNo + "], postContent=[" + postContent + "], writer=["
+		return "DomainPost : postTitle=[" + postTitle + "], postNo=[" + postNo + "], postContent=[" + postContent + "], writer=["
 				+ writer + "], postType=[" + postType + "], postConcernCount=[" + postConcernCount + "], postRegdate=["
 				+ postRegdate + "], video=[" + video + "], deleteFlag=[" + deleteFlag + "], commentTotalCount=["
 				+ commentTotalCount + "], postImg1=[" + postImg1 + "], postImg2=[" + postImg2 + "], postImg3=[" + postImg3
 				+ "], hashtag1=[" + hashtag1 + "], hashtag2=[" + hashtag2 + "], hashtag3=[" + hashtag3 + "], search=[" + search
 				+ "], conDeleteFlag=[" + conDeleteFlag + "], concernType=[" + concernType + "]";
 	}
+
 }
 	//method
