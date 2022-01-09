@@ -26,6 +26,7 @@ import site.gamsung.service.camp.CampSearchService;
 import site.gamsung.service.common.Page;
 import site.gamsung.service.common.RatingReviewService;
 import site.gamsung.service.common.Search;
+import site.gamsung.service.domain.Camp;
 import site.gamsung.service.domain.CampReservation;
 import site.gamsung.service.domain.MainSite;
 import site.gamsung.service.domain.User;
@@ -105,10 +106,33 @@ public class CampGeneralRestController {
 		return list;
 	}
 	
+	@RequestMapping( value="json/selectMainSite/{mainSiteNo}/{campNo}", method=RequestMethod.GET)
+	public  MainSite selectMainSite (@PathVariable int mainSiteNo, @PathVariable int campNo) throws Exception{
+		
+		System.out.println("/campGeneral/json/selectMainSite : GET");
+		
+		CampReservation campReservation = new CampReservation();
+		Camp camp = new Camp();
+		MainSite mainSite = new MainSite();
+		camp.setCampNo(campNo);		
+		mainSite.setMainSiteNo(mainSiteNo);
+		campReservation.setCamp(camp);
+		campReservation.setMainSite(mainSite);
+		System.out.println(mainSiteNo);
+		System.out.println(campNo);
+								
+		mainSite = campSearchService.getMainSite(campReservation);
+								
+		System.out.println(mainSite);
+		
+		return mainSite;
+	}
+	
 	   @RequestMapping(value = "json/listMyReservationTable", method = RequestMethod.POST)
 	   private @ResponseBody String getUserList(@ModelAttribute("search") Search search, HttpSession httpSession) throws Exception {
 	      
 		   System.out.println("/campGeneral/json/listMyReservationTable : POST");
+		   
 			
 			User user = (User)httpSession.getAttribute("user");
 		
@@ -118,6 +142,8 @@ public class CampGeneralRestController {
 				
 			} else {
 				
+				System.out.println(search);
+				System.out.println(user);
 				search.setId(user.getId());
 				List<CampReservation> list = campReservationService.listMyReservationTable(search);
 				
