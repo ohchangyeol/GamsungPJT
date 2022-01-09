@@ -11,26 +11,26 @@ pageEncoding="UTF-8"%>
     <div class="collapse navbar-collapse" id="custom-collapse">
       <ul class="nav navbar-nav navbar-right">    
   
-        <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">중고상품</a>
+        <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">경매상품</a>
 
           <ul class="dropdown-menu">
-            <li><a href="/auction/addAuctionProduct" >상품 등록</a></li>
-            <li><a href="/auction/listWaitAuctionProduct" >경매 진행 전</a></li>
-            <li><a href="/auction/listAuctionProduct" >경매 진행 중</a></li>
+            <li><a id="addProduct">상품 등록</a></li>
+            <li><a id="adminProduct">관리자 경매 상품</a></li>
+            <li><a id="listProduct">경매 진행 중</a></li>
           </ul>
         </li>
         
-        <li class="dropdown"><a class="dropdown-toggle" href="/community/listCommunity" data-toggle="dropdown">커뮤니티</a>
+        <li class="dropdown"><a class="dropdown-toggle" href="/community/listPost" data-toggle="dropdown">커뮤니티</a>
         	<ul class="dropdown-menu">
-				<li><a href="/community/listCommunity">커뮤니티</a></li>
+				<li><a href="/community/listPost">커뮤니티</a></li>
 			</ul>
         </li>
                
         <li class="dropdown"><a class="dropdown-toggle" href="/servicecenter/home" data-toggle="dropdown">고객센터</a>
         	<ul class="dropdown-menu">
 				<li><a href="/servicecenter/listNotice">공지사항</a></li>
-        <li><a href="/servicecenter/home"> Q&A </a></li>
-        <li><a href="/servicecenter/home">내 신고 내역</a></li>
+        <li><a href="/servicecenter/listQna"> Q&A </a></li>
+        <li><a href="/servicecenter/listReport/my">내 신고 내역</a></li>
 
 			</ul>
         </li>
@@ -153,4 +153,35 @@ pageEncoding="UTF-8"%>
 <jsp:include page="../user/loginModal.jsp"/>
 <!-- findIdModal -->
 <jsp:include page="/view/user/findIdModal.jsp"/>
-
+<script>
+	$(function(){
+		
+		$('#addProduct').on('click',function(){
+			if(${empty sessionScope.user}){
+				alert('로그인 후 이용 가능합니다.');
+				return;
+			}else if(${sessionScope.user.auctionSuspension != null}){
+				alert('경매 이용 정지되었습니다. 관리자에게 문의하세요.');
+				return;
+			}else{
+				window.location = '/auction/addAuctionProduct';
+			}
+		});
+		
+		$('#adminProduct').on('click',function(){
+			if(${sessionScope.user.auctionSuspension != null}){
+				alert('경매 이용 정지되었습니다. 관리자에게 문의하세요.');
+				return;
+			}
+			window.location = "/auction/listWaitAuctionProduct";
+		});
+		
+		$('#listProduct').on('click',function(){
+			if(${sessionScope.user.auctionSuspension != null}){
+				alert('경매 이용 정지되었습니다. 관리자에게 문의하세요.');
+				return;
+			}
+			window.location = "/auction/listAuctionProduct";
+		});
+	});
+</script>

@@ -85,23 +85,30 @@ public class AuctionRestController {
 		return auctionInfoService.getBidderRanking(auctionInfo);
 	}
 	
-	@GetMapping(value = "updateAuctionStatus/{auctionProductNo}/{status}")
+	@GetMapping( "updateAuctionStatus/{auctionProductNo}/{status}")
 	public AuctionInfo updateAuctionStatus(	@PathVariable("auctionProductNo") String auctionProductNo,
-											@PathVariable("status") String status) {
-			
-		 return auctionProductService.deleteAuctionProduct(auctionProductNo,status);
+											@PathVariable("status") String status, HttpSession httpSession) {
+		
+		AuctionInfo info = auctionProductService.deleteAuctionProduct(auctionProductNo,status);
+		
+		User user = (User)httpSession.getAttribute("user");
+		//사용자 경매 등급 재설정한다.
+		user = auctionInfoService.checkAndUpdateUserAuctionGrade(user);
+		httpSession.setAttribute("user", user);
+		
+		return info;
 		
 	}
 	
 	//입찰 10초전 증가
-	@GetMapping(value = "updateBidEndTime/{auctionProductNo}")
+	@GetMapping( "updateBidEndTime/{auctionProductNo}")
 	public AuctionInfo updateBidEndTime(@PathVariable("auctionProductNo") String auctionProductNo) {
 		
 		return auctionProductService.updateBidEndTime(auctionProductNo);
 	}
 	
 	//리뷰 등록
-	@PostMapping(value = "addReview/{auctionProductNo}")
+	@PostMapping("addReview/{auctionProductNo}")
 	public void addReview(	@PathVariable("auctionProductNo") String auctionProductNo, 
 							@RequestBody RatingReview ratingReview, HttpSession httpSession) {
 		
@@ -116,7 +123,8 @@ public class AuctionRestController {
 		try {
 			ratingReviewService.addRatingReview(ratingReview);
 			//사용자 경매 등급 재설정한다.
-			auctionInfoService.checkAndUpdateUserAuctionGrade(user);
+			user = auctionInfoService.checkAndUpdateUserAuctionGrade(user);
+			httpSession.setAttribute("user", user);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -124,12 +132,13 @@ public class AuctionRestController {
 	}
 	
 	//리뷰 리스트
-	@PostMapping(value = "listAuctionRatingReview/{currentPage}")
+	@PostMapping("listAuctionRatingReview/{currentPage}")
 	public List<RatingReview> listAuctionRatingReview(@RequestBody AuctionInfo auctionInfo, HttpSession httpSession, @PathVariable int currentPage){
 		
 		User user = (User)httpSession.getAttribute("user");
 		auctionInfo.setUser(user);
 		
+		//사용자 IP를 얻어온다.
 		HttpServletRequest req = ((ServletRequestAttributes)RequestContextHolder.currentRequestAttributes()).getRequest();
 		String ip = req.getHeader("X-FORWARDED-FOR");
 		if(ip == null) {
@@ -149,7 +158,7 @@ public class AuctionRestController {
 	}
 
 	//답글 등록
-	@PostMapping(value = "addReviewComment/{auctionProductNo}")
+	@PostMapping("addReviewComment/{auctionProductNo}")
 	public AuctionInfo addReviewComment(@RequestBody RatingReview ratingReview, @PathVariable("auctionProductNo") String auctionProductNo) {
 		
 		AuctionInfo auctionInfo = new AuctionInfo();
@@ -162,20 +171,20 @@ public class AuctionRestController {
 	}
 	
 	//리뷰 삭제
-	@PostMapping(value = "deleteAuctionRatingReview")
+	@PostMapping("deleteAuctionRatingReview")
 	public AuctionInfo deleteAuctionRatingReview(@RequestBody RatingReview ratingReview, HttpSession httpSession){
 		
 		AuctionInfo auctionInfo = auctionReviewService.deleteAuctionRatingReview(ratingReview); 
 		
 		//사용자 경매 등급 재설정한다.
 		User user = (User)httpSession.getAttribute("user");
-		auctionInfoService.checkAndUpdateUserAuctionGrade(user);
-		
+		user = auctionInfoService.checkAndUpdateUserAuctionGrade(user);
+		httpSession.setAttribute("user", user);
 		return auctionInfo;
 	}
 	
 	//메인 상품 등록
-	@GetMapping(value ="addMainAuctionProduct/{auctionProductNo}")
+	@GetMapping("addMainAuctionProduct/{auctionProductNo}")
 	public AuctionInfo addMainAuctionProduct(@PathVariable("auctionProductNo") String auctionProductNo) {
 		
 		String info = auctionProductService.addMainAuctionProduct(auctionProductNo);
@@ -187,7 +196,7 @@ public class AuctionRestController {
 	}
 	
 	//응찰 관심 등록 해제
-	@RequestMapping(value = "addBidConcern")
+	@RequestMapping("addBidConcern")
 	public AuctionInfo addBidConcern(@RequestBody AuctionInfo auctionInfo, HttpSession httpSession) {
 		
 		User user = (User)httpSession.getAttribute("user");
@@ -201,7 +210,7 @@ public class AuctionRestController {
 	}
 	
 	//상품명 자동 완성
-	@RequestMapping(value = "autoComplete")
+	@RequestMapping( "autoComplete")
 	public List<String> autoComplete(@RequestBody Search search){
 		System.out.println(search.getSearchKeyword());
 		List<String> list = auctionProductService.autoComplete(search.getSearchKeyword());
@@ -209,7 +218,7 @@ public class AuctionRestController {
 	}
 	
 	//검색 조건에 대한 리스트 출력
-	@RequestMapping(value = "listAuctionProduct")
+	@RequestMapping("listAuctionProduct")
 	public Map<String,Object> listAuctionProduct(@RequestBody Search search, Model model, HttpSession httpSession) {
 		
 		User user = (User)httpSession.getAttribute("user");
@@ -279,7 +288,8 @@ public class AuctionRestController {
 		
 		auctionInfo.setUser(user);
 		
-		auctionInfoService.checkAndUpdateUserAuctionGrade(user);
+		user = auctionInfoService.checkAndUpdateUserAuctionGrade(user);
+		httpSession.setAttribute("user", user);
 		
 		auctionInfo.setInfo("해당 상품은 중도 철회 되었습니다.");
 		

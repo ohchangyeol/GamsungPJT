@@ -97,11 +97,11 @@ public class AuctionInfoServiceTest {
 	}
 	
 	//상품 입찰 내역 출력 test
-	//@Test
+	@Test
 	public void testAuctionHistory() {
 		
 		User user = new User();
-		user.setId("user1@gamsung.com");
+		user.setId("aa@a.com");
 		
 		Search search = new Search();
 		search.setCurrentPage(1);
@@ -109,7 +109,6 @@ public class AuctionInfoServiceTest {
 		search.setOffset(10);
 		
 		AuctionInfo auctionInfo = new AuctionInfo();
-		auctionInfo.setAuctionProductNo("PROD00001");
 		auctionInfo.setUser(user);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -146,7 +145,7 @@ public class AuctionInfoServiceTest {
 		
 	}
 	
-	@Test
+	//@Test
 	public void testCheckAndUpdateUserGrade() {
 		
 		User user = new User();

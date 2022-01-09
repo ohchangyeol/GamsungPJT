@@ -3,6 +3,7 @@ package site.gamsung.controller.user;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -14,15 +15,16 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import site.gamsung.service.common.Page;
+import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.User;
+import site.gamsung.service.domain.UserWrapper;
 import site.gamsung.service.user.UserService;
-import site.gamsung.util.user.SHA256Util;
 
 @Controller
 @RequestMapping("/user/*")
@@ -60,16 +62,20 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="getUser", method=RequestMethod.GET)
-	public String getUser(@ModelAttribute("user") String id, Model model){
+	public String getUser(@ModelAttribute("userId") String id, Model model){
 		
-		System.out.println("/user/getUser:POST");
+		System.out.println("/user/getUser:GET");
 		
 		User user = userService.getUser(id);
 		
 		model.addAttribute("user", user);
 		
+		if(user.getRole().equals("GENERAL")) {
+			return "forward:/view/common/maPage.jsp";
+		} else{
+			return "forward:/view/user/getBusinessUserUpdate.jsp";
+		}
 		
-		return "forward:/view/user/getUser.jsp";
 	}
 	
 	@RequestMapping(value="updateUser", method=RequestMethod.GET)
@@ -81,12 +87,12 @@ public class UserController {
 		
 		model.addAttribute("user", user);
 		
-		return "forward:/view/user/updateUser.jsp";
+		return "forward:/view/common/myPage.jsp";
 		
 	}
 	
 	@RequestMapping(value="updateUser", method=RequestMethod.POST)
-	public String updateUser(User user, Model model, HttpSession session) {
+	public String updateUser(@ModelAttribute("user") User user, Model model, HttpSession session) {
 		
 		System.out.println("/user/updateUser : POST");
 		
@@ -100,10 +106,14 @@ public class UserController {
 		System.out.println("유저 비밀번호"+user.getPassword());
 
 		if(sessionUser.getId().equals(user.getId())){
+			System.out.println("이프문 안이다");
 			if(user.getPassword()==null || user.getPassword()=="") {
+			System.out.println("패스워드가 널이다");
 			user.setPassword(sessionUser.getPassword());
 			System.out.println(sessionUser.getPassword());
 			}else {
+				System.out.println("널이 아니다");
+				user.setPassword(user.getPassword());
 				user.setSalt(sessionUser.getSalt());
 			}	
 		}
@@ -121,20 +131,24 @@ public class UserController {
 //		User upSession=(User)session.getAttribute("user");
 //		
 //		System.out.println("변경이 되었는가"+upSession);
+		if(user.getRole().equals("GENERAL")) {
+			return "forward:/view/common/myPage.jsp";
+		}else {
+			return "forward:/view/user/getBusinessUserUpdate.jsp";
+		}
 		
-		return "forward:/view/user/getGeneralUserUpdate.jsp";
 	}
 	
-//	@RequestMapping( value="login", method=RequestMethod.GET )
-//	public String login() throws Exception{
-//		
-//		System.out.println("/user/logon : GET");
-//
-//		return "/";
-//	}
+	@RequestMapping( value="login", method=RequestMethod.GET )
+	public String login() throws Exception{
+		
+		System.out.println("/user/logon : GET");
+
+		return "/";
+	}
 	
 
-	@RequestMapping(value="login")
+	@RequestMapping(value="login", method=RequestMethod.POST)
 	public String login(@ModelAttribute("user") User user, HttpSession session){
 		
 		System.out.println("/user/login : POST");
@@ -165,7 +179,7 @@ public class UserController {
 			
 		if(dbUser.getRole().equals("ADMIN")) {
 			session.setAttribute("user", dbUser);
-			return "forward:/adminMain.jsp";
+			return "redirect:/admin";
 		}else if(dbUser.getDormantConversionDate() != null) {
 			session.setAttribute("id", user.getId());
 			System.out.println("휴면회원 아이디"+user.getId());
@@ -190,7 +204,7 @@ public class UserController {
 			//비밀번호를 확인하세요 있어야됨.
 			
 			if(dbUser.getNickName() != null) {
-				jsp = "redirect:/main.jsp";
+				jsp = "redirect:/";
 			}else if(dbUser.getBusinessUserApprovalFlag() != null && dbUser.getBusinessUserApprovalFlag().equals("Y")) {
 				jsp = "forward:/campBusiness/goSubMainCampBusiness"; 
 		    }else {
@@ -293,6 +307,42 @@ public class UserController {
 		userService.addSuspensionUser(user);
 		
 		return "회원 리스트.jsp";
+	}
+	
+	@RequestMapping( value="listUser" )
+	public String listUser( @ModelAttribute("search") Search search , Model model , HttpServletRequest request) throws Exception{
+		
+		System.out.println("/user/listUser : GET / POST");
+		
+		if(search.getCurrentPage() == 0 ){
+			search.setCurrentPage(1);
+		}
+		search.setPageSize(pageSize);
+		
+		// Business logic 수행
+		UserWrapper userWrapper=userService.listUser(search);
+		
+		List<User> list = userWrapper.getUsers();
+		Integer totalCount = userWrapper.getTotalCount();
+		
+		search.setCurrentPage(1);
+	 	search.setPageSize(10);
+		
+		userWrapper = userService.listUser(search);
+		
+		list = userWrapper.getUsers();
+		totalCount = (Integer)userWrapper.getTotalCount();
+		Page resultPage = new Page( search.getCurrentPage(),totalCount, pageUnit, pageSize);
+		
+		System.out.println(list);
+		System.out.println(totalCount);
+				
+		// Model 과 View 연결
+		model.addAttribute("list", list);
+		model.addAttribute("resultPage", resultPage);
+		model.addAttribute("search", search);
+		
+		return "forward:/view/user/listUser.jsp";
 	}
 	
 	

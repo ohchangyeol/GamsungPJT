@@ -33,6 +33,8 @@ public interface AuctionProductService {
 	
 	public String addMainAuctionProduct(String auctionProductNo);
 	
+	public void checkMainAUctionProductRemainTime();
+	
 	public List<AuctionProduct> listMainAuctionProduct();
 	
 	public AuctionProduct auctionProductImgs(AuctionProduct auctionProduct, List<String> fileList);
@@ -40,5 +42,6 @@ public interface AuctionProductService {
 	public AuctionInfo deleteAuctionProduct(String auctionProductNo, String status);
 	
 	public AuctionInfo updateBidEndTime(String auctionProductNo);
-
+	
+	public AuctionProduct paymentSubInfo(String registrantId);
 }

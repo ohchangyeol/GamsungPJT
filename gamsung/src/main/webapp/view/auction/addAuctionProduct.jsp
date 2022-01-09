@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -188,11 +189,11 @@
 							</div>
 							<textarea id="auctionProductDetail" name="auctionProductDetail" class="form-control" rows="20" placeholder="상품 정보를 입력 하세요.." ></textarea>
 							<input id="allhashtag" name="allhashtag" class="form-control" type="text" value="${auctionProduct.hashtag1}${auctionProduct.hashtag2}${auctionProduct.hashtag3}" placeholder="해시태그를 #을 포함하여 입력하세요." />
-							<input type="hidden" id="inputImg1" name="productImg1" value="">
-						  	<input type="hidden" id="inputImg2" name="productImg2" value="">
-						  	<input type="hidden" id="inputImg3" name="productImg3" value="">
-						  	<input type="hidden" id="inputImg4" name="productImg4" value="">
-							<input type="hidden" id="inputImg5" name="productImg5" value=""> 
+							<input type="hidden" id="inputImg1" name="productImg1" class="inputImg" value="">
+						  	<input type="hidden" id="inputImg2" name="productImg2" class="inputImg" value="">
+						  	<input type="hidden" id="inputImg3" name="productImg3" class="inputImg" value="">
+						  	<input type="hidden" id="inputImg4" name="productImg4" class="inputImg" value="">
+							<input type="hidden" id="inputImg5" name="productImg5" class="inputImg" value=""> 
 							<input type="hidden" id="hashtag1" name="hashtag1" value="">
 						  	<input type="hidden" id="hashtag2" name="hashtag2" value="">
 							<input type="hidden" id="hashtag3" name="hashtag3" value=""> 
@@ -299,7 +300,11 @@
 							
 			if(auctionProduct.length == 9){
 				if(confirm("임시등록 상품이 존재합니다. 불러 오시겠습니까?")){
-					$('#uploadForm').attr('hidden',false);
+					
+					if(${!empty auctionProduct.productImg1}){
+						$('#uploadForm').attr('hidden',false);
+					}
+					
 					$('#auctionProductName').val("${auctionProduct.auctionProductName}");
 					$('#startBidPrice').val(${auctionProduct.startBidPrice});
 					$('#hopefulBidPrice').val(${auctionProduct.hopefulBidPrice});
@@ -308,11 +313,23 @@
 					$('#auctionEndTime').val("${auctionProduct.auctionEndTime}");
 					$('#bidableGrade').val(${auctionProduct.bidableGrade});
 					$('#auctionProductDetail').val("${auctionProduct.auctionProductDetail}");
+					
 					$('#productImg1').attr('src','/uploadfiles/auctionimg/product/${auctionProduct.productImg1}').attr('data-file','${auctionProduct.productImg1}');
 					$('#productImg2').attr('src','/uploadfiles/auctionimg/product/${auctionProduct.productImg2}').attr('data-file','${auctionProduct.productImg2}');
 					$('#productImg3').attr('src','/uploadfiles/auctionimg/product/${auctionProduct.productImg3}').attr('data-file','${auctionProduct.productImg3}');
 					$('#productImg4').attr('src','/uploadfiles/auctionimg/product/${auctionProduct.productImg4}').attr('data-file','${auctionProduct.productImg4}');
 					$('#productImg5').attr('src','/uploadfiles/auctionimg/product/${auctionProduct.productImg5}').attr('data-file','${auctionProduct.productImg5}');
+					
+					$('#inputImg1').val('${auctionProduct.productImg1}');
+					$('#inputImg2').val('${auctionProduct.productImg2}');
+					$('#inputImg3').val('${auctionProduct.productImg3}');
+					$('#inputImg4').val('${auctionProduct.productImg4}');
+					$('#inputImg5').val('${auctionProduct.productImg5}');
+					
+					$('#startDate').val('${fn:split(auctionProduct.auctionStartTime,' ')[0]}')
+					$('#startTime').val('${fn:split(auctionProduct.auctionStartTime,' ')[1]}')
+					$('#endDate').val('${fn:split(auctionProduct.auctionEndTime,' ')[0]}')
+					$('#endTime').val('${fn:split(auctionProduct.auctionEndTime,' ')[1]}')
 					
 				}else{
 					$('#imgId0').remove();
@@ -657,16 +674,41 @@
 		}
 		
 		function deleteImageAction(index) {
-			
-            sel_files.splice(index, 1);
+			if(sel_files.length != 0){
+	            sel_files.splice(index, 1);
+			}
 
             var imgId = "#imgId"+index;
             var inputImg = "#inputImg"+(1*index+1)
+            
             $(imgId).remove();
             $(inputImg).val("");
             
-            if(sel_files.length == 0){
+            var selProductFile = document.getElementsByClassName('selProductFile');
+            console.log(selProductFile.length)
+            if(selProductFile.length == 0 ){
             	$('#uploadForm').attr('hidden',true);
+            }
+            
+            switch(selProductFile){
+            case 1:
+            	$('#inputImg1').val(selProductFile[0].getAttribute('data-file'));
+            	break;
+            case 2:
+            	$('#inputImg1').val(selProductFile[0].getAttribute('data-file'));
+				$('#inputImg2').val(selProductFile[1].getAttribute('data-file'));
+            	break;
+            case 3:
+            	$('#inputImg1').val(selProductFile[0].getAttribute('data-file'));
+				$('#inputImg2').val(selProductFile[1].getAttribute('data-file'));
+				$('#inputImg3').val(selProductFile[2].getAttribute('data-file'));
+            	break;
+            case 4:
+            	$('#inputImg1').val(selProductFile[0].getAttribute('data-file'));
+				$('#inputImg2').val(selProductFile[1].getAttribute('data-file'));
+				$('#inputImg3').val(selProductFile[2].getAttribute('data-file'));
+				$('#inputImg4').val(selProductFile[3].getAttribute('data-file'));
+            	break;           	
             }
         }
 		

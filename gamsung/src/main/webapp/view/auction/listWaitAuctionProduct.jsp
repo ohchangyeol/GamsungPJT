@@ -11,41 +11,14 @@
     
     <title>중고 경매</title>
     
-    <link rel="apple-touch-icon" sizes="57x57" href="../../resources/images/favicons/apple-icon-57x57.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="../../resources/images/favicons/apple-icon-60x60.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="../../resources/images/favicons/apple-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="../../resources/images/favicons/apple-icon-76x76.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="../../resources/images/favicons/apple-icon-114x114.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="../../resources/images/favicons/apple-icon-120x120.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="../../resources/images/favicons/apple-icon-144x144.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="../../resources/images/favicons/apple-icon-152x152.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="../../resources/images/favicons/apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="../../resources/images/favicons/android-icon-192x192.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="../../resources/images/favicons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="../../resources/images/favicons/favicon-96x96.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="../../resources/images/favicons/favicon-16x16.png">
-    <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="msapplication-TileImage" content="../../resources/images/favicons/ms-icon-144x144.png">
-    <meta name="theme-color" content="#ffffff">
-    
-    <link href="../../resources/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Template specific stylesheets-->
-    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Volkhov:400i" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
-    <link href="../../resources/lib/animate.css/animate.css" rel="stylesheet">
-    <link href="../../resources/lib/components-font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <link href="../../resources/lib/et-line-font/et-line-font.css" rel="stylesheet">
-    <link href="../../resources/lib/flexslider/flexslider.css" rel="stylesheet">
-    <link href="../../resources/lib/owl.carousel/dist/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="../../resources/lib/owl.carousel/dist/assets/owl.theme.default.min.css" rel="stylesheet">
-    <link href="../../resources/lib/magnific-popup/magnific-popup.css" rel="stylesheet">
-    <link href="../../resources/lib/simple-text-rotator/simpletextrotator.css" rel="stylesheet">
-    <!-- Main stylesheet and color file-->
-    <link href="../../resources/css/style.css" rel="stylesheet">
-    <link id="color-scheme" href="../../resources/css/colors/default.css" rel="stylesheet">
+	<jsp:include page="/resources/commonLib.jsp"></jsp:include>
   
-  
+  <style>
+  	.prodName{
+  		 text-decoration: none;
+		 text-overflow: ellipsis;
+  	}
+  </style>
   
   </head>
   <body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
@@ -55,12 +28,12 @@
       </div>
   	<jsp:include page="../common/header.jsp"></jsp:include>
     <div class="main">
-      <section class="module bg-dark-60 shop-page-header" data-background="../../resources/images/shop/product-page-bg.jpg">
+      <section class="module bg-dark-60 shop-page-header" data-background="../../resources/images/6041bd81f941c55ff784f622_8-Tips-when-buying-at-auction.jpg">
           <div class="container">
             <div class="row">
               <div class="col-sm-6 col-sm-offset-3">
-                <h2 class="module-title font-alt">Shop Products</h2>
-                <div class="module-subtitle font-serif">A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart.</div>
+                <h2 class="module-title font-alt">Auction Products</h2>
+                <div class="module-subtitle font-serif">관리자가 등록한 경매 상품입니다. 10분 동안만 진행됩니다.</div>
               </div>
             </div>
           </div>
@@ -70,7 +43,7 @@
           <div class="container">
             <div class="row">
               <div class="col-sm-6 col-sm-offset-3">
-                <h2 class="module-title font-alt">경매 진행 전 상품</h2>
+                <h2 class="module-title font-alt">관리자 경매 상품</h2>
               </div>
             </div>
             <div class="row multi-columns-row">
@@ -86,8 +59,8 @@
                     	<a class="btn btn-round btn-b">경매 시작하기!</a>
                     </div>
                   </div>
-                  <h4 class="shop-item-title font-alt"><a href="#">${product.auctionProductName}</a></h4>
-                  <span>${product.hashtag1} ${product.hashtag2} ${product.hashtag2}</span>			
+                  <h4 class="shop-item-title font-alt prodNmae"><a href="#">${product.auctionProductName}</a></h4>
+                  <span>${product.hashtag1} ${product.hashtag2} ${product.hashtag3}</span>			
                 </div>
               </div>
             </c:forEach>
@@ -102,8 +75,8 @@
                     	<a class="btn btn-round btn-b">경매 시작하기!</a>
                     </div>
                   </div>
-                  <h4 class="shop-item-title font-alt"><a href="#">${product.auctionProductName}</a></h4>
-                  <span>${product.hashtag1} ${product.hashtag2} ${product.hashtag2}</span>			
+                  <h4 class="shop-item-title font-alt prodNmae"><a href="#">${product.auctionProductName}</a></h4>
+                  <span>${product.hashtag1} ${product.hashtag2} ${product.hashtag3}</span>			
                 </div>
               </div>
             </c:forEach>
@@ -134,24 +107,7 @@
       	<input type="hidden" id="allhashtag"name="allhashtag"/>
       </form>
     </main>
-    <!--  
-    JavaScripts
-    =============================================
-    -->
-    <script src="../../resources/lib/jquery/jquery.js"></script>
-    <script src="../../resources/lib/bootstrap/js/bootstrap.min.js"></script>
-    <script src="../../resources/lib/wow/wow.js"></script>
-    <script src="../../resources/lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js"></script>
-    <script src="../../resources/lib/isotope/isotope.pkgd.js"></script>
-    <script src="../../resources/lib/imagesloaded/imagesloaded.pkgd.js"></script>
-    <script src="../../resources/lib/flexslider/jquery.flexslider.js"></script>
-    <script src="../../resources/lib/owl.carousel/dist/owl.carousel.min.js"></script>
-    <script src="../../resources/lib/smoothscroll.js"></script>
-    <script src="../../resources/lib/magnific-popup/jquery.magnific-popup.js"></script>
-    <script src="../../resources/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script>
-    <script src="../../resources/js/plugins.js"></script>
-    <script src="../../resources/js/main.js"></script>
-    
+
    	<script type="text/javascript">
    	$(function(){
    		
@@ -187,7 +143,7 @@
 				                  				+ '<div class="shop-item-detail"><span hidden="hidden">'
 				                  				+ JSONData[i].auctionProductSubDetail
 				                  				+ '</span><a class="btn btn-round btn-b">경매 시작하기!</a></div></div>'
-				                  				+ '</span><h4 class="shop-item-title font-alt"><a href="#">'
+				                  				+ '</span><h4 class="shop-item-title font-alt prodNmae"><a href="#">'
 				                   				+ JSONData[i].auctionProductName
 				                   				+ '</a></h4> <span>'
 				                   				+ JSONData[i].hashtag1
@@ -211,7 +167,7 @@
 				              					+ '<div class="shop-item-detail"><span hidden="hidden">'
 				                  				+ JSONData[i].auctionProductSubDetail
 				                  				+ '</span><a class="btn btn-round btn-b">경매 시작하기!</a></div></div>'
-				                  				+ '<h4 class="shop-item-title font-alt"><a href="#">'
+				                  				+ '<h4 class="shop-item-title font-alt prodNmae"><a href="#">'
 				                   				+ JSONData[i].auctionProductName
 				                   				+ '</a></h4> <span>'
 				                   				+ JSONData[i].hashtag1
@@ -245,6 +201,7 @@
 	   			var allhashtag = $(this).parent().parent().next().next().text();
 	   			$("#auctionProductSubDetail").val(auctionProductSubDetail);
 	   			$("#auctionProductName").val(auctionProductName);
+	   			alert(allhashtag);
 	   			$("#allhashtag").val(allhashtag);
 	   			$('form').attr('method','post').attr('action','/auction/getAuctionProduct').submit();
 	   		});

@@ -106,7 +106,7 @@ width: 50%;
 						<div class="container">
 							<!-- <div class="row"> -->
 							<div class="col-sm-8 col-sm-offset-2">
-								<h4 class="font-alt mb-0">일반회원 회원가입</h4>
+								<h4 class="font-alt mb-0">일반회원 조회/수정</h4>
 								<hr class="divider-w mt-10 mb-20">
 								<form class="form" role="form">
 									<div id="email" class="form-group row">

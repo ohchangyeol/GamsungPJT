@@ -4,6 +4,7 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -93,13 +94,13 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 		//#기준으로 파싱하여 해시태그 재정의
 		if(hashtags.length == 2) {
 			auctionProduct.setHashtag1("#"+hashtags[1].trim());			
-		}else if(hashtags.length <=3) {
+		}else if(hashtags.length ==3) {
 			auctionProduct.setHashtag1("#"+hashtags[1].trim());	
-			auctionProduct.setHashtag1("#"+hashtags[2].trim());			
+			auctionProduct.setHashtag2("#"+hashtags[2].trim());			
 		}else if(hashtags.length > 3) {
 			auctionProduct.setHashtag1("#"+hashtags[1].trim());	
-			auctionProduct.setHashtag1("#"+hashtags[2].trim());	
-			auctionProduct.setHashtag1("#"+hashtags[3].trim());			
+			auctionProduct.setHashtag2("#"+hashtags[2].trim());	
+			auctionProduct.setHashtag3("#"+hashtags[3].trim());			
 		}
 		
 		//데이터를 저장한다. 등록자는 관리자가 Default이다.
@@ -319,6 +320,7 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 		SendMail sendMail = new SendMail();
 		
 		AuctionInfo auctionInfo = new AuctionInfo();
+		boolean isEnd = false;
 		
 		// enhanced for loop
 		for(AuctionProduct auctionProduct : auctionList) {
@@ -330,7 +332,7 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 			try {
 				
 				//잔여 시간이 00:00:00초라면 경매 상태를 업데이트한디.
-				boolean isEnd = dateFormat.parse(auctionProduct.getRemainAuctionTime()).before(dateFormat.parse("00:00:01"));
+				isEnd = dateFormat.parse(auctionProduct.getRemainAuctionTime()).before(dateFormat.parse("00:00:01"));
 				
 				if(isEnd) {					
 					auctionInfo.setAuctionProductNo(auctionProductNo);		
@@ -385,6 +387,10 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 		
 		AuctionProduct tmpProduct = auctionProductDAO.getAuctionProduct(auctionProductNo);
 		
+		if(!tmpProduct.getAuctionStatus().equals("START")) {
+			return "경매 진행 중인 상품이 아닙니다.";
+		}
+		
 		int isMain = auctionProductDAO.mainAuctionProductCount(auctionProductNo);
 		String remainTime = tmpProduct.getRemainAuctionTime();
 		
@@ -412,11 +418,36 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 		
 		return "추천 상품으로 등록 되었습니다.";
 	}
-
+	
 	@Override
 	public List<AuctionProduct> listMainAuctionProduct() {
 		// TODO Auto-generated method stub
 		return auctionProductDAO.listMainAuctionProduct();
+	}
+
+	@Override
+	@Scheduled(cron = "*/1 * * * * *")
+	public void checkMainAUctionProductRemainTime() {
+		// TODO Auto-generated method stub
+		List<AuctionProduct> list = auctionProductDAO.listMainAuctionProduct();
+		
+		String endTime = "";
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		boolean isEnd = false;
+		
+		for(AuctionProduct auctionProduct : list) {
+			endTime = auctionProduct.getRemainAuctionTime();
+			
+			try {
+				isEnd = dateFormat.parse(endTime).before(dateFormat.parse(dateFormat.format(new Date())));
+				if(isEnd) {
+					auctionProductDAO.deleteMainAuctionProduct(auctionProduct.getAuctionProductNo());
+				}
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 
 	@Override
@@ -507,6 +538,12 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 		auctionInfo.setInfo(info);
 		
 		return auctionInfo;
+	}
+
+	@Override
+	public AuctionProduct paymentSubInfo(String registrantId) {
+		// TODO Auto-generated method stub
+		return auctionProductDAO.paymentSubInfo(registrantId);
 	}	
 	
 }

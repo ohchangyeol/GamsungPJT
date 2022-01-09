@@ -12,7 +12,9 @@ import site.gamsung.service.auction.AuctionInfoDAO;
 import site.gamsung.service.auction.AuctionInfoService;
 import site.gamsung.service.domain.AuctionInfo;
 import site.gamsung.service.domain.AuctionProduct;
+import site.gamsung.service.domain.PaymentCode;
 import site.gamsung.service.domain.User;
+import site.gamsung.service.user.UserDAO;
 
 @Service("auctionInfoService")
 public class AuctionInfoServiceImpl implements AuctionInfoService{
@@ -24,6 +26,10 @@ public class AuctionInfoServiceImpl implements AuctionInfoService{
 	@Autowired
 	@Qualifier("auctionProductDAO")
 	private AuctionProductDAO auctionProductDAO;
+	
+	@Autowired
+	@Qualifier("userDAOImpl")
+	private UserDAO userDAO;
 	
 	
 	public AuctionInfoServiceImpl() {
@@ -95,7 +101,7 @@ public class AuctionInfoServiceImpl implements AuctionInfoService{
 	}
 
 	@Override
-	public void checkAndUpdateUserAuctionGrade(User user) {
+	public User checkAndUpdateUserAuctionGrade(User user) {
 		// TODO Auto-generated method stub
 		
 		AuctionInfo auctionInfo = auctionInfoDAO.auctionStatusTotalCount(user);
@@ -110,11 +116,14 @@ public class AuctionInfoServiceImpl implements AuctionInfoService{
 		int userAuctionGrade = addProductCount + addReviewCount + auctionConfirmCount + topRankCount
 								- midwayWithdrawalCount - cancelSuccessfulBidCount + 1;
 		if(userAuctionGrade < 1) {
+			auctionInfoDAO.auctionSuspension(user);
 			userAuctionGrade = 1;
 		}
 		user.setAuctionGrade(userAuctionGrade);
 		
-		auctionInfoDAO.updateUserAuctionGrade(user);		
+		auctionInfoDAO.updateUserAuctionGrade(user);
+		
+		return userDAO.getUser(user.getId());
 	}
 
 	@Override
@@ -128,7 +137,11 @@ public class AuctionInfoServiceImpl implements AuctionInfoService{
 		
 		return auctionInfoDAO.getBidderRanking(auctionInfo).get(0);
 	}
-	
-	
+
+	@Override
+	public PaymentCode getPaymentInfo(int auctionGrade) {
+		// TODO Auto-generated method stub
+		return auctionInfoDAO.getPaymentInfo(auctionGrade);
+	}
 
 }

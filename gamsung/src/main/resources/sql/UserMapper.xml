@@ -32,6 +32,7 @@
 		<result property="suspensionContent" 			column="suspension_content" 			jdbcType="VARCHAR" />
 		<result property="auctionGrade" 				column="auction_grade" 					jdbcType="SMALLINT" />
 		<result property="currentLoginRegDate" 			column="login_reg_date" 				jdbcType="DATE" />
+		<result property="auctionSuspension"			column="auction_suspension_reg_date"	jdbcType="DATE" />
 		<result property="snsId" 						column="sns_id" 						jdbcType="VARCHAR" />
 	</resultMap>
 	
@@ -51,7 +52,7 @@
 		u.user_id , u.role , u.nick_name , u.password ,u.salt, u.name, u.phone, u.addr, u.entry_reg_date , u.bank , u.account_holder, 
 		u.account_num, u.having_point, u.camp_name, u.camp_call, u.entry_approval_flag, u.receive_cancel_total_count, 
 		u.receive_ban_end_date, u.dormant_reg_date, u.secession_reg_date, u.suspension_reg_date, u.tourism_business_num, u.suspension_content,
-		u.auction_grade, u.sns_id, h.login_reg_date
+		u.auction_grade, u.sns_id, h.login_reg_date, auction_suspension_reg_date
 		FROM USERS u left outer join (SELECT * from LOGIN_HISTORY where (user_id, login_reg_date) in (select user_id, max(login_reg_date) as date from login_history group by user_id)) h
 		on u.user_id = h.user_id where u.user_id = #{value} 
 	 </select>
@@ -145,14 +146,18 @@
 		on u.user_id = h.user_id 
 			<if test="searchCondition != null">
 				<where>
-					<if test='searchCondition != "3"'>
-						u.role = #{searchCondition}
+					<if test='searchCondition != "1"'>
+						u.role = "GENERAL"
 					</if>
+					<if test='searchCondition != "2"'>
+						u.role = "BUSINESS"
+					</if>
+					<if test='searchCondition == 3'>
+						u.role = 'BUSINESS' AND (u.entry_approval_flag = 'N' OR u.entry_approval_flag is null)
+					</if>
+					
 					<if test="searchKeyword !='' and searchKeyword !=null">
 						AND u.user_id LIKE CONCAT('%',#{searchKeyword},'%')
-					</if>
-					<if test='searchCondition == "3"'>
-						u.role ='business' AND u.entry_approval_flag is null
 					</if>
 				</where>
 			</if>
