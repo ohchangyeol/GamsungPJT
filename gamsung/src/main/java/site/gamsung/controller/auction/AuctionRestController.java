@@ -54,14 +54,11 @@ public class AuctionRestController {
 	@Qualifier("auctionReviewService")
 	private AuctionReviewService auctionReviewService;
 	
-	@Value("#{commonProperties['auctionPageSize']}")
+	@Value("#{auctionProperties['auctionPageSize']}")
 	int auctionPageSize;
 	
-	@Value("#{commonProperties['auctionReviewPageSize']}")
+	@Value("#{auctionProperties['auctionReviewPageSize']}")
 	int auctionReviewPageSize;
-	
-	@Value("#{commonProperties['path']}")
-	private String PATH;
 	
 	@Autowired
 	private SimpMessagingTemplate simpMessagingTemplate;
@@ -184,7 +181,7 @@ public class AuctionRestController {
 	}
 	
 	//메인 상품 등록
-	@GetMapping("addMainAuctionProduct/{auctionProductNo}")
+	@RequestMapping("addMainAuctionProduct/{auctionProductNo}")
 	public AuctionInfo addMainAuctionProduct(@PathVariable("auctionProductNo") String auctionProductNo) {
 		
 		String info = auctionProductService.addMainAuctionProduct(auctionProductNo);
@@ -235,6 +232,13 @@ public class AuctionRestController {
 		map.put("search", search);
 		
 		return map;
+	}
+	
+	//경매 이용정지 해제
+	@PostMapping("deleteSuspension")
+	public AuctionInfo deleteAuctionSuspensionUser(@RequestBody User user) {
+		
+		return auctionInfoService.deleteAuctionSuspension(user);
 	}
 	
 	

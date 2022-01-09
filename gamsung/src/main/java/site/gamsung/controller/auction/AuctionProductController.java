@@ -63,13 +63,13 @@ public class AuctionProductController {
 	@Qualifier("auctionImgUpload")
 	private AuctionImgUpload auctionImgUpload;
 	
-	@Value("#{commonProperties['crawlingURL']}")
+	@Value("#{auctionProperties['crawlingURL']}")
 	private String crawlingURL;
 	
-	@Value("#{commonProperties['auctionPageSize']}")
+	@Value("#{auctionProperties['auctionPageSize']}")
 	int auctionPageSize;
 	
-	@Value("#{commonProperties['auctionMypageSize']}")
+	@Value("#{auctionProperties['auctionMypageSize']}")
 	int auctionMypageSize;
 	
 	public AuctionProductController() {
@@ -389,6 +389,44 @@ public class AuctionProductController {
 		return "forward:/view/auction/listMyAuctionProduct.jsp";
 	}
 	
+	@RequestMapping("auctionStatistics")
+	public String auctionStatistics(HttpSession httpSession, Model model) {
+		
+		User user = (User)httpSession.getAttribute("user");
+		if(user == null || !user.getRole().equals("ADMIN")) {
+			return "redirect:/";
+		}
+		
+		Map<String, Object> map = auctionInfoService.getAuctionStatistics();
+		
+		model.addAttribute("yearList",map.get("yearList"));
+		model.addAttribute("lastYearList",map.get("lastYearList"));
+		model.addAttribute("currentYearList",map.get("currentYearList"));
+		model.addAttribute("todayAuction",map.get("todayAuction"));
+		
+		return "forward:/view/auction/auctionStatistics.jsp";
+	}
+	
+	@RequestMapping("auctionSuspension")
+	public String auctionSuspensionUserList(@ModelAttribute("search")Search search, HttpSession httpSession, Model model) {
+		
+		User user = (User)httpSession.getAttribute("user");
+		if(user == null || !user.getRole().equals("ADMIN")) {
+			return "redirect:/";
+		}
+		
+		search.setPageSize(auctionMypageSize);
+		
+		Map<String, Object> map = auctionInfoService.listAuctionSuspensionUser(user, search);
+		int count = (int)map.get("count") / auctionMypageSize;
+		
+		model.addAttribute("list",map.get("list"));
+		model.addAttribute("count",count);
+		
+		return "forward:/view/auction/auctionSuspensionManage.jsp";
+	}
+	
+	
 	//허용되지 않은 매핑 방식 일 경우 mainPage로 redirect 시킨다.
 	@GetMapping("tempSaveAuctionProduct")
 	public String tempSaveAuctionProduct() {
@@ -420,9 +458,9 @@ public class AuctionProductController {
 		return "redirect:/";
 	}
 	
-	@PostMapping("addMainAuctionProduct/{auctionProductNo}")
-	public String addMainAuctionProduct() {
+	@GetMapping("deleteSuspension")
+	public String deleteAuctionSuspensionUser() {
 		return "redirect:/";
 	}
-
+	
 }
