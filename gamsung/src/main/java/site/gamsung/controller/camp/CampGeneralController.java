@@ -164,6 +164,29 @@ public class CampGeneralController {
 		}
 	}
 	
+	@RequestMapping(value = "addPaymentByMyPage", method = RequestMethod.POST)
+	public String addPaymentByMyPage(@ModelAttribute("campReservation") CampReservation campReservation,  HttpSession httpSession, Model model){
+		System.out.println("/campGeneral/addPaymentByMyPage : POST");
+		
+		User user = (User)httpSession.getAttribute("user");
+		
+		campReservation.setUser(user);
+		campReservation = campReservationService.getReservationByPayment(campReservation);
+		campReservation.setUser(user);
+		
+		Payment payment = new Payment();
+		payment.setPaymentSender(campReservation.getUser().getId());
+		payment.setPaymentReceiver(campReservation.getCamp().getUser().getId());
+		payment.setPaymentCode("R1");
+		payment.setPaymentPriceTotal(campReservation.getTotalPaymentPrice());
+		
+		model.addAttribute("campReservation", campReservation);
+		model.addAttribute("payment", payment);
+		System.out.println(model);
+		
+		return "forward:/view/payment/readyPayment.jsp";
+	}
+	
 	@RequestMapping(value = "addPayment", method = RequestMethod.POST)
 	public String addPayment(@RequestParam("mainSiteNo") int mainSiteNo, Model model, @ModelAttribute("campReservation") CampReservation campReservation,  HttpSession httpSession) throws Exception{
 		System.out.println("/campGeneral/addPayment : POST");
@@ -180,6 +203,7 @@ public class CampGeneralController {
 		} else {
 			
 			campReservation.setUser(user);
+			campReservationService.updateMainSiteTemp(campReservation);
 			campReservation = campReservationService.addTempReservation(campReservation);
 			campReservation.setUser(user);
 
@@ -201,7 +225,7 @@ public class CampGeneralController {
 	@RequestMapping(value = "listMyReservation")
 	public String listMyReservation(@ModelAttribute("search") Search search, Model model ,HttpSession httpSession) throws Exception{
 		System.out.println("/campGeneral/listMyReservation : GET / POST");
-		
+		System.out.println(search);
 		User user = (User)httpSession.getAttribute("user");
 		
 		if (search.getCurrentPage() == 0) {
@@ -224,20 +248,81 @@ public class CampGeneralController {
 			model.addAttribute("resultPage", resultPage);
 			model.addAttribute("search", search);
 			model.addAttribute("user", user);
-			System.out.println(search);
-			System.out.println(resultPage);
+//			System.out.println(search);
+//			System.out.println(resultPage);
 //			System.out.println(model);
 					
 			return "forward:/view/camp/listMyReservation.jsp";
 		}
 	}
 	
-	public String updateMyReservation() throws Exception{
-		System.out.println("/campGeneral/updateMyReservation : GET");
+	@RequestMapping(value = "getMyReservation", method = RequestMethod.GET)
+	public String getMyReservation(@RequestParam String reservationNo, Model model) throws Exception{
 		
-		return null;
+		System.out.println("/campGeneral/geteMyReservation : GET");
+			
+		CampReservation campReservation = campReservationService.getReservation(reservationNo);
+		
+		System.out.println(campReservation);
+
+		model.addAttribute("campReservation" , campReservation);
+		
+		return "forward:/view/camp/getMyReservation.jsp";
 	}
 	
+	@RequestMapping(value = "updateMyReservationView", method = RequestMethod.GET)
+	public String updateMyReservationView(@RequestParam String reservationNo, Model model) throws Exception{
+		System.out.println("/campGeneral/updateMyReservationView : GET");
+		
+		CampReservation campReservation = campReservationService.getReservation(reservationNo);
+		
+		System.out.println(campReservation);
+
+		model.addAttribute("campReservation" , campReservation);
+		
+		return "forward:/view/camp/updateMyReservation.jsp";
+	}
+	
+	@RequestMapping(value = "updateMyReservation", method = RequestMethod.POST)
+	public String updateMyReservation(@ModelAttribute CampReservation campReservation,HttpSession httpSession, Model model) throws Exception{
+		
+		System.out.println("/campGeneral/updateMyReservation : POST");
+		
+		if(campReservation.getTotalPaymentPrice() == 0) {
+			//예약 테이블 정보 변경
+			campReservation.setReservationStatus(2);
+			campReservationService.updateReservation(campReservation);
+			campReservation = campReservationService.getReservation(campReservation.getReservationNo());
+			
+			model.addAttribute("campReservation" , campReservation);
+			
+			return "forward:/view/camp/getMyReservation.jsp";
+			
+		}else if(campReservation.getTotalPaymentPrice() > 0) {
+			//예약 결제 후 예약 테이블 정보 변경
+			User user = (User)httpSession.getAttribute("user");
+			campReservation.setUser(user);
+			campReservation.setReservationStatus(2);
+
+			Payment payment = new Payment();
+			payment.setPaymentSender(campReservation.getUser().getId());
+			payment.setPaymentReceiver(campReservation.getCamp().getUser().getId());
+			payment.setPaymentCode("R1");
+			payment.setPaymentPriceTotal(campReservation.getTotalPaymentPrice());
+			
+			model.addAttribute("campReservation", campReservation);
+			model.addAttribute("payment", payment);
+			System.out.println(model);
+			
+			return "forward:/view/payment/readyPayment.jsp";
+		}else {
+			//예약 취소
+			return null;
+		}
+
+	}
+	
+	@RequestMapping(value = "cancleMyReservation", method = RequestMethod.GET)
 	public String cancleMyReservation() throws Exception{
 		System.out.println("/campGeneral/cancleMyReservation : GET");
 		
@@ -301,7 +386,7 @@ public class CampGeneralController {
 		return "forward:/view/camp/listCampNotice.jsp";
 	}
 	
-	@RequestMapping("getcampNotice")
+	@RequestMapping(value = "getcampNotice")
 	public String getcampNotice(@RequestParam int noticeNo, Model model) throws Exception{
 		System.out.println("/campGeneral/getcampNotice : GET");
 		
@@ -406,6 +491,7 @@ public class CampGeneralController {
 		return null;
 	}
 	
+	@RequestMapping(value = "addCampRatingReview", method = RequestMethod.GET)
 	public String addCampRatingReview() throws Exception{
 		System.out.println("/campGeneral/addCampRatingReview : GET");
 		
