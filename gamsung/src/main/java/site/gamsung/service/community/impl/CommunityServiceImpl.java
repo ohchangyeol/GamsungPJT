@@ -107,4 +107,9 @@ public class CommunityServiceImpl implements CommunityService {
 		return communityDAO.updatetotalComment(CommentNo);
 	}
 
+	@Override
+	public Post updatetotalComment2(int postNo) throws Exception {
+		return communityDAO.updatetotalComment2(postNo);
+	}
+
 }

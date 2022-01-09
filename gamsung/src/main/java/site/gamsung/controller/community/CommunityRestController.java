@@ -106,9 +106,9 @@ import site.gamsung.service.domain.Post;
 	 System.out.println("postno ==>" + postno +" userid => " + userid + "val ==> " + val );
 	 
 	 
-	 communityService.addComment(comment);
+	 	   communityService.addComment(comment);
 	 
-	post = communityService.updatetotalComment(commentnoo);
+	post = communityService.updatetotalComment2(postnoo);
 		 
 	return post; 	 
  }

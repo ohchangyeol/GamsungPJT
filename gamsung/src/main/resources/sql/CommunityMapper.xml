@@ -253,6 +253,13 @@
 	    and delete_flag = 'n'
 	 </select> 
 	 
+  	<select  id="updatetotalComment2"  parameterType="int"	resultMap="postMapper"> 	
+	select post_no,count(*) com_num
+	from comment
+	where post_no = #{value}
+    and delete_flag = 'n'
+	 </select> 
+	 
 	<!-- 총 추천수를 update해준다.-->
 	<!-- 코멘트 번호가 해당 번호일때의 포스트 정보를 가지고 온다.  -->
 <!--  	<select  id="UpdatetotalConcern"  parameterType="int"	resultMap="postMapper"> 	
