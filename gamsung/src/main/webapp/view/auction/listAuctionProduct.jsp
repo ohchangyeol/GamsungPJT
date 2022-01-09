@@ -74,12 +74,12 @@
       </div>
   	<jsp:include page="../common/header.jsp"></jsp:include>
     <div class="main">
-      <section class="module bg-dark-60 shop-page-header" data-background="../../resources/images/shop/product-page-bg.jpg">
+      <section class="module bg-dark-60 shop-page-header" data-background="../../resources/images/6041bd81f941c55ff784f622_8-Tips-when-buying-at-auction.jpg">
           <div class="container">
             <div class="row">
               <div class="col-sm-6 col-sm-offset-3">
-                <h2 class="module-title font-alt">Shop Products</h2>
-                <div class="module-subtitle font-serif">A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart.</div>
+                <h2 class="module-title font-alt">Auction Products</h2>
+                <div class="module-subtitle font-serif">진행 중인 경매 상품입니다. 사기 행위에 유의하세요.</div>
               </div>
             </div>
           </div>

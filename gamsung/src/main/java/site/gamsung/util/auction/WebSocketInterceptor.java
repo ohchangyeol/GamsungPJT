@@ -60,29 +60,23 @@ public class WebSocketInterceptor implements ChannelInterceptor{
 		
 		case SEND:
 			if(stompHeaderAccessor.getDestination().indexOf("/app/join") != -1) {
-				
-				System.out.println("index of : "+stompHeaderAccessor.getDestination().indexOf("/app/join"));
-				System.out.println(sessionId+"입장");
+
 				String[] no = stompHeaderAccessor.getDestination().split("/");
 				
-				System.out.println("before : "+sessionSet);
 				sessionSet = sessionMap.get(no[3]);
-				System.out.println("after : "+sessionSet);
 				
 				if(sessionSet == null) {
-					System.out.println("sessionSet이 null이다.");
+					
 					sessionSet = new HashSet<String>();
-					System.out.println("sessionSet에 셋팅했다");
+
 				}
 				sessionSet.add(sessionId);
-				System.out.println(sessionSet.size());
+				
 				sessionMap.put(no[3], sessionSet);
 				stompHeaderAccessor.addNativeHeader("realTimeViewCount", Integer.toString(sessionSet.size()));		
 				
 			}else if(stompHeaderAccessor.getDestination().indexOf("/app/exit") != -1) {
 				
-				System.out.println("index of : "+stompHeaderAccessor.getDestination().indexOf("/app/exit"));
-				System.out.println(sessionId+"퇴장");
 				String[] no = stompHeaderAccessor.getDestination().split("/");
 				
 				System.out.println("before : "+sessionSet);
@@ -90,12 +84,12 @@ public class WebSocketInterceptor implements ChannelInterceptor{
 				System.out.println("after : "+sessionSet);
 				
 				if(sessionSet == null) {
-					System.out.println("sessionSet이 null이다.");
+
 					sessionSet = new HashSet<String>();
-					System.out.println("sessionSet에 셋팅했다");
+
 				}
 				sessionSet.remove(sessionId);
-				System.out.println(sessionSet.size());
+				
 				sessionMap.put(no[3], sessionSet);
 				stompHeaderAccessor.addNativeHeader("realTimeViewCount", Integer.toString(sessionSet.size()));				
 			}

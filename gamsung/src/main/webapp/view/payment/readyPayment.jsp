@@ -291,8 +291,9 @@
 				const resultPaymentPriceTotal = tempPriceTotalUC - currentPointUC;
 				
 				if(useAllPointPushCount == 1){
-					alert("이미 포인트가 적용되었습니다.");
+					alert("포인트가 적용되었습니다.");
 					$("#useAllPoint").attr("disabled", true);
+					$("#paymentPriceTotalSecond").attr("readonly", true);
 				}
 				
 				

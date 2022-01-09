@@ -179,7 +179,7 @@ public class UserController {
 			
 		if(dbUser.getRole().equals("ADMIN")) {
 			session.setAttribute("user", dbUser);
-			return "forward:/adminMain.jsp";
+			return "redirect:/admin";
 		}else if(dbUser.getDormantConversionDate() != null) {
 			session.setAttribute("id", user.getId());
 			System.out.println("휴면회원 아이디"+user.getId());

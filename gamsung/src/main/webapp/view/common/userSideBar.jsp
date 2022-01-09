@@ -53,6 +53,11 @@
 	.sidebar-left{
 		background-color: #171717 !important;
 	}
+	
+	aside{
+		margin-top:-55px;
+	}
+	
 	</style>
 <aside id="sidebar-left" class="sidebar-left">
 	<div class="sidebar-header">
@@ -89,9 +94,9 @@
 							aria-hidden="true"></i> <span>캠핑</span>
 					</a>
 						<ul class="nav nav-children">
-							<li><a href="forms-basic.html"> 예약 </a></li>
-							<li><a href="forms-advanced.html"> Q&A </a></li>
-							<li><a href="forms-advanced.html"> 리뷰 </a></li>
+							<li><a id="my_reservation"> 예약 내역</a></li>
+							<li><a id="my_camp_qna"> 등록한 Q&A </a></li>
+							<li><a id="my_camp_review"> 등록한 리뷰 </a></li>
 						</ul></li>
 					<hr class="separator" />
 					<li class="nav-parent"><a> <i class="fa fa-gavel"
@@ -201,6 +206,11 @@
 	<script src="../../resources/js/dashboard/examples.dashboard.js"></script>
 	<script>
 		$(function(){
+
+			$('#my_reservation').on('click',function(){
+			window.location = "/campGeneral/listMyReservation";
+			});
+
 			$('#auctionAdd').on('click',function(){
 			window.location = "/auction/listMyAuctionProduct/add?currentPage=1";
 			});

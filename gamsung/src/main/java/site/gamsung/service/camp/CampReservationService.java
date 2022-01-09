@@ -13,6 +13,8 @@ public interface CampReservationService {
 	
 	public CampReservation addTempReservation(CampReservation campReservation);
 	
+	public void updateMainSiteTemp(CampReservation campReservation);
+	
 	public void updateTempReservationToReal(CampReservation campReservation);
 	
 	public List<MainSite> listPossibleReservation(Map<String, Object> map);
@@ -33,6 +35,8 @@ public interface CampReservationService {
 	
 	public CampReservation getReservation(String reservationNo);
 	
+	public CampReservation getReservationByPayment(CampReservation campReservation);
+	
 	public void updateReservation(CampReservation campReservation);
 	
 	public void cancleReservationApply(CampReservation campReservation);
@@ -44,4 +48,6 @@ public interface CampReservationService {
 	public void reservationCompleteUse();
 	
 	public void resetCount();
+	
+	public void resetTemp();
 }

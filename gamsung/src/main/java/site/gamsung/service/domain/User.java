@@ -31,6 +31,7 @@ public class User {
 	private String accountHolder;
 	private String accountNum;
 	private String businessUserApprovalFlag;
+	private String auctionSuspension;
 	private String snsId;
 		
 	///Constructor
@@ -290,6 +291,14 @@ public class User {
 		this.businessUserApprovalFlag = businessUserApprovalFlag;
 	}
 	
+	public String getAuctionSuspension() {
+		return auctionSuspension;
+	}
+
+	public void setAuctionSuspension(String auctionSuspension) {
+		this.auctionSuspension = auctionSuspension;
+	}
+
 	public String getSnsId() {
 		return snsId;
 	}
@@ -300,16 +309,16 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [role="+role+", id="+id+", name="+name+", nickName="+nickName+
-				", campName="+campName+", campCall="+campCall+", phone="+phone+", addr="+
-				addr+", addUserRegDate="+addUserRegDate+", reportTotalCount="+reportTotalCount+
-				", currentLoginRegDate="+currentLoginRegDate+", dormantConversionDate="+
-				dormantConversionDate+", suspensionDate="+suspensionDate+", suspensionContent="+
-				suspensionContent+", secessionRegDate="+secessionRegDate+", countCancelReceive="+
-				countCancelReceive+", receiveProhibitionEndDate="+receiveProhibitionEndDate+
-				", auctionGrade="+auctionGrade+", tourismBusinessNum="+tourismBusinessNum+
-				", havingPoint="+havingPoint+", bank="+bank+", accountHolder="+accountHolder+
-				", accountNum="+accountNum+", currentLoginRegDate="+currentLoginRegDate+", businessUserApprovalFlag="+businessUserApprovalFlag+"]\n";
+		return "User [role=" + role + ", id=" + id + ", password=" + password + ", salt=" + salt + ", name=" + name
+				+ ", nickName=" + nickName + ", campName=" + campName + ", campCall=" + campCall + ", phone=" + phone
+				+ ", addr=" + addr + ", addUserRegDate=" + addUserRegDate + ", reportTotalCount=" + reportTotalCount
+				+ ", currentLoginRegDate=" + currentLoginRegDate + ", dormantConversionDate=" + dormantConversionDate
+				+ ", suspensionDate=" + suspensionDate + ", suspensionContent=" + suspensionContent
+				+ ", secessionRegDate=" + secessionRegDate + ", countCancelReceive=" + countCancelReceive
+				+ ", receiveProhibitionEndDate=" + receiveProhibitionEndDate + ", auctionGrade=" + auctionGrade
+				+ ", tourismBusinessNum=" + tourismBusinessNum + ", havingPoint=" + havingPoint + ", bank=" + bank
+				+ ", accountHolder=" + accountHolder + ", accountNum=" + accountNum + ", businessUserApprovalFlag="
+				+ businessUserApprovalFlag + ", auctionSuspension=" + auctionSuspension + ", snsId=" + snsId + "]";
 	}
 	
 }
