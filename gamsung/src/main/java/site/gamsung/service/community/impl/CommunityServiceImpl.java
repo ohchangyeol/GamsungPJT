@@ -84,7 +84,7 @@ public class CommunityServiceImpl implements CommunityService {
 		return communityDAO.blindComment(CommentNo);
 	}
 	
-	
+
 	
 	
 	
@@ -101,4 +101,10 @@ public class CommunityServiceImpl implements CommunityService {
 	public PostConcern Concernflag(PostConcern postConcern) throws Exception {	
 		return communityDAO.Concernflag(postConcern);
 	}
+
+
+	public Post updatetotalComment(int CommentNo) throws Exception {
+		return communityDAO.updatetotalComment(CommentNo);
+	}
+
 }

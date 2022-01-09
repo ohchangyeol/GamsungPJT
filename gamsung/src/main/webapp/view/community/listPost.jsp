@@ -144,6 +144,23 @@
         textarea.form-control {
           resize: none;
         }
+
+        .format {
+          display: none;
+        }
+
+        .post-entry {
+          border-top: 0px;
+          padding-top: 0px;
+          margin-top: 0px;
+        }
+
+        .post-updatedelete {
+          border-top: 1px dotted #c2c2c2;
+          padding-top: 5px;
+          margin-top: 0px;
+          text-align: right;
+        }
       </style>
 
 
@@ -196,7 +213,7 @@
                 <div class="col-sm-8 col-sm-offset-1">
 
                   <c:forEach var="post" items="${list}">
-                    <div class="post" data-postno = "${post.postNo}">
+                    <div class="post" data-postno="${post.postNo}">
 
                       <div class="post-header">
                         <div class="post-meta">
@@ -225,8 +242,18 @@
                           </div>
                         </div> <!-- post-meta end -->
 
+                        <c:if test="${user.id == post.writer.id}">
+                          <div class="post-updatedelete">
+                            <a href='/community/updatePost?postNo=${post.postNo}' style="color: #2d2d2d">게시물 수정 /</a>
+                            <a href='/community/deletePost?postNo=${post.postNo}' style="color: #2d2d2d">삭제</a>
+                          </div>
+                        </c:if>
+
+
+
+
                         <div class="post-entry">
-                          <h3 class="post-title" style="text-align: inherit">${post.postTile}</h3>
+                          <h3 class="post-title" style="text-align: inherit">${post.postTitle}</h3>
                         </div>
                       </div><!-- post-header end -->
 
@@ -263,7 +290,7 @@
                               d="m2.165 15.803.02-.004c1.83-.363 2.948-.842 3.468-1.105A9.06 9.06 0 0 0 8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6a10.437 10.437 0 0 1-.524 2.318l-.003.011a10.722 10.722 0 0 1-.244.637c-.079.186.074.394.273.362a21.673 21.673 0 0 0 .693-.125zm.8-3.108a1 1 0 0 0-.287-.801C1.618 10.83 1 9.468 1 8c0-3.192 3.004-6 7-6s7 2.808 7 6c0 3.193-3.004 6-7 6a8.06 8.06 0 0 1-2.088-.272 1 1 0 0 0-.711.074c-.387.196-1.24.57-2.634.893a10.97 10.97 0 0 0 .398-2z" />
                           </svg></button>&nbsp;
 
-                        <span>총 댓글수&nbsp;${post.commentTotalCount}</span>
+                        <span class="commentTotalCount${post.postNo}">총 댓글수&nbsp;${post.commentTotalCount}</span>
                       </div>
                       <!-- post-meta end -->
 
@@ -360,8 +387,11 @@
         </footer>
         </div>
         <div class="scroll-up"><a href="#totop"><i class="fa fa-angle-double-up"></i></a></div>
-
       </main>
+
+      <!-- <div class="format"> -->
+
+
       <!--  
     JavaScripts
     =============================================
@@ -384,17 +414,17 @@
       <script>
 
         $(function () {
-          $("button:button[name='reply']").on("click", listComment); 
+          $("button:button[name='reply']").on("click", listComment);
           //name이 reply인 button을 click했을때  listComment는 param값이 없다.
           // 그렇지만 클릭시 버튼에 걸린 event값이 event object 객체로 전달됨. 
 
 
           function listComment(paramiter) {
-              
+
             // var postNo = $(this).val(); //그 button의 val값을 가지고와서 담는다. 
             // var userId = $(this).attr('id');
             // var postNo = 0;
-            console.log(paramiter); //Object가 찍힌다. 
+            console.log("paramiter은 object인가?" + paramiter); //Object가 찍힌다. 
 
             // if( paramiter instanceof Object ){ // paramiter가 object이면 
             //   var parent = $(paramiter.currentTarget).closest("div[data-postno]"); //그 button의 val값을 가지고와서 담는다. 
@@ -405,21 +435,21 @@
             //   console.log("else in ::",postNo);
             // }
 
-              var parent = $(paramiter.currentTarget).closest("div[data-postno]"); //그 button의 val값을 가지고와서 담는다. 
-              var postNo = parent.data("postno");
-              console.log("if in ::",postNo);
+            var parent = $(paramiter.currentTarget).closest("div[data-postno]"); //그 button의 val값을 가지고와서 담는다. 
+            var postNo = parent.data("postno");
+            console.log("if in ::", postNo);
 
 
             console.log("들어온 post nunber :: ", postNo);
 
             // var parent = $(this).closest("div[data-postno]"); //그 button의 val값을 가지고와서 담는다. 
             // var  postNo = parent.data("postno");
-            
+
             var userId = $("body").data("userid");
 
             // console.log("this = > " , $(this)) ;
             // console.log("t", typeof postNo, postNo ,userId);
-            
+
             var params = { "postNo": postNo }; //담은 value값을 json형식으로 object에 담아 보낸다. 
             var listHtml = "";
             // var userid = ${ userId };
@@ -487,7 +517,7 @@
                         listHtml += "<div class='comment clearfix'>";
                         listHtml += "<div class='comment-content clearfix'>";
                         listHtml += "<div class='comment-name'>" + commentWriter + "</div>";
-                        listHtml += "<div class='comment-body'>";
+                        listHtml += "<div class='comment-body+" + commentNo + "'>";
                         listHtml += "<p style='margin-bottom:0px; padding-top: 5px;'>" + commentContent + "</p>";
                         listHtml += "</div>";
                         listHtml += "<div class='comment-meta'>" + commentRegdate + "";
@@ -500,8 +530,8 @@
 
 
 
-                          listHtml += "<a href='#' class='update-comment' id='"+commentNo+"' >&nbsp;댓글수정</a>";
-                          listHtml += "<a href='#' class='delete-comment' id='"+commentNo+"' >&nbsp;댓글삭제</a>";
+                          // listHtml += "<a href='#' class='update-comment' id='" + commentNo + "' >&nbsp;댓글수정</a>";
+                          listHtml += "<a href='#' class='delete-comment' id='" + commentNo + "' >&nbsp;댓글삭제</a>";
 
                         }
                         // console.log("userId::::::::" + "${userId}");
@@ -510,7 +540,7 @@
                         listHtml += "</div>";
                         listHtml += "</div>";
                         listHtml += "</div>";
-                        listHtml += "<div class='updatecomment"+commentNo+"'></div>";
+                        listHtml += "<div class='updatecomment" + commentNo + "'></div>";
 
                       };
                       // console.log("1", listHtml)
@@ -522,11 +552,11 @@
 
                     // console.log(" 내 댓글 ㅎㅎ!! ",  $(".update-comment"+commentNo );
                     // $('.update-comment'+commentNo).on('click', updateClickComment); 
-                  }; 
+                  };
 
                   listHtml += "<div class='comment-form'>";
                   listHtml += "<div class='form-group'>";
-                  listHtml += "<textarea class='form-control' id='comment' value='' name='comment' data-postno='" + postNo + "' data-userid='" + userId + "' rows='4'placeholder='댓글을 등록해주세요'>";
+                  listHtml += "<textarea class='form-control' style='border-style: dashed' id='comment' value='' name='comment' data-postno='" + postNo + "' data-userid='" + userId + "' rows='4'placeholder='댓글을 등록해주세요'>";
                   listHtml += "</textarea>";
                   listHtml += "</div>";
                   listHtml += "<p class='help-block text-danger'></p>";
@@ -539,19 +569,19 @@
 
                   $('.add-comment').on('click', addClickComment); // 호출은 안에서하고 함수는 바깥에 있는 이유?? 
 
-                  
-                  $('.delete-comment').on('click', deleteClickComment); 
-                  // $(".up-btn").on("click", updateClickComment);
-                  $('.update-comment').on('click', updateClickComment); 
 
-                  
+                  $('.delete-comment').on('click', deleteClickComment);
+                  // $(".up-btn").on("click", updateClickComment);
+                  $('.update-comment').on('click', updateClickComment);
+
+
 
                 }
 
               });//ajax END 비동기 처리
               // console.log("3", listHtml)
             }
-          
+
           };//button END
 
           function addClickComment(e) { //여기에 event를 써야 이 함수를 호출한 click 이벤트에대한 정보를 객체로 받을 수 있다. 
@@ -584,7 +614,7 @@
 
               function addComment(postno, userid, val) {//  const addComment = function (postno, userid, val) {  으로 사용하면 addComment가 밑에 있으므로 위에  addComment(postno,userid,val);가 실행될 수 없다.
 
-                console.log("1::" + postno , typeof postno);
+                console.log("1::" + postno, typeof postno);
                 console.log("2::" + userid);
                 console.log("2::" + val);
 
@@ -599,47 +629,38 @@
 
                   },
 
-                  success: function (get) {
+                  success: function (post) {
 
-                    console.log("get::::" + get);
+                    console.log("get::::" + post);
+
+                  let commentTotalCount = post.commentTotalCount;
+                  let postNo = post.postNo;
+                
+                  $('.commentTotalCount'+postNo).text("총 댓글수"+commentTotalCount);
+
+
 
                     listComment(e); // 
                     // listComment(postno); // 이렇게 호출했을때 this는 없다. 이벤트가 걸리지않았기때문에 ! 
 
                   },
                   error: function () {
-
                     console.log("error::::");
                   }
-
-
-
                 });
-
               }
-
-
-
             }
 
           };//add commenet END
 
           function updateClickComment(e) {
 
-        	e.preventDefault();
-            
+            e.preventDefault();
+
             var commentno = $(this).attr('id');
-            
-            console.log("commentno::::"+commentno);
-            
-            var listHtml ="";
 
-            listHtml += " <textarea class='form-control' value=''  placeholder='수정할 내용을 입력하세요'> ";
-            listHtml += " </textarea> ";  
+            listComment(commentno)
 
-            console.log("listHtml::::"+listHtml);
-
-            $(".updatecomment"+commentno).html(listHtml); //html이 완성된 다음에 function 호출             
 
           }
 
@@ -651,42 +672,46 @@
 
             var commentno = $(this).attr('id');
 
-            console.log("id::"+commentno);
+            console.log("id::" + commentno);
 
             $.ajax({
-                  type: "get",
-                  url: "/community/rest/deleteComment",
-                  data: {
+              type: "get",
+              url: "/community/rest/deleteComment",
+              data: {
 
-                    commentno: commentno,
- 
-                  },
+                commentno: commentno,
 
-                  success: function (data) {
+              },
 
-                    //여기서 data를 받아올때 총 댓글수를 받아올 것.
-                    //그래서 $('.class명').text(data.??)로 총 댓글수를 변경해주자.  
+              success: function (post) {   //{post:(~~~~~~~~~)}
 
-                    console.log("data::::" + data);
 
-                    listComment(e); //.delete-comment 클릭시 넘어온 event object를 넘긴다.                   
+                listComment(e); //.delete-comment 클릭시 넘어온 event object를 넘긴다.          
+            
+                  let commentTotalCount = post.commentTotalCount;
+                  let postNo = post.postNo;
+                
+                  $('.commentTotalCount'+postNo).text("총 댓글수"+commentTotalCount);
+                
+              },
+              error: function () {
 
-                  },
-                  error: function () {
-                    
-                    console.log("deleteComment error::::");
+                console.log("deleteComment error::::");
 
-                  }
+              }
 
-                });
+            });
 
 
           } //deleteClickComment END 
 
-
-
+          
 
         }); //function END
+
+
+
+
 
       </script>
 

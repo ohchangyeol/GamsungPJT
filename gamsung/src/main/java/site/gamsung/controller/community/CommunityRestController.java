@@ -90,7 +90,7 @@ import site.gamsung.service.domain.Post;
   
   @RequestMapping(value = "rest/addComment") 
  @ResponseBody
- public void addComment (@RequestParam String postno, String userid,  String val, User user, Comment comment, Post post) throws Exception{
+ public Post addComment (@RequestParam String postno, String userid,  String val, User user, Comment comment, Post post) throws Exception{
 	 
 	 System.out.println("addComment");
 	 
@@ -107,12 +107,17 @@ import site.gamsung.service.domain.Post;
 	 
 	 
 	 communityService.addComment(comment);
-	 	 
+	 
+	post = communityService.updatetotalComment(commentnoo);
+		 
+	return post; 	 
  }
+  
+//댓글 delete
   
  @RequestMapping(value = "rest/deleteComment") 
  @ResponseBody
- public int deleteComment (@RequestParam String commentno) throws Exception{
+ public Post deleteComment (@RequestParam String commentno, Post post) throws Exception{
 	 
 	 System.out.println("deleteComment");
 	 
@@ -120,7 +125,14 @@ import site.gamsung.service.domain.Post;
 	 
 	 System.out.println("DeleteCommentNo:::::::" + commentnoo);
 	 	 	 
-	 return communityService.deleteComment(commentnoo);
+	 int a= communityService.deleteComment(commentnoo);
+ 
+	 System.out.println("aaaaa:"+a);
+//	 System.out.println("Post::"+communityService.updatetotalComment(commentnoo));
+	 		
+	post = communityService.updatetotalComment(commentnoo);
+	 
+	return post;
  }  
   
   

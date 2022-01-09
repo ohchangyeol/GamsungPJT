@@ -110,6 +110,13 @@ public class CommunityDAOImpl implements CommunityDAO {
 	public PostConcern Concernflag(PostConcern postConcern) throws Exception {
 		return sqlSession.selectOne("CommunityMapper.ConcernFlag", postConcern);
 	}
+
+
+	@Override
+	public Post updatetotalComment(int CommentNo) throws Exception {
+		return sqlSession.selectOne("CommunityMapper.updatetotalComment", CommentNo);
+	}
+	
 	
 	
 }
