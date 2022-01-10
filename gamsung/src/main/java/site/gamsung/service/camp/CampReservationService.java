@@ -37,11 +37,15 @@ public interface CampReservationService {
 	
 	public CampReservation getReservationByPayment(CampReservation campReservation);
 	
+	public CampReservation getCampIdByAppendPayment(CampReservation campReservation);
+	
 	public void updateReservation(CampReservation campReservation);
 	
 	public void cancleReservationApply(CampReservation campReservation);
 	
 	public void cancleReservationDo(Payment payment);
+	
+	public void updateReservationStatus(CampReservation campReservation);
 	
 	public void sendMessage();
 	

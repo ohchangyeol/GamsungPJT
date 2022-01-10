@@ -85,7 +85,7 @@ pageEncoding="UTF-8"%>
           <div class="col-xs-8">
             <section class="panel form-wizard" id="w4">
               
-              <div class="panel-body" style="margin-top: 100px;">
+              <div class="panel-body" style="margin-top: 50px;">
                 <div class="wizard-progress wizard-progress-lg">
                   <div class="steps-progress">
                     <div class="progress-indicator" style="width: 0%;"></div>
@@ -229,7 +229,8 @@ pageEncoding="UTF-8"%>
                               </div>
                               <div class="modal-text">
                                 <p>예약 임시 등록 후 결제 페이지로 넘어갑니다.</p>
-                                <p>1시간 이내에 결제를 진행 안하면 예약 취소 됩니다.</p>
+                                <p>당일 결제 진행 안할 시에는 자동 취소 됩니다.</p>
+                                <p>예약 결제는 마이페이지에서 할 수 있습니다.</p>
                               </div>
                             </div>
                           </div>
