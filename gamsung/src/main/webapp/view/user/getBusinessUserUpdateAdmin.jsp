@@ -100,13 +100,13 @@
 											</div>
 
 											<div class="form-group row">
-												<label for="tourismBusinessNum"
-													class="col-sm-offset-1 col-sm-3 control-label"><strong>관광사업자
+												<label for="campBusinessNum"
+													class="col-sm-offset-1 col-sm-3 control-label"><strong>사업자
 														등록번호</strong></label>
 												<div class="col-sm-6">
-													<input id="tourismBusinessNum" name="tourismBusinessNum"
+													<input id="campBusinessNum" name="campBusinessNum"
 														class="form-control" type="text"
-														value="${user.tourismBusinessNum}" maxlength="10" readonly />
+														value="${user.campBusinessNum}" maxlength="10" readonly />
 												</div>
 												<div id="check-business" class='col-sm-offset-3 col-sm-6'></div>
 											</div>

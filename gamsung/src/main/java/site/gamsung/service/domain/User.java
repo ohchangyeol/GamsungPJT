@@ -25,7 +25,7 @@ public class User {
 	private int countCancelReceive;
 	private Date receiveProhibitionEndDate;
 	private int auctionGrade;	
-	private String tourismBusinessNum;
+	private String campBusinessNum;
 	private int havingPoint;
 	private String bank;
 	private String accountHolder;
@@ -33,7 +33,7 @@ public class User {
 	private String businessUserApprovalFlag;
 	private String auctionSuspension;
 	private String snsId;
-	private String tourismImg;
+	private String campImg;
 		
 	///Constructor
 	public User() {
@@ -234,13 +234,13 @@ public class User {
 	}
 
 
-	public String getTourismBusinessNum() {
-		return tourismBusinessNum;
+	public String getcampBusinessNum() {
+		return campBusinessNum;
 	}
 
 
-	public void setTourismBusinessNum(String tourismBusinessNum) {
-		this.tourismBusinessNum = tourismBusinessNum;
+	public void setcampBusinessNum(String campBusinessNum) {
+		this.campBusinessNum = campBusinessNum;
 	}
 
 
@@ -308,12 +308,12 @@ public class User {
 		this.snsId = snsId;
 	}
 
-	public String getTourismImg() {
-		return tourismImg;
+	public String getcampImg() {
+		return campImg;
 	}
 
-	public void setTourismImg(String tourismImg) {
-		this.tourismImg = tourismImg;
+	public void setcampImg(String campImg) {
+		this.campImg = campImg;
 	}
 
 	@Override
@@ -325,7 +325,7 @@ public class User {
 				+ ", suspensionDate=" + suspensionDate + ", suspensionContent=" + suspensionContent
 				+ ", secessionRegDate=" + secessionRegDate + ", countCancelReceive=" + countCancelReceive
 				+ ", receiveProhibitionEndDate=" + receiveProhibitionEndDate + ", auctionGrade=" + auctionGrade
-				+ ", tourismBusinessNum=" + tourismBusinessNum + ", havingPoint=" + havingPoint + ", bank=" + bank
+				+ ", campBusinessNum=" + campBusinessNum + ", havingPoint=" + havingPoint + ", bank=" + bank
 				+ ", accountHolder=" + accountHolder + ", accountNum=" + accountNum + ", businessUserApprovalFlag="
 				+ businessUserApprovalFlag + ", auctionSuspension=" + auctionSuspension + ", snsId=" + snsId + "]";
 	}
