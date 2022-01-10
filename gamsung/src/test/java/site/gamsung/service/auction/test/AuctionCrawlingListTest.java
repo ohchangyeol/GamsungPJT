@@ -9,7 +9,6 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
-import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.AuctionProduct;
 
 public class AuctionCrawlingListTest {

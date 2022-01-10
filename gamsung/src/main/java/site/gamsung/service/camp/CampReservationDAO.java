@@ -14,6 +14,8 @@ public interface CampReservationDAO {
 	
 	public int addReservation(CampReservation campReservation);
 	
+	public int updateMainSiteTemp(CampReservation campReservation);
+	
 	public int updateMainSiteReservation(CampReservation campReservation);
 	
 	public int updateCampReservationCount(int campNo);
@@ -46,8 +48,13 @@ public interface CampReservationDAO {
 	
 	public CampReservation getReservationByPayment(CampReservation campReservation);
 	
+	public CampReservation getCampIdByAppendPayment(CampReservation campReservation);
+	
 	public List<CampReservation> sendMessageInfo();
 	
 	public void resetCount();
 	
+	public void resetTemp();
+	
+	public void deleteTemp();
 }

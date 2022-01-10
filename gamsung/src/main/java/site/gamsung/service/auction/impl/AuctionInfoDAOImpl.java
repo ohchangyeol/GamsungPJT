@@ -9,8 +9,10 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import site.gamsung.service.auction.AuctionInfoDAO;
+import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.AuctionInfo;
 import site.gamsung.service.domain.AuctionProduct;
+import site.gamsung.service.domain.PaymentCode;
 import site.gamsung.service.domain.User;
 
 @Repository("auctionInfoDAO")
@@ -42,7 +44,13 @@ public class AuctionInfoDAOImpl implements AuctionInfoDAO{
 	@Override
 	public void deleteBidConcern(AuctionInfo auctionInfo) {
 		// TODO Auto-generated method stub
-		sqlSession.delete("AuctionInfoMapper.deleteBidConcern",auctionInfo);
+		sqlSession.update("AuctionInfoMapper.deleteBidConcern",auctionInfo);
+	}
+
+	@Override
+	public void finishBidConcern(String bidConcernNo) {
+		// TODO Auto-generated method stub
+		sqlSession.update("AuctionInfoMapper.finishBidConcern",bidConcernNo);
 	}
 
 	@Override
@@ -94,17 +102,17 @@ public class AuctionInfoDAOImpl implements AuctionInfoDAO{
 	}
 
 	@Override
-	public List<AuctionInfo> getMonthAuctionStatistics(String year) {
+	public List<AuctionInfo> getMonthlyAuctionStatistics(int year) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList("AuctionInfoMapper.getMonthAuctionStatistics",year);
+		return sqlSession.selectList("AuctionInfoMapper.getMonthlyAuctionStatistics",year);
 	}
-
+	
 	@Override
-	public AuctionInfo getDayAuctionStatistics() {
+	public AuctionInfo todayAuctionStatistics() {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne("AuctionInfoMapper.getDayAuctionStatistics");
+		return sqlSession.selectOne("AuctionInfoMapper.todayAuctionStatistics");
 	}
-
+	
 	@Override
 	public int getUserAuctionGradeInfo(String userId) {
 		// TODO Auto-generated method stub
@@ -121,6 +129,47 @@ public class AuctionInfoDAOImpl implements AuctionInfoDAO{
 	public List<AuctionInfo> getBidderRanking(AuctionInfo auctionInfo) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("AuctionInfoMapper.getBidderRanking",auctionInfo);
+	}
+	
+	@Override
+	public PaymentCode getPaymentInfo(PaymentCode paymentCode) {
+		return sqlSession.selectOne("AuctionInfoMapper.getPaymentInfo",paymentCode);
+	}
+	
+	@Override
+	public void auctionSuspension(User user) {
+		// TODO Auto-generated method stub
+		sqlSession.update("AuctionInfoMapper.auctionSuspension",user);
+	}
+
+	@Override
+	public List<User> auctionSuspensionUserList(Search search) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("AuctionInfoMapper.auctionSuspensionUserList",search);
+	}
+	
+	@Override
+	public int countAuctionSuspensionUser() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("AuctionInfoMapper.countAuctionSuspensionUser");
+	}
+
+	@Override
+	public boolean isSuspension(User user) {
+		// TODO Auto-generated method stub
+		if((int)sqlSession.selectOne("AuctionInfoMapper.isSuspension",user) == 1) {
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean deleteAuctionSuspension(User user) {
+		// TODO Auto-generated method stub
+		if( sqlSession.update("AuctionInfoMapper.deleteAuctionSuspension",user) == 1) {
+			return true;
+		}
+		return false;
 	}
 
 	@Override

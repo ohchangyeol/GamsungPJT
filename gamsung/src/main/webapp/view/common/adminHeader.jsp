@@ -3,8 +3,8 @@ pageEncoding="UTF-8"%>
 
 <header class="header">
     <div class="logo-container">
-        <a href="" class="logo">
-            <img src="resources/images/logo.png" height="35" alt="JSOFT Admin" />
+        <a href="/admin" class="logo">
+            <!-- <img src="resources/images/logo.png" height="35" alt="JSOFT Admin" /> -->
         </a>
         <div class="visible-xs toggle-sidebar-left" data-toggle-class="sidebar-left-opened" data-target="html" data-fire-event="sidebar-left-opened">
             <i class="fa fa-bars" aria-label="Toggle sidebar"></i>
@@ -90,7 +90,7 @@ pageEncoding="UTF-8"%>
                             <li>
                                 <a href="#" class="clearfix">
                                     <figure class="image">
-                                        <img src="resources/images/!sample-user.jpg" alt="Joseph Doe Junior" class="img-circle" />
+                                       <!--  <img src="resources/images/!sample-user.jpg" alt="Joseph Doe Junior" class="img-circle" /> -->
                                     </figure>
                                     <span class="title">Joseph Doe</span>
                                     <span class="message">Lorem ipsum dolor sit.</span>
@@ -99,7 +99,7 @@ pageEncoding="UTF-8"%>
                             <li>
                                 <a href="#" class="clearfix">
                                     <figure class="image">
-                                        <img src="resources/images/!sample-user.jpg" alt="Joseph Junior" class="img-circle" />
+                                        <!-- <img src="resources/images/!sample-user.jpg" alt="Joseph Junior" class="img-circle" /> -->
                                     </figure>
                                     <span class="title">Joseph Junior</span>
                                     <span class="message truncate">Truncated message. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet lacinia orci. Proin vestibulum eget risus non luctus. Nunc cursus lacinia lacinia. Nulla molestie malesuada est ac tincidunt. Quisque eget convallis diam, nec venenatis risus. Vestibulum blandit faucibus est et malesuada. Sed interdum cursus dui nec venenatis. Pellentesque non nisi lobortis, rutrum eros ut, convallis nisi. Sed tellus turpis, dignissim sit amet tristique quis, pretium id est. Sed aliquam diam diam, sit amet faucibus tellus ultricies eu. Aliquam lacinia nibh a metus bibendum, eu commodo eros commodo. Sed commodo molestie elit, a molestie lacus porttitor id. Donec facilisis varius sapien, ac fringilla velit porttitor et. Nam tincidunt gravida dui, sed pharetra odio pharetra nec. Duis consectetur venenatis pharetra. Vestibulum egestas nisi quis elementum elementum.</span>
@@ -108,7 +108,7 @@ pageEncoding="UTF-8"%>
                             <li>
                                 <a href="#" class="clearfix">
                                     <figure class="image">
-                                        <img src="resources/images/!sample-user.jpg" alt="Joe Junior" class="img-circle" />
+                                       <!--  <img src="resources/images/!sample-user.jpg" alt="Joe Junior" class="img-circle" /> -->
                                     </figure>
                                     <span class="title">Joe Junior</span>
                                     <span class="message">Lorem ipsum dolor sit.</span>
@@ -117,7 +117,7 @@ pageEncoding="UTF-8"%>
                             <li>
                                 <a href="#" class="clearfix">
                                     <figure class="image">
-                                        <img src="resources/images/!sample-user.jpg" alt="Joseph Junior" class="img-circle" />
+                                        <!-- <img src="resources/images/!sample-user.jpg" alt="Joseph Junior" class="img-circle" /> -->
                                     </figure>
                                     <span class="title">Joseph Junior</span>
                                     <span class="message">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet lacinia orci. Proin vestibulum eget risus non luctus. Nunc cursus lacinia lacinia. Nulla molestie malesuada est ac tincidunt. Quisque eget convallis diam.</span>
@@ -191,7 +191,7 @@ pageEncoding="UTF-8"%>
         <div id="userbox" class="userbox">
             <a href="#" data-toggle="dropdown">
                 <figure class="profile-picture">
-                    <img src="resources/images/!logged-user.jpg" alt="Joseph Doe" class="img-circle" data-lock-picture="resources/images/!logged-user.jpg" />
+                    <!-- <img src="resources/images/!logged-user.jpg" alt="Joseph Doe" class="img-circle" data-lock-picture="resources/images/!logged-user.jpg" /> -->
                 </figure>
                 <div class="profile-info" data-lock-name="John Doe" data-lock-email="johndoe@JSOFT.com">
                     <span class="name">John Doe Junior</span>

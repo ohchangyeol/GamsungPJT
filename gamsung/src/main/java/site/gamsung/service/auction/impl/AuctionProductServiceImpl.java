@@ -12,8 +12,6 @@ import java.util.Set;
 import org.apache.commons.collections4.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Propagation;
@@ -29,7 +27,6 @@ import site.gamsung.service.domain.AuctionProduct;
 import site.gamsung.service.domain.RatingReview;
 import site.gamsung.service.domain.User;
 import site.gamsung.util.auction.CrawlingData;
-import site.gamsung.util.user.SendMail;
 
 @Service("auctionProductService")
 @EnableTransactionManagement //관리자 권한 획득
@@ -50,9 +47,6 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 	@Autowired
 	@Qualifier("crawlingData")
 	private CrawlingData crawlingData;
-	
-	@Value("#{commonProperties['PATH']}")
-	private String PATH;
 	
 	public AuctionProductServiceImpl(){
 		// TODO Auto-generated constructor stub
@@ -93,13 +87,13 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 		//#기준으로 파싱하여 해시태그 재정의
 		if(hashtags.length == 2) {
 			auctionProduct.setHashtag1("#"+hashtags[1].trim());			
-		}else if(hashtags.length <=3) {
+		}else if(hashtags.length ==3) {
 			auctionProduct.setHashtag1("#"+hashtags[1].trim());	
-			auctionProduct.setHashtag1("#"+hashtags[2].trim());			
+			auctionProduct.setHashtag2("#"+hashtags[2].trim());			
 		}else if(hashtags.length > 3) {
 			auctionProduct.setHashtag1("#"+hashtags[1].trim());	
-			auctionProduct.setHashtag1("#"+hashtags[2].trim());	
-			auctionProduct.setHashtag1("#"+hashtags[3].trim());			
+			auctionProduct.setHashtag2("#"+hashtags[2].trim());	
+			auctionProduct.setHashtag3("#"+hashtags[3].trim());			
 		}
 		
 		//데이터를 저장한다. 등록자는 관리자가 Default이다.
@@ -305,78 +299,7 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 		return bidInfo;
 	}
 	
-	//경매 상태 업데이트
-	@Override
-	@Scheduled(cron = "*/1 * * * * *")
-	public void updateAuctionProductCondition() {
-		// TODO Auto-generated method stub
-		//시분초 포멧 지정
-		SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
-		
-		//모든 삭제 플래그가 Y가 아닌 모든 경매 상품을 뽑아온다.
-		List<AuctionProduct> auctionList = auctionProductDAO.listAuctionProduct(new Search());
-		List<AuctionInfo> bidderList = null;
-		SendMail sendMail = new SendMail();
-		
-		AuctionInfo auctionInfo = new AuctionInfo();
-		
-		// enhanced for loop
-		for(AuctionProduct auctionProduct : auctionList) {
-			
-			String auctionProductNo = auctionProduct.getAuctionProductNo();
-			
-			auctionProduct = auctionProductDAO.getAuctionProduct(auctionProductNo);
-			
-			try {
-				
-				//잔여 시간이 00:00:00초라면 경매 상태를 업데이트한디.
-				boolean isEnd = dateFormat.parse(auctionProduct.getRemainAuctionTime()).before(dateFormat.parse("00:00:01"));
-				
-				if(isEnd) {					
-					auctionInfo.setAuctionProductNo(auctionProductNo);		
-					
-					AuctionProduct tmpAuctionProduct = auctionProductDAO.getAuctionProduct(auctionProductNo);
-					
-					//경매에 참여한 모든 인원들 뽑아온다.
-					bidderList = auctionInfoDao.getBidderRanking(auctionInfo);
-					
-					//희망 낙찰가 보다 최종 입찰가가 작을 경우
-					if(tmpAuctionProduct.getCurrentBidPrice() < tmpAuctionProduct.getHopefulBidPrice()) {
-						//경매 상태 유찰
-						auctionProduct.setAuctionStatus("FAIL");
-						
-						//입찰한 모든 인원에게 실패 메일 발송
-						for(AuctionInfo info : bidderList) {
-							sendMail.sendMail(info.getUser().getId(), tmpAuctionProduct.getAuctionProductName(), "유찰 되셨습니다.");
-						}
-						
-					}else {
-						//1등을 제외한 모든 인원에게 입찰 상태를 전송한다.
-						
-						//경매 상태 낙찰
-						auctionProduct.setAuctionStatus("WAIT");
-						
-						//낙찰 성공 여부에 따라 등수에 따른 메일 발송
-						for(AuctionInfo info : bidderList) {
-							if(info.getBidderRank() == 1) {
-								auctionProduct.setSuccessfulBidderId(info.getUser().getId());
-								sendMail.sendMail(info.getUser().getId(), tmpAuctionProduct.getAuctionProductName(), "낙찰 되셨습니다. \n 화상채팅 URL 추가 예정");
-							}else {
-								sendMail.sendMail(info.getUser().getId(), tmpAuctionProduct.getAuctionProductName(), "유찰 되셨습니다.");
-							}
-						}
-					}
-					
-					//경매 상태를 업데이트 한다.
-					auctionProductDAO.updateAuctionProductCondition(auctionProduct);
-
-				}
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-	}
+	
 
 	//메인에 상품 등록
 	@Override
@@ -384,6 +307,10 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 		// TODO Auto-generated method stub
 		
 		AuctionProduct tmpProduct = auctionProductDAO.getAuctionProduct(auctionProductNo);
+		
+		if(!tmpProduct.getAuctionStatus().equals("START")) {
+			return "경매 진행 중인 상품이 아닙니다.";
+		}
 		
 		int isMain = auctionProductDAO.mainAuctionProductCount(auctionProductNo);
 		String remainTime = tmpProduct.getRemainAuctionTime();
@@ -412,7 +339,7 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 		
 		return "추천 상품으로 등록 되었습니다.";
 	}
-
+	
 	@Override
 	public List<AuctionProduct> listMainAuctionProduct() {
 		// TODO Auto-generated method stub
@@ -507,6 +434,12 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 		auctionInfo.setInfo(info);
 		
 		return auctionInfo;
+	}
+
+	@Override
+	public AuctionProduct paymentSubInfo(String registrantId) {
+		// TODO Auto-generated method stub
+		return auctionProductDAO.paymentSubInfo(registrantId);
 	}	
 	
 }

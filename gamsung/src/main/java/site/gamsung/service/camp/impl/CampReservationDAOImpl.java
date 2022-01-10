@@ -40,6 +40,11 @@ public class CampReservationDAOImpl implements CampReservationDAO {
 	}
 	
 	@Override
+	public int updateMainSiteTemp(CampReservation campReservation) {
+		return sqlSession.update("CampReservationMapper.updateMainSiteTemp", campReservation);
+	}
+
+	@Override
 	public int updateMainSiteReservation(CampReservation campReservation){
 		return sqlSession.update("CampReservationMapper.updateMainSiteReservation", campReservation);
 	}
@@ -140,6 +145,20 @@ public class CampReservationDAOImpl implements CampReservationDAO {
 	public void resetCount() {
 		sqlSession.update("CampReservationMapper.resetCount");		
 	}
-	
+
+	@Override
+	public void resetTemp() {
+		sqlSession.update("CampReservationMapper.resetTemp");		
+	}
+
+	@Override
+	public void deleteTemp() {
+		sqlSession.update("CampReservationMapper.deleteTemp");
+	}
+
+	@Override
+	public CampReservation getCampIdByAppendPayment(CampReservation campReservation) {
+		return sqlSession.selectOne("CampReservationMapper.getReservationByAppendPayment", campReservation);
+	}
 }
 

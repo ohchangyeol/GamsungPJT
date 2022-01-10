@@ -29,4 +29,6 @@ public interface CommunityDAO {
 	//추천	
 	public int updateConcern(Map<String,Object> Map) throws Exception ;	
 	public PostConcern Concernflag(PostConcern postConcern) throws Exception ;
+	public Post updatetotalComment(int CommentNo) throws Exception;
+	public Post updatetotalComment2(int postNo) throws Exception;
 }

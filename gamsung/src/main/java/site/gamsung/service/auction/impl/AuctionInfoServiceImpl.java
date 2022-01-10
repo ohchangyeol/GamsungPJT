@@ -1,5 +1,8 @@
 package site.gamsung.service.auction.impl;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -8,11 +11,15 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import site.gamsung.service.auction.AuctionProductDAO;
+import site.gamsung.service.common.Search;
 import site.gamsung.service.auction.AuctionInfoDAO;
 import site.gamsung.service.auction.AuctionInfoService;
 import site.gamsung.service.domain.AuctionInfo;
 import site.gamsung.service.domain.AuctionProduct;
+import site.gamsung.service.domain.PaymentCode;
 import site.gamsung.service.domain.User;
+import site.gamsung.service.user.UserDAO;
+import site.gamsung.util.auction.AuctionStatisticJson;
 
 @Service("auctionInfoService")
 public class AuctionInfoServiceImpl implements AuctionInfoService{
@@ -24,6 +31,14 @@ public class AuctionInfoServiceImpl implements AuctionInfoService{
 	@Autowired
 	@Qualifier("auctionProductDAO")
 	private AuctionProductDAO auctionProductDAO;
+	
+	@Autowired
+	@Qualifier("userDAOImpl")
+	private UserDAO userDAO;
+	
+	@Autowired
+	@Qualifier("auctionStatisticJson")
+	private AuctionStatisticJson auctionStatisticJson;
 	
 	
 	public AuctionInfoServiceImpl() {
@@ -88,14 +103,29 @@ public class AuctionInfoServiceImpl implements AuctionInfoService{
 	}
 
 	@Override
-	public AuctionInfo getAuctionTotalStatistics(User user) {
+	public Map<String, Object> getAuctionStatistics() {
 		// TODO Auto-generated method stub
-		 		
-		return auctionInfoDAO.auctionStatusTotalCount(user);
+		
+		SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY");
+		int currentYear = Integer.parseInt(dateFormat.format(new Date()));
+		System.out.println(currentYear);
+		//년 별 등록, 중도철회, 낙찰 취소, 경매 확정 횟수를 가져온다.
+		List<AuctionInfo> yearList = auctionInfoDAO.getYearAuctionStatistics();
+		List<AuctionInfo> lastYearList = auctionInfoDAO.getMonthlyAuctionStatistics(currentYear-1); 
+		List<AuctionInfo> currentYearList = auctionInfoDAO.getMonthlyAuctionStatistics(currentYear);
+		AuctionInfo todayAuction = auctionInfoDAO.todayAuctionStatistics();
+		Map<String, Object> map = new HashMap<String, Object>();
+	
+		map.put("yearList", auctionStatisticJson.makeJson(yearList));
+		map.put("lastYearList", auctionStatisticJson.makeJson(lastYearList));
+		map.put("currentYearList", auctionStatisticJson.makeJson(currentYearList));
+		map.put("todayAuction",todayAuction);
+		
+		return map;
 	}
 
 	@Override
-	public void checkAndUpdateUserAuctionGrade(User user) {
+	public User checkAndUpdateUserAuctionGrade(User user) {
 		// TODO Auto-generated method stub
 		
 		AuctionInfo auctionInfo = auctionInfoDAO.auctionStatusTotalCount(user);
@@ -110,11 +140,14 @@ public class AuctionInfoServiceImpl implements AuctionInfoService{
 		int userAuctionGrade = addProductCount + addReviewCount + auctionConfirmCount + topRankCount
 								- midwayWithdrawalCount - cancelSuccessfulBidCount + 1;
 		if(userAuctionGrade < 1) {
+			auctionInfoDAO.auctionSuspension(user);
 			userAuctionGrade = 1;
 		}
 		user.setAuctionGrade(userAuctionGrade);
 		
-		auctionInfoDAO.updateUserAuctionGrade(user);		
+		auctionInfoDAO.updateUserAuctionGrade(user);
+		
+		return userDAO.getUser(user.getId());
 	}
 
 	@Override
@@ -128,7 +161,44 @@ public class AuctionInfoServiceImpl implements AuctionInfoService{
 		
 		return auctionInfoDAO.getBidderRanking(auctionInfo).get(0);
 	}
-	
-	
+
+	@Override
+	public PaymentCode getPaymentInfo(PaymentCode paymentCode) {
+		// TODO Auto-generated method stub
+		return auctionInfoDAO.getPaymentInfo(paymentCode);
+	}
+
+	@Override
+	public Map<String, Object> listAuctionSuspensionUser(User user, Search search) {
+		// TODO Auto-generated method stub
+		
+		List<User> list = auctionInfoDAO.auctionSuspensionUserList(search);
+		int count = auctionInfoDAO.countAuctionSuspensionUser();
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		map.put("count", count);
+		
+		return map;
+	}
+
+	@Override
+	public AuctionInfo deleteAuctionSuspension(User user) {
+		// TODO Auto-generated method stub
+		boolean isUpdate = auctionInfoDAO.deleteAuctionSuspension(user);
+		AuctionInfo auctionInfo = new AuctionInfo();
+		
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd"); 
+		Date date = new Date(); 
+		String now = format.format(date);
+		
+		if(isUpdate) {
+			auctionInfo.setInfo(now+" "+user.getId()+"의 경매 이용정지가 해제 되었습니다.");
+		}else {
+			auctionInfo.setInfo("이용정지 해제중 오류가 발생 하였습니다. 개발자에게 문의하세요.");
+		}
+		
+		return auctionInfo;
+	}
 
 }
