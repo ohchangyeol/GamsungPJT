@@ -137,6 +137,7 @@
                                                 <c:when test="${reservation.reservationStatus eq 5}"><span style="color: rgb(230, 173, 17);">양도완료</span></c:when>
                                                 <c:when test="${reservation.reservationStatus eq 6}"><span style="color: rgb(230, 173, 17);">취소완료</span></c:when>
                                                 <c:when test="${reservation.reservationStatus eq 7}"><span style="color: rgb(230, 173, 17);">이용완료</span></c:when>
+                                                <c:when test="${reservation.reservationStatus eq 8}"><span style="color: maroon;">리뷰등록완료</span></c:when>
                                              </c:choose>
                                           </td>
                                           <td class="col-sm-2">${reservation.reservationRegDate}</td>

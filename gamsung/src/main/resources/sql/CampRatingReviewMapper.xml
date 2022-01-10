@@ -36,7 +36,7 @@
 		INSERT INTO RATING_REVIEW
 					(user_id, camp_no, product_no, rating_review_status, rating_review_title, rating_review_content, review_reg_date, 
 					 status_rating, review_img1, review_img2, review_img3)
-		VALUES(#{user.id}, #{camp.campNo:NUMERIC}, #{auctionProduct.auctionProductNo:CHAR}, #{ratingReviewStatus}, #{ratingReviewTitle:VARCHAR}, 
+		VALUES(#{user.id}, #{camp.campNo:NUMERIC}, #{auctionInfo.auctionProductNo:CHAR}, #{ratingReviewStatus}, #{ratingReviewTitle:VARCHAR}, 
 		       #{ratingReviewContent}, NOW(), #{statusRating}, #{img1:VARCHAR}, #{img2:VARCHAR}, #{img3:VARCHAR});
 	</insert>
 	

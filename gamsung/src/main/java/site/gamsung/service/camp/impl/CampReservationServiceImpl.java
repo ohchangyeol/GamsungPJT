@@ -58,6 +58,11 @@ public class CampReservationServiceImpl implements CampReservationService {
 	}
 	
 	@Override
+	public CampReservation getCampIdByAppendPayment(CampReservation campReservation) {
+		return campReservationDAO.getCampIdByAppendPayment(campReservation);
+	}
+
+	@Override
 	public void updateMainSiteTemp(CampReservation campReservation) {
 		campReservationDAO.updateMainSiteTemp(campReservation);		
 	}
@@ -170,29 +175,29 @@ public class CampReservationServiceImpl implements CampReservationService {
 		
 		CampReservation currentCampReservation = campReservationDAO.getReservation(campReservation.getReservationNo());
 				
-		System.out.println("업데이트 할 주요시설 넘버 ::::: "+campReservation.getMainSite().getMainSiteNo());
-		System.out.println("예약 내용 지워질 주요시설 넘버 ::::: "+currentCampReservation.getMainSite().getMainSiteNo());
-		
 		if(currentCampReservation.getReservationStartDate() != campReservation.getReservationStartDate()
 				|| currentCampReservation.getReservationEndDate() != campReservation.getReservationEndDate()
 					|| currentCampReservation.getReservationUserName() != campReservation.getReservationUserName()) {
 			
 			if(currentCampReservation.getMainSite().getMainSiteNo() != campReservation.getMainSite().getMainSiteNo()) {
-				System.out.println("업데이트 할 주요시설 넘버 ::::: "+campReservation.getMainSite().getMainSiteNo());
-				System.out.println("예약 내용 지워질 주요시설 넘버 ::::: "+currentCampReservation.getMainSite().getMainSiteNo());
+				
 				currentCampReservation.setReservationUserName(null);
 				currentCampReservation.setReservationStartDate(null);
 				currentCampReservation.setReservationEndDate(null);
 				campReservationDAO.updateMainSiteReservation(currentCampReservation);
 				campReservationDAO.updateMainSiteReservation(campReservation);
 			}else {
-				System.out.println("업데이트 할 주요시설 넘버 ::::: "+campReservation.getMainSite().getMainSiteNo());
-				System.out.println("예약 내용 지워질 주요시설 넘버 ::::: "+currentCampReservation.getMainSite().getMainSiteNo());
+				
 				campReservationDAO.updateMainSiteReservation(campReservation);
 			}
 		}
 		campReservationDAO.updateReservation(campReservation);
 		
+	}
+
+	@Override
+	public void updateReservationStatus(CampReservation campReservation) {
+		campReservationDAO.updateReservation(campReservation);		
 	}
 
 	@Override
@@ -264,9 +269,10 @@ public class CampReservationServiceImpl implements CampReservationService {
 	}
 
 	@Override
-	@Scheduled(cron = "0 0 0/1 * * *")
+	@Scheduled(cron = "30 0 0 * * *")
 	public void resetTemp() {
 		campReservationDAO.resetTemp();
+		campReservationDAO.deleteTemp();
 	}
 
 }

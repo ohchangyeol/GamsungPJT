@@ -48,10 +48,13 @@ public interface CampReservationDAO {
 	
 	public CampReservation getReservationByPayment(CampReservation campReservation);
 	
+	public CampReservation getCampIdByAppendPayment(CampReservation campReservation);
+	
 	public List<CampReservation> sendMessageInfo();
 	
 	public void resetCount();
 	
 	public void resetTemp();
 	
+	public void deleteTemp();
 }

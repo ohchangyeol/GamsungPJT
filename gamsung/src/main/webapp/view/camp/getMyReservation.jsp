@@ -177,6 +177,7 @@ pageEncoding="UTF-8"%>
                                 <c:when test="${campReservation.reservationStatus eq 5}"><span style="color: rgb(230, 17, 17);">양도완료</span></c:when>
                                 <c:when test="${campReservation.reservationStatus eq 6}"><span style="color: rgb(230, 17, 17);">취소완료</span></c:when>
                                 <c:when test="${campReservation.reservationStatus eq 7}"><span style="color: rgb(230, 17, 17);">이용완료</span></c:when>
+                                <c:when test="${campReservation.reservationStatus eq 8}"><span style="color: maroon;">리뷰등록완료</span></c:when>
                               </c:choose>
                             </div>	
                             <div class="col-xs-1 col-md-1 "></div>			
@@ -289,7 +290,7 @@ pageEncoding="UTF-8"%>
         //평점&리뷰
         $(".btn-warning").on("click" , function() {
           
-          self.location ="/campGeneral/addCampRatingReview?reservationNo="+$(this).attr("value");
+          self.location ="/campGeneral/addCampRatingReviewView?reservationNo="+$(this).attr("value");
         
         });
 
