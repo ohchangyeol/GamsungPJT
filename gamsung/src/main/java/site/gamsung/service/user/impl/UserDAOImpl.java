@@ -82,7 +82,7 @@ public class UserDAOImpl implements UserDAO{
 
 	@Override
 	public void addSuspensionUser(User user){
-		sqlSession.update("UserMapper.addSusepsionUser", user);
+		sqlSession.update("UserMapper.addSuspensionUser", user);
 		
 	}
 
@@ -101,6 +101,36 @@ public class UserDAOImpl implements UserDAO{
 	public void updateDormantGeneralUserConver(String id){
 		sqlSession.update("UserMapper.updateDormantGeneralUserConvert", id);
 		
+	}
+
+	@Override
+	public List<User> reportSuspencionListUser(Search search) {
+		return sqlSession.selectList("UserMapper.reportSuspencionListUser", search);
+	}
+
+	@Override
+	public int countReportSuspencionListUser(Search search) {
+		return sqlSession.selectOne("UserMapper.countReportSuspencionListUser", search);
+	}
+
+	@Override
+	public List<User> dormantListUser(Search search) {
+		return sqlSession.selectList("UserMapper.dormantListUser", search);
+	}
+
+	@Override
+	public int countDormantListUser(Search search) {
+		return sqlSession.selectOne("UserMapper.countDormantListUser", search);
+	}
+	
+	@Override
+	public List<User> secessionListUser(Search search) {
+		return sqlSession.selectList("UserMapper.secessionListUser", search);
+	}
+
+	@Override
+	public int countSecessionListUser(Search search) {
+		return sqlSession.selectOne("UserMapper.countSecessionListUser", search);
 	}
 
 }

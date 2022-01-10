@@ -19,12 +19,12 @@
                 <nav id="menu" class="nav-main" role="navigation">
                     <ul class="nav nav-main">
                         <li class="nav-active">
-                            <a href="main.jsp">
+                            <a href="/">
                                 <i class="fa fa-home" aria-hidden="true"></i>
                                 <span>메인화면</span>
                             </a>
                         </li>
-
+                        
                         <hr class="separator" />
                         <li class="nav-parent">
                             <a>
@@ -33,22 +33,22 @@
                             </a>
                             <ul class="nav nav-children">
                                 <li>
-                                    <a href="/user/listUser">
+                                    <a href="/user/listUser/list">
                                         회원목록
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="">
+                                    <a href="/user/listUser/dormant">
                                         휴면회원
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="">
+                                    <a href="/user/listUser/reportSuspension">
                                         신고/이용정지 회원
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="">
+                                    <a href="/user/listUser/secession">
                                         탈퇴회원
                                     </a>
                                 </li>
@@ -82,32 +82,20 @@
                                 </li>
                             </ul>
                         </li>
-
-                        <hr class="separator" />
                         <li class="nav-parent">
                             <a>
-                                <i class="fa fa-copy" aria-hidden="true"></i>
-                                <span>xxx</span>
+                                <i class="fa fa-gavel" aria-hidden="true"></i>
+                                <span>경매관리</span>
                             </a>
                             <ul class="nav nav-children">
                                 <li>
-                                    <a href="a">
-                                        a
+                                    <a href="/auction/auctionSuspension?currentPage=1">
+                                       경매 이용정지 회원관리
                                     </a>
                                 </li>
-                                <li>
-                                    <a href="b">
-                                        b
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="c">
-                                        c
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="d">
-                                        d
+                                 <li>
+                                    <a href="/auction/auctionStatistics">
+                                       경매 통계
                                     </a>
                                 </li>
                             </ul>

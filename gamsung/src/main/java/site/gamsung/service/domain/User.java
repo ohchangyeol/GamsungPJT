@@ -33,6 +33,7 @@ public class User {
 	private String businessUserApprovalFlag;
 	private String auctionSuspension;
 	private String snsId;
+	private String tourismImg;
 		
 	///Constructor
 	public User() {
@@ -305,6 +306,14 @@ public class User {
 
 	public void setSnsId(String snsId) {
 		this.snsId = snsId;
+	}
+
+	public String getTourismImg() {
+		return tourismImg;
+	}
+
+	public void setTourismImg(String tourismImg) {
+		this.tourismImg = tourismImg;
 	}
 
 	@Override

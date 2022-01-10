@@ -11,6 +11,7 @@
     
     <title>myPage</title>
 
+<jsp:include page="/resources/commonLib.jsp"></jsp:include>
 <style type="text/css">
 
 .sidebar-left{
@@ -21,7 +22,6 @@
 	background-color: #171717 !important;
 }
 </style>
-<jsp:include page="/resources/commonLib.jsp"></jsp:include>
 </head>
   <body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
   <section class="body">

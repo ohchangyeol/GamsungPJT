@@ -488,7 +488,7 @@ public class CampGeneralController {
 		int	index = 1;
 		
 		for(MultipartFile multpartfile: reviewImg) {
-				System.out.println("포문 돌아???");
+				
 		//MultipartFile로 받은 reviewImg에서 file이름을 originalReviewImg 넣는다. 
 		String originalReviewImg = multpartfile.getOriginalFilename(); 
 		
@@ -567,12 +567,12 @@ public class CampGeneralController {
 		
 	    ratingReviewService.listRatingReview(search);
 		
-		return "forward:/view/camp/listRatingReview.jsp";
+		return "forward:/view/camp/listMyRatingReview.jsp";
 	}
 	
-	@RequestMapping(value = "listMyCampRatingReview", method = RequestMethod.GET)
+	@RequestMapping(value = "listMyCampRatingReview")
 	public String listMyCampRatingReview(@ModelAttribute("search") Search search, Model model ,HttpSession httpSession) throws Exception{
-		System.out.println("/campGeneral/listMyCampRatingReview : GET");
+		System.out.println("/campGeneral/listMyCampRatingReview : GET / POST");
 		
 		User user = (User)httpSession.getAttribute("user");
 		

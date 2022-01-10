@@ -39,6 +39,7 @@ package site.gamsung.service.domain;
 public class PaymentCode {
 	
 	/// Field
+	private int paymentCodeRegNum;
 	private String paymentCode;
 	private int paymentCodeRangeStart;
 	private int paymentCodeRangeEnd;
@@ -50,7 +51,15 @@ public class PaymentCode {
 		
 	}
 	
-	/// Getter / Setter	
+	/// Getter / Setter
+	public int getPaymentCodeRegNum() {
+		return paymentCodeRegNum;
+	}
+
+	public void setPaymentCodeRegNum(int paymentCodeRegNum) {
+		this.paymentCodeRegNum = paymentCodeRegNum;
+	}
+
 	public String getPaymentCode() {
 		return paymentCode;
 	}
@@ -94,6 +103,7 @@ public class PaymentCode {
 	// Override toString
 	public String toString() {
 		return "\n -- PaymentCode --"
+			+ "\n [paymentCodeRegNum] : " + paymentCodeRegNum	
 			+ "\n [paymentCode] : " + paymentCode
 			+ "\n [paymentCodeRangeStart] : " + paymentCodeRangeStart
 			+ "\n [paymentCodeRangeEnd] : " + paymentCodeRangeEnd				

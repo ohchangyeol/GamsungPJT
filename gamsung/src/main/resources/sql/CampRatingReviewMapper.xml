@@ -84,6 +84,13 @@
          </trim>
 		LIMIT #{pageSize} offset #{offset}
 	</select>
+		
+	<select id="getCampRatingReview" parameterType="int" resultMap="RatingReviewSelectMap">
+		SELECT rating_review_no, user_id, camp_no, product_no, rating_review_status, rating_review_title, rating_review_content, 
+	   		   review_reg_date, comment, comment_reg_date, status_rating, review_img1, review_img2, review_img3 
+		FROM RATING_REVIEW
+		WHERE rating_review_no = #{value}
+	</select>
 	
 	<select  id="getTotalCount"  parameterType="search" resultType="int">
 		SELECT COUNT(*)

@@ -43,13 +43,6 @@
     <link id="color-scheme" href="/resources/css/colors/default.css" rel="stylesheet">  
   	<!-- ### headerCampBusiness resources End ### -->
 	
-	<!-- CSS -->
-	<style>
-		body > div.container{
-			margin-top: 70px;
-		}
-    </style>
-
 	<!-- JavaScript -->
 	<script type="text/javascript">
 
@@ -73,7 +66,7 @@
 				}
 			});
 		
-		});	
+		});		
 
 </script>		
 	    
@@ -85,140 +78,149 @@
 	<jsp:include page="/view/common/headerCampBusiness.jsp" />
 
 	<!-- Page Start -->
-	<form>
+	<form>	
 	<div class="container">		
-		<div class="col-md-1"></div>
-			<div class="col-md-10">	
-	
-			<input type="hidden" name="campNo" value="${camp.campNo}">
-			<input type="hidden" name="mainSiteNo" value="${mainSite.mainSiteNo}">
-			
-				<br>
-		    	<br>
-				<div class="page-header">
-			       <h3 class=" text-info">주요시설 상세정보</h3>
-			    </div>
-			    
-			    <div class="row">
-			  		<div class="col-xs-4 col-md-2"><strong>주요시설 등록번호</strong></div>
-					<div class="col-xs-8 col-md-4">${mainSite.mainSiteNo}</div>
-				</div>
-								
-				<hr/>
-			    	
-				<div class="row">
-			  		<div class="col-xs-4 col-md-2"><strong>주요시설 등록일자</strong></div>
-					<div class="col-xs-8 col-md-4">${mainSite.mainSiteRegDate}</div>
-				</div>
-				
-				<hr/>
-				
-				<div class="row">
-			  		<div class="col-xs-4 col-md-2"><strong>주요시설 유형</strong></div>
-					<div class="col-xs-8 col-md-4">${mainSite.mainSiteType}</div>
-				</div>
-				
-				<hr/>
-				
-				<div class="row">
-			  		<div class="col-xs-4 col-md-2"><strong>주요시설 이름</strong></div>
-					<div class="col-xs-8 col-md-4">${mainSite.mainSiteName}</div>
-				</div>
-				
-				<hr/>
-				
-				<div class="row">
-			  		<div class="col-xs-4 col-md-2"><strong>주요시설 크기</strong></div>
-					<div class="col-xs-8 col-md-4">${mainSite.mainSiteSize}</div>
-				</div>
-				
-				<hr/>
-				
-				<div class="row">
-			  		<div class="col-xs-4 col-md-2"><strong>주요시설 위치(구역번호)</strong></div>
-					<div class="col-xs-8 col-md-4">${mainSite.mainSiteSection}</div>
-				</div>
-				
-				<hr/>							
-				
-				<div class="row">
-			  		<div class="col-xs-4 col-md-2"><strong>기본 사용인원수</strong></div>
-					<div class="col-xs-8 col-md-4">${mainSite.mainSiteMinCapacity}</div>
-				</div>
-				
-				<hr/>
-				
-				<div class="row">
-			  		<div class="col-xs-4 col-md-2"><strong>최대 사용인원수</strong></div>
-					<div class="col-xs-8 col-md-4">${mainSite.mainSiteMaxCapacity}</div>
-				</div>
-				
-				<hr/>
-				
-				<div class="row">
-			  		<div class="col-xs-4 col-md-2"><strong>기본인원 금액</strong></div>
-					<div class="col-xs-8 col-md-4">${mainSite.mainSiteMinPrice}</div>
-				</div>
-				
-				<hr/>
-				
-				<div class="row">
-			  		<div class="col-xs-4 col-md-2"><strong>추가인원 금액</strong></div>
-					<div class="col-xs-8 col-md-4">${mainSite.mainSiteAddPrice}</div>
-				</div>
-				
-				<hr/>	
-				
-				<div class="row">
-			  		<div class="col-xs-4 col-md-2"><strong>주차가능 대수</strong></div>
-					<div class="col-xs-8 col-md-4">${mainSite.mainSiteParkingSize}</div>
-				</div>
-				
-				<hr/>
-				
-				<div class="row">
-			  		<div class="col-xs-4 col-md-2"><strong>주요시설 설명</strong></div>
-					<div class="col-xs-8 col-md-4">${mainSite.mainSiteInfo}</div>
-				</div>
-				
-				<hr/>
-				
-				<div class="row">
-			  		<div class="col-xs-4 col-md-2"><strong>주요시설 사진1</strong></div>
-					<img src="../uploadfiles/campimg/campbusiness/mainsite/${mainSite.mainSiteImg1}" />
-				</div>
-				
-				<div class="row">
-			  		<div class="col-xs-4 col-md-2"><strong>주요시설 사진2</strong></div>
-					<img src="../uploadfiles/campimg/campbusiness/mainsite/${mainSite.mainSiteImg2}" />
-				</div>
-				
-				<div class="row">
-			  		<div class="col-xs-4 col-md-2"><strong>주요시설 사진3</strong></div>
-					<img src="../uploadfiles/campimg/campbusiness/mainsite/${mainSite.mainSiteImg3}" />
-				</div>
-		 							  		  
-			<br>
-			<br>	
-			<div class="row">	
-		        <div class="col-xs-2">
-		            <button id="delete" type="button" class="btn btn-danger">삭제</button>
-		        </div>
-		        
-		        <div class="col-xs-1">
-		           	<button id="update"type="button" class="btn btn-warning">수정</button>
-		        </div>
-		        
-		        <div class="col-xs-1 col-xs-offset-7">
-		            <button id="confirm" type="button" class="btn btn-primary">확인</button>
-			    </div>										  		  	
-			</div>
-			
-		</div> 
-		<div class="col-md-1"></div>
+		
+		<input type="hidden" name="campNo" value="${camp.campNo}">
+		<input type="hidden" name="mainSiteNo" value="${mainSite.mainSiteNo}">
+
+		<div class="page-header">
+	       <h3 class=" text-info">주요시설 상세정보</h3>
+	    </div>
+	    
+		<div class="row">
+		 	<div class="col-xs-4 control-label"><strong>주요시설 등록번호</strong></div>
+			<div class="col-xs-8 col-md-4">${mainSite.mainSiteNo}</div>
+		</div>
+						
+		<hr/>
+		   	
+		<div class="row">
+		 	<div class="col-xs-4 control-label"><strong>주요시설 등록일자</strong></div>
+			<div class="col-xs-8 col-md-4">${mainSite.mainSiteRegDate}</div>
+		</div>
+		
+		<hr/>
+		
+		<div class="row">
+		 	<div class="col-xs-4 control-label"><strong>주요시설 유형</strong></div>
+			<div class="col-xs-8 col-md-4">${mainSite.mainSiteType}</div>
+		</div>
+		
+		<hr/>
+		
+		<div class="row">
+		 	<div class="col-xs-4 control-label"><strong>주요시설 이름</strong></div>
+			<div class="col-xs-8 col-md-4">${mainSite.mainSiteName}</div>
+		</div>
+		
+		<hr/>
+		
+		<div class="row">
+		 	<div class="col-xs-4 control-label"><strong>주요시설 크기</strong></div>
+			<div class="col-xs-8 col-md-4">${mainSite.mainSiteSize}</div>
+		</div>
+		
+		<hr/>
+		
+		<div class="row">
+	  		<div class="col-xs-4 control-label"><strong>주요시설 위치(구역번호)</strong></div>
+			<div class="col-xs-8 col-md-4">${mainSite.mainSiteSection}</div>
+		</div>
+		
+		<hr/>							
+		
+		<div class="row">
+	  		<div class="col-xs-4 control-label"><strong>기본 사용인원수</strong></div>
+			<div class="col-xs-8 col-md-4">${mainSite.mainSiteMinCapacity}</div>
+		</div>
+		
+		<hr/>
+		
+		<div class="row">
+	  		<div class="col-xs-4 control-label"><strong>최대 사용인원수</strong></div>
+			<div class="col-xs-8 col-md-4">${mainSite.mainSiteMaxCapacity}</div>
+		</div>
+		
+		<hr/>
+		
+		<div class="row">
+	  		<div class="col-xs-4 control-label"><strong>기본인원 금액</strong></div>
+			<div class="col-xs-8 col-md-4">${mainSite.mainSiteMinPrice}</div>
+		</div>
+		
+		<hr/>
+		
+		<div class="row">
+	  		<div class="col-xs-4 control-label"><strong>추가인원 금액</strong></div>
+			<div class="col-xs-8 col-md-4">${mainSite.mainSiteAddPrice}</div>
+		</div>
+		
+		<hr/>	
+		
+		<div class="row">
+	  		<div class="col-xs-4 control-label"><strong>주차가능 대수</strong></div>
+			<div class="col-xs-8 col-md-4">${mainSite.mainSiteParkingSize}</div>
+		</div>
+		
+		<hr/>
+		
+		<div class="row">
+	  		<div class="col-xs-4 control-label"><strong>주요시설 설명</strong></div>
+			<div class="col-xs-8 col-md-4">${mainSite.mainSiteInfo}</div>
+		</div>
+		
+		<hr/>
+		
+		<br> 
+		<div class="row">			    
+		    <div class="form-group">
+		        <label for="mainSiteImg1" class="col-xs-4 control-label">주요시설 사진1</label>				
+	            <div class="col-xs-8">
+	                <img src="../uploadfiles/campimg/campbusiness/mainsite/${mainSite.mainSiteImg1}" />
+	            </div>
+		    </div>
+		</div>
+		
+		<br> 
+		<div class="row">			    
+		    <div class="form-group">
+		        <label for="mainSiteImg2" class="col-xs-4 control-label">주요시설 사진2</label>				
+	            <div class="col-xs-8">
+	                <img src="../uploadfiles/campimg/campbusiness/mainsite/${mainSite.mainSiteImg2}" />
+	            </div>
+		    </div>
+		</div>
+		
+		<br> 
+		<div class="row">			    
+		    <div class="form-group">
+		        <label for="mainSiteImg3" class="col-xs-4 control-label">주요시설 사진3</label>				
+	            <div class="col-xs-8">
+	                <img src="../uploadfiles/campimg/campbusiness/mainsite/${mainSite.mainSiteImg3}" />
+	            </div>
+		    </div>
+		</div>		
+	 							  		  
+		<br>
+		<br>	
+		<div class="row">	
+	        <div class="col-xs-2">
+	            <button id="delete" type="button" class="btn btn-danger">삭제</button>
+	        </div>
+	        
+	        <div class="col-xs-1">
+	           	<button id="update"type="button" class="btn btn-warning">수정</button>
+	        </div>
+	        
+	        <div class="col-xs-1 col-xs-offset-7">
+	            <button id="confirm" type="button" class="btn btn-primary">확인</button>
+		    </div>										  		  	
+		</div>
+		
 	</div>
-	
- 	</form>	
+		  
+	</form>	  	
 
 </body>
 

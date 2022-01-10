@@ -41,6 +41,7 @@ public class AuctionProductServiceTest {
 	
 	//경매 상품 출력 service test
 	//@Test
+	@SuppressWarnings("unchecked")
 	public void testListAuctionProduct() {
 		
 		Search search = new Search();
@@ -175,7 +176,7 @@ public class AuctionProductServiceTest {
 		auctionBidInfo.setAuctionProductNo("PROD00001");
 		auctionBidInfo.setAuctionStatus("WITHDRAWAL");
 		
-		auctionProductService.updateAuctionProductCondition();
+//		auctionProductService.updateAuctionProductCondition();
 		
 	}
 	

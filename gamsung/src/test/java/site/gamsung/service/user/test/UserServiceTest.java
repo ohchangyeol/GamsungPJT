@@ -53,7 +53,7 @@ public class UserServiceTest {
 	//@Test
 	public void testGetUser() throws Exception{
 		User user= new User();
-		user=userService.getUser("test1@test.com");
+		user=userService.getUser("user2@gamsung.com");
 		
 		System.out.println("########### "+user);
 	}
@@ -79,9 +79,7 @@ public class UserServiceTest {
 	public void testListUserAll() throws Exception{
 		
 		Search search = new Search();
-		search.setCurrentPage(1);
-		search.setPageSize(5);
-		
+				
 		UserWrapper userWrapper=userService.listUser(search);
 		
 		List<User> list = userWrapper.getUsers();
@@ -136,17 +134,17 @@ public class UserServiceTest {
 		System.out.println(result);
 	}
 	
-	//@Test
+	@Test
 	public void testUpdatePassword() throws Exception{
 		
-		User user = userService.getUser("test8@test.com");
+		User user = userService.getUser("test@test.com");
 		user.setPassword("3333");
 		
 		userService.updateUser(user);
 		
 	}
 	
-	@Test
+	//@Test
 	public void testUpdateTempPassword() throws Exception{
 		
 		User user = new User();

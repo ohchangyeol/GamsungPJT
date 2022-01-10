@@ -17,6 +17,7 @@ public class Search {
 	private int campNo;
 	private String role;
 	private String id;
+	private int reportTotalCount;
 	private List<String> campAddr;
 	private List<String> circumstance;
 	private List<String> mainSite;
@@ -204,6 +205,14 @@ public class Search {
 
 	public void setOffset(int offset) {
 		this.offset = offset;
+	}
+
+	public int getReportTotalCount() {
+		return reportTotalCount;
+	}
+
+	public void setReportTotalCount(int reportTotalCount) {
+		this.reportTotalCount = reportTotalCount;
 	}
 
 	@Override

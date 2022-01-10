@@ -3,6 +3,7 @@ package site.gamsung.service.auction;
 import java.util.List;
 import java.util.Map;
 
+import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.AuctionInfo;
 import site.gamsung.service.domain.AuctionProduct;
 import site.gamsung.service.domain.PaymentCode;
@@ -15,6 +16,8 @@ public interface AuctionInfoDAO {
 	public int getBidConcern(AuctionInfo auctionInfo);
 	
 	public void deleteBidConcern(AuctionInfo auctionInfo);
+	
+	public void finishBidConcern(String bidConcernNo);
 	
 	public List<AuctionInfo> listBidConcern(Map<String, Object> map);
 	
@@ -32,9 +35,9 @@ public interface AuctionInfoDAO {
 	
 	public List<AuctionInfo> getYearAuctionStatistics();
 	
-	public List<AuctionInfo> getMonthAuctionStatistics(String year);
+	public List<AuctionInfo> getMonthlyAuctionStatistics(int year);
 	
-	public AuctionInfo getDayAuctionStatistics();
+	public AuctionInfo todayAuctionStatistics();
 	
 	public int getUserAuctionGradeInfo(String userId);	
 	
@@ -42,11 +45,17 @@ public interface AuctionInfoDAO {
 	
 	public List<AuctionInfo> getBidderRanking(AuctionInfo auctionInfo);
 	
-	public PaymentCode getPaymentInfo(int auctionGrade);
+	public PaymentCode getPaymentInfo(PaymentCode paymentCode);
 	
 	public void auctionSuspension(User user);
 	
+	public List<User> auctionSuspensionUserList(Search search);
+	
+	public int countAuctionSuspensionUser();
+	
 	public boolean isSuspension(User user);
+	
+	public boolean deleteAuctionSuspension(User user);
 	
 	public boolean isSecessionUserAuctionCondition(String userId);
 }

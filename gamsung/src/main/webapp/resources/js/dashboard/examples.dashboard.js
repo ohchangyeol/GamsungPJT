@@ -40,6 +40,7 @@
 		},
 		yaxis: {
 			min: 0,
+			max: 300,
 			color: 'rgba(0,0,0,0.1)'
 		},
 		xaxis: {
@@ -84,6 +85,7 @@
 		},
 		yaxis: {
 			min: 0,
+			max: 300,
 			color: 'rgba(0,0,0,0.1)'
 		},
 		xaxis: {
@@ -128,6 +130,7 @@
 		},
 		yaxis: {
 			min: 0,
+			max: 300,
 			color: 'rgba(0,0,0,0.1)'
 		},
 		xaxis: {
@@ -211,7 +214,7 @@
 		},
 		yaxis: {
 			min: 0,
-			max: 200,
+			max: 1000,
 			color: 'rgba(0,0,0,0.1)'
 		},
 		xaxis: {

@@ -29,11 +29,7 @@ public interface AuctionProductService {
 	
 	public String auctionProductBid(AuctionInfo auctionInfo);
 	
-	public void updateAuctionProductCondition(); 
-	
 	public String addMainAuctionProduct(String auctionProductNo);
-	
-	public void checkMainAUctionProductRemainTime();
 	
 	public List<AuctionProduct> listMainAuctionProduct();
 	

@@ -201,7 +201,6 @@
 	   			var allhashtag = $(this).parent().parent().next().next().text();
 	   			$("#auctionProductSubDetail").val(auctionProductSubDetail);
 	   			$("#auctionProductName").val(auctionProductName);
-	   			alert(allhashtag);
 	   			$("#allhashtag").val(allhashtag);
 	   			$('form').attr('method','post').attr('action','/auction/getAuctionProduct').submit();
 	   		});

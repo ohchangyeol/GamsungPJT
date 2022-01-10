@@ -34,6 +34,7 @@
 		<result property="currentLoginRegDate" 			column="login_reg_date" 				jdbcType="DATE" />
 		<result property="auctionSuspension"			column="auction_suspension_reg_date"	jdbcType="DATE" />
 		<result property="snsId" 						column="sns_id" 						jdbcType="VARCHAR" />
+		<result property="reportTotalCount" 			column="rc" 							jdbcType="NUMERIC" />
 	</resultMap>
 	
 		<!-- SQL : INSERT -->
@@ -78,11 +79,11 @@
 	 </update>
 	 
 	  <!-- SQL : Update SuspensionUser -->
-	 <update	id="addSusepsionUser"	parameterType="user" >
+	 <update	id="addSuspensionUser"	parameterType="user" >
 	   	UPDATE USERS
 	   	<set>
 	   		suspension_reg_date = SYSDATE() ,
-			suspension_content = #{suspensionContent:VARCHAR}
+			suspension_content = #{suspensionContent}
 	   	</set>
 	   	WHERE user_id = #{id}
 	 </update>
@@ -141,19 +142,21 @@
 	 <!-- SQL : SELECT LIST -->
 	 <select  id="listUser"  parameterType="search"	resultMap="userSelectMap">
 		SELECT u.role, u.user_id, u.name, u.nick_name, u.camp_name, u.entry_reg_date, u.suspension_reg_date, 
-		u.secession_reg_date, u.dormant_reg_date, u.entry_approval_flag, h.login_reg_date
+		u.secession_reg_date, u.dormant_reg_date, u.entry_approval_flag, h.login_reg_date, rtc.rc
 		FROM USERS u left outer join (SELECT * from LOGIN_HISTORY where (user_id, login_reg_date) in (select user_id, max(login_reg_date) as date from login_history group by user_id)) h
-		on u.user_id = h.user_id 
+		on u.user_id = h.user_id left outer join (SELECT count(receiver_id)rc, receiver_id from report where report_status=1 group by receiver_id having count(receiver_id) >0)rtc
+		on u.user_id = rtc.receiver_id
 			<if test="searchCondition != null">
 				<where>
-					<if test='searchCondition != "1"'>
-						u.role = "GENERAL"
+				u.role != "ADMIN"
+					<if test='searchCondition == "1"'>
+						AND u.role = "GENERAL"
 					</if>
-					<if test='searchCondition != "2"'>
-						u.role = "BUSINESS"
+					<if test='searchCondition == "2"'>
+						AND u.role = "BUSINESS"
 					</if>
-					<if test='searchCondition == 3'>
-						u.role = 'BUSINESS' AND (u.entry_approval_flag = 'N' OR u.entry_approval_flag is null)
+					<if test='searchCondition == "3"'>
+						AND u.role = 'BUSINESS' AND u.entry_approval_flag = 'N' OR u.entry_approval_flag =''
 					</if>
 					
 					<if test="searchKeyword !='' and searchKeyword !=null">
@@ -161,17 +164,145 @@
 					</if>
 				</where>
 			</if>
-		<if test="pageSize != 0 and offset != 0">
+			GROUP BY u.user_id
+			ORDER BY u.entry_reg_date DESC
+		<if test="pageSize != 0 ">
          LIMIT #{pageSize} OFFSET #{offset}
          </if>
 	 </select>
+	 
+	  <!-- SQL : SELECT dormant LIST -->
+	 <select  id="dormantListUser"  parameterType="search"	resultMap="userSelectMap">
+		SELECT role, user_id, name, nick_name, camp_name, entry_reg_date, suspension_reg_date, 
+		secession_reg_date, dormant_reg_date, entry_approval_flag
+		FROM USERS
+			<trim prefix="WHERE" prefixOverrides="AND">
+			<if test="searchCondition != null">
+			
+					<if test='searchCondition == "1"'>
+						AND role = "GENERAL"
+					</if>
+					<if test='searchCondition == "2"'>
+						 AND role = "BUSINESS" AND entry_approval_flag = 'Y'
+					</if>
+					<if test="searchKeyword !='' and searchKeyword !=null">
+						AND user_id LIKE CONCAT('%',#{searchKeyword},'%')
+					</if>
+			
+			</if>
+			<if test="searchCondition == null or searchCondition == ''">
+			dormant_reg_date is not null
+			</if>
+			<if test="searchKeyword !='' and searchKeyword !=null">
+						AND user_id LIKE CONCAT('%',#{searchKeyword},'%')
+					</if>
+			</trim>
+			ORDER BY entry_reg_date DESC
+		<if test="pageSize != 0 ">
+         LIMIT #{pageSize} OFFSET #{offset}
+         </if>
+	 </select>
+	 
+	 <select id="countDormantListUser" parameterType="search" resultType="int">
+		SELECT COUNT(user_id)
+		FROM users
+		WHERE dormant_reg_date is not null
+		<!-- <if test='_parameter != null'>
+			AND registrant_id = #{value}
+		</if> -->
+	</select>
+	
+	<!-- SQL : SELECT secession LIST -->
+	 <select  id="secessionListUser"  parameterType="search"	resultMap="userSelectMap">
+		SELECT role, user_id, name, nick_name, camp_name, entry_reg_date, suspension_reg_date, 
+		secession_reg_date, dormant_reg_date, entry_approval_flag
+		FROM USERS
+			<trim prefix="WHERE" prefixOverrides="AND">
+			<if test="searchCondition != null">
+			
+					<if test='searchCondition == "1"'>
+						AND role = "GENERAL"
+					</if>
+					<if test='searchCondition == "2"'>
+						 AND role = "BUSINESS" AND entry_approval_flag = 'Y'
+					</if>
+					<if test="searchKeyword !='' and searchKeyword !=null">
+						AND user_id LIKE CONCAT('%',#{searchKeyword},'%')
+					</if>
+			
+			</if>
+			<if test="searchCondition == null or searchCondition == ''">
+			secession_reg_date is not null
+			</if>
+			<if test="searchKeyword !='' and searchKeyword !=null">
+						AND user_id LIKE CONCAT('%',#{searchKeyword},'%')
+					</if>
+			</trim>
+			ORDER BY entry_reg_date DESC
+		<if test="pageSize != 0 ">
+         LIMIT #{pageSize} OFFSET #{offset}
+         </if>
+	 </select>
+	 
+	 <select id="countSecessionListUser" parameterType="search" resultType="int">
+		SELECT COUNT(user_id)
+		FROM users
+		WHERE secession_reg_date is not null
+		<!-- <if test='_parameter != null'>
+			AND registrant_id = #{value}
+		</if> -->
+	</select>
+	 
+	 <!-- SQL : SELECT reportSuspension LIST -->
+	 <select  id="reportSuspencionListUser"  parameterType="search"	resultMap="userSelectMap">
+		SELECT u.role, u.user_id, u.name, u.nick_name, u.camp_name, u.entry_reg_date, u.suspension_reg_date, 
+		u.secession_reg_date, u.dormant_reg_date, u.entry_approval_flag, rtc.rc
+		FROM USERS u left outer join (SELECT count(receiver_id)rc, receiver_id from report where report_status=1 group by receiver_id having count(receiver_id) >0)rtc
+		on u.user_id = rtc.receiver_id
+			<trim prefix="WHERE" prefixOverrides="AND">
+			<if test="searchCondition != null">
+			
+					<if test='searchCondition == "1"'>
+						AND u.role = "GENERAL"
+					</if>
+					<if test='searchCondition == "2"'>
+						 AND u.role = "BUSINESS" AND u.entry_approval_flag = 'Y'
+					</if>
+					<if test="searchKeyword !='' and searchKeyword !=null">
+						AND u.user_id LIKE CONCAT('%',#{searchKeyword},'%')
+					</if>
+			
+			</if>
+			<if test="searchCondition == null or searchCondition == ''">
+			rtc.rc != 0 OR u.suspension_reg_date is not null
+			</if>
+			<if test="searchKeyword !='' and searchKeyword !=null">
+						AND u.user_id LIKE CONCAT('%',#{searchKeyword},'%')
+					</if>
+			</trim>
+			GROUP BY u.user_id
+			ORDER BY u.entry_reg_date DESC
+		<if test="pageSize != 0 ">
+         LIMIT #{pageSize} OFFSET #{offset}
+         </if>
+	 </select>
+	 
+	 <select id="countReportSuspencionListUser" parameterType="search" resultType="int">
+		SELECT COUNT(rtc.rc)
+		FROM users u left outer join (SELECT count(receiver_id)rc, receiver_id from report where report_status=1 group by receiver_id having count(receiver_id) >0)rtc
+		on u.user_id = rtc.receiver_id where rtc.rc >0
+		GROUP BY rtc.rc
+		<!-- <if test='_parameter != null'>
+			AND registrant_id = #{value}
+		</if> -->
+	</select>
 	 
 	 <!-- SQL : SELECT ROW Count -->	 
 	 <select  id="getTotalCount"  parameterType="search"  resultType="int">
 	  	SELECT COUNT(*)
 	  	FROM(	SELECT user_id , name
 						FROM USERS
-						<if test="searchCondition != null">
+						<if test="searchCondition != null and searchCondition !='' ">
 							<where>
 								<if test='searchCondition != "3"'>
 									role = #{searchCondition}
@@ -206,6 +337,22 @@
 					</if>
 				</trim>) c
 	 </select>
+	 
+	  <!-- SQL : SELECT report Count -->
+<!-- 	   <select id="countReport" parameterType="String" resultType="int">
+		SELECT count(receiver_id)rc
+		FROM users u left outer join (select receiver_id FROM report
+				<where>
+				 	report_status=1
+				</where>) rttable
+				ON u.user_id = rttable.receiver_id 
+				<where>
+				u.user_id = #{value}
+				</where>
+				GROUP BY u.user_id
+				HAVING count(rttable.receiver_id)>0
+		 </select> -->
+		
 		
 
 </mapper>

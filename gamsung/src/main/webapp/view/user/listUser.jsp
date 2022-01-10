@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+
 		<!doctype html>
 		<html class="fixed">
 
@@ -19,6 +20,7 @@
 			<!-- Specific Page Vendor CSS -->
 			<link rel="stylesheet" href="/resources/lib/select2/select2.css" />
 			<link rel="stylesheet" href="/resources/lib/jquery-datatables-bs3/assets/css/datatables.css" />
+			<!-- <link rel="stylesheet" href="../../resources/lib/magnific-popup/magnific-popup.css" /> -->
 
 			<style>
 				.list ul li {
@@ -34,10 +36,42 @@
 				.panel .panel-heading .row h4 {
 					font-size: 20px;
 				}
+
+				td:nth-child(2) {
+					cursor: pointer;
+				}
+
+				#addSuspension_modal .modal#addSuspensionModal {
+					position: absolute;
+					/* width: 500px; */
+					/* height: 700px; */
+					left: 50%;
+					top: 50%;
+					transform: translateY(-50%);
+				}
+
+				.modal-body {
+					position: initial;
+				}
+
+				#addSuspension_modal .modal#addSuspensionModal .modal-content {
+					position: relative;
+					width: 500px;
+					height: 300px;
+					/* left: 50%; */
+					/* top: 50%; */
+					/* transform: translateY(-50%); */
+				}
+
+				.modal-body #suspension-btn {
+					position: absolute;
+					bottom: 10%;
+					right: 7%;
+				}
 			</style>
 		</head>
 
-		<body class="admin-page">
+		<body>
 			<section class="body">
 
 				<!-- start: header -->
@@ -55,16 +89,35 @@
 						<section class="panel">
 							<header class="panel-heading">
 								<div class="row">
-									<h4 class="col-sm-7 mb-0">회원목록</h4>
+									<c:if test="${info eq 'list'}">
+										<h4 class="col-sm-7 mb-0">회원목록</h4>
+									</c:if>
+									<c:if test="${info eq 'dormant'}">
+										<h4 class="col-sm-7 mb-0">휴면회원 목록</h4>
+									</c:if>
+									<c:if test="${info eq 'secession'}">
+										<h4 class="col-sm-7 mb-0">탈퇴회원 목록</h4>
+									</c:if>
+									<c:if test="${info eq 'reportSuspension'}">
+										<h4 class="col-sm-7 mb-0">신고/이용정지 회원목록</h4>
+									</c:if>
 									<div class="col-sm-5 mb-sm-0">
 										<div class="row">
 											<form id="listForm" role="form" class="notice-search">
 												<div class="col-sm-4">
 													<select class="form-control" name="searchCondition">
-														<option selected="selected">회원전체</option>
-														<option value="1">일반회원</option>
-														<option value="2">사업자회원</option>
-														<option value="3">사업자회원 대기</option>
+														<option value="">회원전체
+														</option>
+														<option value="1" ${ ! empty search.searchCondition &&
+															search.searchCondition==1 ? "selected" : "" }> 일반회원</option>
+														<option value="2" ${ ! empty search.searchCondition &&
+															search.searchCondition==2 ? "selected" : "" }>사업자회원</option>
+
+														<c:if test="${info eq 'list'}">
+															<option value="3" ${ ! empty search.searchCondition &&
+																search.searchCondition==3 ? "selected" : "" }>사업자회원 대기
+															</option>
+														</c:if>
 													</select>
 												</div>
 												<div class="col-sm-8">
@@ -74,7 +127,8 @@
 																class="fa fa-search"></i></button>
 													</div>
 												</div>
-
+												<!-- PageNavigation 선택 페이지 값을 보내는 부분 -->
+												<input type="hidden" id="currentPage" name="currentPage" value="" />
 											</form>
 										</div>
 									</div>
@@ -85,24 +139,60 @@
 								<div class="table-responsive">
 									<table class="table table-hover mb-none">
 										<thead>
-											<tr>
-												<th>회원유형</th>
-												<th>아이디</th>
-												<th>이름</th>
-												<th>닉네임/캠핑장명</th>
-												<th>회원가입 일자</th>
-												<th>최근 로그인 일자</th>
-												<th>이용정지</th>
-											</tr>
+											<c:if test="${info eq 'list'}">
+												<tr>
+													<th>회원유형</th>
+													<th>아이디</th>
+													<th>이름</th>
+													<th>닉네임/캠핑장명</th>
+													<th>회원가입 일자</th>
+													<th>최근 로그인 일자</th>
+													<th>이용정지</th>
+												</tr>
+											</c:if>
+
+											<c:if test="${info eq 'dormant'}">
+												<tr>
+													<th>회원유형</th>
+													<th>아이디</th>
+													<th>이름</th>
+													<th>닉네임/캠핑장명</th>
+													<th>최근 로그인 일자</th>
+													<th>휴면전환 일자</th>
+												</tr>
+											</c:if>
+
+											<c:if test="${info eq 'secession'}">
+												<tr>
+													<th>회원유형</th>
+													<th>아이디</th>
+													<th>이름</th>
+													<th>닉네임/캠핑장명</th>
+													<th>최근 로그인 일자</th>
+													<th>탈퇴 일자</th>
+												</tr>
+											</c:if>
+
+											<c:if test="${info eq 'reportSuspension'}">
+												<tr>
+													<th>회원유형</th>
+													<th>아이디</th>
+													<th>이름</th>
+													<th>닉네임/캠핑장명</th>
+													<th>신고횟수</th>
+													<th>이용정지 일자</th>
+												</tr>
+											</c:if>
 										</thead>
 										<tbody>
 											<!--리스트에 순서 찍는거 <c:set var ="i" value="0" /> -->
-											<c:forEach var="user" items="${list}">
-												<c:if
-													test="${user.role!='ADMIN' && user.dormantConversionDate == null && user.secessionRegDate == null && user.suspensionDate==null}">
+											<c:if test="${info eq 'list' && !empty list}">
+												<c:forEach var="user" items="${list}">
+													<!-- <c:if
+														test="${user.role!='ADMIN' && user.dormantConversionDate == null && user.secessionRegDate == null && user.suspensionDate==null}"> -->
 													<tr>
 														<td>${user.role}</td>
-														<td>${user.id}</td>
+														<td id="suspension_id_name">${user.id}</td>
 														<td>${user.name}</td>
 														<td>
 															<c:if test="${user.role == 'GENERAL'}">
@@ -115,27 +205,99 @@
 														<td>${user.addUserRegDate}</td>
 														<td>${user.currentLoginRegDate}</td>
 														<td>
-															<button id="list-addSuspension" type="button">이용정지</button>
+															<a href="#addSuspensionModal" data-toggle="modal"
+																data-target="#addSuspensionModal">
+																<button id="list-addSuspension" type="button"
+																	class="list-addSuspension">이용정지</button>
+															</a>
 														</td>
 
 													</tr>
-												</c:if>
-											</c:forEach>
+													<!-- </c:if> -->
+												</c:forEach>
+											</c:if>
+											<c:if test="${info eq 'dormant' && !empty list}">
+												<c:forEach var="user" items="${list}">
+													<!-- <c:if
+														test="${user.role!='ADMIN' && user.dormantConversionDate != null}"> -->
+													<tr>
+														<td>${user.role}</td>
+														<td>${user.id}</td>
+														<td>${user.name}</td>
+														<td>
+															<c:if test="${user.role == 'GENERAL'}">
+																${user.nickName}
+															</c:if>
+															<c:if test="${user.role == 'BUSINESS'}">
+																${user.campName}
+															</c:if>
+														</td>
+														<td>${user.currentLoginRegDate}</td>
+														<td>${user.dormantConversionDate}</td>
+
+													</tr>
+													<!-- </c:if> -->
+												</c:forEach>
+											</c:if>
+
+											<c:if test="${info eq 'secession' && !empty list}">
+												<c:forEach var="user" items="${list}">
+													<!-- <c:if test="${user.role!='ADMIN' && user.secessionRegDate != null}"> -->
+													<tr>
+														<td>${user.role}</td>
+														<td>${user.id}</td>
+														<td>${user.name}</td>
+														<td>
+															<c:if test="${user.role == 'GENERAL'}">
+																${user.nickName}
+															</c:if>
+															<c:if test="${user.role == 'BUSINESS'}">
+																${user.campName}
+															</c:if>
+														</td>
+														<td>${user.currentLoginRegDate}</td>
+														<td>${user.secessionRegDate}</td>
+
+													</tr>
+													<!-- </c:if> -->
+												</c:forEach>
+											</c:if>
+
+											<c:if test="${info eq 'reportSuspension' && !empty list}">
+												<c:forEach var="user" items="${list}">
+													<!-- <c:if
+														test="${user.role!='ADMIN' && user.reportTotalCount != 0 ||  user.suspensionDate != null}"> -->
+													<tr>
+														<td>${user.role}</td>
+														<td>${user.id}</td>
+														<td>${user.name}</td>
+														<td>
+															<c:if test="${user.role == 'GENERAL'}">
+																${user.nickName}
+															</c:if>
+															<c:if test="${user.role == 'BUSINESS'}">
+																${user.campName}
+															</c:if>
+														</td>
+														<td>${user.reportTotalCount}</td>
+														<a href="#addSuspensionModal" data-toggle="modal"
+															data-target="#addSuspensionModal">
+															<div style="cursor: pointer;">
+																<td>${user.suspensionDate}</td>
+															</div>
+														</a>
+													</tr>
+													<!-- </c:if> -->
+												</c:forEach>
+											</c:if>
+
 										</tbody>
 									</table>
 								</div>
-								<div class="pagination font-alt page-nav">
-									<a href="#">
-										<i class="fa fa-angle-left"></i>
-									</a>
-									<a class="active" href="#">1</a>
-									<a href="#">2</a>
-									<a href="#">3</a>
-									<a href="#">4</a>
-									<a href="#">
-										<i class="fa fa-angle-right"></i>
-									</a>
-								</div>
+
+								<!-- PageNavigation Start... -->
+								<jsp:include page="../common/pageNavigator.jsp" />
+								<!-- PageNavigation End... -->
 							</div>
 						</section>
 
@@ -153,29 +315,157 @@
 			<script src="/resources/lib/jquery-datatables/media/js/jquery.dataTables.js"></script>
 			<script src="/resources/lib/jquery-datatables/extras/TableTools/js/dataTables.tableTools.min.js"></script>
 			<script src="/resources/lib/jquery-datatables-bs3/assets/js/datatables.js"></script>
+			<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+			<script src="../../resources/lib/jquery/jquery.js"></script>
 
 		</body>
+
+		<!-- The Modal -->
+		<div id="addSuspension_modal">
+			<div class="modal" id="addSuspensionModal">
+				<!-- <div class="modal-dialog-centered"> -->
+				<div class="modal-content">
+
+					<!-- Modal Header -->
+					<div class="modal-header">
+						<h5 class="modal-title">회원 이용정지 등록</h5>
+					</div>
+
+					<form class="modal-body" role="form">
+						<div id="" class="form-group row">
+
+							<label for="" class="col-sm-offset-1 col-sm-3 control-label"><strong>아이디</strong></label>
+							<div class="col-sm-6">
+								<input id="addSuspention_id" name="id" class="form-control " type="text"
+									style="border-radius:10px;" />
+							</div>
+
+						</div>
+						<div id="content_textarea" class="form-group row">
+
+							<label for="message-text" class="col-sm-offset-1 col-sm-3 col-form-label"><strong>이용정지
+									사유</strong></label>
+							<div class="col-sm-6">
+								<textarea class="form-control" id="message-text" name="suspensionContent"
+									style="border-radius:10px; height: 110px;" maxlength="200"> </textarea>
+							</div>
+						</div>
+
+						<div id="suspension-btn">
+							<button id="cancel" class="btn btn-border-d btn-circle" type="button"
+								data-dismiss="modal">취소</button>
+							<button id="addSuspension_user_btn" class="btn btn-border-d btn-circle" type="button"
+								data-dismiss="modal">확인</button>
+						</div>
+
+
+					</form>
+
+
+				</div>
+				<!-- </div> -->
+			</div>
+		</div>
 
 		<script type="text/javascript">
 
 			//=============    검색 / page 두가지 경우 모두  Event  처리 =============	
-			function fncGetUserList(currentPage) {
+			function fncGetList(currentPage) {
 				$("#currentPage").val(currentPage)
-				$("#listForm").attr("method", "POST").attr("action", "/user/listUser").submit();
+				$("#listForm").attr("method", "POST").attr("action", "/user/listUser/${info}").submit();
 			}
 
 
 			//============= "검색"  Event  처리 =============	
 			$(function () {
-				//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-				//$( "button.btn.btn-default" ).on("click" , function() {
-				//	fncGetUserList(1);
-				//});
-			});
+
+				$("td:nth-child(7)").on("click", function () {
+					// var suspension_id_val = document.getElementById('addSuspention_id').innerText;
+					//var suspension_id_val = $(this).prevAll().value;
+
+					var id = $(this).prevAll("td:nth-child(2)").text();
+					$("#addSuspention_id").val(id);
+
+					console.log("아이디" + id);
+
+					// var elTop = $(this).offset().top;
+
+					// $(".modal#addSuspensionModal").css("top", elTop);
 
 
-			//============= userId 에 회원정보보기  Event  처리(Click) =============	
-			$(function () {
+
+
+					//alert(suspension_id_val);
+
+					$("#addSuspension_user_btn").on("click", function () {
+						var suspensionContent = $("#message-text").val();
+						$.ajax(
+							{
+								url: "/user/rest/addSuspensionUser",
+								method: "POST",
+								dataType: "json",
+								headers: {
+									"Accept": "application/json",
+									"Content-Type": "application/json"
+								},
+								data: JSON.stringify({
+									"id": id,
+									"suspensionContent": suspensionContent
+								}),
+								success: function (susData) {
+
+									console.log('성공: ' + susData);
+									if (susData == 0) {
+
+										Swal.fire("이용정지 등록되었습니다.").then(() => {
+											$('#addSuspensionModal').hide();
+										});
+									} else {
+										Swal.fire("이용정지 등록에 실패하였습니다.").then(() => {
+											$('#addSuspensionModal').hide();
+										});
+									}
+								}
+							});
+					});
+
+				});
+
+				$("td:nth-child(6)").on("click", function () {
+					var id = $(this).prevAll("td:nth-child(2)").text();
+					$("#addSuspention_id").val(id);
+					console.log(id);
+					$.ajax(
+						{
+							url: "/user/rest/getUser",
+							method: "POST",
+							dataType: "text",
+							headers: {
+								"Accept": "application/json",
+								"Content-Type": "application/json"
+							},
+							data: JSON.stringify({
+								"id": id
+							}),
+							success: function (susContent) {
+								console.log('성공: ' + susContent);
+								if (susContent != null) {
+									$("#message-text").val(susContent);
+									$(".modal-title").html("이용정지 조회");
+									$("#addSuspension_user_btn").hide();
+									$("#addSuspensionModal").show();
+
+								} $("#suspension-btn").on("click", function () {
+									$("#addSuspensionModal").hide();
+								});
+							}, error: function (request, status, error) {
+								alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+							}
+
+						});
+				});
+				//============= userId 에 회원정보보기  Event  처리(Click) =============	
+
 
 				//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 				$("td:nth-child(2)").on("click", function () {
@@ -185,52 +475,10 @@
 				//==> userId LINK Event End User 에게 보일수 있도록 
 				$("td:nth-child(2)").css("color", "blue");
 
+
+
+
 			});
-
-
-			//============= userId 에 회원정보보기  Event  처리 (double Click)=============
-			$(function () {
-
-				//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-				$("td:nth-child(5) > i").on("click", function () {
-
-					var userId = $(this).next().val();
-
-					$.ajax(
-						{
-							url: "/user/json/getUser/" + userId,
-							method: "GET",
-							dataType: "json",
-							headers: {
-								"Accept": "application/json",
-								"Content-Type": "application/json"
-							},
-							success: function (JSONData, status) {
-
-								var displayValue = "<h6>"
-									+ "아이디 : " + JSONData.userId + "<br/>"
-									+ "이  름 : " + JSONData.userName + "<br/>"
-									+ "이메일 : " + JSONData.email + "<br/>"
-									+ "ROLE : " + JSONData.role + "<br/>"
-									+ "등록일 : " + JSONData.regDateString + "<br/>"
-									+ "</h6>";
-								$("h6").remove();
-								$("#" + userId + "").html(displayValue);
-							}
-						});
-					////////////////////////////////////////////////////////////////////////////////////////////
-
-				});
-
-				//==> userId LINK Event End User 에게 보일수 있도록 
-				$(".ct_list_pop td:nth-child(3)").css("color", "red");
-				$("h7").css("color", "red");
-
-				//==> 아래와 같이 정의한 이유는 ??
-				$(".ct_list_pop:nth-child(4n+6)").css("background-color", "whitesmoke");
-			});
-
 		</script>
-
 
 		</html>
