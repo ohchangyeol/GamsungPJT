@@ -531,8 +531,12 @@ public class CampGeneralController {
 		
 		User user = (User)httpSession.getAttribute("user");
 		ratingReview.setUser(user);
-		ratingReview.setRatingReviewStatus(1);
 		
+		if(ratingReview.getRatingReviewStatus() == 2) {
+			ratingReview.setRatingReviewStatus(2);	
+		}else {
+		ratingReview.setRatingReviewStatus(1);
+		}
 		CampReservation campReservation = campReservationService.getReservation(reservationNo);
 		campReservation.setReservationStatus(8);
 				
