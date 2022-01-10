@@ -10,9 +10,9 @@
 		<result property="camp.campNo"					 	column="camp_no" 							jdbcType="NUMERIC"/>
 		<result property="camp.user.id"					 	column="campUserId" 						jdbcType="VARCHAR"/>
 		<result property="camp.user.campName"			 	column="camp_name" 							jdbcType="VARCHAR"/>
+		<result property="camp.user.campCall" 				column="camp_call" 							jdbcType="VARCHAR"/>
 		<result property="camp.campImg1" 					column="camp_img1" 							jdbcType="VARCHAR"/>
 		<result property="user.id" 							column="user_id" 							jdbcType="VARCHAR"/>
-		<result property="user.campCall" 					column="camp_call" 							jdbcType="VARCHAR"/>
 		<result property="mainSite.mainSiteNo"				column="mainsite_no" 						jdbcType="NUMERIC"/>
 		<result property="mainSite.mainSiteType"			column="mainsite_type" 						jdbcType="VARCHAR"/>
 		<result property="mainSite.mainSiteName"			column="mainsite_name" 						jdbcType="VARCHAR"/>
@@ -77,10 +77,13 @@
 		<![CDATA[
 		SELECT mainsite_info, mainsite_min_capacity, mainsite_max_capacity, mainsite_no, mainsite_parking_size, mainsite_min_price, 
 			   mainsite_add_price, mainsite_name, mainsite_img1, mainsite_img2, mainsite_img3, mainsite_section, mainsite_size, 
-			   mainsite_type, mainsite_reg_date, mainsite_reservation_start, mainsite_reservation_end
+			   mainsite_type, mainsite_reg_date, mainsite_reservation_start, mainsite_reservation_end, camp_no
 		FROM MAINSITE
-		WHERE camp_no =#{campNo} AND #{startDate} >= mainsite_reservation_end  AND #{endDate} >= mainsite_reservation_start AND delete_flag = 'N' 
-			OR (camp_no =#{campNo} AND delete_flag = 'N' AND mainsite_reservation_end is NULL)
+		WHERE camp_no = #{campNo} AND temp_no = 0 
+					    AND (#{startDate} <= mainsite_reservation_start or #{startDate} >= mainsite_reservation_end)  
+					    AND (#{endDate} <= mainsite_reservation_start or #{endDate} >= mainsite_reservation_end)
+				  	    AND delete_flag = 'N' 
+					    OR (camp_no =#{campNo} AND delete_flag = 'N' AND mainsite_reservation_end is NULL)
 		]]>
 		ORDER BY mainsite_type
 	</select>
@@ -97,8 +100,11 @@
 	<update id="updateReservation" parameterType="campReservation">
 		UPDATE CAMP_RESERVATION 
 		set
+			<if test="mainSite.mainSiteNo != 0">
+			mainsite_no = #{mainSite.mainSiteNo},
+			</if>
 			<if test="reservationUserName != null and reservationUserName != ''">
-			reservation_user_name = #{reservationUserName},
+			reservation_user_name = #{reservationUserName:VARCHAR},
 			</if>
 			<if test="reservationStartDate != null">
 			reservation_start_date = #{reservationStartDate},
@@ -110,16 +116,16 @@
 			use_num = #{useNum},
 			</if> 
 			<if test="reservationUserPhone != null and reservationUserPhone != ''">
-			reservation_user_phone = #{reservationUserPhone},
+			reservation_user_phone = #{reservationUserPhone:VARCHAR},
 			</if> 
 			<if test="reservationRegCarNum != null and reservationRegCarNum != ''">
-			reservation_reg_car_num = #{reservationRegCarNum},
+			reservation_reg_car_num = #{reservationRegCarNum:VARCHAR},
 			</if> 
 			<if test="reservationRequest != null and reservationRequest != ''">
-			reservation_request = #{reservationRequest},
+			reservation_request = #{reservationRequest:VARCHAR},
 			</if>
 			<if test="totalPaymentPrice != null">
-			total_payment_price = #{totalPaymentPrice},
+			total_payment_price = total_payment_price+#{totalPaymentPrice},
 			</if>
 			<if test="totalReservationRegCar != null">
 			total_reservation_reg_car = #{totalReservationRegCar},
@@ -133,12 +139,19 @@
 		</if>
 	</update>
 	
+	<update id="updateMainSiteTemp" parameterType="campReservation">
+		UPDATE MAINSITE
+		SET	temp_no = 1
+		WHERE camp_no = #{camp.campNo} AND mainsite_no = #{mainSite.mainSiteNo}
+	</update>
+	
 	<update id="updateMainSiteReservation" parameterType="campReservation">
 		UPDATE MAINSITE
 		<set>
 			mainsite_reservation_user_name = #{reservationUserName:VARCHAR},
 			mainsite_reservation_start = #{reservationStartDate},
-			mainsite_reservation_end = #{reservationEndDate}
+			mainsite_reservation_end = #{reservationEndDate},
+			temp_no = 0
 		</set> 
 		WHERE camp_no = #{camp.campNo} AND mainsite_no = #{mainSite.mainSiteNo}
 	</update>
@@ -162,7 +175,7 @@
 			  			r.reservation_end_date, r.total_payment_price, r.camp_no, r.reservation_user_name, r.reservation_user_phone, r.use_num, 
 			  			u.camp_call
 		FROM CAMP_RESERVATION r, MAINSITE m, CAMP c, USERS u
-		WHERE c.user_id = u.user_id AND c.camp_no = r.camp_no AND r.mainsite_no = m.mainsite_no
+		WHERE c.user_id = u.user_id AND c.camp_no = r.camp_no AND r.mainsite_no = m.mainsite_no AND r.delete_flag = 'N'
 		<if test="id != null">
 			AND r.user_id = #{id}
 		</if>
@@ -179,9 +192,15 @@
 			<if test="search.searchCondition == 1 and search.searchKeyword !='' ">
 				AND m.mainsite_type LIKE CONCAT('%',#{search.searchKeyword},'%')
 			</if>
+			<if test="search.searchCondition == 2 and search.searchKeyword !='' ">
+				AND r.reservation_reg_date LIKE CONCAT('%',#{search.searchKeyword},'%')
+			</if>
 		</if>
 		<trim prefix="ORDER BY">
-            <if test="search.sortCondition != null ">
+			<if test="search.sortCondition == null">
+				r.reservation_reg_date DESC
+			</if>
+			<if test="search.sortCondition != null ">
                <if test='search.sortCondition.equals("이용가격 높은순")'>
                   r.total_payment_price DESC
                </if>
@@ -202,9 +221,8 @@
                </if>
             </if>
          </trim>
-         <if test="search.pageSize != null and search.offset">
-		 LIMIT #{search.pageSize} OFFSET #{search.offset}
-		 </if>
+         LIMIT #{search.pageSize} OFFSET #{search.offset}
+		 
 	</select>
 	
 	<select  id="getTotalCount"  parameterType="map"	 resultType="int">
@@ -225,6 +243,9 @@
 			 	<if test="search.searchCondition == 1 and search.searchKeyword !='' ">
 			    	AND m.mainsite_type LIKE CONCAT('%',#{search.searchKeyword},'%')
 			 	</if>
+			 	<if test="search.searchCondition == 2 and search.searchKeyword !='' ">
+					AND r.reservation_reg_date LIKE CONCAT('%',#{search.searchKeyword},'%')
+				</if>
 			 </if> ) countTable
 	</select>
 	
@@ -242,6 +263,14 @@
 		FROM CAMP_RESERVATION r, CAMP c, MAINSITE m, USERS u
 		WHERE r.camp_no = c.camp_no AND c.user_id = u.user_id AND r.mainsite_no = m.mainsite_no AND r.mainsite_no = #{mainSite.mainSiteNo} AND r.user_id = #{user.id} 
 		AND r.camp_no = #{camp.campNo} AND r.reservation_start_date = #{reservationStartDate} AND r.reservation_end_date = #{reservationEndDate}
+	</select>
+	
+	<select id="getReservationByAppendPayment" parameterType="campReservation" resultMap="CampReservationSelectMap">
+		SELECT r.total_payment_price, r.user_id, c.user_id campUserId, c.camp_img1, r.reservation_reg_date, r.reservation_status, r.reservation_user_name, 
+			   r.reservation_start_date, r.reservation_end_date, u.camp_name, m.mainsite_type, m.mainsite_name
+		FROM CAMP_RESERVATION r, CAMP c, MAINSITE m, USERS u
+		WHERE r.camp_no = c.camp_no AND c.user_id = u.user_id AND r.mainsite_no = m.mainsite_no AND r.user_id = #{user.id} 
+			  AND r.camp_no = #{camp.campNo} AND r.reservation_no = #{reservationNo}
 	</select>
 
 	<select id="getReservationStatus" parameterType="String" resultMap="CampReservationSelectMap">
@@ -411,4 +440,16 @@
 		UPDATE CAMP
 		SET camp_view_count_current_month=0, camp_reservation_count=0		
 	</update>	
+	
+	<update id="resetTemp">
+		UPDATE MAINSITE 
+		SET temp_no = 0
+		WHERE temp_no = 1
+	</update>
+	
+	<update id="deleteTemp">
+		UPDATE CAMP_RESERVATION
+		SET delete_flag = 'Y'
+		WHERE reservation_status = 0
+	</update>
 </mapper>

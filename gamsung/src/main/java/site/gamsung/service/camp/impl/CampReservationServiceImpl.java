@@ -56,6 +56,16 @@ public class CampReservationServiceImpl implements CampReservationService {
 		return campReservationDAO.getReservationByPayment(campReservation);
 				
 	}
+	
+	@Override
+	public CampReservation getCampIdByAppendPayment(CampReservation campReservation) {
+		return campReservationDAO.getCampIdByAppendPayment(campReservation);
+	}
+
+	@Override
+	public void updateMainSiteTemp(CampReservation campReservation) {
+		campReservationDAO.updateMainSiteTemp(campReservation);		
+	}
 
 	@Override
 	public void updateTempReservationToReal(CampReservation campReservation) {
@@ -154,6 +164,11 @@ public class CampReservationServiceImpl implements CampReservationService {
 	}
 
 	@Override
+	public CampReservation getReservationByPayment(CampReservation campReservation) {
+		return campReservationDAO.getReservationByPayment(campReservation);
+	}
+
+	@Override
 	public void updateReservation(CampReservation campReservation){
 		
 		//추가 결제 발생 시 insert payment(결제 정보) - 포인트, 현금, 카드 여러 형태 처리.
@@ -165,17 +180,24 @@ public class CampReservationServiceImpl implements CampReservationService {
 					|| currentCampReservation.getReservationUserName() != campReservation.getReservationUserName()) {
 			
 			if(currentCampReservation.getMainSite().getMainSiteNo() != campReservation.getMainSite().getMainSiteNo()) {
+				
 				currentCampReservation.setReservationUserName(null);
 				currentCampReservation.setReservationStartDate(null);
 				currentCampReservation.setReservationEndDate(null);
 				campReservationDAO.updateMainSiteReservation(currentCampReservation);
 				campReservationDAO.updateMainSiteReservation(campReservation);
 			}else {
+				
 				campReservationDAO.updateMainSiteReservation(campReservation);
 			}
 		}
 		campReservationDAO.updateReservation(campReservation);
 		
+	}
+
+	@Override
+	public void updateReservationStatus(CampReservation campReservation) {
+		campReservationDAO.updateReservation(campReservation);		
 	}
 
 	@Override
@@ -212,18 +234,22 @@ public class CampReservationServiceImpl implements CampReservationService {
 		List<CampReservation> list = campReservationDAO.sendMessageInfo();
 		SendMessage sendmessage = new SendMessage();
 		
-		for (int i = 0; i < list.size(); i++) {
+		if(list.size() != 0) {
 			
-			String text = "안녕하세요.\n"+
-						  "감성캠핑 사이트 입니다.\n"+
-						  list.get(i).getReservationUserName()+"님은\n"+
-						  list.get(i).getUser().getCampName()+"캠핑장에\n"+
-						  list.get(i).getReservationStartDate()+" 부터 "+
-						  list.get(i).getReservationEndDate()+" 까지 예약되어 있습니다.\n"+
-						  "이용에 참고 하시기 바랍니다.";
-			
-			sendmessage.sendMessage(list.get(i).getReservationUserPhone(), text);
-		}		
+			for (int i = 0; i < list.size(); i++) {
+				
+				String text = "안녕하세요.\n"+
+							  "감성캠핑 사이트 입니다.\n"+
+							  list.get(i).getReservationUserName()+"님은\n"+
+							  list.get(i).getUser().getCampName()+"캠핑장에\n"+
+							  list.get(i).getReservationStartDate()+" 부터 "+
+							  list.get(i).getReservationEndDate()+" 까지 예약되어 있습니다.\n"+
+							  "이용에 참고 하시기 바랍니다.";
+				
+				sendmessage.sendMessage(list.get(i).getReservationUserPhone(), text);
+				
+			}		
+		}
 	}
 
 	@Override
@@ -239,9 +265,14 @@ public class CampReservationServiceImpl implements CampReservationService {
 	@Override
 	@Scheduled(cron = "30 0 0 1 * *")
 	public void resetCount() {
-		
 		campReservationDAO.resetCount();
-		
 	}
-	
+
+	@Override
+	@Scheduled(cron = "30 0 0 * * *")
+	public void resetTemp() {
+		campReservationDAO.resetTemp();
+		campReservationDAO.deleteTemp();
+	}
+
 }

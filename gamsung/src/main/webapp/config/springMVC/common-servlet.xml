@@ -51,14 +51,14 @@
 	          <mvc:annotation-driven /> 사용으로 interceptor 를 직접
 	          RequestMappingHandlerMapping 에 주입 할 수 없으니 
 	       	  아래의 설정방법으로 interceptor 주입-->
-   	<!-- <mvc:interceptors>
+<!--     	<mvc:interceptors>
 		
    		<mvc:interceptor>
 			<mvc:mapping path="/user/**"/>
-			<bean class="com.model2.mvc.common.web.LogonCheckInterceptor" />
+			<bean class="site.gamsung.common.interceptor.LogonCheckInterceptor" />
    		</mvc:interceptor>
 
-   	</mvc:interceptors> -->
+   	</mvc:interceptors>  -->
 	<!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 	
 	 

@@ -29,6 +29,7 @@ import javax.servlet.http.HttpSession;
   import org.springframework.web.bind.annotation.RequestMapping; 
   import org.springframework.web.bind.annotation.RequestMethod; 
   import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -82,5 +83,70 @@ import site.gamsung.service.domain.Post;
 	return communityService.listComment(postNo);
 
   }
-
-}
+  
+  
+  
+//댓글 add
+  
+  @RequestMapping(value = "rest/addComment") 
+ @ResponseBody
+ public Post addComment (@RequestParam String postno, String userid,  String val, User user, Comment comment, Post post) throws Exception{
+	 
+	 System.out.println("addComment");
+	 
+	 int postnoo = Integer.parseInt(postno);
+	 
+	 user.setId(userid);
+	 post.setPostNo(postnoo);
+ 
+	 comment.setPostNo(post);
+	 comment.setCommentWriter(user);
+	 comment.setCommentContent(val);
+	 
+	 System.out.println("postno ==>" + postno +" userid => " + userid + "val ==> " + val );
+	 
+	 
+	 	   communityService.addComment(comment);
+	 
+	post = communityService.updatetotalComment2(postnoo);
+		 
+	return post; 	 
+ }
+  
+//댓글 delete
+  
+ @RequestMapping(value = "rest/deleteComment") 
+ @ResponseBody
+ public Post deleteComment (@RequestParam String commentno, Post post) throws Exception{
+	 
+	 System.out.println("deleteComment");
+	 
+	 int commentnoo = Integer.parseInt(commentno);
+	 
+	 System.out.println("DeleteCommentNo:::::::" + commentnoo);
+	 	 	 
+	 int a= communityService.deleteComment(commentnoo);
+ 
+	 System.out.println("aaaaa:"+a);
+//	 System.out.println("Post::"+communityService.updatetotalComment(commentnoo));
+	 		
+	post = communityService.updatetotalComment(commentnoo);
+	 
+	return post;
+ }  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  }//CommunityRestController END

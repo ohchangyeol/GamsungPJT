@@ -62,5 +62,12 @@ public class CampRatingReviewDAOImpl implements CampRatingReviewDAO {
 	public int updateCampRatingReview(RatingReview ratingReview) {
 		return sqlSession.update("CampRatingReviewMapper.updateCampRatingReview", ratingReview);
 	}
+
+	@Override
+	public RatingReview getCampRatingReview(int ratingReviewNo) {
+		return sqlSession.selectOne("CampRatingReviewMapper.getCampRatingReview", ratingReviewNo);
+	}
+	
+	
 	
 }

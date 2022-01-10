@@ -18,7 +18,7 @@ CREATE TABLE `USERS` (
 `having_point` INT DEFAULT 0,
 `camp_name` VARCHAR(30),
 `camp_call` VARCHAR(15),
-`entry_approval_flag` CHAR(1) DEFAULT 'N',
+`entry_approval_flag` CHAR(1),
 `receive_cancel_total_count` INT DEFAULT 0,
 `receive_ban_end_date` DATE,
 `dormant_reg_date` DATE,
@@ -27,6 +27,7 @@ CREATE TABLE `USERS` (
 `tourism_business_num` VARCHAR(10),
 `suspension_content` VARCHAR(200),
 `auction_grade` SMALLINT DEFAULT 1,
+`auction_suspension_reg_date` DATE,
 `sns_id` VARCHAR(15),
 PRIMARY KEY ( `user_id`),
 UNIQUE (`user_id`,`nick_name`, `phone`, `tourism_business_num`)
@@ -87,10 +88,8 @@ CREATE TABLE `AUCTION_HISTORY` (
     `bidder_id` VARCHAR(50) NOT NULL,
     `bid_price` INT NOT NULL,
     `bid_date_time` DATETIME NOT NULL DEFAULT NOW(),
-    `auction_status` VARCHAR(10) NOT NULL DEFAULT 'START',
     PRIMARY KEY (`bid_no`)
 );
-
 
 DELIMITER $$
 CREATE TRIGGER AUCTION_HISTORY_SEQ
@@ -108,6 +107,7 @@ CREATE TABLE `BID_CONCERN` (
     `user_id` VARCHAR(50) NOT NULL,
     `product_no` CHAR(9) NOT NULL,
     `concern_reg_date` DATETIME NOT NULL DEFAULT NOW(),
+    `delete_flag` CHAR(1) NOT NULL DEFAULT 'N',
     PRIMARY KEY (`bid_concern_no`)
 );
 
@@ -143,6 +143,25 @@ BEGIN
 END $$
 DELIMITER ;
 
+CREATE TABLE `AUCTION_VIEW_LOG` (
+	`log_no` CHAR(8) NOT NULL,
+	`product_no` CHAR(9) NOT NULL,
+	`user_id` VARCHAR(50) NOT NULL,
+	`user_ip` VARCHAR(20) NOT NULL,
+	`view_reg_date` DATETIME NOT NULL DEFAULT NOW(),
+	PRIMARY KEY (`log_no`)
+)
+
+DELIMITER $$
+CREATE TRIGGER AUCTION_VIEW_LOG_SEQ
+BEFORE INSERT ON AUCTION_VIEW_LOG
+FOR EACH ROW
+BEGIN
+	DECLARE log_id INT;
+	SET log_id = (SELECT COUNT(log_no) FROM AUCTION_VIEW_LOG);
+	SET NEW.log_no = CONCAT('LOG',LPAD(log_id+1, 5, '0'));
+END $$
+DELIMITER ;
 
 CREATE TABLE `CAMP` (
     `camp_no` INT NOT NULL AUTO_INCREMENT,
@@ -194,6 +213,7 @@ CREATE TABLE `MAINSITE` (
     `mainsite_img1` VARCHAR(100),
     `mainsite_img2` VARCHAR(100),
     `mainsite_img3` VARCHAR(100),
+    `temp_no` int NOT NULL DEFAULT '0',
     PRIMARY KEY (`mainsite_no`)
 );
 
@@ -216,22 +236,28 @@ CREATE TABLE `PAYMENT` (
     `payment_no` VARCHAR(10) NOT NULL,
     `payment_product` VARCHAR(50) NOT NULL,
     `payment_sender` VARCHAR(50) NOT NULL,
-    `payment_receiver` VARCHAR(50) NOT NULL,    
-    `payment_method` VARCHAR(20) NOT NULL,    
-    `payment_code` VARCHAR(10) NOT NULL,
-    `payment_reg_time` DATETIME,
-    `payment_price_total` INT NOT NULL,
+    `payment_receiver` VARCHAR(50) NOT NULL, 
+    `payment_Product_Price_Total` INT NOT null,
+    `payment_reg_time` DATETIME  NOT NULL,
+    `payment_code` VARCHAR(10) NOT NULL,  
+    `payment_reference_num` VARCHAR(100), 
+    `payment_method` VARCHAR(20),    
+    `payment_price_total` INT,    
     `payment_price_pay` INT,
-    `payment_price_fee` INT,
-    `payment_reference_fee` INT,
-    `payment_reference_num` VARCHAR(100),   
-    `payment_refund_code` VARCHAR(10),
+    `payment_price_fee` INT, 
+    `payment_method_second` VARCHAR(20),  
+    `payment_price_total_second` INT,    
+    `payment_price_pay_second` INT,
+    `payment_price_fee_second` INT,    
     `payment_refund_reg_time` DATETIME,
+    `payment_refund_code` VARCHAR(10),
+    `payment_refund_reference_num` VARCHAR(100),
     `payment_refund_price_total` INT,
     `payment_refund_price_pay` INT,
     `payment_refund_price_fee` INT,
-    `payment_refund_reference_fee` INT,
-    `payment_refund_reference_num` VARCHAR(100),	
+    `payment_refund_price_total_second` INT,
+    `payment_refund_price_pay_second` INT,
+    `payment_refund_price_fee_second` INT,
 
     PRIMARY KEY (`payment_no`)
 );
@@ -282,7 +308,7 @@ CREATE TABLE `CAMP_RESERVATION` (
     `total_payment_price` INT NOT NULL,
     `total_reservation_reg_car` INT,
     `delete_flag` CHAR(1) NOT NULL DEFAULT 'N',
-    `payment_type` INT NOT NULL,
+    `payment_type` INT NOT null DEFAULT 0,
     PRIMARY KEY (`reservation_no`)
 );
 
@@ -305,7 +331,7 @@ CREATE TABLE `RATING_REVIEW` (
     `rating_review_status` INT NOT NULL DEFAULT 0,
     `rating_review_title` VARCHAR(40),
     `rating_review_content` VARCHAR(1000) NOT NULL,
-    `review_reg_date` DATE NOT NULL,
+    `review_reg_date` DATE,
     `comment` VARCHAR(1000),
     `comment_reg_date` DATE,
     `status_rating` FLOAT NOT NULL DEFAULT 0,
@@ -338,13 +364,13 @@ CREATE TABLE `POST` (
     `post_title` VARCHAR(40),
     `post_content` VARCHAR(1000),
     `post_reg_date` DATETIME default CURRENT_TIMESTAMP,
-    `post_Img1` VARCHAR(100),
-    `post_Img2` VARCHAR(100),
-    `post_Img3` VARCHAR(100),
-    `post_hashtag1` VARCHAR(20),
-    `post_hashtag2` VARCHAR(20),
-    `post_hashtag3` VARCHAR(20),
-    `video` VARCHAR(100),
+    `post_Img1` VARCHAR(1000),
+    `post_Img2` VARCHAR(1000),
+    `post_Img3` VARCHAR(1000),
+    `post_hashtag1` VARCHAR(200),
+    `post_hashtag2` VARCHAR(200),
+    `post_hashtag3` VARCHAR(200),
+    `video` VARCHAR(1000),
     `delete_flag` CHAR(1) NOT NULL DEFAULT 'N',
     PRIMARY KEY (`post_no`),
     FULLTEXT (post_content),
@@ -510,3 +536,4 @@ ALTER TABLE `PAYMENT` ADD FOREIGN KEY (`payment_refund_code`) REFERENCES `PAYMEN
 ALTER TABLE `NOTICE` ADD FOREIGN KEY (`camp_no`) REFERENCES `CAMP`(`camp_no`);
 ALTER TABLE `QNA` ADD FOREIGN KEY (`camp_no`) REFERENCES `CAMP`(`camp_no`);
 ALTER TABLE `REPORT` ADD FOREIGN KEY (`report_type`) REFERENCES `REPORT_TABLE`(`report_type`);
+ALTER TABLE `AUCTION_VIEW_LOG` ADD FOREIGN KEY (`product_no`) REFERENCES `AUCTION_PRODUCT`(`product_no`);

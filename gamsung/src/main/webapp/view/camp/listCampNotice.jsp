@@ -103,7 +103,7 @@ pageEncoding="UTF-8"%>
         <ul>
           <div class="row" style="text-align: center;">
             <div class="col-sm-2 center" style="font-size: large; font-weight: bold;">번호</div>
-            <div class="col-sm-6 notice-title" style="font-size: large; font-weight: bold;">제목</div>
+            <div class="col-sm-6 " style="font-size: large; font-weight: bold;">제목</div>
             <div class="col-sm-2 notice-view-count" style="font-size: large; font-weight: bold;">조회수</div>
             <div class="col-sm-2 notice-reg-date" style="font-size: large; font-weight: bold;">등록일</div>
           </div>
