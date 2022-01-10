@@ -48,6 +48,12 @@ public class AuctionInfoDAOImpl implements AuctionInfoDAO{
 	}
 
 	@Override
+	public void finishBidConcern(String bidConcernNo) {
+		// TODO Auto-generated method stub
+		sqlSession.update("AuctionInfoMapper.finishBidConcern",bidConcernNo);
+	}
+
+	@Override
 	public List<AuctionInfo> listBidConcern(Map<String, Object> map) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("AuctionInfoMapper.listBidConcern",map);
@@ -126,8 +132,8 @@ public class AuctionInfoDAOImpl implements AuctionInfoDAO{
 	}
 	
 	@Override
-	public PaymentCode getPaymentInfo(int auctionGrade) {
-		return sqlSession.selectOne("AuctionInfoMapper.getPaymentInfo",auctionGrade);
+	public PaymentCode getPaymentInfo(PaymentCode paymentCode) {
+		return sqlSession.selectOne("AuctionInfoMapper.getPaymentInfo",paymentCode);
 	}
 	
 	@Override

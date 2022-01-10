@@ -163,9 +163,9 @@ public class AuctionInfoServiceImpl implements AuctionInfoService{
 	}
 
 	@Override
-	public PaymentCode getPaymentInfo(int auctionGrade) {
+	public PaymentCode getPaymentInfo(PaymentCode paymentCode) {
 		// TODO Auto-generated method stub
-		return auctionInfoDAO.getPaymentInfo(auctionGrade);
+		return auctionInfoDAO.getPaymentInfo(paymentCode);
 	}
 
 	@Override

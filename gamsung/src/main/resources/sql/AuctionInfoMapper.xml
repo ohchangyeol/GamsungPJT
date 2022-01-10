@@ -52,6 +52,7 @@
 		<result property="user.auctionGrade" 		column="auction_grade"/>
 		<result property="bidPrice" 				column="bid_price"/>
 		<result property="bidDateTime" 				column="bid_date_time"/>
+		<result property="bidDateTime" 				column="remain_time"/>
 		<result property="concernRegDate" 			column="concern_reg_date"/>
 		<result property="auctionStatus" 			column="auction_status"/>
 		<result property="addProductCount" 			column="add_product_count"/>
@@ -100,10 +101,22 @@
 		WHERE user_id = #{user.id} AND product_no = #{auctionProductNo};
 	</update>
 	
+	<update id="finishBidConcern" parameterType="String">
+		UPDATE BID_CONCERN
+		SET send_mail_flag = 'Y'
+		WHERE bid_concern_no = #{value}	
+	</update>
+	
 	<select id="listBidConcern" parameterType="map" resultMap="info">
-		SELECT bid_concern_no, user_id, bc.product_no AS product_no, ap.product_name AS product_name, concern_reg_date
+		SELECT bid_concern_no, user_id, bc.product_no AS product_no, ap.product_name AS product_name, concern_reg_date, TIMEDIFF(ap.auction_end_time, NOW()) AS remain_time
 		FROM BID_CONCERN AS bc, AUCTION_PRODUCT AS ap
-		WHERE user_id = #{user.id} AND bc.product_no = ap.product_no AND bc.delete_flag = 'N'
+		WHERE bc.product_no = ap.product_no AND bc.delete_flag = 'N'
+		<if test='user == null and search == null'>
+			AND bc.send_mail_flag = 'N'
+		</if>
+		<if test='user != null'>
+			AND user_id = #{user.id}
+		</if>
 		<if test="search != null">
 			LIMIT #{search.pageSize} OFFSET #{search.offset};		
 		</if>
@@ -381,10 +394,10 @@
 				( (auction_status = 'START' OR auction_status = 'WAIT') AND successful_bidder_id = #{id} );
 	</select>
 	
-	<select id="getPaymentInfo" parameterType="int" resultMap="paymentCodeSelectMap">
+	<select id="getPaymentInfo" parameterType="paymentCode" resultMap="paymentCodeSelectMap">
 		SELECT payment_code, payment_code_range_start, payment_code_range_end, payment_code_info, payment_code_fee
 		FROM PAYMENT_CODE			
-		WHERE #{value} BETWEEN payment_code_range_start AND payment_code_range_end AND payment_code LIKE  CONCAT_WS('A','%','%')
+		WHERE #{paymentCodeRangeStart} BETWEEN payment_code_range_start AND payment_code_range_end AND payment_code_info LIKE CONCAT_WS(#{paymentCodeInfo},'%','%')
 	</select>
 	
 	<update id="auctionSuspension" parameterType="user">

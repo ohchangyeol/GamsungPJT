@@ -63,9 +63,6 @@ public class AuctionProductController {
 	@Qualifier("auctionImgUpload")
 	private AuctionImgUpload auctionImgUpload;
 	
-	@Value("#{auctionProperties['crawlingURL']}")
-	private String crawlingURL;
-	
 	@Value("#{auctionProperties['auctionPageSize']}")
 	int auctionPageSize;
 	
@@ -195,8 +192,11 @@ public class AuctionProductController {
 			return "redirect:./listAuctionProduct";
 		}
 		
-		//희망 낙찰가*등급별 수수료 보다 보유 포인트가 적을 경우 충전페이지로 redirect 시킨다. 
-		PaymentCode paymentCode = auctionInfoService.getPaymentInfo(user.getAuctionGrade());
+		//희망 낙찰가*등급별 수수료 보다 보유 포인트가 적을 경우 충전페이지로 redirect 시킨다.
+		PaymentCode tmpPayment = new PaymentCode();
+		tmpPayment.setPaymentCodeRangeStart(user.getAuctionGrade());
+		tmpPayment.setPaymentCodeInfo("상품등록");
+		PaymentCode paymentCode = auctionInfoService.getPaymentInfo(tmpPayment);
 
 		int deductionPoint = auctionProduct.getHopefulBidPrice()*paymentCode.getPaymentCodeFee()/100;
 

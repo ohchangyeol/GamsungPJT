@@ -23,7 +23,7 @@ public interface AuctionInfoService {
 	
 	public AuctionInfo getBidderRanking(AuctionInfo auctionInfo);
 	
-	public PaymentCode getPaymentInfo(int auctionGrade);
+	public PaymentCode getPaymentInfo(PaymentCode paymentCode);
 	
 	public Map<String, Object> listAuctionSuspensionUser(User user, Search search);
 	

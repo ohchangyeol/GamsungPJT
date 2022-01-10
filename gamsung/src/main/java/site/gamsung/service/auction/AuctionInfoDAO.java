@@ -17,6 +17,8 @@ public interface AuctionInfoDAO {
 	
 	public void deleteBidConcern(AuctionInfo auctionInfo);
 	
+	public void finishBidConcern(String bidConcernNo);
+	
 	public List<AuctionInfo> listBidConcern(Map<String, Object> map);
 	
 	public int countBidConcern(User user);
@@ -43,7 +45,7 @@ public interface AuctionInfoDAO {
 	
 	public List<AuctionInfo> getBidderRanking(AuctionInfo auctionInfo);
 	
-	public PaymentCode getPaymentInfo(int auctionGrade);
+	public PaymentCode getPaymentInfo(PaymentCode paymentCode);
 	
 	public void auctionSuspension(User user);
 	
