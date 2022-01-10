@@ -409,6 +409,7 @@
       <script src="../../resources/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script>
       <script src="../../resources/js/plugins.js"></script>
       <script src="../../resources/js/main.js"></script>
+      <script src="../../resources//js/community.js"></script>
 
 
       <script>

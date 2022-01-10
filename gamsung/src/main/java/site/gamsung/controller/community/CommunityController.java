@@ -57,8 +57,10 @@ import site.gamsung.service.domain.Post;
   @RequestMapping (value = "listPost") 
   public String listPost (@ModelAttribute("search") Search search, @RequestParam (value = "postType", required = false) String postType, Model model , HttpSession session) throws Exception{
   
+	  
 	System.out.println("listPost"); // listPost 시작 
 	System.out.println(postType);
+	System.out.println(search);
 
 	User user = (User)session.getAttribute("user"); //Session에서 user받아서 user setting하기. 
 	
@@ -70,7 +72,7 @@ import site.gamsung.service.domain.Post;
   
 	search.setPageSize(communityPageSize); 
 
-	System.out.println(search);
+	//System.out.println(search);
 	
 	if(search.getCurrentPage() == 0 ){ 
 	 search.setCurrentPage(1); 
@@ -93,7 +95,7 @@ import site.gamsung.service.domain.Post;
 	map.put("search",search);
 	map.put("post",post);
   
-	System.out.println(map);
+	//System.out.println(map);
 	List<Post> list = communityService.listPost(map);
   
 	
@@ -127,12 +129,25 @@ import site.gamsung.service.domain.Post;
   
   
 //게시물 등록 Mapping
+//이때   rating_review user id랑 campNo 별점을..  add를 같이 해준다. 
   
 	@RequestMapping(value="addPost", method=RequestMethod.POST) //RequestParam의 별칭은 file type속성의 name과 맞춘다. 
 	public String addPost( @ModelAttribute("post") Post post, @RequestParam("postImg") MultipartFile[] postImg, HttpServletRequest req, HttpSession session) throws Exception {
 	
 	System.out.println("addPost Post Start");
-			
+	
+	int campNo = post.getCampNo();
+	double  statusRating = post.getStatusRating();
+	
+	User user = (User)session.getAttribute("user");
+	String userid = user.getId();
+	
+	System.out.println("campNo::::::::::::::"+campNo);
+	System.out.println("statusRating"+statusRating);		
+	System.out.println("userid"+userid);			
+	
+//	if(campNo != 0 && statusRating != 0 ) {};
+		
 	int	index = 1;
 	
 	for(MultipartFile multpartfile: postImg) {
@@ -177,7 +192,6 @@ import site.gamsung.service.domain.Post;
 		index ++;
 		}
 	}
-	User user = (User)session.getAttribute("user"); 
 	
 	post.setWriter(user);	
 	
