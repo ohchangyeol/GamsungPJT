@@ -150,6 +150,15 @@ public class CampReservationDAOImpl implements CampReservationDAO {
 	public void resetTemp() {
 		sqlSession.update("CampReservationMapper.resetTemp");		
 	}
-	
+
+	@Override
+	public void deleteTemp() {
+		sqlSession.update("CampReservationMapper.deleteTemp");
+	}
+
+	@Override
+	public CampReservation getCampIdByAppendPayment(CampReservation campReservation) {
+		return sqlSession.selectOne("CampReservationMapper.getReservationByAppendPayment", campReservation);
+	}
 }
 

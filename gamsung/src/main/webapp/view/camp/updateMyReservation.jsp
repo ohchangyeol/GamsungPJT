@@ -111,6 +111,7 @@ pageEncoding="UTF-8"%>
                               </div>
 
                               <div class="form-group" id="possible_mainsite" style="padding-top: 20px;">
+                                <div style="text-align: center; color: rgb(0, 38, 255); padding-bottom: 20px;">예약 가능한 주요시설이 없습니다. 예약일을 설정 해 주세요.</div>
                               </div>
                                   
                               <div class="form-group">
@@ -291,6 +292,15 @@ pageEncoding="UTF-8"%>
 
         $( function() {
 
+          $('#request').on('keyup', function() {
+                $('#request_cnt').html("("+$(this).val().length+" / 1000)");
+        
+                if($(this).val().length > 1000) {
+                    $(this).val($(this).val().substring(0, 1000));
+                    $('#request_cnt').html("(1000 / 1000)");
+                }
+            });
+
           $('#enddate').on('change',function(){
                   start = $("#startdate").val();
                   end = $("#enddate").val();
@@ -317,37 +327,41 @@ pageEncoding="UTF-8"%>
                             },
                             success : function(JSONData , status) {
                               var append_node ="";   
-                              append_node += "<div class='row col-xs-2'>" 
-                              append_node += "</div>" 
-                              append_node += "<div class='row col-xs-8'>"   
-                              $.each(JSONData, function(i, mainSite) {
-                                append_node += "<div class='row'>"
-                                append_node += "<div class='col-sm-3 mb-sm-20'>"
-                                append_node += "<img class='mainsiteno' style='cursor: pointer;' src='/uploadfiles/campimg/campbusiness/mainsite/"+mainSite.mainSiteImg1+"'" + "onerror=this.src='/uploadfiles/campimg/campbusiness/camp/no_image.jpg' onclick='nextupdate("+mainSite.mainSiteNo+','+mainSite.campNo+")' />"
-                                append_node += "</div>"
-                                append_node += "<div class='col-lg-9'>"
-                                append_node += "<div class='row'>"
-                                append_node += "<div class='col-xs-12' style='font-size: large; font-weight: bold '>"+mainSite.mainSiteType+"&nbsp;("+mainSite.mainSiteName+")</div>"
-                                append_node += "</div>"
-                                append_node += "<div class='row'>"
-                                append_node += "<div class='col-xs-12' style='margin-top: 15px;'>"+mainSite.mainSiteInfo+"</div>"
-                                append_node += "</div>"
-                                append_node += "<div class='row'>"
-                                append_node += "<div class='col-xs-12'> 기본 사용인원 : "+mainSite.mainSiteMinCapacity+"인 (최대 사용인원 : "+mainSite.mainSiteMaxCapacity+"인)</div>"
-                                append_node += "</div>"
-                                append_node += "<div class='row'>"    
-                                append_node += "<div class='col-xs-12'> 이용가격(1박) : "+mainSite.mainSiteMinPrice+"원 (인원 추가금 : "+mainSite.mainSiteAddPrice+"원)</div>"
-                                append_node += "</div>"
-                                append_node += "<div class='row'>"
-                                append_node += "<div class='col-xs-12'> 주차가능대수 : "+mainSite.mainSiteParkingSize+ "대</div>"
-                                append_node += "</div>"  
-                                append_node += "</div>"
-                                append_node += "</div>"
-                                append_node += "<hr>"
-                                });
-                                append_node += "</div>"
-                                $('#possible_mainsite').append(append_node);
-                              }
+                              if(JSONData == null){
+                                 append_node += "<div style='text-align: center; color: rgb(0, 38, 255); padding-bottom: 20px;'>예약 가능한 주요시설이 없습니다. 예약일을 다시 설정 해 주세요.</div>"
+                              }else{
+                                      append_node += "<div class='row col-xs-2'>" 
+                                      append_node += "</div>" 
+                                      append_node += "<div class='row col-xs-8'>"   
+                                      $.each(JSONData, function(i, mainSite) {
+                                        append_node += "<div class='row'>"
+                                        append_node += "<div class='col-sm-3 mb-sm-20'>"
+                                        append_node += "<img class='mainsiteno' style='cursor: pointer;' src='/uploadfiles/campimg/campbusiness/mainsite/"+mainSite.mainSiteImg1+"'" + "onerror=this.src='/uploadfiles/campimg/campbusiness/camp/no_image.jpg' onclick='nextupdate("+mainSite.mainSiteNo+','+mainSite.campNo+")' />"
+                                        append_node += "</div>"
+                                        append_node += "<div class='col-lg-9'>"
+                                        append_node += "<div class='row'>"
+                                        append_node += "<div class='col-xs-12' style='font-size: large; font-weight: bold '>"+mainSite.mainSiteType+"&nbsp;("+mainSite.mainSiteName+")</div>"
+                                        append_node += "</div>"
+                                        append_node += "<div class='row'>"
+                                        append_node += "<div class='col-xs-12' style='margin-top: 15px;'>"+mainSite.mainSiteInfo+"</div>"
+                                        append_node += "</div>"
+                                        append_node += "<div class='row'>"
+                                        append_node += "<div class='col-xs-12'> 기본 사용인원 : "+mainSite.mainSiteMinCapacity+"인 (최대 사용인원 : "+mainSite.mainSiteMaxCapacity+"인)</div>"
+                                        append_node += "</div>"
+                                        append_node += "<div class='row'>"    
+                                        append_node += "<div class='col-xs-12'> 이용가격(1박) : "+mainSite.mainSiteMinPrice+"원 (인원 추가금 : "+mainSite.mainSiteAddPrice+"원)</div>"
+                                        append_node += "</div>"
+                                        append_node += "<div class='row'>"
+                                        append_node += "<div class='col-xs-12'> 주차가능대수 : "+mainSite.mainSiteParkingSize+ "대</div>"
+                                        append_node += "</div>"  
+                                        append_node += "</div>"
+                                        append_node += "</div>"
+                                        append_node += "<hr>"
+                                        });
+                                        append_node += "</div>"
+                                      }
+                                 $('#possible_mainsite').append(append_node);
+                            }
 
                           });
                         }
@@ -441,6 +455,10 @@ pageEncoding="UTF-8"%>
 
                             if(addpaymentPrice < 0){
                                 $("#refundinfo").text("부분 환불은 불가능 합니다. 예약 취소 후 다시 예약 해주세요.")
+                            }else if(addpaymentPrice == 0){
+                               $("#refundinfo").text("예약 변경 추가 결제 금액이 없습니다. 확인을 누르면 예약 변경 됩니다.")
+                            }else if(addpaymentPrice > 0){
+                               $("#refundinfo").text("예약 변경 추가 결제 금액이 있습니다.")
                             }else{
                               $("#refundinfo").empty();
                             }
@@ -468,6 +486,10 @@ pageEncoding="UTF-8"%>
 
                             if(addpaymentPrice < 0){
                                 $("#refundinfo").text("부분 환불은 불가능 합니다. 예약 취소 후 다시 예약 해주세요.")
+                            }else if(addpaymentPrice == 0){
+                               $("#refundinfo").text("예약 변경 추가 결제 금액이 없습니다. 확인을 누르면 예약 변경 됩니다.")
+                            }else if(addpaymentPrice > 0){
+                               $("#refundinfo").text("예약 변경 추가 결제 금액이 있습니다.")
                             }else{
                               $("#refundinfo").empty();
                             }
@@ -475,7 +497,13 @@ pageEncoding="UTF-8"%>
                         }
                         $(".totaldate").text(total);
 
-                        var append_btn = "<button type='button' class='btn btn-primary' onclick='reservationupdate()'>확인</button>";
+                        if(addpaymentPrice < 0){
+                          var append_btn = "<button type='button' class='btn btn-danger' onclick='reservationupdate()'>예약취소</button>";
+                            }else if(addpaymentPrice == 0){
+                              var append_btn = "<button type='button' class='btn btn-primary' onclick='reservationupdate()'>확인</button>";
+                            }else if(addpaymentPrice > 0){
+                              var append_btn = "<button type='button' class='btn btn-success' onclick='reservationupdate()'>결제하기</button>";
+                            }
 
                         $("#appendbtn").append(append_btn);
                         }
@@ -516,7 +544,11 @@ pageEncoding="UTF-8"%>
                       $("input#addpaymentPrice").val(addpaymentPrice);
                      
                       if(addpaymentPrice < 0){
-                         $("#refundinfo").text("부분 환불은 불가능 합니다. 예약 취소 후 다시 예약 해주세요.")
+                          $("#refundinfo").text("부분 환불은 불가능 합니다. 예약 취소 후 다시 예약 해주세요.")
+                      }else if(addpaymentPrice == 0){
+                          $("#refundinfo").text("예약 변경 추가 결제 금액이 없습니다. 확인을 누르면 예약 변경 됩니다.")
+                      }else if(addpaymentPrice > 0){
+                          $("#refundinfo").text("예약 변경 추가 결제 금액이 있습니다.")
                       }else{
                         $("#refundinfo").empty();
                       }
@@ -543,6 +575,10 @@ pageEncoding="UTF-8"%>
                     
                       if(addpaymentPrice < 0){
                           $("#refundinfo").text("부분 환불은 불가능 합니다. 예약 취소 후 다시 예약 해주세요.")
+                      }else if(addpaymentPrice == 0){
+                          $("#refundinfo").text("예약 변경 추가 결제 금액이 없습니다. 확인을 누르면 예약 변경 됩니다.")
+                      }else if(addpaymentPrice > 0){
+                          $("#refundinfo").text("예약 변경 추가 결제 금액이 있습니다.")
                       }else{
                         $("#refundinfo").empty();
                       }
@@ -550,7 +586,13 @@ pageEncoding="UTF-8"%>
                   }
                   $(".totaldate").text(total);
                   
-                  var append_btn = "<button type='button' class='btn btn-primary' onclick='reservationupdate()'>확인</button>";
+                  if(addpaymentPrice < 0){
+                          var append_btn = "<button type='button' class='btn btn-danger' onclick='reservationupdate()'>예약취소</button>";
+                    }else if(addpaymentPrice == 0){
+                          var append_btn = "<button type='button' class='btn btn-primary' onclick='reservationupdate()'>확인</button>";
+                    }else if(addpaymentPrice > 0){
+                          var append_btn = "<button type='button' class='btn btn-success' onclick='reservationupdate()'>결제하기</button>";
+                    }
 
                   $("#appendbtn").append(append_btn);
           }
