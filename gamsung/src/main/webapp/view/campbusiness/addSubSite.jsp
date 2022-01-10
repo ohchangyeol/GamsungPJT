@@ -74,11 +74,6 @@
 				alert("취소 되었습니다.");
 				window.history.back();
 			});
-			
-			$("#resetform").on("click" , function() {
-				alert("초기화 되었습니다.");				
-				$("form")[0].reset();				
-			});
 		
 		});	
 
@@ -160,16 +155,12 @@
 		
 		<br>
 		<div class="row">
-		    <div class="form-group">
-		        <div class="col-xs-2 col-xs-offset-1">
-		            <button id="resetform" type="button" class="btn btn-secondary">양식 초기화</button>
-		        </div>
-		        
-		        <div class="col-xs-1">
+		    <div class="form-group">      
+		        <div class="col-xs-1 col-xs-offset-1">
 		            <button id="cancle" type="button" class="btn btn-danger">취소</button>
 		        </div>
 		        
-		        <div class="col-xs-1 col-xs-offset-3">
+		        <div class="col-xs-1 col-xs-offset-5">
 		            <button id="save" type="button" class="btn btn-primary">저장</button>
 		        </div>			
 		    </div>

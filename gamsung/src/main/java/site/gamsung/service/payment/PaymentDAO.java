@@ -24,9 +24,9 @@ public interface PaymentDAO {
 	/*
 	 *  Payment
 	 */	
-	public String addMakePayment(Payment payment) throws Exception;
+	public String addPayment(Payment payment) throws Exception;
 	
-	public void addRefundPayment(Payment payment) throws Exception;
+	public void updatePayment(Payment payment) throws Exception;
 	
 	public Payment getPayment(int paymentNo) throws Exception;
 	

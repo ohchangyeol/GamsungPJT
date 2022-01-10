@@ -159,9 +159,9 @@
 
 				columnDefs: [
 					{ targets: 0,  width: 80 },
-					{ targets: 1,  width: 150 },
-					{ targets: 2,  width: 200 },
-					{ targets: 3,  width: 200 },
+					{ targets: 1,  width: 250 },
+					{ targets: 2,  width: 250 },
+					{ targets: 3,  width: 250 },
 					{ targets: 4,  width: 100 },
 					{ targets: 5,  width: 200 },
 					{ targets: 6,  width: 80 },

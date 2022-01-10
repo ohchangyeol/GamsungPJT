@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
 
-<section class="bg-dark-30 showcase-page-header module parallax-bg" data-background="../../resources/images/showcase_bg.jpg">
+<section class="bg-dark-30 showcase-page-header module parallax-bg" data-background="../../resources/images/showcase1.jpg">
   <div class="titan-caption">
     <div class="row">
       <div class="col-xs-12">

@@ -1,6 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8"%>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 	
 <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
@@ -129,11 +127,19 @@ pageEncoding="UTF-8"%>
             <li><a href="typography.html"><i class="fa fa-font"></i> Typography</a></li>
           </ul>
         </li>
-
-        <li><a href="/view/common/myPage.jsp">Mypage</a>
+		
+		<c:if test="${user.role != 'BUSINESS'}">
+        	<li><a href="/view/common/myPage.jsp">MyPage</a>
+        </c:if>
         
-        <li><a href="/campBusiness/goSubMainCampBusiness">사업자회원</a>
-                
+        <c:if test="${user.role == 'ADMIN'}">
+        	<li><a href="/adminMain.jsp">AdminPage</a>
+        </c:if>         
+        
+        <c:if test="${user.role == 'BUSINESS'}">
+        	<li><a href="/campBusiness/goSubMainCampBusiness">BusinessPage</a>
+        </c:if>      
+        
          <li>    
 	         <c:if test="${sessionScope.user.role!=null}">
 		     <a href="#"><button class="btn btn-border-w btn-round btn-xs" type="button" id="logout">LOGOUT</button></a>
