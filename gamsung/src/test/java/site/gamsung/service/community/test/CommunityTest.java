@@ -137,6 +137,18 @@ public class CommunityTest {
 		System.out.println("list(2)::::::::::"+list2);
 		
 	}
+	
+	
+	//@Test
+	public void testGetPost() throws Exception {	
+
+		int postNo = 2;
+		
+		 Post post = communityService.getPost(postNo);
+		 		 
+		System.out.println("testGetPost::::::::::"+post);
+				
+	}
 
 	// @Test
 	public void testAddComment() throws Exception {
@@ -157,6 +169,27 @@ public class CommunityTest {
 		System.out.println("COMMETN:::::" + COMMENT);
 
 	}
+	
+	// @Test
+	public void testGetComment() throws Exception {
+
+		Comment comment = new Comment();
+		User user = new User();
+		Post post = new Post();
+
+		comment.setCommentContent("똥강아지");
+
+		post.setPostNo(1);
+		comment.setPostNo(post);
+		user.setId("user2@gamsung.com");
+		comment.setCommentWriter(user);
+
+		int COMMENT = communityService.addComment(comment);
+
+		System.out.println("COMMETN:::::" + COMMENT);
+
+	}
+
 
 	// @Test
 	public void testAddConcern() throws Exception {
