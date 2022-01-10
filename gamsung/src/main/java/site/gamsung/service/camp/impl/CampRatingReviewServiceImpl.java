@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import site.gamsung.service.camp.CampRatingReviewDAO;
+import site.gamsung.service.camp.CampRatingReviewService;
 import site.gamsung.service.camp.CampSearchDAO;
 import site.gamsung.service.common.RatingReviewService;
 import site.gamsung.service.common.Search;
@@ -17,7 +18,7 @@ import site.gamsung.service.domain.Camp;
 import site.gamsung.service.domain.RatingReview;
 
 @Service("campRatingReviewServiceImpl")
-public class CampRatingReviewServiceImpl implements RatingReviewService {
+public class CampRatingReviewServiceImpl implements RatingReviewService, CampRatingReviewService {
 
 	@Autowired
 	@Qualifier("campRatingReviewDAOImpl")
@@ -85,9 +86,16 @@ public class CampRatingReviewServiceImpl implements RatingReviewService {
 		campRatingReviewDAO.updateCampRatingReview(ratingReviewNo);
 	}
 
+	
+	
+	@Override
+	public RatingReview getCampRatingReview(String reviewNo) {
+		return null;
+	}
+
 	@Override
 	public RatingReview getRatingReview(int ratingReviewNo) {
-		return null;
+		return campRatingReviewDAO.getCampRatingReview(ratingReviewNo);
 	}
 
 	@Override

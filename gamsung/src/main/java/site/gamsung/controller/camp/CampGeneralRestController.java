@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import site.gamsung.service.camp.CampRatingReviewService;
 import site.gamsung.service.camp.CampReservationService;
 import site.gamsung.service.camp.CampSearchService;
 import site.gamsung.service.common.Page;
@@ -29,6 +31,7 @@ import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.Camp;
 import site.gamsung.service.domain.CampReservation;
 import site.gamsung.service.domain.MainSite;
+import site.gamsung.service.domain.RatingReview;
 import site.gamsung.service.domain.User;
 
 @RestController
@@ -47,6 +50,10 @@ public class CampGeneralRestController {
 	@Autowired
 	@Qualifier("campRatingReviewServiceImpl")
 	private RatingReviewService ratingReviewService;
+	
+	@Autowired
+	@Qualifier("campRatingReviewServiceImpl")
+	private CampRatingReviewService campRatingReviewService;
 	
 	public CampGeneralRestController() {
 		System.out.println(this.getClass());
@@ -126,6 +133,22 @@ public class CampGeneralRestController {
 		System.out.println(mainSite);
 		
 		return mainSite;
+	}
+	
+	@RequestMapping( value="json/updateReview", method=RequestMethod.POST)
+	public  RatingReview updateReview (@RequestBody RatingReview ratingReview) throws Exception{
+		
+		System.out.println("/campGeneral/json/updateReview : POST");
+		
+		System.out.println(ratingReview);
+		
+		ratingReviewService.updateRatingReview(ratingReview);
+		
+		ratingReview = ratingReviewService.getRatingReview(ratingReview.getRatingReviewNo());
+								
+		System.out.println(ratingReview);
+		
+		return ratingReview;
 	}
 	
 	   @RequestMapping(value = "json/listMyReservationTable", method = RequestMethod.POST)

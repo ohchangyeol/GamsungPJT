@@ -94,9 +94,9 @@
 							aria-hidden="true"></i> <span>캠핑</span>
 					</a>
 						<ul class="nav nav-children">
-							<li><a id="my_reservation"> 예약 내역</a></li>
-							<li><a id="my_camp_qna"> 등록한 Q&A </a></li>
-							<li><a id="my_camp_review"> 등록한 리뷰 </a></li>
+							<li><a id="my_reservation" style="cursor: pointer;"> 예약 내역</a></li>
+							<li><a id="my_camp_qna" style="cursor: pointer;"> 등록한 Q&A </a></li>
+							<li><a id="my_camp_review" style="cursor: pointer;"> 등록한 리뷰 </a></li>
 						</ul></li>
 					<hr class="separator" />
 					<li class="nav-parent"><a> <i class="fa fa-gavel"
@@ -209,6 +209,10 @@
 
 			$('#my_reservation').on('click',function(){
 			window.location = "/campGeneral/listMyReservation";
+			});
+
+			$('#my_camp_review').on('click',function(){
+			window.location = "/campGeneral/listMyCampRatingReview";
 			});
 
 			$('#auctionAdd').on('click',function(){
