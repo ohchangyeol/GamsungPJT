@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -62,20 +63,32 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="getUser", method=RequestMethod.GET)
-	public String getUser(@ModelAttribute("userId") String id, Model model){
+	public String getUser(@ModelAttribute("userId") String id, Model model, HttpSession session){
 		
 		System.out.println("/user/getUser:GET");
 		
 		User user = userService.getUser(id);
+		User sessionUser=(User)session.getAttribute("user");
 		
 		model.addAttribute("user", user);
 		
+		if(session.getAttribute("user")==null) {
+			return "/";
+		}
+	System.out.println(sessionUser.getRole());
+		if(sessionUser.getRole().equals("ADMIN")) {
+			if(user.getRole().equals("GENERAL")) {
+				return "forward:/view/user/getGeneralUserUpdateAdmin.jsp";
+			}else {
+				return "forward:/view/user/getBusinessUserUpdateAdmin.jsp";
+			}
+		}else {
 		if(user.getRole().equals("GENERAL")) {
-			return "forward:/view/common/maPage.jsp";
+			return "forward:/view/common/myPage.jsp";
 		} else{
 			return "forward:/view/user/getBusinessUserUpdate.jsp";
 		}
-		
+		}
 	}
 	
 	@RequestMapping(value="updateUser", method=RequestMethod.GET)
@@ -99,43 +112,52 @@ public class UserController {
 		System.out.println("입력된 User"+user);
 		
 		
-		User sessionUser=(User)session.getAttribute("user");
-			
-		System.out.println("세션유저"+sessionUser);
+		User dbUser=userService.getUser(user.getId());			
+		
+		System.out.println("디비유저"+dbUser);
 		System.out.println("유저 솔트값"+user.getSalt());
 		System.out.println("유저 비밀번호"+user.getPassword());
 
-		if(sessionUser.getId().equals(user.getId())){
+		if(dbUser.getId().equals(user.getId())){
 			System.out.println("이프문 안이다");
 			if(user.getPassword()==null || user.getPassword()=="") {
 			System.out.println("패스워드가 널이다");
-			user.setPassword(sessionUser.getPassword());
-			System.out.println(sessionUser.getPassword());
+			user.setPassword(dbUser.getPassword());
+			System.out.println(dbUser.getPassword());
 			}else {
 				System.out.println("널이 아니다");
 				user.setPassword(user.getPassword());
-				user.setSalt(sessionUser.getSalt());
+				user.setSalt(dbUser.getSalt());
 			}	
 		}
 			
 			userService.updateUser(user);
 						
 //			User upUser=userService.getUser(user.getId());
-			session.setAttribute("user", user);
+			
 					
-		
-//		String seesionId=((User)session.getAttribute("user")).getId();
-//		
-
-//		session.setAttribute("user", user);
-//		User upSession=(User)session.getAttribute("user");
-//		
-//		System.out.println("변경이 되었는가"+upSession);
-		if(user.getRole().equals("GENERAL")) {
-			return "forward:/view/common/myPage.jsp";
-		}else {
-			return "forward:/view/user/getBusinessUserUpdate.jsp";
-		}
+			User sessionUser=(User)session.getAttribute("user");
+			
+			model.addAttribute("user", user);
+			
+			if(session.getAttribute("user")==null) {
+				return "/";
+			}
+		System.out.println(sessionUser.getRole());
+			if(sessionUser.getRole().equals("ADMIN")) {
+				if(user.getRole().equals("GENERAL")) {
+					return "forward:/view/user/getGeneralUserUpdateAdmin.jsp";
+				}else {
+					return "forward:/view/user/getBusinessUserUpdateAdmin.jsp";
+				}
+			}else {
+				session.setAttribute("user", user);
+			if(user.getRole().equals("GENERAL")) {
+				return "forward:/view/common/myPage.jsp";
+			} else{
+				return "forward:/view/user/getBusinessUserUpdate.jsp";
+			}
+			}
 		
 	}
 	
@@ -149,12 +171,14 @@ public class UserController {
 	
 
 	@RequestMapping(value="login", method=RequestMethod.POST)
-	public String login(@ModelAttribute("user") User user, HttpSession session){
+	public String login(@ModelAttribute("user") User user, HttpSession session, HttpServletRequest req){
+		
+		
 		
 		System.out.println("/user/login : POST");
 		//Business Logic
 		System.out.println(user);
-		User dbUser=userService.checkIdPassword(user);
+		User dbUser=userService.getUser(user.getId());
 //		if(session.getAttribute("eamil")!=null) {
 //		User kUser=userService.getUser(session.getAttribute("eamil").toString());
 //		}
@@ -169,9 +193,7 @@ public class UserController {
 //		}
 		
 		System.out.println(dbUser);
-//		System.out.println("1111111111111"+dbUser);
 		LocalDate now = LocalDate.now();
-//		System.out.println("222222222222222222now"+now);
 		String regDate=now.toString();
 		Date currentDate=dbUser.getCurrentLoginRegDate();
 //		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -180,24 +202,19 @@ public class UserController {
 		if(dbUser.getRole().equals("ADMIN")) {
 			session.setAttribute("user", dbUser);
 			return "forward:/adminMain.jsp";
-		}else if(dbUser.getDormantConversionDate() != null) {
-			session.setAttribute("id", user.getId());
-			System.out.println("휴면회원 아이디"+user.getId());
-			return "/view/user/updateDormantGeneralUserConvert.jsp";
-		}else if(dbUser.getSecessionRegDate() != null) {
-			return "탈퇴회원안내.jsp";
-		}else if(dbUser.getSuspensionDate() != null) {
-			return "이용정지된 회원임.jsp";
 		}
+//		else if(dbUser.getDormantConversionDate() != null) {
+//			session.setAttribute("id", user.getId());
+//			System.out.println("휴면회원 아이디"+user.getId());
+//			return "/view/user/updateDormantGeneralUserConvert.jsp";
+//		}else if(dbUser.getSecessionRegDate() != null) {
+//			return "탈퇴회원안내.jsp";
+//		}else if(dbUser.getSuspensionDate() != null) {
+//			return "이용정지된 회원임.jsp";
+//		}
 		
 		String jsp ="/";
-//		String pw = user.getPassword();
-//		System.out.println("비밀번호"+pw);
-//		System.out.println("솔트"+dbUser.getSalt());
-//		String newPwd = SHA256Util.getEncrypt(pw, dbUser.getSalt());
-//		System.out.println("암호화"+newPwd);
-		
-	
+
 		if(dbUser != null) {
 			System.out.println("로그인 시작");
 			
@@ -206,9 +223,7 @@ public class UserController {
 			if(dbUser.getNickName() != null) {
 				jsp = "redirect:/";
 			}else if(dbUser.getBusinessUserApprovalFlag() != null && dbUser.getBusinessUserApprovalFlag().equals("Y")) {
-				jsp = "forward:/campBusiness/goSubMainCampBusiness"; 
-		    }else {
-		    	return "아직 회원가입 승인안됨.jsp";
+				jsp = "/campBusiness/goSubMainCampBusiness"; 
 		    }
 		} 
 		
@@ -217,6 +232,7 @@ public class UserController {
 		}
 			
 		session.setAttribute("user", dbUser);
+		//System.out.println("컨트롤러에서 세션에 담기나"+(User)session.getAttribute("user"));
 		return jsp;
 	}
 	
@@ -300,49 +316,116 @@ public class UserController {
 //	return "redirect:/"; 
 //	}
 	
-	@RequestMapping(value="addSuspensionUser", method= RequestMethod.POST)
-	public String addSuspensionUser(User user) {
-		System.out.println("이용정지 컨트롤러");
-		System.out.println("이용정지 유저"+user);
-		userService.addSuspensionUser(user);
-		
-		return "회원 리스트.jsp";
-	}
+
+	/*
+	 * @RequestMapping(value="addSuspensionUser", method= RequestMethod.POST) public
+	 * String addSuspensionUser(User user) { System.out.println("이용정지 컨트롤러");
+	 * System.out.println("이용정지 유저"+user); userService.addSuspensionUser(user);
+	 * 
+	 * return "listUser/list"; }
+	 */
 	
-	@RequestMapping( value="listUser" )
-	public String listUser( @ModelAttribute("search") Search search , Model model , HttpServletRequest request) throws Exception{
+//	@RequestMapping( value="listUser" )
+//	public String listUser( @ModelAttribute("search") Search search , Model model , HttpServletRequest request) throws Exception{
+//		
+//		System.out.println("/user/listUser : GET / POST");
+//		
+//		if(search.getCurrentPage() == 0 ){
+//			search.setCurrentPage(1);
+//		}
+//		search.setPageSize(pageSize);
+//		
+//		// Business logic 수행
+//		UserWrapper userWrapper=userService.listUser(search);
+//		
+//		List<User> list = userWrapper.getUsers();
+//		Integer totalCount = userWrapper.getTotalCount();
+//		
+//		search.setCurrentPage(1);
+//	 	search.setPageSize(10);
+//		
+//		userWrapper = userService.listUser(search);
+//		
+//		list = userWrapper.getUsers();
+//		totalCount = (Integer)userWrapper.getTotalCount();
+//		Page resultPage = new Page( search.getCurrentPage(),totalCount, pageUnit, pageSize);
+//		
+//		System.out.println(list);
+//		System.out.println(totalCount);
+//				
+//		// Model 과 View 연결
+//		model.addAttribute("list", list);
+//		model.addAttribute("resultPage", resultPage);
+//		model.addAttribute("search", search);
+//		
+//		return "forward:/view/user/listUser.jsp";
+//	}
+	
+	@RequestMapping( value="listUser/{info}" )
+	public String listUser( @ModelAttribute("search") Search search , Model model , HttpServletRequest request, @PathVariable("info") String info) throws Exception{
 		
 		System.out.println("/user/listUser : GET / POST");
+		
 		
 		if(search.getCurrentPage() == 0 ){
 			search.setCurrentPage(1);
 		}
 		search.setPageSize(pageSize);
+		System.out.println("리스트 서치"+search);
+		System.err.println(info);
 		
-		// Business logic 수행
-		UserWrapper userWrapper=userService.listUser(search);
-		
-		List<User> list = userWrapper.getUsers();
+	 	UserWrapper userWrapper=new UserWrapper();
+	 	
+	 	
+	 	if(info.equals("list")) {
+	 		
+	 		System.out.println("이용중회원 리스트");
+	 	// Business logic 수행
+			userWrapper=userService.listUser(search);
+			
+			
+	 	} else if(info.equals("reportSuspension")) {
+	 		
+	 		System.out.println("신고이용정지 리스트");
+	 		userWrapper=userService.reportSuspencionListUser(search);
+			
+	 	}else if(info.equals("dormant")) {
+	 		
+	 		System.out.println("휴면 리스트");
+	 		userWrapper=userService.dormantListUser(search);
+
+	 	}else if(info.equals("secession")) {
+	 		
+	 		System.out.println("탙퇴 리스트");
+	 		userWrapper=userService.secessionListUser(search);
+	 	}
+	 	
+	 	List<User> list = userWrapper.getUsers();
 		Integer totalCount = userWrapper.getTotalCount();
-		
-		search.setCurrentPage(1);
-	 	search.setPageSize(10);
-		
-		userWrapper = userService.listUser(search);
-		
+				
 		list = userWrapper.getUsers();
 		totalCount = (Integer)userWrapper.getTotalCount();
 		Page resultPage = new Page( search.getCurrentPage(),totalCount, pageUnit, pageSize);
 		
 		System.out.println(list);
 		System.out.println(totalCount);
-				
+		
 		// Model 과 View 연결
 		model.addAttribute("list", list);
 		model.addAttribute("resultPage", resultPage);
 		model.addAttribute("search", search);
+		model.addAttribute("info", info);
 		
 		return "forward:/view/user/listUser.jsp";
+	}
+	
+	@RequestMapping(value="mypage", method=RequestMethod.GET)
+	public String mypage(){
+		
+		System.out.println("/user/mypage : GET");
+		
+		return "redirect:/view/common/myPage.jsp";
+		
 	}
 	
 	

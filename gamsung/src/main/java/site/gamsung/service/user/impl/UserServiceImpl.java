@@ -8,7 +8,6 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -25,7 +24,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import site.gamsung.service.auction.AuctionInfoDAO;
-import site.gamsung.service.auction.AuctionProductDAO;
 import site.gamsung.service.camp.CampReservationDAO;
 import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.User;
@@ -79,7 +77,9 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public User getUser(String id){
-		return userDAO.getUser(id);
+		User user = userDAO.getUser(id);
+	//	user.setReportTotalCount(userDAO.countReoprt(id));
+		return user;
 	}
 
 	@Override
@@ -130,6 +130,10 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public void approvalBusinessUser(User user){
 		userDAO.updateUser(user);
+		SendMail sendMail = new SendMail();
+		String info = "[감성캠핑] 가입승인이 완료되었습니다.";
+		String text = "안녕하세요 감성캠핑입니다. 가입승인이 완료되어 사이트 이용이 가능합니다. 감사합니다.";
+		sendMail.sendMail(user.getId(), info, text);
 	}
 
 
@@ -334,10 +338,11 @@ public class UserServiceImpl implements UserService{
 			System.out.println("솔트"+dbUser.getSalt());
 			String newPwd = SHA256Util.getEncrypt(pw, dbUser.getSalt());
 			System.out.println("암호화"+newPwd);
-			
+			System.out.println("db에서 가져온 암호"+dbUser.getPassword());
 			if(newPwd.equals(dbUser.getPassword())) {
 				return dbUser;
 			}
+			System.out.println("if문 밖에 유져"+dbUser);
 		}
 		
 		
@@ -439,6 +444,30 @@ public class UserServiceImpl implements UserService{
 			}
 	}
 
+	@Override
+	public UserWrapper reportSuspencionListUser(Search search) {
 		
+		UserWrapper wrapper = new UserWrapper(userDAO.reportSuspencionListUser(search), userDAO.countReportSuspencionListUser(search));
+		
+		return wrapper;
+	}
+	
+	@Override
+	public UserWrapper dormantListUser(Search search) {
+		
+		UserWrapper wrapper = new UserWrapper(userDAO.dormantListUser(search), userDAO.countDormantListUser(search));
+		
+		return wrapper;
+	}
+	
+	@Override
+	public UserWrapper secessionListUser(Search search) {
+		
+		UserWrapper wrapper = new UserWrapper(userDAO.secessionListUser(search), userDAO.countSecessionListUser(search));
+		
+		return wrapper;
+	}
+
+	
 	}
 

@@ -257,7 +257,7 @@ width: 50%;
 												<div class="col-sm-6">
 													<input id="secession-date" name="secessionRegDate"
 														class="form-control" type="text"
-														value="${$(this).text().trim().secessionRegDate}" readonly />
+														value="${user.secessionRegDate}" readonly />
 												</div>
 											</div>
 

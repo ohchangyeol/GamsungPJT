@@ -24,7 +24,7 @@
                                 <span>메인화면</span>
                             </a>
                         </li>
-
+                        
                         <hr class="separator" />
                         <li class="nav-parent">
                             <a>
@@ -33,22 +33,22 @@
                             </a>
                             <ul class="nav nav-children">
                                 <li>
-                                    <a href="/user/listUser">
+                                    <a href="/user/listUser/list">
                                         회원목록
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="">
+                                    <a href="/user/listUser/dormant">
                                         휴면회원
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="">
+                                    <a href="/user/listUser/reportSuspension">
                                         신고/이용정지 회원
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="">
+                                    <a href="/user/listUser/secession">
                                         탈퇴회원
                                     </a>
                                 </li>
