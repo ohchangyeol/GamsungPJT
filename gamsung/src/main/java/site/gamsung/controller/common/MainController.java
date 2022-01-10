@@ -46,7 +46,7 @@ public class MainController {
 	//관리자 로그인시 mapping
 	@RequestMapping("/admin")
 	public String adminMainPage(HttpSession httpSession, Model model) {
-		System.out.println("admin");
+		
 		User user = (User)httpSession.getAttribute("user");
 		
 		if(user == null || !user.getRole().equals("ADMIN")) {

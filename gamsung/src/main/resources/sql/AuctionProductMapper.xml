@@ -77,7 +77,7 @@
 							FROM(	SELECT bidder_id, product_no, MAX(bid_price) AS maxPrice
 									FROM AUCTION_HISTORY ah
 									GROUP BY bidder_id, product_no)mp
-							GROUP BY mp.product_no) ct on ap.product_no = ct.product_no
+							GROUP BY mp.product_no) ct ON ap.product_no = ct.product_no
 			WHERE temp_save_flag = 'N' AND auction_status = 'START'AND delete_flag = 'N'
 			<if test="searchKeyword != null">
 				AND product_name LIKE CONCAT_WS(#{searchKeyword},'%','%')

@@ -14,7 +14,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import site.gamsung.service.auction.AuctionInfoService;
 import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.AuctionInfo;
-import site.gamsung.service.domain.AuctionProduct;
 import site.gamsung.service.domain.User;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -46,6 +45,7 @@ public class AuctionInfoServiceTest {
 	
 	//응찰 관심을 등록한 상품을 출력 test
 	//@Test
+	@SuppressWarnings("unchecked")
 	public void testListBidConcern() {
 		
 		User user = new User();
@@ -61,7 +61,7 @@ public class AuctionInfoServiceTest {
 		map.put("search", search);
 		
 		map = auctionInfoService.listBidConcern(map);
-		List<AuctionInfo> list = (List) map.get("list");
+		List<AuctionInfo> list = (List<AuctionInfo>) map.get("list");
 		int count = (int) map.get("totalCount");
 		
 		System.out.println(count);
@@ -97,7 +97,7 @@ public class AuctionInfoServiceTest {
 	}
 	
 	//상품 입찰 내역 출력 test
-	@Test
+	//@Test
 	public void testAuctionHistory() {
 		
 		User user = new User();
@@ -119,16 +119,29 @@ public class AuctionInfoServiceTest {
 			
 	}
 	
-	//사이트의 총 경매 리뷰 등록 등 회수를 출력 test
-	//@Test
-	public void testGetAuctionTotalStatistics() {
-		User user = new User();
-		user.setId("admin");
-		user.setRole("ADMIN");
+	//경매 통계 출력 test
+	@Test
+	@SuppressWarnings("unchecked")
+	public void testGetAuctionStatistics() {
 		
-		AuctionInfo auctionInfo = auctionInfoService.getAuctionTotalStatistics(user);
+		Map<String, Object> map = auctionInfoService.getAuctionStatistics();
 		
-		System.out.println(auctionInfo);
+		List<String> yearList = (List<String>)map.get("yearList");
+		List<String> lastYearList = (List<String>)map.get("lastYearList");
+		List<String> currentYearList = (List<String>)map.get("currentYearList");
+			
+		for(String str : yearList) {
+			System.out.println("yearList : "+str+"\n");
+		}
+		
+		for(String str : lastYearList) {
+			System.out.println("lastYearList : "+str+"\n");
+		}
+		
+		for(String str : currentYearList) {
+			System.out.println("currentYearList : "+str+"\n");
+		}
+	
 	}
 	
 	//@Test
