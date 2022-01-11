@@ -104,17 +104,16 @@
 			var count = 0;
 			$("#addform").on("click" , function() {	
 				$("#ori").append(
-								"<form id='addOne'>"
-								+"<div class='row'>"
+						"<form id='addOne'>"
+							+"<div class='row'>"
 								+"<div class='col-xs-10 form-group'>"
-								+"<hr>"
+									+"<hr>"
 								+"</div>"
-								+"</div>"
-								+"<div class='row'>"
+							+"</div>"
+							+"<div class='row'>"
 								+"<div class='col-xs-1 form-group'>"
 								+"<input type='text' id='paymentCodeRegNum' name='paymentCodeRegNum' value='' class='form-control'>"
 								+"</div>"
-								+"<div class='row'>"
 								+"<div class='col-xs-1 form-group'>"
 								+"<input type='text' id='paymentCode' name='paymentCode' value='' class='form-control'>"
 								+"</div>"
@@ -131,10 +130,10 @@
 								+"<input type='number' id='paymentCodeFee' name='paymentCodeFee' class='form-control' value='0' min='0' max='100'>"
 								+"</div>"
 								+"<div class='col-xs-1 form-group'>"
-								+"<button id='addType' type='button' class='btn btn-primary'>등록</button>"
+								+	"<button id='addType' type='button' class='btn btn-primary'>등록</button>"
 								+"</div>"
-								+"</div>"
-								+"</form>"	);
+							+"</div>"
+						+"</form>"	);
 				    
 				count++; 
 				if( count == 1){

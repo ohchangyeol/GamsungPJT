@@ -111,11 +111,35 @@
                     </li>
                   </ul>
                 </li>
+
                 <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Hover Style</a>
                   <ul class="dropdown-menu">
                     <li><a href="portfolio_hover_black.html">Black</a></li>
                     <li><a href="portfolio_hover_gradient.html">Gradient</a></li>
                   </ul>
+
+
+                <li><a href="/view/common/myPage.jsp">MyPage</a>
+
+                  <c:if test="${user.role == 'ADMIN' || user.role == 'BUSINESS'}">
+                <li><a href="/campBusiness/goSubMainCampBusiness">BusinessPage</a>
+                  </c:if>
+
+                  <c:if test="${user.role == 'ADMIN'}">
+                <li><a href="/adminMain.jsp">AdminPage</a>
+                  </c:if>
+
+                <li>
+                  <c:if test="${sessionScope.user.role!=null}">
+                    <a href="#"><button class="btn btn-border-w btn-round btn-xs" type="button"
+                        id="logout">LOGOUT</button></a>
+                  </c:if>
+                  <c:if test="${sessionScope.user.role==null}">
+                    <a class="modal-basic" href="#modalBasic" id="header-login">
+                      <button class="btn btn-border-w btn-round btn-xs " type="button">LOGIN</button>
+                    </a>
+                  </c:if>
+
                 </li>
                 <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Single</a>
                   <ul class="dropdown-menu">

@@ -41,9 +41,7 @@
     <!-- Main stylesheet and color file-->
     <link href="/resources/css/style.css" rel="stylesheet">
     <link id="color-scheme" href="/resources/css/colors/default.css" rel="stylesheet">    	
-  	<!-- ### headerCampBusiness resources End ### -->
-  	
-  	
+  	<!-- ### headerCampBusiness resources End ### -->  	
   	
   	<script type="text/javascript">  
   	
@@ -93,7 +91,7 @@
 				$("#pointButtonContainer").show();
 			} 
 			
-			if(viewController == "R1"){
+			if(viewController == "R1" && viewController == "R2"){
 				$("#campContainer").show();
 				$("#campButtonContainer").show();
 				$("#paySecond").show();		
