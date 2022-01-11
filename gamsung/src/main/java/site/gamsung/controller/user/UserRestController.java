@@ -1,5 +1,7 @@
 package site.gamsung.controller.user;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.Random;
 
 import javax.servlet.http.HttpSession;
@@ -7,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,33 +32,17 @@ public class UserRestController {
 
 	public UserRestController() {
 	}
-
-//	@RequestMapping(value = "rest/sendEmailAuthNum/{id:.+}", method = RequestMethod.GET)
-//	public Map<String, Object> sendEmailAuthNum(@PathVariable String id, HttpSession session){
-//		System.out.println("rest로 넘어오는지");
-//		
-//		TempKey tmp = new TempKey();
-//		String key=tmp.generateKey(6);
-//		
-//		Map<String, Object> map = new HashMap<String, Object>();
-//		map.put("id", id);
-//		map.put("key", key);
-//		
-//		try {
-//			session.setAttribute(id, key);
-//			
-//			userService.sendEmailAuthNum(id, key);
-//			
-//			System.out.println("id"+id);
-//			System.out.println("mailAuthKey&&"+key);
-//			
-//		} catch(Exception e) {
-//			e.printStackTrace();
-//		}
-//			System.out.println("리턴될 키 값%%"+key);
-//			return map;
-//	}
-
+	
+	@RequestMapping(value="rest/getUser")
+	public String getUser(@RequestBody User user) {
+		System.out.println("rest getUser");
+		System.out.println(user);
+		user=userService.getUser(user.getId());
+		String content = user.getSuspensionContent();
+		System.out.println(content);
+		return content;
+	}
+	
 	@RequestMapping(value = "rest/sendEmailAuthNum/{id:.+}", method = RequestMethod.GET)
 	public String sendEmailAuthNum(@PathVariable String id, HttpSession session) {
 		System.out.println("rest로 넘어오는지");
@@ -234,6 +221,60 @@ public class UserRestController {
 		} return 0;
 		
 	}
-
+	
+	@RequestMapping(value = "rest/approvalBusinessUser", method = RequestMethod.POST)
+	public int approvalBusinessUser(@RequestParam("id") String id, HttpSession session) {
+		System.out.println("실행되는가");
+		System.out.println(id);
+		User user=userService.getUser(id);
+		if(user!=null) {
+			userService.approvalBusinessUser(user);
+			if(id!=null) {
+				return 1;
+			}
+		} return 0;
+		
+	}
+	
+	@RequestMapping(value="rest/addSuspensionUser", method= RequestMethod.POST)
+	public int addSuspensionUser(@RequestBody User user) {
+		
+		System.out.println("이용정지 rest 컨트롤러");
+		System.out.println("이용정지 유저"+user.getId());
+		if(user.getId() != null && user.getId()!="") {
+			userService.addSuspensionUser(user);
+			return 0;
+		}	
+		return 1;
+	}
+	
+	@RequestMapping(value="rest/checkIdPassword", method= RequestMethod.POST)
+	public int checkIdPassword(@RequestBody User user) {
+		
+		System.out.println("idpwed 체크 rest 컨트롤러");
+		
+		if(user.getId() != null && user.getId()!="") {
+			
+			if(userService.checkIdPassword(user)!=null) {
+				User dbUser = userService.getUser(user.getId());
+				if(dbUser.getDormantConversionDate() != null) {
+					System.out.println("휴면회원 아이디"+user.getId());
+					System.out.println("휴면회원임");
+					return 11;
+				}else if(dbUser.getSecessionRegDate() != null) {
+					System.out.println("탈퇴회원");
+					return 12;
+				}else if(dbUser.getSuspensionDate() != null) {
+					System.out.println("이용정지 회원");
+					return 13;
+				}else if(dbUser.getCampName() != null && !(dbUser.getBusinessUserApprovalFlag().equals("Y"))) {
+					return 14;
+				}
+				return 0;
+			}
+		}	
+		return 1;
+	}
+	
 
 }

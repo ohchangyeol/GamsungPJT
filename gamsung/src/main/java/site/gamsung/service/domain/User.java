@@ -25,7 +25,7 @@ public class User {
 	private int countCancelReceive;
 	private Date receiveProhibitionEndDate;
 	private int auctionGrade;	
-	private String tourismBusinessNum;
+	private String campBusinessNum;
 	private int havingPoint;
 	private String bank;
 	private String accountHolder;
@@ -33,6 +33,7 @@ public class User {
 	private String businessUserApprovalFlag;
 	private String auctionSuspension;
 	private String snsId;
+	private String campBusinessImg;
 		
 	///Constructor
 	public User() {
@@ -233,13 +234,13 @@ public class User {
 	}
 
 
-	public String getTourismBusinessNum() {
-		return tourismBusinessNum;
+	public String getcampBusinessNum() {
+		return campBusinessNum;
 	}
 
 
-	public void setTourismBusinessNum(String tourismBusinessNum) {
-		this.tourismBusinessNum = tourismBusinessNum;
+	public void setcampBusinessNum(String campBusinessNum) {
+		this.campBusinessNum = campBusinessNum;
 	}
 
 
@@ -307,6 +308,14 @@ public class User {
 		this.snsId = snsId;
 	}
 
+	public String getCampBusinessImg() {
+		return campBusinessImg;
+	}
+
+	public void setCampBusinessImg(String campBusinessImg) {
+		this.campBusinessImg = campBusinessImg;
+	}
+
 	@Override
 	public String toString() {
 		return "User [role=" + role + ", id=" + id + ", password=" + password + ", salt=" + salt + ", name=" + name
@@ -316,7 +325,7 @@ public class User {
 				+ ", suspensionDate=" + suspensionDate + ", suspensionContent=" + suspensionContent
 				+ ", secessionRegDate=" + secessionRegDate + ", countCancelReceive=" + countCancelReceive
 				+ ", receiveProhibitionEndDate=" + receiveProhibitionEndDate + ", auctionGrade=" + auctionGrade
-				+ ", tourismBusinessNum=" + tourismBusinessNum + ", havingPoint=" + havingPoint + ", bank=" + bank
+				+ ", campBusinessNum=" + campBusinessNum + ", havingPoint=" + havingPoint + ", bank=" + bank
 				+ ", accountHolder=" + accountHolder + ", accountNum=" + accountNum + ", businessUserApprovalFlag="
 				+ businessUserApprovalFlag + ", auctionSuspension=" + auctionSuspension + ", snsId=" + snsId + "]";
 	}

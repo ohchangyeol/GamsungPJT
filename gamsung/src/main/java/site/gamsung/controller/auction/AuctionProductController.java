@@ -250,7 +250,7 @@ public class AuctionProductController {
 		payment.setPaymentCode(paymentCode.getPaymentCode());
 		payment.setPaymentPriceTotalSecond(deductionPoint);
 		try {
-			paymentService.internalPointPayment(payment);
+			paymentService.makePayment(payment);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

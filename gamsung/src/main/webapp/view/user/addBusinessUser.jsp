@@ -161,11 +161,11 @@ width: 50%;
 										</div>
 
 										<div class="form-group row">
-											<label for="tourismBusinessNum"
-												class="col-sm-offset-1 col-sm-3 control-label"><strong>관광사업자
+											<label for="campBusinessNum"
+												class="col-sm-offset-1 col-sm-3 control-label"><strong>사업자
 													등록번호</strong></label>
 											<div class="col-sm-6">
-												<input id="tourismBusinessNum" name="tourismBusinessNum"
+												<input id="campBusinessNum" name="campBusinessNum"
 													class="form-control" type="text" placeholder="숫자만 입력해주세요"
 													maxlength="10" />
 											</div>
@@ -404,11 +404,11 @@ alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+
 						}
 					});
 
-					//관광사업자 번호 중복체크
-					$("input[name='tourismBusinessNum']").on("keyup", function () {
+					//사업자 번호 중복체크
+					$("input[name='campBusinessNum']").on("keyup", function () {
 
 						var regExp = /^[0-9]*$/;
-						var tourismBusinessNum = $("#tourismBusinessNum").val();
+						var campBusinessNum = $("#campBusinessNum").val();
 
 						$.ajax({
 							url: '/user/rest/checkDuplication',
@@ -418,16 +418,16 @@ alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+
 							},
 							method: 'POST',
 							dataType: 'json',
-							data: JSON.stringify({ "tourismBusinessNum": tourismBusinessNum }),
+							data: JSON.stringify({ "campBusinessNum": campBusinessNum }),
 							success: function (result) {
 								console.log('성공: ' + result);
 
 								if (result == 0) {
 									if (email != "") {
-										if (!(regExp.test(tourismBusinessNum))) {
-											$("#tourismBusinessNum").val("");
-											$("#check-business").html("관광사업자 번호는 숫자로만 입력 가능합니다.");
-										} else if (tourismBusinessNum.length == 10) {
+										if (!(regExp.test(campBusinessNum))) {
+											$("#campBusinessNum").val("");
+											$("#check-business").html("사업자 등록번호는 숫자로만 입력 가능합니다.");
+										} else if (campBusinessNum.length == 10) {
 											$("#check-business").html('사용 가능한 번호입니다.');
 											$("#check-business").css('color', 'green');
 										} else {
@@ -435,7 +435,7 @@ alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+
 										}
 
 									} else {
-										$("#check-business").html('이미 사용중이거나 중복된 관광사업자 번호 입니다.');
+										$("#check-business").html('이미 사용중이거나 중복된 사업자 등록번호 입니다.');
 										$("#check-business").css('color', 'red');
 									}
 								}

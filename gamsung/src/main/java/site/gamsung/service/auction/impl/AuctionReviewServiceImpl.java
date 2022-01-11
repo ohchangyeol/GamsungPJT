@@ -131,12 +131,12 @@ public class AuctionReviewServiceImpl implements RatingReviewService, AuctionRev
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 	//empty method
 	@Override
-	public void deleteRatingReview(int ratingReviewNo) {
+	public void deleteRatingReview(RatingReview ratingReview) {
 		// TODO Auto-generated method stub
 		
 	}
-	
+
 }

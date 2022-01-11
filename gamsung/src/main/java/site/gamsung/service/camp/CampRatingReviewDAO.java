@@ -18,8 +18,12 @@ public interface CampRatingReviewDAO {
 	
 	public List<Double> getCampRating(int campNo);
 	
+	public RatingReview getCampRatingReview(int ratingReviewNo);
+	
 	public int updateCampAvgRating (Map<String, Object> map);
 	
 	public int updateCampRatingReview (RatingReview ratingReview);
+	
+	public int deleteCampRatingReviewComment (RatingReview ratingReview);
 	
 }
