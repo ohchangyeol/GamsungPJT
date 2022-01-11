@@ -36,18 +36,27 @@
 		</association>
 	</resultMap>
 	
+	<resultMap id="userDomain" type="user">
+		<result property="id" 							column="user_id" 						jdbcType="VARCHAR"/>
+		<result property="role"							column="role" 							jdbcType="VARCHAR" />
+		<result property="nickName" 					column="nick_name" 						jdbcType="VARCHAR" />
+		<result property="campName" 					column="camp_name" 						jdbcType="VARCHAR" />
+	</resultMap>
+	
 	<!-- 신고 등록 -->
 	<insert id="addReport" parameterType="report" >
-		<choose>
-			<when test='sender.role != "BUSINESS"'>
-				INSERT INTO REPORT (sender_id, receiver_id,report_type , report_content,report_Img1,report_Img2,report_img3,receiver_camp_name)
-				VALUE 	(#{sender.id}, #{receiver.id}, #{reportType:NUMERIC},#{reportContent} , #{reportImgFile1:VARCHAR}, #{reportImgFile2:VARCHAR} ,#{reportImgFile3:VARCHAR}, #{receiverCampName} )
-			</when>
-			<otherwise>
-				INSERT INTO REPORT (sender_id, receiver_id,report_type , report_content,report_Img1,report_Img2,report_img3)
-				VALUE 	(#{sender.id}, #{receiver.id}, #{reportType:NUMERIC},#{reportContent} , #{reportImgFile1:VARCHAR}, #{reportImgFile2:VARCHAR} ,#{reportImgFile3:VARCHAR})
-			</otherwise>
-		</choose>
+		INSERT INTO REPORT (sender_id, receiver_id,report_type , report_content,report_Img1,report_Img2,report_img3,receiver_camp_name)
+		VALUE 	(#{sender.id}, #{receiver.id}, #{reportType:NUMERIC},#{reportContent} , #{reportImgFile1:VARCHAR}, #{reportImgFile2:VARCHAR} ,#{reportImgFile3:VARCHAR}, #{receiverCampName:VARCHAR} )
+<!-- 		<choose> -->
+<!-- 			<when test='sender.role != "BUSINESS"'> -->
+<!-- 				INSERT INTO REPORT (sender_id, receiver_id,report_type , report_content,report_Img1,report_Img2,report_img3,receiver_camp_name) -->
+<!-- 				VALUE 	(#{sender.id}, #{receiver.id}, #{reportType:NUMERIC},#{reportContent} , #{reportImgFile1:VARCHAR}, #{reportImgFile2:VARCHAR} ,#{reportImgFile3:VARCHAR}, #{receiverCampName:VARCHAR} ) -->
+<!-- 			</when> -->
+<!-- 			<otherwise> -->
+<!-- 				INSERT INTO REPORT (sender_id, receiver_id,report_type , report_content,report_Img1,report_Img2,report_img3) -->
+<!-- 				VALUE 	(#{sender.id}, #{receiver.id}, #{reportType:NUMERIC},#{reportContent} , #{reportImgFile1:VARCHAR}, #{reportImgFile2:VARCHAR} ,#{reportImgFile3:VARCHAR}) -->
+<!-- 			</otherwise> -->
+<!-- 		</choose> -->
 	</insert>
 	
 	<!-- 신고 상세 조회 -->
@@ -75,7 +84,7 @@
 		LEFT JOIN USERS su ON r.sender_id = su.user_id
 		LEFT JOIN USERS ru ON r.receiver_id = ru.user_id
 		WHERE delete_flag = 'N'
-		<if test='id != "admin" and id != null and id != ""'>
+		<if test='id != null and id != ""'>
 		AND r.sender_id = #{id}
 		</if>
 		<if test="searchCondition != null and searchCondition != ''">
@@ -161,5 +170,24 @@
 		SET report_status = #{reportStatus}
 		WHERE report_no = #{reportNo}
 	</update>
+	
+	<select id ="findReceiverId" parameterType="report" resultMap="userDomain">
+		
+		SELECT user_id, role ,nick_name , camp_name
+		FROM USERS
+		
+		<choose>
+			<when test=" receiverCampName != null and receiverCampName != ''">
+				WHERE camp_name = #{receiverCampName};
+			</when>
+			<otherwise>
+				WHERE nick_name = #{receiverNickName}; 
+			</otherwise>
+		</choose>
+		
+		
+		<if test="receiverCampName">
+		</if>
+	</select>
 	
 </mapper>

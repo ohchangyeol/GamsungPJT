@@ -11,6 +11,7 @@ public class Report {
 	private User receiver;
 	private String regDate;
 	private String receiverCampName;
+	private String receiverNickName;
 	private String reportImgFile1;
 	private String reportImgFile2;
 	private String reportImgFile3;
@@ -62,7 +63,10 @@ public class Report {
 	public String getReportTypeName() {
 		return reportTypeName;
 	}
-	
+	public String getReceiverNickName() {
+		return receiverNickName;
+	}
+
 	//Setter
 	public void setReportNo(int reportNo) {
 		this.reportNo = reportNo;
@@ -103,14 +107,18 @@ public class Report {
 	public void setReportTypeName(String reportTypeName) {
 		this.reportTypeName = reportTypeName;
 	}
+	public void setReceiverNickName(String receiverNickName) {
+		this.receiverNickName = receiverNickName;
+	}
 
-	
 	@Override
 	public String toString() {
 		return "Report [reportNo=" + reportNo + ", reportType=" + reportType + ", reportContent=" + reportContent
 				+ ", deleteFlag=" + deleteFlag + ", reportStatus=" + reportStatus + ", sender=" + sender + ", receiver="
-				+ receiver + ", regDate=" + regDate + ", receiverCampName=" + receiverCampName + ", reportImgFile1="
-				+ reportImgFile1 + ", reportImgFile2=" + reportImgFile2 + ", reportImgFile3=" + reportImgFile3
-				+ ", reportTypeName=" + reportTypeName + "]\n";
+				+ receiver + ", regDate=" + regDate + ", receiverCampName=" + receiverCampName + ", receiverNickName="
+				+ receiverNickName + ", reportImgFile1=" + reportImgFile1 + ", reportImgFile2=" + reportImgFile2
+				+ ", reportImgFile3=" + reportImgFile3 + ", reportTypeName=" + reportTypeName + "]\n";
 	}
+	
+	
 }

@@ -38,6 +38,7 @@ pageEncoding="UTF-8"%>
 <!-- Theme Custom CSS -->
 <link rel="stylesheet" href="/resources/css/theme-custom.css">
 
+<link href="/resources/css/style.css" rel="stylesheet">
 <!-- Head Libs -->
 <script src="/resources/lib/modernizr/modernizr.js"></script>
 

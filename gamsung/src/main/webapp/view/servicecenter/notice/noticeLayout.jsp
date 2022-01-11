@@ -48,6 +48,7 @@ pageEncoding="UTF-8"%>
               <c:if test='${noticeType == "get"}'>
                 <jsp:include page="../notice/getNotice.jsp"/>
               </c:if>
+              
             </c:if>
 
             
@@ -132,16 +133,6 @@ pageEncoding="UTF-8"%>
       <div class="scroll-up"><a href="#totop"><i class="fa fa-angle-double-up"></i></a></div>
     </main>
     
-    <script>
-      $(document).ready(function(){
-        console.log("notice list start ");
-        // console.log($(".notice-list ul li"));
-        $(".notice-list ul li").on("click" , (e)=>{
-          const noticeNo = $(e.currentTarget).find('.notice-no').text();
-          console.log(noticeNo);
-          self.location ="/servicecenter/getNotice?noticeNo="+noticeNo;
-        })
-      })
-    </script>
+    <script src="../../../resources/js/servicecenter/notice.js"></script>
   </body>
 </html>

@@ -3,6 +3,7 @@ package site.gamsung.service.servicecenter;
 import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.Report;
 import site.gamsung.service.domain.ReportWrapper;
+import site.gamsung.service.domain.User;
 
 public interface ReportService {
 
@@ -17,4 +18,6 @@ public interface ReportService {
 	public int notTotalCountReport() throws Exception;
 
 	public void updateCodeReport(Report report);
+
+	public User findReceiverId(Report report);
 }

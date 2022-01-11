@@ -2,7 +2,7 @@
 pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<div class="row">
+<div class="table-list-padding">
   <div class="col-xs-12">
     <div class="row">
       <h4 class="col-sm-7 mb-0">공지 사항</h4>

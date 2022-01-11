@@ -1,9 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <!DOCTYPE html>
-<html lang="ko" dir="ltr">
+<html lang="en-US" dir="ltr">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,15 +11,13 @@ pageEncoding="UTF-8"%>
     Document Title
     =============================================
     -->
-    <title>Q&A</title>
+    <title>신고 내역</title>
     
     <jsp:include page="/resources/commonLib.jsp"/>
 
-    <link href="../../../resources/css/serviceCenter.css" rel="stylesheet">
-
+    <link id="color-scheme" href="../../../resources/css/serviceCenter.css" rel="stylesheet">
   </head>
-
-  <body data-spy="scroll" data-target=".onpage-navigation" data-offset="60" class="qna" data-userid ="${user.id}" data-qnatype="${qnaType}">
+  <body data-spy="scroll" data-target=".onpage-navigation" data-offset="60" class="myReport">
     <main>
       <div class="page-loader">
         <div class="loader">Loading...</div>
@@ -30,81 +27,106 @@ pageEncoding="UTF-8"%>
       <jsp:include page="../../common/header.jsp"/>
       <!-- header End -->
 
-      <div class="main">
-        <section class="module bg-dark-60 contact-page-header bg-dark" data-background="assets/images/contact_bg.jpg">
+      <div class="main sc-main">
+        <section class="module bg-dark-30 about-page-header" data-background="assets/images/about_bg.jpg">
           <div class="container">
             <div class="row">
               <div class="col-sm-6 col-sm-offset-3">
-                <h2 class="module-title font-alt">Q&A 게시판</h2>
-                <div class="subtitle">
-                  <p>갬성캠핑은 회원님들의 소중한 의견에 항상 귀 기울이고 있습니다.</p>
-                  <p>사이트 내 궁금하신 점이나 의견을 남겨주시면 최대한 빠르고 자세히 답변해 드리겠습니다.</p>
-                </div>
-                <div class="search-box">
-                  <form role="form" class="qna-search">
-                    <input class="form-control" type="text" placeholder="Search...">
-                    <button class="search-btn" type="submit"><i class="fa fa-search"></i></button>
-                  </form>
-                </div>
+                <h1 class="module-title font-alt mb-0">신고 내역</h1>
               </div>
             </div>
           </div>
         </section>
-        
         <section class="module">
           <div class="container">
-            <c:if test="${!empty qnaType}">
-              <c:choose>
-                <c:when test='${qnaType == "list"}'>
-                  <div class="sub-title">
-                    <h4>전체 Q&A </h4>
-                    <sub>${wrapper.totalCount}건</sub>
-                  </div>
-                </c:when>
-                <c:when test='${qnaType == "get"}'>
-                  <div class="sub-title">
-                    <h4>Q&A 상세</h4>
-                    <div class="btn-box">
-                      <button class="btn btn-d btn-round qna-back" type="button">목록가기</button>
+
+            <section class="panel">
+              <header class="panel-heading">
+                <div class="row">
+                  <h4 class="col-sm-7 mb-0">신고 내역 조회</h4>
+                  <div class="col-sm-5 mb-sm-0">
+                    <div class="row">
+                    <form role="form" class="rerport-search">
+                      <div class="col-sm-4">
+                      <select class="form-control">
+                        <option selected="selected">제목+내용</option>
+                        <option>제목</option>
+                        <option>내용</option>
+                      </select>
+                      </div>
+                      <div class="col-sm-8">
+                      <div class="search-box">
+                        <input class="form-control" type="text" placeholder="Search...">
+                        <button class="search-btn" type="submit"><i class="fa fa-search"></i></button>
+                      </div>
+                      </div>
+                      
+                    </form>
                     </div>
                   </div>
-                </c:when>
-                <c:when test='${qnaType == "add"}'>
-                  <div class="sub-title">
-                    <h4>Q&A 등록</h4>
-                    <div class="btn-box">
-                      <button id="qna-send" class="btn btn-d btn-round" type="button">등록하기</button>
-                      <button class="btn btn-d btn-round qna-back" type="button">목록가기</button>
-                    </div>
-                  </div>
-                </c:when>
-                <c:when test='${qnaType == "my"}'>
-                  <div class="sub-title">
-                    <h4>내 Q&A 조회</h4>
-                    <sub>${wrapper.totalCount}건</sub>
-                    <div class="btn-box">
-                      <button class="btn btn-d btn-round qna-back" type="button">목록가기</button>
-                    </div>
-                  </div>
-                </c:when>
-                <c:otherwise></c:otherwise>
-              </c:choose>
-            </c:if>
             
-            <hr class="divider-w mt-10 mb-20">
-            <c:if test="${!empty qnaType}">
-              <c:choose>
-                <c:when test='${qnaType == "list"}'><jsp:include page="../qna/listQna.jsp"/></c:when>
-                <c:when test='${qnaType == "my"}'><jsp:include page="../qna/listMyQna.jsp"/></c:when>
-                <c:when test='${qnaType == "get"}'><jsp:include page="../qna/getQna.jsp"/></c:when>
-                <c:when test='${qnaType == "add"}'><jsp:include page="../qna/addQna.jsp"/></c:when>
-                <c:otherwise></c:otherwise>
-              </c:choose>
-            </c:if>
+                </div>
+              </header>
+              <hr class="divider-w mt-10 mb-20">
+              <div class="panel-body my-report">
+                <div class="table-responsive">
+                  <table class="table table-hover mb-none">
+                    <thead>
+                      <tr>
+                        <th>신고번호</th>
+                        <th>신고자 아이디</th>
+                        <th>신고 유형</th>
+                        <th>상대방 아이디</th>
+                        <th>상태</th>
+                        <th>접수일자</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    <c:forEach var ="report" items="${wrapper.reports}">
+                      <tr>
+                        <td class="report-no">${report.reportNo}</td>
+                        <td>
+                          ${report.sender.nickName}
+                          ${report.sender.campName}
+                        </td>
+                        <td>${report.reportTypeName}</td>
+                        <td>
+                          ${report.receiver.nickName}
+                          ${report.receiver.campName}
+                        </td>
+                        <td>
+                          <c:if test="${report.reportStatus == 0 }">접수완료</c:if>
+                          <c:if test="${report.reportStatus == 1 }">처리승인</c:if>
+                          <c:if test="${report.reportStatus == 2 }">처리거부</c:if>
+                        </td>
+                        <td>${report.regDate}</td>
+                      </tr>
+                    </c:forEach>
+                      
+            
+                    </tbody>
+                  </table>
+                </div>
+                <div class="pagination font-alt page-nav">
+                  <a href="#">
+                    <i class="fa fa-angle-left"></i>
+                  </a>
+                  <a class="active" href="#">1</a>
+                  <a href="#">2</a>
+                  <a href="#">3</a>
+                  <a href="#">4</a>
+                  <a href="#">
+                    <i class="fa fa-angle-right"></i>
+                  </a>
+                  </div>
+              </div>
+            </section>
+
+            
+            
 
           </div>
         </section>
-
         <div class="module-small bg-dark">
           <div class="container">
             <div class="row">
@@ -180,13 +202,9 @@ pageEncoding="UTF-8"%>
         </footer>
       </div>
       <div class="scroll-up"><a href="#totop"><i class="fa fa-angle-double-up"></i></a></div>
-      <div class="qna-btn-box">
-        <button class="btn btn-border-d btn-round qna-btn" type="button" data-type="1">내 Q&A 0 건</button>
-        <button class="btn btn-border-d btn-round qna-btn" type="button" data-type="2">Q&A 글쓰기</button>
-      </div>
     </main>
     
-    <script src="../../../resources/js/servicecenter/qna.js"></script>
+    <script src="../../../resources/js/servicecenter/report.js"></script>
     
   </body>
 </html>

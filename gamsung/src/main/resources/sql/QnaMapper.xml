@@ -13,7 +13,7 @@
 		<result property="deleteFlag" 	   	column="delete_flag" 		jdbcType="CHAR"/>
 		<result property="questionTitle"   	column="question_title" 	jdbcType="VARCHAR"/>
 		<result property="questionContent" 	column="question_content" 	jdbcType="VARCHAR"/>
-		<result property="questionRegDate" 	column="question_rag_date" 	jdbcType="VARCHAR"/>
+		<result property="questionRegDate" 	column="question_reg_date" 	jdbcType="VARCHAR"/>
 		<result property="viewCount" 		column="view_count" 		jdbcType="NUMERIC"/>
 		<result property="answerContent" 	column="answer_content" 	jdbcType="VARCHAR"/>
 		<result property="answerRegDate" 	column="answer_reg_date" 	jdbcType="VARCHAR"/>
@@ -95,7 +95,7 @@
 	
 	<!-- QnA 목록 조회 -->
 	<select id="listQna" parameterType="search" resultMap="QnaDomain">
-		SELECT q.*, u.nick_name 
+		SELECT q.*, u.nick_name sender_nick_name
 		FROM QNA q LEFT JOIN users u 
 		ON q.sender_id = u.user_id
 		WHERE delete_flag = 'N'
@@ -112,7 +112,7 @@
 				</otherwise>
 			</choose>
 		</trim>
-		<if test="searchCondition != null searchCondition != ''">
+		<if test="searchCondition != null and searchCondition != ''">
 			<trim prefix="AND">
 				<if test="searchKeyword !='' and searchKeyword != null"> 
 					<!-- 제목 + 내용 -->

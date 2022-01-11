@@ -41,7 +41,6 @@
 		      <result property="dormantConversionDate"     column="dormant_reg_date"           jdbcType="DATE" />
 		      <result property="secessionRegDate"          column="secession_reg_date"         jdbcType="DATE" />
 		      <result property="suspensionDate"            column="suspension_reg_date"        jdbcType="DATE" />
-		      <result property="tourismBusinessNum"        column="tourism_business_num"       jdbcType="VARCHAR" />
 		      <result property="suspensionContent"         column="suspension_content"         jdbcType="VARCHAR" />
 		      <result property="auctionGrade"              column="auction_grade"              jdbcType="SMALLINT" />
 		</association>

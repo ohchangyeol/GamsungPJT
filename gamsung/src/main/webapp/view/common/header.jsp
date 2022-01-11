@@ -30,8 +30,9 @@ pageEncoding="UTF-8"%>
         	<ul class="dropdown-menu">
 				<li><a href="/servicecenter/listNotice">공지사항</a></li>
         <li><a href="/servicecenter/listQna"> Q&A </a></li>
-        <li><a href="/servicecenter/listReport/my">내 신고 내역</a></li>
-
+        <c:if test="${sessionScope.user.role!=null}">
+          <li><a href="/servicecenter/listReport?id=${user.id}">내 신고 내역</a></li>
+        </c:if>
 			</ul>
         </li>
     
