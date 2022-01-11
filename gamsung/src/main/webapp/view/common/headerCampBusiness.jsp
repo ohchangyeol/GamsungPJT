@@ -128,7 +128,7 @@
 						<li><a href="/payment/managePoint">포인트 관리</a></li>
 						<li><a href="/payment/listPayment">결제 내역</a></li>
 						<li><br></li>
-						<li><a href="../view/campbusiness/campMypage.jsp">내 정보</a></li>
+						<li><a href="../view/user/getBusinessUserUpdate.jsp">내 정보</a></li>
 						<li><br></li>
 						<li><a href="/user/logout">로그아웃</a></li>
 						<li><br></li>

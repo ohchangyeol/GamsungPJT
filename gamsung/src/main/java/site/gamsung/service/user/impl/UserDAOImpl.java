@@ -104,13 +104,13 @@ public class UserDAOImpl implements UserDAO{
 	}
 
 	@Override
-	public List<User> reportSuspencionListUser(Search search) {
-		return sqlSession.selectList("UserMapper.reportSuspencionListUser", search);
+	public List<User> reportSuspensionListUser(Search search) {
+		return sqlSession.selectList("UserMapper.reportSuspensionListUser", search);
 	}
 
 	@Override
-	public int countReportSuspencionListUser(Search search) {
-		return sqlSession.selectOne("UserMapper.countReportSuspencionListUser", search);
+	public int countReportSuspensionListUser(Search search) {
+		return sqlSession.selectOne("UserMapper.countReportSuspensionListUser", search);
 	}
 
 	@Override

@@ -318,7 +318,7 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [role=" + role + ", id=" + id + ", password=" + password + ", salt=" + salt + ", name=" + name
+		return "User [role=" + role + ", id=" + id+ ", salt=" + salt + ", name=" + name
 				+ ", nickName=" + nickName + ", campName=" + campName + ", campCall=" + campCall + ", phone=" + phone
 				+ ", addr=" + addr + ", addUserRegDate=" + addUserRegDate + ", reportTotalCount=" + reportTotalCount
 				+ ", currentLoginRegDate=" + currentLoginRegDate + ", dormantConversionDate=" + dormantConversionDate

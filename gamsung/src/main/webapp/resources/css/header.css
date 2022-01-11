@@ -77,13 +77,13 @@
   height: 100%;
 }
 
-#findIdModal {
+#findIdPwdModal {
   z-index: 1041;
   position: fixed;
   width: 100%;
   height: 100vh;
 }
-#findIdModal .find {
+#findIdPwdModal .find {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -92,14 +92,21 @@
   height: 365px;
 }
 
-#findIdModal .find .panel .tab-content .tab-pane .panel-body .form-group input {
+#findIdPwdModal
+  .find
+  .panel
+  .tab-content
+  .tab-pane
+  .panel-body
+  .form-group
+  input {
   border-radius: 100px;
   padding-left: 20px;
   height: 40px;
   font-size: 13px;
 }
 
-#findIdModal
+#findIdPwdModal
   .find
   .panel
   .tab-content
@@ -117,6 +124,7 @@
   position: absolute;
   bottom: 10%;
   right: 7%;
+  margin-bottom: 15px;
 }
 
 .white-popup-block {
@@ -140,4 +148,9 @@
 
 #modalBasic .panel footer {
   border-top: solid 1px #fff;
+}
+
+.nav-tabs li a,
+.nav-tabs li a:hover {
+  width: 223px;
 }
