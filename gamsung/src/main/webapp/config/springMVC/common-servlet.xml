@@ -51,14 +51,18 @@
 	          <mvc:annotation-driven /> 사용으로 interceptor 를 직접
 	          RequestMappingHandlerMapping 에 주입 할 수 없으니 
 	       	  아래의 설정방법으로 interceptor 주입-->
-<!--     	<mvc:interceptors>
+    	<mvc:interceptors>
 		
    		<mvc:interceptor>
-			<mvc:mapping path="/user/**"/>
+			<mvc:mapping path="/**/*"/>
+			<mvc:exclude-mapping path="/resources/**"/>
+			<mvc:exclude-mapping path="/uploadfiles/**"/>
+			<mvc:exclude-mapping path="/lib/**"/>
+			<mvc:exclude-mapping path="/bootstrap/**"/>
 			<bean class="site.gamsung.common.interceptor.LogonCheckInterceptor" />
    		</mvc:interceptor>
 
-   	</mvc:interceptors>  -->
+   	</mvc:interceptors> 
 	<!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 	
 	 
@@ -94,6 +98,8 @@
 	--> 
     <mvc:resources mapping="/resources/**" location="/resources/" />
     <mvc:resources mapping="/uploadfiles/**" location="/uploadfiles/" />
+    <mvc:resources mapping="/lib/**" location="/lib/" />
+    <mvc:resources mapping="/bootstrap/**" location="/bootstrap/" />
 	<!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
    	
 

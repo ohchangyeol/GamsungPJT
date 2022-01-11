@@ -28,7 +28,7 @@ public class UserServiceTest {
 	@Qualifier("userServiceImpl")
 	private UserService userService;
 
-	@Test
+	//@Test
 	public void testAddUser() throws Exception{
 		
 		User user = new User();
@@ -134,21 +134,21 @@ public class UserServiceTest {
 		System.out.println(result);
 	}
 	
-	@Test
+	//@Test
 	public void testUpdatePassword() throws Exception{
 		
-		User user = userService.getUser("test@test.com");
+		User user = userService.getUser("user1@gamsung.com");
 		user.setPassword("3333");
 		
 		userService.updateUser(user);
 		
 	}
 	
-	//@Test
+	@Test
 	public void testUpdateTempPassword() throws Exception{
 		
 		User user = new User();
-		String id = "test@test.com";
+		String id = "user2@gamsung.com";
 		user = userService.getUser(id);
 		if(user.getSalt()==null) {
 			String newSalt=SHA256Util.generateSalt();

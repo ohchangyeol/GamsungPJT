@@ -33,7 +33,7 @@ public class User {
 	private String businessUserApprovalFlag;
 	private String auctionSuspension;
 	private String snsId;
-	private String campImg;
+	private String campBusinessImg;
 		
 	///Constructor
 	public User() {
@@ -308,12 +308,12 @@ public class User {
 		this.snsId = snsId;
 	}
 
-	public String getcampImg() {
-		return campImg;
+	public String getCampBusinessImg() {
+		return campBusinessImg;
 	}
 
-	public void setcampImg(String campImg) {
-		this.campImg = campImg;
+	public void setCampBusinessImg(String campBusinessImg) {
+		this.campBusinessImg = campBusinessImg;
 	}
 
 	@Override

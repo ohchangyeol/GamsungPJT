@@ -296,10 +296,7 @@ public class UserController {
 				if (userEmail.getSnsId() != null) {
 					session.setAttribute("user", userEmail);
 					return "redirect:/";
-				} else {
-					// 우리 회원임
-					return "redirect:/";
-				}
+				} 
 			}
 		}
 		return "forward:/view/user/addKakaoUser.jsp";
