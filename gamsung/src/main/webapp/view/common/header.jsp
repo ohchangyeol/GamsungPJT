@@ -125,7 +125,7 @@
                 </c:if>	
                 
                 <c:if test="${user.role == 'ADMIN' }">
-                    <li><a href="/campBusiness/goSubMainCampBusiness">AdminPage</a>
+                    <li><a href="/adminMain.jsp">AdminPage</a>
                 </c:if>
                 <!-- My / Business / Admin  End -->
 
