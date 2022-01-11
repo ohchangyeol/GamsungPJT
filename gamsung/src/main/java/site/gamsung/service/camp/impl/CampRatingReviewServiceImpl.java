@@ -17,7 +17,7 @@ import site.gamsung.service.domain.Camp;
 import site.gamsung.service.domain.RatingReview;
 
 @Service("campRatingReviewServiceImpl")
-public class CampRatingReviewServiceImpl implements RatingReviewService {
+public class CampRatingReviewServiceImpl implements RatingReviewService{
 
 	@Autowired
 	@Qualifier("campRatingReviewDAOImpl")
@@ -62,6 +62,8 @@ public class CampRatingReviewServiceImpl implements RatingReviewService {
 		List<RatingReview> list = new ArrayList<RatingReview>();
 		Map<String, Object> map = new HashMap<String, Object>();
 		
+		System.out.println("서비스 :: "+search.getCampNo());
+		
 		if(search.getCampNo() != 0) {
 			list = campRatingReviewDAO.listCampRatingReview(search);
 			Camp camp = campSearchDAO.getCamp(search.getCampNo());
@@ -73,7 +75,7 @@ public class CampRatingReviewServiceImpl implements RatingReviewService {
 		}
 		
 		int totalCount = campRatingReviewDAO.getTotalCount(search);
-				
+				System.out.println("서비스 :: "+totalCount);
 		map.put("list", list);
 		map.put("totalCount", totalCount);
 				
@@ -81,18 +83,18 @@ public class CampRatingReviewServiceImpl implements RatingReviewService {
 	}
 	
 	@Override
-	public void updateRatingReview(RatingReview ratingReviewNo) {
-		campRatingReviewDAO.updateCampRatingReview(ratingReviewNo);
+	public void updateRatingReview(RatingReview ratingReview) {
+		campRatingReviewDAO.updateCampRatingReview(ratingReview);
+	}
+		
+	@Override
+	public void deleteRatingReview(RatingReview ratingReview) {
+		campRatingReviewDAO.deleteCampRatingReviewComment(ratingReview);
 	}
 
 	@Override
 	public RatingReview getRatingReview(int ratingReviewNo) {
-		return null;
-	}
-
-	@Override
-	public void deleteRatingReview(int ratingReviewNo) {
-	
+		return campRatingReviewDAO.getCampRatingReview(ratingReviewNo);
 	}
 	
 }

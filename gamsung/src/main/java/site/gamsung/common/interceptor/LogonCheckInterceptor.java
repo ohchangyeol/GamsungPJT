@@ -31,23 +31,26 @@ public class LogonCheckInterceptor extends HandlerInterceptorAdapter {
 	
 	///Method
 	public boolean preHandle(	HttpServletRequest request,
-														HttpServletResponse response, 
-														Object handler) throws Exception {
+								HttpServletResponse response, 
+								Object handler) throws Exception {
 		
 		System.out.println("\n[ LogonCheckInterceptor start........]");
 		
 		//==> 로그인 유무확인
-		HttpSession session = request.getSession(true);
+		HttpSession session = request.getSession();
 		User user = (User)session.getAttribute("user");
-
+		
+		String uri = request.getRequestURI();
+		System.out.println("uri : "+uri);
+		
 		//==> 로그인한 회원이라면...
 		if(   user != null   )  {
 			//==> 로그인 상태에서 접근 불가 URI
-			String uri = request.getRequestURI();
+			
 			
 			if(		uri.indexOf("addUser") != -1 ||	uri.indexOf("login") != -1 		|| 
-					uri.indexOf("checkDuplication") != -1 ){
-				request.getRequestDispatcher("/main.jsp").forward(request, response);
+					uri.indexOf("kakaoCallback") != -1 ){
+				request.getRequestDispatcher("/").forward(request, response);
 				System.out.println("[ 로그인 상태.. 로그인 후 불필요 한 요구.... ]");
 				System.out.println("[ LogonCheckInterceptor end........]\n");
 				return false;
@@ -57,20 +60,28 @@ public class LogonCheckInterceptor extends HandlerInterceptorAdapter {
 			System.out.println("[ LogonCheckInterceptor end........]\n");
 			return true;
 		}else{ //==> 미 로그인한 화원이라면...
-			//==> 로그인 시도 중.....
-			String uri = request.getRequestURI();
-			
-			if(		uri.indexOf("addUser") != -1 ||	uri.indexOf("login") != -1 		|| 
-					uri.indexOf("checkDuplication") != -1 ){
-				System.out.println("[ 로그 시도 상태 .... ]");
+			//==> 로그인 시도 중.....			
+			if(		uri.indexOf("addUser") != -1 || uri.indexOf("login") != -1 || uri.indexOf("checkIdPassword") != -1 || uri.indexOf("findId") != -1 
+					|| uri.indexOf("findPassword") != -1 || uri.indexOf("kakaoCallback") != -1 ||uri.indexOf("listCamp") != -1 || uri.indexOf("getCamp") != -1 
+					|| uri.indexOf("listCampQna") != -1 || uri.indexOf("listCampRatingReview") != -1 || uri.indexOf("listCampNotice") != -1
+					|| uri.indexOf("listWaitAuctionProduct") != -1 || uri.indexOf("getCampQna") != -1 || uri.indexOf("listAuctionProduct") != -1){
+				System.out.println("[ 로그 시도 또는 비회원 접근가능 루트 .... ]");
 				System.out.println("[ LogonCheckInterceptor end........]\n");
 				return true;
 			}
 			
-			request.getRequestDispatcher("/main.jsp").forward(request, response);
+			request.getRequestDispatcher("/").forward(request, response);
 			System.out.println("[ 로그인 이전 ... ]");
 			System.out.println("[ LogonCheckInterceptor end........]\n");
 			return false;
 		}
+		
+		
+		
+		
+		
+		
+		
+		
 	}
 }//end of class

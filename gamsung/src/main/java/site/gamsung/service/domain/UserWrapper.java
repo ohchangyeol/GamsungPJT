@@ -6,8 +6,9 @@ public class UserWrapper {
 
 	private List<User> users;
 	private int totalCount;
+	private String info;
 	
-	protected UserWrapper() {}
+	public UserWrapper() {}
 	
 	public UserWrapper(List<User> users, int totalCount) {
 		this.users = users;
@@ -20,5 +21,15 @@ public class UserWrapper {
 
 	public int getTotalCount() {
 		return totalCount;
+	}
+
+	public String getInfo() {
+		return info;
+	}
+
+	public void setInfo(String info) {
+		this.info = info;
 	}	
+	
+	
 }

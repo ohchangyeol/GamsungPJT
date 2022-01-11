@@ -11,7 +11,7 @@
 					<h3 class="modal-title" align="center">로그인</h3>
 				</header>
 				<div class="panel-body">
-					<form action="" class="was-validated">
+					<form id="login-modal-form" action="" class="was-validated">
 						<div class="form-group">
 							<input type="text" class="form-control" id="modalId" placeholder="아이디를 입력하세요." name="id"
 								required>
@@ -21,7 +21,7 @@
 								name="password" required>
 						</div>
 						<div>
-							<button class="btn btn-g btn-circle" type="submit" id="loginBtn">로그인</button>
+							<button class="btn btn-g btn-circle modal-dismiss" type="button" id="loginBtn">로그인</button>
 
 						</div>
 

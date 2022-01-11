@@ -47,7 +47,9 @@
   	
   	<!-- ### listPayment resources Start ### -->
  	<link rel="stylesheet" href="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.css"/> 
- 	<script src="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.js"></script> 	
+ 	<script src="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.js"></script> 
+ 	<script src="https://code.jquery.com/jquery-3.5.1.js"></script> 
+ 	<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script> 	
   	
   	<script type="text/javascript">
   				
@@ -159,9 +161,9 @@
 
 				columnDefs: [
 					{ targets: 0,  width: 80 },
-					{ targets: 1,  width: 150 },
-					{ targets: 2,  width: 200 },
-					{ targets: 3,  width: 200 },
+					{ targets: 1,  width: 250 },
+					{ targets: 2,  width: 250 },
+					{ targets: 3,  width: 250 },
 					{ targets: 4,  width: 100 },
 					{ targets: 5,  width: 200 },
 					{ targets: 6,  width: 80 },
@@ -198,7 +200,27 @@
 				    {targets: 3, data: "paymentReceiver"},
 				    {targets: 4, data: "paymentProductPriceTotal"},
 				    {targets: 5, data: "paymentRegTime"},
-				    {targets: 6, data: "paymentCode"},
+				    {targets: 6, data: "paymentCode"
+				    	render: function(data, type) {
+		                    if (type === 'display') {
+		                        let info = '';
+		 
+		                        switch (data) {
+		                            case 'P1':
+		                            	info = '포인트 구매';
+		                                break;
+		                            case 'P2':
+		                            	info = '포인트 출금';
+		                                break;
+		                           
+		                        }
+		 
+		                        return info;
+		                    }
+		 
+		                    return data;
+		                }   
+				    },
 				    {targets: 7, data: "paymentReferenceNum"},
 				    {targets: 8, data: "paymentReferenceFee"},
 				    {targets: 9, data: "paymentMethod"},
