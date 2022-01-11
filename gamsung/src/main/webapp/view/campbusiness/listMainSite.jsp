@@ -109,39 +109,7 @@
 				<p class="text-primary">
 		    		전체  ${resultPage.totalCount} 건수, 현재 ${resultPage.currentPage}  페이지
 		    	</p>
-			</div>
-		
-			<div class="col-md-6 text-right">
-				<form class="form-inline" name="detailForm">
-				<input type="hidden" name="campNo" value="${campSession.campNo}">
-				<input type="hidden" name="role" value="${campSession.user.role}">
-			    
-					<div class="form-group">
-						<select class="form-control" name="searchCondition" >
-							<c:if test="${ campSession.user.role eq 'ADMIN' }">
-            					<option value="0" ${! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>캠핑장명</option>
-            				</c:if> 
-							<option value="1" ${! empty search.searchCondition && search.searchCondition==1 ? "selected" : "" }>주요시설명</option>
-							<option value="2" ${! empty search.searchCondition && search.searchCondition==2 ? "selected" : "" }>유형</option>
-							<option value="3" ${! empty search.searchCondition && search.searchCondition==3 ? "selected" : "" }>구역번호</option>
-							<option value="4" ${! empty search.searchCondition && search.searchCondition==4 ? "selected" : "" }>예약자명</option>
-						</select>
-					</div>
-					  
-					<div class="form-group">
-						<label class="sr-only" for="searchKeyword">검색어</label>
-					    <input type="text"  class="form-control" id="searchKeyword" name="searchKeyword"  placeholder="검색어"
-					    			 value="${! empty search.searchKeyword ? search.searchKeyword : '' }"  >
-					</div>
-					  
-					<button type="button" class="btn btn-info">검색</button>
-					  
-					<!-- PageNavigation Page value -->
-					<input type="hidden" id="currentPage" name="currentPage" value=""/>
-				  
-				</form>
-	    	</div>
-	    
+			</div>		
 	    </div>
 	    
 		<!-- 하단 -->

@@ -35,6 +35,7 @@
 	</resultMap>
 	
 	<resultMap id="paymentCodeSelectMap" type="paymentCode">
+		<result property="paymentCodeRegNum"		column="payment_code_regNum"		jdbcType="NUMERIC"/>
 		<result property="paymentCode" 					column="payment_code" 		 	 		jdbcType="VARCHAR"/>
 		<result property="paymentCodeRangeStart"		column="payment_code_range_start"		jdbcType="NUMERIC"/>
 		<result property="paymentCodeRangeEnd" 			column="payment_code_range_end" 	  	jdbcType="NUMERIC"/>
@@ -211,8 +212,9 @@
 	
 	<insert id="addPaymentCode" parameterType="paymentCode">
 		INSERT
-		INTO PAYMENT_CODE(payment_code, payment_code_range_start, payment_code_range_end, payment_code_info, payment_code_fee)
-		VALUES ( #{paymentCode}
+		INTO PAYMENT_CODE(payment_code_regNum, payment_code, payment_code_range_start, payment_code_range_end, payment_code_info, payment_code_fee)
+		VALUES ( #{paymentCodeRegNum}
+				, #{paymentCode}		
 				, #{paymentCodeRangeStart :NUMERIC}
 				, #{paymentCodeRangeEnd :NUMERIC}
 				, #{paymentCodeInfo :VARCHAR}
@@ -228,14 +230,14 @@
 	   	WHERE payment_code = #{paymentCode}
 	</update>
 	
-	<select id="listPaymentCode" resultMap="paymentCodeSelectMap">
-  		SELECT payment_code, payment_code_range_start, payment_code_range_end, payment_code_info, payment_code_fee
+	<select id="listPaymentCode" resultMap="paymentCodeSelectMap">	
+  		SELECT payment_code_regNum, payment_code, payment_code_range_start, payment_code_range_end, payment_code_info, payment_code_fee
 		FROM PAYMENT_CODE			
-		ORDER BY payment_code	
+		ORDER BY payment_code_regNum*1
 	</select>
 	
 	<select id="getPaymentCodeInfo" parameterType="String" resultMap="paymentCodeSelectMap">
-  		SELECT payment_code, payment_code_range_start, payment_code_range_end, payment_code_info, payment_code_fee
+  		SELECT payment_code_regNum, payment_code, payment_code_range_start, payment_code_range_end, payment_code_info, payment_code_fee
 		FROM PAYMENT_CODE			
 		WHERE LOWER(payment_code) = LOWER(#{value})	
 	</select>	

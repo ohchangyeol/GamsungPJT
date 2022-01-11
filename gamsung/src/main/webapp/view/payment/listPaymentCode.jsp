@@ -112,6 +112,10 @@
 								+"</div>"
 								+"<div class='row'>"
 								+"<div class='col-xs-1 form-group'>"
+								+"<input type='text' id='paymentCodeRegNum' name='paymentCodeRegNum' value='' class='form-control'>"
+								+"</div>"
+								+"<div class='row'>"
+								+"<div class='col-xs-1 form-group'>"
 								+"<input type='text' id='paymentCode' name='paymentCode' value='' class='form-control'>"
 								+"</div>"
 								+"<div class='col-xs-2 form-group'>"
@@ -147,6 +151,7 @@
 	<div class="container">
 
 		<div class="row">
+			<div class="col-xs-1">순번</div>
 			<div class="col-xs-1">결제코드</div>
 			<div class="col-xs-2">구간시작값</div>
 			<div class="col-xs-2">구간종료값</div>
@@ -172,7 +177,11 @@
 							</c:if>
 						</div>		
 										
-						<div class="row">				
+						<div class="row">
+							<div class="col-xs-1 form-group">
+								<input type="text" id="paymentCodeRegNum" name="paymentCodeRegNum" value="${payment.paymentCodeRegNum}" class="form-control" readonly>
+							</div>
+											
 							<div class="col-xs-1 form-group">
 								<input type="text" id="paymentCode" name="paymentCode" value="${payment.paymentCode}" class="form-control" readonly>
 							</div>

@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-
-  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
     <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
       <div class="container">
@@ -32,15 +31,10 @@
                 <li><a href="/servicecenter/listNotice">공지사항</a></li>
                 <li><a href="/servicecenter/listQna"> Q&A </a></li>
                 <li><a href="/servicecenter/listReport/my">내 신고 내역</a></li>
+               </ul>
+             </li>
 
-                <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">중고상품</a>
 
-                  <ul class="dropdown-menu">
-                    <li><a href="/auction/addAuctionProduct">상품 등록</a></li>
-                    <li><a href="/auction/listWaitAuctionProduct">경매 진행 전</a></li>
-                    <li><a href="/auction/listAuctionProduct">경매 진행 중</a></li>
-                  </ul>
-                </li>
 
                 <li class="dropdown"><a class="dropdown-toggle" href="/community/listCommunity"
                     data-toggle="dropdown">커뮤니티</a>
