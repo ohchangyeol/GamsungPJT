@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-
-  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
     <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
       <div class="container">
@@ -169,9 +168,17 @@
               </ul>
             </li>
 
-            <li><a href="/view/common/myPage.jsp">Mypage</a>
-
-            <li><a href="/campBusiness/goSubMainCampBusiness">사업자회원</a>
+			<c:if test="${user.role != 'BUSINESS' }">
+				<li><a href="/view/common/myPage.jsp">MyPage</a>
+			</c:if>	            
+			
+			<c:if test="${user.role == 'BUSINESS' || user.role == 'ADMIN'}">
+				<li><a href="/campBusiness/goSubMainCampBusiness">BusinessPage</a>
+			</c:if>	
+			
+			<c:if test="${user.role == 'ADMIN' }">
+				<li><a href="/campBusiness/goSubMainCampBusiness">AdminPage</a>
+			</c:if>		            
 
             <li>
               <c:if test="${sessionScope.user.role!=null}">

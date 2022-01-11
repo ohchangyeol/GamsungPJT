@@ -841,6 +841,7 @@
 			<input type="hidden" id="reservationUserName" name="reservationUserName" value="${campReservation.reservationUserName}">	
 			<input type="hidden" id="reservationStatus" name="reservationStatus" value="${campReservation.reservationStatus}">
 			<input type="hidden" id="camp.user.campName" name="camp.user.campName" value="${campReservation.camp.user.campName}">
+			<input type="hidden" id="camp.campNo" name="camp.campNo" value="${campReservation.camp.campNo}">
 			<input type="hidden" id="camp.campImg1" name="camp.campImg1" value="${campReservation.camp.campImg1}">
 			<input type="hidden" id="mainSite.mainSiteType" name="mainSite.mainSiteType" value="${campReservation.mainSite.mainSiteType}">
 			<input type="hidden" id="totalPaymentPrice" name="totalPaymentPrice" value="${campReservation.totalPaymentPrice}">			
