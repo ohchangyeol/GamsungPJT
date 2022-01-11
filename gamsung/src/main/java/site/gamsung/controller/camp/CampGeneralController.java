@@ -202,11 +202,12 @@ public class CampGeneralController {
 	}
 	
 	@RequestMapping(value = "addPayment", method = RequestMethod.POST)
-	public String addPayment(@RequestParam("mainSiteNo") int mainSiteNo, 
+	public String addPayment(@RequestParam("mainSiteNo") int mainSiteNo,
 								@ModelAttribute("campReservation") CampReservation campReservation,
 								HttpSession httpSession, HttpServletRequest request, Model model) throws Exception{
 		
 		User user = (User)httpSession.getAttribute("user");
+		int campNo = campReservation.getCamp().getCampNo();
 		MainSite mainSite = new MainSite();
 		mainSite.setMainSiteNo(mainSiteNo);
 		campReservation.setMainSite(mainSite);
@@ -227,7 +228,7 @@ public class CampGeneralController {
 			payment.setPaymentReceiver(campReservation.getCamp().getUser().getId());
 			payment.setPaymentCode("R1");
 			payment.setPaymentPriceTotal(campReservation.getTotalPaymentPrice());
-			
+						
 			Map<String, Object> payCampMap = new HashMap<String, Object>();
 			payCampMap.put("payment", payment);
 			payCampMap.put("campReservation", campReservation);
