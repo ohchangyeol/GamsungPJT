@@ -1,23 +1,27 @@
 const app = require('express')();
 const httpServer = require('http').Server(app);
-const wsServer = require('socket.io')(httpServer);
+const socketIO = require('socket.io')(httpServer);
 
 
-wsServer.on("connection", (socket) => {
-  socket.on("join_room", (roomName) => {
-    socket.join(roomName);
-    socket.to(roomName).emit("welcome");
+socketIO.on("connection", (socket) => {
+  socket.on("joinVideo", (productNo) => {
+    socket.join(productNo);
+    socket.to(productNo).emit("welcome");
   });
-  socket.on("offer", (offer, roomName) => {
-    socket.to(roomName).emit("offer", offer);
+  socket.on("offer", (offer, productNo) => {
+    socket.to(productNo).emit("offer", offer);
   });
-  socket.on("answer", (answer, roomName) => {
-    socket.to(roomName).emit("answer", answer);
+  socket.on("answer", (answer, productNo) => {
+    socket.to(productNo).emit("answer", answer);
   });
-  socket.on("ice", (ice, roomName) => {
-    socket.to(roomName).emit("ice", ice);
+  socket.on("ice", (ice, productNo) => {
+    socket.to(productNo).emit("ice", ice);
+  });
+  socket.on('left', function(productNo) {
+     socket.to(productNo).emit("left");
   });
 });
 
-const handleListen = () => console.log(`Listening on http://localhost:3000`);
+
+const handleListen = () => console.log(`[socket 3000 port start]`);
 httpServer.listen(3000, handleListen);
