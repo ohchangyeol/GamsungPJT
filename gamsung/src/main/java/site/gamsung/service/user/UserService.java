@@ -1,6 +1,7 @@
 package site.gamsung.service.user;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.User;
@@ -28,6 +29,15 @@ public interface UserService {
 	//회원 정보 리스트
 	public UserWrapper listUser(Search search);
 	
+	//휴면회원 리스트
+	public UserWrapper dormantListUser(Search search);
+	
+	//탈퇴회원 리스트
+	public UserWrapper secessionListUser(Search search);
+	
+	//신고이용정지 리스트
+	public UserWrapper reportSuspencionListUser(Search search);
+		
 	//아이디, 닉네임, 휴대폰번호, 사업자등록번호 중복체크
 	public int checkDuplication(User user);
 	
@@ -72,5 +82,6 @@ public interface UserService {
 	
 	//카카오 연결끊기
 	public void unlink(String accessToken);
+
 
 }

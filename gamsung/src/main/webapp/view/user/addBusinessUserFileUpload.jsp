@@ -165,9 +165,21 @@ width: 50%;
 												class="col-sm-offset-1 col-sm-3 control-label"><strong>사업자
 													등록번호</strong></label>
 											<div class="col-sm-6">
-												<input id="campBusinessNum" name="campBusinessNum"
-													class="form-control" type="text" placeholder="숫자만 입력해주세요"
-													maxlength="10" />
+												<input id="campBusinessNum" name="campBusinessNum" class="form-control"
+													type="text" placeholder="숫자만 입력해주세요" maxlength="10" />
+											</div>
+											<div id="check-business" class='col-sm-offset-3 col-sm-6'></div>
+										</div>
+
+										<div class="form-group row">
+											<label for="campBusinessImg"
+												class="col-sm-offset-1 col-sm-3 control-label"><strong>사업자
+													등록증 사진</strong></label>
+											<div class="col-sm-6">
+												<button type="button" id="businessImgFileUpload"
+													class="btn btn-border-d btn-round">이미지 등록</button>
+												<input type="file" id="inputBusinessImgs" name="inputImgs" multiple
+													style="display: none;" />
 											</div>
 											<div id="check-business" class='col-sm-offset-3 col-sm-6'></div>
 										</div>

@@ -41,70 +41,59 @@
 
         </head>
 
-        <body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
+        <body>
 
-            <main>
 
-                <jsp:include page="../common/header.jsp"></jsp:include>
 
-                <div class="main">
-                    <section class="module bg-dark-30 about-page-header" data-background="assets/images/about_bg.jpg">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-sm-6 col-sm-offset-3">
-                                    <h1 class="module-title font-alt mb-0">Forms</h1>
+            <!-- The Modal -->
+            <div class="modal" id="addSuspensionModal">
+                <div class="modal-dialog-centered">
+                    <div class="modal-content">
+
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                            <h5 class="modal-title">회원 이용정지 등록</h5>
+                        </div>
+
+                        <form class="modal-body" role="form">
+                            <div id="" class="form-group row">
+
+                                <label for=""
+                                    class="col-sm-offset-1 col-sm-3 control-label"><strong>아이디</strong></label>
+                                <div class="col-sm-6">
+                                    <input id="addSuspention_id" name="id" class="form-control " type="text"
+                                        placeholder="아이디를 입력하세요." style="border-radius:10px;" />
+                                </div>
+
+                            </div>
+                            <div id="" class="form-group row">
+
+                                <label for="message-text" class="col-sm-offset-1 col-sm-3 col-form-label"><strong>이용정지
+                                        사유</strong></label>
+                                <div class="col-sm-6">
+                                    <textarea class="form-control" id="message-text" name="suspensionContent"
+                                        placeholder="이용정지 사유를 입력하세요." style="border-radius:10px;"
+                                        maxlength="200"> </textarea>
                                 </div>
                             </div>
-                        </div>
-                    </section>
-                    <section class="module">
-                        <div class="container">
-                            <div class="col-sm-8 col-sm-offset-2">
-                                <h5 class="font-alt mb-0">회원 이용정지 등록</h5>
-                                <hr class="divider-w mt-10 mb-20">
-                                <form class="form" role="form">
-                                    <div id="" class="form-group row">
 
-                                        <label for=""
-                                            class="col-sm-offset-1 col-sm-3 control-label"><strong>아이디</strong></label>
-                                        <div class="col-sm-6">
-                                            <input id="addSuspention-id" name="id" class="form-control " type="text"
-                                                value="" placeholder="아이디를 입력하세요." style="border-radius:10px;" />
-                                        </div>
+                        </form>
 
-                                    </div>
-                                    <div id="" class="form-group row">
-
-                                        <label for="message-text"
-                                            class="col-sm-offset-1 col-sm-3 col-form-label"><strong>이용정지
-                                                사유</strong></label>
-                                        <div class="col-sm-6">
-                                            <textarea class="form-control" id="message-text" name="suspensionContent"
-                                                placeholder="이용정지 사유를 입력하세요." style="border-radius:10px;"
-                                                maxlength="200"> </textarea>
-                                        </div>
-                                    </div>
-
-                                </form>
+                        <div class="col-sm-3 col-sm-offset-2"></div>
+                        <div class="col-sm-3 col-sm-offset-2">
+                            <div id="suspension-btn">
+                                <button id="cancel" class="btn btn-border-d btn-circle" type="button">취소</button>
+                                <button id="addSuspension-user" class="btn btn-border-d btn-circle"
+                                    type="button">확인</button>
 
                             </div>
-                            <div class="col-sm-3 col-sm-offset-2"></div>
-                            <div class="col-sm-3 col-sm-offset-2">
-                                <div id="suspension-btn">
-                                    <button id="cancel" class="btn btn-border-d btn-circle" type="button">취소</button>
-                                    <button id="addSuspension-user" class="btn btn-border-d btn-circle"
-                                        type="button">확인</button>
-
-                                </div>
-                            </div>
                         </div>
-                    </section>
+                    </div>
                 </div>
-            </main>
-
-
+            </div>
 
             <script type="text/javascript">
+
                 $(function () {
                     $("#addSuspension-user").on('click', function () {
                         $("form").attr("method", "POST").attr("action", "/user/addSuspensionUser").submit();
