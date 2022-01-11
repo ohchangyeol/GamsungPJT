@@ -11,7 +11,7 @@
 	<main>
 		<div id="welcome">
 			<form>
-				<input type="hidden" value="${roomId}">
+				<input type="text" value="${roomId}">
 				<button>입장</button>
 			</form>
 		</div>

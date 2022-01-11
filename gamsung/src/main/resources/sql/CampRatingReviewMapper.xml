@@ -47,7 +47,7 @@
 			(SELECT u.camp_name cname
 			 FROM USERS u, CAMP c
 			 WHERE u.user_id = c.user_id AND c.camp_no = #{campNo}) cn
-		WHERE u.user_id = r.user_id AND r.review_delete_flag = 'N' AND r.comment_delete_flag = 'N' AND r.camp_no = #{campNo}
+		WHERE u.user_id = r.user_id AND r.review_delete_flag = 'N' AND r.camp_no = #{campNo}
 			  
 		<trim prefix="ORDER BY">
             <if test="sortCondition != null ">
@@ -69,7 +69,7 @@
 			 (SELECT nick_name 
 			  FROM USERS
 			  WHERE user_id = #{id}) un
-		WHERE r.review_delete_flag = 'N' AND r.comment_delete_flag = 'N' and r.camp_no = c.camp_no and c.user_id = u.user_id 
+		WHERE r.review_delete_flag = 'N' and r.camp_no = c.camp_no and c.user_id = u.user_id 
 		AND r.user_id = #{id} AND r.camp_no IS NOT NULL
 			  
 		<trim prefix="ORDER BY">
@@ -96,8 +96,8 @@
 		SELECT COUNT(*)
 		FROM(SELECT rating_review_no
 			 FROM RATING_REVIEW
-			 WHERE review_delete_flag = 'N' AND comment_delete_flag = 'N' 
-				   <if test="campNo != null">
+			 WHERE review_delete_flag = 'N' 
+				   <if test="campNo != null and campNo != 0">
 				  	AND camp_no = #{campNo}
 				  </if>	  
 				  <if test="id != null">
@@ -123,9 +123,6 @@
 			<if test="reviewDeleteFlag != null">
 				review_delete_flag = #{reviewDeleteFlag},
 			</if>
-			<if test="commentDeleteFlag != null">
-				comment_delete_flag = #{commentDeleteFlag},
-			</if> 
 			<if test="comment != null and comment != ''">
 				comment = #{comment:VARCHAR},
 				comment_reg_date = NOW(),
@@ -136,7 +133,16 @@
 			<if test="ratingReviewContent != null and ratingReviewContent != ''">
 				rating_review_content = #{ratingReviewContent:VARCHAR},
 			</if>
+			<if test="statusRating != null and statusRating != 0.0">
+				status_rating = #{statusRating},
+			</if>
 		</trim>		
+		WHERE rating_review_no = #{ratingReviewNo}
+	</update>
+	
+	<update id="deleteCampRatingReviewComment" parameterType="ratingReview">
+		UPDATE RATING_REVIEW
+		SET  comment = NULL, comment_reg_date = NULL
 		WHERE rating_review_no = #{ratingReviewNo}
 	</update>
 

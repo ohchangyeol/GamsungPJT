@@ -14,5 +14,6 @@ public interface RatingReviewService {
 	
 	public void updateRatingReview(RatingReview ratingReview);
 	
-	public void deleteRatingReview(int ratingReviewNo);
+	public void deleteRatingReview(RatingReview ratingReview);
+
 }

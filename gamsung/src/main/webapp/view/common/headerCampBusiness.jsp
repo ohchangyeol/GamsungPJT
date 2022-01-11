@@ -48,7 +48,10 @@
 		}); 
 	 	
 	 	$("a:contains('리뷰관리')" ).on("click" , function() {
-	 		
+
+			let campNo = $("#campNo").val();
+
+			window.self.location = "/campGeneral/listBusinessCampRatingReview?campNo="+campNo;
 		}); 
 	 	
 	 	$("a:contains('캠핑장 공지사항')" ).on("click" , function() {
