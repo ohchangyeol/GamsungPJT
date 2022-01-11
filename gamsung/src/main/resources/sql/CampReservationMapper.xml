@@ -182,8 +182,10 @@
 		<if test="campNo != null">
 			AND r.camp_no = #{campNo}
 		</if>
-		<if test="search.pageSize == null">
-			AND r.reservation_status IN (1, 2)
+		<if test="search.searchItemType != null">
+			<if test='search.searchItemType.equals("transfer")'>
+				AND r.reservation_status IN (1, 2)
+			</if>
 		</if>
 		<if test="search.searchCondition != null">
 			<if test="search.searchCondition == 0 and search.searchKeyword !='' ">
