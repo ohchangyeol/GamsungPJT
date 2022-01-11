@@ -172,7 +172,8 @@ public class CampGeneralController {
 	}
 	
 	@RequestMapping(value = "addPaymentByMyPage", method = RequestMethod.POST)
-	public String addPaymentByMyPage(@ModelAttribute("campReservation") CampReservation campReservation,  HttpSession httpSession, Model model){
+	public String addPaymentByMyPage(@ModelAttribute("campReservation") CampReservation campReservation,  
+										HttpServletRequest request, HttpSession httpSession, Model model){
 		System.out.println("/campGeneral/addPaymentByMyPage : POST");
 		
 		User user = (User)httpSession.getAttribute("user");
@@ -187,17 +188,23 @@ public class CampGeneralController {
 		payment.setPaymentCode("R1");
 		payment.setPaymentPriceTotal(campReservation.getTotalPaymentPrice());
 		
-		model.addAttribute("campReservation", campReservation);
-		model.addAttribute("payment", payment);
-		System.out.println(model);
+		Map<String, Object> payCampMap = new HashMap<String, Object>();
+		payCampMap.put("payment", payment);
+		payCampMap.put("campReservation", campReservation);
 		
-		return "forward:/view/payment/readyPayment.jsp";
+		request.setAttribute("payCampMap", payCampMap);
+		
+		System.out.println("1 addPaymentByMyPage_payment : " + payment); 						// 테스트
+		System.out.println("2 addPaymentByMyPage_campReservation : " + campReservation); 		// 테스트
+		System.out.println("3 addPaymentByMyPage_payCamp : " + payCampMap); 					// 테스트
+				
+		return "forward:/payment/readyPayment";
 	}
 	
 	@RequestMapping(value = "addPayment", method = RequestMethod.POST)
-	public String addPayment(@RequestParam("mainSiteNo") int mainSiteNo, Model model, 
+	public String addPayment(@RequestParam("mainSiteNo") int mainSiteNo, 
 								@ModelAttribute("campReservation") CampReservation campReservation,
-								HttpSession httpSession, HttpServletRequest request) throws Exception{
+								HttpSession httpSession, HttpServletRequest request, Model model) throws Exception{
 		
 		User user = (User)httpSession.getAttribute("user");
 		MainSite mainSite = new MainSite();
@@ -299,7 +306,8 @@ public class CampGeneralController {
 	}
 	
 	@RequestMapping(value = "updateMyReservation", method = RequestMethod.POST)
-	public String updateMyReservation(@ModelAttribute CampReservation campReservation,HttpSession httpSession, Model model) throws Exception{
+	public String updateMyReservation(@ModelAttribute CampReservation campReservation,
+									HttpServletRequest request, HttpSession httpSession, Model model) throws Exception{
 		
 		System.out.println("/campGeneral/updateMyReservation : POST");
 		
@@ -342,11 +350,18 @@ public class CampGeneralController {
 			payment.setPaymentCode("R2");
 			payment.setPaymentPriceTotal(campReservation.getTotalPaymentPrice());
 			
-			model.addAttribute("campReservation", campReservation);
-			model.addAttribute("payment", payment);
-			//System.out.println(model);
+			Map<String, Object> payCampMap = new HashMap<String, Object>();
+			payCampMap.put("payment", payment);
+			payCampMap.put("campReservation", campReservation);
 			
-			return "forward:/view/payment/readyPayment.jsp";
+			request.setAttribute("payCampMap", payCampMap);
+			
+			System.out.println("1 updateMyReservation_payment : " + payment); 						// 테스트
+			System.out.println("2 updateMyReservation_campReservation : " + campReservation); 		// 테스트
+			System.out.println("3 updateMyReservation_payCamp : " + payCampMap); 					// 테스트
+			
+			return "forward:/payment/readyPayment";
+			
 		}else {
 			//예약 취소
 			return null;

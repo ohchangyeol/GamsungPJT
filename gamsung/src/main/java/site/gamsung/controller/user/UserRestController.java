@@ -267,7 +267,7 @@ public class UserRestController {
 				}else if(dbUser.getSuspensionDate() != null) {
 					System.out.println("이용정지 회원");
 					return 13;
-				}else if(dbUser.getCampName() != null && dbUser.getBusinessUserApprovalFlag() != "Y") {
+				}else if(dbUser.getCampName() != null && !(dbUser.getBusinessUserApprovalFlag().equals("Y"))) {
 					return 14;
 				}
 				return 0;
