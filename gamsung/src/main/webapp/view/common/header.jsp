@@ -133,7 +133,7 @@
                 <!-- 로그인/로그아웃 End -->
                 <li>
                     <c:if test="${sessionScope.user.role!=null}">
-                      <a href="#">
+                      <a href="/user/logout">
                           <button class="btn btn-border-w btn-round btn-xs" type="button" id="logout">LOGOUT</button>
                       </a>
                     </c:if>
