@@ -50,6 +50,15 @@
   			
 		$(function() {
 			
+			const paymentNo = $("#paymentNo").val();
+			const paymentRespond = $("#paymentRespond").val();
+			
+			if(paymentNo == null && paymentRespond != null){
+				alert("결제가 실패하였습니다."
+						+"\n내용 : "+paymentRespond
+						+"\n처음으로 돌아갑니다.");				
+			}			
+
 			// 테스트용
 			$("#temp1").on("click" , function() {		
 				$(".container").show();
@@ -170,6 +179,8 @@
 	
 	<!-- 화면 Controller Start -->  	
   	<input type="hidden" id="viewController" name="viewController" value="${payment.paymentCode}">
+  	<input type="hidden" id="paymentRespond" name="paymentRespond" value="${payment.paymentNotice}">
+  	<input type="hidden" id="paymentNo" name="paymentNo" value="${payment.paymentNo}">
   	<!-- 화면 Controller End -->
 	
 	
@@ -326,12 +337,57 @@
 			<div class="row">
 				<label class="col-xs-2">* 결제 금액</label>
 				<div class="col-md-3 form-group">
-					${payment.paymentProductPriceTotal}
+					<c:if test="${payment.paymentMethodSecond eq 'point' && empty payment.paymentMethod}">
+							포인트 - ${payment.paymentPriceTotalSecond}[P] 
+					</c:if>
+					
+					<c:if test="${ empty payment.paymentMethodSecond && !empty payment.paymentMethod}">
+							<c:if test="${payment.paymentMethod eq 'card'}">
+									신용카드/간편결제
+							</c:if>
+							<c:if test="${payment.paymentMethod eq 'samsung'}">
+									삼성페이
+							</c:if>					
+							<c:if test="${payment.paymentMethod eq 'trans'}">
+									실시간 계좌이체
+							</c:if>					
+							<c:if test="${payment.paymentMethod eq 'vbank'}">
+									가상 계좌
+							</c:if>					
+							<c:if test="${payment.paymentMethod eq 'phone'}">
+									휴대폰 소액결제
+							</c:if>
+									 - ${payment.paymentPriceTotal}(원)
+					</c:if>	
+					
+					<c:if test="${ !empty payment.paymentMethodSecond && !empty payment.paymentMethod}">
+							포인트 - ${payment.paymentPriceTotalSecond}[P] &
+							
+							<c:if test="${payment.paymentMethod eq 'card'}">
+									신용카드/간편결제
+							</c:if>
+							<c:if test="${payment.paymentMethod eq 'samsung'}">
+									삼성페이
+							</c:if>					
+							<c:if test="${payment.paymentMethod eq 'trans'}">
+									실시간 계좌이체
+							</c:if>					
+							<c:if test="${payment.paymentMethod eq 'vbank'}">
+									가상 계좌
+							</c:if>					
+							<c:if test="${payment.paymentMethod eq 'phone'}">
+									휴대폰 소액결제
+							</c:if>
+									 - ${payment.paymentPriceTotal}(원)
+					</c:if>					
 				</div>							
 				<label class="col-xs-2 col-xs-offset-1">* 결제방법</label>
 				<div class="col-md-3 form-group">					
-					<c:if test="${payment.paymentMethodSecond eq 'point'}">
-							포인트/ 
+					<c:if test="${payment.paymentMethodSecond eq 'point' && empty payment.paymentMethod}">
+							포인트 
+					</c:if>
+					<c:if test="${payment.paymentMethodSecond eq 'point' && !empty payment.paymentMethod}">
+							포인트/
 					</c:if>
 					<c:if test="${payment.paymentMethod eq 'card'}">
 							신용카드/간편결제
