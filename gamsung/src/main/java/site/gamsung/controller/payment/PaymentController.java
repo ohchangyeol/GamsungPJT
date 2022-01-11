@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import site.gamsung.service.common.Page;
 import site.gamsung.service.common.Search;
+import site.gamsung.service.domain.CampReservation;
 import site.gamsung.service.domain.Payment;
 import site.gamsung.service.domain.PaymentCode;
 import site.gamsung.service.domain.PointTransfer;
@@ -76,21 +77,38 @@ public class PaymentController {
 	 */	
 	@RequestMapping(value = "readyPayment")
 	public String readyPayment(HttpServletRequest request, HttpSession httpSession, Model model) throws Exception {
-			
-		Payment payment = (Payment) request.getAttribute("payment");
-		System.out.println("1 readyPayment_payment : " + payment); 										// 테스트
-						
+		
 		if (httpSession.getAttribute("user") == null) {
 			return "forward:/main.jsp";
 		}
-				
+		
+		Payment tempPayment = new Payment();
+		
+		//포인트관리
+		Payment paymentFromPoint = (Payment) request.getAttribute("payment");
+		if(paymentFromPoint != null) {
+			tempPayment = paymentFromPoint;
+		}
+		
+		//캠핑예약결제
+		Map<String, Object> payCampMapFromCamp = (Map<String, Object>) request.getAttribute("payCampMap");
+		if(payCampMapFromCamp != null) {
+			tempPayment = (Payment) payCampMapFromCamp.get("payment");
+			CampReservation campReservationFromCamp = (CampReservation) payCampMapFromCamp.get("campReservation");
+			model.addAttribute("campReservation", campReservationFromCamp);			
+		}		
+		
+		System.out.println("0 readyPayment_paymentFromPoint : " + paymentFromPoint); 							// 테스트
+		System.out.println("1 readyPayment_payCampMapFromCamp : " + payCampMapFromCamp); 						// 테스트		
+		System.out.println("2 readyPayment_tempPayment : " + tempPayment); 										// 테스트		
+						
 		// user 전체정보요청
 		User tempUser = userService.getUser( ((User) httpSession.getAttribute("user")).getId() );				
-		System.out.println("2 Session tempUser : " + tempUser);   										// 테스트
+		System.out.println("3 Session tempUser : " + tempUser);   											// 테스트
 		
 		httpSession.removeAttribute("user");
 		httpSession.setAttribute("user", tempUser);
-		model.addAttribute("payment", payment);
+		model.addAttribute("payment", tempPayment);		
 		
 		return "forward:/view/payment/readyPayment.jsp";		
 	}	

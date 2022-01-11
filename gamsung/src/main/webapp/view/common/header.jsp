@@ -139,10 +139,16 @@
                   </ul>
                 </li>
 
-                <li><a href="/view/common/myPage.jsp">Mypage</a>
-
-                <li><a href="/campBusiness/goSubMainCampBusiness">사업자회원</a>
-
+                <li><a href="/view/common/myPage.jsp">MyPage</a>
+                
+                <c:if test="${user.role == 'ADMIN' || user.role == 'BUSINESS'}">
+					 <li><a href="/campBusiness/goSubMainCampBusiness">BusinessPage</a>
+				</c:if> 
+                
+                <c:if test="${user.role == 'ADMIN'}">
+					<li><a href="/adminMain.jsp">AdminPage</a>
+				</c:if>
+				
                 <li>
                   <c:if test="${sessionScope.user.role!=null}">
                     <a href="#"><button class="btn btn-border-w btn-round btn-xs" type="button"
