@@ -140,71 +140,61 @@
                                       <span style="font-size: x-small;">&nbsp;&nbsp;&nbsp;${review.reviewRegDate}</span>
                                       <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                                       <span class="review_btn_span">
-                                      <c:if test="${review.commentRegDate == null}">
-                                          <button type="button" class="btn btn-default" value="${review.ratingReviewNo}" data-nick="${review.user.nickName}">수정</button>
-                                          <button type="button" class="btn btn-danger" value="${review.ratingReviewNo}" >삭제</button>
+                                         <c:if test="${review.commentRegDate == null}">
+                                            <button type="button" id="correction_btn" class="btn btn-default" value="${review.ratingReviewNo}" data-nick="${review.user.nickName}">수정</button>
+                                            <button type="button" id="delete_btn" class="btn btn-danger" value="${review.ratingReviewNo}" >삭제</button>
+                                         </c:if>
                                       </span>
-                                      </c:if>
                                     </div>
-                                 
-                                    <!-- <div class="row">
-                                      <div class="starRev col-xs-4" style="text-align: start; top: 3px; padding-left: 20px;">
-                                        <span class="starR on" data-star=1.0>별1</span>
-                                        <span class="starR"    data-star=2.0>별2</span>
-                                        <span class="starR"    data-star=3.0>별3</span>
-                                        <span class="starR"    data-star=4.0>별4</span>
-                                        <span class="starR"    data-star=5.0>별5</span>
-                                        <span id="result_star" style="text-align: center;"></span>
-                                      </div>                                          
-                                    </div> -->
                                     
-
-                                    <div class="comment-author">
-                                      
-                                      <c:set var="rating" value="${review.statusRating}" />
-                                        <c:if test="${rating < 1.0}">
-                                          <span><i class="fa fa-star star-off"></i></span>
-                                          <span><i class="fa fa-star star-off"></i></span>
-                                          <span><i class="fa fa-star star-off"></i></span>
-                                          <span><i class="fa fa-star star-off"></i></span>
-                                          <span><i class="fa fa-star star-off"></i></span>
-                                        </c:if>
-                                        <c:if test="${rating >= 1.0 && rating < 2.0}">
-                                          <span><i class="fa fa-star star"></i></span>
-                                          <span><i class="fa fa-star star-off"></i></span>
-                                          <span><i class="fa fa-star star-off"></i></span>
-                                          <span><i class="fa fa-star star-off"></i></span>
-                                          <span><i class="fa fa-star star-off"></i></span>
-                                        </c:if>
-                                        <c:if test="${rating >= 2.0 && rating < 3.0}">
-                                          <span><i class="fa fa-star star"></i></span>
-                                          <span><i class="fa fa-star star"></i></span>
-                                          <span><i class="fa fa-star star-off"></i></span>
-                                          <span><i class="fa fa-star star-off"></i></span>
-                                          <span><i class="fa fa-star star-off"></i></span>
-                                        </c:if>
-                                        <c:if test="${rating >= 3.0 && rating < 4.0}">
-                                          <span><i class="fa fa-star star"></i></span>
-                                          <span><i class="fa fa-star star"></i></span>
-                                          <span><i class="fa fa-star star"></i></span>
-                                          <span><i class="fa fa-star star-off"></i></span>
-                                          <span><i class="fa fa-star star-off"></i></span>
-                                        </c:if>
-                                        <c:if test="${rating >= 4.0 && rating < 5.0}">
-                                          <span><i class="fa fa-star star"></i></span>
-                                          <span><i class="fa fa-star star"></i></span>
-                                          <span><i class="fa fa-star star"></i></span>
-                                          <span><i class="fa fa-star star"></i></span>
-                                          <span><i class="fa fa-star star-off"></i></span>
-                                        </c:if>
-                                        <c:if test="${rating == 5.0}">
-                                          <span><i class="fa fa-star star"></i></span>
-                                          <span><i class="fa fa-star star"></i></span>
-                                          <span><i class="fa fa-star star"></i></span>
-                                          <span><i class="fa fa-star star"></i></span>
-                                          <span><i class="fa fa-star star"></i></span>
-                                        </c:if>
-                                      <span>&nbsp;(${review.statusRating})</span>
+                                    <div class="row">
+                                        <div class="comment-author" style="margin-left: 15px; margin-bottom: 15px;">
+                                          
+                                          <c:set var="rating" value="${review.statusRating}" />
+                                            <c:if test="${rating < 1.0}">
+                                              <span><i class="fa fa-star star-off"></i></span>
+                                              <span><i class="fa fa-star star-off"></i></span>
+                                              <span><i class="fa fa-star star-off"></i></span>
+                                              <span><i class="fa fa-star star-off"></i></span>
+                                              <span><i class="fa fa-star star-off"></i></span>
+                                            </c:if>
+                                            <c:if test="${rating >= 1.0 && rating < 2.0}">
+                                              <span><i class="fa fa-star star"></i></span>
+                                              <span><i class="fa fa-star star-off"></i></span>
+                                              <span><i class="fa fa-star star-off"></i></span>
+                                              <span><i class="fa fa-star star-off"></i></span>
+                                              <span><i class="fa fa-star star-off"></i></span>
+                                            </c:if>
+                                            <c:if test="${rating >= 2.0 && rating < 3.0}">
+                                              <span><i class="fa fa-star star"></i></span>
+                                              <span><i class="fa fa-star star"></i></span>
+                                              <span><i class="fa fa-star star-off"></i></span>
+                                              <span><i class="fa fa-star star-off"></i></span>
+                                              <span><i class="fa fa-star star-off"></i></span>
+                                            </c:if>
+                                            <c:if test="${rating >= 3.0 && rating < 4.0}">
+                                              <span><i class="fa fa-star star"></i></span>
+                                              <span><i class="fa fa-star star"></i></span>
+                                              <span><i class="fa fa-star star"></i></span>
+                                              <span><i class="fa fa-star star-off"></i></span>
+                                              <span><i class="fa fa-star star-off"></i></span>
+                                            </c:if>
+                                            <c:if test="${rating >= 4.0 && rating < 5.0}">
+                                              <span><i class="fa fa-star star"></i></span>
+                                              <span><i class="fa fa-star star"></i></span>
+                                              <span><i class="fa fa-star star"></i></span>
+                                              <span><i class="fa fa-star star"></i></span>
+                                              <span><i class="fa fa-star star-off"></i></span>
+                                            </c:if>
+                                            <c:if test="${rating == 5.0}">
+                                              <span><i class="fa fa-star star"></i></span>
+                                              <span><i class="fa fa-star star"></i></span>
+                                              <span><i class="fa fa-star star"></i></span>
+                                              <span><i class="fa fa-star star"></i></span>
+                                              <span><i class="fa fa-star star"></i></span>
+                                            </c:if>
+                                          <span>&nbsp;(${review.statusRating})</span>
+                                        </div>
                                     </div>
 
                                     <div class="row">
@@ -243,6 +233,7 @@
                   <form id="update_review">
                   <input type="hidden" id="camp_ratingreview_no" name="ratingReviewNo" value=>
                   <input type="hidden" id="camp_ratingreview_content" name="ratingReviewContent" value="">
+                  <input type="hidden" id="camp_status_rating" name="statusRating" value=1.0>
                   </form>
 
                   <form id="rating_order">  
@@ -296,54 +287,21 @@
               $("#pagenavi").attr("method","POST").attr("action","/campGeneral/listMyCampRatingReview").submit();
             }
 
-
-          function updateCampReview(){
-               
-              let ratingReviewNo = $('#camp_ratingreview_no').val();
-              let ratingReviewContent = $('#camp_ratingreview_content').val();
-
-              console.log(ratingReviewNo);
-              console.log(ratingReviewContent);
-
-              $(this).parent().parent().next().next().remove;
-
-              $.ajax( 
-                    {
-                      url : "/campGeneral/json/updateReview/",
-                      method : "POST" ,
-                      dataType : "json" ,
-                      data : JSON.stringify({
-                        "ratingReviewNo" : ratingReviewNo,
-                        "ratingReviewContent" : ratingReviewContent
-                      }),
-                      headers : {
-                        "Accept" : "application/json",
-                        "Content-Type" : "application/json"
-                      },
-                      success : function(JSONData , status) {
-                          var append_node ="";   
-
-                              append_node += "<div class='row'>"
-                              append_node += "<div class='comment-body col-xs-7'>"
-                              append_node += "<textarea class='form-control' name='ratingReviewContent' value='"+JSONData.ratingReviewContent+"' rows='5' id='request'></textarea>"
-                              append_node += "</div>"
-                              append_node += "</div>"  
-
-                          var btn = "";
-                              btn += "<button type='button' class='btn btn-default' value="+JSONData.ratingReviewNo+">수정</button>"
-                              btn += "<button type='button' class='btn btn-danger'>삭제</button>"  
-
-                          $(this).parent().parent().next().append(append_node);
-
-                          $(this).parent().append(btn);
-                          $(this).remove();
-
-                      }
-  
-                 });
-            }  
-       
         $( function() {
+
+            $('body').on("click", ".starRev span", function(){
+                $(this).parent().children('span').removeClass('on');
+                $(this).addClass('on').prevAll('span').addClass('on');
+                var append = "&nbsp;&nbsp;&nbsp;("+$(this).data('star')+ "점)";
+                
+                console.log("선택 평점"+$(this).data("star"));
+
+                $("#camp_status_rating").val($(this).data("star"));
+                $("#result_star").empty();
+                $("#result_star").append(append);
+                
+                return false;
+            });
 
             $('body').on("keyup",".form-control",  function() {
 
@@ -353,33 +311,134 @@
 
             });
 
-           $('.btn-default').on("click", function(){
+            $('body').on('click','#correction_btn',function(){  
+                var reviewNo = $(this).val();
+                      
+                      console.log(reviewNo);
 
-              var reviewNo = $(this).val();
-                  
-                  console.log(reviewNo);
+                      $("#camp_ratingreview_no").val(reviewNo);
 
-                  $("#camp_ratingreview_no").val(reviewNo);
+                  var btn = "<button type='button' class='btn btn-default confirm'>확인</button>"
 
-              var btn = "<button type='button' onclick='updateCampReview()' class='btn btn-default'>확인</button>"
+                  var star = "<div class='starRev col-xs-4' style='text-align: start; top: 3px; padding-left: 20px; padding-bottom: 20px;'>"
+                      star +="<span class='starR on' data-star=1.0>별1</span>"
+                      star +="<span class='starR'    data-star=2.0>별2</span>"
+                      star +="<span class='starR'    data-star=3.0>별3</span>"
+                      star +="<span class='starR'    data-star=4.0>별4</span>"
+                      star +="<span class='starR'    data-star=5.0>별5</span>"
+                      star +="<span id='result_star' style=''text-align: center;'></span>"
+                      star +="</div>"                                          
+                
+                  var content = "<div class='row'>"
+                      content +="<div class='comment-body col-xs-7'>"
+                      content +="<textarea class='form-control' name='reservationRequest' rows='5' id='request'></textarea>"
+                      content +="</div>"
+                      content +="</div>"
+
+                  $(this).parent().parent().next().empty();    
+                  $(this).parent().parent().next().append(star);          
+                  $(this).parent().parent().next().next().empty();
+                  $(this).parent().parent().next().next().html(content);  
+
+                  $(this).parent().append(btn);
+                  $(this).next().remove();
+                  $(this).remove();
+            });
+
+           $('body').on('click','.confirm',function(){
+
+              let ratingReviewNo = $('#camp_ratingreview_no').val();
+              let ratingReviewContent = $('#camp_ratingreview_content').val();
+              let statusRating = $('#camp_status_rating').val();
+              let append_node ="";
+              let btn = "";
+              let review_star ="";
             
-              var content = "<div class='row'>"
-                  content +="<div class='comment-body col-xs-7'>"
-                  content +="<textarea class='form-control' name='reservationRequest' rows='5' id='request'></textarea>"
-                  content +="</div>"
-                  content +="</div>"
-        
-              $(this).parent().parent().next().next().empty();
-              $(this).parent().parent().next().next().html(content);  
+              $.ajax( 
+                    {
+                      url : "/campGeneral/json/updateReview/",
+                      method : "POST" ,
+                      dataType : "json" , 
+                      context: this,
+                      data : JSON.stringify({
+                        "ratingReviewNo" : ratingReviewNo,
+                        "ratingReviewContent" : ratingReviewContent,
+                        "statusRating" : statusRating
+                      }),
+                      headers : {
+                        "Accept" : "application/json",
+                        "Content-Type" : "application/json"
+                      },
+                      success : function(JSONData , status) {
+             
+                              append_node += "<p style='padding-left: 20px;'>"+JSONData.ratingReviewContent+"</p>"
 
-              $(this).parent().append(btn);
-              $(this).next().remove();
-              $(this).remove();
+                              review_star +="<div class='comment-author' style='margin-left: 15px; margin-bottom: 15px;'>"
 
-           });
+                              if(JSONData.statusRating < 1.0){
+                                review_star +="<span><i class='fa fa-star star-off'></i></span>"
+                                review_star +="<span><i class='fa fa-star star-off'></i></span>"
+                                review_star +="<span><i class='fa fa-star star-off'></i></span>"
+                                review_star +="<span><i class='fa fa-star star-off'></i></span>"
+                                review_star +="<span><i class='fa fa-star star-off'></i></span>"
+                              }else if(JSONData.statusRating >= 1.0 && JSONData.statusRating < 2.0){
+                                review_star +="<span><i class='fa fa-star star'></i></span>"
+                                review_star +="<span><i class='fa fa-star star-off'></i></span>"
+                                review_star +="<span><i class='fa fa-star star-off'></i></span>"
+                                review_star +="<span><i class='fa fa-star star-off'></i></span>"
+                                review_star +="<span><i class='fa fa-star star-off'></i></span>"
+                              }else if(JSONData.statusRating >= 2.0 && JSONData.statusRating < 3.0){
+                                review_star +="<span><i class='fa fa-star star'></i></span>"
+                                review_star +="<span><i class='fa fa-star star'></i></span>"
+                                review_star +="<span><i class='fa fa-star star-off'></i></span>"
+                                review_star +="<span><i class='fa fa-star star-off'></i></span>"
+                                review_star +="<span><i class='fa fa-star star-off'></i></span>"
+                              }else if(JSONData.statusRating >= 3.0 && JSONData.statusRating < 4.0){
+                                review_star +="<span><i class='fa fa-star star'></i></span>"
+                                review_star +="<span><i class='fa fa-star star'></i></span>"
+                                review_star +="<span><i class='fa fa-star star'></i></span>"
+                                review_star +="<span><i class='fa fa-star star-off'></i></span>"
+                                review_star +="<span><i class='fa fa-star star-off'></i></span>"
+                              }else if(JSONData.statusRating >= 4.0 && JSONData.statusRating < 5.0){
+                                review_star +="<span><i class='fa fa-star star'></i></span>"
+                                review_star +="<span><i class='fa fa-star star'></i></span>"
+                                review_star +="<span><i class='fa fa-star star'></i></span>"
+                                review_star +="<span><i class='fa fa-star star'></i></span>"
+                                review_star +="<span><i class='fa fa-star star-off'></i></span>"
+                              }else{
+                                review_star +="<span><i class='fa fa-star star'></i></span>"
+                                review_star +="<span><i class='fa fa-star star'></i></span>"
+                                review_star +="<span><i class='fa fa-star star'></i></span>"
+                                review_star +="<span><i class='fa fa-star star'></i></span>"
+                                review_star +="<span><i class='fa fa-star star'></i></span>"
+                              }
 
-         
+                              review_star +="<span> ("+JSONData.statusRating+")</span>"
+                              review_star +="</div>"
+                             
+                              btn += "<button type='button' id='correction_btn' class='btn btn-default' style='margin-right: 5px;' value="+JSONData.ratingReviewNo+">수정</button>"
+                              btn += "<button type='button' id='delete_btn' class='btn btn-danger' value="+JSONData.ratingReviewNo+" >삭제</button>"  
+                              
+                              $(this).parent().parent().next().empty();
+                              $(this).parent().parent().next().html(review_star);
 
+                              $(this).parent().parent().next().next().empty();
+                              $(this).parent().parent().next().next().html(append_node);
+
+                              $(this).parent().append(btn);
+                              $(this).remove();
+
+                      }
+
+                 });
+                        
+            })
+
+
+          $('body').on('click','#delete_btn',function(){
+              self.location ="/campGeneral/deleteMyCampRatingReview?ratingReviewNo="+$(this).attr("value");
+          });
+          
           $("#statusRatings").on("click" , function() {
               $("#rating_order").attr("method","POST").attr("action","/campGeneral/listMyCampRatingReview").submit();
           });

@@ -288,7 +288,7 @@ pageEncoding="UTF-8"%>
 		<script src="../../resources/js/examples.lightbox.js"></script>
 
     <script type="text/javascript">
-      parent.reviewIframeHeight(document.getElementById("reviewchange").scrollHeight);
+      parent.reviewIframeHeight(body.scrollHeight);
     </script>
 
 </body>
