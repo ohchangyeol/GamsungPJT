@@ -52,20 +52,21 @@ pageEncoding="UTF-8"%>
 												<h4 class="col-sm-7 mb-0">Q&A 문의 내역</h4>
 												<div class="col-sm-5 mb-sm-0">
 													<div class="row">
-													<form role="form" class="rerport-search">
+													<form role="form" class="rerport-search" method="post">
 														<div class="col-sm-4">
-														<select class="form-control">
-															<option selected="selected">제목+내용</option>
-															<option>제목</option>
-															<option>내용</option>
+														<select class="form-control" name="searchCondition">
+															<option value="0" ${ ! empty wrapper.search.searchCondition && wrapper.search.searchCondition==0 ? "selected" : "" }>제목+내용</option>
+															<option value="1" ${ ! empty wrapper.search.searchCondition && wrapper.search.searchCondition==1 ? "selected" : "" }>제목</option>
+															<option value="2" ${ ! empty wrapper.search.searchCondition && wrapper.search.searchCondition==2 ? "selected" : "" }>내용</option>
 														</select>
 														</div>
 														<div class="col-sm-8">
 														<div class="search-box">
-															<input class="form-control" type="text" placeholder="Search...">
+															<input class="form-control" type="text" name="searchKeyword" value="${wrapper.search.searchKeyword}" placeholder="Search...">
 															<button class="search-btn" type="submit"><i class="fa fa-search"></i></button>
 														</div>
 														</div>
+														<input type="hidden" id="currentPage" name="currentPage" value="${resultPage.currentPage}"/>
 														
 													</form>
 													</div>
