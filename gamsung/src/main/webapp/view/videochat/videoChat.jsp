@@ -66,7 +66,8 @@
 	</div>
 	</main>
 </body>
-<script src="http://192.168.35.113:3000/socket.io/socket.io.js"></script>
+<!-- <script src="http://192.168.0.77:3000/socket.io/socket.io.js"></script> -->
+<script src="https://192.168.0.77:3000/socket.io/socket.io.js"></script>
 <script src="../../resources/js/videochat.js"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
