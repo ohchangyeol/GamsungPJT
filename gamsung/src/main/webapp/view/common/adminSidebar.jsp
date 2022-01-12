@@ -126,7 +126,7 @@
                                 <a>공지사항</a>
                                 <ul class="nav nav-children">
                                     <li>
-                                        <a href="../../view/servicecenter/addNotice.jsp">공지사항 등록</a>
+                                        <a href="/servicecenter/addNotice">공지사항 등록</a>
                                     </li>
                                     <li>
                                         <a href="/servicecenter/listNotice">공지사항 목록</a>
@@ -134,10 +134,10 @@
                                 </ul>
                             </li>
                             <li>
-                                <a>Q & A</a>
+                                <a href="/servicecenter/listQna">Q & A</a>
                             </li>
                             <li>
-                                <a href="/view/servicecenter/listRpoert.jsp">신고 내역</a>
+                                <a href="/servicecenter/listReport">신고 내역</a>
                             </li>
                         </ul>
                     </li>
