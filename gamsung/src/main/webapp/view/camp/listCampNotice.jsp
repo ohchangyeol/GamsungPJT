@@ -41,8 +41,7 @@ pageEncoding="UTF-8"%>
     <script src="../../resources/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script>
     <script src="../../resources/js/plugins.js"></script>
     <script src="../../resources/js/main.js"></script>
-    <!-- Kakao Map-->
-    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6f8199ad71211c3df709f290a0e83244&libraries=services"></script>
+        
     <!-- Default stylesheets-->
     <link href="../../resources/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Template specific stylesheets-->
