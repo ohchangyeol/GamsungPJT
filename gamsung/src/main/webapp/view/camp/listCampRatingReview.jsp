@@ -79,7 +79,7 @@ pageEncoding="UTF-8"%>
 
 </head>
 
-<body id = "camp_review_list" data-campno="${campNo}">
+<body id = "camp_review_list" data-campno="${campNo}" data-campname="${campSession.user.campName}">
 
     <!-- ToolBar -->
     <jsp:include page="/view/common/headerCampBusiness.jsp" />
@@ -283,6 +283,14 @@ pageEncoding="UTF-8"%>
         <script type="text/javascript">
 
         $( function() {
+            $('body').on("keyup",".form-control",  function() {
+
+                var content = $(this).val();
+                console.log("입력 값"+content);
+                $("#camp_ratingreview_comment").val(content)
+
+            });
+
             $('body').on('click','#correction_btn',function(){  
                     let reviewNo = $(this).val();
                     
@@ -308,13 +316,6 @@ pageEncoding="UTF-8"%>
 
                   });
                   
-              $('body').on("keyup",".form-control",  function() {
-
-                  var content = $(this).val();
-                  console.log("입력 값"+content);
-                  $("#camp_ratingreview_comment").val(content)
-
-              });
        
               $('body').on("click",".reply",  function() {
 
@@ -346,10 +347,64 @@ pageEncoding="UTF-8"%>
 
                   let ratingReviewNo = $('#camp_ratingreview_no').val();
                   let comment = $('#camp_ratingreview_comment').val();
-                  let camp = $('#camp_review_list').data(campno);
+                  let campName = $('#camp_review_list').data('campname');
                   let append_node ="";
                   let btn = "";
 
+                    console.log(ratingReviewNo);
+                    console.log(comment);
+                    console.log(campName);
+                
+                    $.ajax( 
+                          {
+                            url : "/campGeneral/json/updateReview/",
+                            method : "POST" ,
+                            dataType : "json" , 
+                            context: this,
+                            data : JSON.stringify({
+                              "ratingReviewNo" : ratingReviewNo,
+                              "comment" : comment
+                            }),
+                            headers : {
+                              "Accept" : "application/json",
+                              "Content-Type" : "application/json"
+                            },
+                            success : function(JSONData , status) {
+
+                              append_node + "<div class='col-sm-1'></div>"
+                              append_node += "<div class='comment-body'>"
+                              append_node += "<p style='padding-left: 80px;''>&nbsp;&nbsp;"+JSONData.comment+"</p>"
+                              append_node += "</div>"
+                              
+                              btn += " <div class='col-sm-1'></div>"
+                              btn += "<div class='comment-author font-alt'>re : <span style='font-size: large;'>"+campName+"</span>"
+                              btn += "<span style='font-size: x-small;'>&nbsp;"+JSONData.commentRegDate+"&nbsp;&nbsp;</span>"
+                              btn += "<span class='camp_review_btn_span'>"
+                              btn += "<button type='button' id='correction_btn' class='btn btn-default' style='margin-right: 5px;' value="+JSONData.ratingReviewNo+">수정</button>"
+                              btn += "<button type='button' id='delete_btn' class='btn btn-danger' value="+JSONData.ratingReviewNo+" >삭제</button>"  
+                              btn += "</span>"  
+                              btn += "</div>"  
+                        
+                              $(this).parent().prev().empty();
+                              $(this).parent().prev().html(btn);
+                              
+                              $(this).parent().parent().append(append_node);
+                              $(this).parent().remove();
+
+                              }
+
+                          });
+
+                        });
+                             
+
+                $('body').on('click','.confirm',function(){
+  
+                    let ratingReviewNo = $('#camp_ratingreview_no').val();
+                    let comment = $('#camp_ratingreview_comment').val();
+                    let append_node ="";
+                    let btn = "";
+  
                     console.log(ratingReviewNo);
                     console.log(comment);
                 
@@ -368,88 +423,62 @@ pageEncoding="UTF-8"%>
                               "Content-Type" : "application/json"
                             },
                             success : function(JSONData , status) {
-
-                             
-                              
-                                
-                                
-                               
-                                
-                              
-
+  
                                     append_node + "<div class='col-sm-1'></div>"
                                     append_node += "<div class='comment-body'>"
                                     append_node += "<p style='padding-left: 80px;''>&nbsp;&nbsp;"+JSONData.comment+"</p>"
                                     append_node += "</div>"
                                     
-                                    btn += " <div class='col-sm-1'></div>"
-                                    btn += "<div class='comment-author font-alt'>re : <span style='font-size: large;'>"+JSONData.camp.user.campName+"</span>"
-                                    btn += "<span style='font-size: x-small;'>&nbsp;"+JSONData.commentRegDate+"&nbsp;&nbsp;</span>"
-                                    btn += "<span class='camp_review_btn_span'>"
                                     btn += "<button type='button' id='correction_btn' class='btn btn-default' style='margin-right: 5px;' value="+JSONData.ratingReviewNo+">수정</button>"
                                     btn += "<button type='button' id='delete_btn' class='btn btn-danger' value="+JSONData.ratingReviewNo+" >삭제</button>"  
-                                    btn += "</span>"  
-                                    btn += "</div>"  
                               
-                                    $(this).parent().parent().prev().empty();
-                                    $(this).parent().parent().prev().html(btn);
+                                    $(this).parent().parent().parent().next().empty();
+                                    $(this).parent().parent().parent().next().html(append_node);
                                     
-                                    $(this).append(append_node);
+                                    $(this).parent().append(btn);
                                     $(this).remove();
-
-                            }
-
-                      });
-
-              });
-
-              $('body').on('click','.confirm',function(){
-
-                  let ratingReviewNo = $('#camp_ratingreview_no').val();
-                  let comment = $('#camp_ratingreview_comment').val();
-                  let append_node ="";
-                  let btn = "";
-
-                  console.log(ratingReviewNo);
-                  console.log(comment);
-              
-                  $.ajax( 
-                        {
-                          url : "/campGeneral/json/updateReview/",
-                          method : "POST" ,
-                          dataType : "json" , 
-                          context: this,
-                          data : JSON.stringify({
-                            "ratingReviewNo" : ratingReviewNo,
-                            "comment" : comment
-                          }),
-                          headers : {
-                            "Accept" : "application/json",
-                            "Content-Type" : "application/json"
-                          },
-                          success : function(JSONData , status) {
-
-                                  append_node + "<div class='col-sm-1'></div>"
-                                  append_node += "<div class='comment-body'>"
-                                  append_node += "<p style='padding-left: 80px;''>&nbsp;&nbsp;"+JSONData.comment+"</p>"
-                                  append_node += "</div>"
-                                  
-                                  btn += "<button type='button' id='correction_btn' class='btn btn-default' style='margin-right: 5px;' value="+JSONData.ratingReviewNo+">수정</button>"
-                                  btn += "<button type='button' id='delete_btn' class='btn btn-danger' value="+JSONData.ratingReviewNo+" >삭제</button>"  
-                            
-                                  $(this).parent().parent().parent().next().empty();
-                                  $(this).parent().parent().parent().next().html(append_node);
-                                  
-                                  $(this).parent().append(btn);
-                                  $(this).remove();
-
-                          }
-
+  
+                                   }
+  
+                             });
+                          
                     });
-                        
-            });
+                              
+                    $('body').on('click','#delete_btn',function(){
+                      
+                      let ratingReviewNo = $(this).val();
+                      let btn = "";
+                    
+                      console.log(ratingReviewNo);
 
-          });
+                      $.ajax( 
+                            {
+                              url : "/campGeneral/json/deletecomment/",
+                              method : "POST" ,
+                              dataType : "json" , 
+                              context: this,
+                              data : JSON.stringify({
+                                "ratingReviewNo" : ratingReviewNo                               
+                              }),
+                              headers : {
+                                "Accept" : "application/json",
+                                "Content-Type" : "application/json"
+                              },
+                              success : function(JSONData , status) {
+                                                                           
+                                      btn += "<div><button type='button' class='btn btn-primary reply' value="+JSONData.ratingReviewNo+">답글</button></div>"
+                                                                      
+                                      $(this).parent().parent().parent().parent().append(btn);
+                                      $(this).parent().parent().parent().next().remove();
+                                      $(this).parent().parent().remove();
+
+                                    }
+
+                              });
+                            
+                      });
+                  
+                });
         </script>
   </body>
 </html>  
