@@ -29,8 +29,8 @@
 							<ul>
 								<li id="joinUser">일반회원 가입</li>
 								<li id="joinBusinessUser">사업자회원 가입</li>
-								<li class="modal-dismiss" data-toggle="modal" data-target="#findIdModal" id="findId">아이디
-									찾기/비밀번호 찾기</li>
+								<li class="modal-dismiss" data-toggle="modal" data-target="#findIdPwdModal" id="findId">
+									아이디 찾기/비밀번호 찾기</li>
 							</ul>
 						</div>
 					</form>

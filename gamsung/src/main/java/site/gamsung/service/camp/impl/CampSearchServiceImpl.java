@@ -54,8 +54,7 @@ public class CampSearchServiceImpl implements CampSearchService{
 	@Transactional(propagation=Propagation.REQUIRES_NEW)
 	public Map<String, Object> getCamp(int campNo){
 		
-		int viewUpdate = campSearchDAO.updateViewCount(campNo);
-		System.out.println("조회수 증가 확인 -> "+viewUpdate);
+		campSearchDAO.updateViewCount(campNo);
 		
 		Camp camp = campSearchDAO.getCamp(campNo);
 		List<MainSite> mainSite = campSearchDAO.getMainSite(campNo);

@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import site.gamsung.service.camp.CampRatingReviewService;
 import site.gamsung.service.camp.CampReservationService;
 import site.gamsung.service.camp.CampSearchService;
 import site.gamsung.service.common.Page;
@@ -51,10 +50,6 @@ public class CampGeneralRestController {
 	@Qualifier("campRatingReviewServiceImpl")
 	private RatingReviewService ratingReviewService;
 	
-	@Autowired
-	@Qualifier("campRatingReviewServiceImpl")
-	private CampRatingReviewService campRatingReviewService;
-	
 	public CampGeneralRestController() {
 		System.out.println(this.getClass());
 	}
@@ -66,7 +61,7 @@ public class CampGeneralRestController {
 	int pageSize;
 	
 	@RequestMapping( value="json/listReviews/{currentPage}/{campNo}", method=RequestMethod.GET)
-	public  String listReviews (@PathVariable int currentPage, @PathVariable int campNo, Model model) throws Exception{
+	public  String listReviews (@PathVariable int currentPage, @PathVariable int campNo, Model model){
 		
 		System.out.println("/campGeneral/json/listReviews : GET");
 		
@@ -79,14 +74,10 @@ public class CampGeneralRestController {
 		search.setCurrentPage(1);
 		search.setPageSize(pageSize);
 		search.setCampNo(campNo);
-		
-		System.out.println(search);
-		System.out.println(campNo);
-		
+	
 		Map<String, Object> reviewmap = ratingReviewService.listRatingReview(search);
 		
 		Page resultPage = new Page(search.getCurrentPage(), ((Integer) reviewmap.get("totalCount")).intValue(), pageUnit, pageSize);
-		System.out.println(resultPage);
 		
 		model.addAttribute("list", reviewmap.get("list"));
 		model.addAttribute("resultPage", resultPage);
@@ -96,86 +87,89 @@ public class CampGeneralRestController {
 	}
 	
 	@RequestMapping( value="json/possibleMainsite/{start}/{end}/{campNo}", method=RequestMethod.GET)
-	public  List<MainSite> possibleMainsite (@PathVariable Date start, @PathVariable Date end, @PathVariable int campNo) throws Exception{
+	public  List<MainSite> possibleMainsite (@PathVariable Date start, @PathVariable Date end, @PathVariable int campNo){
 		
 		System.out.println("/campGeneral/json/possibleMainsite : GET");
 		
 		Map<String, Object> map = new HashMap<String, Object>();
+	
 		map.put("startDate", start);
 		map.put("endDate", end);
 		map.put("campNo", campNo);
-		System.out.println(map);
 				
 		List<MainSite> list= campReservationService.listPossibleReservation(map);
-		
-		System.out.println("예약 가능한 주요시설 목록"+list);
 				
 		return list;
 	}
 	
 	@RequestMapping( value="json/selectMainSite/{mainSiteNo}/{campNo}", method=RequestMethod.GET)
-	public  MainSite selectMainSite (@PathVariable int mainSiteNo, @PathVariable int campNo) throws Exception{
+	public  MainSite selectMainSite (@PathVariable int mainSiteNo, @PathVariable int campNo){
 		
 		System.out.println("/campGeneral/json/selectMainSite : GET");
 		
 		CampReservation campReservation = new CampReservation();
 		Camp camp = new Camp();
 		MainSite mainSite = new MainSite();
+		
 		camp.setCampNo(campNo);		
 		mainSite.setMainSiteNo(mainSiteNo);
+		
 		campReservation.setCamp(camp);
 		campReservation.setMainSite(mainSite);
-		System.out.println(mainSiteNo);
-		System.out.println(campNo);
 								
 		mainSite = campSearchService.getMainSite(campReservation);
-								
-		System.out.println(mainSite);
 		
 		return mainSite;
 	}
 	
 	@RequestMapping( value="json/updateReview", method=RequestMethod.POST)
-	public  RatingReview updateReview (@RequestBody RatingReview ratingReview) throws Exception{
+	public  RatingReview updateReview (@RequestBody RatingReview ratingReview){
 		
 		System.out.println("/campGeneral/json/updateReview : POST");
-		
-		System.out.println(ratingReview);
 		
 		ratingReviewService.updateRatingReview(ratingReview);
 		
 		ratingReview = ratingReviewService.getRatingReview(ratingReview.getRatingReviewNo());
-								
-		System.out.println(ratingReview);
 		
 		return ratingReview;
 	}
 	
-	   @RequestMapping(value = "json/listMyReservationTable", method = RequestMethod.POST)
-	   private @ResponseBody String getUserList(@ModelAttribute("search") Search search, HttpSession httpSession) throws Exception {
-	      
-		   System.out.println("/campGeneral/json/listMyReservationTable : POST");
-		   
-			
-			User user = (User)httpSession.getAttribute("user");
+	@RequestMapping( value="json/deletecomment", method=RequestMethod.POST)
+	public  RatingReview deletecomment (@RequestBody RatingReview ratingReview){
 		
-			if(user == null) {
-				
-				return "redirect:/";
-				
-			} else {
-				
-				System.out.println(search);
-				System.out.println(user);
-				search.setId(user.getId());
-				List<CampReservation> list = campReservationService.listMyReservationTable(search);
-				
-				Gson data = new GsonBuilder().serializeNulls().create();
-				
-				System.out.println(list);
-				
-				return data.toJson(list);
-			}
+		System.out.println("/campGeneral/json/deletecomment : POST");
+		
+		ratingReviewService.deleteRatingReview(ratingReview);
+		
+		ratingReview = ratingReviewService.getRatingReview(ratingReview.getRatingReviewNo());
+			
+		return ratingReview;
+	}
+	
+   @RequestMapping(value = "json/listMyReservationTable", method = RequestMethod.POST)
+   private @ResponseBody String getUserList(@ModelAttribute("search") Search search, HttpSession httpSession){
+      
+	   System.out.println("/campGeneral/json/listMyReservationTable : POST");
 	   
-	   }
+		
+		User user = (User)httpSession.getAttribute("user");
+	
+		if(user == null) {
+			
+			return "redirect:/";
+			
+		} else {
+			
+			System.out.println(search);
+			System.out.println(user);
+			search.setId(user.getId());
+			List<CampReservation> list = campReservationService.listMyReservationTable(search);
+			
+			Gson data = new GsonBuilder().serializeNulls().create();
+			
+			return data.toJson(list);
+		}
+   
+   }
+	   
 }

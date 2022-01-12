@@ -16,8 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import site.gamsung.service.camp.CampReservationService;
 import site.gamsung.service.common.Page;
 import site.gamsung.service.common.Search;
+import site.gamsung.service.domain.Camp;
+import site.gamsung.service.domain.CampReservation;
 import site.gamsung.service.domain.Payment;
 import site.gamsung.service.domain.PaymentCode;
 import site.gamsung.service.domain.PointTransfer;
@@ -36,6 +39,10 @@ public class PaymentController {
 	@Autowired
 	@Qualifier("paymentServiceImpl")
 	private PaymentService paymentService;
+	
+	@Autowired
+	@Qualifier("campReservationServiceImpl")
+	private CampReservationService campReservationService;
 	
 	@Autowired
 	@Qualifier("userServiceImpl")
@@ -76,29 +83,50 @@ public class PaymentController {
 	 */	
 	@RequestMapping(value = "readyPayment")
 	public String readyPayment(HttpServletRequest request, HttpSession httpSession, Model model) throws Exception {
-			
-		Payment payment = (Payment) request.getAttribute("payment");
-		System.out.println("1 readyPayment_payment : " + payment); 										// 테스트
-						
+		
 		if (httpSession.getAttribute("user") == null) {
 			return "forward:/main.jsp";
 		}
-				
+		
+		Payment tempPayment = new Payment();
+		
+		//포인트관리
+		Payment paymentFromPoint = (Payment) request.getAttribute("payment");
+		if(paymentFromPoint != null) {
+			tempPayment = paymentFromPoint;
+		}
+		
+		//캠핑예약결제
+		Map<String, Object> payCampMapFromCamp = (Map<String, Object>) request.getAttribute("payCampMap");
+		if(payCampMapFromCamp != null) {
+			tempPayment = (Payment) payCampMapFromCamp.get("payment");
+			CampReservation campReservationFromCamp = (CampReservation) payCampMapFromCamp.get("campReservation");
+			model.addAttribute("campReservation", campReservationFromCamp);			
+		}		
+		
+		System.out.println("0 readyPayment_paymentFromPoint : " + paymentFromPoint); 				// 테스트
+		System.out.println("1 readyPayment_payCampMapFromCamp : " + payCampMapFromCamp); 			// 테스트		
+		System.out.println("2 readyPayment_tempPayment : " + tempPayment); 							// 테스트		
+						
 		// user 전체정보요청
 		User tempUser = userService.getUser( ((User) httpSession.getAttribute("user")).getId() );				
-		System.out.println("2 Session tempUser : " + tempUser);   										// 테스트
+		System.out.println("3 Session tempUser : " + tempUser);   									// 테스트
 		
 		httpSession.removeAttribute("user");
 		httpSession.setAttribute("user", tempUser);
-		model.addAttribute("payment", payment);
+		model.addAttribute("payment", tempPayment);		
 		
 		return "forward:/view/payment/readyPayment.jsp";		
 	}	
 	
 	@RequestMapping(value = "paymentSystem", method = RequestMethod.POST)
-	public String paymentSystem (@ModelAttribute("payment") Payment payment, HttpSession httpSession, Model model) throws Exception {	
+	public String paymentSystem (@ModelAttribute("payment") Payment payment, 
+									@ModelAttribute("campReservation") CampReservation campReservation, 
+									HttpSession httpSession, Model model) throws Exception {	
+		
+		System.out.println("0 paymentSystem_payment : " + payment); 						// 테스트
+		System.out.println("1 paymentSystem_campReservation : " + campReservation); 		// 테스트		
 						
-		System.out.println("000 payment : " + payment); 												// 테스트	
 		User tempUser = new User();
 		String paymentRespond = "";	
 		
@@ -110,55 +138,21 @@ public class PaymentController {
 		} else if(ctrlLetter == 'E') {
 			payment.setPaymentNotice(paymentRespond);			
 		}
-		
-		/*
-		System.out.println("000 payment : " + payment); 												// 테스트	
-		Payment paymentResult = new Payment();
-		User tempUser = new User();
-		String paymentRespond = "";	
-		
-		String oriProduct = payment.getPaymentProduct();
-		String oriSenderId = payment.getPaymentSender();
-		String oriReceiverId = payment.getPaymentReceiver();
-		String oriReferenceNum = payment.getPaymentReferenceNum();
-		int oriPaymentProductPriceTotal = payment.getPaymentProductPriceTotal();
-		int oriPointChargeTotal = payment.getPointChargeTotal();			
-		String oriPaymentCode = payment.getPaymentCode();
-		String oriMethod = payment.getPaymentMethod();
-		int oriPriceTotal = payment.getPaymentPriceTotal();		
-		String oriMethodSecond = payment.getPaymentMethodSecond();
-		int oriPriceTotalSecond = payment.getPaymentPriceTotalSecond();						
-		
-		paymentRespond = paymentService.makePayment(payment);
-		char ctrlLetter = paymentRespond.charAt(0);
-		
-		if(ctrlLetter == 'P') {		
-			paymentResult.setPaymentNo(paymentRespond);				
-		} else if(ctrlLetter == 'E') {
-			paymentResult.setPaymentNotice(paymentRespond);			
-		}
-		
-		paymentResult.setPaymentProduct(oriProduct);
-		paymentResult.setPaymentSender(oriSenderId);
-		paymentResult.setPaymentReceiver(oriReceiverId);
-		paymentResult.setPaymentProductPriceTotal(oriPaymentProductPriceTotal);
-		paymentResult.setPaymentCode(oriPaymentCode);
-		paymentResult.setPaymentReferenceNum(oriReferenceNum);
-		paymentResult.setPaymentMethod(oriMethod);
-		paymentResult.setPaymentPriceTotal(oriPriceTotal);
-		paymentResult.setPointChargeTotal(oriPointChargeTotal);	
-
-		if (oriMethodSecond != null) {
-			paymentResult.setPaymentMethodSecond(oriMethodSecond);
-			paymentResult.setPaymentPriceTotalSecond(oriPriceTotalSecond);
-		} 
-		*/
+				
+		// 캠핑장예약 결제완료-예약완료 처리
+		campReservation.setReservationStatus(1);		
+		campReservationService.updateTempReservationToReal(campReservation);	
 		
 		// Session 정보업데이트
 		tempUser = userService.getUser( ((User) httpSession.getAttribute("user")).getId() );
 		httpSession.removeAttribute("user");
 		httpSession.setAttribute("user", tempUser);
 		model.addAttribute("payment", payment);
+		model.addAttribute("campReservation", campReservation);
+		
+		System.out.println("3 paymentSystem_payment : " + payment); 					// 테스트
+		System.out.println("4 paymentSystem_campReservation : " + campReservation); 	// 테스트		
+		System.out.println("5 paymentSystem_tempUser : " + tempUser); 					// 테스트	
 		
 		return "forward:/view/payment/resultPayment.jsp";
 	}	

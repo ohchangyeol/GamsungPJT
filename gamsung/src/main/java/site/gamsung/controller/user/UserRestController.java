@@ -106,7 +106,8 @@ public class UserRestController {
 
 	@RequestMapping(value = "rest/checkDuplication", method = RequestMethod.POST)
 	public int checkDuplication(@RequestBody User user) {
-		System.out.println("1111");
+	
+		System.out.println("rest/checkDuplication 실행");
 		System.out.println(user);
 		int isSuccess = 0;
 
@@ -267,7 +268,7 @@ public class UserRestController {
 				}else if(dbUser.getSuspensionDate() != null) {
 					System.out.println("이용정지 회원");
 					return 13;
-				}else if(dbUser.getCampName() != null && dbUser.getBusinessUserApprovalFlag() != "Y") {
+				}else if(dbUser.getCampName() != null && !(dbUser.getBusinessUserApprovalFlag().equals("Y"))) {
 					return 14;
 				}
 				return 0;

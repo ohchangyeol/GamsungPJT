@@ -13,10 +13,10 @@ pageEncoding="UTF-8"%>
     <title>고객센터 홈</title>
     
     <jsp:include page="../../resources/commonLib.jsp"/>
-
+    
 
   </head>
-  <body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
+  <body data-spy="scroll" data-target=".onpage-navigation" data-offset="60" data-userid="${user.id}">
     <main class="sc-main">
       <div class="page-loader">
         <div class="loader">Loading...</div>
@@ -73,7 +73,7 @@ pageEncoding="UTF-8"%>
                   <div class="features-icon"><span class="icon-tools"></span></div>
                   <h3 class="features-title font-alt">신고하기</h3>
                   <p>신속하게 해결하여 보다 나은 <br/>서비스를 만들어가도록 노력하겠습니다.</p>
-                  <button class="btn btn-d btn-round btn-block" type="button" data-btntype="3">
+                  <button id="report-btn" class="btn btn-d btn-round btn-block" type="button" data-btntype="3" data-userid="${user.id}">
                     <font style="vertical-align: inherit;">
                       <font style="vertical-align: inherit;">신고 하기</font>
                     </font>
@@ -181,19 +181,7 @@ pageEncoding="UTF-8"%>
     JavaScripts
     =============================================
     -->
-    <script src="../../resources/lib/jquery/jquery.js"></script>
-    <script src="../../resources/lib/bootstrap/js/bootstrap.min.js"></script>
-    <script src="../../resources/lib/wow/wow.js"></script>
-    <script src="../../resources/lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js"></script>.
-    <script src="../../resources/lib/isotope/isotope.pkgd.js"></script>
-    <script src="../../resources/lib/imagesloaded/imagesloaded.pkgd.js"></script>
-    <script src="../../resources/lib/flexslider/jquery.flexslider.js"></script>
-    <script src="../../resources/lib/owl.carousel/dist/owl.carousel.min.js"></script>
-    <script src="../../resources/lib/smoothscroll.js"></script>
-    <script src="../../resources/lib/magnific-popup/magnific-popup.js"></script>
-    <script src="../../resources/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script>
-    <script src="../../resources/js/plugins.js"></script>
-    <script src="../../resources/js/main.js"></script>
+    
     <script src="../../resources/js/serivcecenterHome.js"></script>
   </body>
 </html>

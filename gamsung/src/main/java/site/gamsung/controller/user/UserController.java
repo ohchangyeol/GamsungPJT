@@ -1,9 +1,11 @@
 package site.gamsung.controller.user;
 
+import java.io.File;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -20,6 +22,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.sun.mail.handlers.multipart_mixed;
 
 import site.gamsung.service.common.Page;
 import site.gamsung.service.common.Search;
@@ -53,12 +58,45 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "addUser", method = RequestMethod.POST)
-	public String addUser(@ModelAttribute("user") User user) {
+	public String addUser(@ModelAttribute("user") User user, MultipartFile businessImg, HttpSession session) {
 
 		System.out.println("/user/addUser:POST");
-
+	
 		// user.setRole("GENERAL");
-		userService.addUser(user);
+		if(user.getRole().equals("GENERAL")) {
+			userService.addUser(user);
+		}else {
+			MultipartFile multpartfile=businessImg;
+			String originalImg = multpartfile.getOriginalFilename();
+			if(originalImg != null && originalImg !="") {
+				//확장자 명만 추출
+				String originalFileExtension = originalImg.substring(originalImg.lastIndexOf("."));
+				
+				String rootPath=session.getServletContext().getRealPath("/");
+				System.out.println(rootPath);
+				String attachPath="uploadfiles/userBusinessImg/";
+				String storedFileName=UUID.randomUUID().toString().replaceAll("-", "")+originalFileExtension;
+				
+				System.out.println("rootPath :"+rootPath);
+				System.out.println("attachPath :"+attachPath);
+				System.out.println("storedFileName :"+storedFileName);
+				
+				File file = new File(rootPath+attachPath+storedFileName);
+				
+				System.out.println("file :"+file);
+				try {	
+				multpartfile.transferTo(file);
+				
+				user.setCampBusinessImg(storedFileName);
+				
+				userService.addUser(user);
+				}catch(Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+		
 
 		return "redirect:/main.jsp";
 	}
@@ -123,6 +161,7 @@ public class UserController {
 			if (user.getPassword() == null || user.getPassword() == "") {
 				System.out.println("패스워드가 널이다");
 				user.setPassword(dbUser.getPassword());
+				user.setSalt(dbUser.getSalt());
 				System.out.println(dbUser.getPassword());
 			} else {
 				System.out.println("널이 아니다");
@@ -199,15 +238,6 @@ public class UserController {
 			session.setAttribute("user", dbUser);
 			return "forward:/adminMain.jsp";
 		}
-		// else if(dbUser.getDormantConversionDate() != null) {
-		// session.setAttribute("id", user.getId());
-		// System.out.println("휴면회원 아이디"+user.getId());
-		// return "/view/user/updateDormantGeneralUserConvert.jsp";
-		// }else if(dbUser.getSecessionRegDate() != null) {
-		// return "탈퇴회원안내.jsp";
-		// }else if(dbUser.getSuspensionDate() != null) {
-		// return "이용정지된 회원임.jsp";
-		// }
 
 		String jsp = "/";
 
@@ -220,7 +250,7 @@ public class UserController {
 				jsp = "redirect:/";
 			} else if (dbUser.getBusinessUserApprovalFlag() != null
 					&& dbUser.getBusinessUserApprovalFlag().equals("Y")) {
-				jsp = "/campBusiness/goSubMainCampBusiness";
+				jsp = "redirect:/campBusiness/goSubMainCampBusiness";
 			}
 		}
 
@@ -296,10 +326,7 @@ public class UserController {
 				if (userEmail.getSnsId() != null) {
 					session.setAttribute("user", userEmail);
 					return "redirect:/";
-				} else {
-					// 우리 회원임
-					return "redirect:/";
-				}
+				} 
 			}
 		}
 		return "forward:/view/user/addKakaoUser.jsp";

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.Report;
 import site.gamsung.service.domain.ReportWrapper;
+import site.gamsung.service.domain.User;
 import site.gamsung.service.servicecenter.ReportDAO;
 import site.gamsung.service.servicecenter.ReportService;
 
@@ -53,6 +54,13 @@ public class ReportServiceImpl implements ReportService {
 		reportDAO.updateCodeReport(report);
 		
 	}
+
+	@Override
+	public User findReceiverId(Report report) {
+		
+		return reportDAO.findReceiverId(report);
+	}
+	
 	
 	
 	

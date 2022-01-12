@@ -23,18 +23,29 @@
 			$("form[id=headhidden]").attr("method", "POST").attr("action", "/campBusiness/listMainSite").submit();
 		});
 		
-		$("a:contains('부가시설 목록')").on("click", function () {
-			$("form[id=headhidden]").attr("method", "POST").attr("action", "/campBusiness/listSubSite").submit();
-		});
-			
-		$("a:contains('예약관리')").on("click", function () {
+	 	$("a:contains('주요시설 등록')" ).on("click" , function() {
+	 		window.self.location = "/campBusiness/addMainSiteView";
+		}); 
+	 	
+	 	$("a:contains('부가시설 목록')" ).on("click" , function() {
+	 		$("form[id=headhidden]").attr("method", "POST").attr("action", "/campBusiness/listSubSite").submit();
+		}); 
+	 	
+	 	$("a:contains('부가시설 등록')" ).on("click" , function() {
+	 		window.self.location = "/campBusiness/addSubSiteView";
+		}); 
+	 	
+	 	$("a:contains('예약관리')" ).on("click" , function() {
 			$("form[id=headhidden]").attr("method", "POST").attr("action", "/campBusiness/listMainSite").submit();
-		});
-		
-		$("a:contains('리뷰관리')").on("click", function () {
-		
-		});
-		
+		}); 
+	 	
+	 	$("a:contains('리뷰관리')" ).on("click" , function() {
+
+			let campNo = $("#campNo").val();
+
+			window.self.location = "/campGeneral/listBusinessCampRatingReview?campNo="+campNo;
+		}); 
+	 					
 		$("a:contains('캠핑장 공지사항')").on("click", function () {
 		
 		});
@@ -128,7 +139,7 @@
 						<li><a href="/payment/managePoint">포인트 관리</a></li>
 						<li><a href="/payment/listPayment">결제 내역</a></li>
 						<li><br></li>
-						<li><a href="../view/campbusiness/campMypage.jsp">내 정보</a></li>
+						<li><a href="../view/user/getBusinessUserUpdate.jsp">내 정보</a></li>
 						<li><br></li>
 						<li><a href="/user/logout">로그아웃</a></li>
 						<li><br></li>

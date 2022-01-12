@@ -7,6 +7,7 @@
 			<meta charset="UTF-8">
 
 			<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+			<jsp:include page="/resources/commonLib.jsp"></jsp:include>
 
 			<title>회원가입</title>
 
@@ -106,7 +107,7 @@ width: 50%;
 						<div class="container">
 							<!-- <div class="row"> -->
 							<div class="col-sm-8 col-sm-offset-2">
-								<h4 class="font-alt mb-0">일반회원 조회/수정</h4>
+								<h4 class="font-alt mb-0">일반회원 회원가입</h4>
 								<hr class="divider-w mt-10 mb-20">
 								<form class="form" role="form">
 									<div id="email" class="form-group row">
@@ -114,7 +115,7 @@ width: 50%;
 										<label for="id"
 											class="col-sm-offset-1 col-sm-3 control-label"><strong>아이디</strong></label>
 										<div class="col-sm-6">
-											<input id="id" name="id" class="form-control " type="text"
+											<input id="addGeneralId" name="id" class="form-control " type="text"
 												placeholder="아이디는 이메일 형식만 가능합니다." />
 										</div>
 										<div>
@@ -133,8 +134,8 @@ width: 50%;
 										<label for="password"
 											class="col-sm-offset-1 col-sm-3 control-label"><strong>비밀번호</strong></label>
 										<div class="col-sm-6">
-											<input id="password" name="password" class="form-control " type="password"
-												placeholder="비밀번호는 8~15자까지 입력 가능합니다." />
+											<input id="addGeneralPassword" name="password" class="form-control "
+												type="password" placeholder="비밀번호는 8~15자까지 입력 가능합니다." />
 										</div>
 										<div></div>
 										<div id="check-pwd-exp" class='col-sm-offset-3 col-sm-6'></div>
@@ -168,7 +169,7 @@ width: 50%;
 										<label for="name"
 											class="col-sm-offset-1 col-sm-3 control-label"><strong>이름</strong></label>
 										<div class="col-sm-6">
-											<input id="name" name="name" class="form-control" type="text"
+											<input id="addGeneralname" name="name" class="form-control" type="text"
 												placeholder="이름을 입력하세요" />
 										</div>
 										<div></div>
@@ -178,7 +179,7 @@ width: 50%;
 										<label for="phone"
 											class="col-sm-offset-1 col-sm-3 control-label"><strong>휴대폰번호</strong></label>
 										<div class="col-sm-6">
-											<input id="phone" name="phone" class="form-control " type="text"
+											<input id="addGeneralPhone" name="phone" class="form-control " type="text"
 												placeholder="숫자만 입력해주세요" maxlength="11" />
 
 										</div>
@@ -252,10 +253,9 @@ width: 50%;
 				$(function () {
 
 					//아이디 유효성 및 중복체크
-					$("input[name='id']").on("keyup", function () {
+					$("#addGeneralId").on("keyup", function () {
 						// console.log("가나다");
-						var email = $("#id").val();
-						console.log(email);
+						var email = $("#addGeneralId").val();
 						console.log(email);
 						$.ajax({
 							url: '/user/rest/checkDuplication',
@@ -340,9 +340,9 @@ alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+
 					});
 
 					//비밀번호
-					$('#password').on("keyup", function () {
+					$('#addGeneralPassword').on("keyup", function () {
 						var regExp = /[ㄱ-ㅎㅏ-ㅣ가-힣]/g; //한글입력 불가
-						var pwd = $('#password').val();
+						var pwd = $('#addGeneralPassword').val();
 
 						if (pwd.length < 1) {
 							$("#check-pwd-exp").html("");
@@ -360,12 +360,12 @@ alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+
 
 						if ($('#confirmPassword').val().length < 0) {
 							$("#check-pwd").html("");
-						} else if ($('#password').val() != $('#confirmPassword').val() || $('#confirmPassword').val() != '') {
+						} else if ($('#addGeneralPassword').val() != $('#confirmPassword').val() || $('#confirmPassword').val() != '') {
 							$("#check-pwd").html('비밀번호가 일치하지 않습니다.');
 							$("#check-pwd").css('color', 'red');
 							$('#confirmPassword').focus();
 						}
-						if ($('#password').val() == $('#confirmPassword').val()) {
+						if ($('#addGeneralPassword').val() == $('#confirmPassword').val()) {
 							$("#check-pwd").html('비밀번호가 일치합니다.');
 							$("#check-pwd").css('color', 'green');
 						}
@@ -404,10 +404,10 @@ alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+
 					});
 
 					//휴대폰번호 중복체크
-					$("input[name='phone']").on("keyup", function () {
+					$("#addGeneralPhone").on("keyup", function () {
 
 						var regExp = /^[0-9]*$/;
-						var phone = $("input[name='phone']").val();
+						var phone = $("#addGeneralPhone").val();
 
 						$.ajax({
 							url: '/user/rest/checkDuplication',
@@ -424,13 +424,13 @@ alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+
 								if (result == 0) {
 									if (email != "") {
 										if (!(regExp.test(phone))) {
-											$("#phone").val("");
+											$("#addGeneralPhone").val("");
 											$("#check-phone").html("휴대폰번호는 숫자로만 입력 가능합니다.");
 										} else if (phone.length == 11) {
 											$("#check-phone").html('사용 가능한 번호입니다.');
 											$("#check-phone").css('color', 'green');
 										} else if (phone.length > 11) {
-											$("#phone").val("");
+											$("#addGeneralPhone").val("");
 											$("#check-phone").html("휴대폰번호는 11자리만 가능합니다.");
 										} else {
 											$("#check-phone").html("");
@@ -453,7 +453,8 @@ alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+
 						$("#check-phone").hide();
 						$("#checkPhoneAuth").show();
 						//세션에 담긴 값이랑 입력된 값이 맞는지 비교하기 #check-phone-auth
-						var phone = $("input[name='phone']").val();
+						const phone = $("#addGeneralPhone").val();
+						console.log(phone);
 
 						$.ajax({
 							url: '/user/rest/sendPhoneAuthNum/' + phone,
@@ -491,12 +492,12 @@ alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+
 
 					function fncAddUser() {
 
-						//var id=$("input[name='userId']").val();
-						var pw = $("input[name='password']").val();
+						var id = $("#addGeneralId").val();
+						var pw = $("#addGeneralPassword").val();
 						var pw_confirm = $("input[name='confirmPassword']").val();
-						var name = $("input[name='name']").val();
+						var name = $("#addGeneralname").val();
 						var nickName = $("input[name='nickName']").val();
-						var phone = $("input[name='phone']").val();
+						var phone = $("#addGeneralPhone").val();
 
 
 						if (id == null || id.length < 1) {
@@ -504,27 +505,31 @@ alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+
 							return;
 						}
 
-						if (password == null || password.length < 1) {
+						if (pw == null || pw.length < 1) {
 							alert("패스워드는  반드시 입력하셔야 합니다.");
 							return;
 						}
 
-						if (7 < password.length < 16) {
+						if (!(7 < pw.length < 16)) {
 							alert("패스워드는 8~15자까지 가능합니다.");
+							alert(pw.length);
 							return;
 						}
 
-						if (confirmPassword == null || confirmPassword.length < 1) {
+						if (pw_confirm == null || pw_confirm.length < 1) {
 							alert("패스워드 확인은  반드시 입력하셔야 합니다.");
 							return;
 						}
 
 						if (name == null || name.length < 1) {
+							alert(name.length);
 							alert("이름은  반드시 입력하셔야 합니다.");
 							return;
 						}
 
-						if (password != confirmPassword) {
+						if (pw != pw_confirm) {
+							alert(pw);
+							alert(pw_confirm);
 							alert("비밀번호 확인이 일치하지 않습니다.");
 							$("input:text[name='confirmPassword']").focus();
 							return;
@@ -536,6 +541,7 @@ alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+
 						}
 
 						if (phone == null || phone.length < 1) {
+							alert("휴대폰번호 길이" + phone.length);
 							alert("휴대폰번호는 반드시 입력하셔야 합니다.");
 							return;
 						}
@@ -548,7 +554,7 @@ alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+
 
 						$("input:hidden[name='allAddr']").val(value);
 
-						$("form").attr("method", "POST").attr("action", "/user/addUser").submit();
+						$("form").attr("method", "POST").attr("action", "/user/addUser").attr("enctype", "multipart/form-data").submit();
 					}
 
 

@@ -41,8 +41,7 @@ pageEncoding="UTF-8"%>
     <script src="../../resources/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script>
     <script src="../../resources/js/plugins.js"></script>
     <script src="../../resources/js/main.js"></script>
-    <!-- Kakao Map-->
-    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6f8199ad71211c3df709f290a0e83244&libraries=services"></script>
+    
     <!-- Default stylesheets-->
     <link href="../../resources/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Template specific stylesheets-->
@@ -330,15 +329,26 @@ pageEncoding="UTF-8"%>
              for (var x = 0; x < content_files.length; x++) {
                 // 삭제 안한것만 담아 준다. 
                 if(!content_files[x].is_delete){
-                  formdata.append("reviewImg", content_files[x]);
+                  formdata.append("article_file", content_files[x]);
                 }
               }
               
-              var xhr = new XMLHttpRequest();
               var reservationNo = $("#reservation_no").val();
+              
+              var xhr = new XMLHttpRequest();
+
+              xhr.onload = function() {
+                        if (xhr.status === 200 || xhr.status === 201) {
+                          console.log(xhr.responseText);
+                          window.location = "/campGeneral/listMyCampRatingReview";
+                        } else {
+                          console.error(xhr.responseText);
+                        }
+                      };
 
               xhr.open("POST", "/campGeneral/addCampRatingReview?reservationNo="+reservationNo);  
               xhr.send(formdata);
+             
         }
 
       

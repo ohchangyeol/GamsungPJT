@@ -139,7 +139,11 @@ $(document).ready(function(){
 					Swal.fire(result).then(()=>{
 						self.location = "/";
 					});
-				} 
+				} else{
+					Swal.fire("가입되지 않은 회원입니다. 회원가입 후 이용바랍니다.").then(()=>{
+						self.location = "/";
+					});
+				}
 			}
 		});	   
 		 		 

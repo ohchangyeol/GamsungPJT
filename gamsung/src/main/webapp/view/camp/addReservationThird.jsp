@@ -258,8 +258,6 @@ pageEncoding="UTF-8"%>
               <input type="hidden" id="useNum"  name="useNum" value="${campReservation.useNum}">
               <input type="hidden" id="regCar"  name="totalReservationRegCar" value="${campReservation.totalReservationRegCar}">
               <input type="hidden" id="paymentPrice"  name="totalPaymentPrice" value="">
-
-
               <input type="hidden" id="minCapacity" value="${mainSite.mainSiteMinCapacity}">
               <input type="hidden" id="minprice"value="${mainSite.mainSiteMinPrice}">
               <input type="hidden" id="addPrice" value="${mainSite.mainSiteAddPrice}">
@@ -273,7 +271,6 @@ pageEncoding="UTF-8"%>
       </div>
     </form>
 
-    <input type="hidden" id="campno" value="${campReservation.camp.campNo}">
     </main>
 
     <script src="../../resources/lib/jquery/jquery.js"></script>

@@ -12,11 +12,12 @@
         <!-- Document Title -->
         <title>GetCamp</title>
 
-        <jsp:include page="../../resources/commonLib.jsp"/>
+        <jsp:include page="../../resources/commonLib.jsp" />
 
- 
-        <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6f8199ad71211c3df709f290a0e83244&libraries=services"></script>
-        
+
+        <script type="text/javascript"
+          src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6f8199ad71211c3df709f290a0e83244&libraries=services"></script>
+
         <style>
           .map_wrap,
           .map_wrap * {
@@ -343,10 +344,14 @@
                       <li class="active"><a href="#introduce" data-toggle="tab"><span
                             class="icon-magnifying-glass"></span>캠핑장소개</a></li>
                       <li><a href="#useinfo" data-toggle="tab"><span class="icon-magnifying-glass"></span>이용안내</a></li>
-                      <li><a href="#mapview" data-toggle="tab"><span class="icon-magnifying-glass"></span>위치/주변정보</a></li>
-                      <li><a href="#notice" data-toggle="tab" class="li-btn"><span class="icon-magnifying-glass"></span>공지사항</a></li>
-                      <li><a href="#qna" data-toggle="tab" class="li-btn"><span class="icon-magnifying-glass"></span>Q&A</a></li>
-                      <li><a href="#reviews" data-toggle="tab" class="li-btn"><span class="icon-magnifying-glass"></span>평점&리뷰</a></li>
+                      <li><a href="#mapview" data-toggle="tab"><span class="icon-magnifying-glass"></span>위치/주변정보</a>
+                      </li>
+                      <li><a href="#notice" data-toggle="tab" class="li-btn"><span
+                            class="icon-magnifying-glass"></span>공지사항</a></li>
+                      <li><a href="#qna" data-toggle="tab" class="li-btn"><span
+                            class="icon-magnifying-glass"></span>Q&A</a></li>
+                      <li><a href="#reviews" data-toggle="tab" class="li-btn"><span
+                            class="icon-magnifying-glass"></span>평점&리뷰</a></li>
                     </ul>
 
                     <div class="tab-content">
@@ -735,21 +740,24 @@
 
 
                     <div class="tab-pane teb-iframe" id="notice">
-                      <iframe src="/campGeneral/listCampNotice?campNo=${camp.campNo}" scrolling="no" id="noticeschange"></iframe>
+                      <iframe src="/campGeneral/listCampNotice?campNo=${camp.campNo}" scrolling="no"
+                        id="noticeschange"></iframe>
                       <script type="text/javascript">
-                         function noticeIframeHeight(i) { document.getElementById("noticeschange").style.height = parseInt(i) + "px"; }
+                        function noticeIframeHeight(i) { document.getElementById("noticeschange").style.height = parseInt(i) + "px"; }
                       </script>
                     </div>
 
                     <div class="tab-pane teb-iframe" id="qna">
-                      <iframe src="/campGeneral/listCampQna?campNo=${camp.campNo}" scrolling="no" id="qnaschange"></iframe>
+                      <iframe src="/campGeneral/listCampQna?campNo=${camp.campNo}" scrolling="no"
+                        id="qnaschange"></iframe>
                       <script type="text/javascript">
-                         function AdjustIframeHeight(i) { document.getElementById("qnaschange").style.height = parseInt(i) + "px"; }
+                        function AdjustIframeHeight(i) { document.getElementById("qnaschange").style.height = parseInt(i) + "px"; }
                       </script>
                     </div>
 
                     <div class="tab-pane teb-iframe" id="reviews">
-                      <iframe src="/campGeneral/listCampRatingReview?campNo=${camp.campNo}" scrolling="no" id="reviewschange"></iframe>
+                      <iframe src="/campGeneral/listCampRatingReview?campNo=${camp.campNo}" scrolling="no"
+                        id="reviewschange"></iframe>
                       <script type="text/javascript">
                         function reviewIframeHeight(i) { document.getElementById("reviewschange").style.height = parseInt(i) + "px"; }
                       </script>
@@ -794,8 +802,8 @@
               var mainSiteNo = 0;
               $("#hidden").attr("method", "POST").attr("action", "/campGeneral/addReservation?mainSiteNo=" + mainSiteNo).submit();
             });
-            
-            $(".li-btn").on("click", function(){
+
+            $(".li-btn").on("click", function () {
               var iframeHeight = $(".tab-pane.active iframe").contents().find("html").height();
               $(".teb-iframe.active iframe").height(iframeHeight);
             });

@@ -2,13 +2,13 @@
 pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<div class="row getNotice">
+<div class="row getNotice" data-noticeno="${notice.noticeNo}">
   <div class="col-xs-12">
     <div class="row">
       <h4 class="col-sm-7 mb-0">공지 사항</h4>
       <div class="col-sm-5 mb-sm-0">
         <div class="row">
-          <button class="btn btn-d btn-round" type="button" onclick="history.back()">목록가기</button>
+          <button class="btn btn-d btn-round notice-back" type="button"">목록가기</button>
         </div>
       </div>
     </div>
@@ -44,6 +44,12 @@ pageEncoding="UTF-8"%>
           ${notice.noticeContent}
         </div>
         <hr class="divider-w mt-10 mb-20">
+        <c:if test="${user.role == 'ADMIN'}">
+        <div class="u-d-button-box">
+          <button id="notice-update-btn" class="btn btn-warning btn-round" type="button">수정</button>
+          <button id="notice-delete-btn" class="btn btn-danger btn-round" type="button">삭제</button>
+        </div>
+        </c:if>
       </div>
     </div>
   </div>
