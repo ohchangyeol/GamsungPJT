@@ -18,7 +18,7 @@
 				<li>
 			</c:if>
 		   			<a href="javascript:fncGetList('${ resultPage.currentPage-1}')" aria-label="Previous">
-		        		<span aria-hidden="true">&laquo;</span>
+		        		<span aria-hidden="true"><i class="fa fa-angle-left"></i></span>
 		      		</a>
 				</li>
 		    
@@ -48,7 +48,7 @@
 				<li>
 			</c:if>
 			     	<a href="javascript:fncGetList('${resultPage.currentPage+1}')" aria-label="Next">
-		        		<span aria-hidden="true">&raquo;</span>
+		        		<span aria-hidden="true"><i class="fa fa-angle-right"></i></span>
 		      		</a>
 		      	</li>
 

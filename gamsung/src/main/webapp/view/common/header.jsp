@@ -109,7 +109,9 @@
                     <ul class="dropdown-menu">
                         <li><a href="/servicecenter/listNotice">공지사항</a></li>
                         <li><a href="/servicecenter/listQna"> Q&A </a></li>
-                        <li><a href="/servicecenter/listReport/my">내 신고 내역</a></li>
+                        <c:if test="${sessionScope.user.role!=null}">
+                        <li><a href="/servicecenter/listReport?id=${user.id}">내 신고 내역</a></li>
+                        </c:if>
                     </ul>
                 </li>
                 <!-- 고객센터 End -->
@@ -118,14 +120,14 @@
                 <!-- My / Business / Admin  Start -->
                 <c:if test="${user.role != 'BUSINESS' }">
                     <li><a href="/view/common/myPage.jsp">MyPage</a>
-                </c:if>	            
+                </c:if>               
                 
                 <c:if test="${user.role == 'BUSINESS' || user.role == 'ADMIN'}">
                     <li><a href="/campBusiness/goSubMainCampBusiness">BusinessPage</a>
-                </c:if>	
+                </c:if>   
                 
                 <c:if test="${user.role == 'ADMIN' }">
-                    <li><a href="/adminMain.jsp">AdminPage</a>
+                    <li><a href="/campBusiness/goSubMainCampBusiness">AdminPage</a>
                 </c:if>
                 <!-- My / Business / Admin  End -->
 
@@ -133,7 +135,7 @@
                 <!-- 로그인/로그아웃 End -->
                 <li>
                     <c:if test="${sessionScope.user.role!=null}">
-                      <a href="/user/logout">
+                      <a href="#">
                           <button class="btn btn-border-w btn-round btn-xs" type="button" id="logout">LOGOUT</button>
                       </a>
                     </c:if>

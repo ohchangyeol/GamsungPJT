@@ -17,7 +17,7 @@ pageEncoding="UTF-8"%>
 		<jsp:include page="/resources/commonCssAdmin.jsp"/>
 
 	</head>
-	<body class="admin-page">
+	<body >
 		<section class="body">
 
 			<!-- start: header -->

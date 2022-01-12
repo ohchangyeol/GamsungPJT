@@ -40,8 +40,8 @@ public class ReportServiceTest {
 		User receiver = new User();
 		
 		//회원
-		sender.setId("user1@gamsung.com");
-		sender.setRole("GENERAL");
+		sender.setId("a@a.com");
+//		sender.setRole("GENERAL");
 		receiver.setId("user4@gamsung.com");
 		
 		// 회원 => 캠핑장신고
@@ -57,7 +57,7 @@ public class ReportServiceTest {
 		
 		report.setReceiver(receiver);
 		report.setSender(sender);
-		report.setReportType(3);
+		report.setReportType(2);
 		report.setReportContent("가나다");
 		reportService.addReport(report);
 	}
@@ -70,17 +70,17 @@ public class ReportServiceTest {
 		System.out.println("==> report : "+ report);
 	}
 	
-	//@Test
+	@Test
 	public void listReportServiceTest() throws Exception {
 		Search search = new Search();
 		
 		search.setCurrentPage(1); 
 		search.setPageSize(pageSize);
 		 
-		search.setId("admin");
+		//search.setId("admin");
 		
 		//search.setSearchCondition("3");
-		search.setSortCondition("status");
+		//search.setSortCondition("status");
 		
 		System.out.println("####################" + search);
 		
@@ -101,7 +101,7 @@ public class ReportServiceTest {
 		System.out.println("==> not report : "+ notTotalCount);
 	}
 	
-	@Test
+//	@Test
 	public void updateCodeServiceTest() throws Exception {
 		Report report = new Report();
 		report.setReportNo(2);
@@ -112,6 +112,22 @@ public class ReportServiceTest {
 //		report.setReportStatus(2);
 		
 		reportService.updateCodeReport(report);
+	}
+	
+	//@Test
+	public void findReceiver () throws Exception {
+		
+		Report report = new Report();
+		
+		report.setReceiverCampName(null);
+//		report.setReceiverNickName("제나바");
+		
+		User receiver = reportService.findReceiverId(report);
+		
+		System.out.println(receiver);
+		
+//		receiver = reportService.findReceiverId(report);
+		
 	}
 	
 	
