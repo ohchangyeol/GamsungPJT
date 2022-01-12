@@ -48,8 +48,16 @@
 	
 	<!-- 공지사항 등록 -->
 	<insert id="addNotice" parameterType="notice">
-		INSERT INTO NOTICE (user_id, notice_title, notice_content, notice_file1, notice_file2,notice_file3, camp_no, camp_name)
-		VALUE (#{writer.id}, #{noticeTitle:VARCHAR}, #{noticeContent:VARCHAR}, #{noticeFile1:VARCHAR},#{noticeFile2:VARCHAR},#{noticeFile3:VARCHAR},#{campNo:NULL},#{campName:VARCHAR})
+	<choose>
+		<when test="campNo != 0 and campNo != null">
+			INSERT INTO NOTICE (user_id, notice_title, notice_content, notice_file1, notice_file2,notice_file3, camp_no, camp_name)
+			VALUE (#{writer.id}, #{noticeTitle:VARCHAR}, #{noticeContent:VARCHAR}, #{noticeFile1:VARCHAR},#{noticeFile2:VARCHAR},#{noticeFile3:VARCHAR},#{campNo:NUMERIC},#{campName:VARCHAR})
+		</when>
+		<otherwise>
+			INSERT INTO NOTICE (user_id, notice_title, notice_content, notice_file1, notice_file2,notice_file3)
+			VALUE (#{writer.id}, #{noticeTitle:VARCHAR}, #{noticeContent:VARCHAR}, #{noticeFile1:VARCHAR},#{noticeFile2:VARCHAR},#{noticeFile3:VARCHAR})
+		</otherwise>
+		</choose>
 	</insert>
 	
 	<!-- 공지사항 상세조회 -->
@@ -82,7 +90,7 @@
 					n.camp_no = #{campNo}
 				</when>
 				<otherwise>
-					n.camp_no = 0
+					n.camp_no IS NULL
 				</otherwise>
 			</choose>
 		</trim>
@@ -142,7 +150,7 @@
 							n.camp_no = #{campNo}
 						</when>
 						<otherwise>
-							n.camp_no = 0
+							n.camp_no IS NULL 
 						</otherwise>
 					</choose>
 				</trim>

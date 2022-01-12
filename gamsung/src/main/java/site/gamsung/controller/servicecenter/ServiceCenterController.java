@@ -249,9 +249,12 @@ public class ServiceCenterController {
 		System.out.println("\n == serch ==\n "+search);
 		 
 		QnaWrapper wrapper = qnaService.listQna(search);
+		wrapper.setSearch(search);
 		
+		Page resultPage = new Page( search.getCurrentPage(), wrapper.getTotalCount() , pageUnit, pageSize);
 		
 		model.addAttribute("wrapper" , wrapper);
+		model.addAttribute("resultPage", resultPage);
 
 		if(search.getId() == null || "".equals(search.getId())) {
 			model.addAttribute("qnaType", "list");
@@ -319,7 +322,13 @@ public class ServiceCenterController {
 		search.setPageSize(pageSize);
 		
 		ReportWrapper wrapper = reportService.listReport(search);
+		wrapper.setSearch(search);
+		
+		Page resultPage = new Page( search.getCurrentPage(), wrapper.getTotalCount() , pageUnit, pageSize);
+		
+		
 		model.addAttribute("wrapper", wrapper);
+		model.addAttribute("resultPage", resultPage);
 
 		System.out.println(wrapper);
 		

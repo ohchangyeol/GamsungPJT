@@ -7,21 +7,20 @@ pageEncoding="UTF-8"%>
     <div class="row">
       <h4 class="col-sm-7 mb-0">신고 내역 조회</h4>
       <div class="col-sm-5 mb-sm-0">
-        <div class="row">
+        <div style="position: absolute; right: 0">
         <form role="form" class="rerport-search">
-          <div class="col-sm-4">
-          <select class="form-control">
-            <option selected="selected">제목+내용</option>
-            <option>제목</option>
-            <option>내용</option>
-          </select>
+          
+          <div>
+            <select id="report-condition" class="form-control" name="searchCondition">
+              <option value="0" ${ ! empty wrapper.search.searchCondition && wrapper.search.searchCondition==0 ? "selected" : "" }>전체</option>
+              <option value="1" ${ ! empty wrapper.search.searchCondition && wrapper.search.searchCondition==1 ? "selected" : "" }>캠핑장 신고</option>
+              <option value="2" ${ ! empty wrapper.search.searchCondition && wrapper.search.searchCondition==2 ? "selected" : "" }>경매 신고</option>
+              <option value="3" ${ ! empty wrapper.search.searchCondition && wrapper.search.searchCondition==3 ? "selected" : "" }>커뮤니티 신고</option>
+              <option value="4" ${ ! empty wrapper.search.searchCondition && wrapper.search.searchCondition==4 ? "selected" : "" }>예약양도 신고</option>
+              <option value="5" ${ ! empty wrapper.search.searchCondition && wrapper.search.searchCondition==5 ? "selected" : "" }>이용고객 신고</option>
+            </select>
           </div>
-          <div class="col-sm-8">
-          <div class="search-box">
-            <input class="form-control" type="text" placeholder="Search...">
-            <button class="search-btn" type="submit"><i class="fa fa-search"></i></button>
-          </div>
-          </div>
+          <input type="hidden" id="currentPage" name="currentPage" value="${resultPage.currentPage}"/>
           
         </form>
         </div>
@@ -69,17 +68,7 @@ pageEncoding="UTF-8"%>
         </tbody>
       </table>
     </div>
-    <div class="pagination font-alt page-nav">
-      <a href="#">
-        <i class="fa fa-angle-left"></i>
-      </a>
-      <a class="active" href="#">1</a>
-      <a href="#">2</a>
-      <a href="#">3</a>
-      <a href="#">4</a>
-      <a href="#">
-        <i class="fa fa-angle-right"></i>
-      </a>
-      </div>
+    <jsp:include page="../../common/pageNavigator.jsp"/>
+
   </div>
 </section>

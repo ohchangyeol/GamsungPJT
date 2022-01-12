@@ -1,5 +1,9 @@
 $(document).ready(function(){
         
+    $("#report-condition").on("change" , ()=>{
+        // console.log("변경");
+        $(".rerport-search").attr("method", "post").submit();
+    })
     $(".my-report tbody tr").on("click" , (e)=>{
         const reportNo = $(e.currentTarget).find(".report-no").text();
 
@@ -41,6 +45,12 @@ $(document).ready(function(){
             return openerElement.is('img') ? openerElement : openerElement.find('img');
           }
         }
-      });
+    });
+
+    fncGetList = (currentPage)=>{
+    $("#currentPage").val(currentPage);
+    $(".rerport-search").attr("method", "post").submit();
+    }
+    
 
   })
