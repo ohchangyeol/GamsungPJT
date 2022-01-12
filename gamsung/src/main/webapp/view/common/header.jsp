@@ -85,10 +85,10 @@
 
 
                 <!-- 중고경매 Start -->
-                <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">중고상품</a>
+                <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">경매상품</a>
                     <ul class="dropdown-menu">
                         <li><a href="/auction/addAuctionProduct">상품 등록</a></li>
-                        <li><a href="/auction/listWaitAuctionProduct">경매 진행 전</a></li>
+                        <li><a href="/auction/listWaitAuctionProduct">관리자 경매 상품</a></li>
                         <li><a href="/auction/listAuctionProduct">경매 진행 중</a></li>
                     </ul>
                 </li>
@@ -118,14 +118,14 @@
                 <!-- My / Business / Admin  Start -->
                 <c:if test="${user.role != 'BUSINESS' }">
                     <li><a href="/view/common/myPage.jsp">MyPage</a>
-                </c:if>	            
+                </c:if>               
                 
                 <c:if test="${user.role == 'BUSINESS' || user.role == 'ADMIN'}">
                     <li><a href="/campBusiness/goSubMainCampBusiness">BusinessPage</a>
-                </c:if>	
+                </c:if>   
                 
                 <c:if test="${user.role == 'ADMIN' }">
-                    <li><a href="/adminMain.jsp">AdminPage</a>
+                    <li><a href="/campBusiness/goSubMainCampBusiness">AdminPage</a>
                 </c:if>
                 <!-- My / Business / Admin  End -->
 
@@ -133,7 +133,7 @@
                 <!-- 로그인/로그아웃 End -->
                 <li>
                     <c:if test="${sessionScope.user.role!=null}">
-                      <a href="/user/logout">
+                      <a href="#">
                           <button class="btn btn-border-w btn-round btn-xs" type="button" id="logout">LOGOUT</button>
                       </a>
                     </c:if>

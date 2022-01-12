@@ -963,7 +963,3 @@ html.dark .wizard-progress .wizard-steps li.active a span {
 body.admin-page {
   overflow-y: scroll !important;
 }
-
-body .body .inner-wrapper {
-  padding-top: 60px !important;
-}
