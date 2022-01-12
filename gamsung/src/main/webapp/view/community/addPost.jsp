@@ -172,8 +172,8 @@
                         <label class="sr-only" for="searchCampKeyword">검색어</label>
                         <input type="text" class="form-control" id="searchCampKeyword" name="searchCampKeyword"
                           placeholder="캠핑장이름을 입력해주세요." value="">
-                        <button class="search-btn" name="search-btn" type="submit"><i class="fa fa-search"></i></button>
-                      </div>
+                        <button class="search-btn" id = "aabb" name="search-btn" type="button"><i class="fa fa-search"></i></button>
+                      </div> 
 
                     </div>
 
@@ -374,7 +374,7 @@
         });
 
         $(function () {
-          $("button:button[name='search-btn']").on("click", searchCamp);
+          $("#aabb").on("click", searchCamp);
 
           // var searchKeyword = document.getElementById('searchKeyword').value; //이거 안잡힘.. 
 
@@ -445,6 +445,10 @@
           } //searchCamp end
 
 
+
+
+        });//function end
+        
           $('.starRev span').on("click", function(){
             $(this).parent().children('span').removeClass('on');
             $(this).addClass('on').prevAll('span').addClass('on');
@@ -461,9 +465,6 @@
 
             return false;
           });
-
-
-        });//function end
 
       </script>
 
