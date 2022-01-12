@@ -131,13 +131,18 @@
 	   
 		    // 확인
 		    $("#payment_confirm").on("click" , function() {
-		    			 
+		    	window.location = "/campGeneral/listMyReservation";		 
 			});	
 		    
 		    // 결제취소
 		    $("#payment_cancle").on("click" , function() {
 		    	 
 			});	
+		    
+			// 캠핑장 예약보기 버튼
+			$("#goGetRsv").on("click" , function() {
+				self.location ="/campGeneral/getMyReservation?reservationNo="+$("#reservationNo").val();				
+			});
 		    
 		});  			
 	  		
@@ -246,15 +251,77 @@
 		
 		<div class="row">
 			<div class="page-header">
-				<h4 class="text-info">캠핑예약 내역</h4>
+				<h4 class="text-info">캠핑장 예약완료</h4>
 			</div>					
 		</div>
 		
-		<form id="campForm">
-		
+		<form id="campForm">		
+				<div class="row">	
+					<div class="col-xs-3">	
+						<div class="row">
+							<div class="image" style="width: 200px; height: 150px; border-radius: 10px; display: flex; justify-content: center; align-items: center">
+	                        	<img src="/uploadfiles/campimg/campbusiness/camp/${campReservation.camp.campImg1}" onerror="this.src='/uploadfiles/campimg/campbusiness/camp/no_image.jpg'"  alt="캠핑장 대표이미지" >
+	                        </div>			
+						</div>						
+					</div>
+					
+					<div class="col-xs-9">					
+						<div class="row">							
+							<label class="col-xs-2">* 예약번호</label>
+							<div class="col-xs-3 form-group">
+								${campReservation.reservationNo}
+							</div>	
+							<div class="col-xs-3 col-xs-offset-1 form-group">
+					            <button id="goGetRsv" type="button" class="btn btn-info">예약상세보기</button>
+					        </div>						        								
+						</div>					
+					
+						<div class="row">							
+							<label class="col-xs-2">* 예약등록일</label>
+							<div class="col-md-3 form-group">
+								${campReservation.reservationRegDate}
+							</div>
+							<label class="col-xs-2 col-xs-offset-1">* 예약상태</label>
+							<div class="col-md-3 form-group">
+								예약완료/결제대기
+							</div>							
+						</div>
+							
+						<div class="row">
+							<label class="col-xs-2">* 예약자명</label>
+							<div class="col-md-3 form-group">
+								${campReservation.reservationUserName}
+							</div>
+							<label class="col-xs-2 col-xs-offset-1">* 예약결제금액</label>
+							<div class="col-md-3 form-group">
+								${campReservation.totalPaymentPrice}
+							</div>						
+						</div>	
+							
+						<div class="row">
+							<label class="col-xs-2">* 캠핑장명</label>
+							<div id="campName" data="${campReservation.camp.user.campName}" class="col-md-3 form-group">
+								${campReservation.camp.user.campName}						
+							</div>
+							<label class="col-xs-2 col-xs-offset-1">* 주요시설타입</label>
+							<div class="col-md-3 form-group">
+								${campReservation.mainSite.mainSiteType}
+							</div>
+						</div>		
+												
+						<div class="row">
+							<label class="col-xs-2">* 예약시작일</label>
+							<div class="col-md-3 form-group">
+								${campReservation.reservationStartDate}
+							</div>
+							<label class="col-xs-2 col-xs-offset-1">* 예약종료일</label>
+							<div class="col-md-3 form-group">
+								${campReservation.reservationEndDate}
+							</div>	
+						</div>								
+					</div>
+				</div>
 		</form>
-			
-		캠핑 영역
 
 	</div>
 	<!-- 캠핑 end-->
@@ -306,11 +373,14 @@
 	<div id="payformContainer" class="container">
 		<div class="row">
 			<div class="page-header">
-				<h4 class="text-info">결제 내역</h4>
+				<h4 class="text-info">결제 완료내역</h4>
 			</div>					
 		</div>
 		
 		<form id="payResultForm">
+			<input type="hidden" id="paymentNo" name="paymentNo" value="${payment.paymentNo}">
+			<input type="hidden" id="reservationNo" name="reservationNo" value="${campReservation.reservationNo}">	
+		
 			<div class="row">
 				<label class="col-xs-2">* 구매상품명</label>
 				<div class="col-md-10 form-group">
@@ -320,7 +390,6 @@
 			</div>	
 				<label class="col-xs-2">* 상품참조번호</label>
 				<div class="col-md-10 form-group">
-					<input type="hidden" id="campFormReservationNo" name="campFormReservationNo" value="${campReservation.reservationNo}">
 					${payment.paymentReferenceNum}
 				</div>
 			</div>								

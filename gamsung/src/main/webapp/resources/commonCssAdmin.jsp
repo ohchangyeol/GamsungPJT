@@ -6,8 +6,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
 <!-- Web Fonts  -->
-<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Shadows+Into+Light" rel="stylesheet" type="text/css">
-
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">  
 <!-- Vendor CSS -->
 <link rel="stylesheet" href="/resources/lib/bootstrap/css/bootstrap.css" />
 <link rel="stylesheet" href="/resources/lib/font-awesome/css/font-awesome.css" />
@@ -36,6 +37,7 @@
 <!-- Theme Custom CSS -->
 <link rel="stylesheet" href="/resources/css/theme-custom.css">
 
+<link href="/resources/css/style.css" rel="stylesheet">
 <!-- Head Libs -->
 <script src="/resources/lib/modernizr/modernizr.js"></script>
 

@@ -16,29 +16,11 @@ pageEncoding="UTF-8"%>
     
     <jsp:include page="/resources/commonLib.jsp"/>
 
-    <link id="color-scheme" href="../../../resources/css/serviceCenter.css" rel="stylesheet">
-
-    <style>
-      hr{height: 0; margin-bottom: 30px;}
-      p{margin : 0;}
-      .main .module .container .row .col-sm-6 .module-title{margin-bottom: 20px;}
-      .main .module .container .row .col-sm-6 .subtitle{text-align: center;}
-      .main .module .container .row .col-sm-6 .search-box{width: 80%; margin: auto; margin-top: 20px;}
-      .main .module .container .row .col-sm-6 .search-box input{border-radius: 5px; }
-      .panel-group .panel-default .panel-heading {height: 55px; background-color: transparent; display: flex; align-items: center; }
-      .panel-group .panel-default .panel-heading .panel-title{ width: 100%;}
-
-      .module .container .sub-title{ display: flex; align-items: center;gap: 20px; position: relative;}
-      .module .container .sub-title button{position: absolute; right: 0;}
-      .module .container .panel-group{border-bottom: 2px solid #979797;}
-      .qna-btn-box{position: absolute; display: flex; flex-direction: column; row-gap: 20px; top: 100px;right: 0;z-index: 100;}
-      .qna-btn-box .btn-round{background-color: #fff;}
-
-    </style>
+    <link href="../../../resources/css/serviceCenter.css" rel="stylesheet">
 
   </head>
 
-  <body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
+  <body data-spy="scroll" data-target=".onpage-navigation" data-offset="60" class="qna" data-userid ="${user.id}" data-qnatype="${qnaType}">
     <main>
       <div class="page-loader">
         <div class="loader">Loading...</div>
@@ -76,19 +58,33 @@ pageEncoding="UTF-8"%>
                 <c:when test='${qnaType == "list"}'>
                   <div class="sub-title">
                     <h4>전체 Q&A </h4>
-                    <sub> 8 건</sub>
+                    <sub>${wrapper.totalCount}건</sub>
                   </div>
                 </c:when>
                 <c:when test='${qnaType == "get"}'>
                   <div class="sub-title">
                     <h4>Q&A 상세</h4>
-                    <button class="btn btn-d btn-round" type="button" onclick="history.back()">목록가기</button>
+                    <div class="btn-box">
+                      <button class="btn btn-d btn-round qna-back" type="button">목록가기</button>
+                    </div>
                   </div>
                 </c:when>
                 <c:when test='${qnaType == "add"}'>
                   <div class="sub-title">
                     <h4>Q&A 등록</h4>
-                    <button class="btn btn-d btn-round" type="button" onclick="history.back()">목록가기</button>
+                    <div class="btn-box">
+                      <button id="qna-send" class="btn btn-d btn-round" type="button">등록하기</button>
+                      <button class="btn btn-d btn-round qna-back" type="button">목록가기</button>
+                    </div>
+                  </div>
+                </c:when>
+                <c:when test='${qnaType == "my"}'>
+                  <div class="sub-title">
+                    <h4>내 Q&A 조회</h4>
+                    <sub>${wrapper.totalCount}건</sub>
+                    <div class="btn-box">
+                      <button class="btn btn-d btn-round qna-back" type="button">목록가기</button>
+                    </div>
                   </div>
                 </c:when>
                 <c:otherwise></c:otherwise>
@@ -96,14 +92,16 @@ pageEncoding="UTF-8"%>
             </c:if>
             
             <hr class="divider-w mt-10 mb-20">
-          <c:if test="${!empty qnaType}">
-            <c:choose>
-              <c:when test='${qnaType == "list"}'><jsp:include page="../qna/listQna.jsp"/></c:when>
-              <c:when test='${qnaType == "get"}'><jsp:include page="../qna/getQna.jsp"/></c:when>
-              <c:when test='${qnaType == "add"}'><jsp:include page="../qna/addQna.jsp"/></c:when>
-              <c:otherwise></c:otherwise>
-            </c:choose>
-          </c:if>
+            <c:if test="${!empty qnaType}">
+              <c:choose>
+                <c:when test='${qnaType == "list"}'><jsp:include page="../qna/listQna.jsp"/></c:when>
+                <c:when test='${qnaType == "my"}'><jsp:include page="../qna/listMyQna.jsp"/></c:when>
+                <c:when test='${qnaType == "get"}'><jsp:include page="../qna/getQna.jsp"/></c:when>
+                <c:when test='${qnaType == "add"}'><jsp:include page="../qna/addQna.jsp"/></c:when>
+                <c:otherwise></c:otherwise>
+              </c:choose>
+            </c:if>
+
           </div>
         </section>
 
@@ -188,30 +186,7 @@ pageEncoding="UTF-8"%>
       </div>
     </main>
     
-    <script>
-      $(document).ready(function(){
-        console.log("QnA list start ");
-
-        $(".qna-btn").on("click", (e)=>{
-          
-          console.log(typeof $(e.currentTarget).data("type") );
-          const qnaType = $(e.currentTarget).data("type");
-          switch (qnaType) {
-            case 1:
-              self.location ="/servicecenter/listQna/my";
-              break;
-
-            case 2:
-              self.location ="/servicecenter/addQna";
-              break;
-            default:
-              alert("잘못된 선택입니다.");
-              break;
-          }
-          
-        });
-
-      })
-    </script>
+    <script src="../../../resources/js/servicecenter/qna.js"></script>
+    
   </body>
 </html>

@@ -31,12 +31,12 @@ public class NoticeServiceTest {
 	int pageSize;	
 	
 	
-	//@Test
+	@Test
 	public void addNoticeServiceTest() throws Exception {
 		Notice notice = new Notice();
 		User user = new User();
 		
-		user.setId("admin");
+		user.setId("aaa@a.com");
 		notice.setWriter(user);
 		notice.setNoticeTitle("camp가 null 들어가는지 test");
 		notice.setNoticeContent("JUnit Test 내용 입니다.");
@@ -55,7 +55,7 @@ public class NoticeServiceTest {
 		System.out.println("==> "+ notice);
 	}
 	
-	@Test
+	//@Test
 	public void listNoticeServiceTest() throws Exception {
 		Search search = new Search();
 		

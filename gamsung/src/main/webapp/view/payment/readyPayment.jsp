@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=utf-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 
@@ -91,7 +92,7 @@
 				$("#pointButtonContainer").show();
 			} 
 			
-			if(viewController == "R1" && viewController == "R2"){
+			if(viewController == "R1" || viewController == "R2"){
 				$("#campContainer").show();
 				$("#campButtonContainer").show();
 				$("#paySecond").show();		
@@ -316,9 +317,14 @@
 				}	
 				
 				 
-			});	
+			});
+			
+			// 캠핑장 예약보기 버튼
+			$("#goGetRsv").on("click" , function() {
+				self.location ="/campGeneral/getMyReservation?reservationNo="+$("#reservationNo").val();				
+			});
 						
-			// 캠핑장예약결제 버튼
+			// 캠핑장 예약결제 버튼
 			$("#camp_pay").on("click" , function() {
 				
 				const viewController = $("#viewController").val();
@@ -333,7 +339,7 @@
 				}
 				
 				$("#paymentProduct").val( "[" + $("#campName").attr("data") +"/"+reservationStatus+"/" + new Date().toISOString().substring(0, 10) + "]");
-				$("#paymentReferenceNum").val( "[" + $("#campFormReservationNo").val( ) + "/"+reservationStatus+"/" + new Date().toISOString().substring(0, 19) + "]");				
+				$("#paymentReferenceNum").val( "[" + $("#reservationNo").val( ) + "/"+reservationStatus+"/" + new Date().toISOString().substring(0, 19) + "]");				
 				$("#paymentCode").val(viewController);					
 				$("#paymentSender").val( $("#pay_buyerEmail").val() );				
 				
@@ -355,8 +361,9 @@
 						$("#paymentProductPriceTotal").val(uncomma($("#paymentPriceTotalSecond").val()));						
 					}
 					
-					checkPaymentMethod();
-					
+					checkPaymentMethod();					
+
+					$("#campForm").attr("method" , "POST").attr("action" , "/payment/paymentSystem").submit();				
 					$("#payForm").attr("method" , "POST").attr("action" , "/payment/paymentSystem").submit();	
 				}
 				
@@ -379,7 +386,8 @@
 				
 				 $("#paymentPriceTotal").val(resultPaymentPriceTotal);	 
 							
-			});	
+			});				
+			
 			<!-- 캠핑예약결제 End -->		
 			
 		}); 
@@ -620,8 +628,8 @@
 			</div>
 			
 			<form id="withdrawForm">
-				<input type="hidden" id="paymentReceiver" name="paymentReceiver" value="${user.id}">
 				<input type="hidden" id="paymentMethod" name="paymentMethod" value="cash">
+				<input type="hidden" id="campPaymentReceiver" name="campPaymentReceiver" value="${payment.paymentReceiver}">
 				<input type="hidden" id="paymentRefundReferenceFee" name="paymentRefundReferenceFee" value="${payment.paymentRefundReferenceFee}">				
 				
 				<div class="row">
@@ -720,18 +728,17 @@
 							</div>	
 							<div class="col-xs-3 col-xs-offset-1 form-group">
 					            <button id="goGetRsv" type="button" class="btn btn-info">예약상세보기</button>
-					            <input type="hidden" id="campFormReservationNo" name="campFormReservationNo" value="${campReservation.reservationNo}">
 					        </div>						        								
 						</div>					
 					
 						<div class="row">							
 							<label class="col-xs-2">* 예약등록일</label>
 							<div class="col-md-3 form-group">
-								${campReservation.reservationRegDate}
+								${campReservation.reservationRegDate}								
 							</div>
 							<label class="col-xs-2 col-xs-offset-1">* 예약상태</label>
 							<div class="col-md-3 form-group">
-								예약완료/결제대기
+								예약완료/결제대기								
 							</div>							
 						</div>
 							
@@ -749,7 +756,7 @@
 						<div class="row">
 							<label class="col-xs-2">* 캠핑장명</label>
 							<div id="campName" data="${campReservation.camp.user.campName}" class="col-md-3 form-group">
-								${campReservation.camp.user.campName}						
+								${campReservation.camp.user.campName}
 							</div>
 							<label class="col-xs-2 col-xs-offset-1">* 주요시설타입</label>
 							<div class="col-md-3 form-group">
@@ -824,7 +831,23 @@
 			</div>					
 		</div>
 		
-		<form id="payForm">			
+		<form id="payForm">
+		
+			<!-- camp start -->
+			<input type="hidden" id="reservationNo" name="reservationNo" value="${campReservation.reservationNo}">
+			<input type="hidden" id="reservationRegDate" name="reservationRegDate" value="${campReservation.reservationRegDate}">
+			<input type="hidden" id="reservationStartDate" name="reservationStartDate" value="${campReservation.reservationStartDate}">
+			<input type="hidden" id="reservationEndDate" name="reservationEndDate" value="${campReservation.reservationEndDate}">
+			<input type="hidden" id="reservationUserName" name="reservationUserName" value="${campReservation.reservationUserName}">	
+			<input type="hidden" id="reservationStatus" name="reservationStatus" value="${campReservation.reservationStatus}">
+			<input type="hidden" id="camp.user.campName" name="camp.user.campName" value="${campReservation.camp.user.campName}">
+			<input type="hidden" id="camp.campNo" name="camp.campNo" value="${campReservation.camp.campNo}">
+			<input type="hidden" id="camp.campImg1" name="camp.campImg1" value="${campReservation.camp.campImg1}">
+			<input type="hidden" id="mainSite.mainSiteNo" name="mainSite.mainSiteNo" value="${campReservation.mainSite.mainSiteNo}">
+			<input type="hidden" id="mainSite.mainSiteType" name="mainSite.mainSiteType" value="${campReservation.mainSite.mainSiteType}">
+			<input type="hidden" id="totalPaymentPrice" name="totalPaymentPrice" value="${campReservation.totalPaymentPrice}">			
+			<!-- camp end -->
+			
 			<input type="hidden" id="paymentSender" name="paymentSender" value="unknownPS">
 			<input type="hidden" id="paymentReceiver" name="paymentReceiver" value="${payment.paymentReceiver}">	
 			<input type="hidden" id="paymentCode" name="paymentCode" value="unknownPC">	

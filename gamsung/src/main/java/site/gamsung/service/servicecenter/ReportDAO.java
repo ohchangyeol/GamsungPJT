@@ -4,6 +4,7 @@ import java.util.List;
 
 import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.Report;
+import site.gamsung.service.domain.User;
 
 public interface ReportDAO {
 
@@ -21,4 +22,6 @@ public interface ReportDAO {
 	public int notTotalCountReport() throws Exception;
 
 	public void updateCodeReport(Report report);
+
+	public User findReceiverId(Report report);
 }

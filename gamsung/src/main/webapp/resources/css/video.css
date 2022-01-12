@@ -1,0 +1,39 @@
+body{
+	background-color: #000000 !important;
+}
+
+#textWrapper{
+	margin-top: 3%;
+	margin-bottom: 3%;
+}
+
+.infoText {
+	color: #FFFFFF;
+  	overflow: hidden;
+  	text-overflow: ellipsis;
+  	white-space: nowrap;
+}
+#videoWrapper{
+	display: flex;
+}
+
+#videoFace{
+	margin-top: 1%;
+	margin-left: 1%;
+	width: 20%;
+	position: absolute;
+	z-index: 2;
+	border-radius: 20px;
+	overflow: hidden;
+	display: inline-block;
+}
+#videoPeer{
+	width: 100%;
+	height: 100%;
+	position: relative;
+}
+
+#controlWrapper{
+	margin-top: 3%;
+	margin-bottom: 3%;
+}

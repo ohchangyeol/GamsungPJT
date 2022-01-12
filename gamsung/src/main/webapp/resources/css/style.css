@@ -9,7 +9,7 @@ html {
 
 body {
   background: #fff;
-  font: 400 12px/1.8 "Open Sans", sans-serif;
+  font: 400 12px/1.8 "Noto Sans KR", sans-serif !important;
   color: #666;
   -webkit-font-smoothing: antialiased;
   padding-top: 55px;
@@ -649,7 +649,7 @@ a,
 --------------------------------------------------------------*/
 .btn {
   border-radius: 0;
-  font-family: "Roboto Condensed", sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   /* text-transform: uppercase; */
   letter-spacing: 2px;
   font-size: 11px;
@@ -813,7 +813,7 @@ a,
 
 /* Forms common style */
 .form-control {
-  font-family: "Roboto Condensed", sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   /* text-transform: uppercase; */
   letter-spacing: 2px;
   font-size: 11px;
@@ -889,13 +889,13 @@ blockquote {
 }
 
 .font-alt {
-  font-family: "Roboto Condensed", sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   /* text-transform: uppercase; */
   letter-spacing: 2px;
 }
 
 .font-serif {
-  font-family: Volkhov, "Times New Roman", sans-serif;
+  font-family: Volkhov, "Noto Sans KR", sans-serif;
   font-style: italic;
 }
 
@@ -1244,7 +1244,7 @@ General Styles - Owlcarousel
   border: 0;
   border-radius: 0;
   z-index: 1000;
-  font-family: "Roboto Condensed", sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   /* text-transform: uppercase; */
   letter-spacing: 3px;
   font-size: 11px;
@@ -2974,9 +2974,21 @@ Google map
 	min-height: 520px !important;
 	max-height: 680px !important;
 	overflow: hidden !important;
-	font-family: "Montserrat", "Noto Sans KR", "맑은 고딕", "Malgun Gothic", sans-serif !important;
+	font-family: "Noto Sans KR", "맑은 고딕", "Malgun Gothic", sans-serif !important;
 	background-color: transparent !important;
 	border-radius: 30px !important;
 	box-shadow: rgb(0 0 0 / 30%) 0px 12px 60px 5px !important;
 	animation: 0.25s ease-out 0s 1 normal none running jZyQVL !important;
+}
+
+
+.mfp-iframe-holder .mfp-content {
+  width:400px;
+  height: 730px;
+  border-radius: 30px;
+  overflow: hidden;
+}
+.mfp-iframe-holder .mfp-content  .mfp-close{
+  top: 0;
+  right: 16px;
 }

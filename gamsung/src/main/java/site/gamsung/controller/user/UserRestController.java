@@ -269,7 +269,6 @@ public class UserRestController {
 					System.out.println("이용정지 회원");
 					return 13;
 				}else if(dbUser.getCampName() != null && !(dbUser.getBusinessUserApprovalFlag().equals("Y"))) {
-					System.out.println("왜 안돼"+dbUser.getBusinessUserApprovalFlag());
 					return 14;
 				}
 				return 0;

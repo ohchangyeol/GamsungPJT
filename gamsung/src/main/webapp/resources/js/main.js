@@ -8,11 +8,53 @@ console.log('%c Proudly Crafted with ZiOn.', 'background: #222; color: #bada55')
         $('.loader').fadeOut();
         $('.page-loader').delay(350).fadeOut('slow');
 
+        // 채팅
         $("#messenger-btn").on("click", (e)=>{
             e.stopImmediatePropagation();
             console.log("클릭");
             $("#messenger-iframe").attr("class", "ch-desk-messenger rightPosition");
         });
+        // 신고
+        $("#report-btn").on('click' , (e)=>{
+            const el = $(e.currentTarget);
+            const userId = el.data("userid");
+            const reportType = el.data("reporttype");
+            const receiverName = el.data("receivername");
+    
+            let url = "/servicecenter/addReport";
+    
+            if(userId == undefined || userId == null || userId == ""){
+                Swal.fire(
+                    '로그인 하셨나요?',
+                    '신고는 로그인 후 가능합니다.',
+                    'question'
+                )
+                return;
+            }
+    
+            if(reportType != undefined && reportType != null && reportType != "" && receiverName != undefined && receiverName != null && receiverName != ""){
+                url += "?reportType="+reportType+"&receiverName="+receiverName;
+            }
+    
+            $.magnificPopup.open({
+                items: {
+                    src: url,
+                    type: 'iframe',
+                    closeBtnInside: true,
+                    midClick: true ,
+    
+                    iframe: {
+                    markup: '<div style="width:400px; height:720px;">'+
+                            '<div class="mfp-iframe-scaler" >'+
+                            '<div class="mfp-close">xxxxxx</div>'+
+                            '<iframe class="mfp-iframe" frameborder="0" allowfullscreen></iframe>'+
+                            '</div></div>'
+                    }
+    
+                }
+    
+            });
+        })
     });
 
     $(document).ready(function() {

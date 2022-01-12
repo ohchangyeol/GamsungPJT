@@ -24,4 +24,6 @@ public interface CampRatingReviewDAO {
 	
 	public int updateCampRatingReview (RatingReview ratingReview);
 	
+	public int deleteCampRatingReviewComment (RatingReview ratingReview);
+	
 }
