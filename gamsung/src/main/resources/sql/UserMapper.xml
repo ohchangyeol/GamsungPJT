@@ -41,10 +41,10 @@
 		<!-- SQL : INSERT -->
 	<insert 	id="addUser"	parameterType="user" >
 	 	INSERT
-		INTO USERS( user_id , role , nick_name , password , salt, name, phone, addr, entry_reg_date , bank , account_holder, entry_approval_flag,
+		INTO USERS( user_id , role , nick_name , password , salt, name, phone, addr, entry_reg_date , bank , account_holder,
 		account_num, camp_name, camp_call, receive_ban_end_date, dormant_reg_date, secession_reg_date, suspension_reg_date, camp_business_num,camp_business_img ,suspension_content, sns_id) 
 		VALUES	 (#{id} , #{role} , #{nickName:VARCHAR} , #{password} , #{salt:VARCHAR},  #{name} , #{phone} , #{addr:VARCHAR} , SYSDATE() , #{bank:VARCHAR}, #{accountHolder:VARCHAR},
-		#{businessUserApprovalFlag:CHAR}, #{accountNum:VARCHAR}, #{campName:VARCHAR}, #{campCall:VARCHAR} , #{receiveProhibitionEndDate:DATE}, #{dormantConversionDate:DATE} , #{secessionRegDate:DATE} ,
+		#{accountNum:VARCHAR}, #{campName:VARCHAR}, #{campCall:VARCHAR} , #{receiveProhibitionEndDate:DATE}, #{dormantConversionDate:DATE} , #{secessionRegDate:DATE} ,
 		#{suspensionDate:DATE}, #{campBusinessNum:VARCHAR},#{campBusinessImg:VARCHAR} ,#{suspensionContent:VARCHAR}, #{snsId:VARCHAR})
 	 </insert>
 	 
@@ -145,11 +145,11 @@
 		SELECT u.role, u.user_id, u.name, u.nick_name, u.camp_name, u.entry_reg_date, u.suspension_reg_date, 
 		u.secession_reg_date, u.dormant_reg_date, u.entry_approval_flag, h.login_reg_date, rtc.rc
 		FROM USERS u left outer join (SELECT * from LOGIN_HISTORY where (user_id, login_reg_date) in (select user_id, max(login_reg_date) as date from login_history group by user_id)) h
-		on u.user_id = h.user_id left outer join (SELECT count(receiver_id)rc, receiver_id from report where report_status=1 group by receiver_id having count(receiver_id) >0)rtc
+		on u.user_id = h.user_id left outer join (SELECT count(receiver_id)rc, receiver_id from report where report_status=1 group by receiver_id having count(receiver_id) =0)rtc
 		on u.user_id = rtc.receiver_id
 			<if test="searchCondition != null">
 				<where>
-				u.role != "ADMIN"
+				u.role != "ADMIN" AND u.secession_reg_date is null AND u.suspension_reg_date is null AND u.dormant_reg_date is null
 					<if test='searchCondition == "1"'>
 						AND u.role = "GENERAL"
 					</if>
@@ -255,7 +255,7 @@
 	</select>
 	 
 	 <!-- SQL : SELECT reportSuspension LIST -->
-	 <select  id="reportSuspencionListUser"  parameterType="search"	resultMap="userSelectMap">
+	 <select  id="reportSuspensionListUser"  parameterType="search"	resultMap="userSelectMap">
 		SELECT u.role, u.user_id, u.name, u.nick_name, u.camp_name, u.entry_reg_date, u.suspension_reg_date, 
 		u.secession_reg_date, u.dormant_reg_date, u.entry_approval_flag, rtc.rc
 		FROM USERS u left outer join (SELECT count(receiver_id)rc, receiver_id from report where report_status=1 group by receiver_id having count(receiver_id) >0)rtc
@@ -288,11 +288,10 @@
          </if>
 	 </select>
 	 
-	 <select id="countReportSuspencionListUser" parameterType="search" resultType="int">
+	 <select id="countReportSuspensionListUser" parameterType="search" resultType="int">
 		SELECT COUNT(rtc.rc)
 		FROM users u left outer join (SELECT count(receiver_id)rc, receiver_id from report where report_status=1 group by receiver_id having count(receiver_id) >0)rtc
 		on u.user_id = rtc.receiver_id where rtc.rc >0
-		GROUP BY rtc.rc
 		<!-- <if test='_parameter != null'>
 			AND registrant_id = #{value}
 		</if> -->

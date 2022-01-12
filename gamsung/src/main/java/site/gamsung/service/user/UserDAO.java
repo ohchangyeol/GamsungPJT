@@ -38,10 +38,10 @@ public interface UserDAO {
 	public int countSecessionListUser(Search search);
 	
 	//신고이용정지 리스트
-	public List<User> reportSuspencionListUser(Search search);
+	public List<User> reportSuspensionListUser(Search search);
 	
 	//신고이용정지  totalcount
-	public int countReportSuspencionListUser(Search search);
+	public int countReportSuspensionListUser(Search search);
 	
 	//page 처리를 위한 전체 row return
 	public int getTotalCount(Search search);

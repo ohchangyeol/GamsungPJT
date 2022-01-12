@@ -15,6 +15,8 @@ public class Notice {
 	private String noticeFile1;
 	private String noticeFile2;
 	private String noticeFile3;
+	private String noticeFile4;
+	private String noticeFile5;
 	
 	
 	// Constructor
@@ -59,6 +61,12 @@ public class Notice {
 	public String getNoticeFile3() {
 		return noticeFile3;
 	}
+	public String getNoticeFile4() {
+		return noticeFile4;
+	}
+	public String getNoticeFile5() {
+		return noticeFile5;
+	}
 	
 	//Setter
 	public void setNoticeNo(int noticeNo) {
@@ -97,13 +105,19 @@ public class Notice {
 	public void setNoticeFile3(String noticeFile3) {
 		this.noticeFile3 = noticeFile3;
 	}
+	public void setNoticeFile4(String noticeFile4) {
+		this.noticeFile4 = noticeFile4;
+	}
+	public void setNoticeFile5(String noticeFile5) {
+		this.noticeFile5 = noticeFile5;
+	}
 
 	@Override
 	public String toString() {
 		return "Notice [noticeNo=" + noticeNo + ", writer=" + writer + ", deleteFlag=" + deleteFlag + ", noticeTitle="
 				+ noticeTitle + ", noticeContent=" + noticeContent + ", viewCount=" + viewCount + ", regDate=" + regDate
 				+ ", campNo=" + campNo + ", campName=" + campName + ", noticeFile1=" + noticeFile1 + ", noticeFile2="
-				+ noticeFile2 + ", noticeFile3=" + noticeFile3 + "] \n";
+				+ noticeFile2 + ", noticeFile3=" + noticeFile3 + ", noticeFile4=" + noticeFile4 + "], noticeFile5=" + noticeFile5 + "] \n";
 	}
 	
 	

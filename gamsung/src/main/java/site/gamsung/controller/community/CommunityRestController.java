@@ -35,6 +35,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import site.gamsung.service.camp.CampSearchService;
 import site.gamsung.service.common.Search; 
   import site.gamsung.service.community.CommunityService;
 import site.gamsung.service.domain.AuctionProduct;
@@ -51,6 +52,11 @@ import site.gamsung.service.domain.Post;
     
   @Autowired
   @Qualifier("communityServiceImpl") private CommunityService communityService;
+  
+  @Autowired
+  @Qualifier("campSearchServiceImpl") private CampSearchService campSearchService; 
+  
+  
   
   public CommunityRestController() { 
 	  System.out.println(this.getClass()); 
@@ -133,7 +139,29 @@ import site.gamsung.service.domain.Post;
 	post = communityService.updatetotalComment(commentnoo);
 	 
 	return post;
- }  
+ }
+ 
+ 
+//게시물 캠핑장 검색
+ 
+@RequestMapping(value = "rest/searchListCamp") 
+@ResponseBody
+public Map<String, Object> searchListCamp (@ModelAttribute("search") Search search, Map<String, Object> map) throws Exception{
+
+	// 리뷰게시물 등록 시에 캠핑장 이름으로 캠핑장을 검색해서 가지고 온다. 캠핑장 이름은 searchKeyword에 넣는다. 
+	
+	 System.out.println("searchListCamp");
+	 
+		if (search.getCurrentPage() == 0) {
+			search.setCurrentPage(1);
+		}
+				
+		System.out.println("검색한게 어떻게 날라오나요?"+search.getSearchKeyword());
+		search.setPageSize(5);//5개를 가져온다.
+		search.setSearchCondition("조회수 높은순"); //조회수 높은 순으로
+				 
+    return campSearchService.listCamp(search);
+}  
   
   
   

@@ -148,9 +148,9 @@ public class UserServiceTest {
 	public void testUpdateTempPassword() throws Exception{
 		
 		User user = new User();
-		String id = "user2@gamsung.com";
+		String id = "test2@test.com";
 		user = userService.getUser(id);
-		if(user.getSalt()==null) {
+		if(user.getSalt()==null || user.getSalt()=="") {
 			String newSalt=SHA256Util.generateSalt();
 			System.out.println(newSalt);
 			user.setSalt(newSalt);

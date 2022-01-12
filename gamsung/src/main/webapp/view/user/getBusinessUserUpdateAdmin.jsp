@@ -35,6 +35,31 @@
 					right: 25%;
 					margin-top: 15px;
 				}
+
+
+				.pictureWrapper {
+					position: absolute;
+					display: none;
+					justify-content: center;
+					align-items: center;
+					top: 0%;
+					width: 100%;
+					height: 100%;
+					background-color: gray;
+					z-index: 100;
+					background: rgba(255, 255, 255, 0.5);
+				}
+
+				.business_pic {
+					position: relative;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+				}
+
+				.business_pic img {
+					width: 600px;
+				}
 			</style>
 
 			<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -105,10 +130,23 @@
 														등록번호</strong></label>
 												<div class="col-sm-6">
 													<input id="campBusinessNum" name="campBusinessNum"
-														class="form-control" type="text"
-														value="${user.campBusinessNum}" maxlength="10" readonly />
+														class="form-control" type="text" value="${user.campBusinessNum}"
+														maxlength="10" readonly />
 												</div>
 												<div id="check-business" class='col-sm-offset-3 col-sm-6'></div>
+											</div>
+
+											<div class="form-group row">
+												<div class="col-sm-offset-1 col-sm-3 control-label"><strong>사업자
+														등록증 사진</strong></div>
+												<div class="pictureWrapper">
+													<div class="business_pic">
+													</div>
+												</div>
+												<img class="clickImg" alt="" id="input_businessImg_file"
+													style="width:20%; margin-top:10px;"
+													src="/uploadfiles/userBusinessImg/${user.campBusinessImg}">
+
 											</div>
 
 
@@ -244,8 +282,9 @@
 									</div>
 								</div>
 								<div class="row" id="approval-business-btn">
-									<button id="approval-btn" class="btn btn-xs btn-border-d btn-circle"
-										type="button">가입승인</button>
+									<c:if test="${user.businessUserApprovalFlag !='Y'}"> <button id="approval-btn"
+											class="btn btn-xs btn-border-d btn-circle" type="button">가입승인</button>
+									</c:if>
 									<button id="cancel" class="btn btn-xs btn-border-d btn-circle"
 										type="button">취소</button>
 									<button id="business-updateUser" class="btn btn-xs btn-border-d btn-circle"
@@ -287,7 +326,33 @@
 
 			<script type="text/javascript">
 
+
+
 				$(function () {
+
+					$(document).on("click", "img", function () {
+						var path = $(this).attr('src')
+						showImage(path);
+					});//end click event
+
+					function showImage(fileCallPath) {
+
+						$(".pictureWrapper").css("display", "flex").show();
+
+						$(".business_pic")
+							.html("<img src='" + fileCallPath + "' >")
+							.animate({ width: '100%', height: '100%' }, 1000);
+
+					}//end fileCallPath
+
+					$(".pictureWrapper").on("click", function (e) {
+						$(".business_pic").animate({ width: '0%', height: '0%' }, 1000);
+						setTimeout(function () {
+							$('.pictureWrapper').hide();
+						}, 1000);
+					});//end bigWrapperClick event
+
+
 					//휴대폰번호 중복체크
 					$("input[name='phone']").on("keyup", function () {
 
@@ -355,7 +420,7 @@
 										'가입승인이 완료되었습니다..',
 										'success'
 									).then((result) => {
-										window.location = "/user/listUser";
+										window.location = "/user/listUser/list";
 									})
 								} else {
 									Swal.fire('가입승인에 실패했습니다.')
@@ -450,5 +515,4 @@
 			</script>
 		</body>
 
->>>>>>> refs/heads/developer
 		</html>

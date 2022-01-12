@@ -1,571 +1,644 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-		<!DOCTYPE html>
-		<html>
+		<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+			<!DOCTYPE html>
+			<html>
 
-		<head>
-			<meta charset="UTF-8">
+			<head>
+				<meta charset="UTF-8">
 
-			<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+				<meta name="viewport"
+					content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+				<jsp:include page="/resources/commonLib.jsp"></jsp:include>
 
-			<title>사업자 회원가입</title>
+				<title>사업자 회원가입</title>
 
-			<link rel="apple-touch-icon" sizes="57x57" href="../../resources/images/favicons/apple-icon-57x57.png">
-			<link rel="apple-touch-icon" sizes="60x60" href="../../resources/images/favicons/apple-icon-60x60.png">
-			<link rel="apple-touch-icon" sizes="72x72" href="../../resources/images/favicons/apple-icon-72x72.png">
-			<link rel="apple-touch-icon" sizes="76x76" href="../../resources/images/favicons/apple-icon-76x76.png">
-			<link rel="apple-touch-icon" sizes="114x114" href="../../resources/images/favicons/apple-icon-114x114.png">
-			<link rel="apple-touch-icon" sizes="120x120" href="../../resources/images/favicons/apple-icon-120x120.png">
-			<link rel="apple-touch-icon" sizes="144x144" href="../../resources/images/favicons/apple-icon-144x144.png">
-			<link rel="apple-touch-icon" sizes="152x152" href="../../resources/images/favicons/apple-icon-152x152.png">
-			<link rel="apple-touch-icon" sizes="180x180" href="../../resources/images/favicons/apple-icon-180x180.png">
-			<link rel="icon" type="image/png" sizes="192x192"
-				href="../../resources/images/favicons/android-icon-192x192.png">
-			<link rel="icon" type="image/png" sizes="32x32" href="../../resources/images/favicons/favicon-32x32.png">
-			<link rel="icon" type="image/png" sizes="96x96" href="../../resources/images/favicons/favicon-96x96.png">
-			<link rel="icon" type="image/png" sizes="16x16" href="../../resources/images/favicons/favicon-16x16.png">
-			<meta name="msapplication-TileColor" content="#ffffff">
-			<meta name="msapplication-TileImage" content="../../resources/images/favicons/ms-icon-144x144.png">
-			<meta name="theme-color" content="#ffffff">
+				<link rel="apple-touch-icon" sizes="57x57" href="../../resources/images/favicons/apple-icon-57x57.png">
+				<link rel="apple-touch-icon" sizes="60x60" href="../../resources/images/favicons/apple-icon-60x60.png">
+				<link rel="apple-touch-icon" sizes="72x72" href="../../resources/images/favicons/apple-icon-72x72.png">
+				<link rel="apple-touch-icon" sizes="76x76" href="../../resources/images/favicons/apple-icon-76x76.png">
+				<link rel="apple-touch-icon" sizes="114x114"
+					href="../../resources/images/favicons/apple-icon-114x114.png">
+				<link rel="apple-touch-icon" sizes="120x120"
+					href="../../resources/images/favicons/apple-icon-120x120.png">
+				<link rel="apple-touch-icon" sizes="144x144"
+					href="../../resources/images/favicons/apple-icon-144x144.png">
+				<link rel="apple-touch-icon" sizes="152x152"
+					href="../../resources/images/favicons/apple-icon-152x152.png">
+				<link rel="apple-touch-icon" sizes="180x180"
+					href="../../resources/images/favicons/apple-icon-180x180.png">
+				<link rel="icon" type="image/png" sizes="192x192"
+					href="../../resources/images/favicons/android-icon-192x192.png">
+				<link rel="icon" type="image/png" sizes="32x32"
+					href="../../resources/images/favicons/favicon-32x32.png">
+				<link rel="icon" type="image/png" sizes="96x96"
+					href="../../resources/images/favicons/favicon-96x96.png">
+				<link rel="icon" type="image/png" sizes="16x16"
+					href="../../resources/images/favicons/favicon-16x16.png">
+				<meta name="msapplication-TileColor" content="#ffffff">
+				<meta name="msapplication-TileImage" content="../../resources/images/favicons/ms-icon-144x144.png">
+				<meta name="theme-color" content="#ffffff">
 
-			<link href="../../resources/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-			<!-- Template specific stylesheets-->
-			<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700" rel="stylesheet">
-			<link href="https://fonts.googleapis.com/css?family=Volkhov:400i" rel="stylesheet">
-			<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
-			<link href="../../resources/lib/animate.css/animate.css" rel="stylesheet">
-			<link href="../../resources/lib/components-font-awesome/css/font-awesome.min.css" rel="stylesheet">
-			<link href="../../resources/lib/et-line-font/et-line-font.css" rel="stylesheet">
-			<link href="../../resources/lib/flexslider/flexslider.css" rel="stylesheet">
-			<link href="../../resources/lib/owl.carousel/dist/assets/owl.carousel.min.css" rel="stylesheet">
-			<link href="../../resources/lib/owl.carousel/dist/assets/owl.theme.default.min.css" rel="stylesheet">
-			<link href="../../resources/lib/magnific-popup/magnific-popup.css" rel="stylesheet">
-			<link href="../../resources/lib/simple-text-rotator/simpletextrotator.css" rel="stylesheet">
-			<!-- Main stylesheet and color file-->
-			<link href="../../resources/css/style.css" rel="stylesheet">
-			<link id="color-scheme" href="../../resources/css/colors/default.css" rel="stylesheet">
+				<link href="../../resources/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+				<!-- Template specific stylesheets-->
+				<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700" rel="stylesheet">
+				<link href="https://fonts.googleapis.com/css?family=Volkhov:400i" rel="stylesheet">
+				<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
+				<link href="../../resources/lib/animate.css/animate.css" rel="stylesheet">
+				<link href="../../resources/lib/components-font-awesome/css/font-awesome.min.css" rel="stylesheet">
+				<link href="../../resources/lib/et-line-font/et-line-font.css" rel="stylesheet">
+				<link href="../../resources/lib/flexslider/flexslider.css" rel="stylesheet">
+				<link href="../../resources/lib/owl.carousel/dist/assets/owl.carousel.min.css" rel="stylesheet">
+				<link href="../../resources/lib/owl.carousel/dist/assets/owl.theme.default.min.css" rel="stylesheet">
+				<link href="../../resources/lib/magnific-popup/magnific-popup.css" rel="stylesheet">
+				<link href="../../resources/lib/simple-text-rotator/simpletextrotator.css" rel="stylesheet">
+				<!-- Main stylesheet and color file-->
+				<link href="../../resources/css/style.css" rel="stylesheet">
+				<link id="color-scheme" href="../../resources/css/colors/default.css" rel="stylesheet">
 
-			<style>
-				/* .form-group{
-display: flex;
-flex: 1 auto;
-} */
-				.time {
-					display: flex;
-				}
+				<style>
+					.form-group .btn {
+						height: 26px;
+						padding-top: 0;
+						padding-bottom: 0;
+						margin: auto 10px;
+						color: blue;
+					}
 
-				/* .form-group .form-control{
-display:inline-block;
-width: 50%;
-} */
-				.form-group .btn {
-					height: 26px;
-					padding-top: 0;
-					padding-bottom: 0;
-					margin: auto 10px;
-					color: blue;
-				}
+					.form-group label {
+						width: 170px;
+					}
 
-				.form-group label {
-					width: 170px;
-				}
+					#checkMailAuth {
+						margin-left: 232px;
+						margin-top: 10px;
 
-				#checkMailAuth {
-					margin-left: 232px;
-					margin-top: 10px;
+					}
 
-				}
-			</style>
+					.img_business {
+						border: 2px solid #A8A8A8;
+						margin-top: 30px;
+						margin-bottom: 30px;
+						padding-top: 10px;
+						padding-bottom: 10px;
+					}
+				</style>
 
-			<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-			<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-			<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+				<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+				<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+				<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 
-		</head>
+			</head>
 
-		<body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
-			<main>
-				<div class="page-loader">
-					<div class="loader">Loading...</div>
-				</div>
-				<jsp:include page="../common/header.jsp"></jsp:include>
-				<div class="main">
-					<section class="module bg-dark-30 about-page-header" data-background="assets/images/about_bg.jpg">
-						<div class="container">
-							<div class="row">
-								<div class="col-sm-6 col-sm-offset-3">
-									<h1 class="module-title font-alt mb-0">Forms</h1>
-								</div>
-							</div>
-						</div>
-					</section>
-					<section class="module">
-						<div class="container">
-							<div class="row">
-								<div class="col-sm-8 col-sm-offset-2">
-									<h4 class="font-alt mb-0">사업자회원 회원가입</h4>
-									<hr class="divider-w mt-10 mb-20">
-									<form class="form" role="form">
-										<div id="email" class="form-group row">
-											<div><input id="role" name="role" value="BUSINESS" hidden="hidden"></div>
-											<label for="id"
-												class="col-sm-offset-1 col-sm-3 control-label"><strong>아이디</strong></label>
-											<div class="col-sm-6">
-												<input id="id" name="id" class="form-control " type="text"
-													placeholder="아이디는 이메일 형식만 가능합니다." />
-											</div>
-											<div>
-												<button id="mailAuthNum" class="btn btn-circle btn-xs"
-													type="button">인증번호 받기</button>
-											</div>
-											<div id="checkMailAuth" class="col-sm-offset-3 col-sm-6"
-												style="display:none;">
-												<input id="checkMailAuthNum" name="checkMailAuthNum"
-													class="form-control " type="text" placeholder="인증번호를 입력하세요."
-													maxlength="6" />
-											</div>
-											<div id="check-email" class='col-sm-offset-3 col-sm-6'></div>
-											<div id="check-email-auth" class='col-sm-offset-3 col-sm-6'></div>
-										</div>
-
-										<div class="form-group row">
-											<label for="password"
-												class="col-sm-offset-1 col-sm-3 control-label"><strong>비밀번호</strong></label>
-											<div class="col-sm-6">
-												<input id="password" name="password" class="form-control "
-													type="password" placeholder="비밀번호는 8~15자까지 입력 가능합니다."
-													maxlength="15" />
-											</div>
-											<div id="check-pwd-exp" class='col-sm-offset-3 col-sm-6'></div>
-										</div>
-
-										<div class="form-group row">
-											<label for="confirmPassword"
-												class="col-sm-offset-1 col-sm-3 control-label"><strong>비밀번호
-													재확인</strong></label>
-											<div class="col-sm-6">
-												<input id="confirmPassword" name="confirmPassword" class="form-control"
-													type="password" placeholder="비밀번호를 입력해 주세요." />
-											</div>
-											<div id="check-pwd" class='col-sm-offset-3 col-sm-6'></div>
-										</div>
-
-										<div id="campName" class="form-group row">
-											<label for="campName"
-												class="col-sm-offset-1 col-sm-3 control-label"><strong>캠핑장명</strong></label>
-											<div class="col-sm-6">
-												<input id="campName" name="campName" class="form-control" type="text"
-													placeholder="캠핑장명을 입력해 주세요." />
-											</div>
-										</div>
-
-										<div class="form-group row">
-											<label for="campBusinessNum"
-												class="col-sm-offset-1 col-sm-3 control-label"><strong>사업자
-													등록번호</strong></label>
-											<div class="col-sm-6">
-												<input id="campBusinessNum" name="campBusinessNum"
-													class="form-control" type="text" placeholder="숫자만 입력해주세요"
-													maxlength="10" />
-											</div>
-											<div id="check-business" class='col-sm-offset-3 col-sm-6'></div>
-										</div>
-
-										<div class="form-group row">
-											<label for="name"
-												class="col-sm-offset-1 col-sm-3 control-label"><strong>사업자대표
-													이름</strong></label>
-											<div class="col-sm-6">
-												<input id="name" name="name" class="form-control" type="text"
-													placeholder="이름을 입력하세요" />
-											</div>
-										</div>
-
-										<div class="form-group row">
-											<label for="phone"
-												class="col-sm-offset-1 col-sm-3 control-label"><strong>휴대폰번호</strong></label>
-											<div class="col-sm-6">
-												<input id="phone" name="phone" class="form-control" type="text"
-													placeholder="숫자만 입력해주세요" maxlength="11" />
-
-											</div>
-											<div id="check-phone" class='col-sm-offset-3 col-sm-6'></div>
-										</div>
-
-										<div class="form-group row">
-											<label for="addr" class="col-sm-offset-1 col-sm-3 control-label"><strong>캠핑장
-													주소</strong></label>
-											<div class="col-sm-6">
-												<input id="addr" name="addr" class="form-control" type="text"
-													placeholder="주소를 입력하세요." />
-											</div>
-										</div>
-
-										<div class="form-group row">
-											<label for="userAddr"
-												class="col-sm-offset-1 col-sm-3 control-label"></label>
-											<div class="col-sm-6">
-												<input id="userAddr" name="userAddr" class="form-control" type="text"
-													placeholder="상세주소를 입력하세요." /> <input type="hidden" name="allAddr" />
-											</div>
-										</div>
-
-										<div class="form-group row">
-											<label for="campCall"
-												class="col-sm-offset-1 col-sm-3 control-label"><strong>캠핑장
-													전화번호</strong></label>
-											<div class="col-sm-6">
-												<input id="campCall" name="campCall" class="form-control" type="text"
-													placeholder="숫자만 입력해주세요." />
-											</div>
-										</div>
-
-										<div class="form-group row">
-											<label for="accountInfo"
-												class="col-sm-offset-1 col-sm-3 control-label"><strong>계좌정보</strong></label>
-											<div class="col-sm-3">
-												<select class="form-control" name="bank">
-													<option value="">은행</option>
-													<option>KB국민은행</option>
-													<option>신한은행</option>
-													<option>우리은행</option>
-													<option>하나은행</option>
-													<option>NH농협은행</option>
-													<option>카카오뱅크</option>
-												</select>
-											</div>
-											<div class="col-sm-3">
-												<input id="accountHolder" name="accountHolder" class="form-control"
-													type="text" placeholder="예금주" />
-											</div>
-										</div>
-
-										<div class="form-group row">
-											<label class="col-sm-offset-1 col-sm-3 control-label"></label>
-											<div class="col-sm-6">
-												<input id="accountNum" name="accountNum" class="form-control"
-													type="text" placeholder="계좌번호를 숫자만 입력하세요" maxlength="14" />
-											</div>
-										</div>
-									</form>
-								</div>
-							</div>
-							<br>
-							<div class="col-sm-3 col-sm-offset-2"></div>
-							<div class="col-sm-3 col-sm-offset-2">
+			<body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
+				<main>
+					<div class="page-loader">
+						<div class="loader">Loading...</div>
+					</div>
+					<jsp:include page="../common/header.jsp"></jsp:include>
+					<div class="main">
+						<section class="module bg-dark-30 about-page-header"
+							data-background="assets/images/about_bg.jpg">
+							<div class="container">
 								<div class="row">
-									<button id="cancel" class="btn btn-border-d btn-circle" type="button">취소</button>
-									<button id="joinAddUser" class="btn btn-border-d btn-circle" type="submit">가입
-										요청하기</button>
-
+									<div class="col-sm-6 col-sm-offset-3">
+										<h1 class="module-title font-alt mb-0">Forms</h1>
+									</div>
 								</div>
 							</div>
-						</div>
-					</section>
-				</div>
-			</main>
+						</section>
+						<section class="module">
+							<div class="container">
+								<div class="row">
+									<div class="col-sm-8 col-sm-offset-2">
+										<h4 class="font-alt mb-0">사업자회원 회원가입</h4>
+										<hr class="divider-w mt-10 mb-20">
+										<form class="form" role="form">
+											<div id="email" class="form-group row">
+												<div><input id="role" name="role" value="BUSINESS" hidden="hidden">
+												</div>
+												<label for="id"
+													class="col-sm-offset-1 col-sm-3 control-label"><strong>아이디</strong></label>
+												<div class="col-sm-6">
+													<input id="id" name="id" class="form-control " type="text"
+														placeholder="아이디는 이메일 형식만 가능합니다." />
+												</div>
+												<div>
+													<button id="mailAuthNum" class="btn btn-circle btn-xs"
+														type="button">인증번호 받기</button>
+												</div>
+												<div id="checkMailAuth" class="col-sm-offset-3 col-sm-6"
+													style="display:none;">
+													<input id="checkMailAuthNum" name="checkMailAuthNum"
+														class="form-control " type="text" placeholder="인증번호를 입력하세요."
+														maxlength="6" />
+												</div>
+												<div id="check-email" class='col-sm-offset-3 col-sm-6'></div>
+												<div id="check-email-auth" class='col-sm-offset-3 col-sm-6'></div>
+											</div>
 
-			<script src="../../resources/lib/jquery/jquery.js"></script>
-			<script src="../../resources/lib/bootstrap/js/bootstrap.min.js"></script>
-			<script src="../../resources/lib/wow/wow.js"></script>
-			<script src="../../resources/lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js"></script>
-			<script src="../../resources/lib/isotope/isotope.pkgd.js"></script>
-			<script src="../../resources/lib/imagesloaded/imagesloaded.pkgd.js"></script>
-			<script src="../../resources/lib/flexslider/jquery.flexslider.js"></script>
-			<script src="../../resources/lib/owl.carousel/dist/owl.carousel.min.js"></script>
-			<script src="../../resources/lib/smoothscroll.js"></script>
-			<script src="../../resources/lib/magnific-popup/jquery.magnific-popup.js"></script>
-			<script src="../../resources/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script>
-			<script src="../../resources/js/plugins.js"></script>
-			<script src="../../resources/js/main.js"></script>
+											<div class="form-group row">
+												<label for="password"
+													class="col-sm-offset-1 col-sm-3 control-label"><strong>비밀번호</strong></label>
+												<div class="col-sm-6">
+													<input id="password" name="password" class="form-control "
+														type="password" placeholder="비밀번호는 8~15자까지 입력 가능합니다."
+														maxlength="15" />
+												</div>
+												<div id="check-pwd-exp" class='col-sm-offset-3 col-sm-6'></div>
+											</div>
 
-			<script type="text/javascript">
+											<div class="form-group row">
+												<label for="confirmPassword"
+													class="col-sm-offset-1 col-sm-3 control-label"><strong>비밀번호
+														재확인</strong></label>
+												<div class="col-sm-6">
+													<input id="confirmPassword" name="confirmPassword"
+														class="form-control" type="password"
+														placeholder="비밀번호를 입력해 주세요." />
+												</div>
+												<div id="check-pwd" class='col-sm-offset-3 col-sm-6'></div>
+											</div>
 
-				$(function () {
+											<div id="campName" class="form-group row">
+												<label for="campName"
+													class="col-sm-offset-1 col-sm-3 control-label"><strong>캠핑장명</strong></label>
+												<div class="col-sm-6">
+													<input id="campName" name="campName" class="form-control"
+														type="text" placeholder="캠핑장명을 입력해 주세요." />
+												</div>
+											</div>
 
-					//아이디 유효성 및 중복체크
-					$("input[name='id']").on("keyup", function () {
-						// console.log("가나다");
-						var email = $("#id").val();
-						console.log(email);
-						console.log(email);
-						$.ajax({
-							url: '/user/rest/checkDuplication',
-							headers: {
-								"Accept": "application/json",
-								"Content-Type": "application/json"
-							},
-							method: 'POST',
-							dataType: 'json',
-							data: JSON.stringify({ "id": email }),
-							success: function (result) {
+											<div class="form-group row">
+												<label for="campBusinessNum"
+													class="col-sm-offset-1 col-sm-3 control-label"><strong>사업자
+														등록번호</strong></label>
+												<div class="col-sm-6">
+													<input id="campBusinessNum" name="campBusinessNum"
+														class="form-control" type="text" placeholder="숫자만 입력해주세요"
+														maxlength="10" />
+												</div>
+												<div id="check-business" class='col-sm-offset-3 col-sm-6'></div>
+											</div>
 
-								console.log('성공: ' + result);
+											<div class="form-group row">
+												<div class="col-sm-offset-1 col-sm-3 control-label"><strong>사업자
+														등록증 사진</strong></div>
+												<div class="col-sm-6">
+													<button type="button" id="businessImgFileUpload"
+														class="btn btn-border-d btn-circle">이미지 등록</button>
+													<input type="file" id="inputBusinessImg" name="businessImg"
+														style="display: none;" />
+												</div>
+												<div>
+													<img id="input_businessImg_file"
+														style="width:20%; margin-top:10px; margin-left: 35%;" src="">
+												</div>
+											</div>
 
-								if (result == 0) {
-									if (email != "") {
-										if (email.indexOf('@') < 1 || email.indexOf('.') == -1) {
-											$("#check-email").html("Email형식이 아닙니다.");
-										} else {
-											$("#check-email").html('사용 가능한 아이디입니다.');
-											$("#check-email").css('color', 'green');
-										}
-									} else {
-										$("#check-email").html("");
-									}
+											<div class="form-group row">
+												<label for="name"
+													class="col-sm-offset-1 col-sm-3 control-label"><strong>사업자대표
+														이름</strong></label>
+												<div class="col-sm-6">
+													<input id="name" name="name" class="form-control" type="text"
+														placeholder="이름을 입력하세요" />
+												</div>
+											</div>
 
-								} else {
-									$("#check-email").html('이미 사용중이거나 중복된 아이디 입니다.');
-									$("#check-email").css('color', 'red');
-								}
+											<div class="form-group row">
+												<label for="phone"
+													class="col-sm-offset-1 col-sm-3 control-label"><strong>휴대폰번호</strong></label>
+												<div class="col-sm-6">
+													<input id="phone" name="phone" class="form-control" type="text"
+														placeholder="숫자만 입력해주세요" maxlength="11" />
 
-							} /* ,error :  function(request,status,error){// 에러발생시 실행할 함수
-alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-}*/
-						});
-					});
+												</div>
+												<div id="check-phone" class='col-sm-offset-3 col-sm-6'></div>
+											</div>
 
-					//이메일 인증번호 받기
-					$("#mailAuthNum").on("click", function () {
+											<div class="form-group row">
+												<label for="addr"
+													class="col-sm-offset-1 col-sm-3 control-label"><strong>캠핑장
+														주소</strong></label>
+												<div class="col-sm-6">
+													<input id="addr" name="addr" class="form-control" type="text"
+														placeholder="주소를 입력하세요." />
+												</div>
+											</div>
 
-						var id = $("#id").val();
+											<div class="form-group row">
+												<label for="userAddr"
+													class="col-sm-offset-1 col-sm-3 control-label"></label>
+												<div class="col-sm-6">
+													<input id="userAddr" name="userAddr" class="form-control"
+														type="text" placeholder="상세주소를 입력하세요." /> <input type="hidden"
+														name="allAddr" />
+												</div>
+											</div>
 
-						if (id != (id.indexOf('@') < 1 || id.indexOf('.') == -1)) {
+											<div class="form-group row">
+												<label for="campCall"
+													class="col-sm-offset-1 col-sm-3 control-label"><strong>캠핑장
+														전화번호</strong></label>
+												<div class="col-sm-6">
+													<input id="campCall" name="campCall" class="form-control"
+														type="text" placeholder="숫자만 입력해주세요." />
+												</div>
+											</div>
 
-							//$("#mailAuthNum").hide();
-							$("#mailAuthNum").text("인증번호 재발송");
-							$("#check-email").html("");
-							$("#checkMailAuth").show();
-							//$("#reMailAuth").show();
+											<div class="form-group row">
+												<label for="accountInfo"
+													class="col-sm-offset-1 col-sm-3 control-label"><strong>계좌정보</strong></label>
+												<div class="col-sm-3">
+													<select class="form-control" name="bank">
+														<option value="">은행</option>
+														<option>KB국민은행</option>
+														<option>신한은행</option>
+														<option>우리은행</option>
+														<option>하나은행</option>
+														<option>NH농협은행</option>
+														<option>카카오뱅크</option>
+													</select>
+												</div>
+												<div class="col-sm-3">
+													<input id="accountHolder" name="accountHolder" class="form-control"
+														type="text" placeholder="예금주" />
+												</div>
+											</div>
 
+											<div class="form-group row">
+												<label class="col-sm-offset-1 col-sm-3 control-label"></label>
+												<div class="col-sm-6">
+													<input id="accountNum" name="accountNum" class="form-control"
+														type="text" placeholder="계좌번호를 숫자만 입력하세요" maxlength="14" />
+												</div>
+											</div>
+										</form>
+									</div>
+								</div>
+								<br>
+								<div class="col-sm-3 col-sm-offset-2"></div>
+								<div class="col-sm-3 col-sm-offset-2">
+									<div class="row">
+										<button id="cancel" class="btn btn-border-d btn-circle"
+											type="button">취소</button>
+										<button id="joinAddUser" class="btn btn-border-d btn-circle" type="submit">가입
+											요청하기</button>
+
+									</div>
+								</div>
+							</div>
+						</section>
+					</div>
+				</main>
+
+				<script src="../../resources/lib/jquery/jquery.js"></script>
+				<script src="../../resources/lib/bootstrap/js/bootstrap.min.js"></script>
+				<script src="../../resources/lib/wow/wow.js"></script>
+				<script src="../../resources/lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js"></script>
+				<script src="../../resources/lib/isotope/isotope.pkgd.js"></script>
+				<script src="../../resources/lib/imagesloaded/imagesloaded.pkgd.js"></script>
+				<script src="../../resources/lib/flexslider/jquery.flexslider.js"></script>
+				<script src="../../resources/lib/owl.carousel/dist/owl.carousel.min.js"></script>
+				<script src="../../resources/lib/smoothscroll.js"></script>
+				<script src="../../resources/lib/magnific-popup/jquery.magnific-popup.js"></script>
+				<script src="../../resources/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script>
+				<script src="../../resources/js/plugins.js"></script>
+				<script src="../../resources/js/main.js"></script>
+
+				<script type="text/javascript">
+
+					$(function () {
+
+						//아이디 유효성 및 중복체크
+						$("input[name='id']").on("keyup", function () {
+							// console.log("가나다");
+							var email = $("#id").val();
+							console.log(email);
+							console.log(email);
 							$.ajax({
-								url: '/user/rest/sendEmailAuthNum/' + id,
+								url: '/user/rest/checkDuplication',
 								headers: {
 									"Accept": "application/json",
 									"Content-Type": "application/json"
 								},
-								method: 'GET',
-								//dataType:'json',
-								//data : JSON.stringify(data),	
-								success: function (data) {
-									//console.log(JSON.stringify(data));
-									console.log('성공: ' + data);
-									//console.log('성공: '+data.id);
+								method: 'POST',
+								dataType: 'json',
+								data: JSON.stringify({ "id": email }),
+								success: function (result) {
 
-									$("input[name='checkMailAuthNum']").on("keyup", function () {
-										console.log('되는가');
-										var aa = $("input[name='checkMailAuthNum']").val();
+									console.log('성공: ' + result);
 
-										if (aa.length > 0) {
-											if (data === aa) {
-												$("#check-email-auth").html("인증번호가 일치합니다.");
+									if (result == 0) {
+										if (email != "") {
+											if (email.indexOf('@') < 1 || email.indexOf('.') == -1) {
+												$("#check-email").html("Email형식이 아닙니다.");
 											} else {
-												$("#check-email-auth").html('인증번호를 확인하세요.');
+												$("#check-email").html('사용 가능한 아이디입니다.');
+												$("#check-email").css('color', 'green');
 											}
 										} else {
-											$("#check-email-auth").html("");
+											$("#check-email").html("");
 										}
-									});
+
+									} else {
+										$("#check-email").html('이미 사용중이거나 중복된 아이디 입니다.');
+										$("#check-email").css('color', 'red');
+									}
+
+								} /* ,error :  function(request,status,error){// 에러발생시 실행할 함수
+alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+}*/
+							});
+						});
+
+						//이메일 인증번호 받기
+						$("#mailAuthNum").on("click", function () {
+
+							var id = $("#id").val();
+
+							if (id != (id.indexOf('@') < 1 || id.indexOf('.') == -1)) {
+
+								//$("#mailAuthNum").hide();
+								$("#mailAuthNum").text("인증번호 재발송");
+								$("#check-email").html("");
+								$("#checkMailAuth").show();
+								//$("#reMailAuth").show();
+
+								$.ajax({
+									url: '/user/rest/sendEmailAuthNum/' + id,
+									headers: {
+										"Accept": "application/json",
+										"Content-Type": "application/json"
+									},
+									method: 'GET',
+									//dataType:'json',
+									//data : JSON.stringify(data),	
+									success: function (data) {
+										//console.log(JSON.stringify(data));
+										console.log('성공: ' + data);
+										//console.log('성공: '+data.id);
+
+										$("input[name='checkMailAuthNum']").on("keyup", function () {
+											console.log('되는가');
+											var aa = $("input[name='checkMailAuthNum']").val();
+
+											if (aa.length > 0) {
+												if (data === aa) {
+													$("#check-email-auth").html("인증번호가 일치합니다.");
+												} else {
+													$("#check-email-auth").html('인증번호를 확인하세요.');
+												}
+											} else {
+												$("#check-email-auth").html("");
+											}
+										});
+									}
+								});
+							}
+						});
+
+						//비밀번호
+						$('#password').on("keyup", function () {
+							var regExp = /[ㄱ-ㅎㅏ-ㅣ가-힣]/g; //한글입력 불가
+							var pwd = $('#password').val();
+
+							if (pwd.length < 1) {
+								$("#check-pwd-exp").html("");
+
+							} else if (regExp.test(pwd)) {
+								$("#check-pwd-exp").html("한글은 입력 불가합니다.");
+								$("#check-pwd-exp").css('color', 'red');
+							}
+
+						});
+
+
+						//비밀번호 확인
+						$('#confirmPassword').on("keyup", function () {
+
+							if ($('#confirmPassword').val().length < 1) {
+								$("#check-pwd").html("");
+							} else if ($('#password').val() != $('#confirmPassword').val() || $('#confirmPassword').val() != '') {
+								$("#check-pwd").html('비밀번호가 일치하지 않습니다.');
+								$("#check-pwd").css('color', 'red');
+								$('#confirmPassword').focus();
+							}
+							if ($('#password').val() == $('#confirmPassword').val()) {
+								$("#check-pwd").html('비밀번호가 일치합니다.');
+								$("#check-pwd").css('color', 'green');
+							}
+						});
+
+						//사업자 번호 중복체크
+						$("input[name='campBusinessNum']").on("keyup", function () {
+
+							var regExp = /^[0-9]*$/;
+							var campBusinessNum = $("#campBusinessNum").val();
+
+							$.ajax({
+								url: '/user/rest/checkDuplication',
+								headers: {
+									"Accept": "application/json",
+									"Content-Type": "application/json"
+								},
+								method: 'POST',
+								dataType: 'json',
+								data: JSON.stringify({ "campBusinessNum": campBusinessNum }),
+								success: function (result) {
+									console.log('성공: ' + result);
+
+									if (result == 0) {
+										if (email != "") {
+											if (!(regExp.test(campBusinessNum))) {
+												$("#campBusinessNum").val("");
+												$("#check-business").html("사업자 등록번호는 숫자로만 입력 가능합니다.");
+											} else if (campBusinessNum.length == 10) {
+												$("#check-business").html('사용 가능한 번호입니다.');
+												$("#check-business").css('color', 'green');
+											} else {
+												$("#check-business").html("");
+											}
+
+										} else {
+											$("#check-business").html('이미 사용중이거나 중복된 사업자 등록번호 입니다.');
+											$("#check-business").css('color', 'red');
+										}
+									}
 								}
 							});
-						}
-					});
 
-					//비밀번호
-					$('#password').on("keyup", function () {
-						var regExp = /[ㄱ-ㅎㅏ-ㅣ가-힣]/g; //한글입력 불가
-						var pwd = $('#password').val();
-
-						if (pwd.length < 1) {
-							$("#check-pwd-exp").html("");
-
-						} else if (regExp.test(pwd)) {
-							$("#check-pwd-exp").html("한글은 입력 불가합니다.");
-							$("#check-pwd-exp").css('color', 'red');
-						}
-
-					});
-
-
-					//비밀번호 확인
-					$('#confirmPassword').on("keyup", function () {
-
-						if ($('#confirmPassword').val().length < 1) {
-							$("#check-pwd").html("");
-						} else if ($('#password').val() != $('#confirmPassword').val() || $('#confirmPassword').val() != '') {
-							$("#check-pwd").html('비밀번호가 일치하지 않습니다.');
-							$("#check-pwd").css('color', 'red');
-							$('#confirmPassword').focus();
-						}
-						if ($('#password').val() == $('#confirmPassword').val()) {
-							$("#check-pwd").html('비밀번호가 일치합니다.');
-							$("#check-pwd").css('color', 'green');
-						}
-					});
-
-					//사업자 번호 중복체크
-					$("input[name='campBusinessNum']").on("keyup", function () {
-
-						var regExp = /^[0-9]*$/;
-						var campBusinessNum = $("#campBusinessNum").val();
-
-						$.ajax({
-							url: '/user/rest/checkDuplication',
-							headers: {
-								"Accept": "application/json",
-								"Content-Type": "application/json"
-							},
-							method: 'POST',
-							dataType: 'json',
-							data: JSON.stringify({ "campBusinessNum": campBusinessNum }),
-							success: function (result) {
-								console.log('성공: ' + result);
-
-								if (result == 0) {
-									if (email != "") {
-										if (!(regExp.test(campBusinessNum))) {
-											$("#campBusinessNum").val("");
-											$("#check-business").html("사업자 등록번호는 숫자로만 입력 가능합니다.");
-										} else if (campBusinessNum.length == 10) {
-											$("#check-business").html('사용 가능한 번호입니다.');
-											$("#check-business").css('color', 'green');
-										} else {
-											$("#check-business").html("");
-										}
-
-									} else {
-										$("#check-business").html('이미 사용중이거나 중복된 사업자 등록번호 입니다.');
-										$("#check-business").css('color', 'red');
-									}
-								}
-							}
 						});
 
-					});
+						$("#businessImgFileUpload").on("click", function () {
+							$("#inputBusinessImg").trigger('click');
+						})
 
-					//휴대폰번호 중복체크
-					$("input[name='phone']").on("keyup", function () {
+						/*단일파일 업로드*/
+						function readImage(input) {
+							if (input.files && input.files[0]) {
+								const reader = new FileReader();
 
-						var regExp = /^[0-9]*$/;
-						var phone = $("#phone").val();
+								reader.onload = (e) => {
+									const previewImage = document.getElementById('input_businessImg_file');
+									previewImage.src = e.target.result;
+								}
+								reader.readAsDataURL(input.files[0]);
+							}
+						}
+						// 이벤트 리스너
+						document.getElementById('inputBusinessImg').addEventListener('change', (e) => {
+							readImage(e.target);
+						})
 
-						$.ajax({
-							url: '/user/rest/checkDuplication',
-							headers: {
-								"Accept": "application/json",
-								"Content-Type": "application/json"
-							},
-							method: 'POST',
-							dataType: 'json',
-							data: JSON.stringify({ "phone": phone }),
-							success: function (result) {
-								console.log('성공: ' + result);
+						// function handleBusinessImgFileSelect(e) {
 
-								if (result == 0) {
-									if (email != "") {
-										if (!(regExp.test(phone))) {
-											$("#phone").val("");
-											$("#check-phone").html("휴대폰번호는 숫자로만 입력 가능합니다.");
-										} else if (phone.length == 11) {
-											$("#check-phone").html('사용 가능한 번호입니다.');
-											$("#check-phone").css('color', 'green');
-										} else if (phone.length > 11) {
-											$("#phone").val("");
-											$("#check-phone").html("휴대폰번호는 11자리만 가능합니다.");
+						// 	$(".img_business").empty();
+
+						// 	$("#input_businessImg_file").on("click", function () {
+						// 		$("#input_businessImg_file").remove();
+
+						// 	});
+
+						// 	const file = e.target.file;
+						// 	console.log(file);
+
+						// 	const fileReader = new FileReader();
+						// 	fileReader.onload = function (e) {
+						// 		document.getElementById("input_businessImg_file").src = e.target.result;
+
+						// 	}
+						// 	reader.readAsDataURL(file);
+						// 	console.log(file);
+
+						// }
+
+
+
+						//휴대폰번호 중복체크
+						$("input[name='phone']").on("keyup", function () {
+
+							var regExp = /^[0-9]*$/;
+							var phone = $("#phone").val();
+
+							$.ajax({
+								url: '/user/rest/checkDuplication',
+								headers: {
+									"Accept": "application/json",
+									"Content-Type": "application/json"
+								},
+								method: 'POST',
+								dataType: 'json',
+								data: JSON.stringify({ "phone": phone }),
+								success: function (result) {
+									console.log('성공: ' + result);
+
+									if (result == 0) {
+										if (email != "") {
+											if (!(regExp.test(phone))) {
+												$("#phone").val("");
+												$("#check-phone").html("휴대폰번호는 숫자로만 입력 가능합니다.");
+											} else if (phone.length == 11) {
+												$("#check-phone").html('사용 가능한 번호입니다.');
+												$("#check-phone").css('color', 'green');
+											} else if (phone.length > 11) {
+												$("#phone").val("");
+												$("#check-phone").html("휴대폰번호는 11자리만 가능합니다.");
+											} else {
+												$("#check-phone").html("");
+											}
+
 										} else {
-											$("#check-phone").html("");
+											$("#check-phone").html('이미 사용중이거나 중복된 휴대폰번호 입니다.');
+											$("#check-phone").css('color', 'red');
 										}
-
-									} else {
-										$("#check-phone").html('이미 사용중이거나 중복된 휴대폰번호 입니다.');
-										$("#check-phone").css('color', 'red');
 									}
 								}
-							}
+							});
+
+						});
+						//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+						$("#joinAddUser").on("click", function () {
+							console.log("뭐지");
+							fncAddUser();
 						});
 
-					});
-					//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-					$("#joinAddUser").on("click", function () {
-						console.log("뭐지");
-						fncAddUser();
-					});
+						function fncAddUser() {
 
-					function fncAddUser() {
-
-						var id = $("input[name='id']").val();
-						var pw = $("input[name='password']").val();
-						var pw_confirm = $("input[name='confirmPassword']").val();
-						var name = $("input[name='name']").val();
-						var nickName = $("input[name='nickName']").val();
-						var phone = $("input[name='phone']").val();
+							var id = $("input[name='id']").val();
+							var pw = $("input[name='password']").val();
+							var pw_confirm = $("input[name='confirmPassword']").val();
+							var name = $("input[name='name']").val();
+							var nickName = $("input[name='nickName']").val();
+							var phone = $("input[name='phone']").val();
 
 
-						if (id == null || id.length < 1) {
-							alert("아이디는 반드시 입력하셔야 합니다.");
-							return;
-						}
+							// if (id == null || id.length < 1) {
+							// 	alert("아이디는 반드시 입력하셔야 합니다.");
+							// 	return;
+							// }
 
-						if (password == null || password.length < 1) {
-							alert("패스워드는  반드시 입력하셔야 합니다.");
-							return;
-						}
+							// if (password == null || password.length < 1) {
+							// 	alert("패스워드는  반드시 입력하셔야 합니다.");
+							// 	return;
+							// }
 
-						if (7 < password.length < 16) {
-							alert("패스워드는 8~15자까지 가능합니다.");
-							return;
-						}
+							// if (7 < password.length < 16) {
+							// 	alert("패스워드는 8~15자까지 가능합니다.");
+							// 	return;
+							// }
 
-						if (confirmPassword == null || confirmPassword.length < 1) {
-							alert("패스워드 확인은  반드시 입력하셔야 합니다.");
-							return;
-						}
+							// if (confirmPassword == null || confirmPassword.length < 1) {
+							// 	alert("패스워드 확인은  반드시 입력하셔야 합니다.");
+							// 	return;
+							// }
 
-						if (name == null || name.length < 1) {
-							alert("이름은  반드시 입력하셔야 합니다.");
-							return;
-						}
+							// if (name == null || name.length < 1) {
+							// 	alert("이름은  반드시 입력하셔야 합니다.");
+							// 	return;
+							// }
 
-						if (password != confirmPassword) {
-							alert("비밀번호 확인이 일치하지 않습니다.");
-							$("input:text[name='confirmPassword']").focus();
-							return;
-						}
+							// if (password != confirmPassword) {
+							// 	alert("비밀번호 확인이 일치하지 않습니다.");
+							// 	$("input:text[name='confirmPassword']").focus();
+							// 	return;
+							// }
 
-						if (nickName == null || nickName.length < 1) {
-							alert("닉네임은 반드시 입력하셔야 합니다.");
-							return;
-						}
+							// if (nickName == null || nickName.length < 1) {
+							// 	alert("닉네임은 반드시 입력하셔야 합니다.");
+							// 	return;
+							// }
 
-						if (phone == null || phone.length < 1) {
-							alert("휴대폰번호는 반드시 입력하셔야 합니다.");
-							return;
-						}
+							// if (phone == null || phone.length < 1) {
+							// 	alert("휴대폰번호는 반드시 입력하셔야 합니다.");
+							// 	return;
+							// }
 
-						var addr = "";
-						if ($("input:text[name='addr']").val() != "" && $("input:text[name='userAddr']").val() != "") {
-							var value = $("input[name='addr']").val() + ""
-								+ $("input[name='userAddr']").val();
-						}
-
-						$("input:hidden[name='allAddr']").val(value);
-
-						$("form").attr("method", "POST").attr("action", "/user/addUser").submit();
-					}
-
-
-					//주소검색
-					document.getElementById("addr").addEventListener("click", function () { //주소입력칸을 클릭하면
-						new daum.Postcode({
-							oncomplete: function (data) { //선택시 입력값 세팅
-								document.getElementById("addr").value = data.address; // 주소 넣기
-								document.querySelector("input[name=userAddr]").focus(); //상세입력 포커싱
+							var addr = "";
+							if ($("input:text[name='addr']").val() != "" && $("input:text[name='userAddr']").val() != "") {
+								var value = $("input[name='addr']").val() + ""
+									+ $("input[name='userAddr']").val();
 							}
-						}).open();
-					});
-				});
-			</script>
-		</body>
 
-		</html>
+							$("input:hidden[name='allAddr']").val(value);
+
+							$("form").attr("method", "POST").attr("action", "/user/addUser").attr("enctype", "multipart/form-data").submit();
+						}
+
+
+						//주소검색
+						document.getElementById("addr").addEventListener("click", function () { //주소입력칸을 클릭하면
+							new daum.Postcode({
+								oncomplete: function (data) { //선택시 입력값 세팅
+									document.getElementById("addr").value = data.address; // 주소 넣기
+									document.querySelector("input[name=userAddr]").focus(); //상세입력 포커싱
+								}
+							}).open();
+						});
+					});
+				</script>
+			</body>
+
+			</html>
