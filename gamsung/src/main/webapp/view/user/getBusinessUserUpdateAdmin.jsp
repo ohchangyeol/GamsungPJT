@@ -282,8 +282,9 @@
 									</div>
 								</div>
 								<div class="row" id="approval-business-btn">
-									<button id="approval-btn" class="btn btn-xs btn-border-d btn-circle"
-										type="button">가입승인</button>
+									<c:if test="${user.businessUserApprovalFlag !='Y'}"> <button id="approval-btn"
+											class="btn btn-xs btn-border-d btn-circle" type="button">가입승인</button>
+									</c:if>
 									<button id="cancel" class="btn btn-xs btn-border-d btn-circle"
 										type="button">취소</button>
 									<button id="business-updateUser" class="btn btn-xs btn-border-d btn-circle"
@@ -419,7 +420,7 @@
 										'가입승인이 완료되었습니다..',
 										'success'
 									).then((result) => {
-										window.location = "/user/listUser";
+										window.location = "/user/listUser/list";
 									})
 								} else {
 									Swal.fire('가입승인에 실패했습니다.')

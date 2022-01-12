@@ -145,11 +145,11 @@
 		SELECT u.role, u.user_id, u.name, u.nick_name, u.camp_name, u.entry_reg_date, u.suspension_reg_date, 
 		u.secession_reg_date, u.dormant_reg_date, u.entry_approval_flag, h.login_reg_date, rtc.rc
 		FROM USERS u left outer join (SELECT * from LOGIN_HISTORY where (user_id, login_reg_date) in (select user_id, max(login_reg_date) as date from login_history group by user_id)) h
-		on u.user_id = h.user_id left outer join (SELECT count(receiver_id)rc, receiver_id from report where report_status=1 group by receiver_id having count(receiver_id) >0)rtc
+		on u.user_id = h.user_id left outer join (SELECT count(receiver_id)rc, receiver_id from report where report_status=1 group by receiver_id having count(receiver_id) =0)rtc
 		on u.user_id = rtc.receiver_id
 			<if test="searchCondition != null">
 				<where>
-				u.role != "ADMIN"
+				u.role != "ADMIN" AND u.secession_reg_date is null AND u.suspension_reg_date is null AND u.dormant_reg_date is null
 					<if test='searchCondition == "1"'>
 						AND u.role = "GENERAL"
 					</if>
