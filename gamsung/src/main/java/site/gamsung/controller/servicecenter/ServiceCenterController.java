@@ -49,6 +49,7 @@ public class ServiceCenterController {
 	
 	@Value("#{commonProperties['pageUnit']}")
 	int pageUnit;
+	
 	@Value("#{commonProperties['pageSize']}")
 	int pageSize;
 	
