@@ -73,7 +73,7 @@
 	<!-- 공지사항 목록 조회 -->
 	<select id="listNotice"	parameterType="search" resultMap="noticeDomain">
 		SELECT 	n.notice_no, n.user_id, n.delete_flag, n.notice_title, n.notice_content, n.view_count, n.reg_date, n.camp_no, n.camp_name, n.notice_file1, n.notice_file2, n.notice_file3,
-						u.role, u.nick_name, u.password, u.name, u.addr, u.phone, u.entry_reg_date, u.bank, u.account_holder, u.account_num, u.having_point, u.camp_call, u.entry_approval_flag, u.receive_cancel_total_count, u.receive_ban_end_date, u.dormant_reg_date, u.secession_reg_date, u.suspension_reg_date, u.tourism_business_num, u.suspension_content, u.auction_grade
+						u.role, u.nick_name, u.password, u.name, u.addr, u.phone, u.entry_reg_date, u.bank, u.account_holder, u.account_num, u.having_point, u.camp_call, u.entry_approval_flag, u.receive_cancel_total_count, u.receive_ban_end_date, u.dormant_reg_date, u.secession_reg_date, u.suspension_reg_date, u.suspension_content, u.auction_grade
 		FROM NOTICE n JOIN USERS u
 		ON n.user_id = u.user_id 
 		WHERE n.delete_flag = 'N'

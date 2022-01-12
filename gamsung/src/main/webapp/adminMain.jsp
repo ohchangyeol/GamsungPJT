@@ -33,7 +33,7 @@ pageEncoding="UTF-8"%>
 				<section role="main" class="content-body" style="padding-top: 0px;">
 					
 					
-					<div style="width: 1500px; height: 300px; background-color: palegoldenrod; padding-top: 20px;">
+					<div style="width: 100%; height: 300px; background-color: palegoldenrod; padding-top: 20px;">
 
 					</div>
 
