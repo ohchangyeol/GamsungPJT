@@ -11,54 +11,60 @@ pageEncoding="UTF-8"%>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Document Title -->
     <title>addReservationThird</title>
+
+    <meta name="keywords" content="HTML5 Admin Template" />
+		<meta name="description" content="Porto Admin - Responsive HTML5 Template">
+		<meta name="author" content="okler.net">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Shadows+Into+Light"
     rel="stylesheet" type="text/css">
-  <!-- Vendor CSS -->
-  <link href="../../resources/lib/bootstrap/css/bootstrap.css" rel="stylesheet" />
-  <link href="../../resources/lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
-  <link href="../../resources/lib/magnific-popup/magnific-popup.css" rel="stylesheet" />
-  <link href="../../resources/lib/bootstrap-datepicker/css/datepicker3.css" rel="stylesheet" />
-  <!-- Theme CSS -->
-  <link href="../../resources/css/theme.css" rel="stylesheet" />
-  <!-- Skin CSS -->
-  <link href="../../resources/css/skins/default.css" rel="stylesheet" />
-  <!-- Theme Custom CSS -->
-  <link href="../../resources/css/theme-custom.css" rel="stylesheet">
-  <!-- Head Libs -->
-  <script src="../../resources/lib/modernizr/modernizr.js"></script>
-  <!-- JavaScripts -->
-  <script src="../../resources/lib/jquery/jquery.js"></script>
-  <script src="../../resources/lib/bootstrap/js/bootstrap.min.js"></script>
-  <script src="../../resources/lib/wow/wow.js"></script>
-  <script src="../../resources/lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js"></script>
-  <script src="../../resources/lib/isotope/isotope.pkgd.js"></script>
-  <script src="../../resources/lib/imagesloaded/imagesloaded.pkgd.js"></script>
-  <script src="../../resources/lib/flexslider/jquery.flexslider.js"></script>
-  <script src="../../resources/lib/owl.carousel/dist/owl.carousel.min.js"></script>
-  <script src="../../resources/lib/smoothscroll.js"></script>
-  <script src="../../resources/lib/magnific-popup/magnific-popup.js"></script>
-  <script src="../../resources/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script>
-  <script src="../../resources/js/plugins.js"></script>
-  <script src="../../resources/js/main.js"></script>
-  <!-- Kakao Map-->
-  <script type="text/javascript"
-    src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6f8199ad71211c3df709f290a0e83244&libraries=services"></script>
-  <!-- Default stylesheets-->
-  <link href="../../resources/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Template specific stylesheets-->
-  <link href="../../resources/lib/animate.css/animate.css" rel="stylesheet">
-  <link href="../../resources/lib/components-font-awesome/css/font-awesome.min.css" rel="stylesheet">
-  <link href="../../resources/lib/et-line-font/et-line-font.css" rel="stylesheet">
-  <link href="../../resources/lib/flexslider/flexslider.css" rel="stylesheet">
-  <link href="../../resources/lib/owl.carousel/dist/assets/owl.carousel.min.css" rel="stylesheet">
-  <link href="../../resources/lib/owl.carousel/dist/assets/owl.theme.default.min.css" rel="stylesheet">
-  <link href="../../resources/lib/magnific-popup/magnific-popup.css" rel="stylesheet">
-  <link href="../../resources/lib/simple-text-rotator/simpletextrotator.css" rel="stylesheet">
-  <!-- Main stylesheet and color file-->
-  <link href="../../resources/css/style.css" rel="stylesheet">
-  <link id="color-scheme" href="../../resources/css/colors/default.css" rel="stylesheet">
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- Vendor CSS -->
+    <link href="../../resources/lib/bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <link href="../../resources/lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link href="../../resources/lib/magnific-popup/magnific-popup.css" rel="stylesheet" />
+    <link href="../../resources/lib/bootstrap-datepicker/css/datepicker3.css" rel="stylesheet" />
+    <!-- Theme CSS -->
+    <link href="../../resources/css/theme.css" rel="stylesheet" />
+    <!-- Skin CSS -->
+    <link href="../../resources/css/skins/default.css" rel="stylesheet" />
+    <!-- Theme Custom CSS -->
+    
+    <!-- Head Libs -->
+    <script src="../../resources/lib/modernizr/modernizr.js"></script>
+    <!-- JavaScripts -->
+    <script src="../../resources/lib/jquery/jquery.js"></script>
+    
+    <script src="../../resources/lib/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../../resources/lib/wow/wow.js"></script>
+    <script src="../../resources/lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js"></script>
+    <script src="../../resources/lib/isotope/isotope.pkgd.js"></script>
+    <script src="../../resources/lib/imagesloaded/imagesloaded.pkgd.js"></script>
+    <script src="../../resources/lib/flexslider/jquery.flexslider.js"></script>
+    <script src="../../resources/lib/owl.carousel/dist/owl.carousel.min.js"></script>
+    <script src="../../resources/lib/smoothscroll.js"></script>
+    <script src="../../resources/lib/magnific-popup/magnific-popup.js"></script>
+    <script src="../../resources/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script>
+    <script src="../../resources/js/plugins.js"></script>
+    <script src="../../resources/js/main.js"></script>
+    
+    <!-- Default stylesheets-->
+    <link href="../../resources/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Template specific stylesheets-->
+    <link href="../../resources/lib/animate.css/animate.css" rel="stylesheet">
+    <link href="../../resources/lib/components-font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../../resources/lib/et-line-font/et-line-font.css" rel="stylesheet">
+    <link href="../../resources/lib/flexslider/flexslider.css" rel="stylesheet">
+    <link href="../../resources/lib/owl.carousel/dist/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="../../resources/lib/owl.carousel/dist/assets/owl.theme.default.min.css" rel="stylesheet">
+    <link href="../../resources/lib/magnific-popup/magnific-popup.css" rel="stylesheet">
+    <link href="../../resources/lib/simple-text-rotator/simpletextrotator.css" rel="stylesheet">
+    <!-- Main stylesheet and color file-->
+    <link href="../../resources/css/style.css" rel="stylesheet">
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="../../resources/lib/modals/examples.modals.js"></script>
 
     
   </head>
@@ -79,7 +85,7 @@ pageEncoding="UTF-8"%>
           <div class="col-xs-8">
             <section class="panel form-wizard" id="w4">
               
-              <div class="panel-body" style="margin-top: 100px;">
+              <div class="panel-body" style="margin-top: 50px;">
                 <div class="wizard-progress wizard-progress-lg">
                   <div class="steps-progress">
                     <div class="progress-indicator" style="width: 0%;"></div>
@@ -151,7 +157,8 @@ pageEncoding="UTF-8"%>
                             <div class="col-sm-8"  style="text-align: start; font-size: larger;">
                               ${campReservation.totalReservationRegCar} 대
                             </div>
-                          </div><div class="row mb-20">
+                          </div>
+                          <div class="row mb-20">
                             <div class="col-sm-4"  style="text-align: end; font-size: larger;">
                               총 요금  :  
                             </div>
@@ -209,10 +216,39 @@ pageEncoding="UTF-8"%>
                   <div class="row mb-20">
                     <div class="row">
                     <div class="col-sm-12" style="text-align: center;">
-                      <a class="btn btn-lg btn-primary" id="nextstepbtn" style="margin-top: 30px;">결제하기</a>
+                      <a class="modal-basic btn btn-lg btn-danger" style="margin-top: 30px;" href="#modalWarning">결제하기</a>
+                      <div id="modalWarning" class="modal-block modal-block-warning mfp-hide">
+                        <section class="panel">
+                          <header class="panel-heading">
+                            <h2 class="panel-title">안내</h2>
+                          </header>
+                          <div class="panel-body">
+                            <div class="modal-wrapper">
+                              <div class="modal-icon">
+                                <i class="fa fa-warning"></i>
+                              </div>
+                              <div class="modal-text">
+                                <p>예약 임시 등록 후 결제 페이지로 넘어갑니다.</p>
+                                <p>당일 결제 진행 안할 시에는 자동 취소 됩니다.</p>
+                                <p>예약 결제는 마이페이지에서 할 수 있습니다.</p>
+                              </div>
+                            </div>
+                          </div>
+                          <footer class="panel-footer">
+                            <div class="row">
+                              <div class="col-md-12 text-right">
+                                <button class="btn btn-warning modal-dismiss" id="nextstepbtn">확인</button>
+                              </div>
+                            </div>
+                          </footer>
+                        </section>
+                      </div>
                     </div>
                   </div>
                    </div>
+
+                   
+
                  
                 </div>
               </div>
@@ -222,8 +258,6 @@ pageEncoding="UTF-8"%>
               <input type="hidden" id="useNum"  name="useNum" value="${campReservation.useNum}">
               <input type="hidden" id="regCar"  name="totalReservationRegCar" value="${campReservation.totalReservationRegCar}">
               <input type="hidden" id="paymentPrice"  name="totalPaymentPrice" value="">
-
-
               <input type="hidden" id="minCapacity" value="${mainSite.mainSiteMinCapacity}">
               <input type="hidden" id="minprice"value="${mainSite.mainSiteMinPrice}">
               <input type="hidden" id="addPrice" value="${mainSite.mainSiteAddPrice}">
@@ -237,8 +271,26 @@ pageEncoding="UTF-8"%>
       </div>
     </form>
 
-    <input type="hidden" id="campno" value="${campReservation.camp.campNo}">
     </main>
+
+    <script src="../../resources/lib/jquery/jquery.js"></script>
+    <script src="../../resources/lib/jquery-browser-mobile/jquery.browser.mobile.js"></script>
+    <script src="../../resources/lib/bootstrap/js/bootstrap.js"></script>
+    <script src="../../resources/lib/nanoscroller/nanoscroller.js"></script>
+    <script src="../../resources/lib/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+    <script src="../../resources/lib/magnific-popup/magnific-popup.js"></script>
+    <script src="../../resources/lib/jquery-placeholder/jquery.placeholder.js"></script>
+    <!-- Specific Page Vendor -->
+    <script src="../../resources/lib/pnotify/pnotify.custom.js"></script>
+    <!-- Theme Base, Components and Settings -->
+    <script src="../../resources/js/theme.js"></script>
+      
+      <!-- Theme Initialization Files -->
+    <script src="../../resources/js/theme.init.js"></script>
+
+    <!-- Examples -->
+    <script src="../../resources/js/ui-elements/examples.modals.js"></script>
+
     <script type="text/javascript">
         //기본금액*박수 +(if(이용인원 > 기본인원){(이용인원 - 기본인원)*추가금액*박수})
         $( function() {

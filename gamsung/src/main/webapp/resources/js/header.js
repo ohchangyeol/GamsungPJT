@@ -178,8 +178,113 @@ $(document).ready(function(){
 			$("#pwd").focus();
 			return;
 		}
+
+		$.ajax({
+			url: '/user/rest/checkIdPassword',
+			headers: {
+				"Accept": "application/json",
+				"Content-Type": "application/json"
+			},
+			type: 'POST',
+			dataType: 'json',
+			data: JSON.stringify({ 
+				"id": id ,
+				"password" : pwd
+			}),
+			success: function (loginResult) {
+				console.log('성공: ' + loginResult);
+
+				if (loginResult == 0) {
+
+					$("form#login-modal-form").attr("method","POST").attr("action","/user/login").submit();
+
+					} else if(loginResult==1){
+						Swal.fire({
+							text:"가입되지 않았거나 아이디와 비밀번호가 다릅니다. 다시 확인바랍니다.",
+							icon: 'error'
+					}).then(()=>{
+							sdocument.location.href = "/view/user/addGeneralUser.jsp";
+						});
+					}else if(loginResult==11){
+						Swal.fire({
+							title: '일반계정으로 전환하시겠습니까?',
+							text: "고객님의 ID는 1년이상 로그인하지 않아 휴면계정으로 전환되었습니다. 일반계정으로 변경시 다시 사용하실 수 있습니다.",
+							showCancelButton: true,
+							confirmButtonColor: '#3085d6',
+							cancelButtonColor: '#d33',
+							confirmButtonText: '확인',
+							cancelButtonText : '취소',
+							icon: 'warning',
+							width: 600
+						}).then((result) => {
+							if (result.isConfirmed) {
+								$.ajax({
+									url: '/user/rest/updateDormantGeneralUserConvert',
+									// headers: {
+									// 	"Accept": "application/json",
+									// 	"Content-Type": "application/json"
+									// },
+									method: 'POST',
+									//dataType: 'json',
+									data: ({
+										"id": id
+									}),
+									success: function (result) {
+										console.log('성공: ' + result);
 		
-		$("form").attr("method","POST").attr("action","/user/login").submit();
+										if (result == 1) {
+											Swal.fire(
+												'전환성공!',
+												'로그인 후 사용가능합니다.',
+												'success'
+											).then((result) => {
+												document.location.href = "/";
+											})
+										} else {
+											Swal.fire('전환에 실패하였습니다.')
+										}
+									}
+		
+		
+		
+								});
+		
+							} else {
+								document.location.href = "/";
+							}
+						})
+					} else if(loginResult==12){
+						Swal.fire({
+							text:"탈퇴한 아이디 입니다. 사이트 이용을 원하시면 새로운 아이디로 재가입 후 이용 부탁드립니다.",
+							icon: 'error'
+					}).then(()=>{
+							self.location = "/";
+						});
+					}else if(loginResult==13){
+						Swal.fire({
+							text:"이용정지된 아이디입니다.",
+							icon: 'error'
+					}).then(()=>{
+							self.location = "/";
+						});
+					}else if(loginResult==14){
+						Swal.fire({
+							text:"아직 회원가입 승인되지 않았습니다. 가입승인후 안내메일이 발송됩니다.",
+							icon: 'warning'
+					}).then(()=>{
+							self.location = "/";
+						});
+					}		
+
+				
+					
+			}
+
+		});
+
+
+		
+		//$("form").attr("method","POST").attr("action","/user/login").submit();
 	});
 
 

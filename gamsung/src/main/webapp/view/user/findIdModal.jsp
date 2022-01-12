@@ -60,7 +60,7 @@
 
                         <div class="tab-pane" id="findPwd-modal">
                             <div class="panel-body">
-                                <form action="" class="was-validated" id="ModalFindId">
+                                <form action="" class="was-validated" id="ModalFindPwdId">
                                     <div class="form-group">
                                         <input type="text" class="form-control" id="findPwdId" placeholder="아이디를 입력하세요."
                                             name="id" required>

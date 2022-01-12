@@ -13,20 +13,15 @@ public interface PaymentService {
 	/*
 	 *  Point
 	 */	
-	public int pointUpdateById(PointTransfer pointTransfer) throws Exception;
-	
-	public int pointTransferByUsers(PointTransfer pointTransfer) throws Exception;
 
 	
 	/*
 	 *  Payment
 	 */	
-	public String addMakePayment(Payment payment) throws Exception;
+	public String makePayment(Payment payment) throws Exception;
 	
-	public void addRefundPayment(Payment payment) throws Exception;
-	
-	public String internalPointPayment(Payment payment) throws Exception;
-	
+	public void refundPayment(Payment payment) throws Exception;
+		
 	public Payment getPayment(int paymentNo) throws Exception;
 	
 	public Map<String, Object> listPayment(Search search) throws Exception;

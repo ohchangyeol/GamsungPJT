@@ -85,7 +85,7 @@ pageEncoding="UTF-8"%>
           <div class="col-xs-8">
             <section class="panel form-wizard" id="w4">
               
-              <div class="panel-body" style="margin-top: 100px;">
+              <div class="panel-body" style="margin-top: 50px;">
                 <div class="wizard-progress wizard-progress-lg">
                   <div class="steps-progress">
                     <div class="progress-indicator" style="width: 0%;"></div>

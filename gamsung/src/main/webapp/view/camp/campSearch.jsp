@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
 
-<section class="bg-dark-30 showcase-page-header module parallax-bg" data-background="../../resources/images/showcase_bg.jpg">
+<section class="bg-dark-30 showcase-page-header module parallax-bg" data-background="../../resources/images/showcase1.jpg">
   <div class="titan-caption">
     <div class="row">
       <div class="col-xs-12">
@@ -15,12 +15,13 @@ pageEncoding="UTF-8"%>
               
               <!-- 상세검색 모달 시작 -->
               <div id="modalForm" class="modal-block modal-block-primary mfp mfp-hide">
+                <form id="detailSearch" class="form-horizontal mb-lg" novalidate="novalidate">
                 <section class="panel">
                   <header class="panel-heading">
-                      <h4 class="panel-title">캠핑장을 상세하게 검색 하세요!</h4>
+                      <h4 class="panel-title" style="text-align: center; padding-top: 20px; font-size: 20px;">캠핑장을 상세하게 검색 하세요!</h4>
                   </header>
                   <div class="panel-body">
-                    <form id="detailSearch" class="form-horizontal mb-lg" novalidate="novalidate">
+                    
                       <div class="form-group mt-lg">
                         <label class="col-sm-2 control-label">지역별</label>
                         <div class="col-sm-10">
@@ -221,7 +222,7 @@ pageEncoding="UTF-8"%>
                           </div>
                       </div>
                       </div>
-                    </form>
+                    
                   </div>
                   <footer class="panel-footer">
                     <div class="row">
@@ -232,6 +233,7 @@ pageEncoding="UTF-8"%>
                     </div>
                   </footer>
                 </section>
+              </form>
               
               </div>
               <!-- 상세검색 모달 시작 -->

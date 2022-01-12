@@ -33,12 +33,12 @@ public class UserServiceTest {
 		
 		User user = new User();
 		
-		user.setId("test55@nate.com");
+		user.setId("aa2@a.com");
 		user.setNickName("나야나");
 		user.setName("으어어");
-		user.setPassword("a");
+		user.setPassword("aa");
 		user.setRole("BUSINESS");
-		user.setPhone("01001123333");
+		user.setPhone("0099998888");
 				
 		userService.addUser(user);
 		
@@ -53,7 +53,7 @@ public class UserServiceTest {
 	//@Test
 	public void testGetUser() throws Exception{
 		User user= new User();
-		user=userService.getUser("test1@test.com");
+		user=userService.getUser("user2@gamsung.com");
 		
 		System.out.println("########### "+user);
 	}
@@ -79,9 +79,7 @@ public class UserServiceTest {
 	public void testListUserAll() throws Exception{
 		
 		Search search = new Search();
-		search.setCurrentPage(1);
-		search.setPageSize(5);
-		
+				
 		UserWrapper userWrapper=userService.listUser(search);
 		
 		List<User> list = userWrapper.getUsers();
@@ -139,7 +137,7 @@ public class UserServiceTest {
 	//@Test
 	public void testUpdatePassword() throws Exception{
 		
-		User user = userService.getUser("test8@test.com");
+		User user = userService.getUser("user1@gamsung.com");
 		user.setPassword("3333");
 		
 		userService.updateUser(user);
@@ -150,7 +148,7 @@ public class UserServiceTest {
 	public void testUpdateTempPassword() throws Exception{
 		
 		User user = new User();
-		String id = "test@test.com";
+		String id = "user2@gamsung.com";
 		user = userService.getUser(id);
 		if(user.getSalt()==null) {
 			String newSalt=SHA256Util.generateSalt();

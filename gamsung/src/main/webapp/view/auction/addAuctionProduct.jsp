@@ -10,38 +10,11 @@
 	
 	<title>상품 등록</title>
 	        
-    	<!-- <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Shadows+Into+Light" rel="stylesheet" type="text/css">
-
-	 	<link href="../../resources/css/style.css" rel="stylesheet">
-
-		<link rel="stylesheet" href="../../resources/lib/bootstrap/css/bootstrap.css" />
-		<link rel="stylesheet" href="../../resources/lib/font-awesome/css/font-awesome.css" />
-		<link rel="stylesheet" href="../../resources/lib/magnific-popup/magnific-popup.css" />
-		<link rel="stylesheet" href="../../resources/lib/bootstrap-datepicker/css/datepicker3.css" />
-
-		<link rel="stylesheet" href="../../resources/lib/jquery-ui/css/ui-lightness/jquery-ui-1.10.4.custom.css" />
-		<link rel="stylesheet" href="../../resources/lib/select2/select2.css" />
-		<link rel="stylesheet" href="../../resources/lib/bootstrap-multiselect/bootstrap-multiselect.css" />
-		<link rel="stylesheet" href="../../resources/lib/bootstrap-tagsinput/bootstrap-tagsinput.css" />
-		<link rel="stylesheet" href="../../resources/lib/bootstrap-colorpicker/css/bootstrap-colorpicker.css" />
-		<link rel="stylesheet" href="../../resources/lib/bootstrap-timepicker/css/bootstrap-timepicker.css" />
-		<link rel="stylesheet" href="../../resources/lib/dropzone/css/basic.css" />
-		<link rel="stylesheet" href="../../resources/lib/dropzone/css/dropzone.css" />
-		<link rel="stylesheet" href="../../resources/lib/bootstrap-markdown/css/bootstrap-markdown.min.css" />
-		<link rel="stylesheet" href="../../resources/lib/summernote/summernote.css" />
-		<link rel="stylesheet" href="../../resources/lib/summernote/summernote-bs3.css" />
-		<link rel="stylesheet" href="../../resources/lib/codemirror/lib/codemirror.css" />
-		<link rel="stylesheet" href="../../resources/lib/codemirror/theme/monokai.css" />
-
-		<link rel="stylesheet" href="../../resources/css/theme.css" />
-		<link rel="stylesheet" href="../../resources/css/skins/default.css" />
-		<link rel="stylesheet" href="../../resources/css/theme-custom.css"> -->
-		<jsp:include page="/resources/commonLib.jsp"></jsp:include>
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+	<jsp:include page="/resources/commonLib.jsp"></jsp:include>
 		
-		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-    	<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
-		
- 
+    		 
  	<style>
  	
 		.filebox label { 
@@ -90,10 +63,6 @@
         }
 		 
 	</style>
-	
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-
 	
 </head>
 <body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
@@ -215,55 +184,12 @@
           </div>
         </section>
          <jsp:include page="../common/footer.jsp"></jsp:include>
-
-	 
-		<!-- <script src="../../resources/lib/jquery/jquery.js"></script>
-		<script src="../../resources/lib/jquery-browser-mobile/jquery.browser.mobile.js"></script>
-		<script src="../../resources/lib/bootstrap/js/bootstrap.js"></script>
-		<script src="../../resources/lib/nanoscroller/nanoscroller.js"></script>
-		<script src="../../resources/lib/magnific-popup/magnific-popup.js"></script>
-		<script src="../../resources/lib/jquery-placeholder/jquery.placeholder.js"></script>
-		
-		Specific Page Vendor
-		<script src="../../resources/lib/jquery-ui/js/jquery-ui-1.10.4.custom.js"></script>
-		<script src="../../resources/lib/jquery-ui-touch-punch/jquery.ui.touch-punch.js"></script>
-		<script src="../../resources/lib/select2/select2.js"></script>
-		<script src="../../resources/lib/bootstrap-multiselect/bootstrap-multiselect.js"></script>
-		<script src="../../resources/lib/jquery-maskedinput/jquery.maskedinput.js"></script>
-		<script src="../../resources/lib/bootstrap-tagsinput/bootstrap-tagsinput.js"></script>
-		<script src="../../resources/lib/fuelux/js/spinner.js"></script>
-		<script src="../../resources/lib/dropzone/dropzone.js"></script>
-		<script src="../../resources/lib/bootstrap-markdown/js/markdown.js"></script>
-		<script src="../../resources/lib/bootstrap-markdown/js/to-markdown.js"></script>
-		<script src="../../resources/lib/bootstrap-markdown/js/bootstrap-markdown.js"></script>
-		<script src="../../resources/lib/codemirror/lib/codemirror.js"></script>
-		<script src="../../resources/lib/codemirror/addon/selection/active-line.js"></script>
-		<script src="../../resources/lib/codemirror/addon/edit/matchbrackets.js"></script>
-		<script src="../../resources/lib/codemirror/mode/javascript/javascript.js"></script>
-		<script src="../../resources/lib/codemirror/mode/xml/xml.js"></script>
-		<script src="../../resources/lib/codemirror/mode/htmlmixed/htmlmixed.js"></script>
-		<script src="../../resources/lib/codemirror/mode/css/css.js"></script>
-		<script src="../../resources/lib/summernote/summernote.js"></script> -->
 		
 		<script src="../../resources/lib/bootstrap-maxlength/bootstrap-maxlength.js"></script>
 		<script src="../../resources/lib/ios7-switch/ios7-switch.js"></script>
-		<!-- Theme Base, Components and Settings -->
-		<!-- <script src="../../resources/js/theme.js"></script> -->
-		
-		<!-- Theme Custom -->
-<!-- 		<script src="../../resources/js/theme.custom.js"></script> -->
-		
-		<!-- Theme Initialization Files -->
-<!-- 		<script src="../../resources/js/theme.init.js"></script> -->
-
-
-		<!-- Examples -->
-<!-- 		<script src="../../resources/js/forms/examples.advanced.form.js" /></script> -->
-		
-		
-		
+		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
-<!-- 	    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>   -->
 	    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
 	    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>  
 	<script>

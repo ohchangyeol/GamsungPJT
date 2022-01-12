@@ -40,32 +40,47 @@
 		<result property="bidNo" 					column="bid_concern_no"/>
 		<result property="auctionProductNo" 		column="product_no"/>
 		<result property="info" 					column="product_name"/>
+		<result property="info" 					column="year"/>
+		<result property="info" 					column="month"/>
 		<result property="user.id" 					column="user_id"/>
 		<result property="user.id" 					column="bidder_id"/>
+		<result property="user.id" 					column="registrant_id"/>
 		<result property="bidderCount" 				column="bidder_count"/>
 		<result property="bidderRank" 				column="bidder_rank"/>
 		<result property="user.nickName" 			column="nick_name"/>
+		<result property="user.nickName" 			column="successful_bidder_id"/>
 		<result property="user.auctionGrade" 		column="auction_grade"/>
 		<result property="bidPrice" 				column="bid_price"/>
 		<result property="bidDateTime" 				column="bid_date_time"/>
+		<result property="bidDateTime" 				column="remain_time"/>
 		<result property="concernRegDate" 			column="concern_reg_date"/>
 		<result property="auctionStatus" 			column="auction_status"/>
 		<result property="addProductCount" 			column="add_product_count"/>
 		<result property="bidCount" 				column="bid_count"/>
 		<result property="successfulBidCount" 		column="successful_bid_count"/>
+		<result property="auctionFailCount" 		column="fail_product_count"/>
 		<result property="midwayWithdrawalCount" 	column="midway_withdrawal_count"/>
 		<result property="cancelSuccessfulBidCount" column="cancel_successful_bid_count"/>
 		<result property="auctionConfirmCount" 		column="auction_confirm_count"/>
 		<result property="topRankCount" 			column="top_rank_count"/>
 		<result property="addReviewCount" 			column="add_Review_Count"/>
+		<result property="realTimeViewCount" 		column="log_count"/>
 	</resultMap>
 	
 	<resultMap id="paymentCodeSelectMap" type="paymentCode">
-		<result property="paymentCode" 					column="payment_code" 		 	 		jdbcType="VARCHAR"/>
-		<result property="paymentCodeRangeStart"		column="payment_code_range_start"		jdbcType="NUMERIC"/>
-		<result property="paymentCodeRangeEnd" 			column="payment_code_range_end" 	  	jdbcType="NUMERIC"/>
-		<result property="paymentCodeInfo" 				column="payment_code_info"  			jdbcType="VARCHAR"/>
-		<result property="paymentCodeFee" 				column="payment_code_fee" 			  	jdbcType="NUMERIC"/>
+		<result property="paymentCode" 					column="payment_code" />
+		<result property="paymentCodeRangeStart"		column="payment_code_range_start"/>
+		<result property="paymentCodeRangeEnd" 			column="payment_code_range_end"/>
+		<result property="paymentCodeInfo" 				column="payment_code_info"/>
+		<result property="paymentCodeFee" 				column="payment_code_fee"/>
+	</resultMap>
+	
+	<resultMap id="userSelectMap" type="user">
+		<result property="id" 							column="user_id"/>
+		<result property="nickName" 					column="nick_name"/>
+		<result property="name" 						column="name"/>
+		<result property="auctionGrade" 				column="auction_grade"/>
+		<result property="auctionSuspension"			column="auction_suspension_reg_date"/>
 	</resultMap>
 	
 	<!-- //////////////////////////////////////////////////////AuctoinInfoDAO Mapper////////////////////////////////////////////////////// -->
@@ -77,18 +92,31 @@
 	<select id="getBidConcern" parameterType="auctionInfo" resultType="int">
 		SELECT COUNT(bid_concern_no)
 		FROM BID_CONCERN
-		WHERE user_id = #{user.id} AND product_no = #{auctionProductNo};
+		WHERE user_id = #{user.id} AND product_no = #{auctionProductNo} AND delete_flag = 'N'
 	</select>
 	
-	<delete id="deleteBidConcern" parameterType="auctionInfo">
-		DELETE FROM BID_CONCERN
+	<update id="deleteBidConcern" parameterType="auctionInfo">
+		UPDATE BID_CONCERN
+		SET delete_flag = 'Y'
 		WHERE user_id = #{user.id} AND product_no = #{auctionProductNo};
-	</delete>
+	</update>
+	
+	<update id="finishBidConcern" parameterType="String">
+		UPDATE BID_CONCERN
+		SET send_mail_flag = 'Y'
+		WHERE bid_concern_no = #{value}	
+	</update>
 	
 	<select id="listBidConcern" parameterType="map" resultMap="info">
-		SELECT bid_concern_no, user_id, bc.product_no AS product_no, ap.product_name AS product_name, concern_reg_date
+		SELECT bid_concern_no, user_id, bc.product_no AS product_no, ap.product_name AS product_name, concern_reg_date, TIMEDIFF(ap.auction_end_time, NOW()) AS remain_time
 		FROM BID_CONCERN AS bc, AUCTION_PRODUCT AS ap
-		WHERE user_id = #{user.id} AND bc.product_no = ap.product_no
+		WHERE bc.product_no = ap.product_no AND bc.delete_flag = 'N'
+		<if test='user == null and search == null'>
+			AND bc.send_mail_flag = 'N'
+		</if>
+		<if test='user != null'>
+			AND user_id = #{user.id}
+		</if>
 		<if test="search != null">
 			LIMIT #{search.pageSize} OFFSET #{search.offset};		
 		</if>
@@ -121,17 +149,19 @@
 	</select>
 	
 	<select id="AuctionHistory" parameterType="map" resultMap="info">
-		SELECT bid_no, ap.product_no AS product_no, ap.product_name AS product_name, bidder_id, bid_price, bid_date_time, ap.auction_status AS auction_status
+		SELECT bid_no, ap.product_no AS product_no, ap.successful_bidder_id AS successful_bidder_id ,ap.product_name AS product_name, ap.registrant_id AS registrant_id, MAX(bid_price) AS bid_price, bid_date_time, ap.auction_status AS auction_status
 		FROM AUCTION_HISTORY AS ah, AUCTION_PRODUCT AS ap
 		WHERE bidder_id = #{user.id} AND ah.product_no = ap.product_no
+		GROUP BY product_no
 		LIMIT #{search.pageSize} OFFSET #{search.offset};
 	</select>
 	
 	<select id="countAuctionHistory" parameterType="user" resultType="int">
 		SELECT COUNT(ah.bid_no)
-		FROM(	SELECT bid_no, ap.product_no AS product_no, ap.product_name AS product_name, bidder_id, bid_price, bid_date_time, ap.auction_status AS auction_status
+		FROM(	SELECT bid_no, ap.product_no AS product_no, ap.product_name AS product_name, bidder_id, MAX(bid_price) AS bid_price, bid_date_time, ap.auction_status AS auction_status
 				FROM AUCTION_HISTORY AS ah, AUCTION_PRODUCT AS ap
-				WHERE bidder_id = #{id} AND ah.product_no = ap.product_no) AS ah
+				WHERE bidder_id = #{id} AND ah.product_no = ap.product_no
+				GROUP BY product_no) AS ah
 	</select>
 	
 	<select id="auctionStatusTotalCount" parameterType="user" resultMap = "info">
@@ -140,55 +170,37 @@
 		FROM 
 		(	SELECT COUNT(product_no) AS add_product_count	
 			FROM AUCTION_PRODUCT
-			<if test='role.equals("GENERAL")'>
-				WHERE registrant_id = #{id} AND temp_save_flag = 'N'
-			</if>
+			WHERE registrant_id = #{id} AND temp_save_flag = 'N'
 		)AS APC,
 		
 		(	SELECT COUNT(bid_no) AS bid_count
-			FROM AUCTION_HISTORY
-			<if test='role.equals("GENERAL")'>
-				WHERE bidder_id = #{id}
-			</if>
+			FROM AUCTION_HISTORY WHERE bidder_id = #{id}
 		) AS BC,
 		
 		(	SELECT COUNT(product_no) AS successful_bid_count
 			FROM AUCTION_PRODUCT
-			WHERE auction_status = 'WAIT'
-			<if test='role.equals("GENERAL")'>
-				AND successful_bidder_id = #{id}
-			</if>
+			WHERE auction_status = 'WAIT' AND successful_bidder_id = #{id}
 		) AS SBC,
 		
 		(	SELECT COUNT(product_no) AS midway_withdrawal_count
 			FROM AUCTION_PRODUCT
-			WHERE auction_status = 'WITHDRAWAL'
-			<if test='role.equals("GENERAL")'>
-				AND registrant_id = #{id}
-			</if>
+			WHERE auction_status = 'WITHDRAWAL' AND registrant_id = #{id}
 		) AS MWC,
 		
 		(	SELECT COUNT(product_no) AS cancel_successful_bid_count
 			FROM AUCTION_PRODUCT
-			WHERE auction_status = 'CANCEL'
-			<if test='role.equals("GENERAL")'>
-				AND successful_bidder_id = #{id}
-			</if>
+			WHERE auction_status = 'CANCEL' AND successful_bidder_id = #{id}
 		) AS CSBC,
 		
 		(	SELECT COUNT(product_no) AS auction_confirm_count
 			FROM AUCTION_PRODUCT
-			WHERE auction_status = 'CONFIRM'
-			<if test='role.equals("GENERAL")'>
-				AND successful_bidder_id = #{id}
-			</if>
+			WHERE auction_status = 'CONFIRM' AND successful_bidder_id = #{id}
+
 		) AS ACC,
 		
 		(	SELECT COUNT(rating_review_no) AS add_Review_Count
 			FROM rating_review
-			<if test='role.equals("GENERAL")'>
-				WHERE user_id = #{id} AND review_reg_date IS NOT NULL	
-			</if>
+			WHERE product_no IS NOT NULL AND user_id = #{id} AND review_reg_date IS NOT NULL 
 		) AS RRC,
 		
 		(	SELECT COUNT(pbr.prodrank) AS top_rank_count
@@ -217,50 +229,126 @@
 	</select>
 	
 	<select id="getYearAuctionStatistics" resultMap="info">
-			SELECT 	APC.add_product_count AS add_product_count, CSBC.cancel_successful_bid_count AS cancel_successful_bid_count, 
-					MWC.midway_withdrawal_count AS midway_withdrawal_count, ACC.auction_confirm_count AS auction_confirm_count
-			FROM
-			
-			(	SELECT count(yc.year_counter) AS add_product_count
+		SELECT 	FPC.fail_product_count AS fail_product_count, CSBC.cancel_successful_bid_count AS cancel_successful_bid_count, 
+				MWC.midway_withdrawal_count AS midway_withdrawal_count, ACC.auction_confirm_count AS auction_confirm_count, AP.year_counter AS year
+		from (	SELECT count(yc.year_counter) AS AP, year_counter
 				FROM(	
 						SELECT 	date_format(product_reg_date, "%Y") AS year_counter
 						FROM 	AUCTION_PRODUCT
-						WHERE temp_save_flag = 'N'
 						ORDER BY year_counter
 					) AS yc
-				group by yc.year_counter
-			) AS APC,
+				GROUP BY yc.year_counter
+				) AS AP		
+		LEFT OUTER JOIN(	SELECT count(yc.year_counter) AS fail_product_count, year_counter
+							FROM(	
+									SELECT 	date_format(product_reg_date, "%Y") AS year_counter
+									FROM 	AUCTION_PRODUCT
+									WHERE auction_status = 'FAIL'
+									ORDER BY year_counter
+								) AS yc
+							GROUP BY yc.year_counter
+						) AS FPC ON AP.year_counter = FPC.year_counter
+					
+		LEFT OUTER JOIN(	SELECT count(yc.year_counter) AS cancel_successful_bid_count, year_counter 
+							FROM(	
+									SELECT 	date_format(product_reg_date, "%Y") AS year_counter
+									FROM 	AUCTION_PRODUCT
+									WHERE auction_status = 'CANCEL'
+									ORDER BY year_counter
+								) AS yc
+							GROUP BY yc.year_counter
+						) AS CSBC ON AP.year_counter = CSBC.year_counter
+				
+		LEFT OUTER JOIN(	SELECT count(yc.year_counter) AS midway_withdrawal_count, year_counter
+							FROM(	
+									SELECT 	date_format(product_reg_date, "%Y") AS year_counter
+									FROM 	AUCTION_PRODUCT
+									WHERE auction_status = 'WITHDRAWAL'
+									ORDER BY year_counter
+								) AS yc
+							GROUP BY yc.year_counter
+						) AS MWC ON AP.year_counter = MWC.year_counter
 			
-			(	SELECT count(yc.year_counter) AS cancel_successful_bid_count
+		LEFT OUTER JOIN(	SELECT count(yc.year_counter) AS auction_confirm_count, year_counter
+							FROM(	
+									SELECT 	date_format(product_reg_date, "%Y") AS year_counter
+									FROM 	AUCTION_PRODUCT
+									WHERE auction_status = 'CONFIRM'
+									ORDER BY year_counter
+								) AS yc
+							GROUP BY yc.year_counter
+						) AS ACC ON AP.year_counter = ACC.year_counter 
+	</select>
+	
+	<select id="getMonthlyAuctionStatistics" parameterType="int" resultMap="info">
+		SELECT 	FPC.fail_product_count AS fail_product_count, CSBC.cancel_successful_bid_count AS cancel_successful_bid_count, 
+				MWC.midway_withdrawal_count AS midway_withdrawal_count, ACC.auction_confirm_count AS auction_confirm_count, AP.year_counter AS year
+		from (	SELECT count(yc.year_counter) AS AP, year_counter
 				FROM(	
-						SELECT 	date_format(product_reg_date, "%Y") AS year_counter
+						SELECT 	date_format(product_reg_date, "%m") AS year_counter
 						FROM 	AUCTION_PRODUCT
-						WHERE auction_status = 'CANCEL'
 						ORDER BY year_counter
 					) AS yc
-				group by yc.year_counter
-			) AS CSBC,
+				GROUP BY yc.year_counter
+				) AS AP		
+		LEFT OUTER JOIN(	SELECT count(yc.year_counter) AS fail_product_count, year_counter
+							FROM(	
+									SELECT 	date_format(product_reg_date, "%m") AS year_counter
+									FROM 	AUCTION_PRODUCT
+									WHERE auction_status = 'FAIL' AND date_format(product_reg_date, "%Y") = #{value}
+									ORDER BY year_counter
+								) AS yc
+							GROUP BY yc.year_counter
+						) AS FPC ON AP.year_counter = FPC.year_counter
+					
+		LEFT OUTER JOIN(	SELECT count(yc.year_counter) AS cancel_successful_bid_count, year_counter 
+							FROM(	
+									SELECT 	date_format(product_reg_date, "%m") AS year_counter
+									FROM 	AUCTION_PRODUCT
+									WHERE auction_status = 'CANCEL' AND date_format(product_reg_date, "%Y") = #{value}
+									ORDER BY year_counter
+								) AS yc
+							GROUP BY yc.year_counter
+						) AS CSBC ON AP.year_counter = CSBC.year_counter
+				
+		LEFT OUTER JOIN(	SELECT count(yc.year_counter) AS midway_withdrawal_count, year_counter
+							FROM(	
+									SELECT 	date_format(product_reg_date, "%m") AS year_counter
+									FROM 	AUCTION_PRODUCT
+									WHERE auction_status = 'WITHDRAWAL' AND date_format(product_reg_date, "%Y") = #{value}
+									ORDER BY year_counter
+								) AS yc
+							GROUP BY yc.year_counter
+						) AS MWC ON AP.year_counter = MWC.year_counter
 			
-			(	SELECT count(yc.year_counter) AS midway_withdrawal_count
-				FROM(	
-						SELECT 	date_format(product_reg_date, "%Y") AS year_counter
-						FROM 	AUCTION_PRODUCT
-						WHERE auction_status = 'WITHDRAWAL'
-						ORDER BY year_counter
-					) AS yc
-				group by yc.year_counter
-			) AS MWC,
-			
-			(	SELECT count(yc.year_counter) AS auction_confirm_count
-				FROM(	
-						SELECT 	date_format(product_reg_date, "%Y") AS year_counter
-						FROM 	AUCTION_PRODUCT
-						WHERE auction_status = 'CONFIRM'
-						ORDER BY year_counter
-					) AS yc
-				group by yc.year_counter
-			) AS ACC
+		LEFT OUTER JOIN(	SELECT count(yc.year_counter) AS auction_confirm_count, year_counter
+							FROM(	
+									SELECT 	date_format(product_reg_date, "%m") AS year_counter
+									FROM 	AUCTION_PRODUCT
+									WHERE auction_status = 'CONFIRM' AND date_format(product_reg_date, "%Y") = #{value}
+									ORDER BY year_counter
+								) AS yc
+							GROUP BY yc.year_counter
+						) AS ACC ON AP.year_counter = ACC.year_counter 
+		ORDER BY AP.year_counter
+	</select>
+	
+	<select id="todayAuctionStatistics" resultMap="info">
+		SELECT ac.add_count AS add_product_count, bc.bid_count AS bid_count, lc.log_count AS log_count
+		FROM(	SELECT count(product_no) AS add_count
+				FROM AUCTION_PRODUCT AS ap 
+				where date_format(product_reg_date,"%y%m%d") = date_format(now(),"%y%m%d")
+			) AS ac,
 		
+			(	SELECT count(bid_no) AS bid_count
+				FROM AUCTION_HISTORY AS ah 
+				WHERE date_format(bid_date_time ,"%y%m%d") = date_format(now(),"%y%m%d")
+			) AS bc,
+			
+			(	SELECT count(log_no) AS log_count
+				FROM AUCTION_VIEW_LOG AS avl 
+				WHERE date_format(view_reg_date ,"%y%m%d") = date_format(view_reg_date,"%y%m%d")
+			) AS lc
 	</select>
 	
 	<select id="getBidderRanking" parameterType="auctionInfo" resultMap="info">
@@ -306,5 +394,43 @@
 				( (auction_status = 'START' OR auction_status = 'WAIT') AND successful_bidder_id = #{id} );
 	</select>
 	
+	<select id="getPaymentInfo" parameterType="paymentCode" resultMap="paymentCodeSelectMap">
+		SELECT payment_code, payment_code_range_start, payment_code_range_end, payment_code_info, payment_code_fee
+		FROM PAYMENT_CODE			
+		WHERE #{paymentCodeRangeStart} BETWEEN payment_code_range_start AND payment_code_range_end AND payment_code_info LIKE CONCAT_WS(#{paymentCodeInfo},'%','%')
+	</select>
+	
+	<update id="auctionSuspension" parameterType="user">
+		UPDATE USERS
+		SET auction_suspension_reg_date = NOW()
+		WHERE user_id = #{id}
+	</update>
+	
+	<select id="auctionSuspensionUserList" parameterType="search" resultMap="userSelectMap">
+		SELECT user_id, name, nick_name, auction_grade, auction_suspension_reg_date
+		FROM users
+		WHERE role = 'GENERAL' AND auction_suspension_reg_date IS NOT NULL
+		LIMIT #{pageSize} OFFSET #{offset}
+	</select>
+	
+	<select id="countAuctionSuspensionUser" resultType="int">
+		SELECT count(user_id)
+		FROM(	SELECT user_id, name, nick_name, auction_grade, auction_suspension_reg_date
+				FROM users
+				WHERE role = 'GENERAL' AND auction_suspension_reg_date IS NOT NULL
+			) AS asrd
+	</select>
+	
+	<select id="isSuspension" parameterType="user" resultType="int">
+		SELECT COUNT(auction_suspension_reg_date)
+		FROM USERS
+		WHERE user_id = #{id}
+	</select>
+	
+	<update id="deleteAuctionSuspension" parameterType="user">
+		UPDATE USERS
+		SET auction_suspension_reg_date = null
+		WHERE user_id = #{id}
+	</update>
 	
 </mapper>

@@ -16,6 +16,7 @@ public class AuctionInfo {
 	private int bidCount;
 	private int successfulBidCount;
 	private int auctionConfirmCount;
+	private int auctionFailCount;
 	private int midwayWithdrawalCount;
 	private int cancelSuccessfulBidCount;
 	private int topRankCount;
@@ -99,6 +100,12 @@ public class AuctionInfo {
 	public void setSuccessfulBidCount(int successfulBidCount) {
 		this.successfulBidCount = successfulBidCount;
 	}
+	public int getAuctionFailCount() {
+		return auctionFailCount;
+	}
+	public void setAuctionFailCount(int auctionFailCount) {
+		this.auctionFailCount = auctionFailCount;
+	}
 	public int getAuctionConfirmCount() {
 		return auctionConfirmCount;
 	}
@@ -142,8 +149,8 @@ public class AuctionInfo {
 				+ ", realTimeViewCount=" + realTimeViewCount + ", bidDateTime=" + bidDateTime + ", concernRegDate="
 				+ concernRegDate + ", auctionStatus=" + auctionStatus + ", addProductCount=" + addProductCount
 				+ ", bidCount=" + bidCount + ", successfulBidCount=" + successfulBidCount + ", auctionConfirmCount="
-				+ auctionConfirmCount + ", midwayWithdrawalCount=" + midwayWithdrawalCount
-				+ ", cancelSuccessfulBidCount=" + cancelSuccessfulBidCount + ", topRankCount=" + topRankCount
-				+ ", addReviewCount=" + addReviewCount + "]";
+				+ auctionConfirmCount + ", auctionFailCount=" + auctionFailCount + ", midwayWithdrawalCount="
+				+ midwayWithdrawalCount + ", cancelSuccessfulBidCount=" + cancelSuccessfulBidCount + ", topRankCount="
+				+ topRankCount + ", addReviewCount=" + addReviewCount + "]";
 	}
 }

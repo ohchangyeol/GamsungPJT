@@ -15,8 +15,8 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
 	
 	@Autowired
-	@Qualifier("webSocketInterceptor") private WebSocketInterceptor
-	webSocketInterceptor;
+	@Qualifier("webSocketInterceptor") 
+	private WebSocketInterceptor webSocketInterceptor;
 	 
 
 	public WebSocketConfig() {

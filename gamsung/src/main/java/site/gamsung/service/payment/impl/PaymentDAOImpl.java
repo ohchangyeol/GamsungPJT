@@ -58,13 +58,13 @@ public class PaymentDAOImpl implements PaymentDAO{
 	 *  Payment
 	 */	
 	@Override
-	public String addMakePayment(Payment payment) throws Exception {
+	public String addPayment(Payment payment) throws Exception {
 		sqlSession.insert("PaymentMapper.addMakePaymentIn", payment);	
 		return sqlSession.selectOne("PaymentMapper.addMakePaymentOut", payment);	
 	}
 	
 	@Override
-	public void addRefundPayment(Payment payment) throws Exception {
+	public void updatePayment(Payment payment) throws Exception {
 		sqlSession.update("PaymentMapper.addRefundPayment", payment);		
 	}
 	

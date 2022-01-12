@@ -25,6 +25,24 @@ public interface UserDAO {
 	//SELECT LIST
 	public List<User> listUser(Search search);
 	
+	//휴면 리스트
+	public List<User> dormantListUser(Search search);
+		
+	//휴면  totalcount
+	public int countDormantListUser(Search search);
+	
+	//탈퇴 리스트
+	public List<User> secessionListUser(Search search);
+			
+	//탈퇴  totalcount
+	public int countSecessionListUser(Search search);
+	
+	//신고이용정지 리스트
+	public List<User> reportSuspencionListUser(Search search);
+	
+	//신고이용정지  totalcount
+	public int countReportSuspencionListUser(Search search);
+	
 	//page 처리를 위한 전체 row return
 	public int getTotalCount(Search search);
 	

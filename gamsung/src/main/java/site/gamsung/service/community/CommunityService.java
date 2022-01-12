@@ -33,5 +33,7 @@ public interface CommunityService {
 		public int updateConcern(int postNo, String userId, String concernType)throws Exception; //추천 Flag		
 		public PostConcern Concernflag(PostConcern postConcern)throws Exception; // 추천 flag delete 유무
 		
+		public Post updatetotalComment(int CommentNo)throws Exception;//총 댓글수 update delete
+		public Post updatetotalComment2(int postNo)throws Exception;//총 댓글수 update add
 		
 }

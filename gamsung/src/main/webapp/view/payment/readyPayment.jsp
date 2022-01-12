@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=utf-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 
@@ -41,9 +42,7 @@
     <!-- Main stylesheet and color file-->
     <link href="/resources/css/style.css" rel="stylesheet">
     <link id="color-scheme" href="/resources/css/colors/default.css" rel="stylesheet">    	
-  	<!-- ### headerCampBusiness resources End ### -->
-  	
-  	
+  	<!-- ### headerCampBusiness resources End ### -->  	
   	
   	<script type="text/javascript">  
   	
@@ -88,12 +87,12 @@
 						
 			const viewController = $("#viewController").val();
 				
-			if( viewController == "P1" ){
+			if( viewController == "P2" ){
 				$("#pointContainer").show();
 				$("#pointButtonContainer").show();
 			} 
 			
-			if(viewController == "R1"){
+			if(viewController == "R1" || viewController == "R2"){
 				$("#campContainer").show();
 				$("#campButtonContainer").show();
 				$("#paySecond").show();		
@@ -213,9 +212,8 @@
 				const count2 = $("#count2").val();
 				const count3 = $("#count3").val();
 				
-				if( count1 != 0 || count2 != 0 || count3 != 0 ){									
-					iamport();
-					
+				if( count1 != 0 || count2 != 0 || count3 != 0 ){					
+					iamport();					
 				} else {
 					alert("수량을 선택하세요.");
 				}						
@@ -291,11 +289,11 @@
 				const resultPaymentPriceTotal = tempPriceTotalUC - currentPointUC;
 				
 				if(useAllPointPushCount == 1){
-					alert("이미 포인트가 적용되었습니다.");
+					alert("포인트가 적용되었습니다.");
 					$("#useAllPoint").attr("disabled", true);
+					$("#paymentPriceTotalSecond").attr("readonly", true);
 				}
-				
-				
+								
 				if( resultPaymentPriceTotal < 0 ){
 				
 					$("#paymentPriceTotalSecond").val(tempPriceTotalUC);
@@ -319,37 +317,53 @@
 				}	
 				
 				 
-			});	
+			});
+			
+			// 캠핑장 예약보기 버튼
+			$("#goGetRsv").on("click" , function() {
+				self.location ="/campGeneral/getMyReservation?reservationNo="+$("#reservationNo").val();				
+			});
 						
-			// 캠핑장예약결제 버튼
+			// 캠핑장 예약결제 버튼
 			$("#camp_pay").on("click" , function() {
-										
+				
+				const viewController = $("#viewController").val();
+				let reservationStatus = "";
+				
+				if( viewController == "R1" ){
+					reservationStatus ="예약등록";
+				} 
+				
+				if(viewController == "R2"){
+					reservationStatus ="예약변경";
+				}
+				
+				$("#paymentProduct").val( "[" + $("#campName").attr("data") +"/"+reservationStatus+"/" + new Date().toISOString().substring(0, 10) + "]");
+				$("#paymentReferenceNum").val( "[" + $("#reservationNo").val( ) + "/"+reservationStatus+"/" + new Date().toISOString().substring(0, 19) + "]");				
+				$("#paymentCode").val(viewController);					
+				$("#paymentSender").val( $("#pay_buyerEmail").val() );				
+				
 				if( $("#paymentPriceTotal").val() > 0 ) {
 					 
 					if( $("#paymentPriceTotal").val() <= 99 ) {
 						alert("일반결제는 100원 이상부터 가능합니다.");
 						
-					} else {
-						
-						$("#paymentProduct").val( "[" + $("#campFormCampName").val( ) +"/" + new Date().toISOString().substring(0, 10) + "]");
-						$("#paymentReferenceNum").val( "[" + $("#campFormReservationNo").val( ) + "/" + new Date().toISOString().substring(0, 19) + "]");
-						
+					} else {						
 						checkPaymentMethod();				
 						iamport();						
 					}								
 					
-				} else {
+				} else {									
 					
-					$("#paymentProduct").val( "[" + $("#campFormCampName").val( ) +"/" + new Date().toISOString().substring(0, 10) + "]");
-					$("#paymentReferenceNum").val( "[" + $("#campFormReservationNo").val( ) + "/" + new Date().toISOString().substring(0, 19) + "]");										
-					$("#paymentSender").val( $("#pay_buyerEmail").val() );
-					$("#paymentCode").val("R1");
 					$("#paymentPriceTotal").val(uncomma($("#paymentPriceTotal").val()));
 									
 					if( $("#paymentPriceTotal").val() == 0 ){						
 						$("#paymentProductPriceTotal").val(uncomma($("#paymentPriceTotalSecond").val()));						
-					}									
+					}
 					
+					checkPaymentMethod();					
+
+					$("#campForm").attr("method" , "POST").attr("action" , "/payment/paymentSystem").submit();				
 					$("#payForm").attr("method" , "POST").attr("action" , "/payment/paymentSystem").submit();	
 				}
 				
@@ -372,7 +386,8 @@
 				
 				 $("#paymentPriceTotal").val(resultPaymentPriceTotal);	 
 							
-			});	
+			});				
+			
 			<!-- 캠핑예약결제 End -->		
 			
 		}); 
@@ -380,8 +395,14 @@
 		
 		<!-- 공통 Start -->			
 		//결제방법 라디오버튼체크
-		function checkPaymentMethod() {					
-			if(!$("input:radio[name='paymentMethod']").is(":checked")){
+		function checkPaymentMethod() {	
+			
+			const paymentPriceTotal = $("#paymentPriceTotal").val();
+			
+			if(paymentPriceTotal == 0){				
+				$("#method_card").prop("checked", false);				
+			}
+			if(paymentPriceTotal != 0){
 				$("#method_card").prop("checked", true);
 			}
 		}
@@ -450,31 +471,22 @@
 	
 					// 위의 rsp.paid_amount 와 data.response.amount를 비교한후 로직 실행 (import 서버검증)
 					if(rsp.paid_amount == data.response.amount){
-						alert("결제가 완료 되었습니다.");
-						
-						console.log("payViewCode : "+payViewCode);
-						const paymentPriceTotal = $("#paymentPriceTotal").val();
+						alert("결제가 완료 되었습니다.");						
+						console.log("payViewCode : "+payViewCode);						
 						
 						//포인트 구매
 						if( payViewCode == "P1" ){						
-							
-							$("#paymentSender").val( $("#pay_buyerEmail").val() );
 							$("#paymentCode").val("P1");
-							$("#paymentPriceTotal").val(uncomma(paymentPriceTotal));						
-							$("#payForm").attr("method" , "POST").attr("action" , "/payment/paymentSystem").submit();	
-											
 						}
 						
-						if(payViewCode == "R1"){
-																			
-							$("#paymentSender").val( $("#pay_buyerEmail").val() );
-							$("#paymentCode").val("R1");
-							$("#paymentPriceTotal").val(uncomma(paymentPriceTotal));
-							
+						if(payViewCode == "R1" && payViewCode == "R2"){
 							$("#paymentProductPriceTotal").val( parseInt(uncomma($("#paymentPriceTotal").val())) + parseInt(uncomma($("#paymentPriceTotalSecond").val())) );
-							$("#payForm").attr("method" , "POST").attr("action" , "/payment/paymentSystem").submit();	
-							
-						}						
+						}	
+						
+						const paymentPriceTotal = $("#paymentPriceTotal").val();						
+						$("#paymentPriceTotal").val(uncomma(paymentPriceTotal));
+						$("#paymentSender").val( $("#pay_buyerEmail").val() );
+						$("#payForm").attr("method" , "POST").attr("action" , "/payment/paymentSystem").submit();	
 						
 					} else {
 						alert("결제가 실패 되었습니다.");
@@ -616,8 +628,8 @@
 			</div>
 			
 			<form id="withdrawForm">
-				<input type="hidden" id="paymentReceiver" name="paymentReceiver" value="${user.id}">
 				<input type="hidden" id="paymentMethod" name="paymentMethod" value="cash">
+				<input type="hidden" id="campPaymentReceiver" name="campPaymentReceiver" value="${payment.paymentReceiver}">
 				<input type="hidden" id="paymentRefundReferenceFee" name="paymentRefundReferenceFee" value="${payment.paymentRefundReferenceFee}">				
 				
 				<div class="row">
@@ -716,18 +728,17 @@
 							</div>	
 							<div class="col-xs-3 col-xs-offset-1 form-group">
 					            <button id="goGetRsv" type="button" class="btn btn-info">예약상세보기</button>
-					            <input type="hidden" id="campFormReservationNo" name="campFormReservationNo" value="${campReservation.reservationNo}">
 					        </div>						        								
 						</div>					
 					
 						<div class="row">							
 							<label class="col-xs-2">* 예약등록일</label>
 							<div class="col-md-3 form-group">
-								${campReservation.reservationRegDate}
+								${campReservation.reservationRegDate}								
 							</div>
 							<label class="col-xs-2 col-xs-offset-1">* 예약상태</label>
 							<div class="col-md-3 form-group">
-								예약완료/결제대기
+								예약완료/결제대기								
 							</div>							
 						</div>
 							
@@ -744,8 +755,8 @@
 							
 						<div class="row">
 							<label class="col-xs-2">* 캠핑장명</label>
-							<div class="col-md-3 form-group">
-								<input type="text" id="campFormCampName" name="campFormCampName" value="${campReservation.camp.user.campName}">								
+							<div id="campName" data="${campReservation.camp.user.campName}" class="col-md-3 form-group">
+								${campReservation.camp.user.campName}
 							</div>
 							<label class="col-xs-2 col-xs-offset-1">* 주요시설타입</label>
 							<div class="col-md-3 form-group">
@@ -820,7 +831,23 @@
 			</div>					
 		</div>
 		
-		<form id="payForm">			
+		<form id="payForm">
+		
+			<!-- camp start -->
+			<input type="hidden" id="reservationNo" name="reservationNo" value="${campReservation.reservationNo}">
+			<input type="hidden" id="reservationRegDate" name="reservationRegDate" value="${campReservation.reservationRegDate}">
+			<input type="hidden" id="reservationStartDate" name="reservationStartDate" value="${campReservation.reservationStartDate}">
+			<input type="hidden" id="reservationEndDate" name="reservationEndDate" value="${campReservation.reservationEndDate}">
+			<input type="hidden" id="reservationUserName" name="reservationUserName" value="${campReservation.reservationUserName}">	
+			<input type="hidden" id="reservationStatus" name="reservationStatus" value="${campReservation.reservationStatus}">
+			<input type="hidden" id="camp.user.campName" name="camp.user.campName" value="${campReservation.camp.user.campName}">
+			<input type="hidden" id="camp.campNo" name="camp.campNo" value="${campReservation.camp.campNo}">
+			<input type="hidden" id="camp.campImg1" name="camp.campImg1" value="${campReservation.camp.campImg1}">
+			<input type="hidden" id="mainSite.mainSiteNo" name="mainSite.mainSiteNo" value="${campReservation.mainSite.mainSiteNo}">
+			<input type="hidden" id="mainSite.mainSiteType" name="mainSite.mainSiteType" value="${campReservation.mainSite.mainSiteType}">
+			<input type="hidden" id="totalPaymentPrice" name="totalPaymentPrice" value="${campReservation.totalPaymentPrice}">			
+			<!-- camp end -->
+			
 			<input type="hidden" id="paymentSender" name="paymentSender" value="unknownPS">
 			<input type="hidden" id="paymentReceiver" name="paymentReceiver" value="${payment.paymentReceiver}">	
 			<input type="hidden" id="paymentCode" name="paymentCode" value="unknownPC">	

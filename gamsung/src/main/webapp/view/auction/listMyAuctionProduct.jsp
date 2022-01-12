@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
@@ -10,6 +11,7 @@
     
     <title>myPage</title>
 
+<jsp:include page="/resources/commonLib.jsp"></jsp:include>
 <style type="text/css">
 
 .sidebar-left{
@@ -20,7 +22,6 @@
 	background-color: #171717 !important;
 }
 </style>
-
 </head>
   <body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
   <section class="body">
@@ -49,7 +50,7 @@
 														<th>UP!</th>
 													</c:if>
 													<c:if test="${auctionInfo.info eq 'history'}">
-														<th>입찰번호</th>
+														<th>상품명</th>
 														<th>판매자ID</th>
 														<th>입찰가</th>
 														<th>입찰일자</th>
@@ -106,7 +107,8 @@
 												<c:if test="${auctionInfo.info eq 'history' && !empty list}">
 													<c:forEach var="auctionHistory" items="${list}">
 														<tr>
-															<td class="bidNo">${auctionHistory.bidNo}</td>
+															<td hidden="">${auctionHistory.auctionProductNo}</td>
+															<td class="auctionProductName">${fn:substring(auctionHistory.info,'0','50')}</td>
 															<td class="userId">${auctionHistory.user.id}</td>
 															<td class=""><fmt:formatNumber type="number" maxFractionDigits="3" value="${auctionHistory.bidPrice}"/>원</td>
 															<td class="">${auctionHistory.bidDateTime}</td>
@@ -114,7 +116,12 @@
 																<td>진행중</td>														
 															</c:if>
 															<c:if test="${auctionHistory.auctionStatus eq 'WAIT'}">
-																<td>낙찰</td>		
+																<c:if test="${auctionHistory.user.nickName eq sessionScope.user.id}">
+																	<td>낙찰</td>		
+																</c:if>
+																<c:if test="${auctionHistory.user.nickName ne sessionScope.user.id}">
+																	<td>유찰</td>		
+																</c:if>
 															</c:if>
 															<c:if test="${auctionHistory.auctionStatus eq 'FAIL'}">
 																<td>유찰</td>	
@@ -136,9 +143,15 @@
 														<tr>
 															<td class="bidConcernNo">${bidConcern.bidNo}</td>
 															<td class="userId">${bidConcern.user.id}</td>
-															<td class="">${bidConcern.info}</td>
+															<td hidden="">${bidConcern.auctionProductNo}</td>
+															<td class="auctionProductName">${bidConcern.info}</td>
 															<td class="">${bidConcern.concernRegDate}</td>
-															<td></td>
+															<td class="actions-hover actions-fade">
+																<a class="deleteConcern">
+																	<i class="fa fa-trash"></i>
+																</a>
+															<input type="hidden" value="${bidConcern.auctionProductNo}">
+															</td>
 														</tr>
 													</c:forEach>
 												</c:if>
@@ -147,7 +160,8 @@
 														<tr>
 															<td class="bidConcernNo">${review.ratingReviewNo}</td>
 															<td class="userId">${review.auctionInfo.user.id}</td>
-															<td class="">${review.auctionInfo.info}</td>
+															<td hidden="">${review.auctionInfo.auctionProductNo}</td>
+															<td class="auctionProductName">${review.auctionInfo.info}</td>
 															<td>${review.avgRating}</td>
 															<td class="">${review.reviewRegDate}</td>
 														</tr>
@@ -174,60 +188,7 @@
 			</div>
 		<jsp:include page="../common/footer.jsp"></jsp:include>
 		</section>
-    <!--  
-    JavaScripts
-    =============================================
-    -->
-	<script src="../../resources/lib/jquery/jquery.js"></script>
-    <script src="../../resources/lib/bootstrap/js/bootstrap.min.js"></script>
-	<script src="../../resources/lib/wow/wow.js"></script>
-	<script src="../../resources/lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js"></script>
-	<script src="../../resources/lib/isotope/isotope.pkgd.js"></script>
-	<script src="../../resources/lib/imagesloaded/imagesloaded.pkgd.js"></script>
-	<script src="../../resources/lib/flexslider/jquery.flexslider.js"></script>
-	<script src="../../resources/lib/owl.carousel/dist/owl.carousel.min.js"></script>
-	<script src="../../resources/lib/smoothscroll.js"></script>
-	<script src="../../resources/lib/magnific-popup/jquery.magnific-popup.js"></script>
-	<script src="../../resources/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script>
-	<script src="../../resources/js/plugins.js"></script>
-	<script src="../../resources/js/main.js"></script>
-	
-	<script src="../../resources/lib/jquery-browser-mobile/jquery.browser.mobile.js"></script>
-	<script src="../../resources/lib/nanoscroller/nanoscroller.js"></script>
-	<script src="../../resources/lib/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
-	<script src="../../resources/lib/magnific-popup/magnific-popup.js"></script>
-	<script src="../../resources/lib/jquery-placeholder/jquery.placeholder.js"></script>
-	
-	<script src="../../resources/lib/jquery-ui/js/jquery-ui-1.10.4.custom.js"></script>
-	<script src="../../resources/lib/jquery-ui-touch-punch/jquery.ui.touch-punch.js"></script>
-	<script src="../../resources/lib/jquery-appear/jquery.appear.js"></script>
-	<script src="../../resources/lib/bootstrap-multiselect/bootstrap-multiselect.js"></script>
-	<script src="../../resources/lib/jquery-easypiechart/jquery.easypiechart.js"></script>
-	<script src="../../resources/lib/flot/jquery.flot.js"></script>
-	<script src="../../resources/lib/flot-tooltip/jquery.flot.tooltip.js"></script>
-	<script src="../../resources/lib/flot/jquery.flot.pie.js"></script>
-	<script src="../../resources/lib/flot/jquery.flot.categories.js"></script>
-	<script src="../../resources/lib/flot/jquery.flot.resize.js"></script>
-	<script src="../../resources/lib/jquery-sparkline/jquery.sparkline.js"></script>
-	<script src="../../resources/lib/raphael/raphael.js"></script>
-	<script src="../../resources/lib/morris/morris.js"></script>
-	<script src="../../resources/lib/gauge/gauge.js"></script>
-	<script src="../../resources/lib/snap-svg/snap.svg.js"></script>
-	<script src="../../resources/lib/liquid-meter/liquid.meter.js"></script>
-	<script src="../../resources/lib/jqvmap/jquery.vmap.js"></script>
-	<script src="../../resources/lib/jqvmap/data/jquery.vmap.sampledata.js"></script>
-	<script src="../../resources/lib/jqvmap/maps/jquery.vmap.world.js"></script>
-	<script src="../../resources/lib/jqvmap/maps/continents/jquery.vmap.africa.js"></script>
-	<script src="../../resources/lib/jqvmap/maps/continents/jquery.vmap.asia.js"></script>
-	<script src="../../resources/lib/jqvmap/maps/continents/jquery.vmap.australia.js"></script>
-	<script src="../../resources/lib/jqvmap/maps/continents/jquery.vmap.europe.js"></script>
-	<script src="../../resources/lib/jqvmap/maps/continents/jquery.vmap.north-america.js"></script>
-	<script src="../../resources/lib/jqvmap/maps/continents/jquery.vmap.south-america.js"></script>
-		
-	
-	<script src="../../resources/js/theme.js"></script>
-	<script src="../../resources/js/theme.custom.js"></script>
-	<script src="../../resources/js/theme.init.js"></script>
+    
 	<script src="../../resources/js/dashboard/examples.dashboard.js"></script>
 	
 	<script>
@@ -252,9 +213,38 @@
 					dataType : "json",
 					success : function(JSONData, status){
 						alert(JSONData.info);
-						location.reload();
 					}
 				});
+			});
+			
+			$('.deleteConcern').on('click',function(){
+				
+				var auctionProductNo = $(this).next().val();
+				var tmp = $(this);
+				var parent = tmp.parent().parent();
+				$.ajax({
+					url : "/auction/rest/addBidConcern",
+					method : "POST",
+					async: false,
+					data : JSON.stringify({
+						auctionProductNo : auctionProductNo
+					}),
+					headers : {
+						"Accept" : "application/json",
+						"Content-Type" : "application/json"
+					},
+					dataType : "json",
+					success : function(JSONData, status) {
+						if(JSONData.info.indexOf('비활성화') != -1){
+							tmp.empty();
+							tmp.html('<i class="fa fa-trash-o"></i>');
+							parent.empty();
+						}else{
+							tmp.empty();
+							tmp.html('<i class="fa fa-trash"></i>');
+						}						
+					}
+   			});
 			});
 		});
 	</script>

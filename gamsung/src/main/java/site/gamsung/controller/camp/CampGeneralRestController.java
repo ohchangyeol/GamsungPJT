@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -26,8 +27,10 @@ import site.gamsung.service.camp.CampSearchService;
 import site.gamsung.service.common.Page;
 import site.gamsung.service.common.RatingReviewService;
 import site.gamsung.service.common.Search;
+import site.gamsung.service.domain.Camp;
 import site.gamsung.service.domain.CampReservation;
 import site.gamsung.service.domain.MainSite;
+import site.gamsung.service.domain.RatingReview;
 import site.gamsung.service.domain.User;
 
 @RestController
@@ -105,28 +108,87 @@ public class CampGeneralRestController {
 		return list;
 	}
 	
-	   @RequestMapping(value = "json/listMyReservationTable", method = RequestMethod.POST)
-	   private @ResponseBody String getUserList(@ModelAttribute("search") Search search, HttpSession httpSession) throws Exception {
-	      
-		   System.out.println("/campGeneral/json/listMyReservationTable : POST");
-			
-			User user = (User)httpSession.getAttribute("user");
+	@RequestMapping( value="json/selectMainSite/{mainSiteNo}/{campNo}", method=RequestMethod.GET)
+	public  MainSite selectMainSite (@PathVariable int mainSiteNo, @PathVariable int campNo) throws Exception{
 		
-			if(user == null) {
-				
-				return "redirect:/";
-				
-			} else {
-				
-				search.setId(user.getId());
-				List<CampReservation> list = campReservationService.listMyReservationTable(search);
-				
-				Gson data = new GsonBuilder().serializeNulls().create();
-				
-				System.out.println(list);
-				
-				return data.toJson(list);
-			}
+		System.out.println("/campGeneral/json/selectMainSite : GET");
+		
+		CampReservation campReservation = new CampReservation();
+		Camp camp = new Camp();
+		MainSite mainSite = new MainSite();
+		camp.setCampNo(campNo);		
+		mainSite.setMainSiteNo(mainSiteNo);
+		campReservation.setCamp(camp);
+		campReservation.setMainSite(mainSite);
+		System.out.println(mainSiteNo);
+		System.out.println(campNo);
+								
+		mainSite = campSearchService.getMainSite(campReservation);
+								
+		System.out.println(mainSite);
+		
+		return mainSite;
+	}
+	
+	@RequestMapping( value="json/updateReview", method=RequestMethod.POST)
+	public  RatingReview updateReview (@RequestBody RatingReview ratingReview) throws Exception{
+		
+		System.out.println("/campGeneral/json/updateReview : POST");
+		
+		System.out.println(ratingReview);
+		
+		ratingReviewService.updateRatingReview(ratingReview);
+		
+		ratingReview = ratingReviewService.getRatingReview(ratingReview.getRatingReviewNo());
+								
+		System.out.println(ratingReview);
+		
+		return ratingReview;
+	}
+	
+	@RequestMapping( value="json/deletecomment", method=RequestMethod.POST)
+	public  RatingReview deletecomment (@RequestBody RatingReview ratingReview) throws Exception{
+		
+		System.out.println("/campGeneral/json/deletecomment : POST");
+		
+		System.out.println(ratingReview);
+		
+		ratingReviewService.deleteRatingReview(ratingReview);
+		
+		ratingReview = ratingReviewService.getRatingReview(ratingReview.getRatingReviewNo());
+								
+		System.out.println(ratingReview);
+		
+		return ratingReview;
+	}
+	
+   @RequestMapping(value = "json/listMyReservationTable", method = RequestMethod.POST)
+   private @ResponseBody String getUserList(@ModelAttribute("search") Search search, HttpSession httpSession) throws Exception {
+      
+	   System.out.println("/campGeneral/json/listMyReservationTable : POST");
 	   
-	   }
+		
+		User user = (User)httpSession.getAttribute("user");
+	
+		if(user == null) {
+			
+			return "redirect:/";
+			
+		} else {
+			
+			System.out.println(search);
+			System.out.println(user);
+			search.setId(user.getId());
+			List<CampReservation> list = campReservationService.listMyReservationTable(search);
+			
+			Gson data = new GsonBuilder().serializeNulls().create();
+			
+			System.out.println(list);
+			
+			return data.toJson(list);
+		}
+   
+   }
+	   
+	   
 }
