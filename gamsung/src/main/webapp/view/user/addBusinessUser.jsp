@@ -115,7 +115,7 @@
 										<h4 class="font-alt mb-0">사업자회원 회원가입</h4>
 										<hr class="divider-w mt-10 mb-20">
 										<form class="form" role="form">
-											<div id="email" class="form-group row">
+											<div id="b_email" class="form-group row">
 												<div><input id="role" name="role" value="BUSINESS" hidden="hidden">
 												</div>
 												<label for="id"
@@ -124,25 +124,25 @@
 													<input id="id" name="id" class="form-control " type="text"
 														placeholder="아이디는 이메일 형식만 가능합니다." />
 												</div>
-												<div>
+												<div id="add_b_mailAuthNum" style="display:none;">
 													<button id="mailAuthNum" class="btn btn-circle btn-xs"
 														type="button">인증번호 받기</button>
 												</div>
-												<div id="checkMailAuth" class="col-sm-offset-3 col-sm-6"
+												<div id="add_b_checkMailAuth" class="col-sm-offset-3 col-sm-6"
 													style="display:none;">
-													<input id="checkMailAuthNum" name="checkMailAuthNum"
+													<input id="add_b_checkMailAuthNum" name="checkMailAuthNum"
 														class="form-control " type="text" placeholder="인증번호를 입력하세요."
 														maxlength="6" />
 												</div>
-												<div id="check-email" class='col-sm-offset-3 col-sm-6'></div>
-												<div id="check-email-auth" class='col-sm-offset-3 col-sm-6'></div>
+												<div id="add_b_check-email" class='col-sm-offset-3 col-sm-6'></div>
+												<div id="add_b_check-email-auth" class='col-sm-offset-3 col-sm-6'></div>
 											</div>
 
 											<div class="form-group row">
 												<label for="password"
 													class="col-sm-offset-1 col-sm-3 control-label"><strong>비밀번호</strong></label>
 												<div class="col-sm-6">
-													<input id="password" name="password" class="form-control "
+													<input id="add_b_password" name="password" class="form-control "
 														type="password" placeholder="비밀번호는 8~15자까지 입력 가능합니다."
 														maxlength="15" />
 												</div>
@@ -154,7 +154,7 @@
 													class="col-sm-offset-1 col-sm-3 control-label"><strong>비밀번호
 														재확인</strong></label>
 												<div class="col-sm-6">
-													<input id="confirmPassword" name="confirmPassword"
+													<input id="add_b_confirmPassword" name="confirmPassword"
 														class="form-control" type="password"
 														placeholder="비밀번호를 입력해 주세요." />
 												</div>
@@ -198,41 +198,41 @@
 											</div>
 
 											<div class="form-group row">
-												<label for="name"
+												<label for="add_b_name"
 													class="col-sm-offset-1 col-sm-3 control-label"><strong>사업자대표
 														이름</strong></label>
 												<div class="col-sm-6">
-													<input id="name" name="name" class="form-control" type="text"
+													<input id="add_b_name" name="name" class="form-control" type="text"
 														placeholder="이름을 입력하세요" />
 												</div>
 											</div>
 
 											<div class="form-group row">
-												<label for="phone"
+												<label for="add_b_phone"
 													class="col-sm-offset-1 col-sm-3 control-label"><strong>휴대폰번호</strong></label>
 												<div class="col-sm-6">
-													<input id="phone" name="phone" class="form-control" type="text"
-														placeholder="숫자만 입력해주세요" maxlength="11" />
+													<input id="add_b_phone" name="phone" class="form-control"
+														type="text" placeholder="숫자만 입력해주세요" maxlength="11" />
 
 												</div>
 												<div id="check-phone" class='col-sm-offset-3 col-sm-6'></div>
 											</div>
 
 											<div class="form-group row">
-												<label for="addr"
+												<label for="add_b_addr"
 													class="col-sm-offset-1 col-sm-3 control-label"><strong>캠핑장
 														주소</strong></label>
 												<div class="col-sm-6">
-													<input id="addr" name="addr" class="form-control" type="text"
+													<input id="add_b_addr" name="addr" class="form-control" type="text"
 														placeholder="주소를 입력하세요." />
 												</div>
 											</div>
 
 											<div class="form-group row">
-												<label for="userAddr"
+												<label for="add_b_userAddr"
 													class="col-sm-offset-1 col-sm-3 control-label"></label>
 												<div class="col-sm-6">
-													<input id="userAddr" name="userAddr" class="form-control"
+													<input id="add_b_userAddr" name="userAddr" class="form-control"
 														type="text" placeholder="상세주소를 입력하세요." /> <input type="hidden"
 														name="allAddr" />
 												</div>
@@ -249,7 +249,7 @@
 											</div>
 
 											<div class="form-group row">
-												<label for="accountInfo"
+												<label for="add_b_accountInfo"
 													class="col-sm-offset-1 col-sm-3 control-label"><strong>계좌정보</strong></label>
 												<div class="col-sm-3">
 													<select class="form-control" name="bank">
@@ -263,15 +263,15 @@
 													</select>
 												</div>
 												<div class="col-sm-3">
-													<input id="accountHolder" name="accountHolder" class="form-control"
-														type="text" placeholder="예금주" />
+													<input id="add_b_accountHolder" name="accountHolder"
+														class="form-control" type="text" placeholder="예금주" />
 												</div>
 											</div>
 
 											<div class="form-group row">
 												<label class="col-sm-offset-1 col-sm-3 control-label"></label>
 												<div class="col-sm-6">
-													<input id="accountNum" name="accountNum" class="form-control"
+													<input id="add_b_accountNum" name="accountNum" class="form-control"
 														type="text" placeholder="계좌번호를 숫자만 입력하세요" maxlength="14" />
 												</div>
 											</div>

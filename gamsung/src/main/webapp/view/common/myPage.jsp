@@ -146,7 +146,7 @@ Template specific stylesheets
 					margin: 14px;
 				}
 
-				#checkPhoneAuthNum {
+				#get_checkPhoneAuthNum {
 					margin: 14px;
 				}
 			</style>
@@ -167,15 +167,16 @@ Template specific stylesheets
 				<div class="inner-wrapper">
 					<jsp:include page="userSideBar.jsp"></jsp:include>
 					<section role="main" class="content-body">
-					<section class="module bg-dark-30 about-page-header" data-background="assets/images/about_bg.jpg">
-						<div class="container">
-							<div class="row">
-								<div class="col-sm-6 col-sm-offset-3">
-									<h1 class="module-title font-alt mb-0">Forms</h1>
+						<section class="module bg-dark-30 about-page-header"
+							data-background="assets/images/about_bg.jpg">
+							<div class="container">
+								<div class="row">
+									<div class="col-sm-6 col-sm-offset-3">
+										<h1 class="module-title font-alt mb-0">Forms</h1>
+									</div>
 								</div>
 							</div>
-						</div>
-					</section>
+						</section>
 						<div class="row">
 							<section class="module">
 								<div class="container">
@@ -249,16 +250,16 @@ Template specific stylesheets
 													<label for="phone"
 														class="col-sm-offset-1 col-sm-3 control-label"><strong>휴대폰번호</strong></label>
 													<div class="col-sm-6">
-														<input id="phone" name="phone" class="form-control " type="text"
-															value="${user.phone}" placeholder="숫자만 입력해주세요"
+														<input id="getGeneralPhone" name="phone" class="form-control "
+															type="text" value="${user.phone}" placeholder="숫자만 입력해주세요"
 															maxlength="11" />
 
 													</div>
 													<button id="phoneAuthNum" class="btn btn-border-d btn-circle btn-xs"
 														type="button">인증번호 받기</button>
-													<div id="checkPhoneAuth" class="col-sm-offset-3 col-sm-6"
+													<div id="checkPhoneAuth" class="col-sm-offset-3 col-sm-6 row"
 														style="display: none;">
-														<input id="checkPhoneAuthNum" name="checkPhoneAuthNum"
+														<input id="get_checkPhoneAuthNum" name="checkPhoneAuthNum"
 															class="form-control " type="text" placeholder="인증번호를 입력하세요."
 															maxlength="4" />
 													</div>
@@ -466,113 +467,52 @@ Template specific stylesheets
 
 			<script>
 				$(function () {
-					$('#listMyProduct').on('click', function () {
-						window.location = "/auction/listMyAuctionProduct?currentPage=1";
-					});
 
-					$("#addSecession").on('click', function () {
-
-						var id = $("#secession-userId").val();
-						var password = $("#secession-userPwd").val();
-						alert("여기는 들어오나");
-
+					//아이디 유효성 및 중복체크
+					$("#addGeneralId").on("keyup", function () {
+						// console.log("가나다");
+						var email = $("#addGeneralId").val();
+						console.log(email);
 						$.ajax({
-							url: '/user/rest/addSecessionUser',
+							url: '/user/rest/checkDuplication',
 							headers: {
 								"Accept": "application/json",
 								"Content-Type": "application/json"
 							},
 							method: 'POST',
 							dataType: 'json',
-							data: JSON.stringify({
-								"id": id,
-								"password": password
-							}),
-							success: function (returnData) {
+							data: JSON.stringify({ "id": email }),
+							success: function (result) {
 
-								console.log('성공: ' + returnData);
-								if (returnData == 5) {
-									$.ajax({
-										url: '/user/rest/kakaounlink',
-										headers: {
-											"Accept": "application/json",
-											"Content-Type": "application/json"
-										},
-										method: 'POST',
-										// dataType: 'json',
-										// data: JSON.stringify({
-										// 	"id": id,
-										// 	"password": password,
-										// }),
+								console.log('성공: ' + result);
 
-										success: function (kData) {
-											console.log('성공: ' + kData);
-											if (kData == 0) {
-
-												Swal.fire({
-													title: '탈퇴하시겠습니까?',
-													text: "탈퇴후엔 같은 아이디로 재가입이 불가합니다!",
-													icon: 'warning',
-													showCancelButton: true,
-													confirmButtonColor: '#3085d6',
-													cancelButtonColor: '#d33',
-													confirmButtonText: '탈퇴',
-													cancelButtonText: '취소'
-												}).then((result) => {
-													if (result.isConfirmed) {
-														Swal.fire(
-															'탈퇴완료!',
-															'success'
-														).then(() => {
-															self.location = "/";
-														})
-													}
-												})
-
-
-											}
-
+								if (result == 0) {
+									if (email != "") {
+										if (email.indexOf('@') < 1 || email.indexOf('.') == -1) {
+											$("#check-email").html("Email형식이 아닙니다.");
+										} else {
+											$("#check-email").html('사용 가능한 아이디입니다.');
+											$("#check-email").css('color', 'green');
 										}
-									})
-								}
-
-								else if (returnData == "0") {
-									Swal.fire({
-										title: '탈퇴하시겠습니까?',
-										text: "탈퇴후엔 같은 아이디로 재가입이 불가합니다!",
-										icon: 'warning',
-										showCancelButton: true,
-										confirmButtonColor: '#3085d6',
-										cancelButtonColor: '#d33',
-										confirmButtonText: '탈퇴',
-										cancelButtonText: '취소'
-									}).then((result) => {
-										if (result.isConfirmed) {
-											Swal.fire(
-												'탈퇴완료!',
-												'success'
-											).then(() => {
-												self.location = "/user/logout";
-											})
-										}
-									})
+									} else {
+										$("#check-email").html("");
+									}
 
 								} else {
-									Swal.fire('완료되지 않은 거래내역 있어 탈퇴가 어렵습니다.거래완료 후 다시 시도해주세요.').then(() => {
-										self.location = "/view/common/myPage.jsp";
-									})
-
+									$("#check-email").html('이미 사용중이거나 중복된 아이디 입니다.');
+									$("#check-email").css('color', 'red');
 								}
-							}, error: function (request, status, error) {
-								alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
-							}
 
+							} /* ,error :  function(request,status,error){// 에러발생시 실행할 함수
+alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+}*/
 						});
 					});
+
 					//비밀번호
-					$('#password').on("keyup", function () {
+					$('#addGeneralPassword').on("keyup", function () {
 						var regExp = /[ㄱ-ㅎㅏ-ㅣ가-힣]/g; //한글입력 불가
-						var pwd = $('#password').val();
+						var pwd = $('#addGeneralPassword').val();
 
 						if (pwd.length < 1) {
 							$("#check-pwd-exp").html("");
@@ -590,12 +530,12 @@ Template specific stylesheets
 
 						if ($('#confirmPassword').val().length < 0) {
 							$("#check-pwd").html("");
-						} else if ($('#password').val() != $('#confirmPassword').val() || $('#confirmPassword').val() != '') {
+						} else if ($('#addGeneralPassword').val() != $('#confirmPassword').val() || $('#confirmPassword').val() != '') {
 							$("#check-pwd").html('비밀번호가 일치하지 않습니다.');
 							$("#check-pwd").css('color', 'red');
 							$('#confirmPassword').focus();
 						}
-						if ($('#password').val() == $('#confirmPassword').val()) {
+						if ($('#addGeneralPassword').val() == $('#confirmPassword').val()) {
 							$("#check-pwd").html('비밀번호가 일치합니다.');
 							$("#check-pwd").css('color', 'green');
 						}
@@ -634,10 +574,10 @@ Template specific stylesheets
 					});
 
 					//휴대폰번호 중복체크
-					$("input[name='phone']").on("keyup", function () {
+					$("#getGeneralPhone").on("keyup", function () {
 
 						var regExp = /^[0-9]*$/;
-						var phone = $("input[name='phone']").val();
+						var dp_phone = $("#getGeneralPhone").val();
 
 						$.ajax({
 							url: '/user/rest/checkDuplication',
@@ -647,20 +587,20 @@ Template specific stylesheets
 							},
 							method: 'POST',
 							dataType: 'json',
-							data: JSON.stringify({ "phone": phone }),
+							data: JSON.stringify({ "phone": dp_phone }),
 							success: function (result) {
 								console.log('성공: ' + result);
 
 								if (result == 0) {
 									if (email != "") {
-										if (!(regExp.test(phone))) {
-											$("#phone").val("");
+										if (!(regExp.test(dp_phone))) {
+											$("#addGeneralPhone").val("");
 											$("#check-phone").html("휴대폰번호는 숫자로만 입력 가능합니다.");
-										} else if (phone.length == 11) {
+										} else if (dp_phone.length == 11) {
 											$("#check-phone").html('사용 가능한 번호입니다.');
 											$("#check-phone").css('color', 'green');
-										} else if (phone.length > 11) {
-											$("#phone").val("");
+										} else if (dp_phone.length > 11) {
+											$("#addGeneralPhone").val("");
 											$("#check-phone").html("휴대폰번호는 11자리만 가능합니다.");
 										} else {
 											$("#check-phone").html("");
@@ -683,7 +623,8 @@ Template specific stylesheets
 						$("#check-phone").hide();
 						$("#checkPhoneAuth").show();
 						//세션에 담긴 값이랑 입력된 값이 맞는지 비교하기 #check-phone-auth
-						var phone = $("input[name='phone']").val();
+						const phone = $("#getGeneralPhone").val();
+						console.log(phone);
 
 						$.ajax({
 							url: '/user/rest/sendPhoneAuthNum/' + phone,
@@ -699,8 +640,8 @@ Template specific stylesheets
 
 								$("input[name='checkPhoneAuthNum']").on("keyup", function () {
 									console.log('되는가');
-									var ab = $("input[name='checkPhoneAuthNum']").val();
-
+									var ab = $("#get_checkPhoneAuthNum").val();
+									console.log(ab);
 									if (ab.length > 0) {
 										if (dataa == ab) {
 											$("#check-phone-auth").html("인증번호가 일치합니다.");
@@ -713,64 +654,50 @@ Template specific stylesheets
 						});
 					});
 
-
 					//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-					$("#updateUser-btn").on("click", function () {
+					$("#updateUser").on("click", function () {
 						console.log("뭐지");
 						fncupdateUser();
 					});
 
 					function fncupdateUser() {
 
-						var id = $("#id").val();
-						var pw = $("#password").val();
-						var pw_confirm = $("#confirmPassword").val();
-						var name = $("#name").val();
-						var nickName = $("#nickName").val();
-						var phone = $("#phone").val();
-						console.log("안찍히니" + id + pw + name + nickName + phone);
+						var pw = $("input[name='password']").val();
+						var pw_confirm = $("input[name='confirmPassword']").val();
+						var name = $("input[name='name']").val();
+						var nickName = $("input[name='nickName']").val();
+						var ck_phone = $("input[name='phone']").val();
 
 
-
-						/* if(id == null || id.length <1){
-							alert("아이디는 반드시 입력하셔야 합니다.");
-							return;
-						} *
-						
-						if(password == null || password.length <1){
-							alert("패스워드는  반드시 입력하셔야 합니다.");
-							return;
+						/*if(password == null || password.length <1){
+						alert("패스워드는  반드시 입력하셔야 합니다.");
+						return;
 						}
 						
 						if(7<password.length <16){
-							alert("패스워드는 8~15자까지 가능합니다.");
-							return;
+						alert("패스워드는 8~15자까지 가능합니다.");
+						return;
 						}
-						
-						if(confirmPassword == null || confirmPassword.length <1){
-							alert("패스워드 확인은  반드시 입력하셔야 합니다.");
-							return;
-						}
-						
+											
 						if(name == null || name.length <1){
-							alert("이름은  반드시 입력하셔야 합니다.");
-							return;
+						alert("이름은  반드시 입력하셔야 합니다.");
+						return;
 						}
 						
 						if( password != confirmPassword ) {				
-							alert("비밀번호 확인이 일치하지 않습니다.");
-							$("input:text[name='confirmPassword']").focus();
-							return;
+						alert("비밀번호 확인이 일치하지 않습니다.");
+						$("input:text[name='confirmPassword']").focus();
+						return;
 						}
 						
 						if(nickName == null || nickName.length <1){
-							alert("닉네임은 반드시 입력하셔야 합니다.");
-							return;
+						alert("닉네임은 반드시 입력하셔야 합니다.");
+						return;
 						}
 						
 						if(phone == null || phone.length <1){
-							alert("휴대폰번호는 반드시 입력하셔야 합니다.");
-							return;
+						alert("휴대폰번호는 반드시 입력하셔야 합니다.");
+						return;
 						}*/
 
 						var addr = "";
@@ -781,10 +708,9 @@ Template specific stylesheets
 
 						$("input:hidden[name='allAddr']").val(value);
 
-						$("#updateForm").attr("method", "POST").attr("action", "/user/updateUser").submit();
-
-
+						$("form").attr("method", "POST").attr("action", "/user/updateUser").submit();
 					}
+
 
 					//주소검색
 					document.getElementById("addr").addEventListener("click", function () { //주소입력칸을 클릭하면

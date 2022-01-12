@@ -169,12 +169,13 @@ width: 50%;
 											<label for="phone"
 												class="col-sm-offset-1 col-sm-3 control-label"><strong>휴대폰번호</strong></label>
 											<div class="col-sm-6">
-												<input id="phone" name="phone" class="form-control " type="text"
-													value="${user.phone}" placeholder="숫자만 입력해주세요" maxlength="11" />
+												<input id="getGeneralPhone" name="phone" class="form-control "
+													type="text" value="${user.phone}" placeholder="숫자만 입력해주세요"
+													maxlength="11" />
 
 											</div>
 											<c:if test="${sessionScope.user.role != 'ADMIN'}">
-												<button id="phoneAuthNum" class="btn btn-circle btn-xs"
+												<button id="update_phoneAuthNum" class="btn btn-circle btn-xs"
 													type="button">인증번호
 													받기</button>
 												<div id="checkPhoneAuth" class="col-sm-offset-3 col-sm-6"
@@ -376,10 +377,10 @@ width: 50%;
 					});
 
 					//휴대폰번호 중복체크
-					$("input[name='phone']").on("keyup", function () {
+					$("#getGeneralPhone").on("keyup", function () {
 
 						var regExp = /^[0-9]*$/;
-						var phone = $("input[name='phone']").val();
+						var dp_phone = $("#getGeneralPhone").val();
 
 						$.ajax({
 							url: '/user/rest/checkDuplication',
@@ -389,20 +390,20 @@ width: 50%;
 							},
 							method: 'POST',
 							dataType: 'json',
-							data: JSON.stringify({ "phone": phone }),
+							data: JSON.stringify({ "phone": dp_phone }),
 							success: function (result) {
 								console.log('성공: ' + result);
 
 								if (result == 0) {
 									if (email != "") {
-										if (!(regExp.test(phone))) {
-											$("#phone").val("");
+										if (!(regExp.test(dp_phone))) {
+											$("#getGeneralPhone").val("");
 											$("#check-phone").html("휴대폰번호는 숫자로만 입력 가능합니다.");
-										} else if (phone.length == 11) {
+										} else if (dp_phone.length == 11) {
 											$("#check-phone").html('사용 가능한 번호입니다.');
 											$("#check-phone").css('color', 'green');
-										} else if (phone.length > 11) {
-											$("#phone").val("");
+										} else if (dp_phone.length > 11) {
+											$("#getGeneralPhone").val("");
 											$("#check-phone").html("휴대폰번호는 11자리만 가능합니다.");
 										} else {
 											$("#check-phone").html("");
@@ -419,13 +420,13 @@ width: 50%;
 					});
 
 					//휴대폰 인증번호 받기
-					$("#phoneAuthNum").on("click", function () {
+					$("#update_phoneAuthNum").on("click", function () {
 
-						$("#phoneAuthNum").text("인증번호 재발송");
+						$("#update_phoneAuthNum").text("인증번호 재발송");
 						$("#check-phone").hide();
 						$("#checkPhoneAuth").show();
-						//세션에 담긴 값이랑 입력된 값이 맞는지 비교하기 #check-phone-auth
-						var phone = $("input[name='phone']").val();
+						console.log("핸드폰번호" + $("#getGeneralPhone").val());
+						var phone = $("#getGeneralPhone").val();
 
 						$.ajax({
 							url: '/user/rest/sendPhoneAuthNum/' + phone,
@@ -434,8 +435,8 @@ width: 50%;
 								"Content-Type": "application/json"
 							},
 							method: 'GET',
-							//dataType:'json',
-							//data : JSON.stringify({"phone" : phone}),	
+							dataType: 'json',
+							data: JSON.stringify({ "phone": phone }),
 							success: function (dataa) {
 								console.log('성공: ' + dataa);
 
@@ -469,7 +470,7 @@ width: 50%;
 						var pw_confirm = $("input[name='confirmPassword']").val();
 						var name = $("input[name='name']").val();
 						var nickName = $("input[name='nickName']").val();
-						var phone = $("input[name='phone']").val();
+						var ck_phone = $("input[name='phone']").val();
 
 
 						/* if(id == null || id.length <1){
