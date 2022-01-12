@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import site.gamsung.service.common.Page;
 import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.Notice;
 import site.gamsung.service.domain.NoticeWrapper;
@@ -46,6 +47,8 @@ public class ServiceCenterController {
 	@Qualifier("reportServiceImpl")
 	private ReportService reportService;
 	
+	@Value("#{commonProperties['pageUnit']}")
+	int pageUnit;
 	@Value("#{commonProperties['pageSize']}")
 	int pageSize;
 	
@@ -133,13 +136,18 @@ public class ServiceCenterController {
 		if(search.getCurrentPage() == 0 ){ 
 			search.setCurrentPage(1); 
 		}
+		System.out.println(search);
 		
 		search.setPageSize(pageSize);
 		 
 		NoticeWrapper wrapper = noticeService.listNotice(search);
+		wrapper.setSearch(search);
+		
+		Page resultPage = new Page( search.getCurrentPage(), wrapper.getTotalCount() , pageUnit, pageSize);
 		
 		model.addAttribute("wrapper" , wrapper);
 		model.addAttribute("noticeType", "list");
+		model.addAttribute("resultPage", resultPage);
 		
 		
 		if( user != null && "admin".equalsIgnoreCase(user.getRole()) ) {

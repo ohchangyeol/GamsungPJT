@@ -10,19 +10,19 @@ pageEncoding="UTF-8"%>
         <div class="row">
           <form role="form" class="notice-search">
             <div class="col-sm-4">
-              <select class="form-control">
-                <option selected="selected">제목+내용</option>
-                <option>제목</option>
-                <option>내용</option>
+              <select class="form-control" name="searchCondition">
+                <option value="0" ${ ! empty wrapper.search.searchCondition && wrapper.search.searchCondition==0 ? "selected" : "" }>제목+내용</option>
+                <option value="1" ${ ! empty wrapper.search.searchCondition && wrapper.search.searchCondition==1 ? "selected" : "" }>제목</option>
+                <option value="2" ${ ! empty wrapper.search.searchCondition && wrapper.search.searchCondition==2 ? "selected" : "" }>내용</option>
               </select>
             </div>
             <div class="col-sm-8">
               <div class="search-box">
-                <input class="form-control" type="text" placeholder="Search...">
-                <button class="search-btn" type="submit"><i class="fa fa-search"></i></button>
+                <input class="form-control" type="text" placeholder="Search..." name="searchKeyword" value="${wrapper.search.searchKeyword}">
+                <button class="search-btn notice-search-btn" type="submit"><i class="fa fa-search"></i></button>
               </div>
             </div>
-            
+            <input type="hidden" id="currentPage" name="currentPage" value="${resultPage.currentPage}"/>
           </form>
         </div>
       </div>
@@ -46,17 +46,7 @@ pageEncoding="UTF-8"%>
     </div>
   </div>
 
-  <div class="pagination font-alt page-nav">
-    <a href="#">
-      <i class="fa fa-angle-left"></i>
-    </a>
-    <a class="active" href="#">1</a>
-    <a href="#">2</a>
-    <a href="#">3</a>
-    <a href="#">4</a>
-    <a href="#">
-      <i class="fa fa-angle-right"></i>
-    </a>
-  </div>
+  <jsp:include page="../../common/pageNavigator.jsp"/>
+  
 
 </div>

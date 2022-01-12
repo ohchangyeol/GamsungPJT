@@ -1,6 +1,4 @@
-.table-list-padding {}
 /* Notice Layout */
-html .body, .sc-main{font-family: "Montserrat", "Noto Sans Kr", "맑은 고딕", "Malgun Gothic", sans-serif !important}
 li {list-style: none;}
 .container .row h4 {font-weight: 600;}
 .container .row h4 a{ display: flex !important; justify-content: space-between; align-items: center;}
