@@ -33,9 +33,9 @@
 					@import url(https://fonts.googleapis.com/css?family=BenchNine:700);
 
 					.snip1535 {
-						background-color: #ccc;
+						background-color: #ffffff;
 						border: none;
-						color: #ffffff;
+						color: #333064;
 						cursor: pointer;
 						display: inline-block;
 						font-family: 'Roboto Condensed';
@@ -82,7 +82,7 @@
 
 					.snip1535:hover,
 					.snip1535.hover {
-						background-color: #333064;
+						background-color: #ffffff;
 					}
 
 					.snip1535:hover:before,

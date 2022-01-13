@@ -9,6 +9,7 @@
 	<resultMap id="transferMapper" type="transfer">
 		<result property="transferNo"    		 			   column="transfer_no"     	   jdbcType="NUMERIC"/>
 		<result property="transferOr.id"	   	 			   column="user_id" 	       	   jdbcType="VARCHAR"/>
+		<result property="transferOr.nickName"	   	 		   column="nick_name" 	       	   jdbcType="VARCHAR"/>
 		<result property="transferRegdate"       			   column="transfer_reg_date"      jdbcType="VARCHAR"/>
 		<result property="transferTitle"  		 			   column="transfer_title" 	       jdbcType="VARCHAR"/>
 		<result property="transferArea"    		 			   column="transfer_camp_area"     jdbcType="VARCHAR"/>
@@ -47,9 +48,10 @@
 
 	 <select 	id="getTransfer" parameterType="int" resultMap="transferMapper">
 	  SELECT
-	  transfer_no,user_id,reservation_no,transfer_camp_area,transfer_camp_name,transfer_camp_call,transfer_start_date,transfer_end_date,transfer_use_num,transfer_price,transfer_title,transfer_content,transfer_add_content,transfer_reg_date,transfer_status,transfer_payment_img,delete_flag,transfer_hashtag1,transfer_hashtag2,transfer_hashtag3,transfer_mainsite_type
-	  FROM  GAMSUNG.TRANSFER
-      WHERE transfer_no = #{value}
+	  t.*,s.nick_name nick_name
+	  FROM TRANSFER t , USERS s 
+      WHERE t.user_id = s.user_id 
+      AND transfer_no = #{value}
 	 </select> 
 	 
 <!-- 양도글 List -->
@@ -57,9 +59,10 @@
 	<select  id="listTransfer"  parameterType="map"	resultMap="transferMapper">
 	SELECT S.* 
 	FROM (SELECT @rownum:= @rownum+1 AS R , T.* 
-		FROM (SELECT *
-			  FROM Transfer								  
-	  		  WHERE delete_flag = 'N' 
+		FROM (SELECT tt.*,u.nick_name 
+			  FROM TRANSFER tt, USERS u 								  
+	  		  WHERE tt.user_id = u.user_id 
+	  		  AND delete_flag = 'N'
 			      <if test="search.searchCondition != null"> 
 				    <trim prefix="AND">
 						<if test='search.searchCondition == 1 and search.searchKeyword.equals("무료양도")'> 
@@ -95,7 +98,7 @@
 						</if>	
 					</trim>
 				</if>
-				ORDER BY transfer_reg_date ) T, (select @rownum:= 0) M
+				ORDER BY transfer_reg_date DESC) T, (select @rownum:= 0) M
 				WHERE @rownum  <![CDATA[ <=]]> #{search.endRowNum} ) S
 				WHERE R BETWEEN #{search.startRowNum} AND #{search.endRowNum} 
 	 </select> 	
@@ -168,6 +171,53 @@
 		FROM TRANSFER
 		WHERE user_id = #{value} AND transfer_status IN ('1','2')
 	</select> 
+	
+	
+	
+	<!-- 총 list 수  -->
+		<select  id="getTotalCount"  parameterType="search"	 resultType="int">	
+	SELECT COUNT(*)	
+	FROM(SELECT tt.*,u.nick_name 
+			  FROM TRANSFER tt, USERS u 								  
+	  		  WHERE tt.user_id = u.user_id 
+	  		  AND delete_flag = 'N'
+			      <if test="searchCondition != null"> 
+				    <trim prefix="AND">
+						<if test='searchCondition == 1 and searchKeyword == "무료양도"'> 
+							transfer_price = 0	
+						</if>
+ 					
+ 						<if test='searchCondition == 1 and searchKeyword == "1만원~9만원"'> 
+							transfer_price BETWEEN 10000 AND 90000
+						</if>
+						
+						<if test='searchCondition == 1 and searchKeyword == "10만원~19만원"'> 
+							transfer_price BETWEEN 100000 AND 190000
+						</if>
+						
+						<if test='searchCondition == 1 and searchKeyword == "20만원~29만원"'> 
+							transfer_price BETWEEN 200000 AND 290000	
+						</if>
+					
+						<if test='searchCondition == 1 and searchKeyword == "30만원~39만원"'> 
+							transfer_price BETWEEN 300000 AND 390000	
+						</if>
+						
+						<if test='searchCondition == 1 and searchKeyword == "40만원 이상"'> 
+							transfer_price > 390000
+						</if>
+						
+						<if test='searchCondition == 2'>
+							transfer_start_date <![CDATA[ >=]]> #{searchStartDate}  
+						</if>
+						
+						<if test='searchEndDate != null'>
+							AND transfer_end_date <![CDATA[ <=]]> #{searchEndDate}  
+						</if>	
+					</trim>
+				</if>
+				ORDER BY transfer_reg_date DESC	)COUNTTABLE
+		</select> 
 	 
 		 
 </mapper> 

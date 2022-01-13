@@ -1,7 +1,48 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
 
-<section class="bg-dark-30 showcase-page-header module parallax-bg" data-background="../../resources/images/showcase1.jpg">
+<section class="main-view">
+  <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+      <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+      <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+      <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+      <li data-target="#carousel-example-generic" data-slide-to="3"></li>
+      <li data-target="#carousel-example-generic" data-slide-to="4"></li>
+    </ol>
+  
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner" role="listbox">
+      <div class="item active">
+        <img src="../../resources/images/KakaoTalk_Moim_buAhAGzAhL3VZBLn5H9XCNfXpdlu1U.jpg" alt="...">
+        <div class="carousel-caption">
+        </div>
+      </div>
+      <div class="item">
+        <img src="../../resources/images/KakaoTalk_Moim_buAhAGzAhL3VZBLn5H9XCNfXpebbgi.jpg" alt="...">
+        <div class="carousel-caption">
+        </div>
+      </div>
+      <div class="item">
+        <img src="../../resources/images/KakaoTalk_Moim_buAhAGzAhL3VZBLn5H9XCNfXpefR66.jpg" alt="...">
+        <div class="carousel-caption">
+        </div>
+      </div>
+      <div class="item">
+        <img src="../../resources/images/KakaoTalk_Moim_buAhAGzAhL3VZBLn5H9XCNfXpexseG.jpg" alt="...">
+        <div class="carousel-caption">
+        </div>
+      </div>
+      <div class="item">
+        <img src="../../resources/images/KakaoTalk_Moim_buAhAGzAhL3VZBLn5H9XCNfXpf7KK2.jpg" alt="...">
+        <div class="carousel-caption">
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
   <div class="titan-caption">
     <div class="row">
       <div class="col-xs-12">

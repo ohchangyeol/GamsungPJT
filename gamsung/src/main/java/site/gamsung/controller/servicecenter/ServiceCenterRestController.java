@@ -1,13 +1,18 @@
 package site.gamsung.controller.servicecenter;
 
 import java.io.File;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,7 +39,7 @@ public class ServiceCenterRestController {
 
 	
 	@PostMapping("addReport")
-	public int addNotice(@ModelAttribute("report") Report report, @ModelAttribute("user") User user ,@RequestParam("files") MultipartFile[] files, HttpServletRequest req ) throws Exception {
+	public int addReport(@ModelAttribute("report") Report report, @ModelAttribute("user") User user ,@RequestParam("files") MultipartFile[] files, HttpServletRequest req ) throws Exception {
 		User receiver = reportService.findReceiverId(report);
 		
 		if(receiver == null) {
@@ -72,4 +77,23 @@ public class ServiceCenterRestController {
 		reportService.addReport(report);
 		return 1;
 	}
+	
+	@GetMapping("deleteReport/{reportNo}")
+	public int deleteReport (@PathVariable("reportNo") int reportNo ) throws Exception {
+		if(reportNo == 0) {
+			System.out.println("??");
+			return 0;
+		}else {
+			reportService.deleteReport(reportNo);			
+			return 1;
+		}
+	}
+	
+	@PostMapping("updateCode")
+	public int updateReportCode(@RequestBody Report report ) throws Exception {
+		
+		return reportService.updateCodeReport(report);
+	}
+	
+	
 }

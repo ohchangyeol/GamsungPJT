@@ -11,8 +11,8 @@
 
       <title>Post Add</title>
 
-	  <jsp:include page="../../resources/commonLib.jsp"/>
-	  
+      <jsp:include page="../../resources/commonLib.jsp" />
+
       <meta name="msapplication-TileColor" content="#ffffff">
       <meta name="msapplication-TileImage" content="../../resources/images/favicons/ms-icon-144x144.png">
       <meta name="theme-color" content="#ffffff">
@@ -64,19 +64,16 @@
         .layer {
           display: none;
           margin: 0px;
+          width: 100%;
         }
 
         .camp1 {
           display: flex;
+          gap: 15px;
         }
 
         .form-control {
           border: 1px solid #d1d1d1;
-        }
-
-        .campsearch {
-          transform: translateX(13px);
-          width: 197%;
         }
 
         .camp1 .search-btn {
@@ -108,6 +105,10 @@
           color: #979797;
         }
 
+        .campsearchadd {
+          margin-bottom: 15px;
+        }
+
         /* class="text-start" style ="display: inline-block"; transform: translateY(1px); */
       </style>
 
@@ -115,7 +116,8 @@
 
     </head>
 
-    <body data-spy="scroll" data-target=".onpage-navigation" data-userid="${user.id}" data-offset="60" style="background: #fff">
+    <body data-spy="scroll" data-target=".onpage-navigation" data-userid="${user.id}" data-offset="60"
+      style="background: #fff">
       <main>
 
 
@@ -172,8 +174,9 @@
                         <label class="sr-only" for="searchCampKeyword">검색어</label>
                         <input type="text" class="form-control" id="searchCampKeyword" name="searchCampKeyword"
                           placeholder="캠핑장이름을 입력해주세요." value="">
-                        <button class="search-btn" id = "aabb" name="search-btn" type="button"><i class="fa fa-search"></i></button>
-                      </div> 
+                        <button class="search-btn" id="camp-search-btn" name="search-btn" type="button"><i
+                            class="fa fa-search"></i></button>
+                      </div>
 
                     </div>
 
@@ -349,8 +352,8 @@
           })
 
 
-          if (confirm("등록하시겠습니까?")) {  	  
-        	  $("form").attr("method", "POST").attr("action", "/community/addPost").attr("enctype", "multipart/form-data").submit();
+          if (confirm("등록하시겠습니까?")) {
+            $("form").attr("method", "POST").attr("action", "/community/addPost").attr("enctype", "multipart/form-data").submit();
           }
 
         };
@@ -374,7 +377,7 @@
         });
 
         $(function () {
-          $("#aabb").on("click", searchCamp);
+          $("#camp-search-btn").on("click", searchCamp);
 
           // var searchKeyword = document.getElementById('searchKeyword').value; //이거 안잡힘.. 
 
@@ -401,43 +404,43 @@
 
                 console.log("map::::", map);
 
-                if(map != null && map != 0 && map != "" ){ // && 조건이 모두 true일 경우 진행된다. 
+                if (map != null && map != 0 && map != "") { // && 조건이 모두 true일 경우 진행된다. 
 
-                var list = map.list;  // map에서 list만 꺼낸다. 
+                  var list = map.list;  // map에서 list만 꺼낸다. 
 
-                console.log("map에서 꺼낸 list", list);
+                  console.log("map에서 꺼낸 list", list);
 
-                var listHtml ="";
+                  var listHtml = "";
 
 
                   listHtml += " <div class='form-group'>";
                   listHtml += " <select class='form-control' name='campNo'  id='campNo' style='width: 499px'>";
                   listHtml += " <option selected='selected'>캠핑장을 선택해주세요(높은 조회순 5개의 캠핑장)</option>";
 
-                for (const i in list) { // {map : Array(0), totalCount:1}
-                  //  map : 0 { a:a, b:b, c:c, d:d }
-                  var campNo = list[i].campNo;
-                  var campName = list[i].user.campName;
+                  for (const i in list) { // {map : Array(0), totalCount:1}
+                    //  map : 0 { a:a, b:b, c:c, d:d }
+                    var campNo = list[i].campNo;
+                    var campName = list[i].user.campName;
 
-                  console.log(list[i].campNo);
-                  console.log(list[i].user.campName);
+                    console.log(list[i].campNo);
+                    console.log(list[i].user.campName);
 
-                  listHtml += " <option value="+campNo+">" + campName + "</option>";
-
-                  
-
-                }
-                listHtml += " </select>";
-                listHtml += " </div> ";
+                    listHtml += " <option value=" + campNo + ">" + campName + "</option>";
 
 
-                $(".campsearchadd").html(listHtml); 
+
+                  }
+                  listHtml += " </select>";
+                  listHtml += " </div> ";
+
+
+                  $(".campsearchadd").html(listHtml);
 
                 }
               },//success end
               error: function () {
                 console.log("error::::");
-                
+
               }//error end
 
             });//ajax end
@@ -448,23 +451,23 @@
 
 
         });//function end
-        
-          $('.starRev span').on("click", function(){
-            $(this).parent().children('span').removeClass('on');
-            $(this).addClass('on').prevAll('span').addClass('on');
-            var append = "&nbsp;&nbsp;&nbsp;("+$(this).data('star')+ "점)";
-            
-            console.log($(this).data("star"));
 
-            $("#statusRating").val($(this).data("star")); 
+        $('.starRev span').on("click", function () {
+          $(this).parent().children('span').removeClass('on');
+          $(this).addClass('on').prevAll('span').addClass('on');
+          var append = "&nbsp;&nbsp;&nbsp;(" + $(this).data('star') + "점)";
 
-            console.log($(this).data("star"));
+          console.log($(this).data("star"));
 
-            $("#result_star").empty();
-            $("#result_star").append(append);         
+          $("#statusRating").val($(this).data("star"));
 
-            return false;
-          });
+          console.log($(this).data("star"));
+
+          $("#result_star").empty();
+          $("#result_star").append(append);
+
+          return false;
+        });
 
       </script>
 

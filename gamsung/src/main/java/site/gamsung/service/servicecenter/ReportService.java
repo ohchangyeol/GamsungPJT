@@ -17,7 +17,7 @@ public interface ReportService {
 
 	public int notTotalCountReport() throws Exception;
 
-	public void updateCodeReport(Report report);
+	public int updateCodeReport(Report report) throws Exception;
 
 	public User findReceiverId(Report report);
 }

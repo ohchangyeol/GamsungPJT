@@ -25,7 +25,8 @@
             <label class="sr-only" for="searchKeyword">검색어</label>
             <input type="text" class="form-control" id="searchKeyword" name="searchKeyword" placeholder="검색어를 입력해주세요."
               value="">
-            <button class="search-btn" name="search-btn" type="submit"><i class="fa fa-search"></i></button>
+            <button id="left-search-btn" class="search-btn" name="search-btn" type="submit"><i
+                class="fa fa-search"></i></button>
           </div>
         </form>
 
