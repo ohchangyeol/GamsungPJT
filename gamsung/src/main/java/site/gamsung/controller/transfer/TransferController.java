@@ -2,6 +2,7 @@ package site.gamsung.controller.transfer;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import site.gamsung.service.camp.CampReservationService;
+import site.gamsung.service.common.Page;
 import site.gamsung.service.common.Search;
 import site.gamsung.service.community.CommunityService;
 import site.gamsung.service.domain.Camp;
@@ -45,6 +48,12 @@ public class TransferController {
 	@Autowired
 	@Qualifier("campReservationServiceImpl")
 	private CampReservationService campReservationService;	
+	
+	@Value("#{commonProperties['pageUnit']}")
+	int pageUnit;
+	
+	@Value("#{commonProperties['pageSize']}")
+	int pageSize;
 	
 
 	public TransferController() {
@@ -151,22 +160,83 @@ public class TransferController {
 //			transfer.setPaymentImg(imgs);
 			
 			User user = (User) session.getAttribute("user");
+			
+			
+			
 			transfer.setTransferOr(user);
 
 			transferService.addTransfer(transfer);
 
 //		반장님꺼 뭘 건드려줘야함. 
 			
-		return "redirect:/view/transfer/listTransfer.jsp";
-
+		return "redirect:listTransfer";
 	}// 등록 method 종료
 	
 	
 	
+	// 예약양도 목록 페이지 navigation	
+	@RequestMapping(value = "listTransfer")	
+	public String listTransfer(HttpSession session, Model model) throws Exception {
 
+		System.out.println("listTransfer Start");
+
+		User user = (User) session.getAttribute("user");
+
+		if (user == null) {
+			return "redirect:/";
+		}
+		
+		 Map<String, Object> map = new HashMap<String, Object>();
+		 
+		 Search search = new Search();
+		 	 
+		 if (search.getCurrentPage() == 0) {
+				search.setCurrentPage(1);
+			}
+				 
+		search.setPageSize(10);
+
+		map.put("search", search);
+				 
+		map = transferService.listTransfer(map);
+		
+		int TotalCount = (int) map.get("TotalCount");
+	
+		List<Transfer> list =  (List<Transfer>) map.get("list");
+		
+		Page resultPage = new Page( search.getCurrentPage(), TotalCount, pageUnit, pageSize);
+				
+		model.addAttribute("user", user);
+		model.addAttribute("list", list);
+		model.addAttribute("resultPage", resultPage);		
+		
+		return "forward:/view/transfer/listTransfer.jsp";
+	}
 	
 	
 	
+	// 양도 상세 페이지 
+	
+	@RequestMapping(value = "getTransfer")	
+	public String getTransfer(@RequestParam("transferNo") int transferNo, HttpSession session, Model model) throws Exception {
+
+		System.out.println("getTransfer Start");
+
+		User user = (User) session.getAttribute("user");
+
+		if (user == null) {
+			return "redirect:/";
+		}
+					
+		 Transfer transfer = transferService.getTransfer(transferNo);
+			
+		model.addAttribute("user", user);
+		model.addAttribute("transfer", transfer);
+
+		return "forward:/view/transfer/getTransfer.jsp";
+	}
+	
+	 
 	/*
 	 * if 문으로 reservationno가 있으면 예약테이블을 건드리는 함수 실행 +
 	 */

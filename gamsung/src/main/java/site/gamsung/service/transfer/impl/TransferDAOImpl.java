@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
+import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.CampReservation;
 import site.gamsung.service.domain.Receive;
 import site.gamsung.service.domain.Transfer;
@@ -84,4 +85,10 @@ public class TransferDAOImpl implements TransferDAO {
 		}
 	
 	}
+	
+	@Override
+	public int getTotalCount(Search search) throws Exception {
+		return sqlSession.selectOne("TransferMapper.getTotalCount", search);
+	}
+	
 }
