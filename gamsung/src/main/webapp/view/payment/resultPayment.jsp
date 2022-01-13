@@ -136,7 +136,7 @@
 		    
 		    // 결제취소
 		    $("#payment_cancle").on("click" , function() {
-		    	 
+		    	self.location ="/payment/readyRefund?paymentNo="+$("#paymentNo").val();
 			});	
 		    
 			// 캠핑장 예약보기 버튼
@@ -283,7 +283,7 @@
 							</div>
 							<label class="col-xs-2 col-xs-offset-1">* 예약상태</label>
 							<div class="col-md-3 form-group">
-								예약완료/결제대기
+								예약완료/결제완료
 							</div>							
 						</div>
 							
@@ -388,7 +388,7 @@
 				</div>
 			<div class="row">
 			</div>	
-				<label class="col-xs-2">* 상품참조번호</label>
+				<label class="col-xs-2">* 상품번호</label>
 				<div class="col-md-10 form-group">
 					${payment.paymentReferenceNum}
 				</div>

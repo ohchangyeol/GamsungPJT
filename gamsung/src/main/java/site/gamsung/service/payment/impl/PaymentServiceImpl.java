@@ -161,9 +161,10 @@ public class PaymentServiceImpl implements PaymentService{
 			pointTransfer.setPointAmount(oriPointChargeTotal);	
 			pointTransfer.setFeeRate(oriPaymentReferenceFee);
 			pointTransferByUsers(pointTransfer);
-			System.out.println("P1 포인트구매 pointTransfer : " + pointTransfer); 					// 테스트
+			System.out.println("P1 포인트구매 pointTransfer : " + pointTransfer); 				// 테스트
 			
-			// 포인트구매내역 Payment_DB 
+			// 포인트구매내역 Payment_DB 			
+			movePointHistory.setPaymentStatus(1);
 			movePointHistory.setPaymentProduct(oriProduct);
 			movePointHistory.setPaymentSender("[PointManageSystem-C]");
 			movePointHistory.setPaymentReceiver(oriSenderId);
@@ -176,6 +177,7 @@ public class PaymentServiceImpl implements PaymentService{
 			System.out.println("P1 포인트구매내역 DB저장 payment : " + movePointHistory); 			// 테스트
 					
 			// 결제완료내역 Payment_DB
+			payment.setPaymentStatus(2);
 			payment.setPaymentReceiver("[PointManageSystem-C]");
 			payment.setPaymentProductPriceTotal(oriPriceTotal);			
 			paymentNo = addPayment(payment);	
@@ -206,7 +208,8 @@ public class PaymentServiceImpl implements PaymentService{
 					
 				}
 			}
-				
+			
+			payment.setPaymentStatus(2);	
 			System.out.println("결제완료내역 저장 payment : " + payment); 						// 테스트
 			paymentNo = addPayment(payment);
 			System.out.println("paymentNo : "+paymentNo);
@@ -221,31 +224,21 @@ public class PaymentServiceImpl implements PaymentService{
 	public void refundPayment(Payment payment) throws Exception {
 		paymentDAO.updatePayment(payment);		
 	}	
-	
-
-	@Override
-	public Payment getPayment(int paymentNo) throws Exception {
-		return paymentDAO.getPayment(paymentNo);		
-	}
-	
-	@Override
-	public Map<String, Object> listPayment(Search search) throws Exception {
-		
-		List<Payment> list= paymentDAO.listPayment(search);
-		int totalCount = paymentDAO.getTotalCount(search);
-		
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("list", list );
-		map.put("totalCount", new Integer(totalCount));
-		
-		return map;		
-	}
-	
+			
 	@Override
 	public List<Payment> listPaymentJSON(Search search) throws Exception {
 		return paymentDAO.listPayment(search);	
 	}	
 	
+	@Override
+	public Payment getPaymentInfo(String paymentNo) throws Exception{
+		return paymentDAO.getPaymentInfo(paymentNo);
+	}
+	
+	@Override
+	public List<Payment> getPaymentListByRsvNo(String reservationNo) throws Exception{
+		return paymentDAO.getPaymentListByRsvNo(reservationNo);
+	}
 	
 	/*
 	 *  PaymentCode

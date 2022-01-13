@@ -27,6 +27,12 @@ public class Post {
 	private Search search; // searchCondition,searchKeyword  controller에서 처리.
 	private String conDeleteFlag; // 추천 등록삭제 확인여부
 	private String concernType;
+	private double statusRating;
+	private int campNo;
+
+	
+	
+	
 	
 	
 	public String getPostTitle() {
@@ -153,6 +159,19 @@ public class Post {
 				+ "], hashtag1=[" + hashtag1 + "], hashtag2=[" + hashtag2 + "], hashtag3=[" + hashtag3 + "], search=[" + search
 				+ "], conDeleteFlag=[" + conDeleteFlag + "], concernType=[" + concernType + "]";
 	}
+	public double getStatusRating() {
+		return statusRating;
+	}
+	public void setStatusRating(double statusRating) {
+		this.statusRating = statusRating;
+	}
+	public int getCampNo() {
+		return campNo;
+	}
+	public void setCampNo(int campNo) {
+		this.campNo = campNo;
+	}
+
 
 }
 	//method

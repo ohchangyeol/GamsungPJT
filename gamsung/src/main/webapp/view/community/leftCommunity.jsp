@@ -63,19 +63,3 @@
         <div style="font-size: 12px" class="addPost font-alt">게시글 등록</div>
       </div>
     </div>
-
-
-<script type="text/javascript">
-
-
-
-$(function () {
-    $("button:button[name='search-btn']").on("click", function () {
-       	
-	$("form").attr("method" , "POST").attr("action","/community/listPost").submit();	    
-        
-    });
-});
-
-
-</script>

@@ -37,11 +37,12 @@ pageEncoding="UTF-8"%>
               <div class="col-xs-12">
                 
                   <div class="row" style="padding-top: 20px;">
-                      <div calss="col-sm-12" style="text-align: center; font-size: x-large; margin-bottom: 10px;">
+                      <div cl`ass="col-sm-12" style="text-align: center; font-size: x-large; margin-bottom: 10px;">
                         <span class="icon-happy"></span>&nbsp;예약 상세보기&nbsp;<span class="icon-happy"></span>
                       </div>
                     
                       <h4 class="col-sm-7 mb-0"></h4>
+
                     <div class="col-sm-5 mb-sm-0">
                       <div class="row" style="text-align: center;">
                         <button class="btn btn-d btn-round" type="button" onclick="history.back()">목록가기</button>
@@ -203,9 +204,6 @@ pageEncoding="UTF-8"%>
              </section>
           </div>
 
-          <input type="hidden" id="reservationNo" name="reservationNo" value="${campReservation.reservationNo}" />
-
-
     <form id="hidden">
       <input type="hidden" name="mainSite.mainSiteNo" value="${campReservation.mainSite.mainSiteNo}" />
       <input type="hidden" name="camp.campNo" value="${campReservation.camp.campNo}" />
@@ -242,6 +240,7 @@ pageEncoding="UTF-8"%>
 
         //예약취소  
         $(".btn-danger").on("click" , function() {
+
 
                 let reservationStartDate =$('#reservation_start_date').val();
 
