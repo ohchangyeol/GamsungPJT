@@ -16,6 +16,9 @@ public class Report {
 	private String reportImgFile2;
 	private String reportImgFile3;
 	private String reportTypeName;
+	private String receiverId;
+	
+	
 	
 	
 	// Constructor
@@ -65,6 +68,16 @@ public class Report {
 	}
 	public String getReceiverNickName() {
 		return receiverNickName;
+	}
+	
+	
+
+	public String getReceiverId() {
+		return receiverId;
+	}
+
+	public void setReceiverId(String receiverId) {
+		this.receiverId = receiverId;
 	}
 
 	//Setter
@@ -117,8 +130,11 @@ public class Report {
 				+ ", deleteFlag=" + deleteFlag + ", reportStatus=" + reportStatus + ", sender=" + sender + ", receiver="
 				+ receiver + ", regDate=" + regDate + ", receiverCampName=" + receiverCampName + ", receiverNickName="
 				+ receiverNickName + ", reportImgFile1=" + reportImgFile1 + ", reportImgFile2=" + reportImgFile2
-				+ ", reportImgFile3=" + reportImgFile3 + ", reportTypeName=" + reportTypeName + "]\n";
+				+ ", reportImgFile3=" + reportImgFile3 + ", reportTypeName=" + reportTypeName + ", receiverId="
+				+ receiverId + "]";
 	}
+
+	
 	
 	
 }
