@@ -13,51 +13,7 @@ pageEncoding="UTF-8"%>
     <!-- Document Title -->
     <title>캠핑장 리뷰등록</title>
      
-    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Shadows+Into+Light" rel="stylesheet" type="text/css">
-		<!-- Vendor CSS -->
-		<link href="../../resources/lib/bootstrap/css/bootstrap.css" rel="stylesheet" />
-		<link href="../../resources/lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
-		<link href="../../resources/lib/magnific-popup/magnific-popup.css" rel="stylesheet" />
-		<link href="../../resources/lib/bootstrap-datepicker/css/datepicker3.css" rel="stylesheet" />
-		<!-- Theme CSS -->
-		<link href="../../resources/css/theme.css" rel="stylesheet" />
-		<!-- Skin CSS -->
-		<link href="../../resources/css/skins/default.css" rel="stylesheet" />
-		<!-- Theme Custom CSS -->
-		<link href="../../resources/css/theme-custom.css" rel="stylesheet" >
-		<!-- Head Libs -->
-		<script src="../../resources/lib/modernizr/modernizr.js"></script>
-    <!-- JavaScripts -->
-    <script src="../../resources/lib/jquery/jquery.js"></script>
-    <script src="../../resources/lib/bootstrap/js/bootstrap.min.js"></script>
-    <script src="../../resources/lib/wow/wow.js"></script>
-    <script src="../../resources/lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js"></script>
-    <script src="../../resources/lib/isotope/isotope.pkgd.js"></script>
-    <script src="../../resources/lib/imagesloaded/imagesloaded.pkgd.js"></script>
-    <script src="../../resources/lib/flexslider/jquery.flexslider.js"></script>
-    <script src="../../resources/lib/owl.carousel/dist/owl.carousel.min.js"></script>
-    <script src="../../resources/lib/smoothscroll.js"></script>
-    <script src="../../resources/lib/magnific-popup/magnific-popup.js"></script>
-    <script src="../../resources/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script>
-    <script src="../../resources/js/plugins.js"></script>
-    <script src="../../resources/js/main.js"></script>
-    
-    <!-- Default stylesheets-->
-    <link href="../../resources/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Template specific stylesheets-->
-    <link href="../../resources/lib/animate.css/animate.css" rel="stylesheet">
-    <link href="../../resources/lib/components-font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <link href="../../resources/lib/et-line-font/et-line-font.css" rel="stylesheet">
-    <link href="../../resources/lib/flexslider/flexslider.css" rel="stylesheet">
-    <link href="../../resources/lib/owl.carousel/dist/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="../../resources/lib/owl.carousel/dist/assets/owl.theme.default.min.css" rel="stylesheet">
-    <link href="../../resources/lib/magnific-popup/magnific-popup.css" rel="stylesheet">
-    <link href="../../resources/lib/simple-text-rotator/simpletextrotator.css" rel="stylesheet">       
-    <!-- Main stylesheet and color file-->
-    <link href="../../resources/css/style.css" rel="stylesheet">
-    <link id="color-scheme" href="../../resources/css/colors/default.css" rel="stylesheet">  
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <jsp:include page="../../resources/commonLib.jsp" />
 
   </head>
 
@@ -100,11 +56,10 @@ pageEncoding="UTF-8"%>
 
                     <form class="form-horizontal form-center" id="add_review" enctype="multipart/form-data">
 
-                      <div class="form-group" style="text-align: center; padding: 25px;">
+                      <div class="form-group" style="text-align: center; padding: 10px;">
                         <div class="col-xs-4"></div>
-                        <div class="col-xs-4" style="font-size: 50px; color: deeppink;">
-                          ${camp.campRate}
-                      </div>
+                        <div class="col-xs-4" style="font-size: 50px; color: deeppink;" id="camp_avg_rating_substring_one">
+                        </div>
                       </div>
 
                       <div class="form-group" style="text-align: center;">
@@ -153,13 +108,13 @@ pageEncoding="UTF-8"%>
                                       <span><i class="fa fa-star star"></i></span>
                                       <span><i class="fa fa-star star"></i></span>
                                     </c:if>
-                                  <a class="open-tab section-scroll">&nbsp;(${camp.campRate})</a>
+                                  <a class="open-tab section-scroll" id="camp_avg_rating_substring_two"></a>
                             </div>
                       </div>
 
                       <div class="form-group" style="text-align: center;">
                           <div class="col-xs-4"></div>
-                          <div class="col-xs-4">
+                          <div class="col-xs-4" id="camp_avg_rating" value="${camp.campRate}">
                             <strong>${camp.user.campName}캠핑장 평점</strong>
                             <hr>
                           </div>
@@ -206,7 +161,7 @@ pageEncoding="UTF-8"%>
                                     
                                     <div class="form-group">
                                           <div class="col-xs-2" style="text-align: start;">
-                                              <button type="button" class="btn btn-danger">신고</button>
+                                              <button type="button" id="report-btn" data-userid = "${user.id}" class="btn btn-danger" data-btntype = "1" data-receivername = "${camp.user.campName}" >신고</button>
                                           </div>
 
                                           <div class="col-xs-8" style="text-align: start; top: 7px; padding-left: 0px;">
@@ -221,7 +176,7 @@ pageEncoding="UTF-8"%>
                                 </div>
                                 <div class="col-xs-2"></div>
                             </div>
-                </div>
+                         </div>
                        <div class="col-xs-2"></div>   
                     </div>
                 </div>
@@ -239,23 +194,18 @@ pageEncoding="UTF-8"%>
     </div>
    
   </main>  
-
-    <script src="../../resources/lib/jquery/jquery.js"></script>
-    <script src="../../resources/lib/bootstrap/js/bootstrap.min.js"></script>
-    <script src="../../resources/lib/wow/wow.js"></script>
-    <script src="../../resources/lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js"></script>
-    <script src="../../resources/lib/isotope/isotope.pkgd.js"></script>
-    <script src="../../resources/lib/imagesloaded/imagesloaded.pkgd.js"></script>
-    <script src="../../resources/lib/flexslider/jquery.flexslider.js"></script>
-    <script src="../../resources/lib/owl.carousel/dist/owl.carousel.min.js"></script>
-    <script src="../../resources/lib/smoothscroll.js"></script>
-    <script src="../../resources/lib/magnific-popup/magnific-popup.js"></script>
-    <script src="../../resources/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script>
-    <script src="../../resources/js/plugins.js"></script>
-    <script src="../../resources/js/main.js"></script>
     
     <script type="text/javascript">
 
+      window.onload = function() {
+   
+          let substring = " ("+$("#camp_avg_rating").attr("value").substring(0, 3)+"점)";
+          
+          $("#camp_avg_rating_substring_one").html($("#camp_avg_rating").attr("value").substring(0, 3));
+          $("#camp_avg_rating_substring_two").html(substring);
+
+      };
+      
       // input file 파일 첨부시 fileCheck 함수 실행
         $(document).ready(function(){
           $("#input_file").on("change", fileCheck);
@@ -353,15 +303,6 @@ pageEncoding="UTF-8"%>
 
       
       $( function() { 
-
-          //캠핑장 신고
-          $(".btn-danger").on("click" , function() {
-
-            var imgArray = $("#")
-              
-            self.location ="/campGeneral/updateMyReservationView?reservationNo="+$(this).attr("value");
-            
-          });
 
           $('#review_comment').on('keyup', function() {
                 $('#review_comment_cnt').html("("+$(this).val().length+" / 1000)");

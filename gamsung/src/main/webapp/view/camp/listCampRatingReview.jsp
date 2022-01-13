@@ -7,13 +7,11 @@ pageEncoding="UTF-8"%>
   <head>
 
     <meta charset="utf-8">
-	
-    <!-- Bootstrap, jQuery CDN -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">	
-    <script src="/resources/lib/jquery/jquery.js"></script>
-      <script src="/resources/lib/bootstrap/js/bootstrap.min.js"></script>
-      <script src="/resources/lib/imagesloaded/imagesloaded.pkgd.js"></script>
-      <link rel="stylesheet" href="/resources/lib/bootstrap/css/bootstrap.min.css"></link>  	
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Document Title -->
+    <title>listCampRatingReview</title>
       
       
       <!-- ### headerCampBusiness resources Start ### -->
@@ -43,15 +41,13 @@ pageEncoding="UTF-8"%>
       <link href="/resources/css/style.css" rel="stylesheet">
       <link id="color-scheme" href="/resources/css/colors/default.css" rel="stylesheet">  
       <!-- ### headerCampBusiness resources End ### -->
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     
       <style>
       body {
               padding-top : 50px;
           }
       </style>
-  
-    <!-- Document Title -->
-    <title>listRatingReview</title>
 
     <script type="text/javascript">
 
@@ -135,7 +131,7 @@ pageEncoding="UTF-8"%>
                         <span><i class="fa fa-star star"></i></span>
                         <span><i class="fa fa-star star"></i></span>
                       </c:if>
-                    <a class="open-tab section-scroll">&nbsp;(${campRating})</a>
+                    <a class="open-tab section-scroll" id="camp_avg_rating_substring" value="${campRating}"></a>
                   </div>
                   <div class="col-xs-6" style="text-align: end;">
                     <span>
@@ -281,8 +277,16 @@ pageEncoding="UTF-8"%>
     </div>
 
         <script type="text/javascript">
+          
+          window.onload = function() {
+  
+            let substring = " ("+$("#camp_avg_rating_substring").attr("value").substring(0, 3)+"점)";
+            $("#camp_avg_rating_substring").html(substring);
 
-        $( function() {
+          };
+          
+          $( function() {
+
             $('body').on("keyup",".form-control",  function() {
 
                 var content = $(this).val();
@@ -371,6 +375,8 @@ pageEncoding="UTF-8"%>
                             },
                             success : function(JSONData , status) {
 
+                              let date = moment(JSONData.commentRegDate).format("YYYY-MM-DD");
+
                               append_node + "<div class='col-sm-1'></div>"
                               append_node += "<div class='comment-body'>"
                               append_node += "<p style='padding-left: 80px;''>&nbsp;&nbsp;"+JSONData.comment+"</p>"
@@ -378,7 +384,7 @@ pageEncoding="UTF-8"%>
                               
                               btn += " <div class='col-sm-1'></div>"
                               btn += "<div class='comment-author font-alt'>re : <span style='font-size: large;'>"+campName+"</span>"
-                              btn += "<span style='font-size: x-small;'>&nbsp;"+JSONData.commentRegDate+"&nbsp;&nbsp;</span>"
+                              btn += "<span style='font-size: x-small;'>&nbsp;"+date+"&nbsp;&nbsp;</span>"
                               btn += "<span class='camp_review_btn_span'>"
                               btn += "<button type='button' id='correction_btn' class='btn btn-default' style='margin-right: 5px;' value="+JSONData.ratingReviewNo+">수정</button>"
                               btn += "<button type='button' id='delete_btn' class='btn btn-danger' value="+JSONData.ratingReviewNo+" >삭제</button>"  

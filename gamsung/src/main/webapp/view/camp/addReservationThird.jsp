@@ -12,61 +12,11 @@ pageEncoding="UTF-8"%>
     <!-- Document Title -->
     <title>addReservationThird</title>
 
-    <meta name="keywords" content="HTML5 Admin Template" />
-		<meta name="description" content="Porto Admin - Responsive HTML5 Template">
-		<meta name="author" content="okler.net">
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-
-    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Shadows+Into+Light"
-    rel="stylesheet" type="text/css">
-    <!-- Vendor CSS -->
-    <link href="../../resources/lib/bootstrap/css/bootstrap.css" rel="stylesheet" />
-    <link href="../../resources/lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
-    <link href="../../resources/lib/magnific-popup/magnific-popup.css" rel="stylesheet" />
-    <link href="../../resources/lib/bootstrap-datepicker/css/datepicker3.css" rel="stylesheet" />
-    <!-- Theme CSS -->
+    <jsp:include page="../../resources/commonLib.jsp" />
+    
     <link href="../../resources/css/theme.css" rel="stylesheet" />
-    <!-- Skin CSS -->
     <link href="../../resources/css/skins/default.css" rel="stylesheet" />
-    <!-- Theme Custom CSS -->
-    
-    <!-- Head Libs -->
-    <script src="../../resources/lib/modernizr/modernizr.js"></script>
-    <!-- JavaScripts -->
-    <script src="../../resources/lib/jquery/jquery.js"></script>
-    
-    <script src="../../resources/lib/bootstrap/js/bootstrap.min.js"></script>
-    <script src="../../resources/lib/wow/wow.js"></script>
-    <script src="../../resources/lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js"></script>
-    <script src="../../resources/lib/isotope/isotope.pkgd.js"></script>
-    <script src="../../resources/lib/imagesloaded/imagesloaded.pkgd.js"></script>
-    <script src="../../resources/lib/flexslider/jquery.flexslider.js"></script>
-    <script src="../../resources/lib/owl.carousel/dist/owl.carousel.min.js"></script>
-    <script src="../../resources/lib/smoothscroll.js"></script>
-    <script src="../../resources/lib/magnific-popup/magnific-popup.js"></script>
-    <script src="../../resources/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script>
-    <script src="../../resources/js/plugins.js"></script>
-    <script src="../../resources/js/main.js"></script>
-    
-    <!-- Default stylesheets-->
-    <link href="../../resources/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Template specific stylesheets-->
-    <link href="../../resources/lib/animate.css/animate.css" rel="stylesheet">
-    <link href="../../resources/lib/components-font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <link href="../../resources/lib/et-line-font/et-line-font.css" rel="stylesheet">
-    <link href="../../resources/lib/flexslider/flexslider.css" rel="stylesheet">
-    <link href="../../resources/lib/owl.carousel/dist/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="../../resources/lib/owl.carousel/dist/assets/owl.theme.default.min.css" rel="stylesheet">
-    <link href="../../resources/lib/magnific-popup/magnific-popup.css" rel="stylesheet">
-    <link href="../../resources/lib/simple-text-rotator/simpletextrotator.css" rel="stylesheet">
-    <!-- Main stylesheet and color file-->
-    <link href="../../resources/css/style.css" rel="stylesheet">
-    
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="../../resources/lib/modals/examples.modals.js"></script>
 
-    
   </head>
   <body data-mainsiteno ="${mainSite.mainSiteNo}">
     <main>
@@ -92,13 +42,13 @@ pageEncoding="UTF-8"%>
                   </div>
                   <ul class="wizard-steps">
                     <li id=stepone>
-                      <a href="#" data-toggle="tab"><span>1</span>예약하기 Step1</a>
+                      <a data-toggle="tab"><span>1</span>예약하기 Step1</a>
                     </li>
                     <li id=steptwo>
-                      <a href="#" data-toggle="tab"><span>2</span>예약하기 Step2</a>
+                      <a data-toggle="tab"><span>2</span>예약하기 Step2</a>
                     </li>
                     <li class="active" id="stepthree">
-                      <a href="#step_three" data-toggle="tab"><span>3</span>예약하기 Step3</a>
+                      <a data-toggle="tab"><span>3</span>예약하기 Step3</a>
                     </li>
                   </ul>
                 </div>
@@ -273,15 +223,13 @@ pageEncoding="UTF-8"%>
 
     </main>
 
-    <script src="../../resources/lib/jquery/jquery.js"></script>
-    <script src="../../resources/lib/jquery-browser-mobile/jquery.browser.mobile.js"></script>
-    <script src="../../resources/lib/bootstrap/js/bootstrap.js"></script>
-    <script src="../../resources/lib/nanoscroller/nanoscroller.js"></script>
-    <script src="../../resources/lib/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
-    <script src="../../resources/lib/magnific-popup/magnific-popup.js"></script>
-    <script src="../../resources/lib/jquery-placeholder/jquery.placeholder.js"></script>
+  
+    
+    
+    
+   
     <!-- Specific Page Vendor -->
-    <script src="../../resources/lib/pnotify/pnotify.custom.js"></script>
+    
     <!-- Theme Base, Components and Settings -->
     <script src="../../resources/js/theme.js"></script>
       
@@ -295,17 +243,17 @@ pageEncoding="UTF-8"%>
         //기본금액*박수 +(if(이용인원 > 기본인원){(이용인원 - 기본인원)*추가금액*박수})
         $( function() {
             
-            var start = $("#startdate").val();
-            var end = $("#enddate").val();
-            var minprice = $("#minprice").val();
-            var useNum = $("#useNum").val();
-            var minCapacity = $("#minCapacity").val();
-            var addPrice = $("#addPrice").val();
-            var total = end.replace(/-/gi, "") - start.replace(/-/gi, "");
+            let start = new Date($("#startdate").val());
+            let end = new Date($("#enddate").val());
+            let minprice = $("#minprice").val();
+            let useNum = $("#useNum").val();
+            let minCapacity = $("#minCapacity").val();
+            let addPrice = $("#addPrice").val();
+            let total = Math.ceil((end.getTime()-start.getTime())/(1000*3600*24));
 
             if(useNum <= minCapacity){
               var mintotalprice = minprice * total;
-              $("#totalprice").text(mintotalprice);
+              $("#totalprice").text(comma(mintotalprice));
               $("input#paymentPrice").val(mintotalprice);
             }
 
@@ -313,7 +261,7 @@ pageEncoding="UTF-8"%>
               var mintotalprice = minprice * total;
               var addtotalprice = (useNum - minCapacity) * addPrice * total;
               var totalprice = mintotalprice + addtotalprice;
-              $("#totalprice").text(totalprice);
+              $("#totalprice").text(comma(totalprice));
               $("input#paymentPrice").val(totalprice);
             }
             
@@ -334,6 +282,11 @@ pageEncoding="UTF-8"%>
             }); 
             
         });
+
+        function comma(str) {
+                str = String(str);
+                return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+            }
 
     </script>
   </body>
