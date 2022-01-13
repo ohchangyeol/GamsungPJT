@@ -9,6 +9,7 @@
 	<resultMap id="CampReservationSelectMap" type="campReservation">
 		<result property="camp.campNo"					 	column="camp_no" 							jdbcType="NUMERIC"/>
 		<result property="camp.user.id"					 	column="campUserId" 						jdbcType="VARCHAR"/>
+		<result property="camp.user.addr"					column="addr" 								jdbcType="VARCHAR"/>
 		<result property="camp.user.campName"			 	column="camp_name" 							jdbcType="VARCHAR"/>
 		<result property="camp.user.campCall" 				column="camp_call" 							jdbcType="VARCHAR"/>
 		<result property="camp.campImg1" 					column="camp_img1" 							jdbcType="VARCHAR"/>
@@ -173,7 +174,7 @@
 	<select id="listReservation" parameterType="map" resultMap="CampReservationSelectMap">
 		SELECT DISTINCT r.reservation_no, u.camp_name, m.mainsite_type, r.reservation_status, r.reservation_reg_date, r.reservation_start_date, 
 			  			r.reservation_end_date, r.total_payment_price, r.camp_no, r.reservation_user_name, r.reservation_user_phone, r.use_num, 
-			  			u.camp_call
+			  			u.camp_call, u.addr
 		FROM CAMP_RESERVATION r, MAINSITE m, CAMP c, USERS u
 		WHERE c.user_id = u.user_id AND c.camp_no = r.camp_no AND r.mainsite_no = m.mainsite_no AND r.delete_flag = 'N'
 		<if test="id != null">
@@ -182,8 +183,10 @@
 		<if test="campNo != null">
 			AND r.camp_no = #{campNo}
 		</if>
-		<if test="search.pageSize == null">
-			AND r.reservation_status IN (1, 2)
+		<if test="search.searchItemType != null">
+			<if test='search.searchItemType.equals("transfer")'>
+				AND r.reservation_status IN (1, 2)
+			</if>
 		</if>
 		<if test="search.searchCondition != null">
 			<if test="search.searchCondition == 0 and search.searchKeyword !='' ">
@@ -259,7 +262,7 @@
 	
 	<select id="getReservationByPayment" parameterType="campReservation" resultMap="CampReservationSelectMap">
 		SELECT r.reservation_no, r.total_payment_price, r.user_id, c.user_id campUserId, c.camp_img1, r.reservation_reg_date, r.reservation_status, r.reservation_user_name, 
-			   r.reservation_start_date, r.reservation_end_date, u.camp_name, m.mainsite_type, m.mainsite_name
+			   r.reservation_start_date, r.reservation_end_date, u.camp_name, m.mainsite_type, m.mainsite_name, c.camp_no, m.mainsite_no
 		FROM CAMP_RESERVATION r, CAMP c, MAINSITE m, USERS u
 		WHERE r.camp_no = c.camp_no AND c.user_id = u.user_id AND r.mainsite_no = m.mainsite_no AND r.mainsite_no = #{mainSite.mainSiteNo} AND r.user_id = #{user.id} 
 		AND r.camp_no = #{camp.campNo} AND r.reservation_start_date = #{reservationStartDate} AND r.reservation_end_date = #{reservationEndDate}

@@ -1,16 +1,100 @@
 /* Notice Layout */
-html .body, .sc-main{font-family: "Montserrat", "Noto Sans Kr", "맑은 고딕", "Malgun Gothic", sans-serif !important}
 li {list-style: none;}
-.container .row h4 {font-size: 20px; font-weight: 600;}
-.notice-list ul li {font-size: 16px; padding: 10px 5px;transition: background-color 0.2s ease-in-out; cursor: pointer;}
+.container .row h4 {font-weight: 600;}
+.container .row h4 a{ display: flex !important; justify-content: space-between; align-items: center;}
+.container .row h4 a div {margin-right: 30px;}
+
+.notice-list ul{padding:0;}
+.notice-list ul li {padding: 10px 15px;transition: background-color 0.2s ease-in-out; cursor: pointer;}
 .notice-list ul li:hover {background-color: #f0f0f09d;}
-.notice-list ul li+li { margin-top: 10px;}
+/* .notice-list ul li+li { margin-top: 10px;} */
 .page-nav{width: 100%; text-align: center;margin: 40px 0;}
+hr.divider-w{height: 0 !important;}
+.date-view{display: flex; justify-content: space-between;}
 
 /* get Notice */
 .getNotice .row .row {display: flex; justify-content: end;}
-.getNotice .notice-content .n-header .date-view{display: flex; justify-content: space-between;}
 .getNotice .notice-content .n-body .row .file-content {border: 1px solid #f0f0f0; border-radius: 7px; background-color:#f0f0f09d ;padding: 10px; box-sizing: border-box;}
 .getNotice .notice-content .n-body .content {margin-top: 20px ;}
-
+.getNotice .u-d-button-box{display: flex;justify-content: end; gap: 15px;}
 /* add Notoce */
+.add-notice .inner-body{border-top-width: 3px !important;margin-left: 0!important;padding-top: 80px;}
+.add-notice .inner-body .form-group.form-group-invisible h2 {padding-left: 50px;}
+.add-notice .inner-body .inner-toolbar{position: absolute !important;left: 0 !important;top: 0 !important;}
+.add-notice .inner-body .inner-toolbar ul li.notice-btn{cursor: pointer; }
+.add-notice .inner-body .inner-toolbar ul li.notice-btn:hover{color: #fff; }
+.add-notice .inner-body .file-box{ border: 1px solid #e7e7e7;border-radius: 10px; background-color: #f5f5f5;min-height: 40px;}
+.add-notice #n-files{opacity: 0;z-index: -11; display: none;}
+.add-notice #fileDragDesc{margin-top: 8px;}
+.add-notice #dropZone button{background-color: transparent ;border: none;}
+.add-notice .inner-wrapper .content-body .add-notice{margin: -100px -40px -53px -40px;}
+
+/* QnA Layout */
+.qna hr{height: 0; margin-bottom: 30px;}
+.qna p{margin : 0;}
+.qna .main .module .container .row .col-sm-6 .module-title{margin-bottom: 20px;}
+.qna .main .module .container .row .col-sm-6 .subtitle{text-align: center;}
+.qna .main .module .container .row .col-sm-6 .search-box{width: 80%; margin: auto; margin-top: 20px;}
+.qna .main .module .container .row .col-sm-6 .search-box input{border-radius: 5px; }
+.qna .panel-group .panel-default .panel-heading {height: 55px; background-color: transparent; display: flex; align-items: center; }
+.qna .panel-group .panel-default .panel-heading .panel-title{ width: 100%;}
+
+.sub-title{ display: flex; align-items: center;gap: 20px; position: relative;}
+.sub-title .btn-box{position: absolute; right: 0;}
+.qna .module .container .panel-group{border-bottom: 2px solid #979797;}
+.qna .qna-btn-box{position: absolute; display: flex; flex-direction: column; row-gap: 20px; top: 100px;right: 0;z-index: 100;}
+.qna .qna-btn-box .btn-round{background-color: #fff;}
+.qna .form-horizontal .form-group {margin-right: -15px;margin-left: -15px;}
+.qna .form-group-invisible .control-label-invisible{padding-left: 20px;}
+
+.qna .form-group.form-group-invisible.c{border-bottom: 1px solid #eff2f7 !important ;padding-bottom: 15px !important;}
+.qna #q-content{resize: none;}
+
+.qna .check, .unCheck {display: flex; width: 70px; height: 27px; border-radius: 5px;color: #fff; justify-content: center;align-items: center;}
+.qna .check {background-color: #5e83bb;}
+.qna .unCheck {background-color: #979797}
+
+.qna .title-box{display: flex; justify-content: space-between;align-items: flex-end;}
+.qna .title-box .check,.unCheck{margin-bottom: 5px}
+.qna .q-body .content{margin-bottom: 20px;}
+.qna .qna-content{position: relative;}
+.qna .qna-content #qna-delete-btn{position: absolute; right: 0;}
+.qna .qna-title-box{display: flex;gap: 15px;}
+/* Report Layout */
+
+.report-main{padding: 40px; overflow: hidden;}
+
+.report-header h3{ font-weight: bold;}
+.report-body textarea{resize: none;}
+.report-body div {display: flex; flex-direction: column;margin-top: 15px}
+.report-body div p {margin: 0;}
+.report-body div .img-content {flex-direction: initial !important; gap: 5%;}
+.report-body div .img-content div{width: 30%; box-sizing: border-box; margin-top: 0;}
+.report-body div .img-content div img {width: 90%; display: none; border-radius: 5px;}
+.report-body div .img-content div img.upload{display:inline-block;}
+.report-body div .img-content div .file-list{font-size: 60px;text-align: center; cursor: pointer; transition: color 0.2s ease-in-out;}
+.report-body div .img-content div .file-list:hover{color: #5e83bb;}
+.report-footer{ margin-top: 15px;}
+.report-footer button{width: 100%; height: 40px;font-weight: bold;}
+
+/* list Report */
+
+.panel-body .table-responsive .mb-none{text-align: center;}
+.panel-body .table-responsive .mb-none thead tr th{text-align: center;}
+.panel-body .table-responsive .mb-none tbody tr{cursor: pointer; transition: background-color 0.3s ease-in-out;}
+.panel-body .table-responsive .mb-none tbody tr:hover{background-color: #f0f0f09d;color: #5e83bb;}
+.list-Report .list ul li{ list-style: none;display: flex;}
+.list-Report .panel-heading{background-color: transparent;}
+
+.mfp-with-zoom .mfp-container,.mfp-with-zoom.mfp-bg {opacity: 0;-webkit-backface-visibility: hidden;-webkit-transition: all 0.3s ease-out;-moz-transition: all 0.3s ease-out;-o-transition: all 0.3s ease-out;transition: all 0.3s ease-out;}
+
+.mfp-with-zoom.mfp-ready .mfp-container {opacity: 1;}
+.mfp-with-zoom.mfp-ready.mfp-bg {opacity: 0.8;}
+.mfp-with-zoom.mfp-removing .mfp-container,.mfp-with-zoom.mfp-removing.mfp-bg {opacity: 0;}
+
+.content ul li {display: flex;font-size: 14px; }
+.content ul li .report-title{flex:1; min-width: 100px }
+.content ul li .report-text{ flex: 3;font-weight: 700; }
+.content ul li .report-text .report-img-box a img{width: 30%;}
+.content ul li .report-text .report-img-box a img{width: 30%;}
+.r-body .content{max-width: 50%; min-width: 350px;}

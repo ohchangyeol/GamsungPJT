@@ -447,7 +447,7 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public UserWrapper reportSuspencionListUser(Search search) {
 		
-		UserWrapper wrapper = new UserWrapper(userDAO.reportSuspencionListUser(search), userDAO.countReportSuspencionListUser(search));
+		UserWrapper wrapper = new UserWrapper(userDAO.reportSuspensionListUser(search), userDAO.countReportSuspensionListUser(search));
 		
 		return wrapper;
 	}

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.Report;
+import site.gamsung.service.domain.User;
 import site.gamsung.service.servicecenter.ReportDAO;
 
 @Repository("reportDAOImpl")
@@ -64,5 +65,12 @@ public class ReportDAOImpl implements ReportDAO {
 	public void updateCodeReport(Report report) {
 		sqlSession.selectOne("ReportMapper.updateCode",report);
 	}
+
+	@Override
+	public User findReceiverId(Report report) {
+		
+		return sqlSession.selectOne("ReportMapper.findReceiverId",report);
+	}
+	
 	
 }

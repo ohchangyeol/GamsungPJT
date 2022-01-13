@@ -106,7 +106,8 @@ public class UserRestController {
 
 	@RequestMapping(value = "rest/checkDuplication", method = RequestMethod.POST)
 	public int checkDuplication(@RequestBody User user) {
-		System.out.println("1111");
+	
+		System.out.println("rest/checkDuplication 실행");
 		System.out.println(user);
 		int isSuccess = 0;
 

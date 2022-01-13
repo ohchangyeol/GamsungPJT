@@ -167,6 +167,15 @@ Template specific stylesheets
 				<div class="inner-wrapper">
 					<jsp:include page="userSideBar.jsp"></jsp:include>
 					<section role="main" class="content-body">
+					<section class="module bg-dark-30 about-page-header" data-background="assets/images/about_bg.jpg">
+						<div class="container">
+							<div class="row">
+								<div class="col-sm-6 col-sm-offset-3">
+									<h1 class="module-title font-alt mb-0">Forms</h1>
+								</div>
+							</div>
+						</div>
+					</section>
 						<div class="row">
 							<section class="module">
 								<div class="container">
@@ -245,7 +254,7 @@ Template specific stylesheets
 															maxlength="11" />
 
 													</div>
-													<button id="phoneAuthNum" class="btn btn-circle btn-xs"
+													<button id="phoneAuthNum" class="btn btn-border-d btn-circle btn-xs"
 														type="button">인증번호 받기</button>
 													<div id="checkPhoneAuth" class="col-sm-offset-3 col-sm-6"
 														style="display: none;">

@@ -1,201 +1,74 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<!doctype html>
-<html class="fixed">
-	<head>
+<section class="panel">
+  <header class="panel-heading" style="background-color: transparent;border-bottom: none;">
+    <div class="row">
+      <h4 class="col-sm-7 mb-0">신고 내역 조회</h4>
+      <div class="col-sm-5 mb-sm-0">
+        <div style="position: absolute; right: 0">
+        <form role="form" class="rerport-search">
+          
+          <div>
+            <select id="report-condition" class="form-control" name="searchCondition">
+              <option value="0" ${ ! empty wrapper.search.searchCondition && wrapper.search.searchCondition==0 ? "selected" : "" }>전체</option>
+              <option value="1" ${ ! empty wrapper.search.searchCondition && wrapper.search.searchCondition==1 ? "selected" : "" }>캠핑장 신고</option>
+              <option value="2" ${ ! empty wrapper.search.searchCondition && wrapper.search.searchCondition==2 ? "selected" : "" }>경매 신고</option>
+              <option value="3" ${ ! empty wrapper.search.searchCondition && wrapper.search.searchCondition==3 ? "selected" : "" }>커뮤니티 신고</option>
+              <option value="4" ${ ! empty wrapper.search.searchCondition && wrapper.search.searchCondition==4 ? "selected" : "" }>예약양도 신고</option>
+              <option value="5" ${ ! empty wrapper.search.searchCondition && wrapper.search.searchCondition==5 ? "selected" : "" }>이용고객 신고</option>
+            </select>
+          </div>
+          <input type="hidden" id="currentPage" name="currentPage" value="${resultPage.currentPage}"/>
+          
+        </form>
+        </div>
+      </div>
 
-		<!-- Basic -->
-		<meta charset="UTF-8">
+    </div>
+  </header>
+  <hr class="divider-w mt-10 mb-20">
+  <div class="panel-body">
+    <div class="table-responsive">
+      <table class="table table-hover mb-none">
+        <thead>
+          <tr>
+            <th>신고번호</th>
+            <th>신고자 아이디</th>
+            <th>신고 유형</th>
+            <th>상대방 아이디</th>
+            <th>상태</th>
+            <th>접수일자</th>
+          </tr>
+        </thead>
+        <tbody>
+        <c:forEach var ="report" items="${wrapper.reports}">
+          <tr>
+            <td class="report-no">${report.reportNo}</td>
+            <td>
+              ${report.sender.nickName}
+              ${report.sender.campName}
+            </td>
+            <td>${report.reportTypeName}</td>
+            <td>
+              ${report.receiver.nickName}
+              ${report.receiver.campName}
+            </td>
+            <td>
+              <c:if test="${report.reportStatus == 0 }">접수완료</c:if>
+              <c:if test="${report.reportStatus == 1 }">처리승인</c:if>
+              <c:if test="${report.reportStatus == 2 }">처리거부</c:if>
+            </td>
+            <td>${report.regDate}</td>
+          </tr>
+        </c:forEach>
+          
 
-		<title>신고 내역 조회</title>
-		<meta name="keywords" content="HTML5 Admin Template" />
-		<meta name="description" content="JSOFT Admin - Responsive HTML5 Template">
-		<meta name="author" content="JSOFT.net">
+        </tbody>
+      </table>
+    </div>
+    <jsp:include page="../../common/pageNavigator.jsp"/>
 
-		<jsp:include page="/resources/commonCssAdmin.jsp"/>
-
-		<!-- Specific Page Vendor CSS -->
-		<link rel="stylesheet" href="/resources/lib/select2/select2.css" />
-		<link rel="stylesheet" href="/resources/lib/jquery-datatables-bs3/assets/css/datatables.css" />
-
-		<style>
-			.list ul li{ list-style: none;display: flex;}
-			.panel-heading{background-color: transparent;}
-			/* .panel-body .table-responsive .mb-none tbody tr+tr{ margin-top: 13px;} */
-			.panel .panel-heading .row h4{ font-size: 20px;}
-
-		</style>
-	</head>
-	<body class="admin-page">
-		<section class="body">
-
-			<!-- start: header -->
-			<jsp:include page="../../../view/common/adminHeader.jsp"/>
-			
-			<!-- end: header -->
-
-			<div class="inner-wrapper">
-				<!-- start: sidebar -->
-				<jsp:include page="../../../view/common/adminSidebar.jsp"/>
-				<!-- end: sidebar -->
-
-				<section role="main" class="content-body">
-					
-					<section class="panel">
-						<header class="panel-heading">
-							<div class="row">
-								<h4 class="col-sm-7 mb-0">신고 내역 조회</h4>
-								<div class="col-sm-5 mb-sm-0">
-									<div class="row">
-									<form role="form" class="notice-search">
-										<div class="col-sm-4">
-										<select class="form-control">
-											<option selected="selected">제목+내용</option>
-											<option>제목</option>
-											<option>내용</option>
-										</select>
-										</div>
-										<div class="col-sm-8">
-										<div class="search-box">
-											<input class="form-control" type="text" placeholder="Search...">
-											<button class="search-btn" type="submit"><i class="fa fa-search"></i></button>
-										</div>
-										</div>
-										
-									</form>
-									</div>
-								</div>
-
-							</div>
-						</header>
-						<div class="panel-body">
-							<div class="table-responsive">
-								<table class="table table-hover mb-none">
-									<thead>
-										<tr>
-											<th>신고번호</th>
-											<th>신고자 아이디</th>
-											<th>신고 유형</th>
-											<th>상대방 아이디</th>
-											<th>상태</th>
-											<th>접수일자</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>1</td>
-											<td>근육대지</td>
-											<td>욕설</td>
-											<td>황현지</td>
-											<td>처리대기</td>
-											<td>2022.01.05</td>
-										</tr>
-										<tr>
-											<td>1</td>
-											<td>근육대지</td>
-											<td>욕설</td>
-											<td>황현지</td>
-											<td>처리대기</td>
-											<td>2022.01.05</td>
-										</tr>
-										<tr>
-											<td>1</td>
-											<td>근육대지</td>
-											<td>욕설</td>
-											<td>황현지</td>
-											<td>처리대기</td>
-											<td>2022.01.05</td>
-										</tr>
-										<tr>
-											<td>1</td>
-											<td>근육대지</td>
-											<td>욕설</td>
-											<td>황현지</td>
-											<td>처리대기</td>
-											<td>2022.01.05</td>
-										</tr>
-										<tr>
-											<td>1</td>
-											<td>근육대지</td>
-											<td>욕설</td>
-											<td>황현지</td>
-											<td>처리대기</td>
-											<td>2022.01.05</td>
-										</tr>
-										<tr>
-											<td>1</td>
-											<td>근육대지</td>
-											<td>욕설</td>
-											<td>황현지</td>
-											<td>처리대기</td>
-											<td>2022.01.05</td>
-										</tr>
-										<tr>
-											<td>1</td>
-											<td>근육대지</td>
-											<td>욕설</td>
-											<td>황현지</td>
-											<td>처리대기</td>
-											<td>2022.01.05</td>
-										</tr>
-										<tr>
-											<td>1</td>
-											<td>근육대지</td>
-											<td>욕설</td>
-											<td>황현지</td>
-											<td>처리대기</td>
-											<td>2022.01.05</td>
-										</tr>
-										<tr>
-											<td>1</td>
-											<td>근육대지</td>
-											<td>욕설</td>
-											<td>황현지</td>
-											<td>처리대기</td>
-											<td>2022.01.05</td>
-										</tr>
-										<tr>
-											<td>1</td>
-											<td>근육대지</td>
-											<td>욕설</td>
-											<td>황현지</td>
-											<td>처리대기</td>
-											<td>2022.01.05</td>
-										</tr>
-
-									</tbody>
-								</table>
-							</div>
-							<div class="pagination font-alt page-nav">
-								<a href="#">
-								  <i class="fa fa-angle-left"></i>
-								</a>
-								<a class="active" href="#">1</a>
-								<a href="#">2</a>
-								<a href="#">3</a>
-								<a href="#">4</a>
-								<a href="#">
-								  <i class="fa fa-angle-right"></i>
-								</a>
-							  </div>
-						</div>
-					</section>
-
-					<!-- end: page -->
-				</section>
-			</div>
-
-			
-		</section>
-
-		<jsp:include page="/resources/commonScriptAdmin.jsp"/>
-
-		<!-- Specific Page Vendor -->
-		<script src="/resources/lib/select2/select2.js"></script>
-		<script src="/resources/lib/jquery-datatables/media/js/jquery.dataTables.js"></script>
-		<script src="/resources/lib/jquery-datatables/extras/TableTools/js/dataTables.tableTools.min.js"></script>
-		<script src="/resources/lib/jquery-datatables-bs3/assets/js/datatables.js"></script>
-	
-	</body>
-</html>
+  </div>
+</section>

@@ -1,20 +1,26 @@
-const socket = io("http://127.0.0.1:3000");
+/*const socket = io("http://192.168.0.77:3000");
+const socket = io("https://192.168.0.77:3000", {security : true});*/
+const socket = io("https://gamsung.site:3000", {security : true});
 
+//화면들과 마이크를 ID값을 통해 잡아온다.
 const myFace = document.getElementById("myFace");
-const muteBtn = document.getElementById("mute");
+const audioBtn = document.getElementById("audio");
+const audiosSelect = document.getElementById("audios");
 const cameraBtn = document.getElementById("camera");
 const camerasSelect = document.getElementById("cameras");
 const call = document.getElementById("call");
 
+//입장 전에는 화면을 숨겨둔다.
 call.hidden = true;
 
 let myStream;
 let muted = false;
 let cameraOff = false;
-let roomName;
+let productNo;
 let myPeerConnection;
 let myDataChannel;
 
+//PC에서 카메라들을 잡아와 Select Option에 세팅해준다.
 async function getCameras() {
   try {
     const devices = await navigator.mediaDevices.enumerateDevices();
@@ -34,53 +40,79 @@ async function getCameras() {
   }
 }
 
+async function getAudios() {
+  try {
+    const devices = await navigator.mediaDevices.enumerateDevices();
+    const audios = devices.filter((device) => device.kind === "audioinput");
+    const currentAudio = myStream.getAudioTracks()[0];
+    audios.forEach((audio) => {
+      const option = document.createElement("option");
+      option.value = audio.deviceId;
+      option.innerText = audio.label;
+      if (currentAudio.label === audio.label) {
+        option.selected = true;
+      }
+      audiosSelect.appendChild(option);
+    });
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+//화면을 잡아온다.
 async function getMedia(deviceId) {
   const initialConstrains = {
     audio: true,
     video: { facingMode: "user" },
   };
-  const cameraConstraints = {
+  const changeConstraints = {
     audio: true,
     video: { deviceId: { exact: deviceId } },
   };
   try {
     myStream = await navigator.mediaDevices.getUserMedia(
-      deviceId ? cameraConstraints : initialConstrains
+      deviceId ? changeConstraints : initialConstrains
     );
     myFace.srcObject = myStream;
     if (!deviceId) {
       await getCameras();
+      await getAudios();
     }
   } catch (e) {
     console.log(e);
   }
 }
 
-function handleMuteClick() {
+
+//마이크 on/off Event Handler 
+function handleAudioClick() {
   myStream
     .getAudioTracks()
     .forEach((track) => (track.enabled = !track.enabled));
   if (!muted) {
-    muteBtn.innerText = "음소거해제";
+    audioBtn.innerHTML = '<i class="fa fa-microphone-slash"></i>';
     muted = true;
   } else {
-    muteBtn.innerText = "음소거";
+    audioBtn.innerHTML = '<i class="fa fa-microphone"></i>';
     muted = false;
   }
 }
+
+//카메라 on/off Event Handler 
 function handleCameraClick() {
   myStream
     .getVideoTracks()
     .forEach((track) => (track.enabled = !track.enabled));
   if (cameraOff) {
-    cameraBtn.innerText = "화면끄기";
+    cameraBtn.innerHTML = '<i class="fa fa-video-camera">';
     cameraOff = false;
   } else {
-    cameraBtn.innerText = "화면켜기";
+    cameraBtn.innerText = 'on';
     cameraOff = true;
   }
 }
 
+//카메라 변경 감지 이벤트
 async function handleCameraChange() {
   await getMedia(camerasSelect.value);
   if (myPeerConnection) {
@@ -92,11 +124,23 @@ async function handleCameraChange() {
   }
 }
 
-muteBtn.addEventListener("click", handleMuteClick);
+async function handleAudioChange() {
+  await getMedia(audiosSelect.value);
+  if (myPeerConnection) {
+    const audioTrack = myStream.getAudioTracks()[0];
+    const audioSender = myPeerConnection
+      .getSenders()
+      .find((sender) => sender.track.kind === "audio");
+    audioSender.replaceTrack(audioTrack);
+  }
+}
+
+audioBtn.addEventListener("click", handleAudioClick);
+audiosSelect.addEventListener("input", handleAudioChange);
 cameraBtn.addEventListener("click", handleCameraClick);
 camerasSelect.addEventListener("input", handleCameraChange);
 
-// Welcome Form (join a room)
+// Welcome Form 방 입장
 
 const welcome = document.getElementById("welcome");
 const welcomeForm = welcome.querySelector("form");
@@ -112,8 +156,8 @@ async function handleWelcomeSubmit(event) {
   event.preventDefault();
   const input = welcomeForm.querySelector("input");
   await initCall();
-  socket.emit("join_room", input.value);
-  roomName = input.value;
+  socket.emit("joinVideo", input.value);
+  productNo = input.value;
   input.value = "";
 }
 
@@ -128,7 +172,7 @@ socket.on("welcome", async () => {
   const offer = await myPeerConnection.createOffer();
   myPeerConnection.setLocalDescription(offer);
 
-  socket.emit("offer", offer, roomName);
+  socket.emit("offer", offer, productNo);
 });
 
 socket.on("offer", async (offer) => {
@@ -138,11 +182,11 @@ socket.on("offer", async (offer) => {
       console.log(event.data)
     );
   });
-  console.log("received the offer");
+  
   myPeerConnection.setRemoteDescription(offer);
   const answer = await myPeerConnection.createAnswer();
   myPeerConnection.setLocalDescription(answer);
-  socket.emit("answer", answer, roomName);
+  socket.emit("answer", answer, productNo);
 
 });
 
@@ -154,9 +198,14 @@ socket.on("ice", (ice) => {
   myPeerConnection.addIceCandidate(ice);
 });
 
-// RTC Code
+socket.on("left", () => {
+  const peerFace = document.getElementById("peerFace");
+  peerFace.srcObject = null;
+});
 
+// RTC Code 
 function makeConnection() {
+  // STUN server setting
   myPeerConnection = new RTCPeerConnection({
     iceServers: [
       {
@@ -178,10 +227,14 @@ function makeConnection() {
 }
 
 function handleIce(data) {
-  socket.emit("ice", data.candidate, roomName);
+  socket.emit("ice", data.candidate, productNo);
 }
 
 function handleAddStream(data) {
   const peerFace = document.getElementById("peerFace");
   peerFace.srcObject = data.stream;
+}
+
+window.onbeforeunload = function() {
+  socket.emit("left", productNo);
 }
