@@ -199,7 +199,7 @@
 		) AS ACC,
 		
 		(	SELECT COUNT(rating_review_no) AS add_Review_Count
-			FROM rating_review
+			FROM RATING_REVIEW
 			WHERE product_no IS NOT NULL AND user_id = #{id} AND review_reg_date IS NOT NULL 
 		) AS RRC,
 		
@@ -224,7 +224,7 @@
 						WHERE ah.product_no = pc.product_no						 	
 						ORDER BY ah.product_no
 				 ) AS pbr
-			WHERE prodrank BETWEEN 2 AND 3 AND bidder_id = 'yim3370@gmail.com'
+			WHERE prodrank BETWEEN 2 AND 3 AND bidder_id = #{id}}
 		) AS TRC;
 	</select>
 	
@@ -408,7 +408,7 @@
 	
 	<select id="auctionSuspensionUserList" parameterType="search" resultMap="userSelectMap">
 		SELECT user_id, name, nick_name, auction_grade, auction_suspension_reg_date
-		FROM users
+		FROM USERS
 		WHERE role = 'GENERAL' AND auction_suspension_reg_date IS NOT NULL
 		LIMIT #{pageSize} OFFSET #{offset}
 	</select>
@@ -416,7 +416,7 @@
 	<select id="countAuctionSuspensionUser" resultType="int">
 		SELECT count(user_id)
 		FROM(	SELECT user_id, name, nick_name, auction_grade, auction_suspension_reg_date
-				FROM users
+				FROM USERS
 				WHERE role = 'GENERAL' AND auction_suspension_reg_date IS NOT NULL
 			) AS asrd
 	</select>

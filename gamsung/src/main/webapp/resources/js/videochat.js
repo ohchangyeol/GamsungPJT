@@ -1,5 +1,7 @@
-/*const socket = io("http://192.168.0.77:3000");*/
-const socket = io("https://192.168.0.77:3000", {security : true});
+/*const socket = io("http://192.168.0.77:3000");
+const socket = io("https://192.168.0.77:3000", {security : true});*/
+const socket = io("https://gamsung.site:3000", {security : true});
+
 //화면들과 마이크를 ID값을 통해 잡아온다.
 const myFace = document.getElementById("myFace");
 const audioBtn = document.getElementById("audio");
