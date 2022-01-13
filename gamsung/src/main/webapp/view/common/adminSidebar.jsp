@@ -85,11 +85,6 @@
                                     결제코드관리
                                 </a>
                             </li>
-                            <li>
-                                <a href="/payment/managePoint">
-                                    포인트관리
-                                </a>
-                            </li>
                         </ul>
                     </li>
                     

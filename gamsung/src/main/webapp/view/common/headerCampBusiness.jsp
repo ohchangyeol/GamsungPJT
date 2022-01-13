@@ -101,22 +101,25 @@
 
 				<li class="dropdown">	
 					<ul class="nav navbar-nav navbar-right">
-						<li><a href="#">캠핑장 공지사항</a></li>
+						<li><a href="#">예약관리</a></li>
 					</ul>
 				</li>
-				<li class="dropdown">	
-					<ul class="nav navbar-nav navbar-right">
-						<li><a href="#">캠핑장 Q&A</a></li>
-					</ul>
-				</li>
+				
 				<li class="dropdown">	
 					<ul class="nav navbar-nav navbar-right">
 						<li><a href="#">리뷰관리</a></li>
 					</ul>
 				</li>
+				
 				<li class="dropdown">	
 					<ul class="nav navbar-nav navbar-right">
-						<li><a href="#">예약관리</a></li>
+						<li><a href="#">캠핑장 Q&A</a></li>
+					</ul>
+				</li>
+				
+				<li class="dropdown">	
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="#">캠핑장 공지사항</a></li>
 					</ul>
 				</li>
 				

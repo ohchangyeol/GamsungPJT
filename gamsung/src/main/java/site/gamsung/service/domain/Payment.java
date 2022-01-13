@@ -1,43 +1,36 @@
 package site.gamsung.service.domain;
 
+import java.util.List;
+
 /*
 	  
 	=== [ Payment domain ]===	  
-		
-			결제등록번호					String 	paymentNo    
-	(*결제)	결제상품              			String 	paymentProduct;
-	(*결제)	주는사람						String 	paymentSender              
-	(*결제)	받는사람						String 	paymentReceiver              
-	(*결제)	결제방법						String 	paymentMethod                 
-			'point' 	- 포인트결제
-			'samsung' 	- 삼성페이
-			'trans' 	- 실시간계좌이체 
-			'vbank' 	- 가상계좌
-			'phone' 	- 휴대폰소액결제		     
-			           
-	(*결제) 	결제 코드						String 	paymentCode                                   
-	 		결제등록일자					String 	paymentRegTime                           
-	(*결제) 	결제 원금						int 	paymentPriceTotal             
-			결제 실 금액					int 	paymentPricePay               
-			결제 수수료금액					int 	paymentPriceFee           
-	(*결제/*환불)	결제 참조번호				String 	paymentReferenceNum          
-			결제 참조수수료율					int 	paymentReferenceFee 
-			       
-	(*환불) 	환불 코드						String 	paymentRefundCode 	
-	 		환불등록일자					String 	paymentRefundRegTime             
-	(*환불) 	환불 원금						int 	paymentRefundPriceTotal     
-			환불 실 금액					int 	paymentRefundPricePay         
-			환불 수수료금액					int 	paymentRefundPriceFee  
-	(*환불)	환불 참조번호					String 	paymentRefundReferenceNum   
-			환불 참조수수료율					int 	paymentRefundReferenceFee
-			
-	(*충전)	충전하는 포인트가액				int 	pointChargeTotal
+  
+	String 	paymentMethod						              
+		'point' 	- 포인트결제
+		'samsung' 	- 삼성페이
+		'trans' 	- 실시간계좌이체 
+		'vbank' 	- 가상계좌
+		'phone' 	- 휴대폰소액결제
+	
+	
+	int paymentStatus
+		1			- 포인트[지급]
+		2			- 포인트[차감]
+		3			- 결제완료
+		4			- 추가결제완료		
+		5			- 환불완료
+	
+	     
+           
+
 */
 
 public class Payment {
 	
 	/// Field
 	private String paymentNo;
+	private int paymentStatus;
 	private String paymentProduct;	
 	private String paymentSender;
 	private String paymentReceiver;	
@@ -74,11 +67,21 @@ public class Payment {
 	private int pointChargeTotal;
 	private String paymentNotice;
 	
+	private List<Payment> paymentList;
+	
 	/// Default Constructor
 	public Payment() {
 		
 	}
 	
+	public List<Payment> getPaymentList() {
+		return paymentList;
+	}
+
+	public void setPaymentList(List<Payment> paymentList) {
+		this.paymentList = paymentList;
+	}
+
 	/// Getter / Setter	
 	public String getPaymentNo() {
 		return paymentNo;
@@ -86,6 +89,14 @@ public class Payment {
 
 	public void setPaymentNo(String paymentNo) {
 		this.paymentNo = paymentNo;
+	}
+
+	public int getPaymentStatus() {
+		return paymentStatus;
+	}
+
+	public void setPaymentStatus(int paymentStatus) {
+		this.paymentStatus = paymentStatus;
 	}
 
 	public String getPaymentProduct() {
@@ -314,8 +325,11 @@ public class Payment {
 
 	// Override toString
 	public String toString() {
+			
 		return "\n -- Payment --"
+			+ "\n [paymentList] : " + paymentList	
 			+ "\n [paymentNo] : " + paymentNo
+			+ "\n [paymentStatus] : " + paymentStatus
 			+ "\n [paymentProduct] : " + paymentProduct
 			+ "\n [paymentSender] : " + paymentSender
 			+ "\n [paymentReceiver] : " + paymentReceiver			
