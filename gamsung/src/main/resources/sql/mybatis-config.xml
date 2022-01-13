@@ -49,27 +49,29 @@
 	 <!-- SQL Definition :: file include -->
 	 
 	<mappers>
+
+		<mapper resource="sql/UserMapper.xml"/>
+
+ 		<mapper resource="sql/CampSearchMapper.xml"/>
+		<mapper resource="sql/CampReservationMapper.xml" />
+		<mapper resource="sql/CampRatingReviewMapper.xml" />
 		
+ 		<mapper resource="sql/CampBusinessMapper.xml"/>			
+			
+		<mapper resource="sql/PaymentMapper.xml"/>	
+							
+		<mapper resource="sql/AuctionInfoMapper.xml"/> 
+		<mapper resource="sql/AuctionProductMapper.xml"/>
+ 		<mapper resource="sql/AuctionRatingReviewMapper.xml"/>
+
+		<mapper resource="sql/CommunityMapper.xml"/>
 		<mapper resource="sql/TransferMapper.xml"/> 
 		<mapper resource="sql/ReceiveMapper.xml"/>		
-		
-		<mapper resource="sql/CommunityMapper.xml"/>
-	 	<mapper resource="sql/UserMapper.xml"/>
 	 	
  		<mapper resource="sql/NoticeMapper.xml"/>
  		<mapper resource="sql/QnaMapper.xml"/>
  		<mapper resource="sql/ReportMapper.xml"/>
  		
- 		<mapper resource="sql/CampSearchMapper.xml"/>
- 		<mapper resource="sql/CampBusinessMapper.xml"/>
-		<mapper resource="sql/PaymentMapper.xml"/>
-		<mapper resource="sql/AuctionProductMapper.xml"/>
-		<mapper resource="sql/AuctionInfoMapper.xml"/> 
- 		<mapper resource="sql/AuctionRestMapper.xml"/>
- 		<mapper resource="sql/AuctionRatingReviewMapper.xml"/>
-		<mapper resource="sql/CampReservationMapper.xml" />
-		<mapper resource="sql/CampRatingReviewMapper.xml" />		
-		
 	</mappers>
 
 </configuration>
