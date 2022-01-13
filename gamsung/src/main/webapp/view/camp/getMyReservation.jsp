@@ -270,7 +270,7 @@ pageEncoding="UTF-8"%>
 
                 console.log(refundCode);
                 
-                self.location ="/campGeneral/cancleMyReservation?reservationNo="+$(this).attr("value")+"&paymentRefundCode="+refundCode;
+                self.location ="/payment/readyRefund?reservationNo="+$(this).attr("value")+"&paymentRefundCode="+refundCode;
 
           });
 

@@ -25,8 +25,6 @@
     <meta name="msapplication-TileColor" content="#ffffff">  
     <meta name="theme-color" content="#ffffff">
    
-    <!-- Stylesheets -->
-    
     <!-- Default stylesheets-->
     <link href="/resources/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     

@@ -91,7 +91,7 @@
                             <!-- 예시 End -->
 
 
-                            <!-- 중고경매 Start -->
+                        <!-- 중고경매 Start -->
                         <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">중고상품</a>
                             <ul class="dropdown-menu">
                                 <li><a href="/auction/addAuctionProduct">상품 등록</a></li>
@@ -122,12 +122,23 @@
                             </ul>
                         </li>
                         <!-- 고객센터 End -->
-
-
+                        
+                        
                         <!-- My / Business / Admin  Start -->
+                        <c:if test="${user.role == 'BUSINESS' || user.role == 'ADMIN'}">
+                            <li><a href="/campBusiness/goSubMainCampBusiness">BusinessPage</a>
+                        </c:if>
+
+                        <c:if test="${user.role == 'ADMIN' }">
+                            <li><a href="/adminMain.jsp">AdminPage</a>
+                        </c:if>
+
+                        
                         <c:if test="${user.role != 'BUSINESS' && sessionScope.user != null}">
-                            <li class="dropdown"><a class="dropdown-toggle" href="/user/mypage"
-                                    data-toggle="dropdown">${user.nickName}<br />보유포인트 : ${user.havingPoint}</a>
+                            <li class="dropdown">
+                            	<a class="dropdown-toggle" href="/user/mypage" data-toggle="dropdown">${user.nickName}
+                            		<br /><span id="havingPoint">${user.havingPoint}</span> [P]
+                            	</a>
                                 <ul class="dropdown-menu">
                                     <li><a href="/user/mypage">내정보</a>
                                     <li><a href="/community/listMyPost">내 게시글</a>
@@ -139,13 +150,6 @@
                                     <li><a href="">결제</a>
                                 </ul>
                             </li>
-                        </c:if>
-                        <c:if test="${user.role == 'BUSINESS' || user.role == 'ADMIN'}">
-                            <li><a href="/campBusiness/goSubMainCampBusiness">BusinessPage</a>
-                        </c:if>
-
-                        <c:if test="${user.role == 'ADMIN' }">
-                            <li><a href="/campBusiness/goSubMainCampBusiness">AdminPage</a>
                         </c:if>
                         <!-- My / Business / Admin  End -->
 
@@ -181,36 +185,48 @@
         <!-- findIdPwdModal -->
         <jsp:include page="/view/user/findIdPwdModal.jsp" />
 
-        <script>
-            $(function () {
+		<script>
+		
+			 $(function () {
+			
+		        $('#addProduct').on('click', function () {
+		            if (${empty sessionScope.user }){
+			            alert('로그인 후 이용 가능합니다.');
+			            return;
+		        	} else if (${ sessionScope.user.auctionSuspension != null }){
+			        	alert('경매 이용 정지되었습니다. 관리자에게 문의하세요.');
+			        	return;
+				    } else {
+				        window.location = '/auction/addAuctionProduct';
+				    }
+				});
+			
+			    $('#adminProduct').on('click', function () {
+			        if (${ sessionScope.user.auctionSuspension != null }){
+			        	alert('경매 이용 정지되었습니다. 관리자에게 문의하세요.');
+			        	return;
+				    }
+				    window.location = "/auction/listWaitAuctionProduct";
+				});
+				
+			    $('#listProduct').on('click', function () {
+			        if (${ sessionScope.user.auctionSuspension != null }){
+				        alert('경매 이용 정지되었습니다. 관리자에게 문의하세요.');
+				        return;
+			    	}
+				    window.location = "/auction/listAuctionProduct";
+				});
+			
+			});
+			 
+			 $(function () {
+				 $('#havingPoint').text( comma( $('#havingPoint').text() ) );
+			 });
+			
+		    // 금액 "," 추가
+		    function comma(str) {
+		        str = String(str);
+		        return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+		    }
 
-                $('#addProduct').on('click', function () {
-                                    if (${empty sessionScope.user }){
-                                    alert('로그인 후 이용 가능합니다.');
-                                    return;
-                                } else if (${ sessionScope.user.auctionSuspension != null }){
-                                alert('경매 이용 정지되었습니다. 관리자에게 문의하세요.');
-                                return;
-                            } else {
-                                window.location = '/auction/addAuctionProduct';
-                            }
-                    });
-
-                            $('#adminProduct').on('click', function () {
-                                if (${ sessionScope.user.auctionSuspension != null }){
-                                alert('경매 이용 정지되었습니다. 관리자에게 문의하세요.');
-                                return;
-                            }
-                            window.location = "/auction/listWaitAuctionProduct";
-                    });
-
-                            $('#listProduct').on('click', function () {
-                                if (${ sessionScope.user.auctionSuspension != null }){
-                                alert('경매 이용 정지되었습니다. 관리자에게 문의하세요.');
-                                return;
-                            }
-                            window.location = "/auction/listAuctionProduct";
-                    });
-
-                });
-        </script>
+		</script>
