@@ -11,52 +11,11 @@ pageEncoding="UTF-8"%>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Document Title -->
     <title>addReservationFirst</title>
-    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Shadows+Into+Light"
-    rel="stylesheet" type="text/css">
-  <!-- Vendor CSS -->
-  <link href="../../resources/lib/bootstrap/css/bootstrap.css" rel="stylesheet" />
-  <link href="../../resources/lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
-  <link href="../../resources/lib/magnific-popup/magnific-popup.css" rel="stylesheet" />
-  <link href="../../resources/lib/bootstrap-datepicker/css/datepicker3.css" rel="stylesheet" />
-  <!-- Theme CSS -->
-  <link href="../../resources/css/theme.css" rel="stylesheet" />
-  <!-- Skin CSS -->
-  <link href="../../resources/css/skins/default.css" rel="stylesheet" />
-  <!-- Theme Custom CSS -->
-  <link href="../../resources/css/theme-custom.css" rel="stylesheet">
-  <!-- Head Libs -->
-  <script src="../../resources/lib/modernizr/modernizr.js"></script>
-  <!-- JavaScripts -->
-  <script src="../../resources/lib/jquery/jquery.js"></script>
-  <script src="../../resources/lib/bootstrap/js/bootstrap.min.js"></script>
-  <script src="../../resources/lib/wow/wow.js"></script>
-  <script src="../../resources/lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js"></script>
-  <script src="../../resources/lib/isotope/isotope.pkgd.js"></script>
-  <script src="../../resources/lib/imagesloaded/imagesloaded.pkgd.js"></script>
-  <script src="../../resources/lib/flexslider/jquery.flexslider.js"></script>
-  <script src="../../resources/lib/owl.carousel/dist/owl.carousel.min.js"></script>
-  <script src="../../resources/lib/smoothscroll.js"></script>
-  <script src="../../resources/lib/magnific-popup/magnific-popup.js"></script>
-  <script src="../../resources/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script>
-  <script src="../../resources/js/plugins.js"></script>
-  <script src="../../resources/js/main.js"></script>
- 
-  <!-- Default stylesheets-->
-  <link href="../../resources/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Template specific stylesheets-->
-  <link href="../../resources/lib/animate.css/animate.css" rel="stylesheet">
-  <link href="../../resources/lib/components-font-awesome/css/font-awesome.min.css" rel="stylesheet">
-  <link href="../../resources/lib/et-line-font/et-line-font.css" rel="stylesheet">
-  <link href="../../resources/lib/flexslider/flexslider.css" rel="stylesheet">
-  <link href="../../resources/lib/owl.carousel/dist/assets/owl.carousel.min.css" rel="stylesheet">
-  <link href="../../resources/lib/owl.carousel/dist/assets/owl.theme.default.min.css" rel="stylesheet">
-  <link href="../../resources/lib/magnific-popup/magnific-popup.css" rel="stylesheet">
-  <link href="../../resources/lib/simple-text-rotator/simpletextrotator.css" rel="stylesheet">
-  <!-- Main stylesheet and color file-->
-  <link href="../../resources/css/style.css" rel="stylesheet">
-  <link id="color-scheme" href="../../resources/css/colors/default.css" rel="stylesheet">
+    
+    <jsp:include page="../../resources/commonLib.jsp" />
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link href="../../resources/css/theme.css" rel="stylesheet" />
+    <link href="../../resources/css/skins/default.css" rel="stylesheet" />
 
     <style>
     
@@ -84,19 +43,19 @@ pageEncoding="UTF-8"%>
             <section class="panel form-wizard" id="w4">
               
               <div class="panel-body" style="margin-top: 50px;">
-                <div class="wizard-progress wizard-progress-lg">
+                <div class="wizard-progress wizard-progress-lg" style="color: blue;">
                   <div class="steps-progress">
                     <div class="progress-indicator" style="width: 0%;"></div>
                   </div>
                   <ul class="wizard-steps">
                     <li class="active" id=stepone>
-                      <a href="#step_one" data-toggle="tab"><span>1</span>예약하기 Step1</a>
+                      <a data-toggle="tab"><span>1</span>예약하기 Step1</a>
                     </li>
                     <li id=steptwo>
-                      <a href="#" data-toggle="tab"><span>2</span>예약하기 Step2</a>
+                      <a data-toggle="tab"><span>2</span>예약하기 Step2</a>
                     </li>
                     <li id="stepthree">
-                      <a href="#" data-toggle="tab"><span>3</span>예약하기 Step3</a>
+                      <a data-toggle="tab"><span>3</span>예약하기 Step3</a>
                     </li>
                   </ul>
                 </div>
@@ -150,22 +109,6 @@ pageEncoding="UTF-8"%>
       </div>
    
     </main>
-
-    <script src="../../resources/lib/bootstrap/js/bootstrap.js"></script>
-        <script src="../../resources/lib/nanoscroller/nanoscroller.css"></script>
-        <script src="../../resources/lib/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
-        <script src="../../resources/lib/magnific-popup/magnific-popup.js"></script>
-        <script src="../../resources/lib/jquery-placeholder/jquery.placeholder.js"></script>
-        <!-- Specific Page Vendor -->
-        <script src="../../resources/lib/pnotify/pnotify.custom.js"></script>
-        <!-- Theme Base, Components and Settings -->
-        <script src="../../resources/js/theme.js"></script>
-        <!-- Theme Custom -->
-        <script src="../../resources/js/theme.custom.js"></script>
-        <!-- Theme Initialization Files -->
-        <script src="../../resources/js/theme.init.js"></script>
-        <!-- Examples -->
-        <script src="../../resources/js/examples.lightbox.js"></script>
 
     <script type="text/javascript">
         

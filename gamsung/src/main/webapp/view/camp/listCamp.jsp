@@ -45,13 +45,13 @@ pageEncoding="UTF-8"%>
                 
                 <div class="fa-hover col-xs-3 ">  
                   조회수
-                  <i class="fa fa-arrow-down" id="view" name="sortCondition"></i>
+                  <i class="fa fa-arrow-down" id="view" name="sortCondition" style="cursor: pointer;"></i>
                                    
                   평점
-                  <i class="fa fa-arrow-down" id="rating" name="sortCondition"></i>
+                  <i class="fa fa-arrow-down" id="rating" name="sortCondition" style="cursor: pointer;"></i>
                   
                   등록일
-                  <i class="fa fa-arrow-down" id="regdate" name="sortCondition"></i>
+                  <i class="fa fa-arrow-down" id="regdate" name="sortCondition" style="cursor: pointer;"></i>
                 </div>
           
         </div>
@@ -188,7 +188,7 @@ pageEncoding="UTF-8"%>
                     
                     <!-- 캠핑장 이미지 -->
                     <div class="col-lg-3 ">
-                        <div class="image" name="campNo" data-campNo="${camp.campNo}"  style="width: 200px; height: 150px; border-radius: 10px; display: flex; justify-content: center; align-items: center">
+                        <div class="image" name="campNo" data-campNo="${camp.campNo}"  style="cursor: pointer; width: 200px; height: 150px; border-radius: 10px; display: flex; justify-content: center; align-items: center">
                           <img src="/uploadfiles/campimg/campbusiness/camp/${camp.campImg1}" onerror="this.src='/uploadfiles/campimg/campbusiness/camp/no_image.jpg'"  alt="캠핑장 대표이미지" >
                         </div>                   
                      </div>            

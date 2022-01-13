@@ -98,3 +98,9 @@ hr.divider-w{height: 0 !important;}
 .content ul li .report-text .report-img-box a img{width: 30%;}
 .content ul li .report-text .report-img-box a img{width: 30%;}
 .r-body .content{max-width: 50%; min-width: 350px;}
+
+
+.get-report .row .row {display: flex; justify-content: end;}
+.get-report .notice-content .n-body .row .file-content {border: 1px solid #f0f0f0; border-radius: 7px; background-color:#f0f0f09d ;padding: 10px; box-sizing: border-box;}
+.get-report .notice-content .n-body .content {margin-top: 20px ;}
+.get-report .u-d-button-box{display: flex;justify-content: end; gap: 15px;}

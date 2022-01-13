@@ -1,8 +1,11 @@
 package site.gamsung.controller.servicecenter;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.OutputStream;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +17,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -82,6 +84,7 @@ public class ServiceCenterController {
 		
 		System.out.println("################################# \n Notice ==>"+ notice);
 		System.out.println("Files ==>" + files);
+		
 		notice.setWriter(user);
 		
 		System.out.println(files.length);
@@ -96,6 +99,7 @@ public class ServiceCenterController {
 				String root_path = req.getSession().getServletContext().getRealPath("/");  
 				String attach_path = "uploadfiles/servicecenter/";
 				String filename = file.getOriginalFilename();
+				
 				//System.out.println("==> root :: "+root_path + attach_path + filename);
 				
 				System.out.println(filename);
@@ -189,6 +193,47 @@ public class ServiceCenterController {
 	}
 	
 	
+	@GetMapping("fileDownLoad")
+	public void deleteNotice(HttpServletRequest request , HttpServletResponse response) throws Exception {
+		
+		String fileName = new String(request.getParameter("fileName").getBytes("8859_1"),"UTF-8");;
+         
+        String root_path = request.getSession().getServletContext().getRealPath("/");
+		String attach_path = "uploadfiles/servicecenter/";
+		
+		String  realFileName = root_path + attach_path + fileName;
+        
+        File downFile = new File(realFileName);
+
+        if (!downFile.exists()) {
+            return ;
+        }
+         
+        response.setContentType("application/octer-stream");
+        response.setHeader("Content-Transfer-Encoding", "binary;");
+        response.setHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\"");
+        
+        try {
+            OutputStream os = response.getOutputStream();
+            FileInputStream fis = new FileInputStream(realFileName);
+ 
+            int ncount = 0;
+            byte[] bytes = new byte[512];
+ 
+            while ((ncount = fis.read(bytes)) != -1 ) {
+                os.write(bytes, 0, ncount);
+            }
+            fis.close();
+            os.close();
+        } catch (Exception e) {
+            System.out.println("FileNotFoundException : " + e);
+        }
+		
+	}
+	
+	
+	
+	
 //	*===================================================================*
 //	|							   Q&A									\
 //	*===================================================================*
@@ -212,9 +257,14 @@ public class ServiceCenterController {
 	}
 	
 	@PostMapping("addQnaAnswer")
-	public String addQnaAnswer(@ModelAttribute("qna") Qna qna) throws Exception {
-//		아직
-		return null ;
+	public String addQnaAnswer(@ModelAttribute("qna") Qna qna , HttpSession session,  Model model) throws Exception {
+		System.out.println("넌 들어가니??");
+		qna.setReceiver((User)session.getAttribute("user"));
+		qnaService.addAnswer(qna);
+		
+		 model.addAttribute("qnaNo" , qna.getQnaNo());
+		
+		return "redirect:/servicecenter/getQna";
 	}
 	
 	@GetMapping("getQna")
@@ -235,6 +285,14 @@ public class ServiceCenterController {
 		System.out.println("qna ==> "+qna);
 		return "forward:/view/servicecenter/qna/qnaLayout.jsp";
 	}
+	
+	@GetMapping("deleteQna")
+	public String deleteQna( @RequestParam("qnaNo") int qnaNo ) throws Exception {
+		
+		qnaService.deleteQna(qnaNo);
+		return "/servicecenter/listQna";
+	}
+	
 	
 	@RequestMapping("listQna")
 	public String listQna(@ModelAttribute("search") Search search, HttpSession session, Model model) throws Exception {
@@ -302,7 +360,7 @@ public class ServiceCenterController {
 		User user = (User)session.getAttribute("user");
 		
 		Report report = reportService.getReport(reportNo);
-		System.out.println(report);
+//		System.out.println(report);
 		model.addAttribute("report", report);
 		
 		if( user != null && "admin".equalsIgnoreCase(user.getRole()) ) {
@@ -346,6 +404,8 @@ public class ServiceCenterController {
 		
 		return null;
 	}
+	
+	
 	
 	
 }

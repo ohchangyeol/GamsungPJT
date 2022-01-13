@@ -9,11 +9,8 @@ pageEncoding="UTF-8"%>
 		<!-- Basic -->
 		<meta charset="UTF-8">
 
-		<title>공지사항 등록</title>
-		<meta name="keywords" content="HTML5 Admin Template" />
-		<meta name="description" content="JSOFT Admin - Responsive HTML5 Template">
-		<meta name="author" content="JSOFT.net">
-
+		<title>공지사항</title>
+		
 		<jsp:include page="/resources/commonCssAdmin.jsp"/>
 
 		<!-- Specific Page Vendor CSS -->

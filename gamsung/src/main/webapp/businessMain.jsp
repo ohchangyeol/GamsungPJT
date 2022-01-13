@@ -57,9 +57,7 @@ pageEncoding="UTF-8"%>
 	
 	${user.role}
 	
-	<br>
-	<br>
-	<li><a href="/adminMain.jsp">adminMain</a></li>
+	
 	
 	<br>
 	<br>
@@ -67,19 +65,15 @@ pageEncoding="UTF-8"%>
 	
 	<br>
 	<br>
-	<li><a href="/payment/listPayment">결제내역</a></li>
-	
-	<br>
-	<br>
 	<li><a href="/payment/listPaymentCode">결제코드관리</a></li>
 	
 	<br>
 	<br>
-	<li><a href="/payment/managePoint">포인트관리</a></li>	
+	<li><a href="/payment/readyRefund">readyRefund</a></li>	
 	
 	<br>
 	<br>
-	<li><a href="/view/payment/listSiteProfit.jsp">temp</a></li>		
+	<li><a href="/view/payment/readyRefund.jsp">readyRefund.jsp</a></li>		
 	
 	
 	

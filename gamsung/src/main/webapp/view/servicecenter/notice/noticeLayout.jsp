@@ -10,7 +10,7 @@ pageEncoding="UTF-8"%>
     <!--  
     Document Title
     =============================================
-    -->
+  -->
     <title>공지사항</title>
     
     <jsp:include page="/resources/commonLib.jsp"/>

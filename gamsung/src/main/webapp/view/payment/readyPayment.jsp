@@ -738,7 +738,7 @@
 							</div>
 							<label class="col-xs-2 col-xs-offset-1">* 예약상태</label>
 							<div class="col-md-3 form-group">
-								예약완료/결제대기								
+								예약대기/결제대기								
 							</div>							
 						</div>
 							
@@ -858,7 +858,7 @@
 				<div id="paySecond" class="row">			
 					<div class="col-xs-4">
 					    <div class="row">	
-					        <label class="col-xs-12"># 결제 전체 금액</label>
+					        <label class="col-xs-12"># 결제 전체금액</label>
 					        <div class="col-xs-12 form-group">
 					            <input type="number" id="tempPriceTotal" name="tempPriceTotal" value="${campReservation.totalPaymentPrice}" class="form-control" disabled>
 					        </div>    <!-- disabled ${payment.paymentProductPriceTotal} -->
@@ -1004,18 +1004,7 @@
 		</div>
 	</div>
 	<!-- 캠핑 버튼 end -->
-	
-	
-	<!-- 경매/양도양수 버튼 start -->
-	<div id="pointPayButtonContainer" class="container">
-		<div class="row">
 		
-		경매/양도양수 버튼 영역
-	
-		</div>
-	</div>
-	<!-- 경매/양도양수 버튼 end -->
-	
 	
 	<!-- 테스트 버튼 -->
 	<div class="container">		
@@ -1025,15 +1014,6 @@
  			<div class="col-xs-2">
 	            <button id="temp1" type="button" class="btn btn-primary">숨긴Div모두보기</button>
 	        </div>
-		
- 			<div class="col-xs-2 col-xs-offset-1">
-	            <button id="temp2" type="button" class="btn btn-primary">포인트충전</button>
-	        </div>
-	        
-	        <div class="col-xs-2 col-xs-offset-1">
-	            <button id="temp3" type="button" class="btn btn-primary">test</button>
-	        </div>
-	        
 		</div>
 	</div>		
 

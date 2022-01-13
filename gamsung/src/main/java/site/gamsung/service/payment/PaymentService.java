@@ -21,12 +21,12 @@ public interface PaymentService {
 	public String makePayment(Payment payment) throws Exception;
 	
 	public void refundPayment(Payment payment) throws Exception;
-		
-	public Payment getPayment(int paymentNo) throws Exception;
-	
-	public Map<String, Object> listPayment(Search search) throws Exception;
 	
 	public List<Payment> listPaymentJSON(Search search) throws Exception;
+	
+	public Payment getPaymentInfo(String paymentNo) throws Exception;
+	
+	public List<Payment> getPaymentListByRsvNo(String reservationNo) throws Exception;
 	
 	
 	/*
@@ -39,6 +39,7 @@ public interface PaymentService {
 	public List<PaymentCode> listPaymentCode() throws Exception;	
 	
 	public PaymentCode getPaymentCodeInfo(String paymentCodeLetter) throws Exception;
+	
 	
 	/*
 	 *  SiteProfit

@@ -50,10 +50,6 @@ public class CampBusinessController {
 	@Value("#{commonProperties['pageSize'] ?: 10}")
 	int pageSize;
 	
-	public static final String FILE_PATH_CAMP = "C:\\Users\\Choi\\git\\GamsungPJT\\gamsung\\src\\main\\webapp\\uploadfiles\\campimg\\campbusiness\\camp";
-	public static final String FILE_PATH_MAINSITE = "C:\\Users\\Choi\\git\\GamsungPJT\\gamsung\\src\\main\\webapp\\uploadfiles\\campimg\\campbusiness\\mainsite";
-	public static final String FILE_PATH_SUBSITE = "C:\\Users\\Choi\\git\\GamsungPJT\\gamsung\\src\\main\\webapp\\uploadfiles\\campimg\\campbusiness\\subsite";
-		
 	public CampBusinessController() {
 		System.out.println(this.getClass());
 	}
@@ -193,8 +189,10 @@ public class CampBusinessController {
 	
 
 	@RequestMapping(value = "updateCamp", method = RequestMethod.POST)
-	public String updateCamp(@ModelAttribute("camp") Camp camp) throws Exception {		
-			
+	public String updateCamp(@ModelAttribute("camp") Camp camp, HttpSession httpSession) throws Exception {	
+		
+		String FILE_PATH_CAMP = httpSession.getServletContext().getRealPath("/")+"uploadfiles/campimg/campbusiness/camp/";
+					
 		String originfileName = ""; 
 		String extension = "";
 		String newfileName = ""; 		
@@ -346,7 +344,9 @@ public class CampBusinessController {
 	}
 
 	@RequestMapping(value = "updateMainSite", method = RequestMethod.POST)
-	public String updateMainSite(@ModelAttribute("mainSite") MainSite mainSite) throws Exception {
+	public String updateMainSite(@ModelAttribute("mainSite") MainSite mainSite, HttpSession httpSession) throws Exception {
+		
+		String FILE_PATH_MAINSITE = httpSession.getServletContext().getRealPath("/")+"uploadfiles/campimg/campbusiness/mainsite/";
 		
 		String originfileName = ""; 
 		String extension = "";
@@ -457,8 +457,10 @@ public class CampBusinessController {
 	}
 
 	@RequestMapping(value = "updateSubSite", method = RequestMethod.POST)
-	public String updateSubSite(@ModelAttribute("subSite") SubSite subSite, HttpServletRequest httpServletRequest) throws Exception {
+	public String updateSubSite(@ModelAttribute("subSite") SubSite subSite, HttpServletRequest httpServletRequest, HttpSession httpSession) throws Exception {
 				
+		String FILE_PATH_SUBSITE = httpSession.getServletContext().getRealPath("/")+"uploadfiles/campimg/campbusiness/subsite/";
+		
 		String originfileName = ""; 
 		String extension = "";
 		String newfileName = ""; 			

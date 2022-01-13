@@ -166,7 +166,7 @@
 	
 	<!-- 신고 처리 -->
 	<update id="updateCode" parameterType="report">
-		UPDATE report
+		UPDATE REPORT
 		SET report_status = #{reportStatus}
 		WHERE report_no = #{reportNo}
 	</update>
@@ -185,9 +185,6 @@
 			</otherwise>
 		</choose>
 		
-		
-		<if test="receiverCampName">
-		</if>
 	</select>
 	
 </mapper>

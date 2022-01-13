@@ -424,9 +424,9 @@ public class CampGeneralController {
 	
 	}
 	
-	@RequestMapping(value = "getcampNotice")
+	@RequestMapping(value = "getCampNotice")
 	public String getcampNotice(@RequestParam int noticeNo, Model model){
-		System.out.println("/campGeneral/getcampNotice : GET");
+		System.out.println("/campGeneral/getCampNotice : GET");
 		
 		try {
 			noticeService.updateViewCount(noticeNo);

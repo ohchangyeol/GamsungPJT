@@ -101,7 +101,7 @@
 	<update id="updateReservation" parameterType="campReservation">
 		UPDATE CAMP_RESERVATION 
 		set
-			<if test="mainSite.mainSiteNo != 0">
+			<if test="mainSite.mainSiteNo != null">
 			mainsite_no = #{mainSite.mainSiteNo},
 			</if>
 			<if test="reservationUserName != null and reservationUserName != ''">

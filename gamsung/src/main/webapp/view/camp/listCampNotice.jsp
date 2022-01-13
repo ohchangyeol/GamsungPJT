@@ -149,7 +149,7 @@ pageEncoding="UTF-8"%>
      <!-- Specific Page Vendor -->
      <script src="../../resources/lib/pnotify/pnotify.custom.js"></script>
      <!-- Theme Base, Components and Settings -->
-     <script src="../../resources/js/theme.js"></script>
+    
      <!-- Theme Custom -->
      <script src="../../resources/js/theme.custom.js"></script>
      <!-- Theme Initialization Files -->
@@ -170,11 +170,11 @@ pageEncoding="UTF-8"%>
 
             }
 
-        $( function() {
+        $(function() {
 
           $(".notice-title").on("click" , function() {
           
-            self.location ="/campGeneral/getcampNotice?noticeNo="+$(this).attr("value");
+            self.location ="/campGeneral/getCampNotice?noticeNo="+$(this).attr("value");
           
           });
         })

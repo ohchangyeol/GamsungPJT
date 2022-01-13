@@ -111,23 +111,14 @@
                         </li>
                         <!-- 커뮤니티 End -->
 
-                        <!-- 예약 양도 Start -->
-                        <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">예약 양도</a>
-                            <ul class="dropdown-menu">
-                                <li><a href="/transfer/listTransfer">양도 목록</a></li>
-                                <li><a href="/transfer/addTransfer">양도 등록</a></li>
-                            </ul>
-                        </li>
-                        <!-- 예약 양도 End -->
 
                         <!-- 고객센터 Start -->
-                        <li class="dropdown"><a class="dropdown-toggle" href="/servicecenter/home"
-                                data-toggle="dropdown">고객센터</a>
+                        <li class="dropdown"><a class="dropdown-toggle" href="/servicecenter/home" data-toggle="dropdown">고객센터</a>
                             <ul class="dropdown-menu">
                                 <li><a href="/servicecenter/listNotice">공지사항</a></li>
                                 <li><a href="/servicecenter/listQna"> Q&A </a></li>
                                 <c:if test="${sessionScope.user.role!=null}">
-                                    <li><a href="/servicecenter/listReport?id=${user.id}">내 신고 내역</a></li>
+                                <li><a href="/servicecenter/listReport?id=${user.id}">내 신고 내역</a></li>
                                 </c:if>
                             </ul>
                         </li>
@@ -135,10 +126,21 @@
 
 
                         <!-- My / Business / Admin  Start -->
-                        <c:if test="${user.role != 'BUSINESS' }">
-                            <li><a href="/view/common/myPage.jsp">MyPage</a>
+                        <c:if test="${user.role != 'BUSINESS' && sessionScope.user != null}">
+                            <li class="dropdown"><a class="dropdown-toggle" href="/user/mypage"
+                                    data-toggle="dropdown">${user.nickName}<br />보유포인트 : ${user.havingPoint}</a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="/user/mypage">내정보</a>
+                                    <li><a href="/community/listMyPost">내 게시글</a>
+                                    <li><a href="">캠핑장</a>
+                                    <li><a href="">중고경매</a>
+                                    <li><a href="">예약양도</a>
+                                    <li><a href="">결제</a>
+                                    <li><a href="">고객센터</a>
+                                    <li><a href="">결제</a>
+                                </ul>
+                            </li>
                         </c:if>
-
                         <c:if test="${user.role == 'BUSINESS' || user.role == 'ADMIN'}">
                             <li><a href="/campBusiness/goSubMainCampBusiness">BusinessPage</a>
                         </c:if>
@@ -177,39 +179,39 @@
 
         <!-- loginModal -->
         <jsp:include page="../user/loginModal.jsp" />
-        <!-- findIdModal -->
-        <jsp:include page="/view/user/findIdModal.jsp" />
+        <!-- findIdPwdModal -->
+        <jsp:include page="/view/user/findIdPwdModal.jsp" />
 
         <script>
             $(function () {
 
                 $('#addProduct').on('click', function () {
-                    if (${empty sessionScope.user }){
-                    alert('로그인 후 이용 가능합니다.');
-                    return;
-                } else if (${ sessionScope.user.auctionSuspension != null }){
-                alert('경매 이용 정지되었습니다. 관리자에게 문의하세요.');
-                return;
-            } else {
-                window.location = '/auction/addAuctionProduct';
-            }
-    });
+                                    if (${empty sessionScope.user }){
+                                    alert('로그인 후 이용 가능합니다.');
+                                    return;
+                                } else if (${ sessionScope.user.auctionSuspension != null }){
+                                alert('경매 이용 정지되었습니다. 관리자에게 문의하세요.');
+                                return;
+                            } else {
+                                window.location = '/auction/addAuctionProduct';
+                            }
+                    });
 
-            $('#adminProduct').on('click', function () {
-                if (${ sessionScope.user.auctionSuspension != null }){
-                alert('경매 이용 정지되었습니다. 관리자에게 문의하세요.');
-                return;
-            }
-            window.location = "/auction/listWaitAuctionProduct";
-    });
+                            $('#adminProduct').on('click', function () {
+                                if (${ sessionScope.user.auctionSuspension != null }){
+                                alert('경매 이용 정지되었습니다. 관리자에게 문의하세요.');
+                                return;
+                            }
+                            window.location = "/auction/listWaitAuctionProduct";
+                    });
 
-            $('#listProduct').on('click', function () {
-                if (${ sessionScope.user.auctionSuspension != null }){
-                alert('경매 이용 정지되었습니다. 관리자에게 문의하세요.');
-                return;
-            }
-            window.location = "/auction/listAuctionProduct";
-    });
+                            $('#listProduct').on('click', function () {
+                                if (${ sessionScope.user.auctionSuspension != null }){
+                                alert('경매 이용 정지되었습니다. 관리자에게 문의하세요.');
+                                return;
+                            }
+                            window.location = "/auction/listAuctionProduct";
+                    });
 
-});
+                });
         </script>
