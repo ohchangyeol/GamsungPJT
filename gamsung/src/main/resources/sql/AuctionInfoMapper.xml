@@ -224,7 +224,7 @@
 						WHERE ah.product_no = pc.product_no						 	
 						ORDER BY ah.product_no
 				 ) AS pbr
-			WHERE prodrank BETWEEN 2 AND 3 AND bidder_id = #{id}}
+			WHERE prodrank BETWEEN 2 AND 3 AND bidder_id = #{id}
 		) AS TRC;
 	</select>
 	

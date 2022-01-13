@@ -49,7 +49,7 @@
 	 <!-- SQL Definition :: file include -->
 	 
 	<mappers>
-	
+		
 		<mapper resource="sql/TransferMapper.xml"/> 
 		<mapper resource="sql/ReceiveMapper.xml"/>		
 		
@@ -68,7 +68,7 @@
  		<mapper resource="sql/AuctionRestMapper.xml"/>
  		<mapper resource="sql/AuctionRatingReviewMapper.xml"/>
 		<mapper resource="sql/CampReservationMapper.xml" />
-		<mapper resource="sql/CampRatingReviewMapper.xml" />
+		<mapper resource="sql/CampRatingReviewMapper.xml" />		
 		
 	</mappers>
 
