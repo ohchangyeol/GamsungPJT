@@ -70,21 +70,18 @@ public class PaymentRestController {
 			return api.paymentByImpUid(imp_uid);
 	}
 	
-	
-	@RequestMapping(value = "listPayment", method = RequestMethod.POST)
-	private @ResponseBody String getUserList(@ModelAttribute("search") Search search, HttpSession httpSession) throws Exception {
+	// /payment/rest/verifyIamport/
+	@RequestMapping(value = "listPayment")
+	private @ResponseBody String listPaymentJSON(HttpSession httpSession) throws Exception {
 		
-		User tempUser = (User) httpSession.getAttribute("user");
+		User tempUser = (User) httpSession.getAttribute("user");				
+		Search search = new Search();
+		search.setId(tempUser.getId());
+		search.setRole(tempUser.getRole());
 		
-		System.out.println("tempUser ID : " + tempUser.getId());
-		System.out.println("tempUser role : " + tempUser.getRole());
-		System.out.println("Session tempUser : " + tempUser);
-		System.out.println("Session search : " + search); 
-		
-		if (tempUser.getRole().equals("ADMIN")) {
-			search.setId(null);
-		}	
-		
+		System.out.println("listPaymentJSON_userId : " + tempUser.getId());	
+		System.out.println("listPaymentJSON_role : " + tempUser.getRole());	
+				
 		List<Payment> paymentList = paymentService.listPaymentJSON(search);
 		Gson data = new GsonBuilder().serializeNulls().create();
 		

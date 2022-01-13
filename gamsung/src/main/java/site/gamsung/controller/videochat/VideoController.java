@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import site.gamsung.service.auction.AuctionProductService;
 import site.gamsung.service.domain.AuctionInfo;
+import site.gamsung.service.domain.AuctionProduct;
 import site.gamsung.service.domain.User;
 import site.gamsung.service.user.UserService;
 
@@ -58,7 +59,15 @@ public class VideoController {
 		auctionInfo.setUser(user);
 		
 		Map<String,Object> map =auctionProductService.getAuctionProduct(auctionInfo);
-		model.addAttribute("auctionProduct",map.get("auctionProduct"));
+		
+		AuctionProduct auctionProduct = (AuctionProduct)map.get("auctionProduct");
+		String id = user.getId();
+		
+		if(auctionProduct != null && ( !id.equals( auctionProduct.getRegistrantId()) || !id.equals(auctionProduct.getSuccessfulBidderId()) ) ) {
+			return "redirect:/";
+		}
+		
+		model.addAttribute("auctionProduct");
 		
 		return "forward:/view/videochat/videoChat.jsp";
 	}

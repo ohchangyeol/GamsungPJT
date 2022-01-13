@@ -424,9 +424,9 @@ public class CampGeneralController {
 	
 	}
 	
-	@RequestMapping(value = "getcampNotice")
+	@RequestMapping(value = "getCampNotice")
 	public String getcampNotice(@RequestParam int noticeNo, Model model){
-		System.out.println("/campGeneral/getcampNotice : GET");
+		System.out.println("/campGeneral/getCampNotice : GET");
 		
 		try {
 			noticeService.updateViewCount(noticeNo);
@@ -503,8 +503,12 @@ public class CampGeneralController {
 		
 		User user = (User)httpSession.getAttribute("user");
 		ratingReview.setUser(user);
-		ratingReview.setRatingReviewStatus(1);
 		
+		if(ratingReview.getRatingReviewStatus() == 2) {
+			ratingReview.setRatingReviewStatus(2);	
+		}else {
+		ratingReview.setRatingReviewStatus(1);
+		}
 		CampReservation campReservation = campReservationService.getReservation(reservationNo);
 		campReservation.setReservationStatus(8);
 				

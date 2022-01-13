@@ -28,10 +28,11 @@ public interface PaymentDAO {
 	
 	public void updatePayment(Payment payment) throws Exception;
 	
-	public Payment getPayment(int paymentNo) throws Exception;
+	public List<Payment> listPayment(Search search) throws Exception;
 	
-	public List<Payment> listPayment(Search search) throws Exception ;
-	
+	public Payment getPaymentInfo(String paymentNo) throws Exception;
+
+	public List<Payment> getPaymentListByRsvNo(String reservationNo) throws Exception;
 	
 	/*
 	 *  PaymentCode

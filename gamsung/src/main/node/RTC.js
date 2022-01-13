@@ -1,7 +1,21 @@
-const app = require('express')();
-const httpServer = require('http').Server(app);
-const socketIO = require('socket.io')(httpServer);
+const express = require('express')();
 
+//http 접속
+/*const sever = require('http').Server(express);
+const socketIO = require('socket.io')(sever);*/
+
+//https 접속
+const https = require('https');
+
+const fs = require( 'fs' );
+
+var ssl = {
+  key: fs.readFileSync('./private.pem'),
+  cert: fs.readFileSync('./public.pem'),
+};
+
+const server = https.createServer(ssl, express);
+const socketIO = require('socket.io')(server);
 
 socketIO.on("connection", (socket) => {
   socket.on("joinVideo", (productNo) => {
@@ -22,6 +36,9 @@ socketIO.on("connection", (socket) => {
   });
 });
 
-
 const handleListen = () => console.log(`[socket 3000 port start]`);
-httpServer.listen(3000, handleListen);
+
+server.listen(3000, handleListen);
+
+
+
