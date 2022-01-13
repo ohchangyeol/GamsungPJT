@@ -311,6 +311,9 @@ public class CampGeneralController {
 			
 			MainSite mainSite = new MainSite();
 			mainSite.setMainSiteType(campReservationByCurrent.getMainSite().getMainSiteType());
+			mainSite.setMainSiteNo(campReservationByCurrent.getMainSite().getMainSiteNo());
+			
+			System.out.println(mainSite);
 			
 			campReservation.setMainSite(mainSite);
 			campReservation.setReservationRegDate(campReservationByCurrent.getReservationRegDate());
@@ -330,17 +333,9 @@ public class CampGeneralController {
 			return "forward:/payment/readyPayment";
 			
 		}else {
-			//예약 취소
 			return null;
 		}
 
-	}
-	
-	@RequestMapping(value = "cancleMyReservation", method = RequestMethod.GET)
-	public String cancleMyReservation(){
-		System.out.println("/campGeneral/cancleMyReservation : GET");
-		
-		return null;
 	}
 		
 	@RequestMapping(value = "listCampRatingReview")

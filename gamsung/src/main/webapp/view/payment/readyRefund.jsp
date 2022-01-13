@@ -217,7 +217,7 @@
 			<!-- pay end -->
 				
 			<div class="col-xs-1">	
-				<h3>${i}</h3>			
+				<h3>${i+1}</h3>			
 			</div>
 						
 			<div class="col-xs-11">

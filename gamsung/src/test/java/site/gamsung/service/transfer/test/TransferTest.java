@@ -160,10 +160,10 @@ public class TransferTest {
 	search.setPageSize(10);
 	map.put("search", search);
 	
-	List<Transfer> list = transferService.listTransfer(map);
+	//List<Transfer> list = transferService.listTransfer(map);
 	
 	 //==> console 확인
-	System.out.println("list::::::::::::::::"+list);
+	//System.out.println("list::::::::::::::::"+list);
 	
 	System.out.println("=================================================================");
 	
@@ -178,9 +178,9 @@ public class TransferTest {
 	map.put("search",search);
 	
 	
-	List<Transfer> list2 = transferService.listTransfer(map);
+	//List<Transfer> list2 = transferService.listTransfer(map);
 	 		 
-	System.out.println("list(2)::::::::::"+list2);
+	//SSystem.out.println("list(2)::::::::::"+list2);
 	
 	}
 	
