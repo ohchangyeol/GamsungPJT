@@ -269,8 +269,8 @@ pageEncoding="UTF-8"%>
                 }
 
                 console.log(refundCode);
-                
-                self.location ="/campGeneral/cancleMyReservation?reservationNo="+$(this).attr("value")+"&paymentRefundCode="+refundCode;
+                      
+                self.location ="/payment/readyRefund?reservationNo="+$(this).attr("value")+"&paymentRefundCode="+refundCode;
 
           });
 
@@ -291,6 +291,15 @@ pageEncoding="UTF-8"%>
         function comma(str) {
                 str = String(str);
                 return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+            }
+
+            function getToday(){
+                var date = new Date();
+                var year = date.getFullYear();
+                var month = ("0" + (1 + date.getMonth())).slice(-2);
+                var day = ("0" + date.getDate()).slice(-2);
+
+                return year + "-" + month + "-" + day;
             }
 
     </script>
