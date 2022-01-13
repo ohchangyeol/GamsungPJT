@@ -26,7 +26,28 @@ function eventInit() {
     })
     $("#notice-delete-btn").on("click",()=>{
         const noticeNo = $(".getNotice").data("noticeno");
-        self.location ="/servicecenter/deleteNotice?noticeNo="+noticeNo;
+        Swal.fire({
+            title: '공지사항을 삭제 하시겠습니까?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '삭제',
+            cancelButtonText: '취소'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire(
+                '삭제가 완료되었습니다.',
+                '공지사항 목록으로 전환됩니다.',
+                'success'
+                ).then(()=>{
+                    self.location ="/servicecenter/deleteNotice?noticeNo="+noticeNo;
+                })
+            }else{
+                return;
+            }
+        })
+        
     })
 
     $("#n-files").bind('change', function() {

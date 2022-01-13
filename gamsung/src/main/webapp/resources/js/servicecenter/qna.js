@@ -47,7 +47,7 @@ $(document).ready(function(){
       Swal.fire({
           title: '등록 하시겠습니까?',
           // text: "You won't be able to revert this!",
-          icon: 'warning',
+          icon: 'question',
           showCancelButton: true,
           confirmButtonColor: '#3085d6',
           cancelButtonColor: '#d33',
@@ -73,9 +73,60 @@ $(document).ready(function(){
       })
   })
 
+  $("#qna-delete-btn").on("click",()=>{
+    console.log("클릭")
+    const qnaNo = $(".qna-content").data("qnano");
+      Swal.fire({
+        title: 'Q&A를 삭제 하시겠습니까?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '삭제',
+        cancelButtonText: '취소'
+      }).then((result) => {
+        if (result.isConfirmed) {
+            Swal.fire(
+            '삭제가 완료되었습니다.',
+            'Q&A 목록으로 전환됩니다.',
+            'success'
+            ).then(()=>{
+                self.location ="/servicecenter/deleteQna?qnaNo="+qnaNo;
+            })
+        }else{
+            return;
+        }
+      })
+  });
+
+  $("#send-answer").on("click",()=>{
+    Swal.fire({
+      title: 'Q&A에 답변을 등록하시겠습니까?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: '등록',
+      cancelButtonText: '취소'
+    }).then((result) => {
+      if (result.isConfirmed) {
+          Swal.fire(
+          '답변이 등록되었습니다.',
+          ' ',
+          'success'
+          ).then(()=>{
+            $("#answer-form").attr("action","/servicecenter/addQnaAnswer").attr( "method","post" ).submit();
+          })
+      }else{
+          return;
+      }
+    })
+    
+  })
+
   fncGetList = (currentPage)=>{
     $("#currentPage").val(currentPage);
     $(".qna-search").attr("method", "post").submit();
   }
 
-  })
+})

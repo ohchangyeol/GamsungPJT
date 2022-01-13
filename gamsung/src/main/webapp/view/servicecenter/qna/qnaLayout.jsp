@@ -111,7 +111,7 @@ pageEncoding="UTF-8"%>
         <jsp:include page="../../common/footer.jsp"/>
         
       <div class="qna-btn-box">
-        <button class="btn btn-border-d btn-round qna-btn" type="button" data-type="1">내 Q&A 0 건</button>
+        <button class="btn btn-border-d btn-round qna-btn" type="button" data-type="1">내 Q&A </button>
         <button class="btn btn-border-d btn-round qna-btn" type="button" data-type="2">Q&A 글쓰기</button>
       </div>
     </main>

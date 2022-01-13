@@ -10,6 +10,7 @@ import site.gamsung.service.domain.ReportWrapper;
 import site.gamsung.service.domain.User;
 import site.gamsung.service.servicecenter.ReportDAO;
 import site.gamsung.service.servicecenter.ReportService;
+import site.gamsung.service.user.UserDAO;
 
 @Service("reportServiceImpl")
 public class ReportServiceImpl implements ReportService {
@@ -18,6 +19,12 @@ public class ReportServiceImpl implements ReportService {
 	@Autowired
 	@Qualifier("reportDAOImpl")
 	private ReportDAO reportDAO;
+	
+	
+	
+	@Autowired
+	@Qualifier("userDAOImpl")
+	private UserDAO userDAO;
 
 	// Constructor
 	public ReportServiceImpl() {
@@ -50,8 +57,22 @@ public class ReportServiceImpl implements ReportService {
 	}
 
 	@Override
-	public void updateCodeReport(Report report) {
-		reportDAO.updateCodeReport(report);
+	public int updateCodeReport(Report report) throws Exception {
+		if(report.getReportStatus() == 1) {
+			
+			reportDAO.updateCodeReport(report);
+			User receiver = userDAO.getUser(report.getReceiverId());
+
+			if(receiver.getReportTotalCount() <= 5) {
+				System.out.println("신고 대상자 이용정지");
+				userDAO.addSecessionUser(receiver);
+			}
+			return 1;
+		}else {
+			reportDAO.updateCodeReport(report);
+			return 2;
+		}
+		
 		
 	}
 

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<div class="row getNotice" data-reportno="${report.reportNo}">
+<div class="row get-report" data-reportno="${report.reportNo}" data-receiverid="${report.receiver.id}">
     <div class="col-xs-12">
       <div class="row panel-heading" style="background-color: transparent;border-bottom: none;">
         <h4 class="col-sm-7 mb-0">신고 상세 조회</h4>
@@ -31,7 +31,7 @@
                     <div class="report-text">${report.reportTypeName}</div>
                 </li>
                 <li>
-                    <div class="report-title">상대방 아이디</div>
+                    <div class="report-title" ">상대방 아이디</div>
                     <div class="report-text">${report.receiver.nickName}${report.receiver.campName}</div>
                 </li>
                 <li>
@@ -61,10 +61,18 @@
           </div>
           <hr class="divider-w mt-10 mb-20">
           <c:if test="${user.role == 'ADMIN'}">
-          <div class="u-d-button-box">
-            <button id="notice-update-btn" class="btn btn-warning btn-round" type="button">신고 승인</button>
-            <button id="notice-delete-btn" class="btn btn-danger btn-round" type="button">신고 거절</button>
-          </div>
+            <c:if test="${report.reportStatus == 0}">
+              <div class="u-d-button-box">
+                <button class="btn btn-warning btn-round report-updatecode-btn" type="button" data-code= "1">신고 승인</button>
+                <button class="btn btn-danger btn-round report-updatecode-btn" type="button" data-code= "2">신고 거절</button>
+              </div>
+            </c:if>
+            <c:if test="${report.reportStatus == 1}">
+              <span>승인 된 접수 내용입니다.</span>
+            </c:if>
+            <c:if test="${report.reportStatus == 2}">
+              <span>승인되지 않은 접수내용입니다.</span>
+            </c:if>
           </c:if>
         </div>
       </div>

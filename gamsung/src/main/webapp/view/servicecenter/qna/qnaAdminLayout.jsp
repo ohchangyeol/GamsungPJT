@@ -52,7 +52,7 @@ pageEncoding="UTF-8"%>
 												<h4 class="col-sm-7 mb-0">Q&A 문의 내역</h4>
 												<div class="col-sm-5 mb-sm-0">
 													<div class="row">
-													<form role="form" class="rerport-search" method="post">
+													<form role="form" class="qna-search" method="post">
 														<div class="col-sm-4">
 														<select class="form-control" name="searchCondition">
 															<option value="0" ${ ! empty wrapper.search.searchCondition && wrapper.search.searchCondition==0 ? "selected" : "" }>제목+내용</option>

@@ -12,7 +12,7 @@ public interface TransferService {
 	
 	public int addTransfer(Transfer transfer)throws Exception;
 	
-	public List<Transfer> listTransfer(Map<String, Object> map)throws Exception;
+	public Map<String, Object> listTransfer(Map<String, Object> map)throws Exception;
 	
 	public Transfer getTransfer(int transferNo)throws Exception;
 

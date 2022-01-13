@@ -113,12 +113,13 @@
 
 
                         <!-- 고객센터 Start -->
-                        <li class="dropdown"><a class="dropdown-toggle" href="/servicecenter/home"
-                                data-toggle="dropdown">고객센터</a>
+                        <li class="dropdown"><a class="dropdown-toggle" href="/servicecenter/home" data-toggle="dropdown">고객센터</a>
                             <ul class="dropdown-menu">
                                 <li><a href="/servicecenter/listNotice">공지사항</a></li>
                                 <li><a href="/servicecenter/listQna"> Q&A </a></li>
-                                <li><a href="/servicecenter/listReport/my">내 신고 내역</a></li>
+                                <c:if test="${sessionScope.user.role!=null}">
+                                <li><a href="/servicecenter/listReport?id=${user.id}">내 신고 내역</a></li>
+                                </c:if>
                             </ul>
                         </li>
                         <!-- 고객센터 End -->
