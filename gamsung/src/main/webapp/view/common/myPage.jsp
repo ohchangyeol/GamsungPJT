@@ -146,7 +146,7 @@ Template specific stylesheets
 					margin: 14px;
 				}
 
-				#checkPhoneAuthNum {
+				#get_checkPhoneAuthNum {
 					margin: 14px;
 				}
 			</style>
@@ -167,191 +167,7 @@ Template specific stylesheets
 				<div class="inner-wrapper">
 					<jsp:include page="userSideBar.jsp"></jsp:include>
 					<section role="main" class="content-body">
-					<section class="module bg-dark-30 about-page-header" data-background="assets/images/about_bg.jpg">
-						<div class="container">
-							<div class="row">
-								<div class="col-sm-6 col-sm-offset-3">
-									<h1 class="module-title font-alt mb-0">Forms</h1>
-								</div>
-							</div>
-						</div>
-					</section>
-						<div class="row">
-							<section class="module">
-								<div class="container">
-									<div class="row">
-										<div class="col-sm-8 col-sm-offset-2">
-											<h4 class="font-alt mb-0">내정보 조회/수정</h4>
-											<hr class="divider-w mt-10 mb-20">
-											<form id="updateForm">
-												<div id="email" class="form-group">
-													<div>
-														<input id="role" name="role" value="GENERAL" hidden="hidden">
-													</div>
-													<label for="id"
-														class="col-sm-offset-1 col-sm-3 control-label"><strong>아이디</strong></label>
-													<div class="col-sm-6">
-														<input id="id" name="id" class="form-control "
-															value="${user.id}" readonly />
-													</div>
-													<div class='col-sm-offset-3 col-sm-6'>
-														<span id="helpBlock" class="help-block"> <strong
-																class="text-danger">아이디는 수정이 불가합니다.</strong>
-														</span>
-													</div>
-												</div>
-
-												<div class="form-group">
-													<label for="password"
-														class="col-sm-offset-1 col-sm-3 control-label"><strong>비밀번호
-															변경</strong></label>
-													<div class="col-sm-6">
-														<input id="password" name="password" class="form-control "
-															type="password" placeholder="변경할 비밀번호를 입력해 주세요." />
-													</div>
-													<div id="check-pwd-exp" class='col-sm-offset-3 col-sm-6'></div>
-												</div>
-
-												<div class="form-group">
-													<label for="confirmPassword"
-														class="col-sm-offset-1 col-sm-3 control-label"><strong>비밀번호
-															재확인</strong></label>
-													<div class="col-sm-6">
-														<input id="confirmPassword" name="confirmPassword"
-															class="form-control" type="password"
-															placeholder="비밀번호를 입력해 주세요." />
-													</div>
-													<div id="check-pwd" class='col-sm-offset-3 col-sm-6'></div>
-												</div>
-
-												<div id="nick-name" class="form-group">
-													<label for="nickName"
-														class="col-sm-offset-1 col-sm-3 control-label"><strong>닉네임</strong></label>
-													<div class="col-sm-6">
-														<input id="nickName" name="nickName" class="form-control"
-															type="text" value="${user.nickName}"
-															placeholder="닉네임을 입력해 주세요." />
-													</div>
-													<div id="check-nickName" class='col-sm-offset-3 col-sm-6'></div>
-												</div>
-
-
-												<div class="form-group">
-													<label for="name"
-														class="col-sm-offset-1 col-sm-3 control-label"><strong>이름</strong></label>
-													<div class="col-sm-6">
-														<input id="name" name="name" class="form-control" type="text"
-															value="${user.name}" placeholder="이름을 입력하세요" />
-													</div>
-												</div>
-
-												<div class="form-group">
-													<label for="phone"
-														class="col-sm-offset-1 col-sm-3 control-label"><strong>휴대폰번호</strong></label>
-													<div class="col-sm-6">
-														<input id="phone" name="phone" class="form-control " type="text"
-															value="${user.phone}" placeholder="숫자만 입력해주세요"
-															maxlength="11" />
-
-													</div>
-													<button id="phoneAuthNum" class="btn btn-border-d btn-circle btn-xs"
-														type="button">인증번호 받기</button>
-													<div id="checkPhoneAuth" class="col-sm-offset-3 col-sm-6"
-														style="display: none;">
-														<input id="checkPhoneAuthNum" name="checkPhoneAuthNum"
-															class="form-control " type="text" placeholder="인증번호를 입력하세요."
-															maxlength="4" />
-													</div>
-													<div id="check-phone" class='col-sm-offset-3 col-sm-6'>
-													</div>
-													<div id="check-phone-auth" class='col-sm-offset-3 col-sm-6'></div>
-												</div>
-
-												<div class="form-group">
-													<label for="addr"
-														class="col-sm-offset-1 col-sm-3 control-label"><strong>주소</strong></label>
-													<div class="col-sm-6">
-														<input id="addr" name="addr" class="form-control" type="text"
-															value="${user.addr}" placeholder="주소를 입력하세요." />
-													</div>
-												</div>
-
-												<div class="form-group">
-													<label for="userAddr"
-														class="col-sm-offset-1 col-sm-3 control-label"></label>
-													<div class="col-sm-6">
-														<input id="userAddr" name="userAddr" class="form-control"
-															type="text" placeholder="상세주소를 입력하세요." /> <input
-															type="hidden" name="allAddr" />
-													</div>
-												</div>
-
-												<div class="form-group">
-													<label for="accountInfo"
-														class="col-sm-offset-1 col-sm-3 control-label"><strong>계좌정보</strong></label>
-													<div class="col-sm-3">
-														<select class="form-control" name="bank" id="bank">
-															<option value="${user.bank}">은행</option>
-															<option value="KB국민은행" <c:if
-																test="${user.bank eq 'KB국민은행'}">
-																selected="selected"</c:if>>KB국민은행</option>
-															<option value="신한은행" <c:if test="${user.bank eq '신한은행'}">
-																selected="selected"</c:if>>신한은행</option>
-															<option value="우리은행" <c:if test="${user.bank eq '우리은행'}">
-																selected="selected"</c:if>>우리은행</option>
-															<option value="하나은행" <c:if test="${user.bank eq '하나은행'}">
-																selected="selected"</c:if>>하나은행</option>
-															<option value="NH농협은행" <c:if
-																test="${user.bank eq 'NH농협은행'}">
-																selected="selected"</c:if>>NH농협은행</option>
-															<option value="카카오뱅크" <c:if test="${user.bank eq '카카오뱅크'}">
-																selected="selected"</c:if>>카카오뱅크</option>
-														</select>
-													</div>
-													<div class="col-sm-3">
-														<input id="accountHolder" name="accountHolder"
-															class="form-control" type="text"
-															value="${user.accountHolder}" placeholder="예금주" />
-													</div>
-												</div>
-
-												<div class="form-group">
-													<label class="col-sm-offset-1 col-sm-3 control-label"></label>
-													<div class="col-sm-6">
-														<input id="accountNum" name="accountNum" class="form-control"
-															type="text" placeholder="계좌번호를 숫자만 입력하세요" maxlength="14" />
-													</div>
-												</div>
-
-												<div id="entryDate" class="form-group">
-													<label for="entryDate"
-														class="col-sm-offset-1 col-sm-3 control-label"><strong>회원가입
-															일자</strong></label>
-													<div class="col-sm-6">
-														<input id="entryDate" name="addUserRegDate" class="form-control"
-															type="text" value="${user.addUserRegDate}" readonly />
-													</div>
-												</div>
-											</form>
-
-										</div>
-									</div>
-
-									<br />
-									<div class="col-sm-3 col-sm-offset-2"></div>
-									<div class="col-sm-3 col-sm-offset-2">
-										<div class="row">
-											<button id="cancel" class="btn btn-border-d btn-circle"
-												type="button">취소</button>
-											<button id="updateUser-btn" class="btn btn-border-d btn-circle"
-												type="submit">수정하기</button>
-
-										</div>
-									</div>
-								</div>
-							</section>
-						</div>
-					</section>
+						<jsp:include page="../user/getGeneralUserUpdate.jsp"></jsp:include>
 				</div>
 			</main>
 			<jsp:include page="footer.jsp"></jsp:include>
@@ -381,7 +197,7 @@ Template specific stylesheets
 										placeholder="비밀번호를 입력하세요" name="password" required>
 								</div>
 								<div id="Secession-btn">
-									<button type="button" class="btn btn-primary" id="addSecession">탈퇴하기</button>
+									<button type="button" class="btn btn-primary" id="addSecession_btn">탈퇴하기</button>
 									<button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
 								</div>
 							</form>
@@ -391,90 +207,17 @@ Template specific stylesheets
 				</div>
 			</div>
 
-			<!--  
-    JavaScripts
-    =============================================
-    -->
-			<!-- <script src="../../resources/lib/jquery/jquery.js"></script>
-	<script src="../../resources/lib/bootstrap/js/bootstrap.min.js"></script>
-	<script src="../../resources/lib/wow/wow.js"></script>
-	<script
-		src="../../resources/lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js"></script>
-	<script src="../../resources/lib/isotope/isotope.pkgd.js"></script>
-	<script src="../../resources/lib/imagesloaded/imagesloaded.pkgd.js"></script>
-	<script src="../../resources/lib/flexslider/jquery.flexslider.js"></script>
-	<script src="../../resources/lib/owl.carousel/dist/owl.carousel.min.js"></script>
-	<script src="../../resources/lib/smoothscroll.js"></script>
-	<script
-		src="../../resources/lib/magnific-popup/jquery.magnific-popup.js"></script>
-	<script
-		src="../../resources/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script>
-	<script src="../../resources/js/plugins.js"></script>
-	<script src="../../resources/js/main.js"></script>
-
-	<script
-		src="../../resources/lib/jquery-browser-mobile/jquery.browser.mobile.js"></script>
-	<script src="../../resources/lib/nanoscroller/nanoscroller.js"></script>
-	<script
-		src="../../resources/lib/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
-	<script src="../../resources/lib/magnific-popup/magnific-popup.js"></script>
-	<script
-		src="../../resources/lib/jquery-placeholder/jquery.placeholder.js"></script>
-
-	<script
-		src="../../resources/lib/jquery-ui/js/jquery-ui-1.10.4.custom.js"></script>
-	<script
-		src="../../resources/lib/jquery-ui-touch-punch/jquery.ui.touch-punch.js"></script>
-	<script src="../../resources/lib/jquery-appear/jquery.appear.js"></script>
-	<script
-		src="../../resources/lib/bootstrap-multiselect/bootstrap-multiselect.js"></script>
-	<script
-		src="../../resources/lib/jquery-easypiechart/jquery.easypiechart.js"></script>
-	<script src="../../resources/lib/flot/jquery.flot.js"></script>
-	<script src="../../resources/lib/flot-tooltip/jquery.flot.tooltip.js"></script>
-	<script src="../../resources/lib/flot/jquery.flot.pie.js"></script>
-	<script src="../../resources/lib/flot/jquery.flot.categories.js"></script>
-	<script src="../../resources/lib/flot/jquery.flot.resize.js"></script>
-	<script src="../../resources/lib/jquery-sparkline/jquery.sparkline.js"></script>
-	<script src="../../resources/lib/raphael/raphael.js"></script>
-	<script src="../../resources/lib/morris/morris.js"></script>
-	<script src="../../resources/lib/gauge/gauge.js"></script>
-	<script src="../../resources/lib/snap-svg/snap.svg.js"></script>
-	<script src="../../resources/lib/liquid-meter/liquid.meter.js"></script>
-	<script src="../../resources/lib/jqvmap/jquery.vmap.js"></script>
-	<script src="../../resources/lib/jqvmap/data/jquery.vmap.sampledata.js"></script>
-	<script src="../../resources/lib/jqvmap/maps/jquery.vmap.world.js"></script>
-	<script
-		src="../../resources/lib/jqvmap/maps/continents/jquery.vmap.africa.js"></script>
-	<script
-		src="../../resources/lib/jqvmap/maps/continents/jquery.vmap.asia.js"></script>
-	<script
-		src="../../resources/lib/jqvmap/maps/continents/jquery.vmap.australia.js"></script>
-	<script
-		src="../../resources/lib/jqvmap/maps/continents/jquery.vmap.europe.js"></script>
-	<script
-		src="../../resources/lib/jqvmap/maps/continents/jquery.vmap.north-america.js"></script>
-	<script
-		src="../../resources/lib/jqvmap/maps/continents/jquery.vmap.south-america.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-
-
-	<script src="../../resources/js/theme.js"></script>
-	<script src="../../resources/js/theme.custom.js"></script>
-	<script src="../../resources/js/theme.init.js"></script>
-	<script src="../../resources/js/dashboard/examples.dashboard.js"></script> -->
-
 			<script>
 				$(function () {
 					$('#listMyProduct').on('click', function () {
 						window.location = "/auction/listMyAuctionProduct?currentPage=1";
 					});
 
-					$("#addSecession").on('click', function () {
+					$("#addSecession_btn").on('click', function () {
 
 						var id = $("#secession-userId").val();
 						var password = $("#secession-userPwd").val();
-						alert("여기는 들어오나");
+						//alert("여기는 들어오나");
 
 						$.ajax({
 							url: '/user/rest/addSecessionUser',
@@ -528,15 +271,10 @@ Template specific stylesheets
 														})
 													}
 												})
-
-
 											}
-
 										}
 									})
-								}
-
-								else if (returnData == "0") {
+								} else if (returnData == "0") {
 									Swal.fire({
 										title: '탈퇴하시겠습니까?',
 										text: "탈퇴후엔 같은 아이디로 재가입이 불가합니다!",
@@ -569,234 +307,9 @@ Template specific stylesheets
 
 						});
 					});
-					//비밀번호
-					$('#password').on("keyup", function () {
-						var regExp = /[ㄱ-ㅎㅏ-ㅣ가-힣]/g; //한글입력 불가
-						var pwd = $('#password').val();
-
-						if (pwd.length < 1) {
-							$("#check-pwd-exp").html("");
-
-						} else if (regExp.test(pwd)) {
-							$("#check-pwd-exp").html("한글은 입력 불가합니다.");
-							$("#check-pwd-exp").css('color', 'red');
-						}
-
-					});
-
-					//비밀번호 확인
-					$('#confirmPassword').on("keyup", function () {
-
-
-						if ($('#confirmPassword').val().length < 0) {
-							$("#check-pwd").html("");
-						} else if ($('#password').val() != $('#confirmPassword').val() || $('#confirmPassword').val() != '') {
-							$("#check-pwd").html('비밀번호가 일치하지 않습니다.');
-							$("#check-pwd").css('color', 'red');
-							$('#confirmPassword').focus();
-						}
-						if ($('#password').val() == $('#confirmPassword').val()) {
-							$("#check-pwd").html('비밀번호가 일치합니다.');
-							$("#check-pwd").css('color', 'green');
-						}
-					});
-
-					//닉네임 중복체크
-					$("input[name='nickName']").on("keyup", function () {
-
-						var nickName = $("input[name='nickName']").val();
-
-						$.ajax({
-							url: '/user/rest/checkDuplication',
-							headers: {
-								"Accept": "application/json",
-								"Content-Type": "application/json"
-							},
-							method: 'POST',
-							dataType: 'json',
-							data: JSON.stringify({ "nickName": nickName }),
-							success: function (result) {
-								console.log('성공: ' + result);
-								if (result == 0) {
-									if (nickName.length > 2) {
-										$("#check-nickName").html('사용 가능한 닉네임입니다.');
-										$("#check-nickName").css('color', 'green');
-									} else {
-										$("#check-nickName").html("");
-									}
-								} else {
-									$("#check-nickName").html('이미 사용중이거나 중복된 닉네임 입니다.');
-									$("#check-nickName").css('color', 'red');
-								}
-							}
-						});
-
-					});
-
-					//휴대폰번호 중복체크
-					$("input[name='phone']").on("keyup", function () {
-
-						var regExp = /^[0-9]*$/;
-						var phone = $("input[name='phone']").val();
-
-						$.ajax({
-							url: '/user/rest/checkDuplication',
-							headers: {
-								"Accept": "application/json",
-								"Content-Type": "application/json"
-							},
-							method: 'POST',
-							dataType: 'json',
-							data: JSON.stringify({ "phone": phone }),
-							success: function (result) {
-								console.log('성공: ' + result);
-
-								if (result == 0) {
-									if (email != "") {
-										if (!(regExp.test(phone))) {
-											$("#phone").val("");
-											$("#check-phone").html("휴대폰번호는 숫자로만 입력 가능합니다.");
-										} else if (phone.length == 11) {
-											$("#check-phone").html('사용 가능한 번호입니다.');
-											$("#check-phone").css('color', 'green');
-										} else if (phone.length > 11) {
-											$("#phone").val("");
-											$("#check-phone").html("휴대폰번호는 11자리만 가능합니다.");
-										} else {
-											$("#check-phone").html("");
-										}
-
-									} else {
-										$("#check-phone").html('이미 사용중이거나 중복된 휴대폰번호 입니다.');
-										$("#check-phone").css('color', 'red');
-									}
-								}
-							}
-						});
-
-					});
-
-					//휴대폰 인증번호 받기
-					$("#phoneAuthNum").on("click", function () {
-
-						$("#phoneAuthNum").text("인증번호 재발송");
-						$("#check-phone").hide();
-						$("#checkPhoneAuth").show();
-						//세션에 담긴 값이랑 입력된 값이 맞는지 비교하기 #check-phone-auth
-						var phone = $("input[name='phone']").val();
-
-						$.ajax({
-							url: '/user/rest/sendPhoneAuthNum/' + phone,
-							headers: {
-								"Accept": "application/json",
-								"Content-Type": "application/json"
-							},
-							method: 'GET',
-							//dataType:'json',
-							//data : JSON.stringify({"phone" : phone}),	
-							success: function (dataa) {
-								console.log('성공: ' + dataa);
-
-								$("input[name='checkPhoneAuthNum']").on("keyup", function () {
-									console.log('되는가');
-									var ab = $("input[name='checkPhoneAuthNum']").val();
-
-									if (ab.length > 0) {
-										if (dataa == ab) {
-											$("#check-phone-auth").html("인증번호가 일치합니다.");
-										} else {
-											$("#check-phone-auth").html('인증번호를 확인하세요.');
-										}
-									}
-								});
-							}
-						});
-					});
-
-
-					//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-					$("#updateUser-btn").on("click", function () {
-						console.log("뭐지");
-						fncupdateUser();
-					});
-
-					function fncupdateUser() {
-
-						var id = $("#id").val();
-						var pw = $("#password").val();
-						var pw_confirm = $("#confirmPassword").val();
-						var name = $("#name").val();
-						var nickName = $("#nickName").val();
-						var phone = $("#phone").val();
-						console.log("안찍히니" + id + pw + name + nickName + phone);
-
-
-
-						/* if(id == null || id.length <1){
-							alert("아이디는 반드시 입력하셔야 합니다.");
-							return;
-						} *
-						
-						if(password == null || password.length <1){
-							alert("패스워드는  반드시 입력하셔야 합니다.");
-							return;
-						}
-						
-						if(7<password.length <16){
-							alert("패스워드는 8~15자까지 가능합니다.");
-							return;
-						}
-						
-						if(confirmPassword == null || confirmPassword.length <1){
-							alert("패스워드 확인은  반드시 입력하셔야 합니다.");
-							return;
-						}
-						
-						if(name == null || name.length <1){
-							alert("이름은  반드시 입력하셔야 합니다.");
-							return;
-						}
-						
-						if( password != confirmPassword ) {				
-							alert("비밀번호 확인이 일치하지 않습니다.");
-							$("input:text[name='confirmPassword']").focus();
-							return;
-						}
-						
-						if(nickName == null || nickName.length <1){
-							alert("닉네임은 반드시 입력하셔야 합니다.");
-							return;
-						}
-						
-						if(phone == null || phone.length <1){
-							alert("휴대폰번호는 반드시 입력하셔야 합니다.");
-							return;
-						}*/
-
-						var addr = "";
-						if ($("input:text[name='addr']").val() != "" && $("input:text[name='userAddr']").val() != "") {
-							var value = $("input[name='addr']").val() + ""
-								+ $("input[name='userAddr']").val();
-						}
-
-						$("input:hidden[name='allAddr']").val(value);
-
-						$("#updateForm").attr("method", "POST").attr("action", "/user/updateUser").submit();
-
-
-					}
-
-					//주소검색
-					document.getElementById("addr").addEventListener("click", function () { //주소입력칸을 클릭하면
-						new daum.Postcode({
-							oncomplete: function (data) { //선택시 입력값 세팅
-								document.getElementById("addr").value = data.address; // 주소 넣기
-								document.querySelector("input[name=userAddr]").focus(); //상세입력 포커싱
-							}
-						}).open();
-					});
 				});
 			</script>
+
 		</body>
 
 		</html>

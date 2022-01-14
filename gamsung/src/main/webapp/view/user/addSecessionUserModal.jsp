@@ -83,7 +83,7 @@
 											</div>
 											<div id="Secession-btn">
 												<button type="button" class="btn btn-primary"
-													id="addSecession">탈퇴하기</button>
+													id="addSecession_btn">탈퇴하기</button>
 												<button type="button" class="btn btn-danger"
 													data-dismiss="modal">취소</button>
 											</div>

@@ -78,6 +78,13 @@ width: 50%;
 				#checkPhoneAuthNum {
 					margin: 14px;
 				}
+
+				.container .add_user_btn_btn {
+					position: relative;
+					bottom: 10%;
+					right: 7%;
+					margin-top: 15px;
+				}
 			</style>
 
 			<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -94,11 +101,11 @@ width: 50%;
 				</div>
 				<jsp:include page="../common/header.jsp"></jsp:include>
 				<div class="main">
-					<section class="module bg-dark-30 about-page-header" data-background="assets/images/about_bg.jpg">
+					<section class="module bg-dark-30 about-page-header"
+						data-background="../../resources/images/addGeneralUserImg.png">
 						<div class="container">
 							<div class="row">
 								<div class="col-sm-6 col-sm-offset-3">
-									<h1 class="module-title font-alt mb-0">Forms</h1>
 								</div>
 							</div>
 						</div>
@@ -107,18 +114,17 @@ width: 50%;
 						<div class="container">
 							<!-- <div class="row"> -->
 							<div class="col-sm-8 col-sm-offset-2">
-								<h4 class="font-alt mb-0">일반회원 회원가입</h4>
 								<hr class="divider-w mt-10 mb-20">
-								<form class="form" role="form">
+								<form id="add_g_form" class="form" role="form">
 									<div id="email" class="form-group row">
 										<div><input id="role" name="role" value="GENERAL" hidden="hidden"></div>
-										<label for="id"
+										<label for="addGeneralId"
 											class="col-sm-offset-1 col-sm-3 control-label"><strong>아이디</strong></label>
 										<div class="col-sm-6">
 											<input id="addGeneralId" name="id" class="form-control " type="text"
 												placeholder="아이디는 이메일 형식만 가능합니다." />
 										</div>
-										<div>
+										<div id="add_mailAuthNum" style="display:none;">
 											<button id="mailAuthNum" class="btn btn-circle btn-xs" type="button">인증번호
 												받기</button>
 										</div>
@@ -135,7 +141,7 @@ width: 50%;
 											class="col-sm-offset-1 col-sm-3 control-label"><strong>비밀번호</strong></label>
 										<div class="col-sm-6">
 											<input id="addGeneralPassword" name="password" class="form-control "
-												type="password" placeholder="비밀번호는 8~15자까지 입력 가능합니다." />
+												type="password" placeholder="비밀번호는 8~15자까지 입력 가능합니다." maxlength="15" />
 										</div>
 										<div></div>
 										<div id="check-pwd-exp" class='col-sm-offset-3 col-sm-6'></div>
@@ -146,8 +152,8 @@ width: 50%;
 											class="col-sm-offset-1 col-sm-3 control-label"><strong>비밀번호
 												재확인</strong></label>
 										<div class="col-sm-6">
-											<input id="confirmPassword" name="confirmPassword" class="form-control"
-												type="password" placeholder="비밀번호를 입력해 주세요." />
+											<input id="addConfirmPassword" name="confirmPassword" class="form-control"
+												type="password" placeholder="비밀번호를 입력해 주세요." maxlength="15" />
 										</div>
 										<div></div>
 										<div id="check-pwd" class='col-sm-offset-3 col-sm-6'></div>
@@ -183,15 +189,16 @@ width: 50%;
 												placeholder="숫자만 입력해주세요" maxlength="11" />
 
 										</div>
-										<div>
+										<div id="phoneAuthNum_btn" style="display:none;">
 											<button id="phoneAuthNum" class="btn btn-circle btn-xs" type="button">인증번호
 												받기</button>
 										</div>
 
 
 										<div id="checkPhoneAuth" class="col-sm-offset-3 col-sm-6" style="display:none;">
-											<input id="checkPhoneAuthNum" name="checkPhoneAuthNum" class="form-control "
-												type="text" placeholder="인증번호를 입력하세요." maxlength="4" />
+											<input id="add_g_checkPhoneAuthNum" name="checkPhoneAuthNum"
+												class="form-control " type="text" placeholder="인증번호를 입력하세요."
+												maxlength="4" />
 										</div>
 										<div id="check-phone" class='col-sm-offset-3 col-sm-6'></div>
 										<div id="check-phone-auth" class='col-sm-offset-3 col-sm-6'></div>
@@ -218,10 +225,9 @@ width: 50%;
 							</div>
 							<!-- </div> -->
 
-							<br />
 							<div class="col-sm-3 col-sm-offset-2"></div>
 							<div class="col-sm-3 col-sm-offset-2">
-								<div class="row">
+								<div class="add_user_btn_btn row">
 									<button id="cancel" class="btn btn-border-d btn-circle" type="button">취소</button>
 									<button id="joinAddUser" class="btn btn-border-d btn-circle"
 										type="submit">가입하기</button>
@@ -252,6 +258,11 @@ width: 50%;
 
 				$(function () {
 
+					const space = /\s/; //공백입력불가
+					const regExp = /[ㄱ-ㅎㅏ-ㅣ가-힣]/g; //한글입력 불가
+					let mail_auth = 0;
+					let phone_auth = 0;
+
 					//아이디 유효성 및 중복체크
 					$("#addGeneralId").on("keyup", function () {
 						// console.log("가나다");
@@ -271,20 +282,28 @@ width: 50%;
 								console.log('성공: ' + result);
 
 								if (result == 0) {
-									if (email != "") {
+									if (space.exec(email) || regExp.exec(email)) {
+										$("#check-email").html("공백과 한글은 입력 불가합니다");
+										$("#addGeneralId").val("");
+										$("#add_mailAuthNum").hide();
+									} else if (email != "") {
 										if (email.indexOf('@') < 1 || email.indexOf('.') == -1) {
 											$("#check-email").html("Email형식이 아닙니다.");
+											$("#add_mailAuthNum").hide();
 										} else {
 											$("#check-email").html('사용 가능한 아이디입니다.');
 											$("#check-email").css('color', 'green');
+											$("#add_mailAuthNum").show();
 										}
 									} else {
 										$("#check-email").html("");
+										$("#add_mailAuthNum").hide();
 									}
 
 								} else {
 									$("#check-email").html('이미 사용중이거나 중복된 아이디 입니다.');
 									$("#check-email").css('color', 'red');
+									$("#add_mailAuthNum").hide();
 								}
 
 							} /* ,error :  function(request,status,error){// 에러발생시 실행할 함수
@@ -296,9 +315,9 @@ alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+
 					//이메일 인증번호 받기
 					$("#mailAuthNum").on("click", function () {
 
-						var id = $("#id").val();
+						var add_id = $("#addGeneralId").val();
 
-						if (id != (id.indexOf('@') < 1 || id.indexOf('.') == -1)) {
+						if (add_id != (add_id.indexOf('@') < 1 || add_id.indexOf('.') == -1)) {
 
 							//$("#mailAuthNum").hide();
 							$("#mailAuthNum").text("인증번호 재발송");
@@ -307,13 +326,13 @@ alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+
 							//$("#reMailAuth").show();
 
 							$.ajax({
-								url: '/user/rest/sendEmailAuthNum/' + id,
+								url: '/user/rest/sendEmailAuthNum/' + add_id,
 								headers: {
 									"Accept": "application/json",
 									"Content-Type": "application/json"
 								},
 								method: 'GET',
-								//dataType:'json',
+								dataType: 'text',
 								//data : JSON.stringify(data),	
 								success: function (data) {
 									//console.log(JSON.stringify(data));
@@ -321,17 +340,23 @@ alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+
 									//console.log('성공: '+data.id);
 
 									$("input[name='checkMailAuthNum']").on("keyup", function () {
-										console.log('되는가');
-										var aa = $("input[name='checkMailAuthNum']").val();
 
-										if (aa.length > 0) {
+										var aa = $("input[name='checkMailAuthNum']").val();
+										if (space.exec(aa) || regExp.exec(aa)) {
+											$("#check-email-auth").html("공백과 한글은 입력 불가합니다");
+											$("input[name='checkMailAuthNum']").val("");
+											mail_auth = 0;
+										} else if (aa.length > 0) {
 											if (data == aa) {
 												$("#check-email-auth").html("인증번호가 일치합니다.");
+												mail_auth = 1;
 											} else {
 												$("#check-email-auth").html('인증번호를 확인하세요.');
+												mail_auth = 0;
 											}
 										} else {
 											$("#check-email-auth").html("");
+											mail_auth = 0;
 										}
 									});
 								}
@@ -341,34 +366,33 @@ alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+
 
 					//비밀번호
 					$('#addGeneralPassword').on("keyup", function () {
-						var regExp = /[ㄱ-ㅎㅏ-ㅣ가-힣]/g; //한글입력 불가
+
 						var pwd = $('#addGeneralPassword').val();
-
-						if (pwd.length < 1) {
+						if (pwd.length > 0) {
+							$(this).val($(this).val().replace(/ /g, ''));
+							$("#check-pwd-exp").html("공백은 입력 불가합니다.");
+						} else {
 							$("#check-pwd-exp").html("");
-
-						} else if (regExp.test(pwd)) {
-							$("#check-pwd-exp").html("한글은 입력 불가합니다.");
-							$("#check-pwd-exp").css('color', 'red');
 						}
 
 					});
 
 					//비밀번호 확인
-					$('#confirmPassword').on("keyup", function () {
+					$('#addConfirmPassword').on("keyup", function () {
 
-
-						if ($('#confirmPassword').val().length < 0) {
+						if ($('#addConfirmPassword').val().length < 1) {
 							$("#check-pwd").html("");
-						} else if ($('#addGeneralPassword').val() != $('#confirmPassword').val() || $('#confirmPassword').val() != '') {
-							$("#check-pwd").html('비밀번호가 일치하지 않습니다.');
-							$("#check-pwd").css('color', 'red');
-							$('#confirmPassword').focus();
-						}
-						if ($('#addGeneralPassword').val() == $('#confirmPassword').val()) {
+						} else if ($('#addGeneralPassword').val() == $('#addConfirmPassword').val()) {
+							$(this).val($(this).val().replace(/ /g, ''));
 							$("#check-pwd").html('비밀번호가 일치합니다.');
 							$("#check-pwd").css('color', 'green');
+						} else if ($('#addGeneralPassword').val() != $('#addConfirmPassword').val() || $('#addConfirmPassword').val() != '') {
+							$(this).val($(this).val().replace(/ /g, ''));
+							$("#check-pwd").html('비밀번호가 일치하지 않습니다.');
+							$("#check-pwd").css('color', 'red');
+							$('#addConfirmPassword').focus();
 						}
+
 					});
 
 					//닉네임 중복체크
@@ -388,7 +412,10 @@ alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+
 							success: function (result) {
 								console.log('성공: ' + result);
 								if (result == 0) {
-									if (nickName.length > 2) {
+									if (space.exec(nickName)) {
+										$("#check-nickName").html("공백은 입력 불가합니다");
+										$("input[name='nickName']").val("");
+									} else if (nickName.length > 2) {
 										$("#check-nickName").html('사용 가능한 닉네임입니다.');
 										$("#check-nickName").css('color', 'green');
 									} else {
@@ -422,24 +449,28 @@ alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+
 								console.log('성공: ' + result);
 
 								if (result == 0) {
-									if (email != "") {
+									if (phone != "") {
 										if (!(regExp.test(phone))) {
 											$("#addGeneralPhone").val("");
 											$("#check-phone").html("휴대폰번호는 숫자로만 입력 가능합니다.");
+											$("#phoneAuthNum_btn").hide();
 										} else if (phone.length == 11) {
 											$("#check-phone").html('사용 가능한 번호입니다.');
 											$("#check-phone").css('color', 'green');
+											$("#phoneAuthNum_btn").show();
 										} else if (phone.length > 11) {
 											$("#addGeneralPhone").val("");
 											$("#check-phone").html("휴대폰번호는 11자리만 가능합니다.");
 										} else {
 											$("#check-phone").html("");
+											$("#phoneAuthNum_btn").hide();
 										}
 
-									} else {
-										$("#check-phone").html('이미 사용중이거나 중복된 휴대폰번호 입니다.');
-										$("#check-phone").css('color', 'red');
 									}
+								} else {
+									$("#check-phone").html('중복된 휴대폰번호 입니다.');
+									$("#check-phone").css('color', 'red');
+									$("#phoneAuthNum_btn").hide();
 								}
 							}
 						});
@@ -448,14 +479,12 @@ alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+
 
 					//휴대폰 인증번호 받기
 					$("#phoneAuthNum").on("click", function () {
-
 						$("#phoneAuthNum").text("인증번호 재발송");
 						$("#check-phone").hide();
 						$("#checkPhoneAuth").show();
-						//세션에 담긴 값이랑 입력된 값이 맞는지 비교하기 #check-phone-auth
+
 						const phone = $("#addGeneralPhone").val();
 						console.log(phone);
-
 						$.ajax({
 							url: '/user/rest/sendPhoneAuthNum/' + phone,
 							headers: {
@@ -468,20 +497,35 @@ alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+
 							success: function (dataa) {
 								console.log('성공: ' + dataa);
 
-								$("input[name='checkPhoneAuthNum']").on("keyup", function () {
-									console.log('되는가');
-									var ab = $("input[name='checkPhoneAuthNum']").val();
+								$("#add_g_checkPhoneAuthNum").on("keyup", function () {
+
+									var ab = $("#add_g_checkPhoneAuthNum").val();
 
 									if (ab.length > 0) {
-										if (dataa == ab) {
+										if (space.exec(ab)) {
+											$("#check-phone-auth").html("공백은 입력 불가합니다");
+											$("#add_g_checkPhoneAuthNum").val("");
+											phone_auth = 0;
+										} else if (dataa == ab) {
 											$("#check-phone-auth").html("인증번호가 일치합니다.");
+											phone_auth = 1;
 										} else {
 											$("#check-phone-auth").html('인증번호를 확인하세요.');
+											phone_auth = 0;
 										}
+									} else {
+										$("#check-phone-auth").html("");
+										phone_auth = 0;
 									}
 								});
 							}
 						});
+
+					});
+
+					$("#cancel").on("click", function () {
+
+						self.location = "/.jsp";
 					});
 
 					//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
@@ -489,6 +533,7 @@ alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+
 						//console.log("뭐지");
 						fncAddUser();
 					});
+
 
 					function fncAddUser() {
 
@@ -498,10 +543,16 @@ alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+
 						var name = $("#addGeneralname").val();
 						var nickName = $("input[name='nickName']").val();
 						var phone = $("#addGeneralPhone").val();
+						//메일 인증번호랑 휴대폰 인증번호 일치여부
 
 
 						if (id == null || id.length < 1) {
 							alert("아이디는 반드시 입력하셔야 합니다.");
+							return;
+						}
+
+						if (mail_auth != 1) {
+							alert("이메일 인증번호를 확인해주세요.");
 							return;
 						}
 
@@ -510,9 +561,8 @@ alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+
 							return;
 						}
 
-						if (!(7 < pw.length < 16)) {
-							alert("패스워드는 8~15자까지 가능합니다.");
-							alert(pw.length);
+						if (pw.length < 8) {
+							alert("패스워드는 8자 이상이어야 합니다.");
 							return;
 						}
 
@@ -546,6 +596,11 @@ alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+
 							return;
 						}
 
+						if (phone_auth != 1) {
+							alert("휴대폰번 인증번호를 확인해주세요.");
+							return;
+						}
+
 						var addr = "";
 						if ($("input:text[name='addr']").val() != "" && $("input:text[name='userAddr']").val() != "") {
 							var value = $("input[name='addr']").val() + ""
@@ -554,7 +609,7 @@ alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+
 
 						$("input:hidden[name='allAddr']").val(value);
 
-						$("form").attr("method", "POST").attr("action", "/user/addUser").attr("enctype", "multipart/form-data").submit();
+						$("#add_g_form").attr("method", "POST").attr("action", "/user/addUser").attr("enctype", "multipart/form-data").submit();
 					}
 
 

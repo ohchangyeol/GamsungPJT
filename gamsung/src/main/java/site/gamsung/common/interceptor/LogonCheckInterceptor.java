@@ -46,7 +46,13 @@ public class LogonCheckInterceptor extends HandlerInterceptorAdapter {
 		//==> 로그인한 회원이라면...
 		if(   user != null   )  {
 			//==> 로그인 상태에서 접근 불가 URI
-			
+			System.err.println("인터셉터 user"+user);
+//			if(user.getSnsId()!=null) {
+//				System.out.println("인터셉터 카카오 맞는지"+user.getSnsId());
+//				if(uri.indexOf("addUser") != -1) {
+//					return true;
+//				}
+//			}
 			
 			if(		uri.indexOf("addUser") != -1 ||	uri.indexOf("login") != -1 		|| 
 					uri.indexOf("kakaoCallback") != -1 ){
@@ -62,8 +68,9 @@ public class LogonCheckInterceptor extends HandlerInterceptorAdapter {
 		}else{ //==> 미 로그인한 화원이라면...
 			//==> 로그인 시도 중.....			
 
-			if(		uri.indexOf("addUser") != -1 || uri.indexOf("login") != -1 || uri.indexOf("checkIdPassword") != -1 || uri.indexOf("checkDuplication") != -1 || uri.indexOf("findId") != -1 
-					|| uri.indexOf("findPassword") != -1 || uri.indexOf("kakaoCallback") != -1 ||uri.indexOf("listCamp") != -1 || uri.indexOf("getCamp") != -1 
+			if(		uri.indexOf("addUser") != -1 || uri.indexOf("sendEmailAuthNum") != -1 || uri.indexOf("findIdPhoneAuthNum") != -1 || uri.indexOf("login") != -1 || uri.indexOf("checkIdPassword") != -1 
+					|| uri.indexOf("checkDuplication") != -1 || uri.indexOf("findId") != -1 || uri.indexOf("sendPhoneAuthNum") != -1
+					|| uri.indexOf("findPassword") != -1 || uri.indexOf("getKakaoAuthUrl") != -1 || uri.indexOf("kakaoCallback") != -1 ||uri.indexOf("listCamp") != -1 || uri.indexOf("getCamp") != -1 
 					|| uri.indexOf("listCampQna") != -1 || uri.indexOf("listCampRatingReview") != -1 || uri.indexOf("listCampNotice") != -1 || uri.indexOf("getCampQna") != -1 
 					|| uri.indexOf("listWaitAuctionProduct") != -1 || uri.indexOf("listAuctionProduct") != -1 || uri.indexOf("infiniteScroll") != -1 || uri.indexOf("autoComplete") != -1 
 					|| uri.indexOf("naverShoppingAPI") != -1 || uri.indexOf("video") != -1 || uri.indexOf("getCampNotice") != -1){
