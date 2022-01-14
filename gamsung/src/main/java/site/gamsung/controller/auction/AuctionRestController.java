@@ -56,6 +56,10 @@ public class AuctionRestController {
 	@Qualifier("auctionReviewService")
 	private AuctionReviewService auctionReviewService;
 	
+	@Autowired
+	@Qualifier("naverShoppingAPI")
+	private NaverShoppingAPI naverShoppingAPI;
+	
 	@Value("#{auctionProperties['auctionPageSize']}")
 	int auctionPageSize;
 	
@@ -65,21 +69,15 @@ public class AuctionRestController {
 	@Autowired
 	private SimpMessagingTemplate simpMessagingTemplate;
 	
-	@RequestMapping(value = "naverShoppingAPI", produces = "application/json; charset=utf-8")
-	public NaverProduct naverShoppingAPI() {
-		NaverShoppingAPI naverShoppingAPI = new NaverShoppingAPI();
-		return naverShoppingAPI.naverShopping();
-	}
-	
-	@PostMapping("infiniteScroll")
-	public synchronized List<AuctionProduct> InfiniteScroll(@RequestBody Search search){
-	
-		search.setOffset(auctionPageSize);
-		search.setPageSize(auctionPageSize);
+	@RequestMapping(value = "infiniteScroll", produces = "application/json; charset=utf-8")
+	public List<NaverProduct> naverShoppingAPI(@RequestBody Search search) {
 		
-		return auctionProductService.listCrawlingAuctionProduct(search);
+		NaverProduct naverProduct = naverShoppingAPI.naverShopping(search);
+		
+		List<NaverProduct> list = naverProduct.getItems();
+		
+		return naverProduct.getItems();
 	}
-	
 	
 	@PostMapping("getBidderRanking")
 	public AuctionInfo getBidderRanking(@RequestBody AuctionInfo auctionInfo, HttpSession httpSession) {
@@ -319,4 +317,14 @@ public class AuctionRestController {
 		
 		simpMessagingTemplate.convertAndSend("/topic/exit/"+auctionInfo.getAuctionProductNo(),auctionInfo);
 	}
+	
+	//EC2 Coupang 상품 크롤링시 문제 발생
+//	@PostMapping("infiniteScroll")
+//	public synchronized List<AuctionProduct> InfiniteScroll(@RequestBody Search search){
+//	
+//		search.setOffset(auctionPageSize);
+//		search.setPageSize(auctionPageSize);
+//		
+//		return auctionProductService.listCrawlingAuctionProduct(search);
+//	}
 }
