@@ -197,8 +197,8 @@ width: 50%;
 
 										<div id="checkPhoneAuth" class="col-sm-offset-3 col-sm-6" style="display:none;">
 											<input id="add_g_checkPhoneAuthNum" name="checkPhoneAuthNum"
-												class="form-control " type="text" placeholder="인증번호를 입력하세요."
-												maxlength="4" />
+												class="form-control " type="text" style=" margin: 15px;"
+												placeholder="인증번호를 입력하세요." maxlength="4" />
 										</div>
 										<div id="check-phone" class='col-sm-offset-3 col-sm-6'></div>
 										<div id="check-phone-auth" class='col-sm-offset-3 col-sm-6'></div>
