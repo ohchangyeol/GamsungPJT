@@ -353,11 +353,7 @@
 							<button id="addSuspension_user_btn" class="btn btn-border-d btn-circle" type="button"
 								data-dismiss="modal">확인</button>
 						</div>
-
-
 					</form>
-
-
 				</div>
 				<!-- </div> -->
 			</div>

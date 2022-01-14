@@ -47,18 +47,10 @@
 			<link id="color-scheme" href="../../resources/css/colors/default.css" rel="stylesheet">
 
 			<style>
-				/* .form-group{
-display: flex;
-flex: 1 auto;
-} */
 				.time {
 					display: flex;
 				}
 
-				/* .form-group .form-control{
-display:inline-block;
-width: 50%;
-} */
 				.form-group .btn {
 					height: 26px;
 					padding-top: 0;

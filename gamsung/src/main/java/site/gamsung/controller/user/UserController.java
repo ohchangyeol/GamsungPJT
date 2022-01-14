@@ -1,6 +1,7 @@
 package site.gamsung.controller.user;
 
 import java.io.File;
+import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashMap;
@@ -8,6 +9,7 @@ import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
@@ -23,8 +25,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-
-import com.sun.mail.handlers.multipart_mixed;
 
 import site.gamsung.service.common.Page;
 import site.gamsung.service.common.Search;
@@ -297,7 +297,7 @@ public class UserController {
 
 	// 카카오 연동정보 조회
 	@RequestMapping(value = "kakaoCallback")
-	public String oauthKakao(@RequestParam(value = "code", required = false) String code, Model model,HttpSession session) {
+	public String oauthKakao(@RequestParam(value = "code", required = false) String code, Model model,HttpSession session,HttpServletResponse res) {
 
 		System.out.println("#########" + code);
 		String accessToken = userService.getAccessToken(code);
@@ -305,11 +305,11 @@ public class UserController {
 
 		HashMap<String, Object> userInfo = userService.getUserInfo(accessToken);
 		System.out.println("###access_Token#### : " + accessToken);
-		
-		if((String) userInfo.get("email")!=null) {
-			userService.unlink(accessToken);
-			return "/";
-		}else {		
+//		try {
+//		if((String) userInfo.get("email")==null) {
+//			userService.unlink(accessToken);
+//			return "/";
+//		}else {		
 		String email = (String) userInfo.get("email");
 		System.out.println("###userInfo#### : " + userInfo.get("email"));
 		System.out.println("###nickname#### : " + userInfo.get("nickname"));
@@ -326,7 +326,9 @@ public class UserController {
 
 		if (userEmail == null) {
 			User user = new User();
+			if(userInfo.get("email")!=null) {
 			user.setId(userInfo.get("email").toString());
+			}
 			user.setNickName(userInfo.get("nickname").toString());
 			user.setSnsId(userInfo.get("snsId").toString());
 			session.setAttribute("kakaoUser", user);
@@ -340,7 +342,10 @@ public class UserController {
 				}
 			}
 		}
-	}
+//	}
+//		}catch(Exception e) {
+//			e.printStackTrace();
+//		}
 		return "forward:/view/user/addKakaoUser.jsp";
 	}
 
@@ -406,7 +411,7 @@ public class UserController {
 
 		System.out.println("/user/mypage : GET");
 
-		return "redirect:/view/common/myPage.jsp";
+		return "forward:/view/common/myPage.jsp";
 
 	}
 

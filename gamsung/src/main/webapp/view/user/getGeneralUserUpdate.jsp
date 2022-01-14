@@ -43,7 +43,7 @@
 			<link href="../../resources/lib/simple-text-rotator/simpletextrotator.css" rel="stylesheet">
 			<!-- Main stylesheet and color file-->
 			<link href="../../resources/css/style.css" rel="stylesheet">
-			<link id="color-scheme" href="../../resources/css/colors/default.css" rel="stylesheet"> -->
+			<link id="color-scheme" href="../../resources/css/colors/default.css" rel="stylesheet">
 
 			<style>
 				/* .form-group{

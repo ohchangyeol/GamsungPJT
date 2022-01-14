@@ -42,7 +42,7 @@
 								</a>
 								<ul class="nav nav-children">
 									<li>
-										<a href="/view/common/myPage.jsp">
+										<a href="/user/myPage">
 											내정보 조회/수정
 										</a>
 									</li>

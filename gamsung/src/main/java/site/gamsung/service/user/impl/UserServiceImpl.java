@@ -108,13 +108,19 @@ public class UserServiceImpl implements UserService{
 	public void sendEmailAuthNum(String id, String key){
 				
 		String info = "[감성캠핑] 인증번호 입니다.";
-		String text = "인증번호는"+key+"입니다.";
+		String text="<img src=\"cid:image\"><div class=\"container\" style=\"width: 1008px;font-family: 'Noto Sans KR', sans-serif; text-align: center; font-weight: 400;\">\r\n"
+        		+ "		        <div class=\"gamsung-title\" style=\"height: 100px;font-size: 36px;border-top: 1px solid #ddd;border-bottom: 1px solid #ddd; padding: 15px; box-sizing: border-box; font-weight: 700; margin-bottom: 15px;color: rgb(42, 99, 65);\">감성캠핑</div>\r\n"
+        		+ "		        <div class=\"color-text\">안녕하세요!    감성캠핑 입니다!</div>\r\n"
+        		+ "		        <div>회원님이 감성캠핑에 회원가입을 하려고 합니다.</div>\r\n"
+        		+ "		        <div>다음 아래 인증번호를 입력해주세요</div>\r\n"
+        		+ "		        <div class=\"number\" style=\"display: inline-block; padding: 5px 10px; margin-top: 20px;border: 1px solid #ddd; border-radius: 5px;\">"+key+"</span>";
+//		String text = "인증번호는"+key+"입니다.";
 //		SendMail sendMail = new SendMail();
 //		sendMail.sendMail(id, info, text);
 		
 		SendMailHtml html=new SendMailHtml();
 		try {
-			html.sendMailHtml(id, info, text, key);
+			html.sendMailHtml(id, info, text);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -124,7 +130,8 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public void sendPhoneAuthNum(String phone, String phKey){
 		
-		String text = "[감성캠핑] 인증번호는"+phKey+"입니다.";
+		String text = "[감성캠핑] 인증번호는 ["+phKey+"] 입니다.";
+		
 		SendMessage sendMessage = new SendMessage();
 		sendMessage.sendMessage(phone, text);	  
 	}
@@ -169,9 +176,16 @@ public class UserServiceImpl implements UserService{
 		
 		userDAO.updateUser(user);
 		
-		String info="임시비밀번호 입니다.";
-		String text = "고객님의 임시 비밀번호는"+pw+"입니다."+
-		"로그인 후 비밀번호를 변경해주세요.";
+		String info="[감성캠핑] 임시비밀번호 입니다.";
+		
+		String text="<img src=\"cid:image\"><div class=\"container\" style=\"width: 1008px;font-family: 'Noto Sans KR', sans-serif; text-align: center; font-weight: 400;\">\r\n"
+        		+ "		        <div class=\"gamsung-title\" style=\"height: 100px;font-size: 36px;border-top: 1px solid #ddd;border-bottom: 1px solid #ddd; padding: 15px; box-sizing: border-box; font-weight: 700; margin-bottom: 15px;color: rgb(42, 99, 65);\">감성캠핑</div>\r\n"
+        		+ "		        <div class=\"color-text\">감성캠핑 입니다!</div>\r\n"
+        		+ "		        <div>임시 비밀번호 입니다.</div>\r\n"
+        		+ "		        <div>하단의 임시 비밀번호로 로그인 후 비밀번호를 변경해 주세요.</div>\r\n"
+        		+ "		        <div class=\"number\" style=\"display: inline-block; padding: 5px 10px; margin-top: 20px;border: 1px solid #ddd; border-radius: 5px;\">"+pw+"</span>";
+//		String text = "고객님의 임시 비밀번호는"+pw+"입니다."+
+//		"로그인 후 비밀번호를 변경해주세요.";
 		
 		SendMail sendMail = new SendMail();
 		sendMail.sendMail(user.getId(), info, text);
@@ -272,12 +286,14 @@ public class UserServiceImpl implements UserService{
             JsonObject kakaoAccount = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
 
             String nickname = properties.getAsJsonObject().get("nickname").getAsString();
-            String email = kakaoAccount.getAsJsonObject().get("email").getAsString();
             String kakaoId=element.getAsJsonObject().get("id").getAsString();
+            if(kakaoAccount.getAsJsonObject().get("email")!=null) {
+            String email = kakaoAccount.getAsJsonObject().get("email").getAsString();
+            userInfo.put("email", email);
+            }
             
             userInfo.put("accessToken", accessToken);
             userInfo.put("nickname", nickname);
-            userInfo.put("email", email);
             userInfo.put("snsId", kakaoId);
 
         } catch (IOException ioe) {
