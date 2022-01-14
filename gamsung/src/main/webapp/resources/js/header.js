@@ -10,6 +10,11 @@ $(document).ready(function(){
 		preloader: false,
 		focus: '#id'
 	});
+
+	$(document).on('click', '.modal-dismiss', function (e) {
+		e.preventDefault();
+		$.magnificPopup.close();
+	});
 	
 		
 	//휴대폰 인증번호 받기

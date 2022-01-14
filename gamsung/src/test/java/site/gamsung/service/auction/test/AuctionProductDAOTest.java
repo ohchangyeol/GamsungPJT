@@ -15,7 +15,9 @@ import site.gamsung.service.auction.AuctionProductDAO;
 import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.AuctionInfo;
 import site.gamsung.service.domain.AuctionProduct;
+import site.gamsung.service.domain.NaverProduct;
 import site.gamsung.service.domain.User;
+import site.gamsung.util.auction.NaverShoppingAPI;
 
 
 /*
@@ -35,12 +37,12 @@ import site.gamsung.service.domain.User;
 public class AuctionProductDAOTest {
 
 	//==>@RunWith,@ContextConfiguration 이용 Wiring, Test 할 instance DI
-	@Autowired(required = false)
+	@Autowired
 	@Qualifier("auctionProductDAO")
 	private AuctionProductDAO auctionProductDAO;
 
 	//경매 상품 list 호출 테스트
-	@Test
+	//@Test
 	public void testListAuctionProduct() {
 		
 		Search auctionSearch = new Search();
@@ -166,5 +168,6 @@ public class AuctionProductDAOTest {
 		}
 		
 	}
+
 }
 	

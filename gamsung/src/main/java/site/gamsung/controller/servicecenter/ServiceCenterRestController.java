@@ -1,12 +1,16 @@
 package site.gamsung.controller.servicecenter;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -18,8 +22,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import site.gamsung.service.common.Page;
+import site.gamsung.service.common.Search;
+import site.gamsung.service.domain.QnaWrapper;
 import site.gamsung.service.domain.Report;
 import site.gamsung.service.domain.User;
+import site.gamsung.service.servicecenter.QnaService;
 import site.gamsung.service.servicecenter.ReportService;
 import site.gamsung.service.user.UserService;
 
@@ -31,6 +39,17 @@ public class ServiceCenterRestController {
 	@Autowired
 	@Qualifier("reportServiceImpl")
 	private ReportService reportService;
+	
+	@Autowired
+	@Qualifier("qnaServiceImpl")
+	private QnaService qnaService;
+	
+	@Value("#{commonProperties['pageUnit']}")
+	int pageUnit;
+	
+	@Value("#{commonProperties['pageSize']}")
+	int pageSize;
+	
 	
 	// Constructor
 	public ServiceCenterRestController() {
@@ -95,5 +114,25 @@ public class ServiceCenterRestController {
 		return reportService.updateCodeReport(report);
 	}
 	
+	
+	@GetMapping("listQna")
+	public QnaWrapper listQna(@ModelAttribute("search") Search search) throws Exception {
+		
+		search.setSearchKeyword(new String(search.getSearchKeyword().getBytes("8859_1"),"UTF-8")); 
+		System.out.println(search);
+		
+		
+		if(search.getCurrentPage() == 0 ){ 
+			search.setCurrentPage(1); 
+		}
+		search.setPageSize(pageSize);
+		
+		QnaWrapper wrapper = qnaService.listQna(search);
+		wrapper.setSearch(search);
+		
+		System.out.println(wrapper);
+
+		return wrapper;
+	}
 	
 }

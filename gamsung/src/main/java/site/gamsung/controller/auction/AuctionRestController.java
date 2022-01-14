@@ -31,8 +31,10 @@ import site.gamsung.service.common.RatingReviewService;
 import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.AuctionInfo;
 import site.gamsung.service.domain.AuctionProduct;
+import site.gamsung.service.domain.NaverProduct;
 import site.gamsung.service.domain.RatingReview;
 import site.gamsung.service.domain.User;
+import site.gamsung.util.auction.NaverShoppingAPI;
 
 @RequestMapping("auction/rest/*")
 @RestController
@@ -62,6 +64,12 @@ public class AuctionRestController {
 	
 	@Autowired
 	private SimpMessagingTemplate simpMessagingTemplate;
+	
+	@RequestMapping(value = "naverShoppingAPI", produces = "application/json; charset=utf-8")
+	public NaverProduct naverShoppingAPI() {
+		NaverShoppingAPI naverShoppingAPI = new NaverShoppingAPI();
+		return naverShoppingAPI.naverShopping();
+	}
 	
 	@PostMapping("infiniteScroll")
 	public synchronized List<AuctionProduct> InfiniteScroll(@RequestBody Search search){

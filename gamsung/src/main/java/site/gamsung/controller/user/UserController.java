@@ -63,7 +63,13 @@ public class UserController {
 		System.out.println("/user/addUser:POST");
 	
 		// user.setRole("GENERAL");
+		System.out.println("user role"+user.getRole());
 		if(user.getRole().equals("GENERAL")) {
+			if(session.getAttribute("kakaoUser")!=null) {
+				User kakaoUser = (User)session.getAttribute("kakaoUser");
+				System.out.println("카카오유저 snsid"+kakaoUser.getSnsId());
+				user.setSnsId(kakaoUser.getSnsId());
+			}
 			userService.addUser(user);
 		}else {
 			MultipartFile multpartfile=businessImg;
@@ -268,9 +274,10 @@ public class UserController {
 
 		System.out.println("/user/logout : GET");
 
+		System.out.println("세션에 담긴 토큰값"+(String) session.getAttribute("kakaoToken"));
 		if ((String) session.getAttribute("kakaoToken") != null) {
-			userService.kakaoLogout((String) session.getAttribute("accessToken"));
-			session.invalidate();
+			System.out.println("카카오 로그아웃시 토큰값"+session.getAttribute("kakaoToken"));
+			userService.kakaoLogout((String) session.getAttribute("kakaoToken"));
 		}
 		session.invalidate();
 
@@ -290,8 +297,7 @@ public class UserController {
 
 	// 카카오 연동정보 조회
 	@RequestMapping(value = "kakaoCallback")
-	public String oauthKakao(@RequestParam(value = "code", required = false) String code, Model model,
-			HttpSession session) {
+	public String oauthKakao(@RequestParam(value = "code", required = false) String code, Model model,HttpSession session) {
 
 		System.out.println("#########" + code);
 		String accessToken = userService.getAccessToken(code);
@@ -318,72 +324,20 @@ public class UserController {
 			user.setId(userInfo.get("email").toString());
 			user.setNickName(userInfo.get("nickname").toString());
 			user.setSnsId(userInfo.get("snsId").toString());
-			session.setAttribute("user", user);
+			session.setAttribute("kakaoUser", user);
 			return "forward:/view/user/addKakaoUser.jsp";
 		} else {
 			if (email.equals(userService.getUser(email).getId())) {
 
-				if (userEmail.getSnsId() != null) {
+				if (userEmail.getSnsId() != null && userEmail.getSecessionRegDate() == null) {
 					session.setAttribute("user", userEmail);
 					return "redirect:/";
-				} 
+				}
 			}
 		}
 		return "forward:/view/user/addKakaoUser.jsp";
 	}
 
-	// @RequestMapping(value="/kakaoLogout")
-	// public String kakaoLogout(HttpSession session) {
-	// userService.kakaoLogout((String)session.getAttribute("accessToken"));
-	// session.invalidate();
-	// return "redirect:/";
-	// }
-
-	/*
-	 * @RequestMapping(value="addSuspensionUser", method= RequestMethod.POST) public
-	 * String addSuspensionUser(User user) { System.out.println("이용정지 컨트롤러");
-	 * System.out.println("이용정지 유저"+user); userService.addSuspensionUser(user);
-	 * 
-	 * return "listUser/list"; }
-	 */
-
-	// @RequestMapping( value="listUser" )
-	// public String listUser( @ModelAttribute("search") Search search , Model model
-	// , HttpServletRequest request) throws Exception{
-	//
-	// System.out.println("/user/listUser : GET / POST");
-	//
-	// if(search.getCurrentPage() == 0 ){
-	// search.setCurrentPage(1);
-	// }
-	// search.setPageSize(pageSize);
-	//
-	// // Business logic 수행
-	// UserWrapper userWrapper=userService.listUser(search);
-	//
-	// List<User> list = userWrapper.getUsers();
-	// Integer totalCount = userWrapper.getTotalCount();
-	//
-	// search.setCurrentPage(1);
-	// search.setPageSize(10);
-	//
-	// userWrapper = userService.listUser(search);
-	//
-	// list = userWrapper.getUsers();
-	// totalCount = (Integer)userWrapper.getTotalCount();
-	// Page resultPage = new Page( search.getCurrentPage(),totalCount, pageUnit,
-	// pageSize);
-	//
-	// System.out.println(list);
-	// System.out.println(totalCount);
-	//
-	// // Model 과 View 연결
-	// model.addAttribute("list", list);
-	// model.addAttribute("resultPage", resultPage);
-	// model.addAttribute("search", search);
-	//
-	// return "forward:/view/user/listUser.jsp";
-	// }
 
 	@RequestMapping(value = "listUser/{info}")
 	public String listUser(@ModelAttribute("search") Search search, Model model, HttpServletRequest request,
