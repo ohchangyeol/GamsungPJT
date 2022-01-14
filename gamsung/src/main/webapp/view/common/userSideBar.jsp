@@ -177,4 +177,105 @@
 					window.location = "/auction/listMyAuctionProduct/review?currentPage=1";
 				});
 			});
+
+			$("#addSecession_btn").on('click', function () {
+
+				var id = $("#secession-userId").val();
+				var password = $("#secession-userPwd").val();
+				alert("여기는 들어오나");
+
+				$.ajax({
+					url: '/user/rest/addSecessionUser',
+					headers: {
+						"Accept": "application/json",
+						"Content-Type": "application/json"
+					},
+					method: 'POST',
+					dataType: 'json',
+					data: JSON.stringify({
+						"id": id,
+						"password": password
+					}),
+					success: function (returnData) {
+
+						console.log('성공: ' + returnData);
+						if (returnData == 5) {
+							$.ajax({
+								url: '/user/rest/kakaounlink',
+								headers: {
+									"Accept": "application/json",
+									"Content-Type": "application/json"
+								},
+								method: 'POST',
+								// dataType: 'json',
+								// data: JSON.stringify({
+								// 	"id": id,
+								// 	"password": password,
+								// }),
+
+								success: function (kData) {
+									console.log('성공: ' + kData);
+									if (kData == 0) {
+
+										Swal.fire({
+											title: '탈퇴하시겠습니까?',
+											text: "탈퇴후엔 같은 아이디로 재가입이 불가합니다!",
+											icon: 'warning',
+											showCancelButton: true,
+											confirmButtonColor: '#3085d6',
+											cancelButtonColor: '#d33',
+											confirmButtonText: '탈퇴',
+											cancelButtonText: '취소'
+										}).then((result) => {
+											if (result.isConfirmed) {
+												Swal.fire(
+													'탈퇴완료!',
+													'success'
+												).then(() => {
+													self.location = "/";
+												})
+											}
+										})
+
+
+									}
+
+								}
+							})
+						}
+
+						else if (returnData == "0") {
+							Swal.fire({
+								title: '탈퇴하시겠습니까?',
+								text: "탈퇴후엔 같은 아이디로 재가입이 불가합니다!",
+								icon: 'warning',
+								showCancelButton: true,
+								confirmButtonColor: '#3085d6',
+								cancelButtonColor: '#d33',
+								confirmButtonText: '탈퇴',
+								cancelButtonText: '취소'
+							}).then((result) => {
+								if (result.isConfirmed) {
+									Swal.fire(
+										'탈퇴완료!',
+										'success'
+									).then(() => {
+										self.location = "/user/logout";
+									})
+								}
+							})
+
+						} else {
+							Swal.fire('완료되지 않은 거래내역 있어 탈퇴가 어렵습니다.거래완료 후 다시 시도해주세요.').then(() => {
+								self.location = "/view/common/myPage.jsp";
+							})
+
+						}
+					}, error: function (request, status, error) {
+						alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+					}
+
+				});
+			});
+
 		</script>

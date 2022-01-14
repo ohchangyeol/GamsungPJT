@@ -106,8 +106,6 @@ import site.gamsung.service.domain.Post;
 	return "forward:/view/community/listPost.jsp";
 
   }
-
-
   
   //게시물 등록 페이지 navigation 
   @GetMapping(value = "addPost") 
@@ -277,7 +275,7 @@ import site.gamsung.service.domain.Post;
 		
 		communityService.updatePost(post);
 		
-		return "redirect:listPost";
+		return "redirect:/listPost";
 	  }
 	
 	  //게시물 삭제
@@ -296,7 +294,17 @@ import site.gamsung.service.domain.Post;
 						
 		communityService.deletePost(postNo);
 		
-		return "redirect:listPost";
+		return "redirect:/listPost";
+	  }
+	  
+	  @RequestMapping(value="getPost")
+	  public String getPost(int postNo) throws Exception{
+		  
+		  Post post = communityService.getPost(postNo);
+	 		 
+		  System.out.println("getPost::::::::::"+post);
+		  
+		  return "redirect:/view/community/getPost.jsp";
 	  }
 	
 	

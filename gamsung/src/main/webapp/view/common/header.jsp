@@ -130,7 +130,7 @@
                                     data-toggle="dropdown">${user.nickName}<br />보유포인트 : ${user.havingPoint}</a>
                                 <ul class="dropdown-menu">
                                     <li><a href="/user/mypage">내정보</a>
-                                    <li><a href="">내 게시글</a>
+                                    <li><a href="/community/listMyPost">내 게시글</a>
                                     <li><a href="">캠핑장</a>
                                     <li><a href="">중고경매</a>
                                     <li><a href="">예약양도</a>

@@ -46,7 +46,13 @@ public class LogonCheckInterceptor extends HandlerInterceptorAdapter {
 		//==> 로그인한 회원이라면...
 		if(   user != null   )  {
 			//==> 로그인 상태에서 접근 불가 URI
-			
+			System.err.println("인터셉터 user"+user);
+//			if(user.getSnsId()!=null) {
+//				System.out.println("인터셉터 카카오 맞는지"+user.getSnsId());
+//				if(uri.indexOf("addUser") != -1) {
+//					return true;
+//				}
+//			}
 			
 			if(		uri.indexOf("addUser") != -1 ||	uri.indexOf("login") != -1 		|| 
 					uri.indexOf("kakaoCallback") != -1 ){
