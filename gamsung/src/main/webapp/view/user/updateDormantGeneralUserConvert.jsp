@@ -19,17 +19,17 @@
 					confirmButtonColor: '#3085d6',
 					cancelButtonColor: '#d33',
 					confirmButtonText: '확인',
-					cancelButtonText : '취소'
+					cancelButtonText: '취소'
 				}).then((result) => {
 					if (result.isConfirmed) {
 						$.ajax({
 							url: '/user/rest/updateDormantGeneralUserConvert',
-							// headers: {
-							// 	"Accept": "application/json",
-							// 	"Content-Type": "application/json"
-							// },
+							headers: {
+								"Accept": "application/json",
+								"Content-Type": "application/json"
+							},
 							method: 'POST',
-							//dataType: 'json',
+							dataType: 'json',
 							data: ({
 								"id": id
 							}),

@@ -147,7 +147,7 @@
 		FROM USERS u 
 		left outer join (	SELECT * 
 							FROM LOGIN_HISTORY 
-							where (user_id, login_reg_date) in (select user_id, max(login_reg_date) as date from login_history group by user_id)) h
+							where (user_id, login_reg_date) in (select user_id, max(login_reg_date) as date FROM LOGIN_HISTORY  group by user_id)) h
 		on u.user_id = h.user_id 
 		left outer join (	SELECT count(receiver_id)rc, receiver_id 
 							FROM REPORT 
@@ -242,7 +242,7 @@
 			secession_reg_date is not null
 			</if>
 			<if test="searchKeyword !='' and searchKeyword !=null">
-						AND user_id LIKE CONCAT('%',#{searchKeyword},'%')
+			AND user_id LIKE CONCAT('%',#{searchKeyword},'%')
 					</if>
 			</trim>
 			ORDER BY entry_reg_date DESC
@@ -319,7 +319,7 @@
 						</if>
 						
 						<if test="searchKeyword !='' and searchKeyword !=null">
-							AND u.user_id LIKE CONCAT('%',#{searchKeyword},'%')
+							AND user_id LIKE CONCAT('%',#{searchKeyword},'%')
 						</if>) countTable left outer join (SELECT count(receiver_id)rc, receiver_id FROM REPORT where report_status=1 group by receiver_id having count(receiver_id)=0)rtc
 		on countTable.user_id = rtc.receiver_id where countTable.role != "ADMIN" AND countTable.secession_reg_date is null AND countTable.suspension_reg_date is null AND countTable.dormant_reg_date is null  					
 	 </select>

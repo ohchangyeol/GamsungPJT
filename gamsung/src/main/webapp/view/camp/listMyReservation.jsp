@@ -36,7 +36,7 @@
               <h4 class="col-sm-7 mb-0"></h4>
               <div class="col-sm-5 mb-sm-0">
                 <div class="row">
-                  <form role="form" class="reservation-search">
+                  <form role="form" id="searchform" class="reservation-search">
                     <div class="col-sm-4">
                       <select class="form-control" name="searchCondition">
                         <option value="0" ${! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>캠핑장</option>
