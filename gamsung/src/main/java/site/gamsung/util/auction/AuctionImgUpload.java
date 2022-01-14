@@ -16,7 +16,7 @@ public class AuctionImgUpload {
 		List<String> fileNames = new ArrayList<String>();
 		UUID uuid = null;
 		File file = null;
-		String subPath = "uploadfiles\\auctionImg\\product\\";
+		String subPath = "uploadfiles/auctionImg/product/";
 		
 		for (MultipartFile multipartFile : fileList) {
 			
