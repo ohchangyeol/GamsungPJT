@@ -306,7 +306,7 @@ public class UserController {
 		HashMap<String, Object> userInfo = userService.getUserInfo(accessToken);
 		System.out.println("###access_Token#### : " + accessToken);
 		
-		if((String) userInfo.get("email")!=null) {
+		if((String) userInfo.get("email")==null) {
 			userService.unlink(accessToken);
 			return "/";
 		}else {		
