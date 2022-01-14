@@ -135,4 +135,16 @@ public class ServiceCenterRestController {
 		return wrapper;
 	}
 	
+	@GetMapping("adminMain")
+	public Map<String, Object> adminMain() throws Exception {
+		
+		int qnaCount = qnaService.notTotalCountQna();
+		int reportCount = reportService.notTotalCountReport();
+		Map<String,Object> map = new HashMap<String, Object>();
+		map.put("qnaCount", qnaCount);
+		map.put("reportCount", reportCount );
+		
+		return map;
+	}
+	
 }

@@ -70,14 +70,14 @@ pageEncoding="UTF-8"%>
 											</div>
 											<div class="widget-summary-col">
 												<div class="summary">
-													<h4 class="title">다른거</h4>
+													<h4 class="title">처리되지 않은 신고 수</h4>
 													<div class="info">
-														<strong class="amount">1281</strong>
-														<span class="text-primary">*^^*</span>
+														<strong class="amount report-count"></strong>
+														<span class="text-primary"></span>
 													</div>
 												</div>
 												<div class="summary-footer">
-													<a class="text-muted text-uppercase">(view all)</a>
+													<a class="text-muted text-uppercase" href="/servicecenter/listReport">신고 내역 바로가기</a>
 												</div>
 											</div>
 										</div>
@@ -95,13 +95,13 @@ pageEncoding="UTF-8"%>
 											</div>
 											<div class="widget-summary-col">
 												<div class="summary">
-													<h4 class="title">다른거</h4>
+													<h4 class="title">미답변 Q&A 수</h4>
 													<div class="info">
-														<strong class="amount">100억</strong>
+														<strong class="amount qna-count"></strong>
 													</div>
 												</div>
 												<div class="summary-footer">
-													<a class="text-muted text-uppercase">(withdraw)</a>
+													<a class="text-muted text-uppercase" href="/servicecenter/listQna" >Q&A 바로 가기</a>
 												</div>
 											</div>
 										</div>
@@ -167,6 +167,20 @@ pageEncoding="UTF-8"%>
 	
 
 		<script type="text/javascript">
+
+			$(document).ready(function () {
+				$.ajax({
+					url : "/servicecenter/rest/adminMain" ,
+					method : "GET" ,
+					dataType : "json" ,
+					success : function(JSONData , status) {
+					console.log(JSONData);
+					console.log(JSONData.qnaCount);
+					$(".qna-count").text(JSONData.qnaCount);
+					$(".report-count").text(JSONData.reportCount);
+					}
+				})
+			});
 
 			let day = $('#reservation_statistics_data').attr("day"),
 				week = $('#reservation_statistics_data').attr("week"),
