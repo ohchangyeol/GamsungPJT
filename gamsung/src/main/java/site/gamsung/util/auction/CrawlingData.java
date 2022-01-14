@@ -11,11 +11,18 @@ import java.util.List;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
+import org.springframework.beans.factory.annotation.Value;
 
 import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.AuctionProduct;
 
 public class CrawlingData {
+	
+	@Value("#{auctionProperties['coupang']}")
+	String coupang;
+	
+	@Value("#{auctionProperties['coupangDetail']}")
+	String coupangDetail;
 
 	public CrawlingData() {
 		// TODO Auto-generated constructor stub
@@ -23,18 +30,17 @@ public class CrawlingData {
 	
 	public synchronized List<AuctionProduct> crawlingList(Search search){
 		
+		
 		int page = search.getCurrentPage()/9;
 		int unit = search.getCurrentPage()%9;
-		String sort = search.getSortCondition();
 		
 		if(unit==0){
 			page --;
 			unit= 9;
 		}
 		
-		String url = "https://www.coupang.com/np/search?q=%EC%BA%A0%ED%95%91&channel=&component=&eventCategory=SRP&trcid=&traid=&sorter="+sort+"&minPrice=&maxPrice=&priceRange=&filterType=&listSize=72&filter=&isPriceRange=false&brand=&offerCondition=&rating=0&page="+(page+1)+"&rocketAll=false&searchIndexingToken=&backgroundColor=";
+		String url = coupang+(page+1);
 				
-
 		Document doc = null;
 		String detail = null;
 		String img = null;
@@ -108,7 +114,7 @@ public class CrawlingData {
 	
 	public synchronized AuctionProduct crawling(AuctionProduct auctionProduct){
 		
-		String url = "https://www.coupang.com"+auctionProduct.getAuctionProductSubDetail();
+		String url = coupangDetail+auctionProduct.getAuctionProductSubDetail();
 		
 		Date date = new Date(System.currentTimeMillis());
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

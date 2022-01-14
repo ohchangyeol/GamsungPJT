@@ -34,6 +34,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import site.gamsung.service.common.RatingReviewService;
 import site.gamsung.service.common.Search;
 import site.gamsung.service.community.CommunityService;
 import site.gamsung.service.domain.AuctionProduct;
@@ -52,6 +53,12 @@ public class CommunityController {
    @Autowired
    @Qualifier("communityServiceImpl")
    private CommunityService communityService;
+   
+   @Autowired
+   @Qualifier("campRatingReviewServiceImpl")
+   private RatingReviewService ratingReviewService;
+   
+   
 
    public CommunityController() {
       System.out.println(this.getClass());
@@ -134,75 +141,98 @@ public class CommunityController {
    @RequestMapping(value = "addPost", method = RequestMethod.POST) // RequestParam의 별칭은 file type속성의 name과 맞춘다.
    public String addPost(@ModelAttribute("post") Post post, @RequestParam("postImg") MultipartFile[] postImg,
          HttpServletRequest req, HttpSession session, Model model) throws Exception {
-
+      
       System.out.println("addPost Post Start");
+      
+      System.out.println("----------------\n"
+                      +"ㅣ     data     ㅣ\n"
+                      +"----------------\n"+post);
+      
+      RatingReview ratingReview = null;
+      
+//      Camp camp = new Camp(); // camp 만들고
+//      int campno = post.getCampNo(); // addPost에서 넘어온 campNo 넣어주고.
+//      camp.setCampNo(campno); // campno camp에 setting
 
-      Camp camp = new Camp(); // camp 만들고
-      int campno = post.getCampNo(); // addPost에서 넘어온 campNo 넣어주고.
-      camp.setCampNo(campno); // campno camp에 setting
+//      if (campno != 0 && post.getStatusRating() != 0) { // 값이 있을 경우
 
-      if (campno == 0 && post.getStatusRating() == 0) { // 값이 있을 경우
+      int index = 1;
 
-         int index = 1;
+      for (MultipartFile multpartfile : postImg) {
 
-         for (MultipartFile multpartfile : postImg) {
+         // MultipartFile로 받은 postImg에서 file이름을 originalPostImg에 넣는다.
+         String originalPostImg = multpartfile.getOriginalFilename();
 
-            // MultipartFile로 받은 postImg에서 file이름을 originalPostImg에 넣는다.
-            String originalPostImg = multpartfile.getOriginalFilename();
+         System.out.println("originalPostImg::::" + originalPostImg + "!");
 
-            System.out.println("originalPostImg::::" + originalPostImg + "!");
+         if (originalPostImg != null && originalPostImg != "") {
 
-            if (originalPostImg != null && originalPostImg != "") {
+            // 그 파일명 .의 인덱스 숫자까지 잘라서 확장자만 추출 (ex .jsp)
+            String originalFileExtension = originalPostImg.substring(originalPostImg.lastIndexOf("."));
 
-               // 그 파일명 .의 인덱스 숫자까지 잘라서 확장자만 추출 (ex .jsp)
-               String originalFileExtension = originalPostImg.substring(originalPostImg.lastIndexOf("."));
+            // UUID로 랜덤하게 생성한거에 -가 있으면 없애고 확장자를 붙임 (ex 359498a2ff1a40b8a8e16f6c43dd2bf3.jpg)
+            String root_path = req.getSession().getServletContext().getRealPath("/");
+            String attach_path = "uploadfiles/community/img/";
 
-               // UUID로 랜덤하게 생성한거에 -가 있으면 없애고 확장자를 붙임 (ex 359498a2ff1a40b8a8e16f6c43dd2bf3.jpg)
-               String root_path = req.getSession().getServletContext().getRealPath("/");
-               String attach_path = "uploadfiles/community/img/";
-               String storedFileName = UUID.randomUUID().toString().replaceAll("-", "") + originalFileExtension;
+            String storedFileName = UUID.randomUUID().toString().replaceAll("-", "") + originalFileExtension;
 
-               System.out.println(root_path);
-               // File을 생성해서 주소랑 새로 만든 파일이름을 넣는다.
-               File file = new File(root_path + attach_path + storedFileName);
+            System.out.println(root_path);
+            // File을 생성해서 주소랑 새로 만든 파일이름을 넣는다.
+            File file = new File(root_path + attach_path + storedFileName);
+            
+            System.out.println("file::::" + file);
+            
+            // MultipartFile.transferTo(File file) - Byte형태의 데이터를 File객체에 설정한 파일 경로에 전송한다.
+            // file에는 주소랑 새로만든 파일이름이 있음. 그걸 PostImg에 넣는다.
+            multpartfile.transferTo(file); // postImg를 transferto(보낸다)file로
+            
+            System.out.println("file");
+            System.out.println("file.getPath::" + file.getPath()+"\n");
+            
+            
+            if(post.getPostType() == 4 && post.getCampNo() != 0 ) {
+               
+               System.out.println("--------------------------------\nㅣ review File save starting.... ㅣ \n--------------------------------");
+               
+               attach_path = "uploadfiles/campimg/review/";
+               System.out.println("File storage path!! \n ==> "+root_path + attach_path + storedFileName);
+               file = new File (root_path + attach_path + storedFileName);
+               multpartfile.transferTo(file);
+            }
+            
+            System.out.println("file");
+            System.out.println("file.getPath::" + file.getPath());
+            
+            if (index == 1) {
+               post.setPostImg1(storedFileName);
+            } else if (index == 2) {
+               post.setPostImg2(storedFileName);
+            } else {
+               post.setPostImg3(storedFileName);
+            }
+            
+            index++;
+         } // originalPostImg if문 END
 
-               System.out.println("file::::" + file);
+      } // postImg for문 END
 
-               // MultipartFile.transferTo(File file) - Byte형태의 데이터를 File객체에 설정한 파일 경로에 전송한다.
-               // file에는 주소랑 새로만든 파일이름이 있음. 그걸 PostImg에 넣는다.
-               multpartfile.transferTo(file); // postImg를 transferto(보낸다)file로
+      User user = (User) session.getAttribute("user");
+      post.setWriter(user);
 
-               System.out.println("file");
-               System.out.println("file.getPath::" + file.getPath());
-
-               if (index == 1) {
-                  post.setPostImg1(storedFileName);
-               } else if (index == 2) {
-                  post.setPostImg2(storedFileName);
-               } else {
-                  post.setPostImg3(storedFileName);
-               }
-
-               index++;
-
-            } // originalPostImg if문 END
-
-         } // postImg for문 END
-
-         User user = (User) session.getAttribute("user");
-         post.setWriter(user);
-
-         communityService.addPost(post);
+      if(post.getPostType() == 4 && post.getCampNo() != 0 ) {
+         Camp camp = new Camp();
+         camp.setCampNo(post.getCampNo());
+         
+         ratingReview = new RatingReview(camp, user, 2, post.getPostTitle(), post.getPostContent(), post.getStatusRating(), post.getPostImg1(), post.getPostImg2(), post.getPostImg3());
+         
+         ratingReviewService.addRatingReview(ratingReview);
       }
+      
+      communityService.addPost(post);
+      
 
-      model.addAttribute("camp", camp);// campNo
-      model.addAttribute("ratingReviewTitle", post.getPostTitle());// 제목
-      model.addAttribute("ratingReviewContent", post.getPostContent());// 내용
-      model.addAttribute("reviewImg", postImg); // 이미지
-      model.addAttribute("statusRating", post.getStatusRating());// 별점
-      model.addAttribute("RatingReviewStatus", 2); // 상태
-
-      return "forward:/campGeneral/addCampRatingReview";
+      return "redirect:/community/listPost";
+//      return "forward:/campGeneral/addCampRatingReview";
 
    }// 등록 method 종료
 

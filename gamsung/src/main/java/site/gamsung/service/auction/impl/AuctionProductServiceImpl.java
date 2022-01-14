@@ -4,6 +4,8 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -24,9 +26,11 @@ import site.gamsung.service.auction.AuctionInfoDAO;
 import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.AuctionInfo;
 import site.gamsung.service.domain.AuctionProduct;
+import site.gamsung.service.domain.NaverProduct;
 import site.gamsung.service.domain.RatingReview;
 import site.gamsung.service.domain.User;
 import site.gamsung.util.auction.CrawlingData;
+import site.gamsung.util.auction.NaverShoppingAPI;
 
 @Service("auctionProductService")
 @EnableTransactionManagement //관리자 권한 획득
@@ -48,6 +52,10 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 	@Qualifier("crawlingData")
 	private CrawlingData crawlingData;
 	
+	@Autowired
+	@Qualifier("naverShoppingAPI")
+	private NaverShoppingAPI naverShoppingAPI;
+	
 	public AuctionProductServiceImpl(){
 		// TODO Auto-generated constructor stub
 	}
@@ -59,7 +67,15 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 	
 		return list;
 	}
- 
+	
+	@Override
+	public List<NaverProduct> listNaverAuctionProduct() {
+		// TODO Auto-generated method stub
+		
+		NaverProduct naverProduct = naverShoppingAPI.naverShopping();
+		return naverProduct.getItems();
+	}
+
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW ) //get* read-only가 설정되어 있어 예외로 새로운 트렌젝션을 탈수 있도록 설정
 	public AuctionProduct getCrawlingAuctionProductNo(AuctionProduct auctionProduct) {
@@ -103,6 +119,32 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 		String auctionProductNo = auctionProductDAO.getCrawlingAuctionProductNo(auctionProduct.getAuctionProductSubDetail());
 		
 		//조회수를 1 증가 시킨다.
+		auctionProductDAO.updateAuctionProductViewCounter(auctionProductNo);
+		
+		
+		return auctionProductDAO.getAuctionProduct(auctionProductNo);
+	}
+
+	@Override
+	public AuctionProduct convertNaverToAuctionProduct(AuctionProduct auctionProduct) {
+		// TODO Auto-generated method stub
+		
+		auctionProduct.setAuctionProductSubDetail(auctionProduct.getProductImg1());
+		
+		// 저장된 서브 정보를 가지고 있는 상품이 있는지 확인
+		String existNo = auctionProductDAO.getCrawlingAuctionProductNo(auctionProduct.getAuctionProductSubDetail());
+
+		// 있다면 해당 데이터를 반환한다.
+		if (existNo != null) {
+			return auctionProductDAO.getAuctionProduct(existNo);
+		}
+		
+		auctionProduct = naverShoppingAPI.convertNaverToAuctionProduct(auctionProduct);
+		
+		int bidableGrade = (int) (Math.random()*9) + 1;
+		auctionProduct.setBidableGrade(bidableGrade);
+		auctionProductDAO.addCrawlingAuctionProduct(auctionProduct);
+		String auctionProductNo = auctionProductDAO.getCrawlingAuctionProductNo(auctionProduct.getAuctionProductSubDetail());
 		auctionProductDAO.updateAuctionProductViewCounter(auctionProductNo);
 		
 		

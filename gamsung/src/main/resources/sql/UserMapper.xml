@@ -55,7 +55,7 @@
 		u.account_num, u.having_point, u.camp_name, u.camp_call, u.entry_approval_flag, u.receive_cancel_total_count, 
 		u.receive_ban_end_date, u.dormant_reg_date, u.secession_reg_date, u.suspension_reg_date, u.camp_business_num, u.camp_business_img, u.suspension_content,
 		u.auction_grade, u.sns_id, h.login_reg_date, auction_suspension_reg_date
-		FROM USERS u left outer join (SELECT * from LOGIN_HISTORY where (user_id, login_reg_date) in (select user_id, max(login_reg_date) as date from login_history group by user_id)) h
+		FROM USERS u left outer join (SELECT * FROM LOGIN_HISTORY where (user_id, login_reg_date) in (select user_id, max(login_reg_date) as date FROM login_history group by user_id)) h
 		on u.user_id = h.user_id where u.user_id = #{value} 
 	 </select>
 	 
@@ -144,12 +144,19 @@
 	 <select  id="listUser"  parameterType="search"	resultMap="userSelectMap">
 		SELECT u.role, u.user_id, u.name, u.nick_name, u.camp_name, u.entry_reg_date, u.suspension_reg_date, 
 		u.secession_reg_date, u.dormant_reg_date, u.entry_approval_flag, h.login_reg_date, rtc.rc
-		FROM USERS u left outer join (SELECT * from LOGIN_HISTORY where (user_id, login_reg_date) in (select user_id, max(login_reg_date) as date from login_history group by user_id)) h
-		on u.user_id = h.user_id left outer join (SELECT count(receiver_id)rc, receiver_id from report where report_status=1 group by receiver_id having count(receiver_id) =0)rtc
+		FROM USERS u 
+		left outer join (	SELECT * 
+							FROM LOGIN_HISTORY 
+							where (user_id, login_reg_date) in (select user_id, max(login_reg_date) as date FROM LOGIN_HISTORY  group by user_id)) h
+		on u.user_id = h.user_id 
+		left outer join (	SELECT count(receiver_id)rc, receiver_id 
+							FROM REPORT 
+							where report_status=1  
+							group by receiver_id having count(receiver_id) =0)rtc
 		on u.user_id = rtc.receiver_id
+		WHERE u.role != "ADMIN" AND u.secession_reg_date is null AND u.suspension_reg_date is null AND u.dormant_reg_date is null
 			<if test="searchCondition != null">
-				<where>
-				u.role != "ADMIN" AND u.secession_reg_date is null AND u.suspension_reg_date is null AND u.dormant_reg_date is null
+					
 					<if test='searchCondition == "1"'>
 						AND u.role = "GENERAL"
 					</if>
@@ -157,13 +164,12 @@
 						AND u.role = "BUSINESS"
 					</if>
 					<if test='searchCondition == "3"'>
-						AND u.role = 'BUSINESS' AND u.entry_approval_flag = 'N' OR u.entry_approval_flag =''
+						AND u.role = 'BUSINESS' AND u.entry_approval_flag = 'N'
 					</if>
 					
 					<if test="searchKeyword !='' and searchKeyword !=null">
 						AND u.user_id LIKE CONCAT('%',#{searchKeyword},'%')
 					</if>
-				</where>
 			</if>
 			GROUP BY u.user_id
 			ORDER BY u.entry_reg_date DESC
@@ -206,7 +212,7 @@
 	 
 	 <select id="countDormantListUser" parameterType="search" resultType="int">
 		SELECT COUNT(user_id)
-		FROM users
+		FROM USERS
 		WHERE dormant_reg_date is not null
 		<!-- <if test='_parameter != null'>
 			AND registrant_id = #{value}
@@ -236,7 +242,7 @@
 			secession_reg_date is not null
 			</if>
 			<if test="searchKeyword !='' and searchKeyword !=null">
-						AND user_id LIKE CONCAT('%',#{searchKeyword},'%')
+			AND user_id LIKE CONCAT('%',#{searchKeyword},'%')
 					</if>
 			</trim>
 			ORDER BY entry_reg_date DESC
@@ -247,7 +253,7 @@
 	 
 	 <select id="countSecessionListUser" parameterType="search" resultType="int">
 		SELECT COUNT(user_id)
-		FROM users
+		FROM USERS
 		WHERE secession_reg_date is not null
 		<!-- <if test='_parameter != null'>
 			AND registrant_id = #{value}
@@ -258,7 +264,7 @@
 	 <select  id="reportSuspensionListUser"  parameterType="search"	resultMap="userSelectMap">
 		SELECT u.role, u.user_id, u.name, u.nick_name, u.camp_name, u.entry_reg_date, u.suspension_reg_date, 
 		u.secession_reg_date, u.dormant_reg_date, u.entry_approval_flag, rtc.rc
-		FROM USERS u left outer join (SELECT count(receiver_id)rc, receiver_id from report where report_status=1 group by receiver_id having count(receiver_id) >0)rtc
+		FROM USERS u left outer join (SELECT count(receiver_id)rc, receiver_id FROM report where report_status=1 group by receiver_id having count(receiver_id) >0)rtc
 		on u.user_id = rtc.receiver_id
 			<trim prefix="WHERE" prefixOverrides="AND">
 			<if test="searchCondition != null">
@@ -290,7 +296,7 @@
 	 
 	 <select id="countReportSuspensionListUser" parameterType="search" resultType="int">
 		SELECT COUNT(rtc.rc)
-		FROM users u left outer join (SELECT count(receiver_id)rc, receiver_id from report where report_status=1 group by receiver_id having count(receiver_id) >0)rtc
+		FROM USERS u left outer join (SELECT count(receiver_id)rc, receiver_id FROM report where report_status=1 group by receiver_id having count(receiver_id) >0)rtc
 		on u.user_id = rtc.receiver_id where rtc.rc >0
 		<!-- <if test='_parameter != null'>
 			AND registrant_id = #{value}
@@ -300,21 +306,22 @@
 	 <!-- SQL : SELECT ROW Count -->	 
 	 <select  id="getTotalCount"  parameterType="search"  resultType="int">
 	  	SELECT COUNT(*)
-	  	FROM(	SELECT user_id , name
-						FROM USERS
-						<if test="searchCondition != null and searchCondition !='' ">
-							<where>
-								<if test='searchCondition != "3"'>
-									role = #{searchCondition}
-								</if>
-								<if test="searchKeyword !='' and searchKeyword !=null">
-									AND user_id LIKE CONCAT('%',#{searchKeyword},'%')
-								</if>
-								<if test='searchCondition == "3"'>
-									role ='business' AND entry_approval_flag is null
-								</if>
-							</where>
-						</if> ) countTable						
+	  	FROM(	SELECT user_id , name, role, secession_reg_date, suspension_reg_date, dormant_reg_date
+						FROM USERS WHERE role != "ADMIN"
+						<if test='searchCondition == "1"'>
+						AND role = "GENERAL"
+						</if>
+						<if test='searchCondition == "2"'>
+							AND role = "BUSINESS"
+						</if>
+						<if test='searchCondition == "3"'>
+							AND role = 'BUSINESS' AND entry_approval_flag = 'N'
+						</if>
+						
+						<if test="searchKeyword !='' and searchKeyword !=null">
+							AND user_id LIKE CONCAT('%',#{searchKeyword},'%')
+						</if>) countTable left outer join (SELECT count(receiver_id)rc, receiver_id FROM REPORT where report_status=1 group by receiver_id having count(receiver_id)=0)rtc
+		on countTable.user_id = rtc.receiver_id where countTable.role != "ADMIN" AND countTable.secession_reg_date is null AND countTable.suspension_reg_date is null AND countTable.dormant_reg_date is null  					
 	 </select>
 	 
 	 <!-- SQL : CHECK duplication -->

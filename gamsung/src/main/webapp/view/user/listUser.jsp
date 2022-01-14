@@ -103,7 +103,7 @@
 									</c:if>
 									<div class="col-sm-5 mb-sm-0">
 										<div class="row">
-											<form id="listForm" role="form" class="notice-search">
+											<form id="listForm" role="form" class="user-search">
 												<div class="col-sm-4">
 													<select class="form-control" name="searchCondition">
 														<option value="">회원전체
@@ -121,14 +121,16 @@
 													</select>
 												</div>
 												<div class="col-sm-8">
-													<div class="search-box">
-														<input class="form-control" type="text" placeholder="Search...">
-														<button class="search-btn" type="submit"><i
+													<div class="user-search-box">
+														<input class="form-control" name="searchKeyword" type="text"
+															value="${search.searchKeyword}" placeholder="Search...">
+														<button id="user_search_btn" class="search-btn" type="button"><i
 																class="fa fa-search"></i></button>
 													</div>
 												</div>
 												<!-- PageNavigation 선택 페이지 값을 보내는 부분 -->
-												<input type="hidden" id="currentPage" name="currentPage" value="" />
+												<input type="hidden" id="currentPage" name="currentPage"
+													value='${search.currentPage=="" ? "currentPage" : 1 }' />
 											</form>
 										</div>
 									</div>
@@ -188,8 +190,6 @@
 											<!--리스트에 순서 찍는거 <c:set var ="i" value="0" /> -->
 											<c:if test="${info eq 'list' && !empty list}">
 												<c:forEach var="user" items="${list}">
-													<!-- <c:if
-														test="${user.role!='ADMIN' && user.dormantConversionDate == null && user.secessionRegDate == null && user.suspensionDate==null}"> -->
 													<tr>
 														<td>${user.role}</td>
 														<td id="suspension_id_name">${user.id}</td>
@@ -213,13 +213,10 @@
 														</td>
 
 													</tr>
-													<!-- </c:if> -->
 												</c:forEach>
 											</c:if>
 											<c:if test="${info eq 'dormant' && !empty list}">
 												<c:forEach var="user" items="${list}">
-													<!-- <c:if
-														test="${user.role!='ADMIN' && user.dormantConversionDate != null}"> -->
 													<tr>
 														<td>${user.role}</td>
 														<td>${user.id}</td>
@@ -236,13 +233,13 @@
 														<td>${user.dormantConversionDate}</td>
 
 													</tr>
-													<!-- </c:if> -->
+
 												</c:forEach>
 											</c:if>
 
 											<c:if test="${info eq 'secession' && !empty list}">
 												<c:forEach var="user" items="${list}">
-													<!-- <c:if test="${user.role!='ADMIN' && user.secessionRegDate != null}"> -->
+
 													<tr>
 														<td>${user.role}</td>
 														<td>${user.id}</td>
@@ -259,14 +256,13 @@
 														<td>${user.secessionRegDate}</td>
 
 													</tr>
-													<!-- </c:if> -->
+
 												</c:forEach>
 											</c:if>
 
 											<c:if test="${info eq 'reportSuspension' && !empty list}">
 												<c:forEach var="user" items="${list}">
-													<!-- <c:if
-														test="${user.role!='ADMIN' && user.reportTotalCount != 0 ||  user.suspensionDate != null}"> -->
+
 													<tr>
 														<td>${user.role}</td>
 														<td>${user.id}</td>
@@ -287,7 +283,7 @@
 															</div>
 														</a>
 													</tr>
-													<!-- </c:if> -->
+
 												</c:forEach>
 											</c:if>
 
@@ -375,6 +371,10 @@
 				$("#listForm").attr("method", "POST").attr("action", "/user/listUser/${info}").submit();
 			}
 
+			$("#user_search_btn").on("click", function () {
+				$("#listForm").attr("method", "POST").attr("action", "/user/listUser/${info}").submit();
+			});
+
 
 			//============= "검색"  Event  처리 =============	
 			$(function () {
@@ -419,6 +419,7 @@
 
 										Swal.fire("이용정지 등록되었습니다.").then(() => {
 											$('#addSuspensionModal').hide();
+											window.location = "/user/listUser/list"
 										});
 									} else {
 										Swal.fire("이용정지 등록에 실패하였습니다.").then(() => {

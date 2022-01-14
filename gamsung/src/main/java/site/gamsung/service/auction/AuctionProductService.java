@@ -6,13 +6,18 @@ import java.util.Map;
 import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.AuctionInfo;
 import site.gamsung.service.domain.AuctionProduct;
+import site.gamsung.service.domain.NaverProduct;
 
 public interface AuctionProductService {
 	
 	public List<AuctionProduct> listCrawlingAuctionProduct(Search search);
 	
-	public AuctionProduct getCrawlingAuctionProductNo(AuctionProduct auctionProduct);
+	public List<NaverProduct> listNaverAuctionProduct();
 
+	public AuctionProduct getCrawlingAuctionProductNo(AuctionProduct auctionProduct);
+	
+	public AuctionProduct convertNaverToAuctionProduct(AuctionProduct auctionProduct);
+	
 	public Map<String,Object> listAuctionProduct(Map<String,Object> map);
 	
 	public List<String> autoComplete(String searchKeyword);

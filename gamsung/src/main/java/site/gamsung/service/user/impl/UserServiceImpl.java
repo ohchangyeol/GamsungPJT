@@ -32,6 +32,7 @@ import site.gamsung.service.user.UserDAO;
 import site.gamsung.service.user.UserService;
 import site.gamsung.util.user.SHA256Util;
 import site.gamsung.util.user.SendMail;
+import site.gamsung.util.user.SendMailHtml;
 import site.gamsung.util.user.SendMessage;
 import site.gamsung.util.user.TempKey;
 
@@ -106,10 +107,18 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public void sendEmailAuthNum(String id, String key){
 				
-		String info = "인증번호 발송";
+		String info = "[감성캠핑] 인증번호 입니다.";
 		String text = "인증번호는"+key+"입니다.";
-		SendMail sendMail = new SendMail();
-		sendMail.sendMail(id, info, text);
+//		SendMail sendMail = new SendMail();
+//		sendMail.sendMail(id, info, text);
+		
+		SendMailHtml html=new SendMailHtml();
+		try {
+			html.sendMailHtml(id, info, text, key);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -319,8 +328,8 @@ public class UserServiceImpl implements UserService{
 		System.out.println("탈퇴 서비스임쁠 타는지");
 		System.out.println(user);
 		if(campDAO.isSecessionUserReservationCondition(user.getId())&&auctionDAO.isSecessionUserAuctionCondition(user.getId())) {
-		System.out.println(campDAO.isSecessionUserReservationCondition(user.getId()));
-		System.out.println(auctionDAO.isSecessionUserAuctionCondition(user.getId()));
+		System.out.println("캠핑장 예약내역 있는지"+campDAO.isSecessionUserReservationCondition(user.getId()));
+		System.out.println("완료되지 않은 옥션 거래내역 있는지"+auctionDAO.isSecessionUserAuctionCondition(user.getId()));
 		 userDAO.addSecessionUser(user);
 		 return true;
 		}else {	
@@ -402,6 +411,7 @@ public class UserServiceImpl implements UserService{
 		
 	}
 
+	//카카오 로그아웃
 	@Override
 	public void kakaoLogout(String accessToken) {
 		String reqURL = "https://kapi.kakao.com/v1/user/logout"; 
@@ -413,7 +423,8 @@ public class UserServiceImpl implements UserService{
 			int responseCode = conn.getResponseCode(); 
 			System.out.println("responseCode : " + responseCode); 
 			BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream())); 
-			String result = ""; String line = ""; 
+			String result = ""; 
+			String line = ""; 
 			while ((line = br.readLine()) != null) {
 				result += line;
 				} 

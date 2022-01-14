@@ -26,8 +26,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 	@Override
 	public void registerStompEndpoints(StompEndpointRegistry stompEndpointRegistry) {
 		// TODO Auto-generated method stub
-		stompEndpointRegistry.addEndpoint("/realtime").setAllowedOrigins("http://gamsung.site", "http://localhost:8080")
-				.withSockJS();
+		stompEndpointRegistry.addEndpoint("/realtime").setAllowedOrigins("https://gamsung.site", "http://localhost:8080").withSockJS();
 	}
 
 	@Override
