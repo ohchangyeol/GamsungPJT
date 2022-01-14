@@ -259,9 +259,7 @@ public class TransferController {
 	}
 	
 	// 예약양도양수 My 페이지 navigation	
-	
 	@RequestMapping(value = "listMyTransfer")	
-	
 	public String listMyTransfer(HttpSession session, Model model) throws Exception {
 
 		System.out.println("listMyTransfer Start");
@@ -301,5 +299,53 @@ public class TransferController {
 		
 		return "forward:/view/transfer/listMyTransfer.jsp";
 	}
+	
+	
+	// 예약양수 My 페이지 navigation	
+	
+//	@RequestMapping(value = "listMyReceive")	
+//	
+//	public String listMyReceive(HttpSession session, Model model) throws Exception {
+//
+//		System.out.println("listMyTransfer Start");
+//
+//		User user = (User) session.getAttribute("user");
+//
+//		if (user == null) {
+//			return "redirect:/";
+//		}
+//			
+//		 Map<String, Object> map = new HashMap<String, Object>();
+//		 
+//		 Search search = new Search();
+//		 	 
+//		 if (search.getCurrentPage() == 0) {
+//				search.setCurrentPage(1);
+//			}
+//				 
+//		search.setPageSize(10);
+//		search.setId(user.getId()); // listMyTransfer는 search에 id를 넣는다. 
+//
+//		map.put("search", search);
+//				 
+//		map = transferService.listTransfer(map);
+//		
+//		int TotalCount = (int) map.get("TotalCount");
+//	
+//		List<Transfer> Transferlist =  (List<Transfer>) map.get("list");
+//		
+//		Page resultPage = new Page( search.getCurrentPage(), TotalCount, pageUnit, pageSize);
+//				
+//		System.out.println(Transferlist);
+//		
+//		model.addAttribute("user", user);
+//		model.addAttribute("Transferlist", Transferlist);
+//		model.addAttribute("resultPage", resultPage);		
+//		
+//		return "forward:/view/transfer/listMyTransfer.jsp";
+//	}
+	
+	
+	
 	
 }
