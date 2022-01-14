@@ -44,17 +44,27 @@ pageEncoding="UTF-8"%>
 		
 		<hr class="divider-w mt-10 mb-20">
 		
-		<div class="row">			
+		<div class="row" style="text-align:center;">			
 		
 			<c:forEach var ="qna" items="${wrapper.qnas}">
    			<c:set var="count" value="${count + 1}" />
-				<div style=" display: inline-block; width: 450px; height: 80px; padding: 10px; margin: 10px; border: 1px solid gray;" >
-					<div class="row">
-						<div class="col-xs-12 control-label"><strong>Title : ${qna.questionTitle}</strong></div>
+				
+				<div style="display: inline-block; vertical-align:middle; width:450px; height:125px; margin:10px;">
+					
+					<div class="row" style="text-align:left;border: 1px solid gray;margin: 5px;">
+					<div class="col-xs-12 control-label"><strong>Q : ${qna.questionTitle}</strong></div>
 						<br>
-						<div class="col-xs-12" style="padding-top: 10px;">┗ ${qna.questionContent}</div>
+						<div class="col-xs-12" style="padding-top: 10px;">${qna.questionContent}</div>
 					</div>
+					
+						<div class="row" style="text-align:left;border: 1px solid gray;margin: 5px;">
+							<div class="col-xs-12 control-label"><strong>A : 네 고객님</strong></div>
+							<br>
+							<div class="col-xs-12" style="padding-top: 10px;">원래 그래요</div>
+						</div>
+			
 				</div>
+				
 			</c:forEach>  				  	
 		</div>
 		
