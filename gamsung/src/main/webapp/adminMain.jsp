@@ -8,7 +8,7 @@ pageEncoding="UTF-8"%>
 		<!-- Basic -->
 		<meta charset="UTF-8">
 
-		<title>Dashboard | JSOFT Themes | JSOFT-Admin</title>
+		<title>관리자메인</title>
 		<meta name="keywords" content="HTML5 Admin Template" />
 		<meta name="description" content="JSOFT Admin - Responsive HTML5 Template">
 		<meta name="author" content="JSOFT.net">
@@ -21,7 +21,7 @@ pageEncoding="UTF-8"%>
 		<section class="body">
 
 			<!-- start: header -->
-			<jsp:include page="./view/common/adminHeader.jsp"/>
+			
 			
 			<!-- end: header -->
 
@@ -32,14 +32,8 @@ pageEncoding="UTF-8"%>
 
 				<section role="main" class="content-body" style="padding-top: 0px;">
 					
-					
-					<div style="width: 100%; height: 300px; background-color: palegoldenrod; padding-top: 20px;">
-
-					</div>
-
-
-
 					<h3><strong>감성캠프 사이트 통계</strong></h3>
+
 						<div class="row">
 							<div class="col-md-3">
 								<section class="panel panel-featured-left panel-featured-quartenary">
@@ -54,7 +48,7 @@ pageEncoding="UTF-8"%>
 												<div class="summary">
 													<h4 class="title">예약자 수</h4>
 													<div class="info">
-														<strong class="amount">3000k</strong>
+														<strong class="amount">${reservationStatistics.dayCount} 명</strong>
 													</div>
 												</div>
 												<div class="summary-footer">
@@ -76,10 +70,10 @@ pageEncoding="UTF-8"%>
 											</div>
 											<div class="widget-summary-col">
 												<div class="summary">
-													<h4 class="title">Support Questions</h4>
+													<h4 class="title">다른거</h4>
 													<div class="info">
 														<strong class="amount">1281</strong>
-														<span class="text-primary">(14 unread)</span>
+														<span class="text-primary">*^^*</span>
 													</div>
 												</div>
 												<div class="summary-footer">
@@ -101,9 +95,9 @@ pageEncoding="UTF-8"%>
 											</div>
 											<div class="widget-summary-col">
 												<div class="summary">
-													<h4 class="title">Total Profit</h4>
+													<h4 class="title">다른거</h4>
 													<div class="info">
-														<strong class="amount">$ 14,890.30</strong>
+														<strong class="amount">100억</strong>
 													</div>
 												</div>
 												<div class="summary-footer">
@@ -125,7 +119,7 @@ pageEncoding="UTF-8"%>
 											</div>
 											<div class="widget-summary-col">
 												<div class="summary">
-													<h4 class="title">Today's Orders</h4>
+													<h4 class="title">다른거</h4>
 													<div class="info">
 														<strong class="amount">38</strong>
 													</div>
@@ -149,6 +143,13 @@ pageEncoding="UTF-8"%>
 								<!--차트가 그려질 부분-->
 								<canvas id="reservation_chart"></canvas>
 								<div style="text-align: center; padding: 10px;"><span>일,주,월,년간 예약자수 비교</span></div>
+								<input type="hidden" id="reservation_statistics_data" day="${reservationStatistics.dayCount}" 
+										week="${reservationStatistics.weekCount}" month="${reservationStatistics.monthCount}" 
+										year="${reservationStatistics.yearCount}" beforeday="${reservationStatistics.beforeYearDayCount}" 
+										beforeweek="${reservationStatistics.beforeYearWeekCount}" beforemonth= "${reservationStatistics.beforeYearMonthCount}" 
+										beforeyear="${reservationStatistics.beforeYearYearCount}">
+										
+
 							</div>
 							<div class="col-md-6">
 								<h3><strong>다른 통계</strong></h3>
@@ -167,6 +168,15 @@ pageEncoding="UTF-8"%>
 
 		<script type="text/javascript">
 
+			let day = $('#reservation_statistics_data').attr("day"),
+				week = $('#reservation_statistics_data').attr("week"),
+				month = $('#reservation_statistics_data').attr("month"),
+				year = $('#reservation_statistics_data').attr("year"),
+				beforeday = $('#reservation_statistics_data').attr("beforeday"),
+				beforeweek = $('#reservation_statistics_data').attr("beforeweek"),
+				beforemonth = $('#reservation_statistics_data').attr("beforemonth"),
+				beforeyear = $('#reservation_statistics_data').attr("beforeyear");
+
 
             let reservation_context = document
                 .getElementById('reservation_chart')
@@ -175,23 +185,21 @@ pageEncoding="UTF-8"%>
 			let other_context = document
                 .getElementById('other_chart')
                 .getContext('2d');
-			
-				
-			
-
+		
             var reservation_chart = new Chart(reservation_context, {
-                type: 'line', // 차트의 형태
+                type: 'bar', // 차트의 형태
                 data: { // 차트에 들어갈 데이터
                     labels: [
                         //x 축
-                        '1','2','3','4','5','6','7','8','9','10','11','12'
+                        '일일','주간','월간', '년간'
                     ],
                     datasets: [
                         { //데이터
-                            label: '올해 월별', //차트 제목
+                            label: '올해', //차트 제목
                             fill: false, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
                             data: [
-                                21,19,25,20,23,26,19,29,18,22,35,34 //x축 label에 대응되는 데이터 값
+								//day,week,month,year //x축 label에 대응되는 데이터 값
+								day,4,6,7
                             ],
                             backgroundColor: [
                                 //색상
@@ -199,8 +207,7 @@ pageEncoding="UTF-8"%>
                                 'rgba(54, 162, 235, 0.2)',
                                 'rgba(255, 206, 86, 0.2)',
                                 'rgba(75, 192, 192, 0.2)',
-                                'rgba(153, 102, 255, 0.2)',
-                                'rgba(255, 159, 64, 0.2)'
+                                
                             ],
                             borderColor: [
                                 //경계선 색상
@@ -214,13 +221,25 @@ pageEncoding="UTF-8"%>
                             borderWidth: 1 //경계선 굵기
                         } ,
                         {
-                            label: '작년 월별',
+                            label: '작년',
                             fill: false,
                             data: [
-								1,3,7,4,9,11,3,8,3,9,12,21
+								// beforeday,beforeweek,beforemonth,beforeyear
+								7,8,9,10
                             ],
-                            backgroundColor: 'rgb(157, 109, 12)',
-                            borderColor: 'rgb(157, 109, 12)'
+                            backgroundColor: [
+								'rgba(153, 102, 255, 0.2)',
+                                'rgba(255, 159, 64, 0.2)',
+								'rgb(168, 0, 0, 0.2)',
+								'rgb(157, 109, 12, 0.2)',
+							],
+                            borderColor: [
+								'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)',
+								'rgb(168, 0, 0, 1)',
+								'rgb(157, 109, 12, 1)',
+							],
+							borderWidth: 1
                         } 
                     ]
                 },

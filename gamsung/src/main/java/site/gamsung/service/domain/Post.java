@@ -150,15 +150,7 @@ public class Post {
 	public void setConcernType(String concernType) {
 		this.concernType = concernType;
 	}
-	@Override
-	public String toString() {
-		return "DomainPost : postTitle=[" + postTitle + "], postNo=[" + postNo + "], postContent=[" + postContent + "], writer=["
-				+ writer + "], postType=[" + postType + "], postConcernCount=[" + postConcernCount + "], postRegdate=["
-				+ postRegdate + "], video=[" + video + "], deleteFlag=[" + deleteFlag + "], commentTotalCount=["
-				+ commentTotalCount + "], postImg1=[" + postImg1 + "], postImg2=[" + postImg2 + "], postImg3=[" + postImg3
-				+ "], hashtag1=[" + hashtag1 + "], hashtag2=[" + hashtag2 + "], hashtag3=[" + hashtag3 + "], search=[" + search
-				+ "], conDeleteFlag=[" + conDeleteFlag + "], concernType=[" + concernType + "]";
-	}
+	
 	public double getStatusRating() {
 		return statusRating;
 	}
@@ -171,7 +163,18 @@ public class Post {
 	public void setCampNo(int campNo) {
 		this.campNo = campNo;
 	}
+	@Override
+	public String toString() {
+		return "Post [postTitle=" + postTitle + ", postNo=" + postNo + ", postContent=" + postContent + ", writer="
+				+ writer + ", postType=" + postType + ", postConcernCount=" + postConcernCount + ", postRegdate="
+				+ postRegdate + ", video=" + video + ", deleteFlag=" + deleteFlag + ", commentTotalCount="
+				+ commentTotalCount + ", postImg1=" + postImg1 + ", postImg2=" + postImg2 + ", postImg3=" + postImg3
+				+ ", hashtag1=" + hashtag1 + ", hashtag2=" + hashtag2 + ", hashtag3=" + hashtag3 + ", search=" + search
+				+ ", conDeleteFlag=" + conDeleteFlag + ", concernType=" + concernType + ", statusRating=" + statusRating
+				+ ", campNo=" + campNo + "]";
+	}
 
 
+	
 }
 	//method

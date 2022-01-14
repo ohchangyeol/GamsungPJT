@@ -12,8 +12,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import site.gamsung.service.auction.AuctionProductService;
+import site.gamsung.service.camp.CampReservationService;
 import site.gamsung.service.camp.CampSearchService;
 import site.gamsung.service.domain.AuctionProduct;
+import site.gamsung.service.domain.ReservationStatistics;
 import site.gamsung.service.domain.User;
 
 @Controller
@@ -26,6 +28,10 @@ public class MainController {
 	@Autowired
 	@Qualifier("campSearchServiceImpl")
 	private CampSearchService campSearchService;
+	
+	@Autowired
+	@Qualifier("campReservationServiceImpl")
+	private CampReservationService campReservationService;
 	
 	//메인페이지 접속시 mapping
 	@RequestMapping("/")
@@ -53,6 +59,10 @@ public class MainController {
 			return "redirect:/";
 		}
 		
+		ReservationStatistics reservationStatistics = campReservationService.getReservationStatistics();
+		
+		model.addAttribute("reservationStatistics", reservationStatistics);
+	
 		return "forward:/adminMain.jsp";
 	}
 }

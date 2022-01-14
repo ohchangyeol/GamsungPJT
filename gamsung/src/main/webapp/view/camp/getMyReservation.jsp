@@ -45,7 +45,7 @@ pageEncoding="UTF-8"%>
 
                     <div class="col-sm-5 mb-sm-0">
                       <div class="row" style="text-align: center;">
-                        <button class="btn btn-d btn-round" type="button" onclick="history.back()">목록가기</button>
+                        <button class="btn btn-d btn-round" type="button" onclick="go_reservation_list()">목록가기</button>
                       </div>
                     </div>
                   </div>
@@ -269,7 +269,6 @@ pageEncoding="UTF-8"%>
                 }
 
                 console.log(refundCode);
-                      
                 self.location ="/payment/readyRefund?reservationNo="+$(this).attr("value")+"&paymentRefundCode="+refundCode;
 
           });
@@ -301,6 +300,10 @@ pageEncoding="UTF-8"%>
 
                 return year + "-" + month + "-" + day;
             }
+
+        function go_reservation_list(){
+          window.location = "/campGeneral/listMyReservation";
+        }
 
     </script>
 
