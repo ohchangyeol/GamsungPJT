@@ -3,7 +3,7 @@
 
     <div class="col-sm-4 col-md-3 sidebar">
       <div class="widget">
-        <form role="form">
+        <form role="form" id="community-search-form">
           <div class="form-group">
             <select class="form-control" name="searchCondition">
               <option value="0" ${ ! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>닉네임
@@ -28,6 +28,7 @@
             <button id="left-search-btn" class="search-btn" name="search-btn" type="submit"><i
                 class="fa fa-search"></i></button>
           </div>
+          <input type="hidden" id="currentPage" name="currentPage" value="1"/>
         </form>
 
 

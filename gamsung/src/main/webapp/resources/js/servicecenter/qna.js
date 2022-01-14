@@ -181,7 +181,8 @@ $(document).ready(function(){
             collapse.attr("id" , "support"+qna.qnaNo);
             content.text(qna.questionContent);
 
-            if(qna.answerContent != null || qna.answerContent != "" || qna.answerContent != undefined){
+            console.log(qna.answerContent);
+            if(qna.answerContent != null){
               title.append("<div class='check'>확인</div>");
               answerContent.text(qna.answerContent);
               content.append(answer);

@@ -61,8 +61,8 @@ pageEncoding="UTF-8"%>
   <div>
     <form id="answer-form">
       <input type="hidden" name="qnaNo" value="${qna.qnaNo}" >
-      <textarea name="answerContent" id="" cols="30" rows="10"></textarea>
-      <button id="send-answer" type="button"> 등록 </button>
+      <textarea name="answerContent" id="" cols="30" rows="3"></textarea>
+      <button id="send-answer" class="btn btn-success btn-round" type="button"> 등록 </button>
     </form>
   </div>
 </c:if>
