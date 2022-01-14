@@ -147,7 +147,7 @@
 		FROM USERS u 
 		left outer join (	SELECT * 
 							FROM LOGIN_HISTORY 
-							where (user_id, login_reg_date) in (select user_id, max(login_reg_date) as date from login_history group by user_id)) h
+							where (user_id, login_reg_date) in (select user_id, max(login_reg_date) as date FROM LOGIN_HISTORY  group by user_id)) h
 		on u.user_id = h.user_id 
 		left outer join (	SELECT count(receiver_id)rc, receiver_id 
 							FROM REPORT 
