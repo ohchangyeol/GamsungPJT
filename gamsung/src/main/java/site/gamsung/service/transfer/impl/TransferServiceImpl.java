@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import site.gamsung.service.common.Search;
 import site.gamsung.service.community.CommunityDAO;
+import site.gamsung.service.domain.NoticeWrapper;
 import site.gamsung.service.domain.Post;
 import site.gamsung.service.domain.Transfer;
 import site.gamsung.service.transfer.TransferDAO;
@@ -36,11 +38,6 @@ public class TransferServiceImpl implements TransferService {
 	}
 
 	@Override
-	public List<Transfer> listTransfer(Map<String, Object> map) throws Exception {				
-		return transferDAO.listTransfer(map);
-	}
-
-	@Override
 	public Transfer getTransfer(int transferNo) throws Exception {
 		return transferDAO.getTransfer(transferNo);
 	}
@@ -64,4 +61,25 @@ public class TransferServiceImpl implements TransferService {
 		return transferDAO.updateReservationStatus(reservationNo);
 	}
 
+
+	@Override
+	public Map<String, Object> listTransfer(Map<String, Object> map) throws Exception {		
+		
+		Search search = (Search) map.get("search");
+		
+		 List<Transfer> list = transferDAO.listTransfer(map);
+		 
+		 int TotalCount = transferDAO.getTotalCount(search);
+	
+		map.put("list", list);
+		map.put("TotalCount",TotalCount);
+		
+		return map;
+	}
+
+	
+	
+	
+	
+	
 }

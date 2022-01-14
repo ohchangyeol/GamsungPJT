@@ -62,8 +62,6 @@ public class CampRatingReviewServiceImpl implements RatingReviewService{
 		List<RatingReview> list = new ArrayList<RatingReview>();
 		Map<String, Object> map = new HashMap<String, Object>();
 		
-		System.out.println("서비스 :: "+search.getCampNo());
-		
 		if(search.getCampNo() != 0) {
 			list = campRatingReviewDAO.listCampRatingReview(search);
 			Camp camp = campSearchDAO.getCamp(search.getCampNo());
@@ -75,7 +73,7 @@ public class CampRatingReviewServiceImpl implements RatingReviewService{
 		}
 		
 		int totalCount = campRatingReviewDAO.getTotalCount(search);
-				System.out.println("서비스 :: "+totalCount);
+				
 		map.put("list", list);
 		map.put("totalCount", totalCount);
 				

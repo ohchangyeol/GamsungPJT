@@ -242,7 +242,7 @@ public class UserController {
 
 		if (dbUser.getRole().equals("ADMIN")) {
 			session.setAttribute("user", dbUser);
-			return "forward:/adminMain.jsp";
+			return "forward:/admin";
 		}
 
 		String jsp = "/";

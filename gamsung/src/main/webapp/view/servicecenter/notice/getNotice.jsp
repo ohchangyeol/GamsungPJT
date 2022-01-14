@@ -26,24 +26,37 @@ pageEncoding="UTF-8"%>
       </div>
 
       <div class="n-body">
-        <div class="row">
-          <div class="files col-sm-6">
-            <div class="title">첨부파일</div>
-            <div class="file-content">
-              <ul>
-                <li><a href="#"><span>파일 이름</span></a></li>
-                <li><a href="#"><span>파일 이름</span></a></li>
-                <li><a href="#"><span>파일 이름</span></a></li>
-              </ul>
-            </div>
-          </div>
-
-        </div>
+        
 
         <div class="content">
           ${notice.noticeContent}
         </div>
         <hr class="divider-w mt-10 mb-20">
+
+        <c:choose>
+        <c:when test="${empty notice.noticeFile1 and empty notice.noticeFile2 and empty notice.noticeFile3 and empty notice.noticeFile4 and empty notice.noticeFile5}">
+
+        </c:when>
+        <c:otherwise>
+          <div class="row">
+            <div class="files col-sm-6">
+              <div class="title">첨부파일</div>
+              <div class="file-content">
+                <ul>
+                  <li><a href="/servicecenter/fileDownLoad?fileName=${notice.noticeFile1}"><span>${notice.noticeFile1}</span></a></li>
+                  <li><a href="/servicecenter/fileDownLoad?fileName=${notice.noticeFile2}"><span>${notice.noticeFile2}</span></a></li>
+                  <li><a href="/servicecenter/fileDownLoad?fileName=${notice.noticeFile3}"><span>${notice.noticeFile3}</span></a></li>
+                  <li><a href="/servicecenter/fileDownLoad?fileName=${notice.noticeFile4}"><span>${notice.noticeFile4}</span></a></li>
+                  <li><a href="/servicecenter/fileDownLoad?fileName=${notice.noticeFile5}"><span>${notice.noticeFile5}</span></a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </c:otherwise>
+        </c:choose>
+
+        <hr class="divider-w mt-10 mb-20">
+        
         <c:if test="${user.role == 'ADMIN'}">
         <div class="u-d-button-box">
           <button id="notice-update-btn" class="btn btn-warning btn-round" type="button">수정</button>

@@ -1,28 +1,58 @@
 package site.gamsung.service.domain;
 
+import java.util.List;
+
 public class Transfer {
 	
-	private int transferNo;
-	private User transferOr;
-	private String transferRegdate;
-	private String transferTitle;
-	private String transferArea;
-	private String transferCampname;
-	private String transferMainsiteType;
-	private String transferCampCall;
-	private String transferStartDate;
-	private String transferEndDate;
-	private int transferPrice;
-	private String transferContent;
-	private String transferAddContent;
-	private int transferUserNum;
-	private String hashtag1;
-	private String hashtag2;
-	private String hashtag3;
-	private String paymentImg;
-	private int transferStatus;
-	private boolean deleteFlag;
-	private CampReservation transferReservationNo;
+	private int transferNo; //
+	
+	private User transferOr; 
+	
+	private String transferRegdate; //
+	
+	private String transferTitle; // 
+	
+	
+	private String transferArea; // 이거 모름 아직 안받음. 
+	
+	private String transferCampname; //
+	
+	private String transferMainsiteType; // add에서 안넘김 
+	
+	
+	private String transferCampCall; // 
+	
+	
+	private String transferStartDate; // 
+	
+	
+	private String transferEndDate;//
+	
+	private int transferPrice; // 
+	
+	private String transferContent; // 
+	
+	private String transferAddContent;//
+	
+	private int transferUserNum; // 
+	private String hashtag1;//
+	private String hashtag2;//
+	private String hashtag3;//
+//	private String[] paymentImg = new String[2];
+	private String paymentImg; // 
+	
+	private int transferStatus;  // 컨트롤러에서 변경. 
+	
+	private boolean deleteFlag; // 디폴트 n 
+	
+	private CampReservation transferReservationNo;//
+	
+	
+	
+	
+	
+	
+	
 	public int getTransferNo() {
 		return transferNo;
 	}
@@ -125,12 +155,7 @@ public class Transfer {
 	public void setHashtag3(String hashtag3) {
 		this.hashtag3 = hashtag3;
 	}
-	public String getPaymentImg() {
-		return paymentImg;
-	}
-	public void setPaymentImg(String paymentImg) {
-		this.paymentImg = paymentImg;
-	}
+
 	public int getTransferStatus() {
 		return transferStatus;
 	}
@@ -161,7 +186,13 @@ public class Transfer {
 				+ "] paymentImg=[" + paymentImg + "] transferStatus=[" + transferStatus + "] deleteFlag=[" + deleteFlag
 				+ "] transferReservationNo=[" + transferReservationNo + "]";
 	}
-	
+	public String getPaymentImg() {
+		return paymentImg;
+	}
+	public void setPaymentImg(String paymentImg) {
+		this.paymentImg = paymentImg;
+	}
+
 	
 	
 

@@ -8,6 +8,7 @@
  	
 	<resultMap id="paymentSelectMap" type="payment">
 		<result property="paymentNo" 						column="payment_no" 		  					jdbcType="VARCHAR"/>
+		<result property="paymentStatus" 					column="payment_status"							jdbcType="NUMERIC"/>
 		<result property="paymentProduct" 					column="payment_product" 		  				jdbcType="VARCHAR"/>
 		<result property="paymentSender"					column="payment_sender" 		  				jdbcType="VARCHAR"/>
 		<result property="paymentReceiver" 					column="payment_receiver" 	  					jdbcType="VARCHAR"/>	
@@ -65,6 +66,7 @@
 	<insert id="addMakePaymentIn" parameterType="payment">
 		INSERT
 		INTO PAYMENT ( payment_product, 
+						payment_status,
 						payment_sender, 
 						payment_receiver, 
 						payment_Product_Price_Total, 
@@ -80,6 +82,7 @@
 						payment_price_pay_second, 
 						payment_price_fee_second ) 
 		VALUES ( #{paymentProduct}
+				, #{paymentStatus :NUMERIC}
 				, #{paymentSender}
 				, #{paymentReceiver}
 				, #{paymentProductPriceTotal}				
@@ -97,7 +100,7 @@
 	</insert>
 	
 	<select id="addMakePaymentOut" parameterType="payment" resultType="String">
-		SELECT	payment_no, 
+		SELECT	payment_no,
 				payment_product, 
 				payment_sender, 
 				payment_receiver, 
@@ -163,49 +166,57 @@
 			</if>
 		</trim>			
 	</select>
-	
-	<update	id="addRefundPayment" parameterType="payment" >
-	   	UPDATE PAYMENT
-	   	SET	payment_refund_code = #{paymentRefundCode}
-	   		, now(6)
-	   		, payment_refund_price_total = #{paymentRefundPriceTotal}
-			, payment_refund_price_pay = #{paymentRefundPricePay}
-			, payment_refund_price_fee = #{paymentRefundPriceFee}
-			, payment_refund_reference_num = #{paymentRefundReferenceNum}
-			, payment_refund_reference_fee = #{paymentRefundReferenceFee}			
-	   	WHERE payment_no = #{paymentNo}
-	</update>		
-		
-	<select id="listPayment" resultMap="paymentSelectMap">
-  		SELECT	payment_no, payment_product, payment_sender, payment_receiver, payment_Product_Price_Total, 
-				payment_reg_time, payment_code, payment_reference_num, 
-				payment_method, payment_price_total, payment_price_pay, payment_price_fee, 
-				payment_method_second, payment_price_total_second, payment_price_pay_second, payment_price_fee_second, 
-				payment_refund_reg_time, payment_refund_code, payment_refund_reference_num, 
-				payment_refund_price_total, payment_refund_price_pay, payment_refund_price_fee, 
-				payment_refund_price_total_second, payment_refund_price_pay_second, payment_refund_price_fee_second	
-		FROM PAYMENT
-		ORDER BY payment_no	
-		<!-- <trim prefix="WHERE">
-			<if test="id != null">
-				payment_sender = #{id}
-				AND payment_receiver = #{id}		
-			</if>
-		</trim> -->
-	</select>
-
-	<select  id="getTotalCountPayment" resultType="int">
-		SELECT COUNT(*)
-		FROM(	SELECT	payment_no, payment_product, payment_sender, payment_receiver, payment_Product_Price_Total, 
+			
+	<select id="listPayment" parameterType="search" resultMap="paymentSelectMap">
+		<if test="role == 'ADMIN'">
+			SELECT	payment_no, payment_status, payment_product, payment_sender, payment_receiver, payment_Product_Price_Total, 
 					payment_reg_time, payment_code, payment_reference_num, 
 					payment_method, payment_price_total, payment_price_pay, payment_price_fee, 
 					payment_method_second, payment_price_total_second, payment_price_pay_second, payment_price_fee_second, 
 					payment_refund_reg_time, payment_refund_code, payment_refund_reference_num, 
 					payment_refund_price_total, payment_refund_price_pay, payment_refund_price_fee, 
 					payment_refund_price_total_second, payment_refund_price_pay_second, payment_refund_price_fee_second	
-				FROM PAYMENT			
-			) countTable
+			FROM PAYMENT
+			ORDER BY payment_no		
+		</if>
+	
+		<if test="role != 'ADMIN'">
+			SELECT	payment_no, payment_status, payment_product, payment_sender, payment_receiver, payment_Product_Price_Total, 
+				payment_reg_time, payment_code, payment_reference_num, 
+				payment_method, payment_price_total, payment_method_second, payment_price_total_second, 
+				payment_refund_reg_time, payment_refund_code, payment_refund_reference_num, 
+				payment_refund_price_total,  payment_refund_price_total_second  	
+			FROM PAYMENT			
+			WHERE payment_sender = #{id}
+					OR payment_receiver = #{id}				
+			ORDER BY payment_no	
+		</if>	
 	</select>
+	
+	<select id="getPaymentInfo" parameterType="String" resultMap="paymentSelectMap">
+		SELECT *
+		FROM PAYMENT
+		WHERE payment_no = #{value}
+	</select>
+	
+	<select id="getPaymentListByRsvNo" parameterType="String" resultMap="paymentSelectMap">
+		SELECT *
+		FROM PAYMENT
+		WHERE payment_reference_num LIKE CONCAT('%',#{value},'%')
+	</select>	
+	
+	<update	id="addRefundPayment" parameterType="payment" >
+	   	UPDATE PAYMENT
+	   	SET	payment_status = #{paymentStatus}
+	   		, payment_refund_code = #{paymentRefundCode}
+	   		, payment_refund_reg_time = now(6)
+	   		, payment_refund_price_total = #{paymentRefundPriceTotal}
+			, payment_refund_price_pay = #{paymentRefundPricePay}
+			, payment_refund_price_fee = #{paymentRefundPriceFee}
+			, payment_refund_reference_num = #{paymentRefundReferenceNum}
+			, payment_refund_reference_fee = #{paymentRefundReferenceFee}			
+	   	WHERE payment_no = #{paymentNo}
+	</update>
 
 	
 	<!-- SQL : PaymentCode ################################################################################################################### -->

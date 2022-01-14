@@ -27,6 +27,12 @@ public class Post {
 	private Search search; // searchCondition,searchKeyword  controller에서 처리.
 	private String conDeleteFlag; // 추천 등록삭제 확인여부
 	private String concernType;
+	private double statusRating;
+	private int campNo;
+
+	
+	
+	
 	
 	
 	public String getPostTitle() {
@@ -144,15 +150,31 @@ public class Post {
 	public void setConcernType(String concernType) {
 		this.concernType = concernType;
 	}
+	
+	public double getStatusRating() {
+		return statusRating;
+	}
+	public void setStatusRating(double statusRating) {
+		this.statusRating = statusRating;
+	}
+	public int getCampNo() {
+		return campNo;
+	}
+	public void setCampNo(int campNo) {
+		this.campNo = campNo;
+	}
 	@Override
 	public String toString() {
-		return "DomainPost : postTitle=[" + postTitle + "], postNo=[" + postNo + "], postContent=[" + postContent + "], writer=["
-				+ writer + "], postType=[" + postType + "], postConcernCount=[" + postConcernCount + "], postRegdate=["
-				+ postRegdate + "], video=[" + video + "], deleteFlag=[" + deleteFlag + "], commentTotalCount=["
-				+ commentTotalCount + "], postImg1=[" + postImg1 + "], postImg2=[" + postImg2 + "], postImg3=[" + postImg3
-				+ "], hashtag1=[" + hashtag1 + "], hashtag2=[" + hashtag2 + "], hashtag3=[" + hashtag3 + "], search=[" + search
-				+ "], conDeleteFlag=[" + conDeleteFlag + "], concernType=[" + concernType + "]";
+		return "Post [postTitle=" + postTitle + ", postNo=" + postNo + ", postContent=" + postContent + ", writer="
+				+ writer + ", postType=" + postType + ", postConcernCount=" + postConcernCount + ", postRegdate="
+				+ postRegdate + ", video=" + video + ", deleteFlag=" + deleteFlag + ", commentTotalCount="
+				+ commentTotalCount + ", postImg1=" + postImg1 + ", postImg2=" + postImg2 + ", postImg3=" + postImg3
+				+ ", hashtag1=" + hashtag1 + ", hashtag2=" + hashtag2 + ", hashtag3=" + hashtag3 + ", search=" + search
+				+ ", conDeleteFlag=" + conDeleteFlag + ", concernType=" + concernType + ", statusRating=" + statusRating
+				+ ", campNo=" + campNo + "]";
 	}
 
+
+	
 }
 	//method

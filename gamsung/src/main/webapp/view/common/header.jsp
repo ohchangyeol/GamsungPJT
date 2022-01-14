@@ -118,16 +118,29 @@
                             <ul class="dropdown-menu">
                                 <li><a href="/servicecenter/listNotice">공지사항</a></li>
                                 <li><a href="/servicecenter/listQna"> Q&A </a></li>
-                                <li><a href="/servicecenter/listReport/my">내 신고 내역</a></li>
+                                <c:if test="${sessionScope.user.role!=null}">
+                                    <li><a href="/servicecenter/listReport?id=${user.id}">내 신고 내역</a></li>
+                                </c:if>
                             </ul>
                         </li>
                         <!-- 고객센터 End -->
 
 
                         <!-- My / Business / Admin  Start -->
+                        <c:if test="${user.role == 'BUSINESS' || user.role == 'ADMIN'}">
+                            <li><a href="/campBusiness/goSubMainCampBusiness">BusinessPage</a>
+                        </c:if>
+
+                        <c:if test="${user.role == 'ADMIN' }">
+                            <li><a href="/adminMain.jsp">AdminPage</a>
+                        </c:if>
+
+
                         <c:if test="${user.role != 'BUSINESS' && sessionScope.user != null}">
-                            <li class="dropdown"><a class="dropdown-toggle" href="/user/mypage"
-                                    data-toggle="dropdown">${user.nickName}<br />보유포인트 : ${user.havingPoint}</a>
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" href="/user/mypage" data-toggle="dropdown">${user.nickName}
+                                    <br /><span id="havingPoint">${user.havingPoint}</span> [P]
+                                </a>
                                 <ul class="dropdown-menu">
                                     <li><a href="/user/mypage">내정보</a>
                                     <li><a href="/community/listMyPost">내 게시글</a>
@@ -139,13 +152,7 @@
                                     <li><a href="">결제</a>
                                 </ul>
                             </li>
-                        </c:if>
-                        <c:if test="${user.role == 'BUSINESS' || user.role == 'ADMIN'}">
-                            <li><a href="/campBusiness/goSubMainCampBusiness">BusinessPage</a>
-                        </c:if>
 
-                        <c:if test="${user.role == 'ADMIN' }">
-                            <li><a href="/campBusiness/goSubMainCampBusiness">AdminPage</a>
                         </c:if>
                         <!-- My / Business / Admin  End -->
 
@@ -182,6 +189,7 @@
         <jsp:include page="/view/user/findIdPwdModal.jsp" />
 
         <script>
+
             $(function () {
 
                 $('#addProduct').on('click', function () {
@@ -194,7 +202,7 @@
             } else {
                 window.location = '/auction/addAuctionProduct';
             }
-    });
+				});
 
             $('#adminProduct').on('click', function () {
                 if (${ sessionScope.user.auctionSuspension != null }){
@@ -202,7 +210,7 @@
                 return;
             }
             window.location = "/auction/listWaitAuctionProduct";
-    });
+				});
 
             $('#listProduct').on('click', function () {
                 if (${ sessionScope.user.auctionSuspension != null }){
@@ -210,7 +218,19 @@
                 return;
             }
             window.location = "/auction/listAuctionProduct";
-    });
+				});
+			
+			});
 
-});
+            $(function () {
+                $('#havingPoint').text(comma($('#havingPoint').text()));
+            });
+
+            // 금액 "," 추가
+            function comma(str) {
+                str = String(str);
+                return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+            }
+
+
         </script>

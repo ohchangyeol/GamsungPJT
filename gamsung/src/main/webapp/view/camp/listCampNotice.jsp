@@ -41,8 +41,7 @@ pageEncoding="UTF-8"%>
     <script src="../../resources/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script>
     <script src="../../resources/js/plugins.js"></script>
     <script src="../../resources/js/main.js"></script>
-    <!-- Kakao Map-->
-    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6f8199ad71211c3df709f290a0e83244&libraries=services"></script>
+        
     <!-- Default stylesheets-->
     <link href="../../resources/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Template specific stylesheets-->
@@ -150,7 +149,7 @@ pageEncoding="UTF-8"%>
      <!-- Specific Page Vendor -->
      <script src="../../resources/lib/pnotify/pnotify.custom.js"></script>
      <!-- Theme Base, Components and Settings -->
-     <script src="../../resources/js/theme.js"></script>
+    
      <!-- Theme Custom -->
      <script src="../../resources/js/theme.custom.js"></script>
      <!-- Theme Initialization Files -->
@@ -171,11 +170,11 @@ pageEncoding="UTF-8"%>
 
             }
 
-        $( function() {
+        $(function() {
 
           $(".notice-title").on("click" , function() {
           
-            self.location ="/campGeneral/getcampNotice?noticeNo="+$(this).attr("value");
+            self.location ="/campGeneral/getCampNotice?noticeNo="+$(this).attr("value");
           
           });
         })

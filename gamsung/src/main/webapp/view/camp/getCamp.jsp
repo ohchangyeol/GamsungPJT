@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
       <!DOCTYPE html>
       <html lang="en-US" dir="ltr">
@@ -12,11 +12,13 @@
         <!-- Document Title -->
         <title>GetCamp</title>
 
-        <jsp:include page="../../resources/commonLib.jsp"/>
+        <jsp:include page="../../resources/commonLib.jsp" />
 
- 
-        <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6f8199ad71211c3df709f290a0e83244&libraries=services"></script>
-        
+        <script src="../../resources/lib/magnific-popup/magnific-popup.js"></script>
+        <script src="../../resources/js/examples.lightbox.js"></script>
+        <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+        <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2091956a0610386314639136a353f95f&libraries=services"></script>
+          
         <style>
           .map_wrap,
           .map_wrap * {
@@ -181,9 +183,7 @@
             font-size: 11px;
             margin-top: 0;
           }
-        </style>
-
-        <style>
+     
           img {
             display: block;
             margin: auto;
@@ -191,7 +191,6 @@
 
           .tab-pane iframe {
             width: 100%;
-            height: 100%;
             border: 0;
           }
         </style>
@@ -339,18 +338,46 @@
                 <hr>
                 <div class="row mt-70">
                   <div class="col-sm-12">
-                    <ul class="nav nav-tabs font-alt" role="tablist" id="myTab">
-                      <li class="active"><a href="#introduce" data-toggle="tab"><span
-                            class="icon-magnifying-glass"></span>캠핑장소개</a></li>
-                      <li><a href="#useinfo" data-toggle="tab"><span class="icon-magnifying-glass"></span>이용안내</a></li>
-                      <li><a href="#mapview" data-toggle="tab"><span class="icon-magnifying-glass"></span>위치/주변정보</a></li>
-                      <li><a href="#notice" data-toggle="tab" class="li-btn"><span class="icon-magnifying-glass"></span>공지사항</a></li>
-                      <li><a href="#qna" data-toggle="tab" class="li-btn"><span class="icon-magnifying-glass"></span>Q&A</a></li>
-                      <li><a href="#reviews" data-toggle="tab" class="li-btn"><span class="icon-magnifying-glass"></span>평점&리뷰</a></li>
+                    <ul class="nav nav-tabs font-alt" role="tablist">
+                      <li class="active">
+                        <a href="#introduce" data-toggle="tab" aria-expanded="true" style="width: 149px;">
+                            <span class="icon-magnifying-glass"></span>
+                            캠핑장소개
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#useinfo" data-toggle="tab" aria-expanded="true" style="width: 149px;">
+                            <span class="icon-magnifying-glass"></span>
+                            이용안내
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#mapview" id="myTab" data-toggle="tab" aria-expanded="true" style="width: 149px;">
+                            <span class="icon-magnifying-glass"></span>
+                            위치/주변정보
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#notice" data-toggle="tab" class="li-btn" aria-expanded="true" style="width: 149px;">
+                            <span class="icon-magnifying-glass"></span>
+                            공지사항
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#qna" data-toggle="tab" class="li-btn" aria-expanded="true" style="width: 149px;">
+                            <span class="icon-magnifying-glass"></span>
+                            Q&A
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#reviews" data-toggle="tab" class="li-btn" aria-expanded="true" style="width: 149px;">
+                            <span class="icon-magnifying-glass"></span>
+                            평점&리뷰
+                        </a>
+                      </li>
                     </ul>
 
                     <div class="tab-content">
-
 
                       <div class="tab-pane active" id="introduce">
                         <div calss="row">
@@ -480,50 +507,59 @@
 
 
                     <div class="tab-pane" id="mapview">
+                      <div calss="col-sm-12" style="text-align: center; font-size: large;">
+                        <span class="icon-happy"></span>&nbsp;캠핑장 주변정보&nbsp;<span class="icon-happy"></span>
+                      </div>
+                      <hr>
                       <div class="map_wrap">
-                        <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
+                        <div id="map" style="width:100%;height:100%;position:relative;"></div>
                         <ul id="category">
                           <li id="FD6" data-order="0">
+                            <span class="category_bg bank"></span>
                             음식점
                           </li>
                           <li id="CT1" data-order="1">
+                            <span class="category_bg mart"></span>
                             문화시설
                           </li>
                           <li id="AT4" data-order="2">
+                            <span class="category_bg pharmacy"></span>
                             관광명소
                           </li>
                         </ul>
                       </div>
+                     
                       <hr>
 
                       <script>
 
+                        //주소 검색 좌표
+                        let coords;
+                        
                         // 마커를 클릭했을 때 해당 장소의 상세정보를 보여줄 커스텀오버레이입니다
                         var placeOverlay = new kakao.maps.CustomOverlay({ zIndex: 1 }),
                           contentNode = document.createElement('div'), // 커스텀 오버레이의 컨텐츠 엘리먼트 입니다 
                           markers = [], // 마커를 담을 배열입니다
                           currCategory = ''; // 현재 선택된 카테고리를 가지고 있을 변수입니다
 
-
                         var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
                           mapOption = {
                             center: new kakao.maps.LatLng(1, 1), // 지도의 중심좌표
-                            level: 7 // 지도의 확대 레벨
+                            level: 5 // 지도의 확대 레벨
                           };
 
                         // 지도를 생성합니다    
                         var map = new kakao.maps.Map(mapContainer, mapOption);
 
-
                         // 장소 검색 객체를 생성합니다
                         var ps = new kakao.maps.services.Places(map);
-
+                      
                         // 지도에 idle 이벤트를 등록합니다
                         kakao.maps.event.addListener(map, 'idle', searchPlaces);
 
                         // 커스텀 오버레이의 컨텐츠 노드에 css class를 추가합니다 
                         contentNode.className = 'placeinfo_wrap';
-
+                     
                         // 커스텀 오버레이의 컨텐츠 노드에 mousedown, touchstart 이벤트가 발생했을때
                         // 지도 객체에 이벤트가 전달되지 않도록 이벤트 핸들러로 kakao.maps.event.preventMap 메소드를 등록합니다 
                         addEventHandle(contentNode, 'mousedown', kakao.maps.event.preventMap);
@@ -531,22 +567,27 @@
 
                         // 커스텀 오버레이 컨텐츠를 설정합니다
                         placeOverlay.setContent(contentNode);
-
+                     
                         // 각 카테고리에 클릭 이벤트를 등록합니다
                         addCategoryClickEvent();
 
                         // 엘리먼트에 이벤트 핸들러를 등록하는 함수입니다
                         function addEventHandle(target, type, callback) {
+                       
                           if (target.addEventListener) {
+                       
                             target.addEventListener(type, callback);
                           } else {
+                       
                             target.attachEvent('on' + type, callback);
                           }
                         }
 
                         // 카테고리 검색을 요청하는 함수입니다
                         function searchPlaces() {
+                    
                           if (!currCategory) {
+                    
                             return;
                           }
 
@@ -555,33 +596,36 @@
 
                           // 지도에 표시되고 있는 마커를 제거합니다
                           removeMarker();
-
-                          ps.categorySearch(currCategory, placesSearchCB, { useMapBounds: true });
+                          
+                          ps.categorySearch(currCategory, placesSearchCB, { 
+                            useMapBounds: true,
+                            location : coords,
+                            radius : 20000,
+                          });
                         }
 
                         // 장소검색이 완료됐을 때 호출되는 콜백함수 입니다
                         function placesSearchCB(data, status, pagination) {
+                    
                           if (status === kakao.maps.services.Status.OK) {
 
                             // 정상적으로 검색이 완료됐으면 지도에 마커를 표출합니다
                             displayPlaces(data);
                           } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
-                            // 검색결과가 없는경우 해야할 처리가 있다면 이곳에 작성해 주세요
+                            console.log("결과가 없음");
 
                           } else if (status === kakao.maps.services.Status.ERROR) {
-                            // 에러로 인해 검색결과가 나오지 않은 경우 해야할 처리가 있다면 이곳에 작성해 주세요
+                            colsole.log("에러에러!!")
 
                           }
                         }
 
                         // 지도에 마커를 표출하는 함수입니다
                         function displayPlaces(places) {
-
+                     
                           // 몇번째 카테고리가 선택되어 있는지 얻어옵니다
                           // 이 순서는 스프라이트 이미지에서의 위치를 계산하는데 사용됩니다
                           var order = document.getElementById(currCategory).getAttribute('data-order');
-
-
 
                           for (var i = 0; i < places.length; i++) {
 
@@ -600,17 +644,18 @@
 
                         // 마커를 생성하고 지도 위에 마커를 표시하는 함수입니다
                         function addMarker(position, order) {
-                          //  var imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_category.png', // 마커 이미지 url, 스프라이트 이미지를 씁니다
-                          //      imageSize = new kakao.maps.Size(27, 28),  // 마커 이미지의 크기
-                          //      imgOptions =  {
-                          //         spriteSize : new kakao.maps.Size(72, 208), // 스프라이트 이미지의 크기
-                          //         spriteOrigin : new kakao.maps.Point(46, (order*36)), // 스프라이트 이미지 중 사용할 영역의 좌상단 좌표
-                          //         offset: new kakao.maps.Point(11, 28) // 마커 좌표에 일치시킬 이미지 내에서의 좌표
-                          //     },
-                          //     markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imgOptions),
+               
+                           var imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_category.png', // 마커 이미지 url, 스프라이트 이미지를 씁니다
+                               imageSize = new kakao.maps.Size(27, 28),  // 마커 이미지의 크기
+                               imgOptions =  {
+                                  spriteSize : new kakao.maps.Size(72, 208), // 스프라이트 이미지의 크기
+                                  spriteOrigin : new kakao.maps.Point(46, (order*36)), // 스프라이트 이미지 중 사용할 영역의 좌상단 좌표
+                                  offset: new kakao.maps.Point(11, 28) // 마커 좌표에 일치시킬 이미지 내에서의 좌표
+                              },
+                              markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imgOptions),
                           marker = new kakao.maps.Marker({
                             position: position, // 마커의 위치
-                            //image: markerImage 
+                            image: markerImage 
                           });
 
                           marker.setMap(map); // 지도 위에 마커를 표출합니다
@@ -621,6 +666,7 @@
 
                         // 지도 위에 표시되고 있는 마커를 모두 제거합니다
                         function removeMarker() {
+                      
                           for (var i = 0; i < markers.length; i++) {
                             markers[i].setMap(null);
                           }
@@ -629,6 +675,7 @@
 
                         // 클릭한 마커에 대한 장소 상세정보를 커스텀 오버레이로 표시하는 함수입니다
                         function displayPlaceInfo(place) {
+                    
                           var content = '<div class="placeinfo">' +
                             '   <a class="title" href="' + place.place_url + '" target="_blank" title="' + place.place_name + '">' + place.place_name + '</a>';
 
@@ -651,9 +698,10 @@
 
                         // 각 카테고리에 클릭 이벤트를 등록합니다
                         function addCategoryClickEvent() {
+                  
                           var category = document.getElementById('category'),
                             children = category.children;
-
+                  
                           for (var i = 0; i < children.length; i++) {
                             children[i].onclick = onClickCategory;
                           }
@@ -661,6 +709,7 @@
 
                         // 카테고리를 클릭했을 때 호출되는 함수입니다
                         function onClickCategory() {
+              
                           var id = this.id,
                             className = this.className;
 
@@ -679,6 +728,7 @@
 
                         // 클릭된 카테고리에만 클릭된 스타일을 적용하는 함수입니다
                         function changeCategoryClass(el) {
+                   
                           var category = document.getElementById('category'),
                             children = category.children,
                             i;
@@ -692,60 +742,64 @@
                           }
                         }
 
-
-
-
-                        $('#myTab a').click(function (e) {
-                          e.preventDefault()
-                          $(this).tab('show');
+                        $("#myTab").click(function (e) {
+                 
+                          e.preventDefault();
+                 
+                          $(this).tab("show");
+                 
                           setTimeout(function () {
+                 
                             map.relayout();
-
+                 
                             // 주소-좌표 변환 객체를 생성합니다
                             var geocoder = new kakao.maps.services.Geocoder();
-
+                 
                             // 주소로 좌표를 검색합니다
                             geocoder.addressSearch('${camp.user.addr}', function (result, status) {
-
+                 
                               // 정상적으로 검색이 완료됐으면 
                               if (status === kakao.maps.services.Status.OK) {
-
-                                var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-
+                                console.log("성공적으로 위도/경도 찾기 성공");
+                                coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+                      
                                 // 결과값으로 받은 위치를 마커로 표시합니다
                                 var marker = new kakao.maps.Marker({
                                   map: map,
                                   position: coords
                                 });
-
+                      
                                 // 인포윈도우로 장소에 대한 설명을 표시합니다
                                 var infowindow = new kakao.maps.InfoWindow({
                                   content: '<div style="width:150px;text-align:center;padding:6px 0;">${camp.user.campName}&nbsp;캠핑장</div>'
                                 });
+                      
                                 infowindow.open(map, marker);
 
                                 // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
                                 map.setCenter(coords);
+                              }else{
+                                alert("캠핑장 주소 검색 결과가 없습니다.")
                               }
+
                             });
                           });
                         });
                       </script>
                     </div>
 
-
                     <div class="tab-pane teb-iframe" id="notice">
                       <iframe src="/campGeneral/listCampNotice?campNo=${camp.campNo}" scrolling="no" id="noticeschange"></iframe>
                       <script type="text/javascript">
-                         function noticeIframeHeight(i) { document.getElementById("noticeschange").style.height = parseInt(i) + "px"; }
+                        function noticeIframeHeight(i) { document.getElementById("noticeschange").style.height = parseInt(i) + "px"; }
                       </script>
                     </div>
 
                     <div class="tab-pane teb-iframe" id="qna">
-                      <iframe src="/campGeneral/listCampQna?campNo=${camp.campNo}" scrolling="no" id="qnaschange"></iframe>
-                      <script type="text/javascript">
-                         function AdjustIframeHeight(i) { document.getElementById("qnaschange").style.height = parseInt(i) + "px"; }
-                      </script>
+                      <iframe src="/campBusiness/listCampQna" scrolling="no" id="qnaschange"></iframe>
+	                      <script type="text/javascript">
+	                        function AdjustIframeHeight(i) { document.getElementById("qnaschange").style.height = parseInt(i) + "px"; }
+	                      </script> 
                     </div>
 
                     <div class="tab-pane teb-iframe" id="reviews">
@@ -767,35 +821,17 @@
             </form>
 
         </main>
-
-        <script src="../../resources/lib/bootstrap/js/bootstrap.js"></script>
-        <script src="../../resources/lib/nanoscroller/nanoscroller.css"></script>
-        <script src="../../resources/lib/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
-        <script src="../../resources/lib/magnific-popup/magnific-popup.js"></script>
-        <script src="../../resources/lib/jquery-placeholder/jquery.placeholder.js"></script>
-        <!-- Specific Page Vendor -->
-        <script src="../../resources/lib/pnotify/pnotify.custom.js"></script>
-        <!-- Theme Base, Components and Settings -->
-        <script src="../../resources/js/theme.js"></script>
-        <!-- Theme Custom -->
-        <script src="../../resources/js/theme.custom.js"></script>
-        <!-- Theme Initialization Files -->
-        <script src="../../resources/js/theme.init.js"></script>
-        <!-- Examples -->
-        <script src="../../resources/js/examples.lightbox.js"></script>
-
+       
         <script type="text/javascript">
 
-          var campNo = document.getElementById('campno').value;
-
-          $(function () {
+          $(function(){
 
             $("#reservation").on("click", function () {
               var mainSiteNo = 0;
               $("#hidden").attr("method", "POST").attr("action", "/campGeneral/addReservation?mainSiteNo=" + mainSiteNo).submit();
             });
-            
-            $(".li-btn").on("click", function(){
+
+            $(".li-btn").on("click", function () {
               var iframeHeight = $(".tab-pane.active iframe").contents().find("html").height();
               $(".teb-iframe.active iframe").height(iframeHeight);
             });
@@ -807,3 +843,10 @@
       </body>
 
       </html>
+
+      
+
+
+
+
+      

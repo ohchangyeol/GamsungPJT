@@ -45,8 +45,19 @@
    	<!-- ////////////////////////////////////////// 추가 ,  변경된 부분 ////////////////////////////////////////////////// -->
    	<!-- ■ RequestMappingHandlerMapping 설정 등 기타 Annotation 기반
    	        모든 기능을 사용 할 수 있는 아래의 설정으로 변경 -->
-	<mvc:annotation-driven />
-	
+	<mvc:annotation-driven> 
+		<mvc:message-converters> 
+			<!-- @ResponseBody로 String 처리할때 한글처리 --> 
+			<bean class="org.springframework.http.converter.StringHttpMessageConverter"> 
+				<property name="supportedMediaTypes"> 
+					<list> 
+						<value>text/html;charset=UTF-8</value> 
+					</list> 
+				</property> 
+			</bean>
+		 </mvc:message-converters> 
+	 </mvc:annotation-driven>
+
 	<!-- ■ Annotation 기반의 모든 기능을 사용 할 수 있는 설정
 	          <mvc:annotation-driven /> 사용으로 interceptor 를 직접
 	          RequestMappingHandlerMapping 에 주입 할 수 없으니 

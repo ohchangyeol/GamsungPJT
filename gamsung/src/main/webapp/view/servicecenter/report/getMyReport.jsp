@@ -18,7 +18,7 @@
     <title>신고상세조회</title>
    
 </head>
-<body class="get-report">
+<body class="get-report" data-reportno="${report.reportNo}">
     <div class="report-main white-popup-block">
         <main>
             <div class="report-header">
@@ -77,7 +77,7 @@
                 
             </div>
             <div class="report-footer">
-                <button type="button" class="btn btn-danger">취소하기</button>
+                <button type="button" class="btn btn-danger report-cancel">취소하기</button>
             </div>
         </main>
     </div>

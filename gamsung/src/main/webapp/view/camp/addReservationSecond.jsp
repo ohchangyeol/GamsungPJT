@@ -11,55 +11,11 @@ pageEncoding="UTF-8"%>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Document Title -->
     <title>addReservationSecond</title>
-    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Shadows+Into+Light"
-    rel="stylesheet" type="text/css">
-  <!-- Vendor CSS -->
-  <link href="../../resources/lib/bootstrap/css/bootstrap.css" rel="stylesheet" />
-  <link href="../../resources/lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
-  <link href="../../resources/lib/magnific-popup/magnific-popup.css" rel="stylesheet" />
-  <link href="../../resources/lib/bootstrap-datepicker/css/datepicker3.css" rel="stylesheet" />
-  <!-- Theme CSS -->
-  <link href="../../resources/css/theme.css" rel="stylesheet" />
-  <!-- Skin CSS -->
-  <link href="../../resources/css/skins/default.css" rel="stylesheet" />
-  <!-- Theme Custom CSS -->
-  <link href="../../resources/css/theme-custom.css" rel="stylesheet">
-  <!-- Head Libs -->
-  <script src="../../resources/lib/modernizr/modernizr.js"></script>
-  <!-- JavaScripts -->
-  <script src="../../resources/lib/jquery/jquery.js"></script>
-  <script src="../../resources/lib/bootstrap/js/bootstrap.min.js"></script>
-  <script src="../../resources/lib/wow/wow.js"></script>
-  <script src="../../resources/lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js"></script>
-  <script src="../../resources/lib/isotope/isotope.pkgd.js"></script>
-  <script src="../../resources/lib/imagesloaded/imagesloaded.pkgd.js"></script>
-  <script src="../../resources/lib/flexslider/jquery.flexslider.js"></script>
-  <script src="../../resources/lib/owl.carousel/dist/owl.carousel.min.js"></script>
-  <script src="../../resources/lib/smoothscroll.js"></script>
-  <script src="../../resources/lib/magnific-popup/magnific-popup.js"></script>
-  <script src="../../resources/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script>
-  <script src="../../resources/js/plugins.js"></script>
-  <script src="../../resources/js/main.js"></script>
-  <!-- Kakao Map-->
-  <script type="text/javascript"
-    src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6f8199ad71211c3df709f290a0e83244&libraries=services"></script>
-  <!-- Default stylesheets-->
-  <link href="../../resources/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Template specific stylesheets-->
-  <link href="../../resources/lib/animate.css/animate.css" rel="stylesheet">
-  <link href="../../resources/lib/components-font-awesome/css/font-awesome.min.css" rel="stylesheet">
-  <link href="../../resources/lib/et-line-font/et-line-font.css" rel="stylesheet">
-  <link href="../../resources/lib/flexslider/flexslider.css" rel="stylesheet">
-  <link href="../../resources/lib/owl.carousel/dist/assets/owl.carousel.min.css" rel="stylesheet">
-  <link href="../../resources/lib/owl.carousel/dist/assets/owl.theme.default.min.css" rel="stylesheet">
-  <link href="../../resources/lib/magnific-popup/magnific-popup.css" rel="stylesheet">
-  <link href="../../resources/lib/simple-text-rotator/simpletextrotator.css" rel="stylesheet">
-  <!-- Main stylesheet and color file-->
-  <link href="../../resources/css/style.css" rel="stylesheet">
-  <link id="color-scheme" href="../../resources/css/colors/default.css" rel="stylesheet">
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <jsp:include page="../../resources/commonLib.jsp" />
     
+    <link href="../../resources/css/theme.css" rel="stylesheet" />
+    <link href="../../resources/css/skins/default.css" rel="stylesheet" />
 
     <style>
     input[type='number']{
@@ -96,13 +52,13 @@ pageEncoding="UTF-8"%>
                   </div>
                   <ul class="wizard-steps">
                     <li id=stepone>
-                      <a href="#" data-toggle="tab"><span>1</span>예약하기 Step1</a>
+                      <a data-toggle="tab"><span>1</span>예약하기 Step1</a>
                     </li>
                     <li class="active" id=steptwo>
-                      <a href="#step_two" data-toggle="tab"><span>2</span>예약하기 Step2</a>
+                      <a data-toggle="tab"><span>2</span>예약하기 Step2</a>
                     </li>
                     <li id="stepthree">
-                      <a href="#" data-toggle="tab"><span>3</span>예약하기 Step3</a>
+                      <a data-toggle="tab"><span>3</span>예약하기 Step3</a>
                     </li>
                   </ul>
                 </div>
@@ -138,7 +94,7 @@ pageEncoding="UTF-8"%>
                             <div class="col-sm-12" style="text-align: center;">
                               
                                 예약 인원&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <input type="number" name="useNum" value="1" min="1" max="${mainSite.mainSiteMaxCapacity}">
+                                <input type="number" name="useNum" id ="camp_use_num" value="1" min="1" max="${mainSite.mainSiteMaxCapacity}">
                                 <span style="font-weight: bold; font-size: larger;">&nbsp;명</span>
                               
                             </div>
@@ -151,7 +107,7 @@ pageEncoding="UTF-8"%>
                             <div class="col-sm-12" style="text-align: center;">
                               
                                 주차 대수&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <input type="number" name="totalReservationRegCar" value="1" min="1" max="${mainSite.mainSiteParkingSize}">
+                                <input type="number" name="totalReservationRegCar" id = "camp_use_car_num" value="0" min="0" max="${mainSite.mainSiteParkingSize}">
                                 <span style="font-weight: bold; font-size: larger;">&nbsp;대</span>
                               
                             </div>
@@ -185,7 +141,7 @@ pageEncoding="UTF-8"%>
                                 <div class="col-xs-12" style="font-size: large; font-weight: bold ">${mainSite.mainSiteType}&nbsp;(${mainSite.mainSiteName})</div>
                              </div>   
                              <div class="row">
-                              <div class="col-xs-12" style="margin-top: 15px;">${mainSite.mainSiteInfo}</div>
+                              <div class="col-xs-12" style="margin-top: 15px;" id = "camp_use_info" camp_use_num="${mainSite.mainSiteMaxCapacity}" camp_use_car="${mainSite.mainSiteParkingSize}">${mainSite.mainSiteInfo}</div>
                              </div>
                              <hr>
                              <div class="row">
@@ -224,9 +180,9 @@ pageEncoding="UTF-8"%>
         
         $( function() {
             
-            var start = $("#startdate").val();
-            var end = $("#enddate").val();
-            var total = end.replace(/-/gi, "") - start.replace(/-/gi, "");
+            let start = new Date($("#startdate").val());
+            let end = new Date($("#enddate").val());
+            let total = Math.ceil((end.getTime()-start.getTime())/(1000*3600*24));
              
             $("#totaldate").text(total);
 
@@ -235,7 +191,28 @@ pageEncoding="UTF-8"%>
 
               $("#reservation").attr("method","POST").attr("action","/campGeneral/addReservation?mainSiteNo="+mainSiteNo).submit();
             }); 
-            
+
+            $("#camp_use_num").on("propertychange change keyup paste input", function() {				
+                 let useNum = $("#camp_use_num").val();
+                 let maxUse = $("#camp_use_info").attr("camp_use_num");
+
+                 if(useNum > maxUse){
+                    $("#camp_use_num").val(maxUse);
+                    return;
+                 }
+            });
+
+            $("#camp_use_car_num").on("propertychange change keyup paste input", function() {	
+                let carNum = $("#camp_use_num").val();
+                let maxCar = $("#camp_use_info").attr("camp_use_car");
+
+                if(carNum > maxCar){
+                  $("#camp_use_car_num").val(maxCar);
+                  
+                }
+      
+            });
+
         });
         
     </script>

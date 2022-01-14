@@ -2,7 +2,7 @@
 pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<div class="qna-content">
+<div class="qna-content" data-qnano="${qna.qnaNo}">
   <div class="question">
     <div class="q-header">
       <div class="title-box">
@@ -57,5 +57,14 @@ pageEncoding="UTF-8"%>
   </c:if>
 
 <button id="qna-delete-btn" class="btn btn-danger btn-round" type="button">삭제</button>
+<c:if test="${user.role == 'ADMIN' and empty qna.answerContent}">
+  <div>
+    <form id="answer-form">
+      <input type="hidden" name="qnaNo" value="${qna.qnaNo}" >
+      <textarea name="answerContent" id="" cols="30" rows="10"></textarea>
+      <button id="send-answer" type="button"> 등록 </button>
+    </form>
+  </div>
+</c:if>
   
 </div>

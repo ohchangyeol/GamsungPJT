@@ -25,6 +25,7 @@
 	<util:properties id="auctionProperties" location="classpath:config/auction.properties"/>
 	<bean id="sendMail" class="site.gamsung.util.user.SendMail"></bean>
 	<bean id="crawlingData" class="site.gamsung.util.auction.CrawlingData"></bean>
+	<bean id="naverShoppingAPI" class="site.gamsung.util.auction.NaverShoppingAPI"></bean>
 	<bean id="auctionImgUpload" class="site.gamsung.util.auction.AuctionImgUpload"></bean>
 	<bean id="auctionStatisticJson" class="site.gamsung.util.auction.AuctionStatisticJson"></bean>
 </beans>

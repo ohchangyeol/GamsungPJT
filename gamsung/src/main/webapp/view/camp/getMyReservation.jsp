@@ -12,54 +12,9 @@ pageEncoding="UTF-8"%>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Document Title -->
     <title>예약내역</title>
-     
-    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Shadows+Into+Light" rel="stylesheet" type="text/css">
-		<!-- Vendor CSS -->
-		<link href="../../resources/lib/bootstrap/css/bootstrap.css" rel="stylesheet" />
-		<link href="../../resources/lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
-		<link href="../../resources/lib/magnific-popup/magnific-popup.css" rel="stylesheet" />
-		<link href="../../resources/lib/bootstrap-datepicker/css/datepicker3.css" rel="stylesheet" />
-		<!-- Theme CSS -->
-		<link href="../../resources/css/theme.css" rel="stylesheet" />
-		<!-- Skin CSS -->
-		<link href="../../resources/css/skins/default.css" rel="stylesheet" />
-		<!-- Theme Custom CSS -->
-		<link href="../../resources/css/theme-custom.css" rel="stylesheet" >
-		<!-- Head Libs -->
-		<script src="../../resources/lib/modernizr/modernizr.js"></script>
-    <!-- JavaScripts -->
-    <script src="../../resources/lib/jquery/jquery.js"></script>
-    <script src="../../resources/lib/bootstrap/js/bootstrap.min.js"></script>
-    <script src="../../resources/lib/wow/wow.js"></script>
-    <script src="../../resources/lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js"></script>
-    <script src="../../resources/lib/isotope/isotope.pkgd.js"></script>
-    <script src="../../resources/lib/imagesloaded/imagesloaded.pkgd.js"></script>
-    <script src="../../resources/lib/flexslider/jquery.flexslider.js"></script>
-    <script src="../../resources/lib/owl.carousel/dist/owl.carousel.min.js"></script>
-    <script src="../../resources/lib/smoothscroll.js"></script>
-    <script src="../../resources/lib/magnific-popup/magnific-popup.js"></script>
-    <script src="../../resources/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script>
-    <script src="../../resources/js/plugins.js"></script>
-    <script src="../../resources/js/main.js"></script>
-    <!-- Kakao Map-->
-    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6f8199ad71211c3df709f290a0e83244&libraries=services"></script>
-    <!-- Default stylesheets-->
-    <link href="../../resources/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Template specific stylesheets-->
-    <link href="../../resources/lib/animate.css/animate.css" rel="stylesheet">
-    <link href="../../resources/lib/components-font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <link href="../../resources/lib/et-line-font/et-line-font.css" rel="stylesheet">
-    <link href="../../resources/lib/flexslider/flexslider.css" rel="stylesheet">
-    <link href="../../resources/lib/owl.carousel/dist/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="../../resources/lib/owl.carousel/dist/assets/owl.theme.default.min.css" rel="stylesheet">
-    <link href="../../resources/lib/magnific-popup/magnific-popup.css" rel="stylesheet">
-    <link href="../../resources/lib/simple-text-rotator/simpletextrotator.css" rel="stylesheet">       
-    <!-- Main stylesheet and color file-->
-    <link href="../../resources/css/style.css" rel="stylesheet">
-    <link id="color-scheme" href="../../resources/css/colors/default.css" rel="stylesheet">  
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
+    <jsp:include page="../../resources/commonLib.jsp" />
+   
   </head>
 
   <style>
@@ -82,14 +37,15 @@ pageEncoding="UTF-8"%>
               <div class="col-xs-12">
                 
                   <div class="row" style="padding-top: 20px;">
-                      <div calss="col-sm-12" style="text-align: center; font-size: x-large; margin-bottom: 10px;">
+                      <div cl`ass="col-sm-12" style="text-align: center; font-size: x-large; margin-bottom: 10px;">
                         <span class="icon-happy"></span>&nbsp;예약 상세보기&nbsp;<span class="icon-happy"></span>
                       </div>
                     
-                    <h4 class="col-sm-7 mb-0"></h4>
+                      <h4 class="col-sm-7 mb-0"></h4>
+
                     <div class="col-sm-5 mb-sm-0">
                       <div class="row" style="text-align: center;">
-                        <button class="btn btn-d btn-round" type="button" onclick="history.back()">목록가기</button>
+                        <button class="btn btn-d btn-round" type="button" onclick="go_reservation_list()">목록가기</button>
                       </div>
                     </div>
                   </div>
@@ -103,67 +59,68 @@ pageEncoding="UTF-8"%>
                             <div class="col-xs-1 col-md-1 "></div>
                             <div class="col-xs-3 col-md-1 panel-body" style="height: 40px; text-align: center; padding: 10px;"><strong>캠핑장 이름</strong></div>
                             <div class="col-xs-1 col-md-1 "></div>
-                            <div class="col-xs-7 col-md-2 panel-body" style="height: 40px; text-align: center; padding: 10px; font-weight: 1500;">${campReservation.camp.user.campName}</div>	
+                            <div class="col-xs-7 col-md-2 panel-body" style="height: 40px; text-align: center; padding: 10px; font-weight: 1500;">${campReservation.camp.user.campName}</div>   
                             <div class="col-xs-1 col-md-1 "></div>
                             <div class="col-xs-3 col-md-1 panel-body" style="height: 40px; text-align: center; padding: 10px;"><strong>캠핑장 번호</strong></div>
                             <div class="col-xs-1 col-md-1 "></div>
-                            <div class="col-xs-7 col-md-2 panel-body" style="height: 40px; text-align: center; padding: 10px;">${campReservation.camp.user.campCall}</div>	
-                            <div class="col-xs-1 col-md-1 "></div>	
+                            <div class="col-xs-7 col-md-2 panel-body" style="height: 40px; text-align: center; padding: 10px;">${campReservation.camp.user.campCall}</div>   
+                            <div class="col-xs-1 col-md-1 "></div>   
                           </div>
                           
                           <div class="form-group">
                             <div class="col-xs-1 col-md-1 "></div>
                             <div class="col-xs-3 col-md-1 panel-body" style="height: 40px; text-align: center; padding: 10px;"><strong>이용시설</strong></div>
                             <div class="col-xs-1 col-md-1 "></div>
-                            <div class="col-xs-7 col-md-2 panel-body" style="height: 40px; text-align: center; padding: 10px;">${campReservation.mainSite.mainSiteType}</div>	
+                            <div class="col-xs-7 col-md-2 panel-body" style="height: 40px; text-align: center; padding: 10px;">${campReservation.mainSite.mainSiteType}</div>   
                             <div class="col-xs-1 col-md-1 "></div>
                             <div class="col-xs-3 col-md-1 panel-body" style="height: 40px; text-align: center; padding: 10px;"><strong>이용날짜</strong></div>
                             <div class="col-xs-1 col-md-1 "></div>
-                            <div class="col-xs-7 col-md-2 panel-body" style="height: 40px; text-align: center; padding: 10px; font-weight: bold;">${campReservation.reservationStartDate} ~ ${campReservation.reservationEndDate}</div>	
-                            <div class="col-xs-1 col-md-1 "></div>	
+                            <div class="col-xs-7 col-md-2 panel-body" style="height: 40px; text-align: center; padding: 10px; font-weight: bold;">${campReservation.reservationStartDate} ~ ${campReservation.reservationEndDate}</div>   
+                            <div class="col-xs-1 col-md-1 "></div>   
                           </div>
 
                           <div class="form-group">
                             <div class="col-xs-1 col-md-1 "></div>
                             <div class="col-xs-3 col-md-1 panel-body" style="height: 40px; text-align: center; padding: 10px;"><strong>예약날짜</strong></div>
                             <div class="col-xs-1 col-md-1 "></div>
-                            <div class="col-xs-7 col-md-2 panel-body" style="height: 40px; text-align: center; padding: 10px; font-weight: bold;">${campReservation.reservationRegDate}</div>	
+                            <div class="col-xs-7 col-md-2 panel-body" style="height: 40px; text-align: center; padding: 10px; font-weight: bold;">${campReservation.reservationRegDate}</div>   
                             <div class="col-xs-1 col-md-1 "></div>
                             <div class="col-xs-3 col-md-1 panel-body" style="height: 40px; text-align: center; padding: 10px;"><strong>예약인원</strong></div>
                             <div class="col-xs-1 col-md-1 "></div>
-                            <div class="col-xs-7 col-md-2 panel-body" style="height: 40px; text-align: center; padding: 10px;">${campReservation.useNum} 명</div>	
-                            <div class="col-xs-1 col-md-1 "></div>			
+                            <div class="col-xs-7 col-md-2 panel-body" style="height: 40px; text-align: center; padding: 10px;">${campReservation.useNum} 명</div>   
+                            <div class="col-xs-1 col-md-1 "></div>         
                           </div>
                           
                           <div class="form-group">
                             <div class="col-xs-1 col-md-1 "></div>
                             <div class="col-xs-3 col-md-1 panel-body" style="height: 40px; text-align: center; padding: 10px;"><strong>차량번호</strong></div>
                             <div class="col-xs-1 col-md-1 "></div>
-                            <div class="col-xs-7 col-md-2 panel-body" style="height: 40px; text-align: center; padding: 10px;">${campReservation.reservationRegCarNum}</div>	
+                            <div class="col-xs-7 col-md-2 panel-body" style="height: 40px; text-align: center; padding: 10px;">${campReservation.reservationRegCarNum}</div>   
                             <div class="col-xs-1 col-md-1 "></div>
                             <div class="col-xs-3 col-md-1 panel-body" style="height: 40px; text-align: center; padding: 10px;"><strong>예약자이름</strong></div>
                             <div class="col-xs-1 col-md-1 "></div>
-                            <div class="col-xs-7 col-md-2 panel-body" style="height: 40px; text-align: center; padding: 10px;">${campReservation.reservationUserName}</div>	
-                            <div class="col-xs-1 col-md-1 "></div>			
+                            <div class="col-xs-7 col-md-2 panel-body" style="height: 40px; text-align: center; padding: 10px;">${campReservation.reservationUserName}</div>   
+                            <div class="col-xs-1 col-md-1 "></div>         
                           </div>
 
                           <div class="form-group">
                             <div class="col-xs-1 col-md-1 "></div>
                             <div class="col-xs-3 col-md-1 panel-body" style="height: 40px; text-align: center; padding: 10px;"><strong>휴대폰번호</strong></div>
                             <div class="col-xs-1 col-md-1 "></div>
-                            <div class="col-xs-7 col-md-2 panel-body" style="height: 40px; text-align: center; padding: 10px;">${campReservation.reservationUserPhone}</div>	
+                            <div class="col-xs-7 col-md-2 panel-body" style="height: 40px; text-align: center; padding: 10px;">${campReservation.reservationUserPhone}</div>   
                             <div class="col-xs-1 col-md-1 "></div>
                             <div class="col-xs-3 col-md-1 panel-body" style="height: 40px; text-align: center; padding: 10px;"><strong>결제금액</strong></div>
                             <div class="col-xs-1 col-md-1 "></div>
-                            <div class="col-xs-7 col-md-2 panel-body" style="height: 40px; text-align: center; padding: 10px;"><span style="color: rgb(255, 166, 0);">${campReservation.totalPaymentPrice} 원</span></div>	
-                            <div class="col-xs-1 col-md-1 "></div>			
-                          </div>	
+                            <div class="col-xs-7 col-md-2 panel-body" style="height: 40px; text-align: center; padding: 10px;">
+                                <span style="color: rgb(255, 166, 0);" id="comma_price" value="${campReservation.totalPaymentPrice}"></span></div>   
+                            <div class="col-xs-1 col-md-1 "></div>         
+                          </div>   
                           
                           <div class="form-group">
                             <div class="col-xs-1 col-md-1 "></div>
                             <div class="col-xs-3 col-md-1 panel-body" style="height: 40px; text-align: center; padding: 10px;"><strong>요청사항</strong></div>
                             <div class="col-xs-1 col-md-1 "></div>
-                            <div class="col-xs-7 col-md-2 panel-body" style="height: 40px; text-align: center; padding: 10px;">${campReservation.reservationRequest}</div>	
+                            <div class="col-xs-7 col-md-2 panel-body" style="height: 40px; text-align: center; padding: 10px;">${campReservation.reservationRequest}</div>   
                             <div class="col-xs-1 col-md-1 "></div>
                             <div class="col-xs-3 col-md-1 panel-body" style="height: 40px; text-align: center; padding: 10px;"><strong>예약상황</strong></div>
                             <div class="col-xs-1 col-md-1 "></div>
@@ -179,9 +136,9 @@ pageEncoding="UTF-8"%>
                                 <c:when test="${campReservation.reservationStatus eq 7}"><span style="color: rgb(230, 17, 17);">이용완료</span></c:when>
                                 <c:when test="${campReservation.reservationStatus eq 8}"><span style="color: maroon;">리뷰등록완료</span></c:when>
                               </c:choose>
-                            </div>	
-                            <div class="col-xs-1 col-md-1 "></div>			
-                          </div>	
+                            </div>   
+                            <div class="col-xs-1 col-md-1 "></div>         
+                          </div>   
                                                     
                           <div class="form-group" style="padding-top: 20px;">
                               
@@ -224,7 +181,7 @@ pageEncoding="UTF-8"%>
                                       <div class="row" style="padding-top: 15px; padding-bottom: 15px;">
                                         <div>
                                           <button type="button" class="btn btn-success" value="${campReservation.reservationNo}">예약변경</button>
-                                          <button type="button" class="btn btn-danger" value="${campReservation.reservationNo}">예약취소</button>
+                                          <button type="button" class="btn btn-danger">예약취소</button>
                                         </div>
                                       </div>
                                     </div>
@@ -236,44 +193,45 @@ pageEncoding="UTF-8"%>
                                 </c:when>
                               </c:choose>
                               </div>
+                               
+                               </form>
                           </div>
                           
-                        </form>
+                       
                 </div>
 
               </div>
+             </section>
           </div>
-        </section>
-    </div>
 
     <form id="hidden">
       <input type="hidden" name="mainSite.mainSiteNo" value="${campReservation.mainSite.mainSiteNo}" />
       <input type="hidden" name="camp.campNo" value="${campReservation.camp.campNo}" />
       <input type="hidden" name="reservationStartDate" value="${campReservation.reservationStartDate}" />
       <input type="hidden" name="reservationEndDate" value="${campReservation.reservationEndDate}" />
+      <input type="hidden" id="reservationNo" name="reservationNo" value="${campReservation.reservationNo}" />
     </form>
   
   </main>  
 
-    <script src="../../resources/lib/jquery/jquery.js"></script>
-    <script src="../../resources/lib/bootstrap/js/bootstrap.min.js"></script>
-    <script src="../../resources/lib/wow/wow.js"></script>
-    <script src="../../resources/lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js"></script>
-    <script src="../../resources/lib/isotope/isotope.pkgd.js"></script>
-    <script src="../../resources/lib/imagesloaded/imagesloaded.pkgd.js"></script>
-    <script src="../../resources/lib/flexslider/jquery.flexslider.js"></script>
-    <script src="../../resources/lib/owl.carousel/dist/owl.carousel.min.js"></script>
-    <script src="../../resources/lib/smoothscroll.js"></script>
-    <script src="../../resources/lib/magnific-popup/magnific-popup.js"></script>
-    <script src="../../resources/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script>
-    <script src="../../resources/js/plugins.js"></script>
-    <script src="../../resources/js/main.js"></script>
-    
     <script type="text/javascript">
 
-      $( function() {
+      window.onload = function() {
 
-        //예약변경
+            let str = $("#comma_price").attr("value");
+            let commaStr = comma(str);
+
+                $("#comma_price").html(commaStr+" 원");
+      };
+
+      function comma(str) {
+                str = String(str);
+                return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+            }
+
+      $( function() {
+         
+         //예약변경
         $(".btn-success").on("click" , function() {
             
             self.location ="/campGeneral/updateMyReservationView?reservationNo="+$(this).attr("value");
@@ -282,10 +240,38 @@ pageEncoding="UTF-8"%>
 
         //예약취소  
         $(".btn-danger").on("click" , function() {
-          
-          self.location ="/campGeneral/cancleMyReservation?reservationNo="+$(this).attr("value");
-        
-        });
+
+
+                let reservationStartDate =$('#reservation_start_date').val();
+
+                let today = getToday();   
+
+                let startDate = new Date('today');
+                let endDate = new Date('reservationStartDate');
+                let differenceDate = Math.ceil((endDate.getTime()-startDate.getTime())/(1000*3600*24));
+
+                console.log(differenceDate);
+
+                let refundCode ="";
+
+                if(differenceDate === 2){
+                    refundCode = 'R3'
+                }else if(differenceDate === 3){
+                    refundCode = 'R4'
+                }else if(differenceDate === 4){
+                    refundCode = 'R5'
+                }else if(differenceDate === 5){
+                    refundCode = 'R6'
+                }else if(differenceDate === 6){
+                    refundCode = 'R7'
+                }else{
+                    refundCode = 'R8'
+                }
+
+                console.log(refundCode);
+                self.location ="/payment/readyRefund?reservationNo="+$(this).attr("value")+"&paymentRefundCode="+refundCode;
+
+          });
 
         //평점&리뷰
         $(".btn-warning").on("click" , function() {
@@ -299,10 +285,29 @@ pageEncoding="UTF-8"%>
               $("#hidden").attr("method", "POST").attr("action", "/campGeneral/addPaymentByMyPage").submit();
             });
 
-      });
+        });
+
+        function comma(str) {
+                str = String(str);
+                return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+            }
+
+            function getToday(){
+                var date = new Date();
+                var year = date.getFullYear();
+                var month = ("0" + (1 + date.getMonth())).slice(-2);
+                var day = ("0" + date.getDate()).slice(-2);
+
+                return year + "-" + month + "-" + day;
+            }
+
+        function go_reservation_list(){
+          window.location = "/campGeneral/listMyReservation";
+        }
 
     </script>
 
 </body>
+
 
 </html>

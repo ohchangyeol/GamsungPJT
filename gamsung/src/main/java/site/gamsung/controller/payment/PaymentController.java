@@ -1,9 +1,10 @@
 package site.gamsung.controller.payment;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,13 +18,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import site.gamsung.service.camp.CampReservationService;
-import site.gamsung.service.common.Page;
-import site.gamsung.service.common.Search;
-import site.gamsung.service.domain.Camp;
 import site.gamsung.service.domain.CampReservation;
 import site.gamsung.service.domain.Payment;
 import site.gamsung.service.domain.PaymentCode;
-import site.gamsung.service.domain.PointTransfer;
 import site.gamsung.service.domain.User;
 import site.gamsung.service.payment.PaymentService;
 import site.gamsung.service.user.UserService;
@@ -157,32 +154,121 @@ public class PaymentController {
 		return "forward:/view/payment/resultPayment.jsp";
 	}	
 	
-	@RequestMapping(value = "getPayment", method = RequestMethod.POST)
-	public String getPayment(@RequestParam("paymentNo") int paymentNo, Model model) throws Exception {	
+	@RequestMapping(value = "readyRefund", method = RequestMethod.GET)
+	public String readyRefund(@RequestParam(value ="paymentNo", required = false) String paymentNo,
+								@RequestParam(value ="reservationNo", required = false) String reservationNo,
+								@RequestParam(value ="paymentRefundCode", required = false) String paymentRefundCode,								
+								HttpServletRequest request, Model model) throws Exception {	
 		
-		Payment payment = paymentService.getPayment(paymentNo);
-		model.addAttribute("payment", payment);
+		Payment paymentRecord = null;
+		PaymentCode paymentCodeInfo = null;
+		List<Payment> paymentRecordList = new ArrayList<Payment>();
+		String referenceNum = null;
+		String refNum = null;
 		
-		return "forward:/view/payment/getPayment.jsp";
+		//paymentNo = "P000000005";																			// 테스트
+		//reservationNo = "R00011";																			// 테스트
+		//paymentRefundCode = "R3";																			// 테스트
+		
+		System.out.println("paymentNo : " + paymentNo);														// 테스트
+		System.out.println("reservationNo : " + reservationNo);												// 테스트
+		System.out.println("paymentRefundCode : " + paymentRefundCode);										// 테스트
+		
+		if(paymentNo != null) {
+			paymentRecord = paymentService.getPaymentInfo(paymentNo);
+			paymentRecordList.add(paymentRecord);
+			referenceNum = paymentRecord.getPaymentReferenceNum();
+			refNum = referenceNum.substring(1, 7);
+		}
+		
+		if(reservationNo != null) {
+			paymentRecordList = paymentService.getPaymentListByRsvNo(reservationNo);
+			refNum = reservationNo;
+		}		
+
+		if(paymentRefundCode != null) {
+			paymentCodeInfo = paymentService.getPaymentCodeInfo(paymentRefundCode);
+		}
+				
+		int refundFeeRate = paymentCodeInfo.getPaymentCodeFee();
+		
+		List<Payment> paymentNewList = new ArrayList<Payment>();
+		for (int cnt = 0; cnt < paymentRecordList.size(); cnt++) {
+			Payment onePayment = paymentRecordList.get(cnt);
+			
+			System.out.println("paymentRecordList1 : "+cnt+" : " + onePayment);
+			
+			if(onePayment.getPaymentMethod() != null) {
+				int orginalPaymentPriceTotal = onePayment.getPaymentPriceTotal();
+				int refundPaymentPriceFee = orginalPaymentPriceTotal * refundFeeRate / 100;
+				int refundPaymentPricePay = orginalPaymentPriceTotal - refundPaymentPriceFee;
+				
+				onePayment.setPaymentRefundPriceTotal(orginalPaymentPriceTotal);
+				onePayment.setPaymentRefundPricePay(refundPaymentPricePay);
+				onePayment.setPaymentRefundPriceFee(refundPaymentPriceFee);			
+			}
+			
+			if(onePayment.getPaymentMethodSecond() != null) {
+				int orginalPaymentPriceTotalSecond = onePayment.getPaymentPriceTotalSecond();
+				int refundPaymentPriceFeeSecond = orginalPaymentPriceTotalSecond * refundFeeRate / 100;
+				int refundPaymentPricePaySecond = orginalPaymentPriceTotalSecond - refundPaymentPriceFeeSecond;
+				
+				onePayment.setPaymentRefundPriceTotalSecond(orginalPaymentPriceTotalSecond);
+				onePayment.setPaymentRefundPricePaySecond(refundPaymentPricePaySecond);
+				onePayment.setPaymentRefundPriceFeeSecond(refundPaymentPriceFeeSecond);			
+			}			
+			
+			onePayment.setPaymentRefundCode(paymentRefundCode);
+			System.out.println("paymentRecordList2 : "+cnt+" : " + onePayment);
+			paymentNewList.add(onePayment);
+		}
+		
+		for (Payment payment : paymentNewList) {
+			System.out.println("payment : " + payment);
+		}
+		
+		String Codeletter = paymentCodeInfo.getPaymentCode();
+		char letter = Codeletter.charAt(0);	
+				
+		if(letter == 'R') {
+			CampReservation campReservationInfo = campReservationService.getReservation(refNum);
+			model.addAttribute("campReservation", campReservationInfo);
+			System.out.println("campReservation : "+campReservationInfo);                           // 테스트
+		}
+		
+		System.out.println("paymentCodeInfo : "+paymentCodeInfo);									// 테스트
+		System.out.println("Codeletter : "+Codeletter);												// 테스트
+		System.out.println("referenceNum : "+referenceNum);											// 테스트
+		System.out.println("refNum : "+refNum);														// 테스트
+		System.out.println("paymentRecord : "+paymentRecord);										// 테스트
+		
+		model.addAttribute("paymentList", paymentNewList);
+		
+		return "forward:/view/payment/readyRefund.jsp";
+	}
+	
+	@RequestMapping(value = "refundSystem", method = RequestMethod.POST)
+	public String refundSystem(@ModelAttribute Payment paymentList, 
+								@ModelAttribute("campReservation") CampReservation campReservation, 
+								HttpSession httpSession, Model model) throws Exception {
+		
+		System.out.println("payment : "+paymentList);													// 테스트
+		System.out.println("campReservation : "+campReservation);									// 테스트
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		return "forward:/view/payment/resultRefund.jsp";
 	}
 	
 	@RequestMapping(value = "listPayment", method = RequestMethod.GET)
-	public String listPayment(@ModelAttribute("search") Search search, Model model) throws Exception {		
-		
-		if (search.getCurrentPage() == 0) { 
-			search.setCurrentPage(1); 
-		}
-  
-		search.setPageSize(pageSize); 
-		search.setSearchItemType("Payment");
-  
-		Map<String, Object> map = paymentService.listPayment(search); 
-		Page resultPage = new Page(search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
-  
-		model.addAttribute("list", map.get("list"));
-		model.addAttribute("resultPage",resultPage); 
-		model.addAttribute("search", search);		 	
-		
+	public String listPayment() throws Exception {					
 		return "forward:/view/payment/listPayment.jsp";
 	}
 		

@@ -34,10 +34,6 @@ public class PaymentDAOImpl implements PaymentDAO{
 	 * Common
 	 */	
 	public int getTotalCount(Search search) throws Exception {
-				
-		if(search.getSearchItemType().equals("Payment")) {
-			return sqlSession.selectOne("PaymentMapper.getTotalCountPayment");
-		}
 		
 		if(search.getSearchItemType().equals("SiteProfit")) {
 			return sqlSession.selectOne("PaymentMapper.getTotalCountSiteProfit", search);
@@ -67,15 +63,20 @@ public class PaymentDAOImpl implements PaymentDAO{
 	public void updatePayment(Payment payment) throws Exception {
 		sqlSession.update("PaymentMapper.addRefundPayment", payment);		
 	}
-	
-	@Override
-	public Payment getPayment(int paymentNo) throws Exception {
-		return sqlSession.selectOne("PaymentMapper.getPayment", paymentNo);		
-	}
-	
+		
 	@Override
 	public List<Payment> listPayment(Search search) throws Exception {
 		return sqlSession.selectList("PaymentMapper.listPayment", search);		
+	}
+	
+	@Override
+	public Payment getPaymentInfo(String paymentNo) throws Exception {
+		return sqlSession.selectOne("PaymentMapper.getPaymentInfo", paymentNo);		
+	}
+	
+	@Override
+	public List<Payment> getPaymentListByRsvNo(String reservationNo) throws Exception{
+		return sqlSession.selectList("PaymentMapper.getPaymentListByRsvNo", reservationNo);		
 	}
 	
 	
