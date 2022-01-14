@@ -15,17 +15,13 @@
   	<script src="/resources/lib/imagesloaded/imagesloaded.pkgd.js"></script>
   	<link rel="stylesheet" href="/resources/lib/bootstrap/css/bootstrap.min.css"></link>  	
   	
-  	
   	<!-- ### headerCampBusiness resources Start ### -->  	
-  	<script src="/resources/lib/jquery/jquery.js"></script>
-    
+ 
     <!-- Favicons -->
     <meta name="msapplication-TileImage" content="/resources/images/favicons/ms-icon-144x144.png">    
     <meta name="msapplication-TileColor" content="#ffffff">  
     <meta name="theme-color" content="#ffffff">
    
-    <!-- Stylesheets -->
-    
     <!-- Default stylesheets-->
     <link href="/resources/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     

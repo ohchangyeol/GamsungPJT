@@ -796,10 +796,10 @@
                     </div>
 
                     <div class="tab-pane teb-iframe" id="qna">
-                      <!-- <iframe src="/campGeneral/listCampQna?campNo=${camp.campNo}" scrolling="no" id="qnaschange"></iframe>
-                      <script type="text/javascript">
-                        function AdjustIframeHeight(i) { document.getElementById("qnaschange").style.height = parseInt(i) + "px"; }
-                      </script> -->
+                      <iframe src="/campBusiness/listCampQna" scrolling="no" id="qnaschange"></iframe>
+	                      <script type="text/javascript">
+	                        function AdjustIframeHeight(i) { document.getElementById("qnaschange").style.height = parseInt(i) + "px"; }
+	                      </script> 
                     </div>
 
                     <div class="tab-pane teb-iframe" id="reviews">

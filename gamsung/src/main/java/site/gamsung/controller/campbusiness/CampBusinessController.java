@@ -12,7 +12,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,8 +23,13 @@ import site.gamsung.service.common.Page;
 import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.Camp;
 import site.gamsung.service.domain.MainSite;
+import site.gamsung.service.domain.Notice;
+import site.gamsung.service.domain.NoticeWrapper;
+import site.gamsung.service.domain.Qna;
+import site.gamsung.service.domain.QnaWrapper;
 import site.gamsung.service.domain.SubSite;
 import site.gamsung.service.domain.User;
+import site.gamsung.service.servicecenter.QnaService;
 import site.gamsung.service.campbusiness.CampBusinessService;
 import site.gamsung.service.user.UserService;
 
@@ -41,6 +48,10 @@ public class CampBusinessController {
 	@Autowired
 	@Qualifier("userServiceImpl")
 	private UserService userService;
+	
+	@Autowired
+	@Qualifier("qnaServiceImpl")
+	private QnaService qnaService;
 
 	// @Value("#{commonProperties['pageUnit']}")
 	@Value("#{commonProperties['pageUnit'] ?: 5}")
@@ -53,6 +64,7 @@ public class CampBusinessController {
 	public CampBusinessController() {
 		System.out.println(this.getClass());
 	}
+	
 	
 	/*
 	 * Common
@@ -187,7 +199,6 @@ public class CampBusinessController {
 		return "forward:/view/campbusiness/updateCamp.jsp";
 	}
 	
-
 	@RequestMapping(value = "updateCamp", method = RequestMethod.POST)
 	public String updateCamp(@ModelAttribute("camp") Camp camp, HttpSession httpSession) throws Exception {	
 		
@@ -396,6 +407,7 @@ public class CampBusinessController {
 		return "forward:/view/common/subMainCampBusiness.jsp";
 	}
 
+	
 	/*
 	 * SubSite
 	 */
@@ -485,6 +497,70 @@ public class CampBusinessController {
 
 		campBusinessService.deleteSubSite(subSiteNo);
 		return "forward:/view/common/subMainCampBusiness.jsp";
+	}
+	
+	
+	/*
+	 * Qna
+	 */
+	@RequestMapping(value = "addCampQna", method = RequestMethod.POST)
+	public String addCampQna(@ModelAttribute("qna") Qna qna, @ModelAttribute("user") User user) throws Exception {
+		System.out.println("QnA ==> "+qna);
+		System.out.println("user ==> "+user);
+		
+		qna.setSender(user);
+		
+		qnaService.addQuestion(qna);
+		return "forward:/view/campbusiness/addCampQna.jsp";		
+	}
+	
+	@RequestMapping(value = "addCampQnaAnswer", method = RequestMethod.POST)
+	public String addCampQnaAnswer(@ModelAttribute("qna") Qna qna) throws Exception {
+
+		return null ;
+	}
+	
+	@RequestMapping(value = "getCampQna", method = RequestMethod.GET)
+	public String getCampQna(@RequestParam("qnaNo") int qnaNo ,HttpSession session, Model model) throws Exception {
+		
+		User user = (User)session.getAttribute("user");
+		
+		Qna qna = qnaService.getQna(qnaNo);
+		
+		model.addAttribute("qnaType", "get");
+		model.addAttribute("qna" , qna);
+
+		return "forward:/view/campbusiness/getCampQna.jsp";		
+	
+	}
+	
+	@RequestMapping("listCampQna")
+	public String listCampQna(@ModelAttribute("search") Search search, HttpSession session, Model model) throws Exception {
+		
+		if(search.getCurrentPage() == 0 ){ 
+			search.setCurrentPage(1); 
+		}
+		search.setPageSize(pageSize);
+		
+		System.out.println("\n == serch ==\n "+search);
+		 
+		QnaWrapper wrapper = qnaService.listQna(search);
+		wrapper.setSearch(search);
+		
+		Page resultPage = new Page( search.getCurrentPage(), wrapper.getTotalCount() , pageUnit, pageSize);
+		
+		model.addAttribute("wrapper" , wrapper);
+		model.addAttribute("resultPage", resultPage);
+
+		if(search.getId() == null || "".equals(search.getId())) {
+			model.addAttribute("qnaType", "list");
+		} else {
+			model.addAttribute("qnaType", "my");
+		}
+			
+		System.out.println(wrapper);
+		
+		return "forward:/view/camp/listCampQna.jsp";		
 	}
 
 } // end of class

@@ -269,7 +269,6 @@ pageEncoding="UTF-8"%>
                 }
 
                 console.log(refundCode);
-                      
                 self.location ="/payment/readyRefund?reservationNo="+$(this).attr("value")+"&paymentRefundCode="+refundCode;
 
           });
