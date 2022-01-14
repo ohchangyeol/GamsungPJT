@@ -29,8 +29,10 @@ import site.gamsung.service.community.CommunityService;
 import site.gamsung.service.domain.Camp;
 import site.gamsung.service.domain.CampReservation;
 import site.gamsung.service.domain.Post;
+import site.gamsung.service.domain.Receive;
 import site.gamsung.service.domain.Transfer;
 import site.gamsung.service.domain.User;
+import site.gamsung.service.transfer.ReceiveService;
 import site.gamsung.service.transfer.TransferService;
 
 
@@ -42,6 +44,11 @@ public class TransferController {
 	@Autowired
 	@Qualifier("transferServiceImpl")
 	private TransferService transferService;	
+
+	@Autowired
+	@Qualifier("receiveServiceImpl")
+	private ReceiveService receiveService;	
+	
 	
 	
 	
@@ -218,7 +225,7 @@ public class TransferController {
 	// 양도 상세 페이지 
 	
 	@RequestMapping(value = "getTransfer")	
-	public String getTransfer(@RequestParam("transferNo") int transferNo, HttpSession session, Model model) throws Exception {
+	public String getTransfer(@RequestParam("transferNo") int transferNo, HttpSession session, Model model, Search search) throws Exception {
 
 		System.out.println("getTransfer Start");
 
@@ -229,21 +236,70 @@ public class TransferController {
 		}
 					
 		 Transfer transfer = transferService.getTransfer(transferNo);
+		 
+		System.out.println("getTransfer:::"+transfer);
+				  
+		  search.setRole(user.getRole());
+		  search.setTransferNo(transferNo);
+		  search.setId(user.getId());
+		  search.setCurrentPage(1);
+		  search.setPageSize(10);
 			
-		model.addAttribute("user", user);
-		model.addAttribute("transfer", transfer);
-
+			//search setting해서 페이징처리 안할꺼면 매퍼를 고쳐야한다. 현재는 10개밖에 안뽑아온다. 
+		  
+		  List<Receive> listreceive = receiveService.listReceive(search);	
+		  
+		  System.out.println("listreceive"+listreceive);
+	
+			model.addAttribute("user", user);
+			model.addAttribute("transfer", transfer);
+			model.addAttribute("listreceive", listreceive);
+	
 		return "forward:/view/transfer/getTransfer.jsp";
 	}
 	
-	 
-	/*
-	 * if 문으로 reservationno가 있으면 예약테이블을 건드리는 함수 실행 +
-	 */
-	/*
-	 * TransferService transferService = new TransferService();
-	 * 
-	 * int TRANSFER = transferService.addTransfer(transfer);
-	 */
+	// 예약양도양수 My 페이지 navigation	
+	
+	@RequestMapping(value = "listMyTransfer")	
+	
+	public String listMyTransfer(HttpSession session, Model model) throws Exception {
 
+		System.out.println("listMyTransfer Start");
+
+		User user = (User) session.getAttribute("user");
+
+		if (user == null) {
+			return "redirect:/";
+		}
+			
+		 Map<String, Object> map = new HashMap<String, Object>();
+		 
+		 Search search = new Search();
+		 	 
+		 if (search.getCurrentPage() == 0) {
+				search.setCurrentPage(1);
+			}
+				 
+		search.setPageSize(10);
+		search.setId(user.getId()); // listMyTransfer는 search에 id를 넣는다. 
+
+		map.put("search", search);
+				 
+		map = transferService.listTransfer(map);
+		
+		int TotalCount = (int) map.get("TotalCount");
+	
+		List<Transfer> Transferlist =  (List<Transfer>) map.get("list");
+		
+		Page resultPage = new Page( search.getCurrentPage(), TotalCount, pageUnit, pageSize);
+				
+		System.out.println(Transferlist);
+		
+		model.addAttribute("user", user);
+		model.addAttribute("Transferlist", Transferlist);
+		model.addAttribute("resultPage", resultPage);		
+		
+		return "forward:/view/transfer/listMyTransfer.jsp";
+	}
+	
 }

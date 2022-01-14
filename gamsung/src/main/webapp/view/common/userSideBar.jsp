@@ -105,10 +105,11 @@
 							<span>예약양도</span>
 						</a>
 						<ul class="nav nav-children">
-							<li><a href="forms-basic.html"> 샬라샬라 </a></li>
-							<li><a href="forms-advanced.html"> 샬라샬라 </a></li>
+							<li><a href="/transfer/listMyTransfer"> 나의 예약 양도내역 </a></li>
+							<li><a href="/transfer/managePoint"> 나의 예약 양수내역 </a></li>
 						</ul>
 					</li>
+					
 					
 					<hr class="separator" />
 					

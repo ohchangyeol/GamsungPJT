@@ -66,6 +66,7 @@
     </select>
    
 	<!-- 	양수 신청글 : 해당 양도의 양수 List parameter로는 serach, transferNo -->
+	<!-- 페이징 처리포함임.. 아직 처리안함;  -->
 
 	<select  id="listReceive"  parameterType="search"	resultMap="receiveMapper">
 	SELECT S.* 
