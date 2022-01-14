@@ -305,6 +305,11 @@ public class UserController {
 
 		HashMap<String, Object> userInfo = userService.getUserInfo(accessToken);
 		System.out.println("###access_Token#### : " + accessToken);
+		
+		if((String) userInfo.get("email")!=null) {
+			userService.unlink(accessToken);
+			return "/";
+		}else {		
 		String email = (String) userInfo.get("email");
 		System.out.println("###userInfo#### : " + userInfo.get("email"));
 		System.out.println("###nickname#### : " + userInfo.get("nickname"));
@@ -335,6 +340,7 @@ public class UserController {
 				}
 			}
 		}
+	}
 		return "forward:/view/user/addKakaoUser.jsp";
 	}
 
