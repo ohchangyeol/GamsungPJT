@@ -57,7 +57,7 @@
 			VALUE (#{writer.id}, #{noticeTitle:VARCHAR}, #{noticeContent:VARCHAR}, #{noticeFile1:VARCHAR},#{noticeFile2:VARCHAR},#{noticeFile3:VARCHAR}, #{noticeFile4:VARCHAR}, #{noticeFile5:VARCHAR},#{campNo:NUMERIC},#{campName:VARCHAR})
 		</when>
 		<otherwise>
-			INSERT INTO NOTICE (user_id, notice_title, notice_content, notice_file1, notice_file2, notice_file3 notice_file4,  notice_file5)
+			INSERT INTO NOTICE (user_id, notice_title, notice_content, notice_file1, notice_file2, notice_file3, notice_file4, notice_file5)
 			VALUE (#{writer.id}, #{noticeTitle:VARCHAR}, #{noticeContent:VARCHAR}, #{noticeFile1:VARCHAR},#{noticeFile2:VARCHAR},#{noticeFile3:VARCHAR}, #{noticeFile4:VARCHAR}, #{noticeFile5:VARCHAR})
 		</otherwise>
 		</choose>

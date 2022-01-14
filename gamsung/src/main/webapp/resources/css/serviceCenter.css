@@ -1,3 +1,4 @@
+.format{display: none;}
 /* Notice Layout */
 li {list-style: none;}
 .container .row h4 {font-weight: 600;}
@@ -104,3 +105,5 @@ hr.divider-w{height: 0 !important;}
 .get-report .notice-content .n-body .row .file-content {border: 1px solid #f0f0f0; border-radius: 7px; background-color:#f0f0f09d ;padding: 10px; box-sizing: border-box;}
 .get-report .notice-content .n-body .content {margin-top: 20px ;}
 .get-report .u-d-button-box{display: flex;justify-content: end; gap: 15px;}
+
+.panel-group {margin-bottom: 10px;}

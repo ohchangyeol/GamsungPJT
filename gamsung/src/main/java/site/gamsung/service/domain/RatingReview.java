@@ -25,8 +25,8 @@ public class RatingReview {
    private String commentDeleteFlag;
    
    public RatingReview() {
+      
    }
-   
    
    // Constructors to connect with the community! 
    public RatingReview(Camp camp, User user, int ratingReviewStatus, String ratingReviewTitle,
@@ -42,7 +42,6 @@ public class RatingReview {
       this.img2 = img2;
       this.img3 = img3;
    }
-
 
 
    public Camp getCamp() {

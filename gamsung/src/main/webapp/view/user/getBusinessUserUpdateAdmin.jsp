@@ -254,7 +254,7 @@
 												</div>
 											</div>
 
-											<c:if test="${user.suspensionDate}  !=null">
+											<c:if test="${user.suspensionDate != null}">
 												<div id="suspention-date" class="form-group row">
 													<label for="suspention-date"
 														class="col-sm-offset-1 col-sm-3 control-label"><strong>이용정지
@@ -266,7 +266,8 @@
 													</div>
 												</div>
 											</c:if>
-											<c:if test="${user.secessionRegDate !=null}">
+
+											<c:if test="${user.secessionRegDate != null}">
 												<div id="secession-date" class="form-group row">
 													<label for="secession-date"
 														class="col-sm-offset-1 col-sm-3 control-label"><strong>탈퇴

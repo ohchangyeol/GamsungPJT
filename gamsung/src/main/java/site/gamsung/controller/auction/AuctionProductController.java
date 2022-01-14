@@ -29,11 +29,13 @@ import site.gamsung.service.common.RatingReviewService;
 import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.AuctionInfo;
 import site.gamsung.service.domain.AuctionProduct;
+import site.gamsung.service.domain.NaverProduct;
 import site.gamsung.service.domain.Payment;
 import site.gamsung.service.domain.PaymentCode;
 import site.gamsung.service.domain.User;
 import site.gamsung.service.payment.PaymentService;
 import site.gamsung.util.auction.AuctionImgUpload;
+import site.gamsung.util.auction.NaverShoppingAPI;
 
 @RequestMapping("/auction/*")
 @Controller
@@ -58,7 +60,7 @@ public class AuctionProductController {
 	@Autowired
 	@Qualifier("paymentServiceImpl")
 	private PaymentService paymentService;
-	
+
 	@Autowired
 	@Qualifier("auctionImgUpload")
 	private AuctionImgUpload auctionImgUpload;
@@ -74,26 +76,37 @@ public class AuctionProductController {
 	}
 	
 	//경매 진행 중인 상품 최초 8개 조회
+//	@RequestMapping( "listWaitAuctionProduct")
+//	public String listCrawlingAuctionProduct(HttpSession httpSession, Model model, @ModelAttribute("search") Search search) {
+//		
+//		//출력할 개수을 commonProperties로 부터 받아오며, 1페이지가 고정값으로 들어간다.
+//		search.setSortCondition("latestAsc");
+//		search.setPageSize(auctionPageSize);
+//		search.setCurrentPage(1);
+//		
+//		//조건에 맞는 상위 8개의 상품 목록을 리스트로 받는다.
+//		List<AuctionProduct> list = auctionProductService.listCrawlingAuctionProduct(search);
+//		
+//		//받은 상품 목록을 model에 담아 return한다.
+//		model.addAttribute("list",list);
+//	
+//		return "forward:/view/auction/listWaitAuctionProduct.jsp";
+//		
+//	}
+	
 	@RequestMapping( "listWaitAuctionProduct")
-	public String listCrawlingAuctionProduct(HttpSession httpSession, Model model, @ModelAttribute("search") Search search) {
+	public String listNaverAuctionProduct(HttpSession httpSession, Model model, @ModelAttribute("search") Search search) {
 		
-		//출력할 개수을 commonProperties로 부터 받아오며, 1페이지가 고정값으로 들어간다.
-		search.setSortCondition("latestAsc");
-		search.setPageSize(auctionPageSize);
-		search.setCurrentPage(1);
-		
-		//조건에 맞는 상위 8개의 상품 목록을 리스트로 받는다.
-		List<AuctionProduct> list = auctionProductService.listCrawlingAuctionProduct(search);
-		
+		List<NaverProduct> list = auctionProductService.listNaverAuctionProduct();
 		//받은 상품 목록을 model에 담아 return한다.
 		model.addAttribute("list",list);
 	
-		return "forward:/view/auction/listWaitAuctionProduct.jsp";
+		return "forward:/view/auction/listNaverAuctionProduct.jsp";
 		
 	}
 	
 	//상품 상세 조회 페이지 출력
-	@GetMapping( "getAuctionProduct")
+	@GetMapping("getAuctionProduct")
 	public String getAuctionProduct(AuctionInfo auctionInfo, HttpSession httpSession, Model model) {
 		
 		User user = (User)httpSession.getAttribute("user");
@@ -121,12 +134,21 @@ public class AuctionProductController {
 	}
 	
 	//상품 상세 조회 페이지 출력
-	@PostMapping( "getAuctionProduct")
+//	@PostMapping( "getAuctionProduct")
+//	public String getCrawlingAuctionProductNo(@ModelAttribute("auctionProduct") AuctionProduct auctionProduct) {
+//		
+//		auctionProduct = auctionProductService.getCrawlingAuctionProductNo(auctionProduct);
+//		
+//		return "redirect:./getAuctionProduct?auctionProductNo="+auctionProduct.getAuctionProductNo();
+//	}
+	
+	// 상품 상세 조회 페이지 출력
+	@PostMapping("getAuctionProduct")
 	public String getCrawlingAuctionProductNo(@ModelAttribute("auctionProduct") AuctionProduct auctionProduct) {
-		
-		auctionProduct = auctionProductService.getCrawlingAuctionProductNo(auctionProduct);
-		
-		return "redirect:./getAuctionProduct?auctionProductNo="+auctionProduct.getAuctionProductNo();
+
+		auctionProduct = auctionProductService.convertNaverToAuctionProduct(auctionProduct);
+
+		return "redirect:./getAuctionProduct?auctionProductNo=" + auctionProduct.getAuctionProductNo();
 	}
 	
 	//경매 진행 중인 상품 최초 8개 조회

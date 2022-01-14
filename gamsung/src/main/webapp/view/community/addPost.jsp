@@ -188,7 +188,7 @@
 
                   <div class="form-group">
                     <label class="sr-only" for="title">제목</label>
-                    <input class="form-control" type="text" id="postTile" name="postTile" placeholder="제목을 입력해주세요."
+                    <input class="form-control" type="text" id="postTitle" name="postTitle" placeholder="제목을 입력해주세요."
                       required="required" />
                     <p class="help-block text-danger"></p>
                   </div>
@@ -306,7 +306,7 @@
 
           console.log("fncAddPost 호출")
 
-          var postTile = $("input[name='postTile']").val();
+          var postTitle = $("input[name='postTitle']").val();
           var postType = $("select[name='postType']").val();
           var postContent = $("textarea[name='postContent']").val();
           var hashtags = $('#allhashtag').val().split('#');
@@ -316,9 +316,9 @@
           console.log($('#allhashtag').val());
           console.log(hashtags);
 
-          if (postTile == '') {
+          if (postTitle == '') {
             alert("제목을 입력해주세요");
-            $("input:text[name='postTile']").focus();
+            $("input:text[name='postTitle']").focus();
             return;
           }
 

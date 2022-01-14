@@ -42,9 +42,9 @@ pageEncoding="UTF-8"%>
                 </div>
                 <div class="search-box">
                   <form role="form" class="qna-search" method="post" >
-                    <input class="form-control" type="text" placeholder="Search..." name="searchKeyword" value="${wrapper.search.searchKeyword}">
+                    <input class="form-control qna-serach-input" type="text" placeholder="Search..." name="searchKeyword" value="${wrapper.search.searchKeyword}">
                     <button class="search-btn" type="submit"><i class="fa fa-search"></i></button>
-                    <input type="hidden" id="currentPage" name="currentPage" value="${resultPage.currentPage}"/>
+                    <input type="hidden" id="currentPage" name="currentPage" value="1"/>
                     <input type="hidden" id="searchCondition" name="searchCondition" value="0"/>
 
                   </form>

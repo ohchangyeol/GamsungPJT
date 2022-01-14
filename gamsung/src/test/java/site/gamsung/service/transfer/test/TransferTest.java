@@ -163,7 +163,7 @@ public class TransferTest {
 	List<Transfer> list = (List<Transfer>) transferService.listTransfer(map);
 	
 	 //==> console 확인
-	System.out.println("list::::::::::::::::"+list);
+	//System.out.println("list::::::::::::::::"+list);
 	
 	System.out.println("=================================================================");
 	
@@ -180,7 +180,7 @@ public class TransferTest {
 	
 	List<Transfer> list2 = (List<Transfer>) transferService.listTransfer(map);
 	 		 
-	System.out.println("list(2)::::::::::"+list2);
+	//SSystem.out.println("list(2)::::::::::"+list2);
 	
 	}
 	

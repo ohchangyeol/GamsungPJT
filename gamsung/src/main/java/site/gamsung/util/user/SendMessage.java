@@ -19,7 +19,6 @@ public class SendMessage {
 
 		    // 4 params(to, from, type, text) are mandatory. must be filled
 		    HashMap<String, String> params = new HashMap<String, String>();
-		    String phNum=
 			params.put("to", phone);
 			 
 			params.put("from", "010-4515-2520");

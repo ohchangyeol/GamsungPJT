@@ -8,15 +8,40 @@
 <head>
 <meta charset="EUC-KR">
 
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	
+	<!-- Bootstrap, jQuery CDN -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">	
 	<script src="/resources/lib/jquery/jquery.js"></script>
     <script src="/resources/lib/bootstrap/js/bootstrap.min.js"></script>
   	<script src="/resources/lib/imagesloaded/imagesloaded.pkgd.js"></script>
-  	<link rel="stylesheet" href="/resources/lib/bootstrap/css/bootstrap.min.css"></link>
+  	<link rel="stylesheet" href="/resources/lib/bootstrap/css/bootstrap.min.css"></link>  	
+  	
+  	<!-- ### headerCampBusiness resources Start ### -->  	
+ 
+    <!-- Favicons -->
+    <meta name="msapplication-TileImage" content="/resources/images/favicons/ms-icon-144x144.png">    
+    <meta name="msapplication-TileColor" content="#ffffff">  
+    <meta name="theme-color" content="#ffffff">
+   
+    <!-- Default stylesheets-->
+    <link href="/resources/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Template specific stylesheets-->
+    <link href="/resources/lib/animate.css/animate.css" rel="stylesheet">
+    <link href="/resources/lib/components-font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/resources/lib/et-line-font/et-line-font.css" rel="stylesheet">
+    <link href="/resources/lib/flexslider/flexslider.css" rel="stylesheet">
+    <link href="/resources/lib/owl.carousel/dist/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="/resources/lib/owl.carousel/dist/assets/owl.theme.default.min.css" rel="stylesheet">
+    <link href="/resources/lib/magnific-popup/magnific-popup.css" rel="stylesheet">
+    <link href="/resources/lib/simple-text-rotator/simpletextrotator.css" rel="stylesheet">       
+    
+    <!-- Main stylesheet and color file-->
+    <link href="/resources/css/style.css" rel="stylesheet">
+    <link id="color-scheme" href="/resources/css/colors/default.css" rel="stylesheet">    	
+  	<!-- ### headerCampBusiness resources End ### -->
 
 	<style>
-		.container {
+		#lpc {
 			padding-top: 70px;
 			padding-right: 15px;
 			padding-left: 15px;
@@ -24,30 +49,6 @@
 			margin-left: auto;
 		}
 		
-		@media ( min-width : 768px) {
-			.container {
-				width: 750px;
-			}
-		}
-		
-		@media ( min-width : 992px) {
-			.container {
-				width: 970px;
-			}
-		}
-		
-		@media ( min-width : 1200px) {
-			.container {
-				width: 1170px;
-			}
-		}
-		
-		.container-fluid {
-			padding-right: 15px;
-			padding-left: 15px;
-			margin-right: auto;
-			margin-left: auto;
-		}
 	</style>
 
 	<script type="text/javascript">		
@@ -107,7 +108,7 @@
 						"<form id='addOne'>"
 							+"<div class='row'>"
 								+"<div class='col-xs-10 form-group'>"
-									+"<hr>"
+									+"<hr class='divider-w mt-10 mb-20'>"
 								+"</div>"
 							+"</div>"
 							+"<div class='row'>"
@@ -147,9 +148,25 @@
 </head>
 <body>
 
+	<!-- header -->
+	<c:if test="${user.role != 'BUSINESS' }">
+		<jsp:include page="/view/common/header.jsp"/>
+	</c:if>
 
-	<div class="container">
-
+	<div class="container" style="padding-top: 50px;">
+	
+		<div class="row">
+			<div class="sub-title">
+				<h3>결제코드 관리</h3>			
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-xs-10">
+				<hr class="divider-w mt-10 mb-20">
+			</div>
+		</div>
+		
 		<div class="row">
 			<div class="col-xs-1">순번</div>
 			<div class="col-xs-1">결제코드</div>
@@ -172,7 +189,7 @@
 						<div class="row">	
 							<c:if test="${ payment.paymentCode == 'A0'|| payment.paymentCode == 'P0'|| payment.paymentCode == 'R0'|| payment.paymentCode == 'T0'}">
 								<div class="col-xs-10 form-group">
-									<hr>
+									<hr class="divider-w mt-10 mb-20">
 								</div>
 							</c:if>
 						</div>		
