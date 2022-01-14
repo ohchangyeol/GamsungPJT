@@ -19,13 +19,14 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.AuctionProduct;
 import site.gamsung.service.domain.NaverProduct;
 
 public class NaverShoppingAPI{
 
 
-    public NaverProduct naverShopping() {
+    public NaverProduct naverShopping(Search search) {
         String clientId = "Ux_OHaUROmZLAGeU8Bry"; //애플리케이션 클라이언트 아이디값"
         String clientSecret = "fER_OpgDVl"; //애플리케이션 클라이언트 시크릿값"
 
@@ -37,8 +38,8 @@ public class NaverShoppingAPI{
             throw new RuntimeException("검색어 인코딩 실패",e);
         }
 
-
-        String apiURL = "https://openapi.naver.com/v1/search/shop.json?query=" + text;    // json 결과
+        int currentPage = search.getCurrentPage();
+        String apiURL = "https://openapi.naver.com/v1/search/shop.json?query="+text+"&display=10&start="+currentPage+1;    // json 결과
 
 
         Map<String, String> requestHeaders = new HashMap<>();

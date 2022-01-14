@@ -35,7 +35,6 @@ import site.gamsung.service.domain.PaymentCode;
 import site.gamsung.service.domain.User;
 import site.gamsung.service.payment.PaymentService;
 import site.gamsung.util.auction.AuctionImgUpload;
-import site.gamsung.util.auction.NaverShoppingAPI;
 
 @RequestMapping("/auction/*")
 @Controller
@@ -75,33 +74,14 @@ public class AuctionProductController {
 		System.out.println(this.getClass());
 	}
 	
-	//경매 진행 중인 상품 최초 8개 조회
-//	@RequestMapping( "listWaitAuctionProduct")
-//	public String listCrawlingAuctionProduct(HttpSession httpSession, Model model, @ModelAttribute("search") Search search) {
-//		
-//		//출력할 개수을 commonProperties로 부터 받아오며, 1페이지가 고정값으로 들어간다.
-//		search.setSortCondition("latestAsc");
-//		search.setPageSize(auctionPageSize);
-//		search.setCurrentPage(1);
-//		
-//		//조건에 맞는 상위 8개의 상품 목록을 리스트로 받는다.
-//		List<AuctionProduct> list = auctionProductService.listCrawlingAuctionProduct(search);
-//		
-//		//받은 상품 목록을 model에 담아 return한다.
-//		model.addAttribute("list",list);
-//	
-//		return "forward:/view/auction/listWaitAuctionProduct.jsp";
-//		
-//	}
-	
-	@RequestMapping( "listWaitAuctionProduct")
+	@RequestMapping( "listAdminAuctionProduct")
 	public String listNaverAuctionProduct(HttpSession httpSession, Model model, @ModelAttribute("search") Search search) {
 		
-		List<NaverProduct> list = auctionProductService.listNaverAuctionProduct();
+		List<NaverProduct> list = auctionProductService.listNaverAuctionProduct(search);
 		//받은 상품 목록을 model에 담아 return한다.
 		model.addAttribute("list",list);
 	
-		return "forward:/view/auction/listNaverAuctionProduct.jsp";
+		return "forward:/view/auction/listAdminAuctionProduct.jsp";
 		
 	}
 	
@@ -132,15 +112,6 @@ public class AuctionProductController {
 		
 		return "forward:/view/auction/getAuctionProduct.jsp";
 	}
-	
-	//상품 상세 조회 페이지 출력
-//	@PostMapping( "getAuctionProduct")
-//	public String getCrawlingAuctionProductNo(@ModelAttribute("auctionProduct") AuctionProduct auctionProduct) {
-//		
-//		auctionProduct = auctionProductService.getCrawlingAuctionProductNo(auctionProduct);
-//		
-//		return "redirect:./getAuctionProduct?auctionProductNo="+auctionProduct.getAuctionProductNo();
-//	}
 	
 	// 상품 상세 조회 페이지 출력
 	@PostMapping("getAuctionProduct")
@@ -484,5 +455,35 @@ public class AuctionProductController {
 	public String deleteAuctionSuspensionUser() {
 		return "redirect:/";
 	}
+	
+	//EC2에서 쿠팡 상품 크롤링 중 문제가 발생하여 네이버 검색 API로 전환한다.
+	
+	//경매 진행 중인 상품 최초 8개 조회
+//	@RequestMapping( "listWaitAuctionProduct")
+//	public String listCrawlingAuctionProduct(HttpSession httpSession, Model model, @ModelAttribute("search") Search search) {
+//		
+//		//출력할 개수을 commonProperties로 부터 받아오며, 1페이지가 고정값으로 들어간다.
+//		search.setSortCondition("latestAsc");
+//		search.setPageSize(auctionPageSize);
+//		search.setCurrentPage(1);
+//		
+//		//조건에 맞는 상위 8개의 상품 목록을 리스트로 받는다.
+//		List<AuctionProduct> list = auctionProductService.listCrawlingAuctionProduct(search);
+//		
+//		//받은 상품 목록을 model에 담아 return한다.
+//		model.addAttribute("list",list);
+//	
+//		return "forward:/view/auction/listWaitAuctionProduct.jsp";
+//		
+//	}
+	
+	//상품 상세 조회 페이지 출력
+//	@PostMapping( "getAuctionProduct")
+//	public String getCrawlingAuctionProductNo(@ModelAttribute("auctionProduct") AuctionProduct auctionProduct) {
+//		
+//		auctionProduct = auctionProductService.getCrawlingAuctionProductNo(auctionProduct);
+//		
+//		return "redirect:./getAuctionProduct?auctionProductNo="+auctionProduct.getAuctionProductNo();
+//	}
 	
 }

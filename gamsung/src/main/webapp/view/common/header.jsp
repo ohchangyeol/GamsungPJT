@@ -99,11 +99,11 @@
 								</li>
 							</ul> <!-- 예시 End -->
 							<!-- 중고경매 Start -->
-						<li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">중고상품</a>
+						<li class="dropdown"><a class="dropdown-toggle" href="" data-toggle="dropdown">중고상품</a>
 							<ul class="dropdown-menu">
-								<li><a href="/auction/addAuctionProduct">상품 등록</a></li>
-								<li><a href="/auction/listWaitAuctionProduct">경매 진행 전</a></li>
-								<li><a href="/auction/listAuctionProduct">경매 진행 중</a></li>
+								<li><a id="addProduct">상품 등록</a></li>
+								<li><a id="adminProduct">경매 진행 전</a></li>
+								<li><a id="listProduct">경매 진행 중</a></li>
 							</ul>
 						</li>
 						<!-- 중고경매 End -->
@@ -225,7 +225,7 @@
 				alert('경매 이용 정지되었습니다. 관리자에게 문의하세요.');
 				return;
 			}
-			window.location = "/auction/listWaitAuctionProduct";
+			window.location = "/auction/listAdminAuctionProduct";
 				});
 
 			$('#listProduct').on('click', function () {
