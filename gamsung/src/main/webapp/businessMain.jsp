@@ -35,7 +35,28 @@ pageEncoding="UTF-8"%>
     <!-- Main stylesheet and color -->
     <link href="/resources/css/style.css" rel="stylesheet">
     <link id="color-scheme" href="/resources/css/colors/default.css" rel="stylesheet">  
-   
+    
+    <!-- fullcalender -->
+	<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales-all.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales-all.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
+	
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css">
+
+
+	<script>
+	
+      document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+          initialView: 'dayGridMonth'
+        });
+        calendar.render();
+      });
+
+	</script>	
 
 </head>
 	  
@@ -47,41 +68,22 @@ pageEncoding="UTF-8"%>
 	
 	<div class="container">
 	
-	
-	
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	
-	${user.role}
-	
-	
-	
-	<br>
-	<br>
-	<li><a href="/payment/listSiteProfit">사이트수익</a></li>
-	
-	<br>
-	<br>
-	<li><a href="/payment/listPaymentCode">결제코드관리</a></li>
-	
-	<br>
-	<br>
-	<li><a href="/payment/readyRefund">readyRefund</a></li>	
-	
-	<br>
-	<br>
-	<li><a href="/view/payment/readyRefund.jsp">readyRefund.jsp</a></li>		
-	
-	
-	
-	
-	
-	
-	
+		<div class="row">
+			<div class="sub-title">
+				<h3>${user.campName} [${user.id}] </h3>			
+			</div>
+		</div>
+		
+		<div class="row">	
+			<div id='calendar' style="padding-top: 20px;"></div>	
+		</div>
+		
+
 	</div>
+
+	
+
+
 	     
     <!-- JavaScripts -->
     <script src="/resources/lib/jquery/jquery.js"></script>
