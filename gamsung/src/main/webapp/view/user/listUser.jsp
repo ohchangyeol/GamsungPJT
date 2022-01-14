@@ -103,7 +103,7 @@
 									</c:if>
 									<div class="col-sm-5 mb-sm-0">
 										<div class="row">
-											<form id="listForm" role="form" class="notice-search">
+											<form id="listForm" role="form" class="user-search">
 												<div class="col-sm-4">
 													<select class="form-control" name="searchCondition">
 														<option value="">회원전체
@@ -121,9 +121,10 @@
 													</select>
 												</div>
 												<div class="col-sm-8">
-													<div class="search-box">
-														<input class="form-control" type="text" placeholder="Search...">
-														<button class="search-btn" type="submit"><i
+													<div class="user-search-box">
+														<input class="form-control" name="searchKeyword" type="text"
+															value="${search.searchKeyword}" placeholder="Search...">
+														<button id="user_search_btn" class="search-btn" type="button"><i
 																class="fa fa-search"></i></button>
 													</div>
 												</div>
@@ -369,6 +370,10 @@
 				$("#currentPage").val(currentPage)
 				$("#listForm").attr("method", "POST").attr("action", "/user/listUser/${info}").submit();
 			}
+
+			$("#user_search_btn").on("click", function () {
+				$("#listForm").attr("method", "POST").attr("action", "/user/listUser/${info}").submit();
+			});
 
 
 			//============= "검색"  Event  처리 =============	
