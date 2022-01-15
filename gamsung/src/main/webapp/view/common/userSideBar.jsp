@@ -11,7 +11,10 @@
 			}
 
 			aside {
-				margin-top: -55px;
+				margin-top: -60px;
+			}
+			a{
+				cursor: pointer;
 			}
 		</style>
 
@@ -52,10 +55,10 @@
 										</a>
 									</li>
 								</ul>
-							</li>
-
+								</li>							
+	
 							<hr class="separator" />
-
+	
 							<li class="nav-parent">
 								<a>
 									<i class="fa fa-camera" aria-hidden="true"></i>
@@ -67,9 +70,9 @@
 									<li><a id="my_camp_review" style="cursor: pointer;"> 등록한 리뷰 </a></li>
 								</ul>
 							</li>
-
+	
 							<hr class="separator" />
-
+	
 							<li class="nav-parent">
 								<a>
 									<i class="fa fa-gavel" aria-hidden="true"></i>
@@ -82,9 +85,9 @@
 									<li><a id="auctionReview"> 리뷰 </a></li>
 								</ul>
 							</li>
-
+	
 							<hr class="separator" />
-
+	
 							<li class="nav-parent">
 								<a>
 									<i class="fa fa-quote-left" aria-hidden="true"></i>
@@ -95,22 +98,23 @@
 									<li><a href="forms-advanced.html"> 샬라샬라 </a></li>
 								</ul>
 							</li>
-
+	
 							<hr class="separator" />
-
+	
 							<li class="nav-parent">
 								<a>
 									<i class="fa  fa-refresh" aria-hidden="true"></i>
 									<span>예약양도</span>
 								</a>
 								<ul class="nav nav-children">
-									<li><a href="forms-basic.html"> 샬라샬라 </a></li>
-									<li><a href="forms-advanced.html"> 샬라샬라 </a></li>
+									<li><a href="/transfer/listMyTransfer"> 나의 예약 양도내역 </a></li>
+									<li><a href="/transfer/managePoint"> 나의 예약 양수내역 </a></li>
 								</ul>
 							</li>
-
+	
+	
 							<hr class="separator" />
-
+	
 							<li class="nav-parent">
 								<a>
 									<i class="fa fa-money" aria-hidden="true"></i>
@@ -121,122 +125,27 @@
 									<li><a href="/payment/listPayment"> 내 결제/포인트 내역 </a></li>
 								</ul>
 							</li>
-
+	
 							<hr class="separator" />
 							<hr class="separator" />
-
+	
 							<li>
 								<a href="/user/logout" target="_blank">
 									<i class="fa fa-sign-out" aria-hidden="true"></i>
 									<span>로그아웃</span>
 								</a>
 							</li>
-							<li id="Secession">
-								<a href="#" data-toggle="modal" data-target="#addSecessionModal">
-									회원탈퇴
-								</a>
+	
+							<hr class="separator" />
+							<hr class="separator" />
+							<hr class="separator" />
+							<hr class="separator" />
+							<hr class="separator" />
+	
+							<li>
+								<span class="text-center">회원틸퇴</span>
 							</li>
-						</ul>
-						</li>
-
-						<hr class="separator" />
-
-						<li class="nav-parent">
-							<a>
-								<i class="fa fa-camera" aria-hidden="true"></i>
-								<span>캠핑</span>
-							</a>
-							<ul class="nav nav-children">
-								<li><a id="my_reservation" style="cursor: pointer;"> 예약 내역</a></li>
-								<li><a id="my_camp_qna" style="cursor: pointer;"> 등록한 Q&A </a></li>
-								<li><a id="my_camp_review" style="cursor: pointer;"> 등록한 리뷰 </a></li>
-							</ul>
-						</li>
-
-						<hr class="separator" />
-
-						<li class="nav-parent">
-							<a>
-								<i class="fa fa-gavel" aria-hidden="true"></i>
-								<span>중고경매</span>
-							</a>
-							<ul class="nav nav-children">
-								<li><a id="auctionAdd"> 내가 등록한 상품 </a></li>
-								<li><a id="auctionHistory"> 경매 내역 </a></li>
-								<li><a id="auctionBid"> 응찰 관심 내역 </a></li>
-								<li><a id="auctionReview"> 리뷰 </a></li>
-							</ul>
-						</li>
-
-						<hr class="separator" />
-
-						<li class="nav-parent">
-							<a>
-								<i class="fa fa-quote-left" aria-hidden="true"></i>
-								<span>커뮤니티</span>
-							</a>
-							<ul class="nav nav-children">
-								<li><a href="forms-basic.html"> 샬라샬라 </a></li>
-								<li><a href="forms-advanced.html"> 샬라샬라 </a></li>
-							</ul>
-						</li>
-
-						<hr class="separator" />
-
-						<li class="nav-parent">
-							<a>
-								<i class="fa  fa-refresh" aria-hidden="true"></i>
-								<span>예약양도</span>
-							</a>
-							<ul class="nav nav-children">
-								<li><a href="/transfer/listMyTransfer"> 나의 예약 양도내역 </a></li>
-								<li><a href="/transfer/managePoint"> 나의 예약 양수내역 </a></li>
-							</ul>
-						</li>
-
-
-						<hr class="separator" />
-
-						<li class="nav-parent">
-							<a>
-								<i class="fa fa-money" aria-hidden="true"></i>
-								<span>결제</span>
-							</a>
-							<ul class="nav nav-children">
-								<li><a href="/payment/managePoint"> 포인트 충전/출금 </a></li>
-								<li><a href="/payment/listPayment"> 내 결제/포인트 내역 </a></li>
-							</ul>
-						</li>
-
-						<hr class="separator" />
-						<hr class="separator" />
-
-						<li>
-							<a href="/user/logout" target="_blank">
-								<i class="fa fa-sign-out" aria-hidden="true"></i>
-								<span>로그아웃</span>
-							</a>
-						</li>
-
-						<hr class="separator" />
-						<hr class="separator" />
-						<hr class="separator" />
-						<hr class="separator" />
-						<hr class="separator" />
-
-						<li>
-							<span class="text-center">회원틸퇴</span>
-						</li>
-
-						</ul>
-						<!-- 메뉴 End -->
-
-						<hr class="separator" />
-						<hr class="separator" />
-						<hr class="separator" />
-						<hr class="separator" />
-						<hr class="separator" />
-
+	
 						</ul>
 						<!-- 메뉴 End -->
 
