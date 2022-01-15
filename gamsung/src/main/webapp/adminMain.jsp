@@ -22,7 +22,7 @@ pageEncoding="UTF-8"%>
 
 			<!-- start: header -->
 			
-			
+			<jsp:include page="./view/common/adminHeader.jsp"/>
 			<!-- end: header -->
 
 			<div class="inner-wrapper">

@@ -1,68 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
 
-<section class="main-view">
-  <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-    <!-- Indicators -->
-    <ol class="carousel-indicators">
-      <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-      <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-      <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-      <li data-target="#carousel-example-generic" data-slide-to="3"></li>
-      <li data-target="#carousel-example-generic" data-slide-to="4"></li>
-    </ol>
-  
-    <!-- Wrapper for slides -->
-    <div class="carousel-inner" role="listbox">
-      <div class="item active">
-        <img src="../../resources/images/KakaoTalk_Moim_buAhAGzAhL3VZBLn5H9XCNfXpdlu1U.jpg" alt="...">
-        <div class="carousel-caption">
-        </div>
-      </div>
-      <div class="item">
-        <img src="../../resources/images/KakaoTalk_Moim_buAhAGzAhL3VZBLn5H9XCNfXpebbgi.jpg" alt="...">
-        <div class="carousel-caption">
-        </div>
-      </div>
-      <div class="item">
-        <img src="../../resources/images/KakaoTalk_Moim_buAhAGzAhL3VZBLn5H9XCNfXpefR66.jpg" alt="...">
-        <div class="carousel-caption">
-        </div>
-      </div>
-      <div class="item">
-        <img src="../../resources/images/KakaoTalk_Moim_buAhAGzAhL3VZBLn5H9XCNfXpexseG.jpg" alt="...">
-        <div class="carousel-caption">
-        </div>
-      </div>
-      <div class="item">
-        <img src="../../resources/images/KakaoTalk_Moim_buAhAGzAhL3VZBLn5H9XCNfXpf7KK2.jpg" alt="...">
-        <div class="carousel-caption">
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  
+
+<section class="bg-dark-30 showcase-page-header module parallax-bg" data-background="../../resources/images/KakaoTalk_Moim_buAhAGzAhL3VZBLn5H9XCNfXpebbgi.jpg">
   <div class="titan-caption">
     <div class="row">
-      <div class="col-xs-12">
-        <div class="col-xs-4"></div>
-        <div class="col-xs-4" style="text-align: center;">
-           <h2  style="margin-bottom: 20px;">캠핑장을 검색 하세요!</h2>
+      <div class="col-xs-4 col-lg-offset-4" style="text-align: center;">
+        <h2  style="margin-bottom: 20px;">캠핑장을 검색 하세요!</h2>
         <div class="row">
           <div class="row">
             <div style="text-align: end; padding-right: 15px;">
               <a class="modal-with-form btn btn-success" href="#modalForm" style="padding: 5px;">상세검색+</a>
-              
-              <!-- 상세검색 모달 시작 -->
               <div id="modalForm" class="modal-block modal-block-primary mfp mfp-hide">
-                <form id="detailSearch" class="form-horizontal mb-lg" novalidate="novalidate">
+              
                 <section class="panel">
                   <header class="panel-heading">
-                      <h4 class="panel-title" style="text-align: center; padding-top: 20px; font-size: 20px;">캠핑장을 상세하게 검색 하세요!</h4>
+                    <h4 class="panel-title">캠핑장을 상세하게 검색 하세요!</h4>
                   </header>
                   <div class="panel-body">
-                    
+                    <form id="detailSearch" class="form-horizontal mb-lg" novalidate="novalidate">
                       <div class="form-group mt-lg">
                         <label class="col-sm-2 control-label">지역별</label>
                         <div class="col-sm-10">
@@ -159,19 +115,19 @@ pageEncoding="UTF-8"%>
                             <input type="checkbox" id="sub_site1" name="subSite" value="전기">전기
                           </label>
                           <label class="checkbox-inline">
-                            <input type="checkbox" id="sub_site2" name="subSite" value="온수">온수
+                            <input type="checkbox" id="sub_site1" name="subSite" value="온수">온수
                           </label>
                           <label class="checkbox-inline">
-                            <input type="checkbox" id="sub_site3" name="subSite" value="화장실">화장실
+                            <input type="checkbox" id="sub_site1" name="subSite" value="화장실">화장실
                           </label>
                           <label class="checkbox-inline">
-                            <input type="checkbox" id="sub_site4" name="subSite" value="무선인터넷">무선인터넷
+                            <input type="checkbox" id="sub_site1" name="subSite" value="무선인터넷">무선인터넷
                           </label>
                           <label class="checkbox-inline">
-                            <input type="checkbox" id="sub_site5" name="subSite" value="매점">매점
+                            <input type="checkbox" id="sub_site1" name="subSite" value="매점">매점
                           </label>
                           <label class="checkbox-inline">
-                            <input type="checkbox" id="sub_site6" name="subSite" value="물놀이장">물놀이장
+                            <input type="checkbox" id="sub_site1" name="subSite" value="물놀이장">물놀이장
                           </label>
                         </div>
                       </div>
@@ -179,10 +135,10 @@ pageEncoding="UTF-8"%>
                         <label class="col-sm-2 control-label"></label>
                         <div class="col-sm-10">
                           <label class="checkbox-inline">
-                            <input type="checkbox" id="sub_site7" name="subSite" value="트램폴린">트램폴린
+                            <input type="checkbox" id="sub_site1" name="subSite" value="트램폴린">트램폴린
                           </label>
                           <label class="checkbox-inline">
-                            <input type="checkbox" id="sub_site8" name="subSite" value="산책로">산책로
+                            <input type="checkbox" id="sub_site1" name="subSite" value="산책로">산책로
                           </label>
                         </div>
                       </div>
@@ -263,7 +219,7 @@ pageEncoding="UTF-8"%>
                           </div>
                       </div>
                       </div>
-                    
+                    </form>
                   </div>
                   <footer class="panel-footer">
                     <div class="row">
@@ -274,10 +230,8 @@ pageEncoding="UTF-8"%>
                     </div>
                   </footer>
                 </section>
-              </form>
               
               </div>
-              <!-- 상세검색 모달 시작 -->
             </div>
           </div>
 
@@ -329,8 +283,5 @@ pageEncoding="UTF-8"%>
         </div>
       </div>
     </div>
-    </div>
   </div>
 </section>
-
-

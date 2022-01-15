@@ -7,7 +7,7 @@
 	<!-- 상단 Start -->
     <div class="sidebar-header">
         <div class="sidebar-title">
-            관리자페이지
+            감성캠핑
         </div>
         <div class="sidebar-toggle hidden-xs" data-toggle-class="sidebar-left-collapsed" data-target="html"
             data-fire-event="sidebar-left-toggle">
@@ -30,8 +30,6 @@
                             <span>메인화면</span>
                         </a>
                     </li>
-                    
-                    <hr class="separator" />
                     
                     <li class="nav-parent">
                         <a>
@@ -62,7 +60,7 @@
                         </ul>
                     </li>
                     
-                    <hr class="separator" />
+                    
                     
                     <li class="nav-parent">
                         <a>
@@ -88,7 +86,7 @@
                         </ul>
                     </li>
                     
-                    <hr class="separator" />
+                    
                     
                     <li class="nav-parent">
                         <a>
@@ -109,7 +107,7 @@
                         </ul>
                     </li>
                     
-                    <hr class="separator" />
+                    
                     
                     <li class="nav-parent">
                         <a>
@@ -137,7 +135,7 @@
                         </ul>
                     </li>
 
-                    <hr class="separator" />
+                    
                     
                 </ul>
             </nav>
