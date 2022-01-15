@@ -4,8 +4,6 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -365,12 +363,10 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 	}
 
 	@Override
-	public AuctionInfo deleteAuctionProduct(String auctionProductNo, String status) {
+	public AuctionInfo deleteAuctionProduct(AuctionInfo auctionInfo) {
 		// TODO Auto-generated method stub
-
-		AuctionInfo auctionInfo = new AuctionInfo();
-		auctionInfo.setAuctionProductNo(auctionProductNo);
-		auctionInfo.setAuctionStatus(status);
+		
+		String status = auctionInfo.getAuctionStatus();
 		
 		if(status.equals("CANCEL")) {
 			auctionProductDAO.deleteAuctionProduct(auctionInfo);
@@ -382,22 +378,30 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 			return auctionInfo;
 		}
 		
-		AuctionProduct auctionProduct = auctionProductDAO.getAuctionProduct(auctionProductNo);
+		AuctionProduct auctionProduct = auctionProductDAO.getAuctionProduct(auctionInfo.getAuctionProductNo());
 
 		SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 		
 		try {
-			if(auctionProduct.getCurrentBidPrice() == 0 && dateFormat.parse(auctionProduct.getRemainAuctionTime()).after(dateFormat.parse("20:00:00")) ) {
+			if(auctionProduct.getCurrentBidPrice() != 0) {
+				
+				auctionInfo.setInfo("입찰자가 있어 중도 철회 불가합니다.");
+				
+			}else if(dateFormat.parse(auctionProduct.getRemainAuctionTime()).after(dateFormat.parse("20:00:00")) ) {
+				
 				auctionProductDAO.deleteAuctionProduct(auctionInfo);
 				auctionInfo.setInfo("중도 철회 성공하셨습니다.");
-				return auctionInfo;
+
+			}else {
+				
+				auctionInfo.setInfo("경매 진행 잔여 시간이 20시간 이전이어 중도 철회 불가합니다.");
+				
 			}
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		auctionInfo.setInfo("중도 철회 불가합니다.");
+	
 		return auctionInfo;
 	}
 
@@ -418,13 +422,6 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 		
 		return auctionInfo;
 	}
-
-	@Override
-	public AuctionProduct paymentSubInfo(String registrantId) {
-		// TODO Auto-generated method stub
-		return auctionProductDAO.paymentSubInfo(registrantId);
-	}	
-	
 	
 	// EC2에서 coupang url을 통해 Document를 가져오지 못하도록 제한되어 있어 Naver 상품검색 API로 대채한다.
 //	@Override

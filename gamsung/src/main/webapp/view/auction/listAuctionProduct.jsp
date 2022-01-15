@@ -12,7 +12,7 @@
     <title>중고 경매</title>
     
  	<jsp:include page="/resources/commonLib.jsp"></jsp:include>
-  
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
   	<style type="text/css">
   	
   		.target {
@@ -32,7 +32,7 @@
 		 }
 
   	</style>
-  
+
   </head>
   <body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
     <main>
@@ -56,18 +56,38 @@
             <div class="row">
               <div class="col-sm-2 mb-sm-20">
                 <select class="form-control">
-                  <option value="최신순">최신순</option>
-                  <option value="높은 가격 순">높은 가격 순</option>
-                  <option value="낮은 가격 순">낮은 가격 순</option>
-                  <option value="조회수 높은 순">조회수 높은 순</option>
-                  <option value="조회수 낮은 순">조회수 낮은 순</option>
-                </select>
+	            	<option value="최신순">최신순</option>
+	            	<c:if test="${search.sortCondition eq '높은 가격 순'}">
+	            		<option value="높은 가격 순" selected="selected">높은 가격 순</option>
+	                </c:if>
+	                <c:if test="${search.sortCondition ne '높은 가격 순'}">
+	                  	<option value="높은 가격 순">높은 가격 순</option>
+	                </c:if>
+	                <c:if test="${search.sortCondition eq '낮은 가격 순'}">
+	            		<option value="낮은 가격 순" selected="selected">낮은 가격 순</option>
+	                </c:if>
+	                <c:if test="${search.sortCondition ne '낮은 가격 순'}">
+	                  	<option value="낮은 가격 순">낮은 가격 순</option>
+	                </c:if>
+	                <c:if test="${search.sortCondition eq '조회수 높은 순'}">
+	            		<option value="조회수 높은 순" selected="selected">조회수 높은 순</option>
+	                </c:if>
+	                <c:if test="${search.sortCondition ne '조회수 높은 순'}">
+	                  	<option value="조회수 높은 순">조회수 높은 순</option>
+	                </c:if>
+	                <c:if test="${search.sortCondition eq '조회수 낮은 순'}">
+	            		<option value="조회수 낮은 순" selected="selected">조회수 낮은 순</option>
+	                </c:if>
+	                <c:if test="${search.sortCondition ne '조회수 낮은 순'}">
+	                  	<option value="조회수 낮은 순">조회수 낮은 순</option>
+	                </c:if>
+	            </select>                
               </div>
               <div class="col-sm-2 mb-sm-20">
                 <a class="btn btn-border-d btn-circle refresh"><i class="fa fa-refresh"></i>초기화</a>
               </div>
               <div class="col-sm-8 mb-sm-20">
-                <input class="form-control" id="keyword" type="text" placeholder="상품명을 입력하세요...">
+                <input class="form-control" id="keyword" type="text" placeholder="상품명을 입력하세요..." value="${search.searchKeyword}">
               </div>
             </div>
           </div>
@@ -253,7 +273,8 @@
       	<input type="hidden" id="sortCondition" name="sortCondition" value="${search.sortCondition}">
       </form>
     </main>
-    
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  	<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
    	<script type="text/javascript">
    	 $(function(){
    		 
@@ -322,13 +343,14 @@
 							searchKeyword : searchKeyword
 						}),
 						success : function(JSONData,status){
+							console.log(JSONData)
 							$(function(){
 								$('#keyword').autocomplete({
 									source: JSONData
 								});			
 							});
 						}
-					});
+				});
 	   		});
 	   		
 	   		$('#keyword').on('keypress',function(key){

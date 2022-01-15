@@ -32,8 +32,10 @@ import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.AuctionInfo;
 import site.gamsung.service.domain.AuctionProduct;
 import site.gamsung.service.domain.NaverProduct;
+import site.gamsung.service.domain.Payment;
 import site.gamsung.service.domain.RatingReview;
 import site.gamsung.service.domain.User;
+import site.gamsung.service.payment.PaymentService;
 import site.gamsung.util.auction.NaverShoppingAPI;
 
 @RequestMapping("auction/rest/*")
@@ -57,6 +59,10 @@ public class AuctionRestController {
 	private AuctionReviewService auctionReviewService;
 	
 	@Autowired
+	@Qualifier("paymentServiceImpl")
+	private PaymentService paymentService;
+	
+	@Autowired
 	@Qualifier("naverShoppingAPI")
 	private NaverShoppingAPI naverShoppingAPI;
 	
@@ -74,9 +80,15 @@ public class AuctionRestController {
 		
 		NaverProduct naverProduct = naverShoppingAPI.naverShopping(search);
 		
-		List<NaverProduct> list = naverProduct.getItems();
-		
 		return naverProduct.getItems();
+	}
+	
+	//상품명 자동 완성
+	@RequestMapping("autoComplete")
+	public List<String> autoComplete(@RequestBody Search search) {
+		System.out.println(search.getSearchKeyword());
+		List<String> list = auctionProductService.autoComplete(search.getSearchKeyword());
+		return list;
 	}
 	
 	@PostMapping("getBidderRanking")
@@ -92,9 +104,27 @@ public class AuctionRestController {
 	public AuctionInfo updateAuctionStatus(	@PathVariable("auctionProductNo") String auctionProductNo,
 											@PathVariable("status") String status, HttpSession httpSession) {
 		
-		AuctionInfo info = auctionProductService.deleteAuctionProduct(auctionProductNo,status);
-		
 		User user = (User)httpSession.getAttribute("user");
+		
+		AuctionInfo auctionInfo = new AuctionInfo();
+		auctionInfo.setAuctionProductNo(auctionProductNo);
+		auctionInfo.setAuctionStatus(status);
+		
+		AuctionProduct auctionProduct = (AuctionProduct)auctionProductService.getAuctionProduct(auctionInfo).get("auctionProduct");
+		auctionProduct.getHopefulBidPrice();
+		
+		//중도철회/낙칠취소/경매확정에 대해 처리된 안내 메세지를 받는다.
+		AuctionInfo info = auctionProductService.deleteAuctionProduct(auctionInfo);
+		
+		Payment payment = (Payment)auctionInfoService.makePaymentInfo(user, status, auctionProduct);
+		
+		try {
+			paymentService.makePayment(payment);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		//사용자 경매 등급 재설정한다.
 		user = auctionInfoService.checkAndUpdateUserAuctionGrade(user);
 		httpSession.setAttribute("user", user);
@@ -210,14 +240,6 @@ public class AuctionRestController {
 		auctionInfo.setInfo(info);
 		
 		return auctionInfo;
-	}
-	
-	//상품명 자동 완성
-	@RequestMapping( "autoComplete")
-	public List<String> autoComplete(@RequestBody Search search){
-		System.out.println(search.getSearchKeyword());
-		List<String> list = auctionProductService.autoComplete(search.getSearchKeyword());
-		return list;
 	}
 	
 	//검색 조건에 대한 리스트 출력
