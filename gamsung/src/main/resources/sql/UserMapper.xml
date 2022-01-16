@@ -204,7 +204,7 @@
 						AND user_id LIKE CONCAT('%',#{searchKeyword},'%')
 					</if>
 			</trim>
-			ORDER BY entry_reg_date DESC
+			ORDER BY dormant_reg_date DESC
 		<if test="pageSize != 0 ">
          LIMIT #{pageSize} OFFSET #{offset}
          </if>
@@ -245,7 +245,7 @@
 			AND user_id LIKE CONCAT('%',#{searchKeyword},'%')
 					</if>
 			</trim>
-			ORDER BY entry_reg_date DESC
+			ORDER BY secession_reg_date DESC
 		<if test="pageSize != 0 ">
          LIMIT #{pageSize} OFFSET #{offset}
          </if>
@@ -288,7 +288,7 @@
 					</if>
 			</trim>
 			GROUP BY u.user_id
-			ORDER BY u.entry_reg_date DESC
+			ORDER BY u.suspension_reg_date DESC
 		<if test="pageSize != 0 ">
          LIMIT #{pageSize} OFFSET #{offset}
          </if>

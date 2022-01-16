@@ -223,9 +223,6 @@
 
 									</div>
 								</div>
-
-
-
 								<div class="row" id="approval-general-btn">
 									<button id="cancel" class="btn btn-xs btn-border-d btn-circle"
 										type="button">취소</button>
@@ -375,6 +372,4 @@
 
 			</script>
 		</body>
-
->>>>>>> refs/heads/developer
 		</html>

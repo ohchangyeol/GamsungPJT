@@ -74,9 +74,11 @@ public class AuctionProductController {
 		System.out.println(this.getClass());
 	}
 	
+	//네이버 상품을 통해 가져온다. 
 	@RequestMapping( "listAdminAuctionProduct")
 	public String listNaverAuctionProduct(HttpSession httpSession, Model model, @ModelAttribute("search") Search search) {
 		
+		//네이버 API를 통해 상품 목록을 가져온다.
 		List<NaverProduct> list = auctionProductService.listNaverAuctionProduct(search);
 		//받은 상품 목록을 model에 담아 return한다.
 		model.addAttribute("list",list);
@@ -103,12 +105,35 @@ public class AuctionProductController {
 		//조회수를 1증가 시키며, 상품 번호에 대한 상세정보를 받아온다.
 		Map<String, Object> map = auctionProductService.getAuctionProduct(auctionInfo);
 		
+		AuctionProduct auctionProduct = (AuctionProduct)map.get("auctionProduct");
+		//경매 추천 상품 목록을 가져온다.
+		List<AuctionProduct> productList = auctionProductService.listMainAuctionProduct();
+		
+		//조건에 따른 수수료 들을 requestScope에 담아 return한다.
+		PaymentCode paymentCode = null;
+		if(user != null) {
+
+			paymentCode = (PaymentCode)auctionInfoService.makePaymentInfo(user, "중도철회 수수료",auctionProduct);
+			int withdrawalFee = paymentCode.getPaymentCodeFee();
+			
+			paymentCode = (PaymentCode)auctionInfoService.makePaymentInfo(user, "경매확정 수수료",auctionProduct);
+			int confirmFee = paymentCode.getPaymentCodeFee();
+			
+			paymentCode = (PaymentCode)auctionInfoService.makePaymentInfo(user, "낙찰취소 수수료",auctionProduct);
+			int cancelFee = paymentCode.getPaymentCodeFee();
+			
+			model.addAttribute("withdrawalFee",withdrawalFee);
+			model.addAttribute("confirmFee",confirmFee);
+			model.addAttribute("cancelFee",cancelFee);
+			
+		}
 		//받은 상품정보를 model에 담아 return한다.
-		model.addAttribute("auctionProduct",map.get("auctionProduct"));
+		model.addAttribute("auctionProduct",auctionProduct);
 		model.addAttribute("auctionInfo", map.get("auctionInfo"));
 		model.addAttribute("registrantInfo", map.get("registrantInfo"));
 		model.addAttribute("ratingReview",map.get("ratingReview"));
 		model.addAttribute("auctionGrade", map.get("auctionGrade"));
+		model.addAttribute("productList",productList);
 		
 		return "forward:/view/auction/getAuctionProduct.jsp";
 	}
@@ -162,13 +187,18 @@ public class AuctionProductController {
 		//Id에 해당하는 임시 등록 정보가 있는지 확인한다.
 		AuctionProduct auctionProduct = auctionProductService.getTempSaveAuctionProduct(user.getId());
 		user = auctionInfoService.checkAndUpdateUserAuctionGrade(user);
-		//user 정보를 새로 세팅한다.
-		httpSession.setAttribute("user", user);
 		
 		// 임시정보가 있다면 model에 담아 return한다.
 		if(auctionProduct != null) {
 			model.addAttribute("auctionProduct",auctionProduct);
 		}
+		
+		//등급에 따른 수수료를 반환하여 requestScope에 담아준다.
+		PaymentCode paymentCode = (PaymentCode)auctionInfoService.makePaymentInfo(user, "상품등록 수수료", null); 
+		model.addAttribute("fee",paymentCode.getPaymentCodeFee());
+		
+		//user 정보를 새로 세팅한다.
+		httpSession.setAttribute("user", user);
 		
 		return "forward:/view/auction/addAuctionProduct.jsp";
 	}
@@ -184,19 +214,6 @@ public class AuctionProductController {
 		if(user == null) {
 			return "redirect:./listAuctionProduct";
 		}
-		
-		//희망 낙찰가*등급별 수수료 보다 보유 포인트가 적을 경우 충전페이지로 redirect 시킨다.
-		PaymentCode tmpPayment = new PaymentCode();
-		tmpPayment.setPaymentCodeRangeStart(user.getAuctionGrade());
-		tmpPayment.setPaymentCodeInfo("상품등록");
-		PaymentCode paymentCode = auctionInfoService.getPaymentInfo(tmpPayment);
-
-		int deductionPoint = auctionProduct.getHopefulBidPrice()*paymentCode.getPaymentCodeFee()/100;
-
-		if(user.getHavingPoint() < deductionPoint) {
-			return "redirect:/payment/managePoint";
-		}
-		
 		
 		auctionProduct.setRegistrantId(user.getId());
 		
@@ -233,15 +250,7 @@ public class AuctionProductController {
 		httpSession.setAttribute("user", user);
 		
 		//결제 담당자가 서비스를 통해 처리하여 payment domain을 생성하여 인자로 준다.
-		AuctionProduct tmpInfo = auctionProductService.paymentSubInfo(user.getId());
-		System.out.println(tmpInfo);
-		Payment payment = new Payment();
-		payment.setPaymentProduct(tmpInfo.getAuctionProductName());
-		payment.setPaymentSender(user.getId());
-		payment.setPaymentReceiver("admin");
-		payment.setPaymentReferenceNum(tmpInfo.getAuctionProductNo());
-		payment.setPaymentCode(paymentCode.getPaymentCode());
-		payment.setPaymentPriceTotalSecond(deductionPoint);
+		Payment payment = (Payment)auctionInfoService.makePaymentInfo(user, "상품등록", null);
 		try {
 			paymentService.makePayment(payment);
 		} catch (Exception e) {

@@ -173,14 +173,8 @@
 									</div>
 								</section>
 								<div class="row">
-									<div class="col-sm-12">
-										<div class="pagination font-alt">
-											<a><i class="fa fa-angle-left"></i></a>
-												<a class="active nav">1</a>
-											<a><i class="fa fa-angle-right"></i></a>
-										</div>
-									</div>
-								</div>
+							        <jsp:include page="../common/pageNavigator.jsp"/>
+							     </div>
 							</div>
 						</div>
 					<!-- end: page -->
@@ -194,7 +188,7 @@
 	<script>
 		$(function(){
 			$('#listMyProduct').on('click',function(){
-				window.location = "/auction/listMyAuctionProduct?currentPage=1-*";
+				window.location = "/auction/listMyAuctionProduct?currentPage=1";
 			});
 			
 			$('.auctionProductName').on('click',function(){

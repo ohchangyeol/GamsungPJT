@@ -166,11 +166,11 @@ public class UserServiceTest {
 		
 	}
 	
-	//@Test
+	@Test
 	public void testUpdateTempPassword() throws Exception{
 		
 		User user = new User();
-		String id = "test2@test.com";
+		String id = "muse1264@nate.com";
 		user = userService.getUser(id);
 		if(user.getSalt()==null || user.getSalt()=="") {
 			String newSalt=SHA256Util.generateSalt();
@@ -257,7 +257,7 @@ public class UserServiceTest {
 			userService.updateDormantGeneralUserConvert(user.getId());	
 		}
 		
-		 @Test
+		// @Test
 		    public void sendMailTest() throws Exception{
 			 Properties prop = System.getProperties();
 			 

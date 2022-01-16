@@ -67,10 +67,6 @@
       <body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
 
         <main>
-
-          <!-- findIdModal -->
-          <jsp:include page="/view/user/findIdModal.jsp" />
-
           <!-- page-loader -->
 
           <!-- header -->
