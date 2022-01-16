@@ -125,7 +125,7 @@
 						window.location = "/auction/listMyAuctionProduct?currentPage=1";
 					});
 
-					$("#addSecession_btn").on('click', function () {
+					/* $("#addSecession_btn").on('click', function () {
 
 						var id = $("#secession-userId").val();
 						var password = $("#secession-userPwd").val();
@@ -218,7 +218,7 @@
 							}
 
 						});
-					});
+					}); */
 				});
 			</script>
 

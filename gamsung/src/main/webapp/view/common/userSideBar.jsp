@@ -182,8 +182,7 @@
 
 				var id = $("#secession-userId").val();
 				var password = $("#secession-userPwd").val();
-				alert("여기는 들어오나");
-
+				
 				$.ajax({
 					url: '/user/rest/addSecessionUser',
 					headers: {

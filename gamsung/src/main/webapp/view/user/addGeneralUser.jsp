@@ -11,7 +11,7 @@
 
 			<title>회원가입</title>
 
-			<link rel="apple-touch-icon" sizes="57x57" href="../../resources/images/favicons/apple-icon-57x57.png">
+<!-- 			<link rel="apple-touch-icon" sizes="57x57" href="../../resources/images/favicons/apple-icon-57x57.png">
 			<link rel="apple-touch-icon" sizes="60x60" href="../../resources/images/favicons/apple-icon-60x60.png">
 			<link rel="apple-touch-icon" sizes="72x72" href="../../resources/images/favicons/apple-icon-72x72.png">
 			<link rel="apple-touch-icon" sizes="76x76" href="../../resources/images/favicons/apple-icon-76x76.png">
@@ -30,7 +30,7 @@
 			<meta name="theme-color" content="#ffffff">
 
 			<link href="../../resources/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-			<!-- Template specific stylesheets-->
+			Template specific stylesheets
 			<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700" rel="stylesheet">
 			<link href="https://fonts.googleapis.com/css?family=Volkhov:400i" rel="stylesheet">
 			<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
@@ -42,9 +42,9 @@
 			<link href="../../resources/lib/owl.carousel/dist/assets/owl.theme.default.min.css" rel="stylesheet">
 			<link href="../../resources/lib/magnific-popup/magnific-popup.css" rel="stylesheet">
 			<link href="../../resources/lib/simple-text-rotator/simpletextrotator.css" rel="stylesheet">
-			<!-- Main stylesheet and color file-->
+			Main stylesheet and color file
 			<link href="../../resources/css/style.css" rel="stylesheet">
-			<link id="color-scheme" href="../../resources/css/colors/default.css" rel="stylesheet">
+			<link id="color-scheme" href="../../resources/css/colors/default.css" rel="stylesheet"> -->
 
 			<style>
 				.time {
@@ -230,21 +230,6 @@
 					</section>
 				</div>
 			</main>
-
-
-			<script src="../../resources/lib/jquery/jquery.js"></script>
-			<script src="../../resources/lib/bootstrap/js/bootstrap.min.js"></script>
-			<script src="../../resources/lib/wow/wow.js"></script>
-			<script src="../../resources/lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js"></script>
-			<script src="../../resources/lib/isotope/isotope.pkgd.js"></script>
-			<script src="../../resources/lib/imagesloaded/imagesloaded.pkgd.js"></script>
-			<script src="../../resources/lib/flexslider/jquery.flexslider.js"></script>
-			<script src="../../resources/lib/owl.carousel/dist/owl.carousel.min.js"></script>
-			<script src="../../resources/lib/smoothscroll.js"></script>
-			<script src="../../resources/lib/magnific-popup/jquery.magnific-popup.js"></script>
-			<script src="../../resources/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script>
-			<script src="../../resources/js/plugins.js"></script>
-			<script src="../../resources/js/main.js"></script>
 
 			<script type="text/javascript">
 

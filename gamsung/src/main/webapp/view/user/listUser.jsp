@@ -182,7 +182,7 @@
 													<th>이름</th>
 													<th>닉네임/캠핑장명</th>
 													<th>신고횟수</th>
-													<th>이용정지 일자</th>
+													<th id="check_suspension">이용정지 일자</th>
 												</tr>
 											</c:if>
 										</thead>
@@ -432,34 +432,38 @@
 					var id = $(this).prevAll("td:nth-child(2)").text();
 					$("#addSuspention_id").val(id);
 					console.log(id);
-					$.ajax(
-						{
-							url: "/user/rest/getUser",
-							method: "POST",
-							dataType: "text",
-							headers: {
-								"Accept": "application/json",
-								"Content-Type": "application/json"
-							},
-							data: JSON.stringify({
-								"id": id
-							}),
-							success: function (susContent) {
-								console.log('성공: ' + susContent);
-								if (susContent != null) {
-									$("#message-text").val(susContent);
-									$(".modal-title").html("이용정지 조회");
-									$("#addSuspension_user_btn").hide();
-									$("#addSuspensionModal").show();
+					var check = $("#check_suspension").text();
+					console.log(check);
+					if (check == '이용정지 일자') {
+						$.ajax(
+							{
+								url: "/user/rest/getUser",
+								method: "POST",
+								dataType: "text",
+								headers: {
+									"Accept": "application/json",
+									"Content-Type": "application/json"
+								},
+								data: JSON.stringify({
+									"id": id
+								}),
+								success: function (susContent) {
+									console.log('성공: ' + susContent);
+									if (susContent != null) {
+										$("#message-text").val(susContent);
+										$(".modal-title").html("이용정지 조회");
+										$("#addSuspension_user_btn").hide();
+										$("#addSuspensionModal").show();
 
-								} $("#suspension-btn").on("click", function () {
-									$("#addSuspensionModal").hide();
-								});
-							}, error: function (request, status, error) {
-								alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
-							}
+									} $("#suspension-btn").on("click", function () {
+										$("#addSuspensionModal").hide();
+									});
+								}, error: function (request, status, error) {
+									alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+								}
 
-						});
+							});
+					}
 				});
 				//============= userId 에 회원정보보기  Event  처리(Click) =============	
 

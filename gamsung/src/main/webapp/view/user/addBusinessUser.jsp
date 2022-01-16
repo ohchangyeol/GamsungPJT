@@ -13,49 +13,6 @@
 
 				<title>사업자 회원가입</title>
 
-				<link rel="apple-touch-icon" sizes="57x57" href="../../resources/images/favicons/apple-icon-57x57.png">
-				<link rel="apple-touch-icon" sizes="60x60" href="../../resources/images/favicons/apple-icon-60x60.png">
-				<link rel="apple-touch-icon" sizes="72x72" href="../../resources/images/favicons/apple-icon-72x72.png">
-				<link rel="apple-touch-icon" sizes="76x76" href="../../resources/images/favicons/apple-icon-76x76.png">
-				<link rel="apple-touch-icon" sizes="114x114"
-					href="../../resources/images/favicons/apple-icon-114x114.png">
-				<link rel="apple-touch-icon" sizes="120x120"
-					href="../../resources/images/favicons/apple-icon-120x120.png">
-				<link rel="apple-touch-icon" sizes="144x144"
-					href="../../resources/images/favicons/apple-icon-144x144.png">
-				<link rel="apple-touch-icon" sizes="152x152"
-					href="../../resources/images/favicons/apple-icon-152x152.png">
-				<link rel="apple-touch-icon" sizes="180x180"
-					href="../../resources/images/favicons/apple-icon-180x180.png">
-				<link rel="icon" type="image/png" sizes="192x192"
-					href="../../resources/images/favicons/android-icon-192x192.png">
-				<link rel="icon" type="image/png" sizes="32x32"
-					href="../../resources/images/favicons/favicon-32x32.png">
-				<link rel="icon" type="image/png" sizes="96x96"
-					href="../../resources/images/favicons/favicon-96x96.png">
-				<link rel="icon" type="image/png" sizes="16x16"
-					href="../../resources/images/favicons/favicon-16x16.png">
-				<meta name="msapplication-TileColor" content="#ffffff">
-				<meta name="msapplication-TileImage" content="../../resources/images/favicons/ms-icon-144x144.png">
-				<meta name="theme-color" content="#ffffff">
-
-				<link href="../../resources/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-				<!-- Template specific stylesheets-->
-				<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700" rel="stylesheet">
-				<link href="https://fonts.googleapis.com/css?family=Volkhov:400i" rel="stylesheet">
-				<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
-				<link href="../../resources/lib/animate.css/animate.css" rel="stylesheet">
-				<link href="../../resources/lib/components-font-awesome/css/font-awesome.min.css" rel="stylesheet">
-				<link href="../../resources/lib/et-line-font/et-line-font.css" rel="stylesheet">
-				<link href="../../resources/lib/flexslider/flexslider.css" rel="stylesheet">
-				<link href="../../resources/lib/owl.carousel/dist/assets/owl.carousel.min.css" rel="stylesheet">
-				<link href="../../resources/lib/owl.carousel/dist/assets/owl.theme.default.min.css" rel="stylesheet">
-				<link href="../../resources/lib/magnific-popup/magnific-popup.css" rel="stylesheet">
-				<link href="../../resources/lib/simple-text-rotator/simpletextrotator.css" rel="stylesheet">
-				<!-- Main stylesheet and color file-->
-				<link href="../../resources/css/style.css" rel="stylesheet">
-				<link id="color-scheme" href="../../resources/css/colors/default.css" rel="stylesheet">
-
 				<style>
 					.form-group .btn {
 						height: 26px;
@@ -127,7 +84,7 @@
 														type="button">인증번호 받기</button>
 												</div>
 												<div id="add_b_checkMailAuth" class="col-sm-offset-3 col-sm-6"
-													style="display:none;">
+													style="display:none;  position: relative;  margin: 15px; margin-left: 30%;">
 													<input id="add_b_checkMailAuthNum" name="checkMailAuthNum"
 														class="form-control " type="text" placeholder="인증번호를 입력하세요."
 														maxlength="6" />
@@ -242,8 +199,9 @@
 														전화번호</strong></label>
 												<div class="col-sm-6">
 													<input id="add_b_campCall" name="campCall" class="form-control"
-														type="text" placeholder="숫자만 입력해주세요." />
+														type="text" placeholder="숫자만 입력해주세요." maxlength="11" />
 												</div>
+												<div id="add_b_check-campCall" class='col-sm-offset-3 col-sm-6'></div>
 											</div>
 
 											<div class="form-group row">
@@ -272,6 +230,7 @@
 													<input id="add_b_accountNum" name="accountNum" class="form-control"
 														type="text" placeholder="계좌번호를 숫자만 입력하세요" maxlength="14" />
 												</div>
+												<div id="add_b_check-accountNum" class='col-sm-offset-3 col-sm-6'></div>
 											</div>
 										</form>
 									</div>
@@ -292,20 +251,6 @@
 						</section>
 					</div>
 				</main>
-
-				<script src="../../resources/lib/jquery/jquery.js"></script>
-				<script src="../../resources/lib/bootstrap/js/bootstrap.min.js"></script>
-				<script src="../../resources/lib/wow/wow.js"></script>
-				<script src="../../resources/lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js"></script>
-				<script src="../../resources/lib/isotope/isotope.pkgd.js"></script>
-				<script src="../../resources/lib/imagesloaded/imagesloaded.pkgd.js"></script>
-				<script src="../../resources/lib/flexslider/jquery.flexslider.js"></script>
-				<script src="../../resources/lib/owl.carousel/dist/owl.carousel.min.js"></script>
-				<script src="../../resources/lib/smoothscroll.js"></script>
-				<script src="../../resources/lib/magnific-popup/jquery.magnific-popup.js"></script>
-				<script src="../../resources/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script>
-				<script src="../../resources/js/plugins.js"></script>
-				<script src="../../resources/js/main.js"></script>
 
 				<script type="text/javascript">
 
@@ -504,30 +449,6 @@ alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+
 							readImage(e.target);
 						})
 
-						// function handleBusinessImgFileSelect(e) {
-
-						// 	$(".img_business").empty();
-
-						// 	$("#input_businessImg_file").on("click", function () {
-						// 		$("#input_businessImg_file").remove();
-
-						// 	});
-
-						// 	const file = e.target.file;
-						// 	console.log(file);
-
-						// 	const fileReader = new FileReader();
-						// 	fileReader.onload = function (e) {
-						// 		document.getElementById("input_businessImg_file").src = e.target.result;
-
-						// 	}
-						// 	reader.readAsDataURL(file);
-						// 	console.log(file);
-
-						// }
-
-
-
 						//휴대폰번호 중복체크
 						$("#add_b_phone").on("keyup", function () {
 
@@ -570,6 +491,40 @@ alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+
 							});
 
 						});
+
+						//캠핑장 전화번호 숫자만
+						$("#add_b_campCall").on("keyup", function () {
+
+							var regExp = /^[0-9]*$/;
+							var campCall = $("#add_b_campCall").val();
+
+							if (campCall != "") {
+								if (!(regExp.test(campCall))) {
+									$("#add_b_campCall").val("");
+									$("#add_b_check-campCall").html("캠핑장 전화번호는 숫자로만 입력 가능합니다.");
+								} else {
+									$("#add_b_check-campCall").html("");
+								}
+
+							}
+
+						});
+
+						//계좌번호 중복체크
+						$("#add_b_accountNum").on("keyup", function () {
+
+							var regExp = /^[0-9]*$/;
+							var accountNum = $("#add_b_accountNum").val();
+
+							if (!(regExp.test(accountNum))) {
+								$("#add_b_phone").val("");
+								$("#add_b_check-accountNum").html("계좌번호는 숫자로만 입력 가능합니다.");
+							} else {
+								$("#add_b_check-accountNum").html("");
+							}
+						});
+
+
 						//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 						$("#add_b_joinAddUser").on("click", function () {
 
@@ -587,7 +542,7 @@ alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+
 							var pw = $("#add_b_password").val();
 							var pw_confirm = $("#add_b_confirmPassword").val();
 							var name = $("#add_b_name").val();
-							var nickName = $("#add_b_campName").val();
+							var campName = $("#add_b_campName").val();
 							var phone = $("#add_b_phone").val();
 							var campBusinessNum = $("#add_b_campBusinessNum").val();
 							var mainlConfirm = $("#add_b_checkMailAuth").val();
@@ -607,8 +562,8 @@ alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+
 								return;
 							}
 
-							if (7 < pw.length < 16) {
-								alert("패스워드는 8~15자까지 가능합니다.");
+							if (pw.length < 8) {
+								alert("패스워드는 8자 이상이어야 합니다.");
 								return;
 							}
 
