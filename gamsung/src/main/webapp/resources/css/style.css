@@ -9,10 +9,11 @@ html {
 
 body {
   background: #fff;
-  font: 400 12px/1.8 "Noto Sans KR", sans-serif !important;
+  font: 400 15px/1.8 "Noto Sans KR", sans-serif !important;
   color: #666;
   -webkit-font-smoothing: antialiased;
-  padding-top: 55px;
+  border-top: 55px;
+  box-sizing: border-box;
 }
 
 img {
@@ -168,6 +169,7 @@ a,
   background-repeat: no-repeat;
   background-position: 50% 50%;
   background-size: cover;
+  margin-top: 55px;
 }
 
 /* Module header */
@@ -252,7 +254,7 @@ a,
   background: #111;
 }
 
-.bg-dark-30:before {
+/* .bg-dark-30:before {
   position: absolute;
   background: rgba(2, 2, 2, 0.4);
   content: " ";
@@ -260,7 +262,7 @@ a,
   width: 100%;
   left: 0;
   top: 0;
-}
+} */
 
 .bg-dark-60:before {
   position: absolute;
@@ -2190,6 +2192,8 @@ Google map
 .post-images-slider,
 .post-video {
   margin: 0 0 20px;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
 .post-quote {
@@ -2996,4 +3000,16 @@ Google map
 }
 
 .main-view{position: relative;}
-.main-view .carousel-inner .item img{width: 100%;-webkit-filter: brightness(0.9);filter: brightness(0.9); }
+
+.main-search-box{width: 400px; margin-left: 20%; padding: 30px; background-color: #fff; border-radius: 20px; z-index: 2; color: #2d2d2d;}
+.main-search-box h2{ font-weight: 700;margin-bottom: 20px; margin-top: 0; text-align: center;}
+.main-search-box .main-search-input{ height: 50px; }
+.main-search-box .input-box div:nth-child(1) select{ border-radius: 15px 15px 0 0 ;}
+.main-search-box .input-box div:nth-child(2) select{border-top: none; border-bottom: none;}
+.main-search-box .input-box div:nth-child(3) input{border-radius:  0 0 15px 15px;}
+.main-search-box .input-box div:nth-child(3){margin-bottom: 30px;}
+.main-search-box .input-box div *{padding: 0 20px 0 20px ; font-size: 16px; font-weight: 600;}
+.send-camp{border-radius: 15px; background-color:#9cc1e8 !important}
+.detail_search-btn{height: 70px; width: 90px; border-radius: 10px 10px 0 0 ; background-color: #75b6c7; display: inline-block; padding: 7px; display: flex; justify-content: center; font-size: 15px;font-weight: bold;color: #fff; }
+.font-jua{font-family: 'Jua', sans-serif !important;}
+.main-color{color: #3974D9 !important;}

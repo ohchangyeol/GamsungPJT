@@ -84,29 +84,14 @@
           <!-- page-start -->
           </section>
           <div class="main showcase-page">
-            <section class="module-extra-small bg-dark">
-              <div class="container">
-                <div class="row">
-                  <div class="col-sm-6 col-md-8 col-lg-9">
-                    <div class="callout-text font-alt">
-                      <h4 style="margin-top: 0px;">Start Creating Beautiful Websites</h4>
-                      <p style="margin-bottom: 0px;">Download Titan Free today!</p>
-                    </div>
-                  </div>
-                  <div class="col-sm-6 col-md-4 col-lg-3">
-                    <div class="callout-btn-box"><a class="btn btn-border-w btn-circle"
-                        href="https://themewagon.com/themes/titan/">Downlaod Free</a></div>
-                  </div>
-                </div>
-              </div>
-            </section>
-
+            
 
             <section class="module-medium" id="demos">
               <div class="container">
                 <div class="row">
-                  <div class="col-sm-6 col-sm-offset-3">
-                    <h2 class="module-title font-alt">추천 캠핑장</h2>
+                  <div style="padding-left: 30px;">
+                    <h2 class="module-title font-alt font-jua main-color" style="text-align: left;font-size: 34px; margin: 0;">추천 캠핑장</h2>
+                    <p class="">감성캠핑의 잘나가는 캠핑장을 소개합니다.</p>
                   </div>
                 </div>
                 <div class="col-sm-6 col-md-4 col-lg-4">
@@ -167,7 +152,7 @@
               <div class="container">
                 <div class="row">
                   <div class="col-sm-6 col-sm-offset-3">
-                    <h2 class="module-title font-alt">추천 경매 상품</h2>
+                    <h2 class="module-title font-alt font-jua">추천 경매 상품</h2>
                     <div class="module-subtitle font-serif">선착순 12개의 상품이 올라옵니다.</div>
                   </div>
                 </div>
