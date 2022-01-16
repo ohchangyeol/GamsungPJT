@@ -8,6 +8,7 @@
 
 			<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 			<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+			<jsp:include page="/resources/commonLib.jsp"></jsp:include>
 
 
 			<title>회원가입</title>

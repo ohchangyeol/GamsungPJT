@@ -7,6 +7,7 @@
 			<meta charset="UTF-8">
 
 			<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+			<jsp:include page="/resources/commonLib.jsp"></jsp:include>
 
 			<title>내정보 조회/수정</title>
 
@@ -30,7 +31,7 @@
 
 			<link href="../../resources/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 			<!-- Template specific stylesheets-->
-			<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700" rel="stylesheet">
+<!-- 			<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700" rel="stylesheet">
 			<link href="https://fonts.googleapis.com/css?family=Volkhov:400i" rel="stylesheet">
 			<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
 			<link href="../../resources/lib/animate.css/animate.css" rel="stylesheet">
@@ -41,23 +42,12 @@
 			<link href="../../resources/lib/owl.carousel/dist/assets/owl.theme.default.min.css" rel="stylesheet">
 			<link href="../../resources/lib/magnific-popup/magnific-popup.css" rel="stylesheet">
 			<link href="../../resources/lib/simple-text-rotator/simpletextrotator.css" rel="stylesheet">
-			<!-- Main stylesheet and color file-->
+			Main stylesheet and color file
 			<link href="../../resources/css/style.css" rel="stylesheet">
-			<link id="color-scheme" href="../../resources/css/colors/default.css" rel="stylesheet">
+			<link id="color-scheme" href="../../resources/css/colors/default.css" rel="stylesheet"> -->
 
 			<style>
-				/* .form-group{
-display: flex;
-flex: 1 auto;
-} */
-				.time {
-					display: flex;
-				}
 
-				/* .form-group .form-control{
-display:inline-block;
-width: 50%;
-} */
 				.form-group .btn {
 					height: 26px;
 					padding-top: 0;

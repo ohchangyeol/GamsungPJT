@@ -384,15 +384,6 @@
 
 					console.log("아이디" + id);
 
-					// var elTop = $(this).offset().top;
-
-					// $(".modal#addSuspensionModal").css("top", elTop);
-
-
-
-
-					//alert(suspension_id_val);
-
 					$("#addSuspension_user_btn").on("click", function () {
 						var suspensionContent = $("#message-text").val();
 						$.ajax(

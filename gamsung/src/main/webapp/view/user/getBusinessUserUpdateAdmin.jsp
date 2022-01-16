@@ -311,7 +311,7 @@
 			<script src="/resources/lib/jquery-datatables/extras/TableTools/js/dataTables.tableTools.min.js"></script>
 			<script src="/resources/lib/jquery-datatables-bs3/assets/js/datatables.js"></script>
 
-			<script src="../../resources/lib/jquery/jquery.js"></script>
+<!-- 			<script src="../../resources/lib/jquery/jquery.js"></script>
 			<script src="../../resources/lib/bootstrap/js/bootstrap.min.js"></script>
 			<script src="../../resources/lib/wow/wow.js"></script>
 			<script src="../../resources/lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js"></script>
@@ -323,7 +323,7 @@
 			<script src="../../resources/lib/magnific-popup/jquery.magnific-popup.js"></script>
 			<script src="../../resources/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script>
 			<script src="../../resources/js/plugins.js"></script>
-			<script src="../../resources/js/main.js"></script>
+			<script src="../../resources/js/main.js"></script> -->
 
 			<script type="text/javascript">
 
