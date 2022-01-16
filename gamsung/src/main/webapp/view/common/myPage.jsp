@@ -91,7 +91,7 @@
 			<!-- The Modal -->
 			<div class="modal" id="addSecessionModal">
 				<div class="modal-dialog-centered">
-					<div class="modal-content">
+					<div class="modal-content" style="width:500px;">
 
 						<!-- Modal Header -->
 						<div class="modal-header">
@@ -122,8 +122,7 @@
 
 			<script>
 				$(function () {
-
-					/* $("#addSecession_btn").on('click', function () {
+					 $("#addSecession_btn").on('click', function () {
 
 						var id = $("#secession-userId").val();
 						var password = $("#secession-userPwd").val();
@@ -216,7 +215,7 @@
 							}
 
 						});
-					}); */
+					}); 
 				});
 			</script>
 
