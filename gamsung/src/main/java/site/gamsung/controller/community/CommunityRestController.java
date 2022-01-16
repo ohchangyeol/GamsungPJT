@@ -163,8 +163,51 @@ public Map<String, Object> searchListCamp (@ModelAttribute("search") Search sear
     return campSearchService.listCamp(search);
 }  
   
-  
-  
+@RequestMapping(value = "rest/listPost")
+public Map<String, Object> listPost(@ModelAttribute("search") Search search,
+      @RequestParam(value = "postType", required = false) String postType)
+      throws Exception {
+
+
+   search.setPageSize(communityPageSize);
+
+   // System.out.println(search);
+
+   if (search.getCurrentPage() == 0) {
+      search.setCurrentPage(1);
+   }
+
+   System.out.println(search);
+   // 출력할 개수을 commonProperties로 부터 받아오며, 1페이지가 고정값으로 들어간다.
+
+   HashMap<String, Object> map = new HashMap<String, Object>();
+
+   Post post = new Post();
+
+   if (postType != null) {
+
+      int postTypee = Integer.parseInt(postType);
+      post.setPostType(postTypee);
+
+   }
+   map.put("search", search);
+   map.put("post", post);
+
+   // System.out.println(map);
+   List<Post> list = communityService.listPost(map);
+
+   System.out.println("list::::::" + list);
+   // Model 과 View 연결
+   
+   Map<String, Object> resultMap = new HashMap<String, Object>();
+   
+   resultMap.put("search", search);
+   resultMap.put("list", list);
+   
+   return resultMap;
+
+}
+
   
   
   

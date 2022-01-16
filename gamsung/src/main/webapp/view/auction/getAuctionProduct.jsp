@@ -89,7 +89,7 @@
 						<div class="col-sm-6">
 						<div class="row mb-20">
 							<div class="col-sm-12">
-								<span class="userNick"><i class="fa fa-user"></i>${registrantInfo.user.auctionGrade}LV</span>
+								<span class="badge badge-info userNick">${registrantInfo.user.auctionGrade}LV</span>
 								<span>${auctionProduct.registrantNickName}</span>
 								<span id="avgRating"></span>
 								<a class="open-tab section-scroll" href="#reviews">${ratingReview.avgRating}</a>
@@ -219,185 +219,34 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="owl-carousel text-center" data-items="5"
-							data-pagination="false" data-navigation="false">
-							<div class="owl-item">
-								<div class="col-sm-12">
-									<div class="ex-product">
-										<a ><img
-											src="../../resources/images/shop/product-1.jpg"
-											alt="Leather belt" /></a>
-										<h4 class="shop-item-title font-alt">
-											<a >Leather belt</a>
-										</h4>
-										£12.00
-									</div>
-								</div>
-							</div>
-							<div class="owl-item">
-								<div class="col-sm-12">
-									<div class="ex-product">
-										<a ><img
-											src="../../resources/images/shop/product-3.jpg"
-											alt="Derby shoes" /></a>
-										<h4 class="shop-item-title font-alt">
-											<a >Derby shoes</a>
-										</h4>
-										£54.00
-									</div>
-								</div>
-							</div>
-							<div class="owl-item">
-								<div class="col-sm-12">
-									<div class="ex-product">
-										<a ><img
-											src="../../resources/images/shop/product-2.jpg"
-											alt="Leather belt" /></a>
-										<h4 class="shop-item-title font-alt">
-											<a >Leather belt</a>
-										</h4>
-										£19.00
-									</div>
-								</div>
-							</div>
-							<div class="owl-item">
-								<div class="col-sm-12">
-									<div class="ex-product">
-										<a ><img
-											src="../../resources/images/shop/product-4.jpg"
-											alt="Leather belt" /></a>
-										<h4 class="shop-item-title font-alt">
-											<a >Leather belt</a>
-										</h4>
-										£14.00
-									</div>
-								</div>
-							</div>
-							<div class="owl-item">
-								<div class="col-sm-12">
-									<div class="ex-product">
-										<a ><img
-											src="../../resources/images/shop/product-5.jpg"
-											alt="Chelsea boots" /></a>
-										<h4 class="shop-item-title font-alt">
-											<a >Chelsea boots</a>
-										</h4>
-										£44.00
-									</div>
-								</div>
-							</div>
-							<div class="owl-item">
-								<div class="col-sm-12">
-									<div class="ex-product">
-										<a ><img
-											src="../../resources/images/shop/product-6.jpg"
-											alt="Leather belt" /></a>
-										<h4 class="shop-item-title font-alt">
-											<a >Leather belt</a>
-										</h4>
-										£19.00
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
+                  <div class="owl-carousel text-center" data-items="4" data-pagination="false" data-navigation="false">
+                    <c:forEach var="auctionProduct" items="${productList}">
+                      <div class="owl-item">
+                        <div class="col-sm-12">
+                          <div class="ex-product">
+                            <c:if test="${!empty auctionProduct.auctionProductSubDetail}">
+                              <a><img class="shop-item-img" src="${auctionProduct.productImg1}" /></a>
+                            </c:if>
+                            <c:if test="${empty auctionProduct.auctionProductSubDetail}">
+                              <a><img class="shop-item-img"
+                                  src="/uploadfiles/auctionimg/product/${auctionProduct.productImg1}" /></a>
+                            </c:if>
+                            <input type="hidden" value="${auctionProduct.auctionProductNo}">
+                            <h4 class="shop-item-title"><a>${auctionProduct.auctionProductName}</a></h4>
+                            <h5>
+                              <fmt:formatNumber type="number" maxFractionDigits="3"
+                                value="${auctionProduct.hopefulBidPrice}" />원
+                            </h5>
+                            <h5>${auctionProduct.auctionEndTime}</h5>
+                          </div>
+                        </div>
+                      </div>
+                    </c:forEach>
+                  </div>
+                </div>
 				</div>
 			</section>
-			<div class="module-small bg-dark">
-				<div class="container">
-					<div class="row">
-						<div class="col-sm-3">
-							<div class="widget">
-								<h5 class="widget-title font-alt">About Titan</h5>
-								<p>The languages only differ in their grammar, their
-									pronunciation and their most common words.</p>
-								<p>Phone: +1 234 567 89 10</p>
-								Fax: +1 234 567 89 10
-								<p>
-									Email:<a >somecompany@example.com</a>
-								</p>
-							</div>
-						</div>
-						<div class="col-sm-3">
-							<div class="widget">
-								<h5 class="widget-title font-alt">Recent Comments</h5>
-								<ul class="icon-list">
-									<li>Maria on <a >Designer Desk Essentials</a></li>
-									<li>John on <a >Realistic Business Card Mockup</a></li>
-									<li>Andy on <a >Eco bag Mockup</a></li>
-									<li>Jack on <a >Bottle Mockup</a></li>
-									<li>Mark on <a >Our trip to the Alps</a></li>
-								</ul>
-							</div>
-						</div>
-						<div class="col-sm-3">
-							<div class="widget">
-								<h5 class="widget-title font-alt">Blog Categories</h5>
-								<ul class="icon-list">
-									<li><a >Photography - 7</a></li>
-									<li><a >Web Design - 3</a></li>
-									<li><a >Illustration - 12</a></li>
-									<li><a >Marketing - 1</a></li>
-									<li><a >Wordpress - 16</a></li>
-								</ul>
-							</div>
-						</div>
-						<div class="col-sm-3">
-							<div class="widget">
-								<h5 class="widget-title font-alt">Popular Posts</h5>
-								<ul class="widget-posts">
-									<li class="clearfix">
-										<div class="widget-posts-image">
-											<a ><img src="../../resources/images/rp-1.jpg"
-												alt="Post Thumbnail" /></a>
-										</div>
-										<div class="widget-posts-body">
-											<div class="widget-posts-title">
-												<a >Designer Desk Essentials</a>
-											</div>
-											<div class="widget-posts-meta">23 january</div>
-										</div>
-									</li>
-									<li class="clearfix">
-										<div class="widget-posts-image">
-											<a ><img src="../../resources/images/rp-2.jpg"
-												alt="Post Thumbnail" /></a>
-										</div>
-										<div class="widget-posts-body">
-											<div class="widget-posts-title">
-												<a >Realistic Business Card Mockup</a>
-											</div>
-											<div class="widget-posts-meta">15 February</div>
-										</div>
-									</li>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<hr class="divider-d">
-			<footer class="footer bg-dark">
-				<div class="container">
-					<div class="row">
-						<div class="col-sm-6">
-							<p class="copyright font-alt">
-								&copy; 2017&nbsp;<a href="index.html">TitaN</a>, All Rights
-								Reserved
-							</p>
-						</div>
-						<div class="col-sm-6">
-							<div class="footer-social-links">
-								<a ><i class="fa fa-facebook"></i></a><a ><i
-									class="fa fa-twitter"></i></a><a ><i
-									class="fa fa-dribbble"></i></a><a ><i
-									class="fa fa-skype"></i></a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</footer>
-		</div>
+			<jsp:include page="../common/footer.jsp"></jsp:include>
 		<form>
 			<input type="hidden" name="auctionProductNo" value="${auctionProduct.auctionProductNo}">
 		</form>
@@ -421,12 +270,9 @@
 	var nickName = document.getElementById('nickName').value;
 	
 	$(function(){
-		
-			console.log('kkkkkkkkkkkkkkkkk')
 			var infoDiv = $('#logout').parent();
-			console.log('aaa'+infoDiv.html())
 			$('#logout').parent().empty();
-			infoDiv.html('<div>${sessionScope.user.nickName}님 환영합니다.</div><div>경매등급 : '+${auctionGrade}+'LV</div>');
+			infoDiv.html('<div>경매등급 : '+${auctionGrade}+'LV</div>');
 			infoDiv.css('font-weight', 'bold');
 	
 		auctionProductNo = $('#auctionProductNo').val();
@@ -469,7 +315,8 @@
 			}
 			
 			if(${!empty auctionProduct.auctionProductSubDetail}){
-				alert('크롤링 상품은 수정 불가능 합니다.');
+				//alert('크롤링 상품은 수정 불가능 합니다.');
+				alert('수정 불 가능한 상품입니다.');
 				return;
 			}
 			
@@ -478,6 +325,20 @@
 		
 		//낙찰 취소 클릭시 발생 이벤트
 		$('#cancelBtn').on('click',function(){
+			
+			if(Number($('#havingPoint').text())< Number( ${auctionProduct.hopefulBidPrice} )*Number( ${cancelFee} )/100 ){
+				
+				if( confirm(Number( ${auctionProduct.hopefulBidPrice} )*Number( ${cancelFee} )/100-( Number( $('#havingPoint').text() ) )+"포인트가 부족하여 낙찰취소 할 수 없습니다. 충전페이지로 이동하시겠습니까?" ) ){
+					window.location = "/payment/managePoint"			
+				}else{
+					return;
+				}
+			}else{
+				if(!confirm(Number( ${auctionProduct.hopefulBidPrice} )*Number( ${cancelFee} )/100+"포인트가 차감됩니다. 낙찰취소 하시겠습니까?" ) ){
+					return;	
+				}
+			}
+			
 			$.ajax({
 				url : "/auction/rest/updateAuctionStatus/"+auctionProductNo+"/CANCEL",
 				method : "GET",
@@ -495,6 +356,20 @@
 		
 		//경매 확정 클릭시 발생 이벤트
 		$('#confirmBtn').on('click',function(){
+			
+			if(Number($('#havingPoint').text())< Number( ${auctionProduct.hopefulBidPrice} )*Number( ${confirmFee} )/100 ){
+				
+				if( confirm(Number( ${auctionProduct.hopefulBidPrice} )*Number( ${confirmFee} )/100-( Number( $('#havingPoint').text() ) )+"포인트가 부족하여 경매를 확정 지을 수 없습니다. 충전페이지로 이동하시겠습니까?" ) ){
+					window.location = "/payment/managePoint"			
+				}else{
+					return;
+				}
+			}else{
+				if(!confirm(Number( ${auctionProduct.hopefulBidPrice} )*Number( ${confirmFee} )/100+"포인트가 차감됩니다. 경매를 확정하시겠습니까?" ) ){
+					return;	
+				}
+			}
+			
 			$.ajax({
 				url : "/auction/rest/updateAuctionStatus/"+auctionProductNo+"/CONFIRM",
 				method : "GET",
@@ -506,26 +381,6 @@
 				success : function(JSONData, status) {
 					alert(JSONData.info);
 					window.location = "/auction/getAuctionProduct?auctionProductNo="+auctionProductNo;
-				}
-			});
-		});
-		
-		//중도 철회 버튼 클릭시 발생 이벤트
-		$('#deleteBtn').on('click',function(){
-			$.ajax({
-				url : "/auction/rest/updateAuctionStatus/"+auctionProductNo+"/WITHDRAWAL",
-				method : "GET",
-				headers : {
-					"Accept" : "application/json",
-					"Content-Type" : "application/json"
-				},
-				dataType : "json",
-				success : function(JSONData, status) {
-					alert(JSONData.info);
-					if(JSONData.info == '중도 철회 불가합니다.'){
-						return;
-					}
-					deleteProduct();
 				}
 			});
 		});
@@ -562,12 +417,48 @@
 				stompClient.send('/app/bid/${auctionProduct.auctionProductNo}',{},JSON.stringify({
 					auctionProductNo : auctionProductNo,
 					bidPrice : 1*unComma(startBidPrice)
-				}));
-			
-				alert('입찰 성공하셨습니다.');
-			
+				}));			
 			}
 		});
+		
+		//중도 철회 버튼 클릭시 발생 이벤트
+		$('#deleteBtn').on('click',function(){
+		
+			if(Number($('#havingPoint').text())< Number( ${auctionProduct.hopefulBidPrice} )*Number( ${withdrawalFee} )/100 ){
+				
+				if( confirm(Number( ${auctionProduct.hopefulBidPrice} )*Number( ${withdrawalFee} )/100-( Number( $('#havingPoint').text() ) )+"포인트가 부족하여 중도철회 할 수 없습니다. 충전페이지로 이동하시겠습니까?" ) ){
+					window.location = "/payment/managePoint"			
+				}else{
+					return;
+				}
+			}else{
+				if(!confirm(Number( ${auctionProduct.hopefulBidPrice} )*Number( ${withdrawalFee} )/100+"포인트가 차감됩니다. 중도철회 하시겠습니까?" ) ){
+					return;	
+				}
+			}
+
+			$.ajax({
+				url : "/auction/rest/updateAuctionStatus/"+auctionProductNo+"/WITHDRAWAL",
+				method : "GET",
+				headers : {
+					"Accept" : "application/json",
+					"Content-Type" : "application/json"
+				},
+				dataType : "json",
+				success : function(JSONData, status) {
+					const info = JSONData.info;
+					
+					if(info.indexOf('성공') != -1){
+						stompClient.send('/app/delete/${auctionProduct.auctionProductNo}',{},JSON.stringify({
+				        	auctionProductNo : auctionProductNo
+				    	}));
+					}else{
+						alert(info);
+					}				
+				}
+			});
+		});
+		
 		
 		$('#reviewBtn').on('click',function(){
 			$('#ratingReview').empty();
@@ -915,12 +806,6 @@
 		stompClient.send('/app/exit/${auctionProduct.auctionProductNo}',{},JSON.stringify({
 			auctionProductNo : auctionProductNo
 		}));
-	}
-	
-	function deleteProduct(){
-        stompClient.send('/app/delete/${auctionProduct.auctionProductNo}',{},JSON.stringify({
-        	auctionProductNo : auctionProductNo
-    	}));
 	}
 	
 	function remaindTime() {

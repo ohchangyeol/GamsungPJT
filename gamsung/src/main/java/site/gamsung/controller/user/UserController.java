@@ -305,11 +305,11 @@ public class UserController {
 
 		HashMap<String, Object> userInfo = userService.getUserInfo(accessToken);
 		System.out.println("###access_Token#### : " + accessToken);
-//		try {
-//		if((String) userInfo.get("email")==null) {
-//			userService.unlink(accessToken);
-//			return "/";
-//		}else {		
+
+		if((String) userInfo.get("email")==null) {
+			userService.unlink(accessToken);
+			return "/";
+		}else {		
 		String email = (String) userInfo.get("email");
 		System.out.println("###userInfo#### : " + userInfo.get("email"));
 		System.out.println("###nickname#### : " + userInfo.get("nickname"));
@@ -320,29 +320,29 @@ public class UserController {
 		System.out.println("카카오 인포" + kakaoInfo);
 		User userEmail = userService.getUser(email);
 
-		if (accessToken != null) {
-			session.setAttribute("kakaoToken", accessToken);
-		}
-
-		if (userEmail == null) {
-			User user = new User();
-			if(userInfo.get("email")!=null) {
-			user.setId(userInfo.get("email").toString());
+			if (accessToken != null) {
+				session.setAttribute("kakaoToken", accessToken);
 			}
-			user.setNickName(userInfo.get("nickname").toString());
-			user.setSnsId(userInfo.get("snsId").toString());
-			session.setAttribute("kakaoUser", user);
-			return "forward:/view/user/addKakaoUser.jsp";
-		} else {
-			if (email.equals(userService.getUser(email).getId())) {
 
-				if (userEmail.getSnsId() != null && userEmail.getSecessionRegDate() == null) {
-					session.setAttribute("user", userEmail);
-					return "redirect:/";
+			if (userEmail == null) {
+				User user = new User();
+				if(userInfo.get("email")!=null) {
+				user.setId(userInfo.get("email").toString());
 				}
-			}
+				user.setNickName(userInfo.get("nickname").toString());
+				user.setSnsId(userInfo.get("snsId").toString());
+				session.setAttribute("kakaoUser", user);
+				return "forward:/view/user/addKakaoUser.jsp";
+			} else {
+				if (email.equals(userService.getUser(email).getId())) {
+	
+					if (userEmail.getSnsId() != null && userEmail.getSecessionRegDate() == null) {
+						session.setAttribute("user", userEmail);
+						return "redirect:/";
+					}
+				}
 		}
-//	}
+	}
 //		}catch(Exception e) {
 //			e.printStackTrace();
 //		}

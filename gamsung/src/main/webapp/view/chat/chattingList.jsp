@@ -55,12 +55,12 @@
             </li>
         </ul>
 
-        <script src="http://localhost:82/socket.io/socket.io.js"></script>
+        <script src="http://192.168.0.89:82/socket.io/socket.io.js"></script>
 		<script src="../../resources/lib/jquery/jquery.js"></script>
 		<script src="../../resources/lib/bootstrap/js/bootstrap.min.js"></script>
 		<script>
             
-            const socket = io("http://localhost:82/chatlist");
+            const socket = io("http://192.168.0.89:82/chatlist");
             const userName = $("body").data("username");
             
             socket.emit("getList",userName);

@@ -70,120 +70,153 @@
        		<div class="loader">Loading...</div>
      	</div> -->
   		<jsp:include page="../common/header.jsp"></jsp:include>
-		<section class="module">
-          <div class="container">
-            <div class="row">
-					<div class="col-sm-8 col-sm-offset-2">
-						<h4 class="font-alt mb-0">상품 등록</h4>
-						<hr class="divider-w mt-10 mb-20">
-						<form class="form" role="form">
-							<div class="form-group">
-								<label for="auctionProductName" class="col-sm-3 control-label">상품명</label> 
-								<input id="auctionProductName" name="auctionProductName" class="form-control" type="text" placeholder="상품명을 입력하세요." />
+	<section class="module">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-8 col-sm-offset-2">
+					<h4 class="font-alt mb-0">상품 등록</h4>
+					<hr class="divider-w mt-10 mb-20">
+					<form class="form" role="form">
+						<div class="form-group">
+							<label for="auctionProductName" class="col-sm-3 control-label">상품명</label>
+							<input id="auctionProductName" name="auctionProductName"
+								class="form-control" type="text" placeholder="상품명을 입력하세요." />
+						</div>
+						<div class="form-group">
+							<label for="startBidPrice" class="col-sm-3 control-label">경매
+								시작가</label> <input id="startBidPrice" name="startBidPrice"
+								class="form-control" value="" type="number"
+								placeholder="경매 시작가를 입력하세요." />
+						</div>
+						<div class="form-group">
+							<label for="hopefulBidPrice" class="col-sm-3 control-label">희망
+								낙찰가</label> <input id="hopefulBidPrice" name="hopefulBidPrice"
+								class="form-control" value="" type="number"
+								placeholder="희망 낙찰가를 입력하세요." />
+						</div>
+						<div class="form-group">
+							<label for="bidUnit" class="col-sm-3 control-label">입찰 단위</label>
+							<input id="bidUnit" name="bidUnit" class="form-control"
+								type="number" placeholder="입찰 단위를 입력하세요." />
+						</div>
+						<div class="form-group">
+							<label for="bidUnit" class="col-sm-3 control-label">경매 시작
+								시간</label>
+							<div class="input-group">
+								<span class="input-group-addon"> <i
+									class="fa fa-calendar"></i>
+								</span> <input id="startDate" type="text" class="form-control">
+								<span class="input-group-addon"> <i class="fa fa-clock-o"></i>
+								</span> <input id="startTime" type="text" class="form-control">
 							</div>
-							<div class="form-group">
-								<label for="startBidPrice" class="col-sm-3 control-label">경매 시작가</label>
-								<input id="startBidPrice" name="startBidPrice" class="form-control"  value="" type="text" placeholder="경매 시작가를 입력하세요." />
+						</div>
+						<div class="form-group">
+							<label for="bidUnit" class="col-sm-3 control-label">경매 종료
+								시간</label>
+							<div class="input-group">
+								<span class="input-group-addon"> <i
+									class="fa fa-calendar"></i>
+								</span> <input id="endDate" type="text" class="form-control"> <span
+									class="input-group-addon"> <i class="fa fa-clock-o"></i>
+								</span> <input id="endTime" type="text" class="form-control">
 							</div>
-							<div class="form-group">
-								<label for="hopefulBidPrice" class="col-sm-3 control-label">희망 낙찰가</label>
-								<input id="hopefulBidPrice" name="hopefulBidPrice" class="form-control"  value="" type="text" placeholder="희망 낙찰가를 입력하세요." />
-							</div>
-							<div class="form-group">
-								<label for="bidUnit" class="col-sm-3 control-label">입찰 단위</label> 
-								<input id="bidUnit" name="bidUnit" class="form-control" type="number"  placeholder="입찰 단위를 입력하세요." />
-							</div>
-							<div class="form-group">
-								<label for="bidUnit" class="col-sm-3 control-label">경매 시작 시간</label> 
-								<div class="input-group">
-									<span class="input-group-addon">
-										<i class="fa fa-calendar"></i>
-									</span>
-									<input id="startDate" type="text" class="form-control">
-									<span class="input-group-addon">
-										<i class="fa fa-clock-o"></i>
-									</span>
-									<input id="startTime" type="text" class="form-control">
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="bidUnit" class="col-sm-3 control-label">경매 종료 시간</label> 
-								<div class="input-group">
-									<span class="input-group-addon">
-										<i class="fa fa-calendar"></i>
-									</span>
-									<input id="endDate" type="text" class="form-control">
-									<span class="input-group-addon">
-										<i class="fa fa-clock-o"></i>
-									</span>
-									<input id="endTime" type="text" class="form-control">
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="bidableGrade" class="col-sm-3 control-label">입찰 가능 등급</label>
-								<input id="bidableGrade" name="bidableGrade" class="form-control" type="text" placeholder="입찰 가능 등급을 입력하세요." />
-							</div>
-							<div class="inputWrap">
-								<button type="button" id="fileUpload" class="btn btn-border-d btn-round">파일 업로드</button>
-								 <input type="file" id="inputImgs" name="inputImgs" multiple />
-							</div>
-							<div id="uploadForm" hidden="hidden">
-								<div class="imgsWrap">
+						</div>
+						<div class="form-group">
+							<label for="bidUnit" class="col-sm-3 control-label"></label>
+							<p class="text-info">
+								경매 진행 시간을 <strong>20시간 이하</strong>로 설정할 경우 <strong>중도
+									철회 불가</strong> 합니다.
+							</p>
+						</div>
+						<div class="form-group">
+							<label for="bidableGrade" class="col-sm-2 control-label">입찰
+								가능 등급</label> <input id="bidableGrade" name="bidableGrade"
+								class="form-control" type="number"
+								placeholder="입찰 가능 등급을 입력하세요." />
+						</div>
+						<div class="form-group">
+							<label for="bidableGrade" class="col-sm-2 control-label"></label>
+							<p class="text-info">
+								입찰 가능 등급은 <strong>최소 1LV</strong>부터 <strong>최대 100LV</strong>까지
+								입니다.
+							</p>
+						</div>
+						<div class="inputWrap">
+							<button type="button" id="fileUpload"
+								class="btn btn-border-d btn-round">파일 업로드</button>
+							<input type="file" id="inputImgs" name="inputImgs" multiple />
+						</div>
+						<div id="uploadForm" hidden="hidden">
+							<div class="imgsWrap">
 								<c:if test="${!empty auctionProduct.productImg1}">
-									<a href="javascript:void(0);" onclick="deleteImageAction(0)" id="imgId0">
-										<img id="productImg1" src="" class='selProductFile' title='Click to remove'>
+									<a href="javascript:void(0);" onclick="deleteImageAction(0)"
+										id="imgId0"> <img id="productImg1" src=""
+										class='selProductFile' title='Click to remove'>
 									</a>
 								</c:if>
 								<c:if test="${!empty auctionProduct.productImg2}">
-									<a href="javascript:void(0);" onclick="deleteImageAction(1)" id="imgId1">
-										<img id="productImg2" src="" class='selProductFile' title='Click to remove'>
+									<a href="javascript:void(0);" onclick="deleteImageAction(1)"
+										id="imgId1"> <img id="productImg2" src=""
+										class='selProductFile' title='Click to remove'>
 									</a>
 								</c:if>
 								<c:if test="${!empty auctionProduct.productImg3}">
-									<a href="javascript:void(0);" onclick="deleteImageAction(2)" id="imgId2">
-										<img id="productImg3" src="" class='selProductFile' title='Click to remove'>
+									<a href="javascript:void(0);" onclick="deleteImageAction(2)"
+										id="imgId2"> <img id="productImg3" src=""
+										class='selProductFile' title='Click to remove'>
 									</a>
 								</c:if>
 								<c:if test="${!empty auctionProduct.productImg4}">
-									<a href="javascript:void(0);" onclick="deleteImageAction(3)" id="imgId3">
-										<img id="productImg4" src="" class='selProductFile' title='Click to remove'>
+									<a href="javascript:void(0);" onclick="deleteImageAction(3)"
+										id="imgId3"> <img id="productImg4" src=""
+										class='selProductFile' title='Click to remove'>
 									</a>
 								</c:if>
 								<c:if test="${!empty auctionProduct.productImg5}">
-									<a href="javascript:void(0);" onclick="deleteImageAction(4)" id="imgId4">
-										<img id="productImg5" src="" class='selProductFile' title='Click to remove'>
+									<a href="javascript:void(0);" onclick="deleteImageAction(4)"
+										id="imgId4"> <img id="productImg5" src=""
+										class='selProductFile' title='Click to remove'>
 									</a>
 								</c:if>
-								</div>
 							</div>
-							<textarea id="auctionProductDetail" name="auctionProductDetail" class="form-control" rows="20" placeholder="상품 정보를 입력 하세요.." ></textarea>
-							<input id="allhashtag" name="allhashtag" class="form-control" type="text" value="${auctionProduct.hashtag1}${auctionProduct.hashtag2}${auctionProduct.hashtag3}" placeholder="해시태그를 #을 포함하여 입력하세요." />
-							<input type="hidden" id="inputImg1" name="productImg1" class="inputImg" value="">
-						  	<input type="hidden" id="inputImg2" name="productImg2" class="inputImg" value="">
-						  	<input type="hidden" id="inputImg3" name="productImg3" class="inputImg" value="">
-						  	<input type="hidden" id="inputImg4" name="productImg4" class="inputImg" value="">
-							<input type="hidden" id="inputImg5" name="productImg5" class="inputImg" value=""> 
-							<input type="hidden" id="hashtag1" name="hashtag1" value="">
-						  	<input type="hidden" id="hashtag2" name="hashtag2" value="">
-							<input type="hidden" id="hashtag3" name="hashtag3" value=""> 
-							<input type="hidden" id="auctionStartTime" name="auctionStartTime">
-							<input type="hidden" id="auctionEndTime" name="auctionEndTime">
-		                </form>
-                <div class="col-sm-4"></div>
-                <div class="container">
-	                <div class=".col-md-3 .col-md-offset-3">
-		                <div class="row">
-			                <button id="cancel" class="btn btn-border-d btn-circle" type="button">취소</button>
-			                <button id="tempSave" class="btn btn-border-d btn-circle" type="button">임시저장</button>
-			            	<button id="confirm" class="btn btn-border-d btn-circle" type="button">등록확정</button>                                
-		                </div>                
-	                </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-         <jsp:include page="../common/footer.jsp"></jsp:include>
+						</div>
+						<textarea id="auctionProductDetail" name="auctionProductDetail"
+							class="form-control" rows="20" placeholder="상품 정보를 입력 하세요.."></textarea>
+						<input id="allhashtag" name="allhashtag" class="form-control"
+							type="text"
+							value="${auctionProduct.hashtag1}${auctionProduct.hashtag2}${auctionProduct.hashtag3}"
+							placeholder="해시태그를 #을 포함하여 입력하세요." /> <input type="hidden"
+							id="inputImg1" name="productImg1" class="inputImg" value="">
+						<input type="hidden" id="inputImg2" name="productImg2"
+							class="inputImg" value=""> <input type="hidden"
+							id="inputImg3" name="productImg3" class="inputImg" value="">
+						<input type="hidden" id="inputImg4" name="productImg4"
+							class="inputImg" value=""> <input type="hidden"
+							id="inputImg5" name="productImg5" class="inputImg" value="">
+						<input type="hidden" id="hashtag1" name="hashtag1" value="">
+						<input type="hidden" id="hashtag2" name="hashtag2" value="">
+						<input type="hidden" id="hashtag3" name="hashtag3" value="">
+						<input type="hidden" id="auctionStartTime" name="auctionStartTime">
+						<input type="hidden" id="auctionEndTime" name="auctionEndTime">
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<div class="col-md-4"></div>
+			<div class="col-md-4">
+				<div class="row">
+					<button id="cancel" class="btn btn-border-d btn-circle"
+						type="button">취소</button>
+					<button id="tempSave" class="btn btn-border-d btn-circle"
+						type="button">임시저장</button>
+					<button id="confirm" class="btn btn-border-d btn-circle"
+						type="button">등록확정</button>
+				</div>
+			</div>
+		</div>
+	</section>
+	<jsp:include page="../common/footer.jsp"></jsp:include>
 		
 		<script src="../../resources/lib/bootstrap-maxlength/bootstrap-maxlength.js"></script>
 		<script src="../../resources/lib/ios7-switch/ios7-switch.js"></script>
@@ -465,7 +498,17 @@
 				$('#auctionStartTime').val($('#startDate').val()+' '+$('#startTime').val());
 				$('#auctionEndTime').val($('#endDate').val()+' '+$('#endTime').val());
 				
-				$('form').attr('method','post').attr('action','/auction/addAuctionProduct').attr("enctype","multipart/form-data").submit();
+				if(Number($('#havingPoint').text())< Number( $('#hopefulBidPrice').val() )*Number( ${fee} )/100 ){
+					
+					if( confirm(Number( $('#hopefulBidPrice').val() )*Number( ${fee} )/100-( Number( $('#havingPoint').text() ) )+"포인트가 부족하여 등록 할수 없습니다. 충전페이지로 이동하시겠습니까?" ) ){
+						window.location = "/payment/managePoint"			
+					}else{
+						return;
+					}
+				}else{
+					$('form').attr('method','post').attr('action','/auction/addAuctionProduct').attr("enctype","multipart/form-data").submit();					
+				}
+				
 			});
 			
 			$('#fileUpload').on('click',fileUploadAction);

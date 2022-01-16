@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="PaymentMapper"> 	
+ 	
+	<resultMap id="paymentSelectMap" type="payment">
+		<result property="paymentNo" 						column="payment_no" 		  					jdbcType="VARCHAR"/>
+		<result property="paymentStatus" 					column="payment_status"							jdbcType="NUMERIC"/>
+		<result property="paymentProduct" 					column="payment_product" 		  				jdbcType="VARCHAR"/>
+		<result property="paymentSender"					column="payment_sender" 		  				jdbcType="VARCHAR"/>
+		<result property="paymentReceiver" 					column="payment_receiver" 	  					jdbcType="VARCHAR"/>	
+		<result property="paymentProductPriceTotal" 		column="payment_Product_Price_Total"			jdbcType="NUMERIC"/>	
+		<result property="paymentRegTime" 					column="payment_reg_time" 				  		jdbcType="TIMESTAMP"/>
+		<result property="paymentCode" 						column="payment_code" 	  						jdbcType="VARCHAR"/>	
+		<result property="paymentReferenceNum"				column="payment_reference_num" 		 		 	jdbcType="VARCHAR"/>		
+		<result property="paymentMethod" 					column="payment_method"  						jdbcType="VARCHAR"/>				
+		<result property="paymentPriceTotal" 				column="payment_price_total" 			 		jdbcType="NUMERIC"/>
+		<result property="paymentPricePay" 					column="payment_price_pay" 						jdbcType="NUMERIC"/>
+		<result property="paymentPriceFee" 					column="payment_price_fee" 		 		 		jdbcType="NUMERIC"/>
+		<result property="paymentMethodSecond" 				column="payment_method_second"  				jdbcType="VARCHAR"/>				
+		<result property="paymentPriceTotalSecond" 			column="payment_price_total_second" 			jdbcType="NUMERIC"/>
+		<result property="paymentPricePaySecond" 			column="payment_price_pay_second" 				jdbcType="NUMERIC"/>
+		<result property="paymentPriceFeeSecond" 			column="payment_price_fee_second" 		 		jdbcType="NUMERIC"/>
+		<result property="paymentRefundRegTime" 			column="payment_refund_reg_time" 		  		jdbcType="TIMESTAMP"/>
+		<result property="paymentRefundCode" 				column="payment_refund_code" 	  				jdbcType="VARCHAR"/>
+		<result property="paymentRefundReferenceNum" 		column="payment_refund_reference_num"			jdbcType="VARCHAR"/>	
+		<result property="paymentRefundPriceTotal" 			column="payment_refund_price_total"  			jdbcType="NUMERIC"/>
+		<result property="paymentRefundPricePay" 			column="payment_refund_price_pay" 				jdbcType="NUMERIC"/>
+		<result property="paymentRefundPriceFee" 			column="payment_refund_price_fee" 	  			jdbcType="NUMERIC"/>
+		<result property="paymentRefundPriceTotalSecond" 	column="payment_refund_price_total_second"  	jdbcType="NUMERIC"/>
+		<result property="paymentRefundPricePaySecond" 		column="payment_refund_price_pay_second" 		jdbcType="NUMERIC"/>
+		<result property="paymentRefundPriceFeeSecond" 		column="payment_refund_price_fee_second" 		jdbcType="NUMERIC"/>
+	</resultMap>
+	
+	<resultMap id="paymentCodeSelectMap" type="paymentCode">
+		<result property="paymentCodeRegNum"		column="payment_code_regNum"		jdbcType="NUMERIC"/>
+		<result property="paymentCode" 					column="payment_code" 		 	 		jdbcType="VARCHAR"/>
+		<result property="paymentCodeRangeStart"		column="payment_code_range_start"		jdbcType="NUMERIC"/>
+		<result property="paymentCodeRangeEnd" 			column="payment_code_range_end" 	  	jdbcType="NUMERIC"/>
+		<result property="paymentCodeInfo" 				column="payment_code_info"  			jdbcType="VARCHAR"/>
+		<result property="paymentCodeFee" 				column="payment_code_fee" 			  	jdbcType="NUMERIC"/>
+	</resultMap>
+	
+	<resultMap id="siteProfitSelectMap" type="siteProfit">
+		<result property="profitRegDate" 				column="profit_reg_date" 		jdbcType="DATE"/>
+		<result property="profitPoint"					column="profit_point" 		  	jdbcType="NUMERIC"/>
+		<result property="profitCash" 					column="profit_cash" 	  		jdbcType="NUMERIC"/>
+		<result property="profitCreditcard" 			column="profit_creditcard"		jdbcType="NUMERIC"/>
+		<result property="profitSimplePay" 				column="profit_simplepay" 		jdbcType="NUMERIC"/>
+	</resultMap>
+	
+	<!-- SQL : Point ################################################################################################################### -->
+	
+	<update	id="pointUpdateById" parameterType="pointTransfer" >
+	   	UPDATE USERS
+	   	SET	having_point = having_point + #{pointAmount}		
+	   	WHERE user_id = #{userId}
+	</update>
+	
+	
+	<!-- SQL : Payment ################################################################################################################### -->
+	
+	<insert id="addMakePaymentIn" parameterType="payment">
+		INSERT
+		INTO PAYMENT ( payment_product, 
+						payment_status,
+						payment_sender, 
+						payment_receiver, 
+						payment_Product_Price_Total, 
+						payment_reg_time, 
+						payment_code, 
+						payment_reference_num, 
+						payment_method, 
+						payment_price_total, 
+						payment_price_pay, 
+						payment_price_fee, 
+						payment_method_second, 
+						payment_price_total_second, 
+						payment_price_pay_second, 
+						payment_price_fee_second ) 
+		VALUES ( #{paymentProduct}
+				, #{paymentStatus :NUMERIC}
+				, #{paymentSender}
+				, #{paymentReceiver}
+				, #{paymentProductPriceTotal}				
+				, now(6)				
+				, #{paymentCode}
+				, #{paymentReferenceNum}
+				, #{paymentMethod}
+				, #{paymentPriceTotal :NUMERIC}
+				, #{paymentPricePay :NUMERIC}
+				, #{paymentPriceFee :NUMERIC}
+				, #{paymentMethodSecond :VARCHAR}
+				, #{paymentPriceTotalSecond :NUMERIC}
+				, #{paymentPricePaySecond :NUMERIC}				
+				, #{paymentPriceFeeSecond :NUMERIC}	)	
+	</insert>
+	
+	<select id="addMakePaymentOut" parameterType="payment" resultType="String">
+		SELECT	payment_no,
+				payment_product, 
+				payment_sender, 
+				payment_receiver, 
+				payment_Product_Price_Total, 
+				payment_reg_time, 
+				payment_code, 
+				payment_reference_num, 
+				payment_method, 
+				payment_price_total, 
+				payment_price_pay, 
+				payment_price_fee, 
+				payment_method_second, 
+				payment_price_total_second, 
+				payment_price_pay_second, 
+				payment_price_fee_second
+		FROM PAYMENT		
+							
+		<trim prefix="WHERE" prefixOverrides="AND">
+			<if test="paymentProduct != null">
+				payment_product = #{paymentProduct}			
+			</if>
+			<if test="paymentSender != null">
+				AND payment_sender = #{paymentSender}			
+			</if>
+			<if test="paymentReceiver != null">
+				AND payment_receiver = #{paymentReceiver}			
+			</if>
+			<if test="paymentProductPriceTotal != null">
+				AND payment_Product_Price_Total = #{paymentProductPriceTotal}			
+			</if>
+			<if test="paymentRegTime != null">
+				AND payment_reg_time = #{paymentRegTime}			
+			</if>
+			<if test="paymentCode != null">
+				AND payment_code = #{paymentCode}			
+			</if>
+			<if test="paymentReferenceNum != null">
+				AND payment_reference_num = #{paymentReferenceNum}			
+			</if>
+			<if test="paymentMethod != null">
+				AND payment_method = #{paymentMethod}			
+			</if>
+			<if test="paymentPriceTotal != null">
+				AND payment_price_total = #{paymentPriceTotal}			
+			</if>
+			<if test="paymentPricePay != null">
+				AND payment_price_pay = #{paymentPricePay}			
+			</if>
+			<if test="paymentPriceFee != null">
+				AND payment_price_fee = #{paymentPriceFee}			
+			</if>
+			<if test="paymentMethodSecond != null">
+				AND payment_method_second = #{paymentMethodSecond}			
+			</if>
+			<if test="paymentPriceTotalSecond != null">
+				AND payment_price_total_second = #{paymentPriceTotalSecond}			
+			</if>
+			<if test="paymentPricePaySecond != null">
+				AND payment_price_pay_second = #{paymentPricePaySecond}			
+			</if>
+			<if test="paymentPriceFeeSecond != null">
+				AND payment_price_fee_second = #{paymentPriceFeeSecond}			
+			</if>
+		</trim>			
+	</select>
+			
+	<select id="listPayment" parameterType="search" resultMap="paymentSelectMap">
+		<if test="role == 'ADMIN'">
+			SELECT	payment_no, payment_status, payment_product, payment_sender, payment_receiver, payment_Product_Price_Total, 
+					payment_reg_time, payment_code, payment_reference_num, 
+					payment_method, payment_price_total, payment_price_pay, payment_price_fee, 
+					payment_method_second, payment_price_total_second, payment_price_pay_second, payment_price_fee_second, 
+					payment_refund_reg_time, payment_refund_code, payment_refund_reference_num, 
+					payment_refund_price_total, payment_refund_price_pay, payment_refund_price_fee, 
+					payment_refund_price_total_second, payment_refund_price_pay_second, payment_refund_price_fee_second	
+			FROM PAYMENT
+			ORDER BY payment_no		
+		</if>
+	
+		<if test="role != 'ADMIN'">
+			SELECT	payment_no, payment_status, payment_product, payment_sender, payment_receiver, payment_Product_Price_Total, 
+				payment_reg_time, payment_code, payment_reference_num, 
+				payment_method, payment_price_total, payment_method_second, payment_price_total_second, 
+				payment_refund_reg_time, payment_refund_code, payment_refund_reference_num, 
+				payment_refund_price_total,  payment_refund_price_total_second  	
+			FROM PAYMENT			
+			WHERE payment_sender = #{id}
+					OR payment_receiver = #{id}				
+			ORDER BY payment_no	
+		</if>	
+	</select>
+	
+	<select id="getPaymentInfo" parameterType="String" resultMap="paymentSelectMap">
+		SELECT *
+		FROM PAYMENT
+		WHERE payment_no = #{value}
+	</select>
+	
+	<select id="getPaymentListByRsvNo" parameterType="String" resultMap="paymentSelectMap">
+		SELECT *
+		FROM PAYMENT
+		WHERE payment_reference_num LIKE CONCAT('%',#{value},'%')
+	</select>	
+	
+	<update	id="addRefundPayment" parameterType="payment" >
+	   	UPDATE PAYMENT
+	   	SET	payment_status = #{paymentStatus}
+	   		, payment_refund_code = #{paymentRefundCode}
+	   		, payment_refund_reg_time = now(6)
+	   		, payment_refund_price_total = #{paymentRefundPriceTotal}
+			, payment_refund_price_pay = #{paymentRefundPricePay}
+			, payment_refund_price_fee = #{paymentRefundPriceFee}
+			, payment_refund_reference_num = #{paymentRefundReferenceNum}
+			, payment_refund_reference_fee = #{paymentRefundReferenceFee}			
+	   	WHERE payment_no = #{paymentNo}
+	</update>
+
+	
+	<!-- SQL : PaymentCode ################################################################################################################### -->
+	
+	<insert id="addPaymentCode" parameterType="paymentCode">
+		INSERT
+		INTO PAYMENT_CODE(payment_code_regNum, payment_code, payment_code_range_start, payment_code_range_end, payment_code_info, payment_code_fee)
+		VALUES ( #{paymentCodeRegNum}
+				, #{paymentCode}		
+				, #{paymentCodeRangeStart :NUMERIC}
+				, #{paymentCodeRangeEnd :NUMERIC}
+				, #{paymentCodeInfo :VARCHAR}
+				, #{paymentCodeFee}	)	
+	</insert>
+	
+	<update	id="updatePaymentCode" parameterType="paymentCode" >
+	   	UPDATE PAYMENT_CODE
+	   	SET	payment_code_range_start = #{paymentCodeRangeStart}
+			, payment_code_range_end = #{paymentCodeRangeEnd}
+			, payment_code_info = #{paymentCodeInfo}
+			, payment_code_fee = #{paymentCodeFee}
+	   	WHERE payment_code = #{paymentCode}
+	</update>
+	
+	<select id="listPaymentCode" resultMap="paymentCodeSelectMap">	
+  		SELECT payment_code_regNum, payment_code, payment_code_range_start, payment_code_range_end, payment_code_info, payment_code_fee
+		FROM PAYMENT_CODE			
+		ORDER BY payment_code_regNum*1
+	</select>
+	
+	<select id="getPaymentCodeInfo" parameterType="String" resultMap="paymentCodeSelectMap">
+  		SELECT payment_code_regNum, payment_code, payment_code_range_start, payment_code_range_end, payment_code_info, payment_code_fee
+		FROM PAYMENT_CODE			
+		WHERE LOWER(payment_code) = LOWER(#{value})	
+	</select>	
+	
+	<!-- SQL : SiteProfit ################################################################################################################### -->
+	
+		
+	
+	
+
+</mapper>

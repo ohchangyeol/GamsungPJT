@@ -377,7 +377,7 @@ alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+
 						var nickName = $("#add_kakao_nickName").val();
 						var phone = $("#add_kakao_phone").val();
 
-						if (pw == null || pw.length < 1) {
+						/* if (pw == null || pw.length < 1) {
 							alert("패스워드는  반드시 입력하셔야 합니다.");
 							return;
 						}
@@ -410,7 +410,7 @@ alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+
 						if (phone == null || phone.length < 1) {
 							alert("휴대폰번호는 반드시 입력하셔야 합니다.");
 							return;
-						}
+						} */
 
 						$("#add_kakao_form").attr("method", "POST").attr("action", "/user/addUser").submit();
 					}

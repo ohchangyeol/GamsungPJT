@@ -103,10 +103,10 @@
 			</if>
 	</select>
 	
-	<select id="paymentSubInfo" parameterType="String" resultMap="auction">
+	<select id="paymentSubInfo" parameterType="auctionProduct" resultMap="auction">
 		SELECT product_no, product_name
 		FROM AUCTION_PRODUCT
-		WHERE registrant_id = #{value}
+		WHERE registrant_id = #{registrantId}
 		ORDER BY product_reg_date
 		LIMIT 1
 	</select>
@@ -114,7 +114,7 @@
 	<select id="autoComplete" parameterType="String" resultType="String">
 		SELECT product_name
 		FROM AUCTION_PRODUCT
-		WHERE product_name LIKE CONCAT_WS(#{value},'%','%')
+		WHERE product_name LIKE CONCAT_WS(#{value},'%','%') AND temp_save_flag = 'N' AND auction_status = 'START'AND delete_flag = 'N'
 	</select>				
 
 	

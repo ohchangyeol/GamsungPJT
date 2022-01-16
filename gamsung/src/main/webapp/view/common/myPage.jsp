@@ -83,6 +83,7 @@
 					<jsp:include page="userSideBar.jsp"></jsp:include>
 					<section role="main" class="content-body">
 						<jsp:include page="../user/getGeneralUserUpdate.jsp"></jsp:include>
+					</section>
 				</div>
 			</main>
 			<jsp:include page="footer.jsp"></jsp:include>
@@ -121,9 +122,6 @@
 
 			<script>
 				$(function () {
-					$('#listMyProduct').on('click', function () {
-						window.location = "/auction/listMyAuctionProduct?currentPage=1";
-					});
 
 					/* $("#addSecession_btn").on('click', function () {
 

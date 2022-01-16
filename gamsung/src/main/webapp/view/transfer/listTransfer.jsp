@@ -60,7 +60,7 @@
 
 				<div class="main sc-main">
 					<section class="module bg-dark-30 about-page-header"
-						data-background="../../uploadfiles/present/a.jpg">
+						data-background="../../uploadfiles/transfer/transferhead.jpg"style="padding-top: 400px; padding-bottom: 185px;">
 						<div class="container">
 							<div class="row">
 								<div class="col-sm-6 col-sm-offset-3">

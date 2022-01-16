@@ -27,6 +27,22 @@ public class RatingReview {
    public RatingReview() {
       
    }
+   
+   // Constructors to connect with the community! 
+   public RatingReview(Camp camp, User user, int ratingReviewStatus, String ratingReviewTitle,
+         String ratingReviewContent, double statusRating, String img1, String img2, String img3) {
+      super();
+      this.camp = camp;
+      this.user = user;
+      this.ratingReviewStatus = ratingReviewStatus;
+      this.ratingReviewTitle = ratingReviewTitle;
+      this.ratingReviewContent = ratingReviewContent;
+      this.statusRating = statusRating;
+      this.img1 = img1;
+      this.img2 = img2;
+      this.img3 = img3;
+   }
+
 
    public Camp getCamp() {
       return camp;

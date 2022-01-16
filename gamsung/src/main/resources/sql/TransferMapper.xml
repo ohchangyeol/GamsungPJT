@@ -60,8 +60,11 @@
 	SELECT S.* 
 	FROM (SELECT @rownum:= @rownum+1 AS R , T.* 
 		FROM (SELECT tt.*,u.nick_name 
-			  FROM TRANSFER tt, USERS u 								  
+			  FROM TRANSFER tt, USERS u 										  
 	  		  WHERE tt.user_id = u.user_id 
+	  		  <if test="search.id != null">	
+	  		  AND tt.user_id = #{search.id}  
+	  		  </if>
 	  		  AND delete_flag = 'N'
 			      <if test="search.searchCondition != null"> 
 				    <trim prefix="AND">
