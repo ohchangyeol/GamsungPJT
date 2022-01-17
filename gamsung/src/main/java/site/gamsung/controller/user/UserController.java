@@ -54,7 +54,7 @@ public class UserController {
 
 		System.out.println("/user/addUser:GET");
 
-		return "redirect:/view/user/addUser.jsp";
+		return "redirect:/view/user/addGeneralUser.jsp";
 	}
 
 	@RequestMapping(value = "addUser", method = RequestMethod.POST)
@@ -104,7 +104,7 @@ public class UserController {
 
 		
 
-		return "redirect:/main.jsp";
+		return "redirect:/";
 	}
 
 	@RequestMapping(value = "getUser", method = RequestMethod.GET)
@@ -129,7 +129,7 @@ public class UserController {
 			}
 		} else {
 			if (user.getRole().equals("GENERAL")) {
-				return "forward:/view/common/myPage.jsp";
+				return "forward://user/myPage";
 			} else {
 				return "forward:/view/user/getBusinessUserUpdate.jsp";
 			}
@@ -145,7 +145,7 @@ public class UserController {
 
 		model.addAttribute("user", user);
 
-		return "forward:/view/common/myPage.jsp";
+		return "forward:/user/myPage";
 
 	}
 
@@ -175,6 +175,13 @@ public class UserController {
 				user.setSalt(dbUser.getSalt());
 			}
 		}
+		if(user.getCampBusinessImg()==null) {
+			user=userService.getUser(user.getId());
+			if(user.getCampBusinessImg()!=null) {
+			System.out.println("캠프 이미지"+user.getCampBusinessImg());
+			user.setCampBusinessImg(user.getCampBusinessImg());
+			}
+		}
 
 		userService.updateUser(user);
 
@@ -190,6 +197,7 @@ public class UserController {
 		System.out.println(sessionUser.getRole());
 		if (sessionUser.getRole().equals("ADMIN")) {
 			if (user.getRole().equals("GENERAL")) {
+				System.out.println("user role"+user.getRole());
 				return "forward:/view/user/getGeneralUserUpdateAdmin.jsp";
 			} else {
 				return "forward:/view/user/getBusinessUserUpdateAdmin.jsp";

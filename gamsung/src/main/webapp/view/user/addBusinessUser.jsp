@@ -542,11 +542,11 @@ alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+
 							var pw = $("#add_b_password").val();
 							var pw_confirm = $("#add_b_confirmPassword").val();
 							var name = $("#add_b_name").val();
-							var campName = $("#add_b_campName").val();
+							var campName = $("input#add_b_campName").val();
 							var phone = $("#add_b_phone").val();
 							var campBusinessNum = $("#add_b_campBusinessNum").val();
 							var mainlConfirm = $("#add_b_checkMailAuth").val();
-
+							console.log(campName);
 							if (id == null || id.length < 1) {
 								alert("아이디는 반드시 입력하셔야 합니다.");
 								return;
@@ -583,7 +583,7 @@ alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+
 								return;
 							}
 
-							if (campName == null || campName.length < 1) {
+							if (campName == "" || campName.length < 1 || campName == undefined) {
 								alert("캠핑장명은 반드시 입력하셔야 합니다.");
 								return;
 							}

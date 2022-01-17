@@ -206,58 +206,58 @@
 		<jsp:include page="/view/user/findIdPwdModal.jsp" />
 
 		<script>
-		$(function () {
+			$(function () {
 
-			$('#addProduct').on('click', function () {
-				if (${empty sessionScope.user }){
+				$('#addProduct').on('click', function () {
+					if (${empty sessionScope.user }){
 					alert('로그인 후 이용 가능합니다.');
 					return;
-				} else if(${ sessionScope.user.role eq 'BUSINESS' }){
-					alert('사업자 회원은 이용 불가능합니다.');
-					return;
-				} else if (${ sessionScope.user.auctionSuspension != null }){
-					alert('경매 이용 정지되었습니다. 관리자에게 문의하세요.');
-					return;
-				}
-				window.location = '/auction/addAuctionProduct';
+				} else if (${ sessionScope.user.role eq 'BUSINESS' }){
+				alert('사업자 회원은 이용 불가능합니다.');
+				return;
+			} else if (${ sessionScope.user.auctionSuspension != null }) {
+				alert('경매 이용 정지되었습니다. 관리자에게 문의하세요.');
+				return;
+			}
+			window.location = '/auction/addAuctionProduct';
 			});
 
 			$('#adminProduct').on('click', function () {
 				if (${ sessionScope.user.auctionSuspension != null }){
-					alert('경매 이용 정지되었습니다. 관리자에게 문의하세요.');
-					return;
-				} else if(${ sessionScope.user.role eq 'BUSINESS' }){
-					alert('사업자 회원은 이용 불가능합니다.');
-					return;
-				}
-				window.location = "/auction/listAdminAuctionProduct";
+				alert('경매 이용 정지되었습니다. 관리자에게 문의하세요.');
+				return;
+			} else if (${ sessionScope.user.role eq 'BUSINESS' }) {
+				alert('사업자 회원은 이용 불가능합니다.');
+				return;
+			}
+			window.location = "/auction/listAdminAuctionProduct";
 			});
 
 			$('#listProduct').on('click', function () {
 				if (${ sessionScope.user.auctionSuspension != null }){
-					alert('경매 이용 정지되었습니다. 관리자에게 문의하세요.');
-					return;
-				} else if(${ sessionScope.user.role eq 'BUSINESS' }){
-					alert('사업자 회원은 이용 불가능합니다.');
-					return;
-				}
-				window.location = "/auction/listAuctionProduct";
+				alert('경매 이용 정지되었습니다. 관리자에게 문의하세요.');
+				return;
+			} else if (${ sessionScope.user.role eq 'BUSINESS' }) {
+				alert('사업자 회원은 이용 불가능합니다.');
+				return;
+			}
+			window.location = "/auction/listAuctionProduct";
 			});
-			
+
 			$('#auctionAdd').on('click', function () {
 				window.location = "/auction/listMyAuctionProduct/add?currentPage=1";
 			});
 		});
 
-		$(function () {
-			$('#havingPoint').text(comma($('#havingPoint').text()));
-		});
+			$(function () {
+				$('#havingPoint').text(comma($('#havingPoint').text()));
+			});
 
-		// 금액 "," 추가
-		function comma(str) {
-			str = String(str);
-			return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
-		}
+			// 금액 "," 추가
+			function comma(str) {
+				str = String(str);
+				return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+			}
 
 
 		</script>

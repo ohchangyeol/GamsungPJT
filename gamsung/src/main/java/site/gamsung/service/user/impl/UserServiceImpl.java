@@ -28,6 +28,7 @@ import site.gamsung.service.camp.CampReservationDAO;
 import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.User;
 import site.gamsung.service.domain.UserWrapper;
+import site.gamsung.service.transfer.TransferDAO;
 import site.gamsung.service.user.UserDAO;
 import site.gamsung.service.user.UserService;
 import site.gamsung.util.user.SHA256Util;
@@ -51,6 +52,10 @@ public class UserServiceImpl implements UserService{
 	@Autowired
 	@Qualifier("auctionInfoDAO")
 	private AuctionInfoDAO auctionDAO;
+	
+	@Autowired
+	@Qualifier("transferDAOImpl")
+	private TransferDAO transDAO;
 	
 	
 	
@@ -148,12 +153,14 @@ public class UserServiceImpl implements UserService{
 		userDAO.updateUser(user);
 		SendMailHtml sendMail = new SendMailHtml();
 		String info = "[감성캠핑] 가입승인이 완료되었습니다.";
-		String text = "<img src=\\\"cid:image\\\"><div class=\"container\" style=\"width: 500px;font-family: 'Noto Sans KR', sans-serif; text-align: center; font-weight: 400;\">\r\n"
+		String text = "<img src=\\\"cid:image\\\"><div class=\"container\" style=\"width: 1008px;font-family: 'Noto Sans KR', sans-serif; text-align: center; font-weight: 400;\">\r\n"
 				+ "    <div class=\"gamsung-title\" style=\"height: 100px;font-size: 36px;border-top: 1px solid #ddd;border-bottom: 1px solid #ddd; padding: 15px; box-sizing: border-box; font-weight: 700; margin-bottom: 15px;color: rgb(42, 99, 65);\">감성캠핑</div>\r\n"
 				+ "    <div class=\"color-text\">안녕하세요 감성캠핑입니다~</div>\r\n"
 				+ "    <div>가입승인이 왼료되었습니다:)</div>\r\n"
 				+ "    <div>승인이 완료되어 사이트 이용이 가능합니다 감사합니다~</div>\r\n"
-				+ "    <a href=\"http://127.0.0.1:8080\"><button class=\"button\" >감성캠핑 바로가기</button></a>";
+				+ "    <a href=\"http://127.0.0.1:8080\"><button class=\"w-btn-outline w-btn-green-outline\" type=\"button\" style=\"border: 3px solid #77af9c; color: darkgray; position: relative;\r\n"
+				+ "padding: 15px 30px; border-radius: 15px; font-family: 'paybooc-Light', sans-serif; box-shadow: 0 15px 35px rgb(0 0 0 / 20%);\r\n"
+				+ "text-decoration: none; font-weight: 600; transition: 0.25s; margin: 20px; box-sizing: border-box;\">감성캠핑 바로가기</button></a>";
 		try {
 			sendMail.sendMailHtml(user.getId(), info, text);
 		}catch(Exception e) {
@@ -357,14 +364,18 @@ public class UserServiceImpl implements UserService{
 	public boolean addSecessionUser(User user){
 		System.out.println("탈퇴 서비스임쁠 타는지");
 		System.out.println(user);
-		if(campDAO.isSecessionUserReservationCondition(user.getId())&&auctionDAO.isSecessionUserAuctionCondition(user.getId())) {
-		System.out.println("캠핑장 예약내역 있는지"+campDAO.isSecessionUserReservationCondition(user.getId()));
-		System.out.println("완료되지 않은 옥션 거래내역 있는지"+auctionDAO.isSecessionUserAuctionCondition(user.getId()));
-		 userDAO.addSecessionUser(user);
-		 return true;
-		}else {	
-		return false;
+		try {
+			if(campDAO.isSecessionUserReservationCondition(user.getId())&&auctionDAO.isSecessionUserAuctionCondition(user.getId())&& transDAO.isSecessionTransferCondition(user.getId())) {
+			System.out.println("캠핑장 예약내역 있는지"+campDAO.isSecessionUserReservationCondition(user.getId()));
+			System.out.println("완료되지 않은 옥션 거래내역 있는지"+auctionDAO.isSecessionUserAuctionCondition(user.getId()));
+			System.out.println("완료되지 않은 양도양수 거래내역 있는지"+transDAO.isSecessionTransferCondition(user.getId()));
+			 userDAO.addSecessionUser(user);
+			 return true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+		return false;
 	}
 
 	@Override
@@ -422,12 +433,14 @@ public class UserServiceImpl implements UserService{
 					if(user.getSecessionRegDate()==null&&user.getSuspensionDate()==null&&user.getDormantConversionDate()==null&&sdf.parse(SendMailConvertedDate).after(sdf.parse(loginDate))){
 					SendMailHtml mail=new SendMailHtml();
 					String info="[감성캠핑] 휴면회원 전환예정 안내메일 입니다.";
-					String text ="<img src=\\\"cid:image\\\"><div class=\"container\" style=\"width: 500px;font-family: 'Noto Sans KR', sans-serif; text-align: center; font-weight: 400;\">\r\n"
+					String text ="<img src=\\\"cid:image\\\"><div class=\"container\" style=\"width: 1008px;font-family: 'Noto Sans KR', sans-serif; text-align: center; font-weight: 400;\">\r\n"
 							+ "    <div class=\"gamsung-title\" style=\"height: 100px;font-size: 36px;border-top: 1px solid #ddd;border-bottom: 1px solid #ddd; padding: 15px; box-sizing: border-box; font-weight: 700; margin-bottom: 15px;color: rgb(42, 99, 65);\">감성캠핑</div>\r\n"
 							+ "    <div class=\"color-text\">안녕하세요 감성캠핑입니다~</div>\r\n"
 							+ "    <div>정보통신망 이용촉진 및 정보보호 등에 관한 법률 제29조(개인정보의 파기)에 따라 회원님의 개인정보가 별로 분리저장되어 아이디가 7일 후 휴면계정으로 전환될 예정입니다.</div>\r\n"
 							+ "    <div>휴면계정으로 전환을 원치 않으시면 7일 이내에 사이트에 방문하에 로그인 부탁드립니다~</div>\r\n"
-							+ "    <a href=\"http://127.0.0.1:8080\"><button class=\"button\" >감성캠핑 바로가기</button></a>";
+							+ "    <a href=\"http://127.0.0.1:8080\"><button class=\"w-btn-outline w-btn-green-outline\" type=\"button\" style=\"border: 3px solid #77af9c; color: darkgray; position: relative;\r\n"
+							+ "padding: 15px 30px; border-radius: 15px; font-family: 'paybooc-Light', sans-serif; box-shadow: 0 15px 35px rgb(0 0 0 / 20%);\r\n"
+							+ "text-decoration: none; font-weight: 600; transition: 0.25s; margin: 20px; box-sizing: border-box;\">감성캠핑 바로가기</button></a>";
 					mail.sendMailHtml(user.getId(), info, text);
 					}else if(user.getSecessionRegDate()==null&&user.getSuspensionDate()==null&&user.getDormantConversionDate()==null&&sdf.parse(TobeConvertedDate).after(sdf.parse(loginDate))) {
 		            userDAO.addDormantUser(user);
