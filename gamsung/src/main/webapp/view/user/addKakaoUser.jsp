@@ -12,9 +12,8 @@
 
 
 			<title>회원가입</title>
-			
-			<style>
 
+			<style>
 				.form-group .btn {
 					height: 26px;
 					padding-top: 0;
@@ -50,16 +49,16 @@
 				</div>
 				<jsp:include page="../common/header.jsp"></jsp:include>
 				<div class="main">
-					<section class="module bg-dark-30 about-page-header" data-background="assets/images/about_bg.jpg">
+					<section class="module bg-dark-30 about-page-header"
+						data-background="../../resources/images/addGeneralUserImg.png">
 						<div class="container">
 							<div class="row">
 								<div class="col-sm-6 col-sm-offset-3">
-									<h1 class="module-title font-alt mb-0">Forms</h1>
 								</div>
 							</div>
 						</div>
 					</section>
-					<section class="module">
+					<section class="module" style="padding-top:50px;">
 						<div class="container">
 							<!-- <div class="row"> -->
 							<div class="col-sm-8 col-sm-offset-2">
@@ -370,14 +369,18 @@ alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+
 
 					function fncAddUser() {
 
-
+						var id = $("input#add_kakao_id").val();
 						var pw = $("#add_kakao_password").val();
-						var pw_confirm = $("#cadd_kakao_onfirmPassword").val();
+						var pw_confirm = $("#cadd_kakao_confirmPassword").val();
 						var name = $("#add_kakao_name").val();
 						var nickName = $("#add_kakao_nickName").val();
 						var phone = $("#add_kakao_phone").val();
 
-						/* if (pw == null || pw.length < 1) {
+						if (id == null || id.length < 1) {
+							alert("아이디는  반드시 입력하셔야 합니다.");
+							return;
+						}
+						if (pw == null || pw.length < 1) {
 							alert("패스워드는  반드시 입력하셔야 합니다.");
 							return;
 						}
@@ -402,6 +405,7 @@ alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+
 							$("#cadd_kakao_onfirmPassword").focus();
 							return;
 						}
+
 						if (nickName == null || nickName.length < 1) {
 							alert("닉네임은 반드시 입력하셔야 합니다.");
 							return;
@@ -410,7 +414,7 @@ alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+
 						if (phone == null || phone.length < 1) {
 							alert("휴대폰번호는 반드시 입력하셔야 합니다.");
 							return;
-						} */
+						}
 
 						$("#add_kakao_form").attr("method", "POST").attr("action", "/user/addUser").submit();
 					}

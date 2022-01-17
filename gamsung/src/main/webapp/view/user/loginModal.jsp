@@ -8,7 +8,8 @@
 			<section class="panel">
 				<header class="panel-heading">
 					<!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button> -->
-					<h3 class="modal-title" align="center" style="font-size: 30px;font-weight: 500;margin-bottom: 20px;">로그인</h3>
+					<h3 class="modal-title" align="center"
+						style="font-size: 30px;font-weight: 500;margin-bottom: 20px;">로그인</h3>
 				</header>
 				<div class="panel-body">
 					<form id="login-modal-form" action="" class="was-validated">
@@ -29,7 +30,8 @@
 							<ul>
 								<li id="joinUser">일반회원 가입</li>
 								<li id="joinBusinessUser">사업자회원 가입</li>
-								<li class="modal-dismiss" data-toggle="modal" data-target="#findIdPwdModal" id="findId">
+								<li class="modal-dismiss" data-toggle="modal" data-target="#findIdPwdModal"
+									id="findIdPwd">
 									아이디 찾기/비밀번호 찾기</li>
 							</ul>
 						</div>
@@ -62,8 +64,8 @@
 				if (kakaoInfo != "") {
 					var data = JSON.parse(kakaoInfo);
 
-					alert("카카오로그인 성공 \n accessToken : " + data['accessToken']);
-					alert(
+					console.log("카카오로그인 성공 \n accessToken : " + data['accessToken']);
+					console.log(
 						"user : \n" + "email : "
 						+ data['email']
 						+ "\n nickname : "
