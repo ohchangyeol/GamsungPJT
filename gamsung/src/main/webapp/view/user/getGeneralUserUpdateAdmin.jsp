@@ -10,11 +10,12 @@
 
 			<title>일반회원정보 조회/수정</title>
 
-			<jsp:include page="../../resources/commonCssAdmin.jsp" />
-
 			<!-- Specific Page Vendor CSS -->
 			<link rel="stylesheet" href="/resources/lib/select2/select2.css" />
 			<link rel="stylesheet" href="/resources/lib/jquery-datatables-bs3/assets/css/datatables.css" />
+
+			<jsp:include page="../../resources/commonCssAdmin.jsp" />
+			<%--<jsp:include page="../../resources/commonLib.jsp" />--%>
 
 			<style>
 				.form-group .btn {
@@ -50,6 +51,7 @@
 				<!-- start: header -->
 				<jsp:include page="../../view/common/adminHeader.jsp" />
 
+
 				<!-- end: header -->
 
 				<div class="inner-wrapper">
@@ -59,11 +61,10 @@
 
 					<section role="main" class="content-body">
 						<section class="module bg-dark-30 about-page-header"
-							data-background="assets/images/about_bg.jpg">
+							style="background-image: url(../../resources/images/getGeneralUserUpdateAdminImg.jpg)">
 							<div class="container">
 								<div class="row">
 									<div class="col-sm-6 col-sm-offset-3">
-										<h1 class="module-title font-alt mb-0">Forms</h1>
 									</div>
 								</div>
 							</div>
@@ -72,7 +73,6 @@
 							<div class="container">
 								<div class="row">
 									<div class="col-sm-8 col-sm-offset-2">
-										<h4 class="font-alt mb-0">일반회원정보 조회/수정</h4>
 										<hr class="divider-w mt-10 mb-20">
 										<form class="form" role="form">
 											<div id="email" class="form-group">
@@ -243,20 +243,13 @@
 			</div>
 			</main>
 
+			<jsp:include page="/resources/commonScriptAdmin.jsp" />
 
-			<!-- <script src="../../resources/lib/jquery/jquery.js"></script>
-			<script src="../../resources/lib/bootstrap/js/bootstrap.min.js"></script>
-			<script src="../../resources/lib/wow/wow.js"></script>
-			<script src="../../resources/lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js"></script>
-			<script src="../../resources/lib/isotope/isotope.pkgd.js"></script>
-			<script src="../../resources/lib/imagesloaded/imagesloaded.pkgd.js"></script>
-			<script src="../../resources/lib/flexslider/jquery.flexslider.js"></script>
-			<script src="../../resources/lib/owl.carousel/dist/owl.carousel.min.js"></script>
-			<script src="../../resources/lib/smoothscroll.js"></script>
-			<script src="../../resources/lib/magnific-popup/jquery.magnific-popup.js"></script>
-			<script src="../../resources/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script>
-			<script src="../../resources/js/plugins.js"></script>
-			<script src="../../resources/js/main.js"></script> -->
+			<!-- Specific Page Vendor -->
+			<script src="/resources/lib/select2/select2.js"></script>
+			<script src="/resources/lib/jquery-datatables/media/js/jquery.dataTables.js"></script>
+			<script src="/resources/lib/jquery-datatables/extras/TableTools/js/dataTables.tableTools.min.js"></script>
+			<script src="/resources/lib/jquery-datatables-bs3/assets/js/datatables.js"></script>
 
 			<script type="text/javascript">
 

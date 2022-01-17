@@ -164,10 +164,6 @@
 							<hr class="separator" />
 							<hr class="separator" />
 
-							<li>
-								<span class="text-center">회원틸퇴</span>
-							</li>
-
 						</ul>
 						<!-- 메뉴 End -->
 
@@ -224,7 +220,7 @@
 				$('#my_camp_review').on('click', function () {
 					window.location = "/campGeneral/listMyCampRatingReview";
 				});
-				
+
 				$('#my_camp_qna').on('click', function () {
 					window.location = "/campBusiness/listCampQna?userId=${user.id}";
 				});
