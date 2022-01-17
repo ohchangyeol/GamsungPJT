@@ -156,8 +156,8 @@ public class CrawlingData {
 							break;
 						}
 					}
+					System.out.println(doc.select(".total-price").text());
 					String price = doc.select(".total-price").text().replaceAll(",","").replaceAll("원","").trim();
-					
 					int intPrice = 0;
 					
 					if(price.indexOf(" ") != -1) {

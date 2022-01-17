@@ -249,19 +249,7 @@
         </section>
         
         <hr class="divider-d">
-        <footer class="footer bg-dark">
-          <div class="container">
-            <div class="row">
-              <div class="col-sm-6">
-                <p class="copyright font-alt">&copy; 2017&nbsp;<a href="index.html">TitaN</a>, All Rights Reserved</p>
-              </div>
-              <div class="col-sm-6">
-                <div class="footer-social-links"><a href="#"><i class="fa fa-facebook"></i></a><a href="#"><i class="fa fa-twitter"></i></a><a href="#"><i class="fa fa-dribbble"></i></a><a href="#"><i class="fa fa-skype"></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </footer>
+        <jsp:include page="../common/footer.jsp"></jsp:include>
       </div>
       <div class="scroll-up"><a href="#totop"><i class="fa fa-angle-double-up"></i></a></div>
       <form>
@@ -288,7 +276,7 @@
 	   			$("#auctionProductSubDetail").val(auctionProductSubDetail);
 	   			$("#auctionProductName").val(auctionProductName);
 	   			$("#allhashtag").val(allhashtag);
-	   			$('form').attr('method','post').attr('action','/auction/getAuctionProduct').submit();
+	   			$('form').attr('method','post').attr('action','/auction/getAuctionProductB').submit();
 	   		});
   			 
 	   		$('body').on('click','.notCrawl',function(){
