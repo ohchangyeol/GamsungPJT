@@ -205,16 +205,18 @@
 		WHERE payment_reference_num LIKE CONCAT('%',#{value},'%')
 	</select>	
 	
-	<update	id="addRefundPayment" parameterType="payment" >
+	<update	id="updateRefundPayment" parameterType="payment" >
 	   	UPDATE PAYMENT
 	   	SET	payment_status = #{paymentStatus}
 	   		, payment_refund_code = #{paymentRefundCode}
+	   		, payment_refund_reference_num = #{paymentRefundReferenceNum}
 	   		, payment_refund_reg_time = now(6)
 	   		, payment_refund_price_total = #{paymentRefundPriceTotal}
 			, payment_refund_price_pay = #{paymentRefundPricePay}
 			, payment_refund_price_fee = #{paymentRefundPriceFee}
-			, payment_refund_reference_num = #{paymentRefundReferenceNum}
-			, payment_refund_reference_fee = #{paymentRefundReferenceFee}			
+			, payment_refund_price_total_second = #{paymentRefundPriceTotalSecond}
+			, payment_refund_price_pay_second = #{paymentRefundPricePaySecond}
+			, payment_refund_price_fee_second = #{paymentRefundPriceFeeSecond}
 	   	WHERE payment_no = #{paymentNo}
 	</update>
 

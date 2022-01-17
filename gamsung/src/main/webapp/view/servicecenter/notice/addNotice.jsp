@@ -1,18 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
 
-    <div class="inner-toolbar clearfix">
-        <ul>
-            <li class="notice-btn" data-no="1">
-                <i class="fa fa-send-o mr-sm"></i>등록
-            </li>
-            <li class="notice-btn" data-no="2">
-                <i class="fa fa-times mr-sm"></i> 초기화
-            </li>
-        </ul>
-    </div>
+    
 
-    <div class="mailbox-compose">
+    <div class="mailbox-compose" style="margin-top: -29px; position: relative;">
+        <div class="inner-toolbar clearfix">
+            <ul>
+                <li class="notice-btn" data-no="1">
+                    <i class="fa fa-send-o mr-sm"></i>등록
+                </li>
+                <li class="notice-btn" data-no="2">
+                    <i class="fa fa-times mr-sm"></i> 초기화
+                </li>
+            </ul>
+        </div>
         <form id="notice-form" name="notice-form" class="form-horizontal form-bordered form-bordered notice-form" action="" method="" >
             <input type="hidden" name="id" value="${user.id}">
             <div class="form-group form-group-invisible">

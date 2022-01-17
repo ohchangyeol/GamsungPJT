@@ -60,8 +60,8 @@ public class PaymentDAOImpl implements PaymentDAO{
 	}
 	
 	@Override
-	public void updatePayment(Payment payment) throws Exception {
-		sqlSession.update("PaymentMapper.addRefundPayment", payment);		
+	public void updateRefundPayment(Payment payment) throws Exception {
+		sqlSession.update("PaymentMapper.updateRefundPayment", payment);		
 	}
 		
 	@Override

@@ -5,7 +5,10 @@ import java.util.List;
 import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.Camp;
 import site.gamsung.service.domain.MainSite;
+import site.gamsung.service.domain.Notice;
+import site.gamsung.service.domain.Qna;
 import site.gamsung.service.domain.SubSite;
+import site.gamsung.service.domain.CampReservation;
 
 public interface CampBusinessDAO {
 	
@@ -34,8 +37,9 @@ public interface CampBusinessDAO {
 	
 	public int getCampTempSaveById(String id) throws Exception;
 	
+	public List<CampReservation> listCampReservationJSON(int campNo) throws Exception;
+	
 	public boolean isSecessionCampReservationCondition(String id) throws Exception;
-		
 	
 	/*
 	 * MainSite
@@ -63,5 +67,33 @@ public interface CampBusinessDAO {
 	public List<SubSite> listSubSite(Search search) throws Exception;
 	
 	public void deleteSubSite(int subSiteNo) throws Exception;
+	
+	
+	/*
+	 * Q&A
+	 */	
+	public void addCampQnaQuestion(Qna qna) throws Exception;
+	
+	public void addCampQnaAnswer(Qna qna) throws Exception;
+
+	public Qna getCampQna(int qnaNo) throws Exception;
+
+	public List<Qna> listCampQna(int campNo) throws Exception;
+	
+	public List<Qna> listCampQnaById(String userId) throws Exception;	
+		
+	
+	/*
+	 * Notice
+	 */	
+	public void addCampNotice(Notice notice) throws Exception;
+
+	public Notice getCampNotice(int noticeNo) throws Exception;
+
+	public void updateCampNotice(Notice notice) throws Exception;
+
+	public List<Notice> listCampNotice(int campNo) throws Exception;
+	
+	public void deleteCampNotice(int noticeNo) throws Exception;
 
 }

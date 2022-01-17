@@ -248,8 +248,9 @@ public class AuctionInfoServiceImpl implements AuctionInfoService{
 		
 		payment.setPaymentProduct(auctionProduct.getAuctionProductName());
 		payment.setPaymentSender(user.getId());
-		payment.setPaymentReferenceNum(auctionProduct.getAuctionProductNo());
+		payment.setPaymentReferenceNum("["+auctionProduct.getAuctionProductNo()+"]");
 		payment.setPaymentCode(paymentCode.getPaymentCode());
+		payment.setPaymentMethodSecond("point");
 		payment.setPaymentPriceTotalSecond(auctionProduct.getHopefulBidPrice()*paymentCode.getPaymentCodeFee()/100);
 		
 		return payment;

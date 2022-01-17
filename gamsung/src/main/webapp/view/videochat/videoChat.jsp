@@ -21,6 +21,10 @@
 			<div class="infoText font-weight-bold">낙찰자ID : ${auctionProduct.successfulBidderId}</div>
 			<div class="infoText font-weight-bold">최종금액 : <fmt:formatNumber type="number" maxFractionDigits="3" value="${auctionProduct.currentBidPrice}" />원</div>
 		</div>
+		<div>
+			<button>경매 확정</button>
+			<button>신고</button>
+		</div>
 		<div id="welcome">
 			<form>
 				<input type="hidden" value="${auctionProduct.auctionProductNo}">
@@ -69,7 +73,7 @@
 
 <!-- <script src="http://192.168.0.77:3000/socket.io/socket.io.js"></script> -->
 <!-- <script src="https://192.168.0.77:3000/socket.io/socket.io.js"></script> -->
-<script src="https://gamsung.site:3000/socket.io/socket.io.js"></script>
+<script src="https://www.gamsung.site:3000/socket.io/socket.io.js"></script>
 
 <script src="../../resources/js/videochat.js"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>

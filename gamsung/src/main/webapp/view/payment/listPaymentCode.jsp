@@ -40,17 +40,6 @@
     <link id="color-scheme" href="/resources/css/colors/default.css" rel="stylesheet">    	
   	<!-- ### headerCampBusiness resources End ### -->
 
-	<style>
-		#lpc {
-			padding-top: 70px;
-			padding-right: 15px;
-			padding-left: 15px;
-			margin-right: auto;
-			margin-left: auto;
-		}
-		
-	</style>
-
 	<script type="text/javascript">		
 	
 		$(function() {		
@@ -153,7 +142,7 @@
 		<jsp:include page="/view/common/header.jsp"/>
 	</c:if>
 
-	<div class="container" style="padding-top: 50px;">
+	<div class="container" style="padding-top: 50px; padding-bottom: 100px; padding-right: 15px; padding-left: 15px; margin-right: auto;margin-left: auto;">
 	
 		<div class="row">
 			<div class="sub-title">
@@ -194,7 +183,7 @@
 							</c:if>
 						</div>		
 										
-						<div class="row">
+						<div class="row" >
 							<div class="col-xs-1 form-group">
 								<input type="text" id="paymentCodeRegNum" name="paymentCodeRegNum" value="${payment.paymentCodeRegNum}" class="form-control" readonly>
 							</div>
@@ -232,7 +221,7 @@
 									<button id="addform" type="button" class="btn btn-primary">추가</button>
 								</div>
 							</c:if>															
-						</div>						
+						</div>
 	
 					</form>
 			</c:forEach>
