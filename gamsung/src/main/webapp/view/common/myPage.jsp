@@ -190,7 +190,7 @@ Template specific stylesheets
 							<form action="" class="was-validated">
 								<div class="form-group">
 									<input type="text" class="form-control" id="secession-userId"
-										placeholder="아이디를 입력하세요" name="id" required>
+										value="${user.id}" name="id" required readonly>
 								</div>
 								<div class="form-group">
 									<input type="password" class="form-control" id="secession-userPwd"

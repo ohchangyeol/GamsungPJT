@@ -40,16 +40,47 @@ public class ReceiveDAOImpl implements ReceiveDAO {
 		String Id = search.getId();  /* search안에 있는 ID는 접속자 ID */
 		String Role = search.getRole();
 		int TransferNo = search.getTransferNo(); /* search안에 있는 TransferNo는 클릭한 양도글NO */
-					
+		
+		System.out.println("mapper넘기기전에 transferNo::::"+TransferNo);
+		System.out.println("mapper넘기기전에 Id::::"+Id);
+		System.out.println("mapper넘기기전에 Role::::"+Role);
+						
 		/*양도글번호를 넘겨서 양도글에 엮긴 양도자의 id랑 닉네임을 가져온다. */	
-		Map <String,Object> map = sqlSession.selectOne("ReceiveMapper.getTransferUser", TransferNo);		
+		
+		
+		Map <String,Object> map = sqlSession.selectOne("ReceiveMapper.getTransferUser", TransferNo);	
+		
+		System.out.println("getTransferUser갔다온 map:::::"+map);
+		
 		String transferWriter = String.valueOf(map.get("id"));
 		
-		if (Role.equals("admin") || Id.equals(transferWriter)) { /* 관리자거나 작성자이면 */		 
+		//Receive에 넣기 전 transferWriter::::user1@gamsung.com
+		
+		System.out.println("Receive에 넣기 전 transferWriter::::"+transferWriter);
+		
+		if (Role.equalsIgnoreCase("admin") || Id.equalsIgnoreCase(transferWriter)) {
+			
+			// 해당 게시물에 전체 양수글 조회
+			
+		List<Receive> listReceive = sqlSession.selectList("ReceiveMapper.listReceive",search); 		
+			
+		System.out.println("mapper에서 search한 listReceive:::::"+listReceive);
+		
 		return sqlSession.selectList("ReceiveMapper.listReceive",search); 		
+		
 		}else{
-		return sqlSession.selectList("ReceiveMapper.listMyReceive",search); }
+			
+			// 해당 게시물에 내가 쓴 양수글 조회
+			
+		List<Receive> TransferInMyReceive  = 	sqlSession.selectList("ReceiveMapper.TransferInMyReceive",search); 
+		
+		System.out.println("mapper에서 search한 TransferInMyReceive:::::"+TransferInMyReceive);
+		
+		return sqlSession.selectList("ReceiveMapper.TransferInMyReceive",search); 
+		
+		}
 	}
+	
 
 	@Override
 	public Receive getReceive(int receiveNo) throws Exception {
@@ -71,12 +102,17 @@ public class ReceiveDAOImpl implements ReceiveDAO {
 		return sqlSession.update("ReceiveMapper.blindReceive", receiveNo);
 	}
 
-	public int UpdateTransferApproval(int transferNo) throws Exception{
-		return sqlSession.update("ReceiveMapper.updateApprovalStatus", transferNo);
+	public int updateTransferStatus(Receive receive) throws Exception{
+		return sqlSession.update("ReceiveMapper.updateTransferStatus", receive);
 	}
 	
 	public int UpdateTransferComplete(int transferNo) throws Exception{
 		return sqlSession.update("ReceiveMapper.updateCompleteStatus", transferNo);
+	}
+
+	@Override
+	public List<Receive> mylistReceive(Search search) throws Exception {
+		return sqlSession.selectList("TransferMapper.listMyReceive",search);
 	}
 
 }

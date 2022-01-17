@@ -6,6 +6,7 @@ encoding//src/main/java=UTF-8
 encoding//src/main/java/site/gamsung/controller/chat/ChatController.java=UTF-8
 encoding//src/main/webapp/view/chat/chattingList.jsp=UTF-8
 encoding//src/main/webapp/view/chat/chattingRoom.jsp=UTF-8
+encoding//src/main/webapp/view/receive/listMyReceive.jsp=UTF-8
 encoding//src/resources=UTF-8
 encoding//src/test/java=UTF-8
 encoding/<project>=UTF-8
