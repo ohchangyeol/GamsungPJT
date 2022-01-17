@@ -1,10 +1,11 @@
 .format{display: none;}
 /* Notice Layout */
 li {list-style: none;}
+.inner-body-notice{padding-top: 50px;}
 .container .row h4 {font-weight: 600;}
 .container .row h4 a{ display: flex !important; justify-content: space-between; align-items: center;}
 .container .row h4 a div {margin-right: 30px;}
-
+.content-with-menu-container{margin-top: 55px;}
 .notice-list ul{padding:0;}
 .notice-list ul li {padding: 10px 15px;transition: background-color 0.2s ease-in-out; cursor: pointer;}
 .notice-list ul li:hover {background-color: #f0f0f09d;}
@@ -12,7 +13,7 @@ li {list-style: none;}
 .page-nav{width: 100%; text-align: center;margin: 40px 0;}
 hr.divider-w{height: 0 !important;}
 .date-view{display: flex; justify-content: space-between;}
-
+#notice-form {border-top: 52px transparent solid;box-sizing: border-box;}
 /* get Notice */
 .getNotice .row .row {display: flex; justify-content: end;}
 .getNotice .notice-content .n-body .row .file-content {border: 1px solid #f0f0f0; border-radius: 7px; background-color:#f0f0f09d ;padding: 10px; box-sizing: border-box;}
@@ -28,7 +29,8 @@ hr.divider-w{height: 0 !important;}
 .add-notice #n-files{opacity: 0;z-index: -11; display: none;}
 .add-notice #fileDragDesc{margin-top: 8px;}
 .add-notice #dropZone button{background-color: transparent ;border: none;}
-.add-notice .inner-wrapper .content-body .add-notice{margin: -100px -40px -53px -40px;}
+/* .add-notice .inner-wrapper .content-body .add-notice{margin: -100px -40px -53px -40px;} */
+/* .add-notice .content-with-menu-container {padding-top: 55px;} */
 
 /* QnA Layout */
 .qna hr{height: 0; margin-bottom: 30px;}

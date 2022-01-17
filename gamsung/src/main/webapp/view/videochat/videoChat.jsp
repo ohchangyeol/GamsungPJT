@@ -69,7 +69,7 @@
 
 <!-- <script src="http://192.168.0.77:3000/socket.io/socket.io.js"></script> -->
 <!-- <script src="https://192.168.0.77:3000/socket.io/socket.io.js"></script> -->
-<script src="https://gamsung.site:3000/socket.io/socket.io.js"></script>
+<script src="https://www.gamsung.site:3000/socket.io/socket.io.js"></script>
 
 <script src="../../resources/js/videochat.js"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>

@@ -138,6 +138,7 @@ public class PaymentController {
 				
 		// 캠핑장예약 결제완료-예약완료 처리
 		campReservation.setReservationStatus(1);		
+		campReservation.setTotalPaymentPrice(0);
 		campReservationService.updateTempReservationToReal(campReservation);	
 		
 		// Session 정보업데이트

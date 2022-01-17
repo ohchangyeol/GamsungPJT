@@ -38,7 +38,7 @@ pageEncoding="UTF-8"%>
 
 				<section role="main" class="content-body">
 					<section class="content-with-menu content-with-menu-has-toolbar mailbox add-notice">
-						<div class="content-with-menu-container" data-mailbox data-mailbox-view="compose">
+						<div class="content-with-menu-container add-notice" data-mailbox data-mailbox-view="compose">
 							
 							
 							
@@ -47,13 +47,18 @@ pageEncoding="UTF-8"%>
 								<c:if test="${!empty noticeType}">
 									
 									<c:if test='${noticeType == "list"}'>
-										<jsp:include page="../notice/listNotice.jsp"/>
+										<div class="inner-body-notice">
+											<jsp:include page="../notice/listNotice.jsp"/>
+
+										</div>
 									</c:if>
 									<c:if test='${noticeType == "add"}'>
 										<jsp:include page="../notice/addNotice.jsp"/>
 									</c:if>
 									<c:if test='${noticeType == "get"}'>
-										<jsp:include page="../notice/getNotice.jsp"/>
+										<div class="inner-body-notice">
+											<jsp:include page="../notice/getNotice.jsp"/>
+										</div>
 									</c:if>
 								</c:if>
 								

@@ -25,17 +25,16 @@ pageEncoding="UTF-8"%>
       <jsp:include page="../common/header.jsp"/>
       <!-- header End -->
       <div class="main">
-        <section class="module bg-dark-60 service-page-header" data-background="../../resources/images/services_bg.jpg">
+        <section class="module bg-dark-60 service-page-header" data-background="../../resources/images/servicecenter.jpg" style="padding: 200px;">
           <div class="container">
             <div class="row">
               <div class="col-sm-6 col-sm-offset-3">
-                <h2 class="module-title font-alt">고객센터</h2>
-                <div class="module-subtitle font-serif">고객센터를 통해 궁금증을 해결하세요.</div>
+               
               </div>
             </div>
           </div>
         </section>
-        <section class="module" id="services">
+        <section class="module" id="services" style="padding-top:100px;">
           <div class="container">
             <div class="row">
               <div class="col-sm-6 col-sm-offset-3">
