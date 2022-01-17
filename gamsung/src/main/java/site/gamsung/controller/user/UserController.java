@@ -206,8 +206,10 @@ public class UserController {
 			session.setAttribute("user", user);
 			if (user.getRole().equals("GENERAL")) {
 				return "forward:/view/common/myPage.jsp";
-			} else {
+			} else if(user.getRole().equals("BUSINESS")){
 				return "forward:/view/user/getBusinessUserUpdate.jsp";
+			}else {
+				return "forward:/view/user/adminMyPage.jsp";
 			}
 		}
 

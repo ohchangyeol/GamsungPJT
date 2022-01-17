@@ -52,8 +52,8 @@
                                     </div>
 
                                     <div class="find-btn">
-                                        <div align="right"><button type="button" class="btn btn-d btn-circle btn-sm"
-                                                id="findId">아이디찾기</button></div>
+                                        <div align="right"><button type="button" class="btn btn-circle btn-sm" style="background-color: #3974d9;
+                                            color: #fff;" id="findId">아이디찾기</button></div>
                                     </div>
                                 </form>
                             </div>
@@ -74,8 +74,8 @@
                                         <input type="text" class="form-control" id="findPwdPhone"
                                             placeholder="휴대폰 번호를 숫자만 입력해주세요." name="phone" required>
                                     </div>
-                                    <div align="right" class="find-btn"><button type="button"
-                                            class="btn btn-d btn-circle btn-sm" id="findPwd">비밀번호찾기</button></div>
+                                    <div align="right" class="find-btn"><button type="button" style="background-color: #3974d9;
+                                        color: #fff;" class="btn btn-circle btn-sm" id="findPwd">비밀번호찾기</button></div>
                                 </form>
                             </div>
                         </div>

@@ -47,7 +47,7 @@
 				</div>
 				<jsp:include page="../common/header.jsp"></jsp:include>
 				<div class="main">
-					<section class="module bg-dark-30 about-page-header" data-background="assets/images/about_bg.jpg">
+					<!-- <section class="module bg-dark-30 about-page-header" data-background="assets/images/about_bg.jpg">
 						<div class="container">
 							<div class="row">
 								<div class="col-sm-6 col-sm-offset-3">
@@ -55,8 +55,8 @@
 								</div>
 							</div>
 						</div>
-					</section>
-					<section class="module">
+					</section> -->
+					<section class="module" style="padding-top: 30px;">
 						<div class="container">
 							<div class="row">
 								<div class="col-sm-8 col-sm-offset-2">
