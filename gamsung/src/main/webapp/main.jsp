@@ -213,26 +213,8 @@
               </div>
             </section>
 
-            <hr class="divider-w">
-            <section class="module-extra-small bg-dark">
-              <div class="container">
-                <div class="row">
-                  <div class="col-sm-6 col-md-8 col-lg-9">
-                    <div class="callout-text font-alt">
-                      <h4 style="margin-top: 0px;">Start Creating Beautiful Websites</h4>
-                      <p style="margin-bottom: 0px;">Download Titan Free today!</p>
-                    </div>
-                  </div>
-                  <div class="col-sm-6 col-md-4 col-lg-3">
-                    <div class="callout-btn-box"><a class="btn btn-border-w btn-circle"
-                        href="https://themewagon.com/themes/titan/">Downlaod Free</a></div>
-                  </div>
-                </div>
-              </div>
-            </section>
+            <jsp:include page="./view/common/footer.jsp"/>
 
-          </div>
-          <div class="scroll-up"><a href="#totop"><i class="fa fa-angle-double-up"></i></a></div>
         </main>
         <c:if test="${!empty user.id}">
           <!-- chatting -->
