@@ -253,17 +253,25 @@ public class PaymentController {
 								@ModelAttribute("campReservation") CampReservation campReservation, 
 								HttpSession httpSession, Model model) throws Exception {
 		
-		System.out.println("payment : "+paymentList);													// 테스트
+		System.out.println("payment : "+paymentList);												// 테스트
 		System.out.println("campReservation : "+campReservation);									// 테스트
 		
+		List<Payment> paymentListFromParam = paymentList.getPaymentList();
+		for (int cnt = 0; cnt < paymentListFromParam.size(); cnt++) {
+			
+			Payment onePayment = paymentListFromParam.get(cnt);
+			System.out.println("paymentRecordList1 : "+cnt+" : " + onePayment);						// 테스트
+			
+			paymentService.refundPayment(onePayment);
+		}
 		
+		List<Payment> paymentNewList = paymentService.getPaymentListByRsvNo(campReservation.getReservationNo());
+		for (Payment payment : paymentNewList) {
+			System.out.println("payment : " + payment);
+		}
 		
-		
-		
-		
-		
-		
-		
+		model.addAttribute("paymentList", paymentNewList);
+		model.addAttribute("campReservation", campReservation);
 		
 		return "forward:/view/payment/resultRefund.jsp";
 	}

@@ -31,7 +31,7 @@ pageEncoding="UTF-8"%>
       <!-- header End -->
 
       <div class="main">
-        <section class="module bg-dark-60 contact-page-header bg-dark" data-background="assets/images/contact_bg.jpg">
+        <section class="module bg-dark-60 contact-page-header bg-dark" data-background="../../../resources/images/qna.jpg" style="background-size: cover;">
           <div class="container">
             <div class="row">
               <div class="col-sm-6 col-sm-offset-3">
@@ -54,7 +54,7 @@ pageEncoding="UTF-8"%>
           </div>
         </section>
         
-        <section class="module">
+        <section class="module" style="padding-top: 50px;">
           <div class="container">
             <c:if test="${!empty qnaType}">
               <c:choose>

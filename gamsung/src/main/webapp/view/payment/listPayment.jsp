@@ -282,17 +282,25 @@
 					    	render: function ( data, type, row, meta ) {
 					    		
 					    		var codeLetter = data.charAt(1);
-					    		var refNum = data.substring(1,7);
+					    		var refNum = "";
 					    		refNum = refNum.trim();
 					    							    		
-					    		console.log(codeLetter);
+					    		console.log("codeLetter"+codeLetter+"codeLetter");
 					    		console.log(refNum);		    		
 					    		
 					    		if(codeLetter == 'R'){
+					    			refNum = data.substring(1,7);
+					    			console.log("R : "+refNum);
 					    			return '<a href="/campGeneral/getMyReservation?reservationNo='+refNum+'">'+data+' 상세내역</a>';
 					    			
-					    		} else if(codeLetter == 'A'){
-					    			return '<a href="/getMyReservation?reservationNo='+refNum+'">'+data+' 상세내역</a>';
+					    		} else if(codeLetter == 'P'){
+					    			refNum = data.substring(1,10);
+					    			console.log("P : "+refNum);
+					    			return '<a href="/auction/getAuctionProduct?auctionProductNo='+refNum+'">'+data+' 상세내역</a>';
+					    			
+					    		} else if(codeLetter =='T') {
+					    			refNum = data;
+				    				return '<a href="/campGeneral/getMyReservation?reservationNo='+refNum+'">'+data+' 상세내역</a>';
 					    			
 					    		} else {
 					    			return data;

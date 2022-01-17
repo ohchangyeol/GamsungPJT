@@ -1,5 +1,7 @@
 package site.gamsung.controller.auction;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -222,7 +224,21 @@ public class AuctionProductController {
 		if(auctionProduct.getProductImg1() == null) {
 			
 			List<MultipartFile> fileList = mtfRequest.getFiles("inputImgs");
-		
+//			AWSService awsService = new AWSService();
+//			for(MultipartFile multipartFile : fileList) {
+//				File file = new File(multipartFile.getOriginalFilename());
+//				try {
+//					multipartFile.transferTo(file);
+//				} catch (IllegalStateException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				} catch (IOException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//				awsService.uploadFile(file);
+//			}
+			
 			List<String> fileName = auctionImgUpload.imgUpload(fileList, path);
 			
 			auctionProduct = auctionProductService.auctionProductImgs(auctionProduct, fileName);
@@ -251,6 +267,7 @@ public class AuctionProductController {
 		
 		//결제 담당자가 서비스를 통해 처리하여 payment domain을 생성하여 인자로 준다.
 		Payment payment = (Payment)auctionInfoService.makePaymentInfo(user, "상품등록", null);
+		
 		try {
 			paymentService.makePayment(payment);
 		} catch (Exception e) {

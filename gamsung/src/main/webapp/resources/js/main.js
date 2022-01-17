@@ -42,14 +42,12 @@ console.log('%c Proudly Crafted with ZiOn.', 'background: #222; color: #bada55')
                     type: 'iframe',
                     closeBtnInside: true,
                     midClick: true ,
-    
-                    iframe: {
-                    markup: '<div style="width:400px; height:720px;">'+
-                            '<div class="mfp-iframe-scaler" >'+
-                            '<div class="mfp-close">xxxxxx</div>'+
-                            '<iframe class="mfp-iframe" frameborder="0" allowfullscreen></iframe>'+
-                            '</div></div>'
-                    }
+                    callbacks: {
+                        markupParse: function(template, values, item) {
+                            console.log(template);
+                            template.find('iframe').addClass('bad-site-class');
+                        }
+                     }
     
                 }
     
