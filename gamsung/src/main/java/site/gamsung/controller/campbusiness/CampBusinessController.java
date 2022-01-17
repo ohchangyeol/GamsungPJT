@@ -1,5 +1,7 @@
 package site.gamsung.controller.campbusiness;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.io.File;
 import java.sql.Date;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import site.gamsung.service.common.Page;
 import site.gamsung.service.common.Search;
@@ -29,6 +32,7 @@ import site.gamsung.service.domain.Qna;
 import site.gamsung.service.domain.QnaWrapper;
 import site.gamsung.service.domain.SubSite;
 import site.gamsung.service.domain.User;
+import site.gamsung.service.servicecenter.NoticeService;
 import site.gamsung.service.servicecenter.QnaService;
 import site.gamsung.service.campbusiness.CampBusinessService;
 import site.gamsung.service.user.UserService;
@@ -52,6 +56,10 @@ public class CampBusinessController {
 	@Autowired
 	@Qualifier("qnaServiceImpl")
 	private QnaService qnaService;
+	
+	@Autowired
+	@Qualifier("noticeServiceImpl")
+	private NoticeService noticeService;
 
 	// @Value("#{commonProperties['pageUnit']}")
 	@Value("#{commonProperties['pageUnit'] ?: 5}")
@@ -426,7 +434,7 @@ public class CampBusinessController {
 		int tempRegNum = campBusinessService.getRegNum("SubSite", tempSubSite);		
 		tempSubSite.setSubSiteNo(tempRegNum);
 		model.addAttribute("subSite", tempSubSite);		
-		
+		 
 		return "forward:/view/campbusiness/addSubSite.jsp";
 	}
 
@@ -503,64 +511,139 @@ public class CampBusinessController {
 	/*
 	 * Qna
 	 */
-	@RequestMapping(value = "addCampQna", method = RequestMethod.POST)
-	public String addCampQna(@ModelAttribute("qna") Qna qna, @ModelAttribute("user") User user) throws Exception {
-		System.out.println("QnA ==> "+qna);
-		System.out.println("user ==> "+user);
+	@RequestMapping(value = "listCampQna")
+	public String listCampQna(@RequestParam(value ="campNo", required = false, defaultValue = "0") int campNo,
+								@RequestParam(value ="userId", required = false) String userId,	Model model) throws Exception {
 		
-		qna.setSender(user);
+		System.out.println("campNo : "+campNo);
+		System.out.println("userId : "+userId);
 		
-		qnaService.addQuestion(qna);
-		return "forward:/view/campbusiness/addCampQna.jsp";		
+		List<Qna> list = new ArrayList<Qna>();
+				
+		if(campNo != 0) {
+			list = campBusinessService.listCampQna(campNo);
+			model.addAttribute("campNo", campNo);
+
+		} else if( userId != null) {
+			list = campBusinessService.listCampQnaById(userId);
+		}
+		
+		System.out.println("Qna list : "+ list);
+		model.addAttribute("list", list);
+
+		return "forward:/view/campbusiness/listCampQna.jsp";
 	}
 	
-	@RequestMapping(value = "addCampQnaAnswer", method = RequestMethod.POST)
-	public String addCampQnaAnswer(@ModelAttribute("qna") Qna qna) throws Exception {
-
-		return null ;
+	@RequestMapping(value = "addCampQnaQuestion", method = RequestMethod.GET)
+	public String addCampQnaQuestion(@RequestParam("campNo") int campNo, Qna qna, Model model) throws Exception {
+		
+		qna.setCampNo(campNo);
+		model.addAttribute("qna", qna);
+		
+		return "forward:/view/campbusiness/addCampQnaQuestion.jsp";
+	}
+	
+	@RequestMapping(value = "addCampQnaQuestion", method = RequestMethod.POST)
+	public String addCampQnaQuestion(@ModelAttribute("qna") Qna qna, Model model) throws Exception {
+		
+		System.out.println("qna : "+qna);
+		campBusinessService.addCampQnaQuestion(qna);
+		
+		model.addAttribute("qna",qna);
+		return "forward:/view/campbusiness/listCampQna.jsp";
 	}
 	
 	@RequestMapping(value = "getCampQna", method = RequestMethod.GET)
 	public String getCampQna(@RequestParam("qnaNo") int qnaNo ,HttpSession session, Model model) throws Exception {
 		
-		User user = (User)session.getAttribute("user");
-		
-		Qna qna = qnaService.getQna(qnaNo);
-		
-		model.addAttribute("qnaType", "get");
+		System.out.println("qnaNo : "+qnaNo);
+		Qna qna = campBusinessService.getCampQna(qnaNo);
 		model.addAttribute("qna" , qna);
 
 		return "forward:/view/campbusiness/getCampQna.jsp";		
+	}
+	
+	@RequestMapping(value = "addCampQnaAnswer", method = RequestMethod.POST)
+	public String addCampQnaAnswer(@ModelAttribute("qna") Qna qna, Model model) throws Exception {
+		
+		System.out.println("qna : "+qna);
+		
+		campBusinessService.addCampQnaAnswer(qna);
+		model.addAttribute("qna" , qna);
+
+		return "forward:/businessMain.jsp";		
+	}
+	
+	
+	/*
+	 * Notice
+	 */
+	@RequestMapping(value = "listCampNotice", method = RequestMethod.POST)
+	public String listCampNotice(@RequestParam("campNo") int campNo, Model model)
+			throws Exception {
+		
+		System.out.println("campNo : "+campNo);
+
+		List<Notice> list = campBusinessService.listCampNotice(campNo);
+		model.addAttribute("list", list);
+
+		return "forward:/view/campbusiness/listCampNotice.jsp";
+	}
+	
+	@RequestMapping(value = "addCampNotice", method = RequestMethod.GET)
+	public String addCampNotice() throws Exception {
+		return "forward:/view/campbusiness/addCampNotice.jsp";
+	}
+	
+	@RequestMapping(value = "addCampNotice", method = RequestMethod.POST)
+	public String addCampNotice(@ModelAttribute("notice") Notice notice, Model model) throws Exception {
+		
+		System.out.println("notice : "+notice);
+		campBusinessService.addCampNotice(notice);
+		
+		model.addAttribute("notice",notice);
+		return "forward:/view/campbusiness/getCampNotice.jsp";
 	
 	}
 	
-	@RequestMapping("listCampQna")
-	public String listCampQna(@ModelAttribute("search") Search search, HttpSession session, Model model) throws Exception {
+	@RequestMapping(value = "getCampNotice", method = RequestMethod.GET)
+	public String getCampNotice(@RequestParam("noticeNo") int noticeNo, Model model) throws Exception {
 		
-		if(search.getCurrentPage() == 0 ){ 
-			search.setCurrentPage(1); 
-		}
-		search.setPageSize(pageSize);
+		System.out.println("noticeNo : "+noticeNo);
+		Notice notice = campBusinessService.getCampNotice(noticeNo);
+	
+		model.addAttribute("notice" , notice);
 		
-		System.out.println("\n == serch ==\n "+search);
-		 
-		QnaWrapper wrapper = qnaService.listQna(search);
-		wrapper.setSearch(search);
+		return "forward:/view/campbusiness/getCampNotice.jsp";
+	}
+	
+	@RequestMapping(value = "updateCampNotice", method = RequestMethod.GET)
+	public String updateCampNotice(@RequestParam("noticeNo") int noticeNo, Model model) throws Exception {
 		
-		Page resultPage = new Page( search.getCurrentPage(), wrapper.getTotalCount() , pageUnit, pageSize);
+		System.out.println("noticeNo : "+noticeNo);
+		Notice notice = campBusinessService.getCampNotice(noticeNo);
+		model.addAttribute("notice" , notice);
 		
-		model.addAttribute("wrapper" , wrapper);
-		model.addAttribute("resultPage", resultPage);
+		return "forward:/view/campbusiness/updateCampNotice.jsp";
+	}
+	
+	@RequestMapping(value = "updateCampNotice", method = RequestMethod.POST)
+	public String updateCampNotice(@ModelAttribute("notice") Notice notice, Model model) throws Exception {
+		
+		System.out.println("notice : "+notice);
+		campBusinessService.updateCampNotice(notice);
+		
+		model.addAttribute("notice",notice);
+		return "forward:/view/campbusiness/getCampNotice.jsp";
+	}
+	
+	@RequestMapping(value = "deleteCampNotice", method = RequestMethod.POST)
+	public String deleteCampNotice(@RequestParam("noticeNo") int noticeNo) throws Exception {
 
-		if(search.getId() == null || "".equals(search.getId())) {
-			model.addAttribute("qnaType", "list");
-		} else {
-			model.addAttribute("qnaType", "my");
-		}
-			
-		System.out.println(wrapper);
+		System.out.println("noticeNo : "+noticeNo);
+		campBusinessService.deleteCampNotice(noticeNo);
 		
-		return "forward:/view/camp/listCampQna.jsp";		
+		return "forward:/view/campbusiness/listCampNotice.jsp";
 	}
 
 } // end of class
