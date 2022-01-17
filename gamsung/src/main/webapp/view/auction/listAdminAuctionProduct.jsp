@@ -33,6 +33,7 @@
               <div class="col-sm-6 col-sm-offset-3">
                 <h2 class="module-title font-alt">Auction Products</h2>
                 <div class="module-subtitle font-serif">관리자가 등록한 경매 상품입니다. 10분 동안만 진행됩니다.</div>
+                <div class="module-subtitle font-serif">네이버 상품 검색 API를 통해 만든 상품 내역입니다.</div>
               </div>
             </div>
           </div>
@@ -75,7 +76,8 @@
                     </div>
                   </div>
                   <h4 class="shop-item-title font-alt prodNmae"><a href="#">${product.title}</a></h4>
-                  <span>${product.category1} ${product.category2} ${product.category3}</span>			
+                  <span>${product.category1} ${product.category2} ${product.category3}</span>
+                  <input type="hidden" name="startBidPrice" value="${product.lprice}">				
                 </div>
               </div>
             </c:forEach>
@@ -107,6 +109,8 @@
       	<input type="hidden" id="hashtag2" name="hashtag2">
       	<input type="hidden" id="hashtag3" name="hashtag3">
       	<input type="hidden" id="startBidPrice" name="startBidPrice">
+      	<input type="hidden" id="auctionProductSubDetail" name="auctionProductSubDetail">
+      	<input type="hidden" name="currentPage" value=1>
       </form>
     </main>
 
@@ -118,15 +122,13 @@
   			var sortCondition = $('#sortCondition').val();
   			var searchKeyword = $('#searchKeyword').val();
   			if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight/3) {
-  				 console.log("실행");
+  			
   				$.ajax({
-  						url : "/auction/rest/infiniteScroll",
+  						url : "/auction/rest/infiniteScrollA",
   						method : "POST",
   						async: false,
   						data : JSON.stringify({
-  							currentPage : page,
-  							sortCondition : sortCondition,
-  							searchKeyword : searchKeyword
+  							currentPage : page
   						}),
   						headers : {
   							"Accept" : "application/json",
@@ -135,54 +137,56 @@
   						dataType : "json",
   						success : function(JSONData, status) {
 	  						var str = '<div class="container">';
-	  						for (var i = 0; i < JSONData.length-4; i++) {
+	  						for (var i = 0; i < JSONData.length-6; i++) {
 								var stringHtml = '<div class="col-sm-6 col-md-3 col-lg-3">'
-					              				+ '<div class="shop-item"> <div class="shop-item-image">'
+					              				+ '<div class="shop-item"><div class="shop-item-image">'
 					              				+ '<img src="'
-					              				+ JSONData[i].productImg1
+					              				+ JSONData[i].image
 				              					+ '" alt="Accessories Pack"/>'
-				                  				+ '<div class="shop-item-detail"><span hidden="hidden">'
-				                  				+ JSONData[i].auctionProductSubDetail
-				                  				+ '</span><a class="btn btn-round btn-b">경매 시작하기!</a></div></div>'
-				                  				+ '</span><h4 class="shop-item-title font-alt prodNmae"><a href="#">'
-				                   				+ JSONData[i].auctionProductName
+				                  				+ '<div class="shop-item-detail">'
+				              					+ '<a class="btn btn-round btn-b">경매 시작하기!</a></div></div>'
+				                  				+ '</span><h4 class="shop-item-title font-alt prodNmae"><a href="">'
+				                   				+ JSONData[i].title
 				                   				+ '</a></h4> <span>'
-				                   				+ JSONData[i].hashtag1
+				                   				+ JSONData[i].category1
 	  											+ ' '
-	  											+ JSONData[i].hashtag2
+	  											+ JSONData[i].category2
 	  											+ ' '
-	  											+ JSONData[i].hashtag3
+	  											+ JSONData[i].category3
 	  											+ '</span>'
+	  											+'<input type="hidden" name="startBidPrice" value="'+JSONData[i].lprice+'">'
 	  											+ '</div></div>'
 				                  
 				                 			str += stringHtml;
 	  						}
 							str += '</div><div class="container">'
-	  						
-	  						for (var i = 4; i < JSONData.length; i++) {
+							$("#append").append(str);
+							
+							str = '<div class="container">'
+	  						for (var i = 4; i < JSONData.length-2; i++) {
 								var stringHtml = '<div class="col-sm-6 col-md-3 col-lg-3">'
 					              				+ '<div class="shop-item"> <div class="shop-item-image">'
 					              				+ '<img src="'
-					              				+ JSONData[i].productImg1
+					              				+ JSONData[i].image
 				              					+ '" alt="Accessories Pack"/>'
-				              					+ '<div class="shop-item-detail"><span hidden="hidden">'
-				                  				+ JSONData[i].auctionProductSubDetail
-				                  				+ '</span><a class="btn btn-round btn-b">경매 시작하기!</a></div></div>'
-				                  				+ '<h4 class="shop-item-title font-alt prodNmae"><a href="#">'
-				                   				+ JSONData[i].auctionProductName
+				                  				+ '<div class="shop-item-detail">'
+				              					+ '<a class="btn btn-round btn-b">경매 시작하기!</a></div></div>'
+				                  				+ '</span><h4 class="shop-item-title font-alt prodNmae"><a href="">'
+				                   				+ JSONData[i].title
 				                   				+ '</a></h4> <span>'
-				                   				+ JSONData[i].hashtag1
-	  											+ ' '
-	  											+ JSONData[i].hashtag2
-	  											+ ' '
-	  											+ JSONData[i].hashtag3
-	  											+ '</span>'
-	  											+ '</div></div>'
+				                   				+ JSONData[i].category1
+												+ ' '
+												+ JSONData[i].category2
+												+ ' '
+												+ JSONData[i].category3
+												+ '</span>'
+												+'<input type="hidden" name="startBidPrice" value="'+JSONData[i].lprice+'">'
+												+ '</div></div>'
 				                  
-	  					                 		str += stringHtml;
+	  					                 	str += stringHtml;
 	  		  									
 	  						}
-							str += '</div>'
+							str += '</div><div class="container">'
 	  						$("#append").append(str);
 	  						page += 1;
   						}
@@ -196,24 +200,23 @@
 	  				alert("로그인해 주세요.");
 	  				return;
 	  			}
-	  			
+	  				  			
 	   			const auctionProductName = $(this).parent().parent().next().text();
 	   			const productImg1 = $(this).parent().prev().attr('src');
 	   			const allHashTag = $(this).parent().parent().next().next().text()
 	   			const startBidPrice = $(this).parent().parent().next().next().next().val();
 	   			const hashTags = allHashTag.split(' ');
 	   			$("#auctionProductName").val(auctionProductName);
-	   			$("#productImg1").val(productImg1);
+	   			$("#productImg1").val(productImg1);auctionProductSubDetail
+	   			$("#auctionProductSubDetail").val(productImg1);
 	   			$("#hashtag1").val(hashTags[0]);
 	   			$("#hashtag2").val(hashTags[1]);
 	   			$("#hashtag3").val(hashTags[2]);
 	   			$("#startBidPrice").val(startBidPrice);
-	   			$('form').attr('method','post').attr('action','/auction/getAuctionProduct').submit();
+	   			$('form').attr('method','post').attr('action','/auction/getAuctionProductA').submit();
 	   		});
   	});
-   	
-   	$(document).ready
-  		  	
+   	  		  	
   	</script>    
   </body>
 </html>

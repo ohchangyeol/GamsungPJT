@@ -101,7 +101,7 @@
 	<update id="updateReservation" parameterType="campReservation">
 		UPDATE CAMP_RESERVATION 
 		set
-			<if test="mainSite.mainSiteNo != null">
+			<if test="mainSite.mainSiteNo != null and mainSite.mainSiteNo !=0">
 			mainsite_no = #{mainSite.mainSiteNo},
 			</if>
 			<if test="reservationUserName != null and reservationUserName != ''">
@@ -113,7 +113,7 @@
 			<if test="reservationEndDate != null">
 			reservation_end_date = #{reservationEndDate},
 			</if>		 
-			<if test="useNum != null">
+			<if test="useNum != null and totalPaymentPrice !=0">
 			use_num = #{useNum},
 			</if> 
 			<if test="reservationUserPhone != null and reservationUserPhone != ''">
@@ -125,10 +125,10 @@
 			<if test="reservationRequest != null and reservationRequest != ''">
 			reservation_request = #{reservationRequest:VARCHAR},
 			</if>
-			<if test="totalPaymentPrice != null">
+			<if test="totalPaymentPrice != null and totalPaymentPrice !=0">
 			total_payment_price = total_payment_price+#{totalPaymentPrice},
 			</if>
-			<if test="totalReservationRegCar != null">
+			<if test="totalReservationRegCar != null and totalReservationRegCar !=0">
 			total_reservation_reg_car = #{totalReservationRegCar},
 			</if>
 			reservation_status = #{reservationStatus}

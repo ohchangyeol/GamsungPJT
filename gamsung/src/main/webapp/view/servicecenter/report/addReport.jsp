@@ -16,7 +16,7 @@
     <title>신고하기</title>
    
 </head>
-<body class="add-report">
+<body class="add-report" data-rename="${receiverName}">
     <div class="report-main white-popup-block">
         <main>
             <div class="report-header">

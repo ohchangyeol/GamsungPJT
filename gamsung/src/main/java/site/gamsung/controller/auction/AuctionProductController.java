@@ -35,7 +35,6 @@ import site.gamsung.service.domain.PaymentCode;
 import site.gamsung.service.domain.User;
 import site.gamsung.service.payment.PaymentService;
 import site.gamsung.util.auction.AuctionImgUpload;
-import site.gamsung.util.auction.NaverShoppingAPI;
 
 @RequestMapping("/auction/*")
 @Controller
@@ -75,33 +74,16 @@ public class AuctionProductController {
 		System.out.println(this.getClass());
 	}
 	
-	//경매 진행 중인 상품 최초 8개 조회
-//	@RequestMapping( "listWaitAuctionProduct")
-//	public String listCrawlingAuctionProduct(HttpSession httpSession, Model model, @ModelAttribute("search") Search search) {
-//		
-//		//출력할 개수을 commonProperties로 부터 받아오며, 1페이지가 고정값으로 들어간다.
-//		search.setSortCondition("latestAsc");
-//		search.setPageSize(auctionPageSize);
-//		search.setCurrentPage(1);
-//		
-//		//조건에 맞는 상위 8개의 상품 목록을 리스트로 받는다.
-//		List<AuctionProduct> list = auctionProductService.listCrawlingAuctionProduct(search);
-//		
-//		//받은 상품 목록을 model에 담아 return한다.
-//		model.addAttribute("list",list);
-//	
-//		return "forward:/view/auction/listWaitAuctionProduct.jsp";
-//		
-//	}
-	
-	@RequestMapping( "listWaitAuctionProduct")
+	//네이버 상품을 통해 가져온다. 
+	@RequestMapping( "listAdminAuctionProduct")
 	public String listNaverAuctionProduct(HttpSession httpSession, Model model, @ModelAttribute("search") Search search) {
 		
-		List<NaverProduct> list = auctionProductService.listNaverAuctionProduct();
+		//네이버 API를 통해 상품 목록을 가져온다.
+		List<NaverProduct> list = auctionProductService.listNaverAuctionProduct(search);
 		//받은 상품 목록을 model에 담아 return한다.
 		model.addAttribute("list",list);
 	
-		return "forward:/view/auction/listNaverAuctionProduct.jsp";
+		return "forward:/view/auction/listAdminAuctionProduct.jsp";
 		
 	}
 	
@@ -123,28 +105,42 @@ public class AuctionProductController {
 		//조회수를 1증가 시키며, 상품 번호에 대한 상세정보를 받아온다.
 		Map<String, Object> map = auctionProductService.getAuctionProduct(auctionInfo);
 		
+		AuctionProduct auctionProduct = (AuctionProduct)map.get("auctionProduct");
+		//경매 추천 상품 목록을 가져온다.
+		List<AuctionProduct> productList = auctionProductService.listMainAuctionProduct();
+		
+		//조건에 따른 수수료 들을 requestScope에 담아 return한다.
+		PaymentCode paymentCode = null;
+		if(user != null) {
+
+			paymentCode = (PaymentCode)auctionInfoService.makePaymentInfo(user, "중도철회 수수료",auctionProduct);
+			int withdrawalFee = paymentCode.getPaymentCodeFee();
+			
+			paymentCode = (PaymentCode)auctionInfoService.makePaymentInfo(user, "경매확정 수수료",auctionProduct);
+			int confirmFee = paymentCode.getPaymentCodeFee();
+			
+			paymentCode = (PaymentCode)auctionInfoService.makePaymentInfo(user, "낙찰취소 수수료",auctionProduct);
+			int cancelFee = paymentCode.getPaymentCodeFee();
+			
+			model.addAttribute("withdrawalFee",withdrawalFee);
+			model.addAttribute("confirmFee",confirmFee);
+			model.addAttribute("cancelFee",cancelFee);
+			
+		}
 		//받은 상품정보를 model에 담아 return한다.
-		model.addAttribute("auctionProduct",map.get("auctionProduct"));
+		model.addAttribute("auctionProduct",auctionProduct);
 		model.addAttribute("auctionInfo", map.get("auctionInfo"));
 		model.addAttribute("registrantInfo", map.get("registrantInfo"));
 		model.addAttribute("ratingReview",map.get("ratingReview"));
 		model.addAttribute("auctionGrade", map.get("auctionGrade"));
+		model.addAttribute("productList",productList);
 		
 		return "forward:/view/auction/getAuctionProduct.jsp";
 	}
 	
-	//상품 상세 조회 페이지 출력
-//	@PostMapping( "getAuctionProduct")
-//	public String getCrawlingAuctionProductNo(@ModelAttribute("auctionProduct") AuctionProduct auctionProduct) {
-//		
-//		auctionProduct = auctionProductService.getCrawlingAuctionProductNo(auctionProduct);
-//		
-//		return "redirect:./getAuctionProduct?auctionProductNo="+auctionProduct.getAuctionProductNo();
-//	}
-	
 	// 상품 상세 조회 페이지 출력
-	@PostMapping("getAuctionProduct")
-	public String getCrawlingAuctionProductNo(@ModelAttribute("auctionProduct") AuctionProduct auctionProduct) {
+	@PostMapping("getAuctionProductA")
+	public String getNaverAuctionProductNo(@ModelAttribute("auctionProduct") AuctionProduct auctionProduct) {
 
 		auctionProduct = auctionProductService.convertNaverToAuctionProduct(auctionProduct);
 
@@ -190,14 +186,19 @@ public class AuctionProductController {
 		
 		//Id에 해당하는 임시 등록 정보가 있는지 확인한다.
 		AuctionProduct auctionProduct = auctionProductService.getTempSaveAuctionProduct(user.getId());
-		user = auctionInfoService.checkAndUpdateUserAuctionGrade(user);
-		//user 정보를 새로 세팅한다.
-		httpSession.setAttribute("user", user);
 		
 		// 임시정보가 있다면 model에 담아 return한다.
 		if(auctionProduct != null) {
 			model.addAttribute("auctionProduct",auctionProduct);
 		}
+		
+		//등급에 따른 수수료를 반환하여 requestScope에 담아준다.
+		PaymentCode paymentCode = (PaymentCode)auctionInfoService.makePaymentInfo(user, "상품등록 수수료", null); 
+		model.addAttribute("fee",paymentCode.getPaymentCodeFee());
+		
+		//user 정보를 새로 세팅한다.
+		user = auctionInfoService.checkAndUpdateUserAuctionGrade(user);
+		httpSession.setAttribute("user", user);
 		
 		return "forward:/view/auction/addAuctionProduct.jsp";
 	}
@@ -214,19 +215,6 @@ public class AuctionProductController {
 			return "redirect:./listAuctionProduct";
 		}
 		
-		//희망 낙찰가*등급별 수수료 보다 보유 포인트가 적을 경우 충전페이지로 redirect 시킨다.
-		PaymentCode tmpPayment = new PaymentCode();
-		tmpPayment.setPaymentCodeRangeStart(user.getAuctionGrade());
-		tmpPayment.setPaymentCodeInfo("상품등록");
-		PaymentCode paymentCode = auctionInfoService.getPaymentInfo(tmpPayment);
-
-		int deductionPoint = auctionProduct.getHopefulBidPrice()*paymentCode.getPaymentCodeFee()/100;
-
-		if(user.getHavingPoint() < deductionPoint) {
-			return "redirect:/payment/managePoint";
-		}
-		
-		
 		auctionProduct.setRegistrantId(user.getId());
 		
 		String path = httpSession.getServletContext().getRealPath("/");
@@ -234,51 +222,37 @@ public class AuctionProductController {
 		if(auctionProduct.getProductImg1() == null) {
 			
 			List<MultipartFile> fileList = mtfRequest.getFiles("inputImgs");
-		
+			
 			List<String> fileName = auctionImgUpload.imgUpload(fileList, path);
 			
 			auctionProduct = auctionProductService.auctionProductImgs(auctionProduct, fileName);
-			
 		}
 		
 		AuctionProduct tmpAuctionProduct = auctionProductService.getTempSaveAuctionProduct(user.getId());
-		String navigation = "";
+		
 		if(tmpAuctionProduct != null) {
 			auctionProduct.setAuctionProductNo(tmpAuctionProduct.getAuctionProductNo());
 			auctionProductService.updateAuctionProduct(auctionProduct);
-			
-			//사용자 경매 등급 재설정한다.
-			user = auctionInfoService.checkAndUpdateUserAuctionGrade(user);
-			navigation = "redirect:./listAuctionProduct";
 		}else {
 			//상품정보를 등록한다.
 			auctionProductService.addAuctionProduct(auctionProduct);
-			//사용자 경매 등급 재설정한다.
-			user = auctionInfoService.checkAndUpdateUserAuctionGrade(user);
-			navigation =  "redirect:./listAuctionProduct";
 		}
 		
-		//user 정보를 새로 세팅한다.
-		httpSession.setAttribute("user", user);
-		
 		//결제 담당자가 서비스를 통해 처리하여 payment domain을 생성하여 인자로 준다.
-		AuctionProduct tmpInfo = auctionProductService.paymentSubInfo(user.getId());
-		System.out.println(tmpInfo);
-		Payment payment = new Payment();
-		payment.setPaymentProduct(tmpInfo.getAuctionProductName());
-		payment.setPaymentSender(user.getId());
-		payment.setPaymentReceiver("admin");
-		payment.setPaymentReferenceNum(tmpInfo.getAuctionProductNo());
-		payment.setPaymentCode(paymentCode.getPaymentCode());
-		payment.setPaymentPriceTotalSecond(deductionPoint);
+		Payment payment = (Payment) auctionInfoService.makePaymentInfo(user, "상품등록", null);
 		try {
 			paymentService.makePayment(payment);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+				
+		//사용자 경매 등급 재설정한다.
+		user = auctionInfoService.checkAndUpdateUserAuctionGrade(user);
+		//user 정보를 새로 세팅한다.
+		httpSession.setAttribute("user", user);
 		
-		return navigation;
+		return  "redirect:./listAuctionProduct";
 	}
 	
 	//임시저장 요청시 매핑된다.
@@ -483,6 +457,36 @@ public class AuctionProductController {
 	@GetMapping("deleteSuspension")
 	public String deleteAuctionSuspensionUser() {
 		return "redirect:/";
+	}
+	
+	//EC2에서 쿠팡 상품 크롤링 중 문제가 발생하여 네이버 검색 API로 전환한다.
+	
+	//경매 진행 중인 상품 최초 8개 조회
+	@RequestMapping( "listWaitAuctionProduct")
+	public String listCrawlingAuctionProduct(HttpSession httpSession, Model model, @ModelAttribute("search") Search search) {
+		
+		//출력할 개수을 commonProperties로 부터 받아오며, 1페이지가 고정값으로 들어간다.
+		search.setSortCondition("latestAsc");
+		search.setPageSize(auctionPageSize);
+		search.setCurrentPage(1);
+		
+		//조건에 맞는 상위 8개의 상품 목록을 리스트로 받는다.
+		List<AuctionProduct> list = auctionProductService.listCrawlingAuctionProduct(search);
+		
+		//받은 상품 목록을 model에 담아 return한다.
+		model.addAttribute("list",list);
+	
+		return "forward:/view/auction/listWaitAuctionProduct.jsp";
+		
+	}
+	
+	//상품 상세 조회 페이지 출력
+	@PostMapping( "getAuctionProductB")
+	public String getCrawlingAuctionProductNo(@ModelAttribute("auctionProduct") AuctionProduct auctionProduct) {
+		
+		auctionProduct = auctionProductService.getCrawlingAuctionProductNo(auctionProduct);
+		
+		return "redirect:./getAuctionProduct?auctionProductNo="+auctionProduct.getAuctionProductNo();
 	}
 	
 }

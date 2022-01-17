@@ -151,7 +151,6 @@ public class CampGeneralRestController {
       
 	   System.out.println("/campGeneral/json/listMyReservationTable : POST");
 	   
-		
 		User user = (User)httpSession.getAttribute("user");
 	
 		if(user == null) {
@@ -166,6 +165,7 @@ public class CampGeneralRestController {
 			List<CampReservation> list = campReservationService.listMyReservationTable(search);
 			
 			Gson data = new GsonBuilder().serializeNulls().create();
+			System.out.println(list);
 			
 			return data.toJson(list);
 		}

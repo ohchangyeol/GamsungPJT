@@ -161,7 +161,7 @@ pageEncoding="UTF-8"%>
                                     
                                     <div class="form-group">
                                           <div class="col-xs-2" style="text-align: start;">
-                                              <button type="button" id="report-btn" data-userid = "${user.id}" class="btn btn-danger" data-btntype = "1" data-receivername = "${camp.user.campName}" >신고</button>
+                                              <button type="button" id="report-btn" data-userid = "${user.id}" class="btn btn-danger" data-reporttype = "1" data-receivername = "${camp.user.campName}" >신고</button>
                                           </div>
 
                                           <div class="col-xs-8" style="text-align: start; top: 7px; padding-left: 0px;">

@@ -67,10 +67,6 @@
       <body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
 
         <main>
-
-          <!-- findIdModal -->
-          <jsp:include page="/view/user/findIdModal.jsp" />
-
           <!-- page-loader -->
 
           <!-- header -->
@@ -84,29 +80,14 @@
           <!-- page-start -->
           </section>
           <div class="main showcase-page">
-            <section class="module-extra-small bg-dark">
-              <div class="container">
-                <div class="row">
-                  <div class="col-sm-6 col-md-8 col-lg-9">
-                    <div class="callout-text font-alt">
-                      <h4 style="margin-top: 0px;">Start Creating Beautiful Websites</h4>
-                      <p style="margin-bottom: 0px;">Download Titan Free today!</p>
-                    </div>
-                  </div>
-                  <div class="col-sm-6 col-md-4 col-lg-3">
-                    <div class="callout-btn-box"><a class="btn btn-border-w btn-circle"
-                        href="https://themewagon.com/themes/titan/">Downlaod Free</a></div>
-                  </div>
-                </div>
-              </div>
-            </section>
-
+            
 
             <section class="module-medium" id="demos">
               <div class="container">
                 <div class="row">
-                  <div class="col-sm-6 col-sm-offset-3">
-                    <h2 class="module-title font-alt">추천 캠핑장</h2>
+                  <div style="padding-left: 30px;">
+                    <h2 class="module-title font-alt font-jua main-color" style="text-align: left;font-size: 34px; margin: 0;">추천 캠핑장</h2>
+                    <p class="">감성캠핑의 잘나가는 캠핑장을 소개합니다.</p>
                   </div>
                 </div>
                 <div class="col-sm-6 col-md-4 col-lg-4">
@@ -159,16 +140,12 @@
               </div>
             </section>
 
-
-            <hr class="divider-w">
-
-
-            <section class="module">
+            <section class="module-medium" style="padding-top: 0">
               <div class="container">
                 <div class="row">
-                  <div class="col-sm-6 col-sm-offset-3">
-                    <h2 class="module-title font-alt">추천 경매 상품</h2>
-                    <div class="module-subtitle font-serif">선착순 12개의 상품이 올라옵니다.</div>
+                  <div style="padding-left: 30px; padding-top: 0;">
+                    <h2 class="module-title font-alt font-jua main-color" style="text-align: left;font-size: 34px; margin: 0;">추천 경매 상품</h2>
+                    <p class="">선착순 12개의 상품이 올라옵니다.</p>
                   </div>
                 </div>
                 <div class="row">
@@ -199,26 +176,45 @@
                 </div>
               </div>
             </section>
-            <hr class="divider-w">
-            <section class="module-extra-small bg-dark">
+
+            <section class="module-medium" style="padding-top: 0">
               <div class="container">
                 <div class="row">
-                  <div class="col-sm-6 col-md-8 col-lg-9">
-                    <div class="callout-text font-alt">
-                      <h4 style="margin-top: 0px;">Start Creating Beautiful Websites</h4>
-                      <p style="margin-bottom: 0px;">Download Titan Free today!</p>
-                    </div>
+                  <div style="padding-left: 30px; padding-top: 0;">
+                    <h2 class="module-title font-alt font-jua main-color" style="text-align: left;font-size: 34px; margin: 0;">최근에 올라온 커뮤니티</h2>
                   </div>
-                  <div class="col-sm-6 col-md-4 col-lg-3">
-                    <div class="callout-btn-box"><a class="btn btn-border-w btn-circle"
-                        href="https://themewagon.com/themes/titan/">Downlaod Free</a></div>
+                </div>
+                <div class="row">
+                  <div class="owl-carousel text-center" data-items="4" data-pagination="false" data-navigation="false">
+                    <c:forEach var="auctionProduct" items="${productList}">
+                      <div class="owl-item">
+                        <div class="col-sm-12">
+                          <div class="ex-product">
+                            <c:if test="${!empty auctionProduct.auctionProductSubDetail}">
+                              <a><img class="shop-item-img" src="${auctionProduct.productImg1}" /></a>
+                            </c:if>
+                            <c:if test="${empty auctionProduct.auctionProductSubDetail}">
+                              <a><img class="shop-item-img"
+                                  src="/uploadfiles/auctionimg/product/${auctionProduct.productImg1}" /></a>
+                            </c:if>
+                            <input type="hidden" value="${auctionProduct.auctionProductNo}">
+                            <h4 class="shop-item-title"><a>${auctionProduct.auctionProductName}</a></h4>
+                            <h5>
+                              <fmt:formatNumber type="number" maxFractionDigits="3"
+                                value="${auctionProduct.hopefulBidPrice}" />원
+                            </h5>
+                            <h5>${auctionProduct.auctionEndTime}</h5>
+                          </div>
+                        </div>
+                      </div>
+                    </c:forEach>
                   </div>
                 </div>
               </div>
             </section>
 
-          </div>
-          <div class="scroll-up"><a href="#totop"><i class="fa fa-angle-double-up"></i></a></div>
+            <jsp:include page="./view/common/footer.jsp"/>
+
         </main>
         <c:if test="${!empty user.id}">
           <!-- chatting -->

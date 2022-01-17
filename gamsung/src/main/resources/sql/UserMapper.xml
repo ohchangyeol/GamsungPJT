@@ -55,7 +55,7 @@
 		u.account_num, u.having_point, u.camp_name, u.camp_call, u.entry_approval_flag, u.receive_cancel_total_count, 
 		u.receive_ban_end_date, u.dormant_reg_date, u.secession_reg_date, u.suspension_reg_date, u.camp_business_num, u.camp_business_img, u.suspension_content,
 		u.auction_grade, u.sns_id, h.login_reg_date, auction_suspension_reg_date
-		FROM USERS u left outer join (SELECT * FROM LOGIN_HISTORY where (user_id, login_reg_date) in (select user_id, max(login_reg_date) as date FROM login_history group by user_id)) h
+		FROM USERS u left outer join (SELECT * FROM LOGIN_HISTORY where (user_id, login_reg_date) in (select user_id, max(login_reg_date) as date FROM LOGIN_HISTORY group by user_id)) h
 		on u.user_id = h.user_id where u.user_id = #{value} 
 	 </select>
 	 
@@ -204,7 +204,7 @@
 						AND user_id LIKE CONCAT('%',#{searchKeyword},'%')
 					</if>
 			</trim>
-			ORDER BY entry_reg_date DESC
+			ORDER BY dormant_reg_date DESC
 		<if test="pageSize != 0 ">
          LIMIT #{pageSize} OFFSET #{offset}
          </if>
@@ -245,7 +245,7 @@
 			AND user_id LIKE CONCAT('%',#{searchKeyword},'%')
 					</if>
 			</trim>
-			ORDER BY entry_reg_date DESC
+			ORDER BY secession_reg_date DESC
 		<if test="pageSize != 0 ">
          LIMIT #{pageSize} OFFSET #{offset}
          </if>
@@ -288,7 +288,7 @@
 					</if>
 			</trim>
 			GROUP BY u.user_id
-			ORDER BY u.entry_reg_date DESC
+			ORDER BY u.suspension_reg_date DESC
 		<if test="pageSize != 0 ">
          LIMIT #{pageSize} OFFSET #{offset}
          </if>

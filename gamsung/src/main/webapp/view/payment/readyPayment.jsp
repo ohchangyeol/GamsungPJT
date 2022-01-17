@@ -845,6 +845,7 @@
 			<input type="hidden" id="camp.campImg1" name="camp.campImg1" value="${campReservation.camp.campImg1}">
 			<input type="hidden" id="mainSite.mainSiteNo" name="mainSite.mainSiteNo" value="${campReservation.mainSite.mainSiteNo}">
 			<input type="hidden" id="mainSite.mainSiteType" name="mainSite.mainSiteType" value="${campReservation.mainSite.mainSiteType}">
+			<input type="hidden" id="useNum" name="useNum" value="${campReservation.useNum}">	
 			<input type="hidden" id="totalPaymentPrice" name="totalPaymentPrice" value="${campReservation.totalPaymentPrice}">			
 			<!-- camp end -->
 			

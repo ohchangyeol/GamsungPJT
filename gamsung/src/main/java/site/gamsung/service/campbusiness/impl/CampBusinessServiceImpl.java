@@ -17,7 +17,10 @@ import site.gamsung.service.common.Page;
 import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.Camp;
 import site.gamsung.service.domain.MainSite;
+import site.gamsung.service.domain.Notice;
+import site.gamsung.service.domain.Qna;
 import site.gamsung.service.domain.SubSite;
+import site.gamsung.service.domain.CampReservation;
 
 
 @Service("campBusinessServiceImpl")
@@ -92,6 +95,11 @@ public class CampBusinessServiceImpl implements CampBusinessService{
 	public int getCampTempSaveById(String id) throws Exception {
 		return campBusinessDAO.getCampTempSaveById(id);
 	}
+	
+	@Override
+	public List<CampReservation> listCampReservationJSON(int campNo) throws Exception {
+		return campBusinessDAO.listCampReservationJSON(campNo);
+	}
 		
 	
 	/*
@@ -123,7 +131,7 @@ public class CampBusinessServiceImpl implements CampBusinessService{
 		
 		return map;
 	}
-
+	
 	@Override
 	public void deleteMainSite(int mainSiteNo) throws Exception {
 		campBusinessDAO.deleteMainSite(mainSiteNo);	
@@ -164,6 +172,56 @@ public class CampBusinessServiceImpl implements CampBusinessService{
 	@Override
 	public void deleteSubSite(int subSiteNo) throws Exception {
 		campBusinessDAO.deleteSubSite(subSiteNo);	
+	}
+	
+	
+	/*
+	 * Q&A
+	 */	
+	public void addCampQnaQuestion(Qna qna) throws Exception{
+		campBusinessDAO.addCampQnaQuestion(qna);
+	}
+	
+	public void addCampQnaAnswer(Qna qna) throws Exception{
+		campBusinessDAO.addCampQnaAnswer(qna);
+	}
+	
+	public Qna getCampQna(int qnaNo) throws Exception{
+		return campBusinessDAO.getCampQna(qnaNo);
+	}
+	
+	public List<Qna> listCampQna(int campNo) throws Exception{
+		return campBusinessDAO.listCampQna(campNo);
+	}
+	
+	public List<Qna> listCampQnaById(String userId) throws Exception{
+		return campBusinessDAO.listCampQnaById(userId);
+	}
+
+	
+	/*
+	 * Notice
+	 */	
+	public void addCampNotice(Notice notice) throws Exception{
+		campBusinessDAO.addCampNotice(notice);
+	}
+
+	public Notice getCampNotice(int noticeNo) throws Exception{
+		return campBusinessDAO.getCampNotice(noticeNo);
+	}
+	
+
+	public void updateCampNotice(Notice notice) throws Exception{
+		campBusinessDAO.updateCampNotice(notice);
+	}
+
+	public List<Notice> listCampNotice(int campNo) throws Exception{
+		return campBusinessDAO.listCampNotice(campNo);
+	}
+	
+	
+	public void deleteCampNotice(int noticeNo) throws Exception{
+		campBusinessDAO.deleteCampNotice(noticeNo);
 	}
 
 }

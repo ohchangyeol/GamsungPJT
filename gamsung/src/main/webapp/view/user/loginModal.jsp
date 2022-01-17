@@ -8,7 +8,7 @@
 			<section class="panel">
 				<header class="panel-heading">
 					<!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button> -->
-					<h3 class="modal-title" align="center">로그인</h3>
+					<h3 class="modal-title" align="center" style="font-size: 30px;font-weight: 500;margin-bottom: 20px;">로그인</h3>
 				</header>
 				<div class="panel-body">
 					<form id="login-modal-form" action="" class="was-validated">

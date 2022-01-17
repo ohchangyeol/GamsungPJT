@@ -16,6 +16,7 @@ import site.gamsung.service.auction.AuctionInfoDAO;
 import site.gamsung.service.auction.AuctionInfoService;
 import site.gamsung.service.domain.AuctionInfo;
 import site.gamsung.service.domain.AuctionProduct;
+import site.gamsung.service.domain.Payment;
 import site.gamsung.service.domain.PaymentCode;
 import site.gamsung.service.domain.User;
 import site.gamsung.service.user.UserDAO;
@@ -163,12 +164,6 @@ public class AuctionInfoServiceImpl implements AuctionInfoService{
 	}
 
 	@Override
-	public PaymentCode getPaymentInfo(PaymentCode paymentCode) {
-		// TODO Auto-generated method stub
-		return auctionInfoDAO.getPaymentInfo(paymentCode);
-	}
-
-	@Override
 	public Map<String, Object> listAuctionSuspensionUser(User user, Search search) {
 		// TODO Auto-generated method stub
 		
@@ -201,4 +196,62 @@ public class AuctionInfoServiceImpl implements AuctionInfoService{
 		return auctionInfo;
 	}
 
+	@Override
+	public Object makePaymentInfo(User user, String option, AuctionProduct auctionProduct) {
+		// TODO Auto-generated method stub
+		
+		//상품 등록 수수료를 받아올 때는 등록자 ID를 통해 가장 최근에 등록된 상품정보를 가져온다. 
+		if(auctionProduct == null) {
+			auctionProduct = auctionProductDAO.paymentSubInfo(user.getId());
+			if(auctionProduct != null) {
+				auctionProduct = auctionProductDAO.getAuctionProduct(auctionProduct.getAuctionProductNo());							
+			}
+		}
+		PaymentCode paymentCode = new PaymentCode();
+		paymentCode.setPaymentCodeRangeStart(user.getAuctionGrade());
+		
+		switch(option) {
+		case "CANCEL":
+			option = "낙찰취소";
+			break;
+		case "CONFIRM":
+			option = "경매확정";
+			break;
+		case "WITHDRAWAL":
+			option = "중도철회";
+			break;
+		}
+		
+		paymentCode.setPaymentCodeInfo(option);
+		
+		paymentCode = auctionInfoDAO.getPaymentInfo(paymentCode);
+		
+		Payment payment = new Payment();		
+		
+		switch(option) {
+		case "상품등록 수수료": 
+			return paymentCode;
+		case "중도철회 수수료": 
+			return paymentCode;
+		case "경매확정 수수료": 
+			return paymentCode;
+		case "낙찰취소 수수료": 
+			return paymentCode;
+		case "경매확정":
+			payment.setPaymentReceiver(auctionProduct.getRegistrantId());
+			break;
+		default : //상품등록, 중도철회, 낙찰취소
+			payment.setPaymentReceiver("admin");
+			break;
+		}
+		
+		payment.setPaymentProduct(auctionProduct.getAuctionProductName());
+		payment.setPaymentSender(user.getId());
+		payment.setPaymentReferenceNum("["+auctionProduct.getAuctionProductNo()+"]");
+		payment.setPaymentCode(paymentCode.getPaymentCode());
+		payment.setPaymentMethodSecond("point");
+		payment.setPaymentPriceTotalSecond(auctionProduct.getHopefulBidPrice()*paymentCode.getPaymentCodeFee()/100);
+		
+		return payment;
+	}
 }

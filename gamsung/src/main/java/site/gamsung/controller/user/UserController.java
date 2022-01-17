@@ -1,6 +1,7 @@
 package site.gamsung.controller.user;
 
 import java.io.File;
+import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashMap;
@@ -8,6 +9,7 @@ import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
@@ -23,8 +25,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-
-import com.sun.mail.handlers.multipart_mixed;
 
 import site.gamsung.service.common.Page;
 import site.gamsung.service.common.Search;
@@ -54,7 +54,7 @@ public class UserController {
 
 		System.out.println("/user/addUser:GET");
 
-		return "redirect:/view/user/addUser.jsp";
+		return "redirect:/view/user/addGeneralUser.jsp";
 	}
 
 	@RequestMapping(value = "addUser", method = RequestMethod.POST)
@@ -104,7 +104,7 @@ public class UserController {
 
 		
 
-		return "redirect:/main.jsp";
+		return "redirect:/";
 	}
 
 	@RequestMapping(value = "getUser", method = RequestMethod.GET)
@@ -129,7 +129,7 @@ public class UserController {
 			}
 		} else {
 			if (user.getRole().equals("GENERAL")) {
-				return "forward:/view/common/myPage.jsp";
+				return "forward://user/myPage";
 			} else {
 				return "forward:/view/user/getBusinessUserUpdate.jsp";
 			}
@@ -145,7 +145,7 @@ public class UserController {
 
 		model.addAttribute("user", user);
 
-		return "forward:/view/common/myPage.jsp";
+		return "forward:/user/myPage";
 
 	}
 
@@ -175,6 +175,13 @@ public class UserController {
 				user.setSalt(dbUser.getSalt());
 			}
 		}
+		if(user.getCampBusinessImg()==null) {
+			user=userService.getUser(user.getId());
+			if(user.getCampBusinessImg()!=null) {
+			System.out.println("캠프 이미지"+user.getCampBusinessImg());
+			user.setCampBusinessImg(user.getCampBusinessImg());
+			}
+		}
 
 		userService.updateUser(user);
 
@@ -190,6 +197,7 @@ public class UserController {
 		System.out.println(sessionUser.getRole());
 		if (sessionUser.getRole().equals("ADMIN")) {
 			if (user.getRole().equals("GENERAL")) {
+				System.out.println("user role"+user.getRole());
 				return "forward:/view/user/getGeneralUserUpdateAdmin.jsp";
 			} else {
 				return "forward:/view/user/getBusinessUserUpdateAdmin.jsp";
@@ -297,7 +305,7 @@ public class UserController {
 
 	// 카카오 연동정보 조회
 	@RequestMapping(value = "kakaoCallback")
-	public String oauthKakao(@RequestParam(value = "code", required = false) String code, Model model,HttpSession session) {
+	public String oauthKakao(@RequestParam(value = "code", required = false) String code, Model model,HttpSession session,HttpServletResponse res) {
 
 		System.out.println("#########" + code);
 		String accessToken = userService.getAccessToken(code);
@@ -305,7 +313,7 @@ public class UserController {
 
 		HashMap<String, Object> userInfo = userService.getUserInfo(accessToken);
 		System.out.println("###access_Token#### : " + accessToken);
-		
+
 		if((String) userInfo.get("email")==null) {
 			userService.unlink(accessToken);
 			return "/";
@@ -320,27 +328,32 @@ public class UserController {
 		System.out.println("카카오 인포" + kakaoInfo);
 		User userEmail = userService.getUser(email);
 
-		if (accessToken != null) {
-			session.setAttribute("kakaoToken", accessToken);
-		}
-
-		if (userEmail == null) {
-			User user = new User();
-			user.setId(userInfo.get("email").toString());
-			user.setNickName(userInfo.get("nickname").toString());
-			user.setSnsId(userInfo.get("snsId").toString());
-			session.setAttribute("kakaoUser", user);
-			return "forward:/view/user/addKakaoUser.jsp";
-		} else {
-			if (email.equals(userService.getUser(email).getId())) {
-
-				if (userEmail.getSnsId() != null && userEmail.getSecessionRegDate() == null) {
-					session.setAttribute("user", userEmail);
-					return "redirect:/";
-				}
+			if (accessToken != null) {
+				session.setAttribute("kakaoToken", accessToken);
 			}
+
+			if (userEmail == null) {
+				User user = new User();
+				if(userInfo.get("email")!=null) {
+				user.setId(userInfo.get("email").toString());
+				}
+				user.setNickName(userInfo.get("nickname").toString());
+				user.setSnsId(userInfo.get("snsId").toString());
+				session.setAttribute("kakaoUser", user);
+				return "forward:/view/user/addKakaoUser.jsp";
+			} else {
+				if (email.equals(userService.getUser(email).getId())) {
+	
+					if (userEmail.getSnsId() != null && userEmail.getSecessionRegDate() == null) {
+						session.setAttribute("user", userEmail);
+						return "redirect:/";
+					}
+				}
 		}
 	}
+//		}catch(Exception e) {
+//			e.printStackTrace();
+//		}
 		return "forward:/view/user/addKakaoUser.jsp";
 	}
 
@@ -406,7 +419,7 @@ public class UserController {
 
 		System.out.println("/user/mypage : GET");
 
-		return "redirect:/view/common/myPage.jsp";
+		return "forward:/view/common/myPage.jsp";
 
 	}
 

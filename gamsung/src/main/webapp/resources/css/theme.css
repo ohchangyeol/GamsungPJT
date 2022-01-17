@@ -81,13 +81,13 @@ a:active {
 
 /* Layout Base - Sidebar Left */
 .sidebar-left {
-	background: #34495e;
+	background: #003622;
 	box-shadow: -5px 0 0 #2f3139 inset;
-	color: #777777;
+	color: #386640;
 	display: table-cell;
 	position: relative;
 	vertical-align: top;
-	width: 300px;
+	width: 220px;
 	z-index: 1010;
 }
 
@@ -181,7 +181,7 @@ a:active {
 
 	/* Layout Fixed - Content Body */
 	html.fixed .content-body {
-		margin-left: 300px;
+		margin-left: 220px;
 	}
 
 	html.fixed .content-body.has-toolbar {
@@ -558,7 +558,7 @@ a:active {
 /* Content With Menu - Menu and Body */
 @media only screen and (min-width: 768px) {
 	.content-with-menu {
-		border-top: 110px solid transparent;
+		/* border-top: 110px solid transparent; */
 		margin: -150px -40px -53px -40px;
 		min-height: 100vh;
 	}
@@ -661,7 +661,7 @@ a:active {
 	html.fixed .inner-body {
 		margin-left: 300px;
 		border-top: 113px solid transparent;
-		margin-top: -110px;
+		/* margin-top: -110px; */
 		min-height: 100vh;
 		position: relative;
 	}
@@ -1532,8 +1532,10 @@ html.header-dark .header .input-search .input-group-btn .btn-default {
 }
 
 .sidebar-left .sidebar-header .sidebar-title {
+	display: flex;
+	gap: 10px;
 	color: white;
-	padding: 15px;
+	padding: 8px;
 	font-size: 15px;
 	font-size: 1.5rem;
 }
@@ -1544,7 +1546,7 @@ html.header-dark .header .input-search .input-group-btn .btn-default {
 	right: 0;
 	width: 73px;
 	height: 50px;
-	background-color: #171717;
+	background-color: #0b2014;
 	border-radius: 0 0 0 5px;
 	text-align: center;
 	cursor: pointer;
@@ -2327,7 +2329,7 @@ ul.nav-main > li > a {
 }
 
 ul.nav-main > li > a:hover, ul.nav-main > li > a:focus {
-	background-color: #21262d;
+	background-color: #265c3d;
 }
 
 ul.nav-main > li.nav-active > a {
@@ -2343,7 +2345,7 @@ ul.nav-main > li.nav-active > i {
 }
 
 ul.nav-main > li.nav-expanded > a {
-	background: #21262d;
+	background: #265c3d;
 }
 
 ul.nav-main li a {
@@ -2411,7 +2413,7 @@ ul.nav-main li.nav-parent.nav-expanded > ul.nav-children {
 }
 
 ul.nav-main li .nav-children {
-	background: #191c21;
+	background: #0b2014;
 	box-shadow: 0px -3px 3px -3px rgba(0, 0, 0, 0.7) inset;
 	display: none;
 	padding: 10px 0;
@@ -2423,7 +2425,7 @@ ul.nav-main li .nav-children li a {
 }
 
 ul.nav-main li .nav-children li a:hover, ul.nav-main li .nav-children li a:focus {
-	background: #191c21;
+	background: #173524;
 }
 
 ul.nav-main li .nav-children li a:after {
@@ -4338,7 +4340,7 @@ html.no-overflowscrolling.custom-scroll .nano > .nano-content {
 }
 /* Toolbar */
 .inner-toolbar {
-	background: #1d2127;
+	background: #0b2014;
 	margin: -40px -40px 30px;
 	padding: 0;
 	border-left: 1px solid #121418;
@@ -5210,7 +5212,10 @@ html.header-dark .userbox .dropdown-menu a {
 }
 
 .sidebar-widget {
-	margin: 0 30px 0 25px;
+	position: absolute;
+	bottom: 0;
+	margin: 0 30px 30px 25px;
+	font-size: 12px;
 }
 
 .sidebar-widget .widget-header {
@@ -16893,3 +16898,4 @@ html.dark .thumbnail {
 	background-color: #21262d;
 	border-color: #282d36;
 }
+.widget-content a,a:hover{color: #386640;}

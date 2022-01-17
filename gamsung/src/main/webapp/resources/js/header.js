@@ -95,7 +95,11 @@ $(document).ready(function(){
 					Swal.fire(result).then(()=>{
 						self.location = "/";
 					});
-				} 
+				} else{
+					Swal.fire("가입되지 않은 정보입니다. 다시 확인바랍니다.").then(()=>{
+						self.location = "/";
+					});
+				}
 			}
 		});	   
 		 		 

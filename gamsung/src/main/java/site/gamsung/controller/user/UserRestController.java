@@ -139,7 +139,12 @@ public class UserRestController {
 		System.out.println(phone);
 		System.out.println(id + "return 되나");
 
-		return id;
+		if(id != null) {
+			return id;
+		}else {
+			return null;
+		}
+		
 	}
 
 	// 비밀번호 찾기

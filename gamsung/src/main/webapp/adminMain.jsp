@@ -22,7 +22,7 @@ pageEncoding="UTF-8"%>
 
 			<!-- start: header -->
 			
-			
+			<jsp:include page="./view/common/adminHeader.jsp"/>
 			<!-- end: header -->
 
 			<div class="inner-wrapper">
@@ -110,30 +110,7 @@ pageEncoding="UTF-8"%>
 									</div>
 								</section>
 							</div>
-							<div class="col-md-3">
-								<section class="panel panel-featured-left panel-featured-tertiary">
-									<div class="panel-body">
-										<div class="widget-summary">
-											<div class="widget-summary-col widget-summary-col-icon">
-												<div class="summary-icon bg-tertiary">
-													<i class="fa fa-shopping-cart"></i>
-												</div>
-											</div>
-											<div class="widget-summary-col">
-												<div class="summary">
-													<h4 class="title">다른거</h4>
-													<div class="info">
-														<strong class="amount">38</strong>
-													</div>
-												</div>
-												<div class="summary-footer">
-													<a class="text-muted text-uppercase">(statement)</a>
-												</div>
-											</div>
-										</div>
-									</div>
-								</section>
-							</div>
+							
 							
 							<div class="col-md-3">
 								<section class="panel panel-featured-left panel-featured-secondary">
@@ -316,10 +293,10 @@ pageEncoding="UTF-8"%>
                     ],
                     datasets: [
                         { //데이터
-                            label: '전체 결제', //차트 제목
+                            label: '포인트결제', //차트 제목
                             fill: false, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
                             data: [
-                                21,19,25,20,23,26,19,29,18,22,35,34 //x축 label에 대응되는 데이터 값
+                                5,10,15,20,25,30,5,10,15,20,35,30 //x축 label에 대응되는 데이터 값
                             ],
                             backgroundColor: [
                                 //색상
@@ -340,16 +317,59 @@ pageEncoding="UTF-8"%>
                                 'rgba(255, 159, 64, 1)'
                             ],
                             borderWidth: 1 //경계선 굵기
-                        }/* ,
-                        {
-                            label: 'test2',
-                            fill: false,
+                        },
+                        { //데이터
+                            label: '일반결제', //차트 제목
+                            fill: false, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
                             data: [
-                                8, 34, 12, 24
+                            	15,20,25,30,45,50,15,20,25,30,45,40 //x축 label에 대응되는 데이터 값
                             ],
-                            backgroundColor: 'rgb(157, 109, 12)',
-                            borderColor: 'rgb(157, 109, 12)'
-                        } */
+                            backgroundColor: [
+                                //색상
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 206, 86, 0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(255, 159, 64, 0.2)'
+                            ],
+                            borderColor: [
+                                //경계선 색상
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)'
+                            ],
+                            borderWidth: 1 //경계선 굵기
+                        },
+                        { //데이터
+                            label: '전체결제', //차트 제목
+                            fill: false, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
+                            data: [
+                                20,30,40,50,70,80,20,30,40,50,80,70 //x축 label에 대응되는 데이터 값
+                            ],
+                            backgroundColor: [
+                                //색상
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 206, 86, 0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(255, 159, 64, 0.2)'
+                            ],
+                            borderColor: [
+                                //경계선 색상
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)'
+                            ],
+                            borderWidth: 1 //경계선 굵기
+                        }
                     ]
                 },
                 options: {

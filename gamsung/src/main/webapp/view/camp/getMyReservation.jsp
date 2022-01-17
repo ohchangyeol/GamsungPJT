@@ -292,14 +292,14 @@ pageEncoding="UTF-8"%>
                 return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
             }
 
-            function getToday(){
-                var date = new Date();
-                var year = date.getFullYear();
-                var month = ("0" + (1 + date.getMonth())).slice(-2);
-                var day = ("0" + date.getDate()).slice(-2);
+        function getToday(){
+            var date = new Date();
+            var year = date.getFullYear();
+            var month = ("0" + (1 + date.getMonth())).slice(-2);
+            var day = ("0" + date.getDate()).slice(-2);
 
-                return year + "-" + month + "-" + day;
-            }
+            return year + "-" + month + "-" + day;
+        }
 
         function go_reservation_list(){
           window.location = "/campGeneral/listMyReservation";
