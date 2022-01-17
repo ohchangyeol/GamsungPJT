@@ -21,5 +21,7 @@ public interface ReceiveDAO {
 	
 	public int blindReceive(int receiveNo)throws Exception;
 	
-	public int UpdateTransferApproval(int transferNo) throws Exception;
+	public int updateTransferStatus(Receive receive) throws Exception;
+	
+	public List<Receive> mylistReceive(Search search)throws Exception;
 }

@@ -36,6 +36,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import site.gamsung.service.camp.CampSearchService;
+import site.gamsung.service.common.Page;
 import site.gamsung.service.common.Search; 
   import site.gamsung.service.community.CommunityService;
 import site.gamsung.service.domain.AuctionProduct;
@@ -51,7 +52,13 @@ import site.gamsung.service.transfer.TransferService;
   @RequestMapping("/transfer/*")
   @RestController 
   public class TransferRestController {
-  
+	  
+   @Value("#{commonProperties['pageUnit']}")
+   int pageUnit;
+   
+   @Value("#{commonProperties['pageSize']}")
+   int pageSize;
+	   
   @Value("#{commonProperties['communityPageSize']}") int communityPageSize;
     
   @Autowired
@@ -167,8 +174,94 @@ import site.gamsung.service.transfer.TransferService;
 	 */
   
   
-  
-  
+ // 예약양도양수 상태값 변경
+ @RequestMapping(value = "rest/updateTransferStatus")   
+ public int updateTransferStatus(@ModelAttribute("receive") Receive receive, @RequestParam("transferNoo") int transferNoo, HttpSession session, Model model) throws Exception {
+
+    System.out.println("updateTransferStatus Start");
+    Transfer transfer = new Transfer();
+
+    int receiveNo = receive.getReceiveNo();
+    int transferNo = transferNoo;
+    
+    receive.setReceiveNo(receiveNo);    
+    transfer.setTransferNo(transferNo);
+    receive.setTransferNo(transfer);
+    
+    System.out.println(receiveNo);
+    System.out.println(transferNo);
+   
+    
+    return receiveService.updateTransferStatus(receive);
+ }
+ 
+ 
+ // 나한테 양수신청 당한 양도글 리스트
+ @RequestMapping(value = "rest/listTransferForReceive")   
+ 
+ public List<Transfer> listTransferForReceive(HttpSession session) throws Exception {
+
+    System.out.println("listTransferForReceive Start");
+    
+	 User user = (User)session.getAttribute("user");
+
+	 String userId =user.getId();
+    
+	 System.out.println("user::::::"+userId);
+	 
+    return transferService.listTransferForReceive(userId);
+    
+    
+    
+    
+ }
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ // 예약양도양수 My 페이지 navigation   
+ 
+ @RequestMapping(value = "rest/listMyTransfer")   
+ 
+ public Map<String, Object> listMyTransfer(HttpSession session, Model model, Search search) throws Exception {
+
+    System.out.println("listMyTransfer Start");
+
+    User user = (User) session.getAttribute("user");
+
+     Map<String, Object> map = new HashMap<String, Object>();
+     
+     if (search.getCurrentPage() == 0) {
+          search.setCurrentPage(1);
+       }
+           
+    search.setPageSize(10);
+    search.setId(user.getId()); // listMyTransfer는 search에 id를 넣는다. 
+
+    map.put("search", search);
+           
+    map = transferService.listTransfer(map);
+    
+    int TotalCount = (int) map.get("TotalCount");
+ 
+    List<Transfer> Transferlist =  (List<Transfer>) map.get("list");
+    
+    Page resultPage = new Page( search.getCurrentPage(), TotalCount, pageUnit, pageSize);
+          
+    System.out.println(Transferlist);
+    
+    Map<String, Object> resultMap = new HashMap<String, Object>();
+    resultMap.put("user", user);
+    resultMap.put("Transferlist", Transferlist);
+    resultMap.put("resultPage", resultPage);      
+    
+    return resultMap;
+ }
   
   
   

@@ -8,6 +8,7 @@ encoding//src/main/resources=UTF-8
 encoding//src/main/resources/config/auction.properties=UTF-8
 encoding//src/main/webapp/view/chat/chattingList.jsp=UTF-8
 encoding//src/main/webapp/view/chat/chattingRoom.jsp=UTF-8
+encoding//src/main/webapp/view/receive/listMyReceive.jsp=UTF-8
 encoding//src/resources=UTF-8
 encoding//src/test/java=UTF-8
 encoding/<project>=UTF-8

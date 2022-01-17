@@ -182,7 +182,7 @@ public class Search {
 
 	//==> Select Query 시 ROWNUM 시작 값
 	public int getStartRowNum() {
-		return (getCurrentPage()-1)*getPageSize()+1;
+		return (getCurrentPage()-1)*getPageSize()+1; 
 	}
 
 	public void setStartRowNum(int startRowNum) {
@@ -191,7 +191,7 @@ public class Search {
 
 	//==> Select Query 시 ROWNUM 마지막 값 
 	public int getEndRowNum() {
-		return getCurrentPage()*getPageSize();
+		return getCurrentPage()*getPageSize();  
 	}
 
 	public void setEndRowNum(int endRowNum) {
