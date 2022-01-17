@@ -139,7 +139,12 @@ public class UserRestController {
 		System.out.println(phone);
 		System.out.println(id + "return 되나");
 
-		return id;
+		if(id != null) {
+			return id;
+		}else {
+			return null;
+		}
+		
 	}
 
 	// 비밀번호 찾기
@@ -204,10 +209,14 @@ public class UserRestController {
 		
 		System.out.println("들어오긴 하는건가");
 		System.out.println("토큰"+(String)session.getAttribute("kakaoToken"));
-		userService.unlink((String)session.getAttribute("kakaoToken")); 
-		userService.kakaoLogout((String)session.getAttribute("kakaoToken"));
-		session.invalidate();
-		return 0;
+		String kakaoToken=(String)session.getAttribute("kakaoToken");
+		User kakaoUser=(User)session.getAttribute("user");
+			userService.unlink(kakaoToken); 
+			userService.addSecessionUser(kakaoUser);
+			//	userService.kakaoLogout(kakaoToken);
+				System.out.println("카카오 토큰"+kakaoToken);
+				session.invalidate();
+				return 0;		
 		}
 
 	@RequestMapping(value = "rest/updateDormantGeneralUserConvert", method = RequestMethod.POST)

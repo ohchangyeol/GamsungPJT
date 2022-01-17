@@ -107,3 +107,6 @@ hr.divider-w{height: 0 !important;}
 .get-report .u-d-button-box{display: flex;justify-content: end; gap: 15px;}
 
 .panel-group {margin-bottom: 10px;}
+#answer-form textarea{width: 80%;border: 1px #d7d7d74f solid;border-radius: 10px;resize: none;padding: 15px;box-sizing: border-box;}
+#answer-form {position: relative;}
+#answer-form #send-answer {position: absolute; right: 0;bottom: 5px;}

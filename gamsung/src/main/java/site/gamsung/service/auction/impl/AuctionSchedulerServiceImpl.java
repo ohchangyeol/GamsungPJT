@@ -38,6 +38,9 @@ public class AuctionSchedulerServiceImpl implements AuctionSchedulerService {
 	
 	@Value("#{auctionProperties['url']}")
 	private String url;
+	
+	@Value("#{auctionProperties['video']}")
+	private String video;
 
 	// 경매 상태 업데이트
 	@Override
@@ -97,7 +100,7 @@ public class AuctionSchedulerServiceImpl implements AuctionSchedulerService {
 								auctionProduct.setSuccessfulBidderId(info.getUser().getId());
 								sendMail.sendMail(info.getUser().getId(), tmpAuctionProduct.getAuctionProductName(),
 										"낙찰 되셨습니다.\n 하단 링크를 통해 경매 확정 혹은 낙찰 취소 가능합니다.\n"+url+auctionProductNo
-										+"\n하단 화상채팅 버튼을 통해서 상품을 확인하세요.\n http://127.0.0.1:8080/video/"+auctionProductNo);
+										+video+auctionProductNo);
 							} else {
 								sendMail.sendMail(info.getUser().getId(), tmpAuctionProduct.getAuctionProductName(),
 										"유찰 되셨습니다.\n"+url+auctionProductNo);

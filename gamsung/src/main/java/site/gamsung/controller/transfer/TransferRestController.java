@@ -68,51 +68,55 @@ import site.gamsung.service.transfer.TransferService;
 
   
   
-	/*
-	 * // 댓글 list
-	 * 
-	 * @RequestMapping (value = "rest/listComment")
-	 * 
-	 * public List<Comment> listComment (@ModelAttribute("post") Post post, Model
-	 * model, HttpSession session) throws Exception{
-	 * 
-	 * System.out.println("listComment"); // listPost 시작
-	 * 
-	 * User user = (User)session.getAttribute("user"); //Session에서 user받아서 user
-	 * setting하기.
-	 * 
-	 * System.out.println(user);
-	 * 
-	 * int postNo = post.getPostNo();
-	 * 
-	 * System.out.println(postNo);
-	 * 
-	 * // List<Comment> Comment = communityService.listComment(postNo); // // //
-	 * Model 과 View 연결 // // model.addAttribute("list", Comment );
-	 * 
-	 * return communityService.listComment(postNo);
-	 * 
-	 * }
-	 */
+	
+//	  // 양수 list
+//	  
+//	  @RequestMapping (value = "rest/listReceive")
+//	  
+//	  public List<Receive> listReceive (@RequestParam String transferNo, Search search, Model
+//	  model, HttpSession session) throws Exception{
+//	  
+//	  System.out.println("listReceive"); // listPost 시작
+//	  
+//	  User user = (User)session.getAttribute("user"); 
+//	  
+//	  search.setRole(user.getRole());
+//	  search.setTransferNo(Integer.parseInt(transferNo));
+//	  search.setId(user.getId());
+//	  
+//	  System.out.println(user);
+//	  
+//	  return receiveService.listReceive(search);
+//	  
+//	  }
+	 
+
+
   
   
-  
-//댓글 add
+//양수신청글 add
   
  @RequestMapping(value = "rest/addReceive") 
  @ResponseBody
- public void addReceive (@ModelAttribute("receive") Receive receive, HttpSession session) throws Exception{
+ public void addReceive (@ModelAttribute("receive") Receive receive, String transferNoo, HttpSession session) throws Exception{
 	 
-	 System.out.println("addReceive");
+	 System.out.println("addReceive:::");
 	 System.out.println(receive);
-	 
-//	 Transfer transfer = new Transfer();
-	 
 
+	 Transfer transfer = new Transfer();
+
+	 transfer.setTransferNo(Integer.parseInt(transferNoo));
+	 receive.setTransferNo(transfer);
+	 
+	 User user = (User)session.getAttribute("user");
+	 receive.setTransferee(user);
+	 
 	 receiveService.addReceive(receive);
+	 
+	 
 		/*
-		 * receiveService.getReceive(receive.getTransferNo());
-		 */
+		  receiveService.getReceive(receive.getTransferNo());
+		 
 		/* return Receive; */ 
  }
 	/*

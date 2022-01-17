@@ -22,7 +22,7 @@ pageEncoding="UTF-8"%>
 
 			<!-- start: header -->
 			
-			
+			<jsp:include page="./view/common/adminHeader.jsp"/>
 			<!-- end: header -->
 
 			<div class="inner-wrapper">
@@ -35,6 +35,7 @@ pageEncoding="UTF-8"%>
 					<h3><strong>감성캠프 사이트 통계</strong></h3>
 
 						<div class="row">
+							
 							<div class="col-md-3">
 								<section class="panel panel-featured-left panel-featured-quartenary">
 									<div class="panel-body">
@@ -59,6 +60,7 @@ pageEncoding="UTF-8"%>
 									</div>
 								</section>
 							</div>
+							
 							<div class="col-md-3">
 								<section class="panel panel-featured-left panel-featured-primary">
 									<div class="panel-body">
@@ -70,14 +72,14 @@ pageEncoding="UTF-8"%>
 											</div>
 											<div class="widget-summary-col">
 												<div class="summary">
-													<h4 class="title">다른거</h4>
+													<h4 class="title">처리되지 않은 신고 수</h4>
 													<div class="info">
-														<strong class="amount">1281</strong>
-														<span class="text-primary">*^^*</span>
+														<strong class="amount report-count"></strong>
+														<span class="text-primary"></span>
 													</div>
 												</div>
 												<div class="summary-footer">
-													<a class="text-muted text-uppercase">(view all)</a>
+													<a class="text-muted text-uppercase" href="/servicecenter/listReport">신고 내역 바로가기</a>
 												</div>
 											</div>
 										</div>
@@ -95,13 +97,13 @@ pageEncoding="UTF-8"%>
 											</div>
 											<div class="widget-summary-col">
 												<div class="summary">
-													<h4 class="title">다른거</h4>
+													<h4 class="title">미답변 Q&A 수</h4>
 													<div class="info">
-														<strong class="amount">100억</strong>
+														<strong class="amount qna-count"></strong>
 													</div>
 												</div>
 												<div class="summary-footer">
-													<a class="text-muted text-uppercase">(withdraw)</a>
+													<a class="text-muted text-uppercase" href="/servicecenter/listQna" >Q&A 바로 가기</a>
 												</div>
 											</div>
 										</div>
@@ -133,28 +135,62 @@ pageEncoding="UTF-8"%>
 								</section>
 							</div>
 							
+							<div class="col-md-3">
+								<section class="panel panel-featured-left panel-featured-secondary">
+									<div class="panel-body">
+										<div class="widget-summary">
+											<div class="widget-summary-col widget-summary-col-icon">
+												<div class="summary-icon bg-secondary">
+													<i class="fa fa-usd"></i>
+												</div>
+											</div>
+											<div class="widget-summary-col">
+												<div class="summary">
+													<h4 class="title">사이트수익</h4>
+													<div class="info">
+														<strong class="amount">100억</strong>
+													</div>
+												</div>
+												<div class="summary-footer">
+													<a class="text-muted text-uppercase">(2021년 1월)</a>
+												</div>
+											</div>
+										</div>
+									</div>
+								</section>
+							</div>
+							
 						</div>
 
 
 					
 						<div class="row">
 							<div class="col-md-6">
-								<h3><strong>작년 대비 예약자 수</strong></h3>
+								<h3><strong>전년 대비 예약자 수</strong></h3>
 								<!--차트가 그려질 부분-->
 								<canvas id="reservation_chart"></canvas>
-								<div style="text-align: center; padding: 10px;"><span>일,주,월,년간 예약자수 비교</span></div>
-								<input type="hidden" id="reservation_statistics_data" day="${reservationStatistics.dayCount}" 
-										week="${reservationStatistics.weekCount}" month="${reservationStatistics.monthCount}" 
-										year="${reservationStatistics.yearCount}" beforeday="${reservationStatistics.beforeYearDayCount}" 
-										beforeweek="${reservationStatistics.beforeYearWeekCount}" beforemonth= "${reservationStatistics.beforeYearMonthCount}" 
+								<div style="text-align: center; padding: 10px;">
+									<span>일/주/월/년 예약자수 비교</span>
+								</div>
+								<input type="hidden" id="reservation_statistics_data" 
+										day="${reservationStatistics.dayCount}" 
+										week="${reservationStatistics.weekCount}" 
+										month="${reservationStatistics.monthCount}" 
+										year="${reservationStatistics.yearCount}" 
+										beforeday="${reservationStatistics.beforeYearDayCount}" 
+										beforeweek="${reservationStatistics.beforeYearWeekCount}" 
+										beforemonth= "${reservationStatistics.beforeYearMonthCount}" 
 										beforeyear="${reservationStatistics.beforeYearYearCount}">
-										
 
 							</div>
+							
 							<div class="col-md-6">
-								<h3><strong>다른 통계</strong></h3>
+								<h3><strong>사이트 수익</strong></h3>
 								<!--차트가 그려질 부분-->
-								<canvas id="other_chart"></canvas>
+								<canvas id="siteProfit_chart"></canvas>
+								<div style="text-align: center; padding: 10px;">
+									<span>월별 수익</span>
+								</div>
 							</div>
 						</div>
 
@@ -167,6 +203,20 @@ pageEncoding="UTF-8"%>
 	
 
 		<script type="text/javascript">
+
+			$(document).ready(function () {
+				$.ajax({
+					url : "/servicecenter/rest/adminMain" ,
+					method : "GET" ,
+					dataType : "json" ,
+					success : function(JSONData , status) {
+					console.log(JSONData);
+					console.log(JSONData.qnaCount);
+					$(".qna-count").text(JSONData.qnaCount);
+					$(".report-count").text(JSONData.reportCount);
+					}
+				})
+			});
 
 			let day = $('#reservation_statistics_data').attr("day"),
 				week = $('#reservation_statistics_data').attr("week"),
@@ -182,10 +232,6 @@ pageEncoding="UTF-8"%>
                 .getElementById('reservation_chart')
                 .getContext('2d');
 
-			let other_context = document
-                .getElementById('other_chart')
-                .getContext('2d');
-		
             var reservation_chart = new Chart(reservation_context, {
                 type: 'bar', // 차트의 형태
                 data: { // 차트에 들어갈 데이터
@@ -255,8 +301,13 @@ pageEncoding="UTF-8"%>
                     }
                 }
             });
+            
 
-			var other_chart = new Chart(other_context, {
+            let other_context = document
+            .getElementById('siteProfit_chart')
+            .getContext('2d');
+
+			var siteProfit_chart = new Chart(other_context, {
                 type: 'line', // 차트의 형태
                 data: { // 차트에 들어갈 데이터
                     labels: [
@@ -265,7 +316,7 @@ pageEncoding="UTF-8"%>
                     ],
                     datasets: [
                         { //데이터
-                            label: '다른 통계', //차트 제목
+                            label: '전체 결제', //차트 제목
                             fill: false, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
                             data: [
                                 21,19,25,20,23,26,19,29,18,22,35,34 //x축 label에 대응되는 데이터 값

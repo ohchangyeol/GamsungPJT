@@ -254,7 +254,7 @@
 												</div>
 											</div>
 
-											<c:if test="${user.suspensionDate}  !=null">
+											<c:if test="${user.suspensionDate != null}">
 												<div id="suspention-date" class="form-group row">
 													<label for="suspention-date"
 														class="col-sm-offset-1 col-sm-3 control-label"><strong>이용정지
@@ -266,7 +266,8 @@
 													</div>
 												</div>
 											</c:if>
-											<c:if test="${user.secessionRegDate !=null}">
+
+											<c:if test="${user.secessionRegDate != null}">
 												<div id="secession-date" class="form-group row">
 													<label for="secession-date"
 														class="col-sm-offset-1 col-sm-3 control-label"><strong>탈퇴
@@ -310,7 +311,7 @@
 			<script src="/resources/lib/jquery-datatables/extras/TableTools/js/dataTables.tableTools.min.js"></script>
 			<script src="/resources/lib/jquery-datatables-bs3/assets/js/datatables.js"></script>
 
-			<script src="../../resources/lib/jquery/jquery.js"></script>
+<!-- 			<script src="../../resources/lib/jquery/jquery.js"></script>
 			<script src="../../resources/lib/bootstrap/js/bootstrap.min.js"></script>
 			<script src="../../resources/lib/wow/wow.js"></script>
 			<script src="../../resources/lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js"></script>
@@ -322,7 +323,7 @@
 			<script src="../../resources/lib/magnific-popup/jquery.magnific-popup.js"></script>
 			<script src="../../resources/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script>
 			<script src="../../resources/js/plugins.js"></script>
-			<script src="../../resources/js/main.js"></script>
+			<script src="../../resources/js/main.js"></script> -->
 
 			<script type="text/javascript">
 

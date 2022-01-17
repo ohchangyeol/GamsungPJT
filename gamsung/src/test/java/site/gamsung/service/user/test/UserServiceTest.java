@@ -1,21 +1,43 @@
 package site.gamsung.service.user.test;
 
 import java.util.List;
+import java.util.Properties;
 import java.util.Random;
+
+import javax.activation.CommandMap;
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.activation.FileDataSource;
+import javax.activation.MailcapCommandMap;
+import javax.mail.Authenticator;
+import javax.mail.BodyPart;
+import javax.mail.Message;
+import javax.mail.Multipart;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMessage.RecipientType;
+import javax.mail.internet.MimeMultipart;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.sun.mail.util.logging.MailHandler;
 
 import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.User;
 import site.gamsung.service.domain.UserWrapper;
 import site.gamsung.service.user.UserService;
 import site.gamsung.util.user.SHA256Util;
-
+import site.gamsung.util.user.MailAuth;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations =  {"classpath:config/context-common.xml",
@@ -148,7 +170,7 @@ public class UserServiceTest {
 	public void testUpdateTempPassword() throws Exception{
 		
 		User user = new User();
-		String id = "test2@test.com";
+		String id = "muse1264@nate.com";
 		user = userService.getUser(id);
 		if(user.getSalt()==null || user.getSalt()=="") {
 			String newSalt=SHA256Util.generateSalt();
@@ -234,6 +256,85 @@ public class UserServiceTest {
 			
 			userService.updateDormantGeneralUserConvert(user.getId());	
 		}
+		
+		// @Test
+		    public void sendMailTest() throws Exception{
+			 Properties prop = System.getProperties();
+			 
+			 // 로그인시 TLS를 사용할 것인지 설정
+				prop.put("mail.smtp.starttls.enable", "true");
+		        
+				// 이메일 발송을 처리해줄 SMTP서버
+				prop.put("mail.smtp.host", "smtp.gmail.com");
+		        
+				// SMTP 서버의 인증을 사용한다는 의미
+				prop.put("mail.smtp.auth", "true");
+		        
+				// TLS의 포트번호는 587이며 SSL의 포트번호는 465이다.
+				prop.put("mail.smtp.port", "587");
+				
+				prop.put("mail.transport.protocol", "smtp");
+				prop.put("mail.debug", "true");
+				
+				// soket문제와 protocol문제 해결
+				prop.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+//				prop.put("mail.smtp.socketFactory.fallback", "false");
+				prop.put("mail.smtp.ssl.protocols", "TLSv1.2");
+
+				Authenticator auth = new MailAuth();
+			
+		        String subject = "test 메일";
+		        //String content = "<h4>안녕하세요.</h4>" + "<img src='cid:images/addBusinessUserImg.png' alt =''>";
+		        String from = "gamsungsite@gmail.com";
+		        String to = "muse1264@nate.com";
+		        Session session = Session.getDefaultInstance(prop, auth);
+		        Transport transport = session.getTransport();
+		        MimeMessage message = new MimeMessage(session);
+		        message.setSubject(subject);
+		        message.setFrom(new InternetAddress(from));
+		        message.setRecipient(Message.RecipientType.TO, new InternetAddress(to));
+		        
+		        MimeMultipart multipart = new MimeMultipart("related");
+//		        BodyPart messageBodyPart = new MimeBodyPart();
+		        MimeBodyPart messageBodyPart = new MimeBodyPart();
+		        
+		        //String html = "<h3>안녕하세요</h3>\n";
+
+		        String htmlText="<h3>안녕하세요</h3>\\n<img src=\"cid:image\">";
+		      //  messageBodyPart.setContent(html, "text/html; charset=UTF-8");
+		       // messageBodyPart.setContent(htmlText, "text/html");
+		        messageBodyPart.setContent(htmlText, "text/html; charset=UTF-8");
+		        multipart.addBodyPart(messageBodyPart);
+		        
+		        messageBodyPart=new MimeBodyPart();
+		        DataSource fds=new FileDataSource("C:\\Users\\muse1\\OneDrive\\바탕 화면\\메인프로젝트\\KakaoTalk_20220113_170026607.jpg");
+		        messageBodyPart.setDataHandler(new DataHandler(fds));
+		        messageBodyPart.setHeader("Content-ID", "<image>");
+		        
+		        multipart.addBodyPart(messageBodyPart);
+		        message.setContent(multipart);
+		        transport.connect();
+		        transport.sendMessage(message, message.getRecipients(Message.RecipientType.TO));
+		        
+		        transport.close();
+		        
+//		        try {
+//		            MimeMessage mail = new MimeMessage(session);
+//		            MimeMessageHelper mailHelper = new MimeMessageHelper(mail,true,"UTF-8");
+//		            
+//		            mailHelper.setFrom(from);
+//		            mailHelper.setTo(to);
+//		            mailHelper.setSubject(subject);
+//		            mailHelper.setText(content, true);
+//		           
+//		            Transport.send(mail);
+//		            
+//		        } catch(Exception e) {
+//		            e.printStackTrace();
+//		        }
+		        
+		    }
+		
 		
 	
 }
