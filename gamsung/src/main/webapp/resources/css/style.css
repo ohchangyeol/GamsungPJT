@@ -251,7 +251,8 @@ a,
 }
 
 .bg-dark {
-  background: #111;
+  background: #b3c2d1;
+  font-size: 12px !important;
 }
 
 /* .bg-dark-30:before {
@@ -567,28 +568,31 @@ a,
 .scroll-up {
   position: fixed;
   display: none;
-  bottom: 7px;
-  right: 7px;
+  bottom: 125px;
+  right: 50px;
   z-index: 999;
 }
 
 .scroll-up a {
   background: #fff;
-  display: block;
-  height: 28px;
-  width: 28px;
+  display: flex;
+  height: 60px;
+  width: 60px;
   text-align: center;
   line-height: 28px;
   font-size: 14px;
-  color: #000;
-  opacity: 0.6;
-  border-radius: 2px;
+  color: #6e6e6e;
+  border-radius: 26px;
+  justify-content: center;
+  align-items: center;
+  box-shadow: rgb(0 0 0 / 10%) 0px 4px 6px, rgb(0 0 0 / 15%) 0px 8px 30px, rgb(255 255 255 / 20%) 0px 0px 0px 1px inset !important;
+  
 }
 
 .scroll-up a:hover,
 .scroll-up a:active {
   opacity: 1;
-  color: #000;
+  color: #2d2d2d;
 }
 
 /* Video */
@@ -1244,7 +1248,7 @@ General Styles - Owlcarousel
 	Navbar
 --------------------------------------------------------------*/
 .navbar-custom {
-  background-color: #fff;
+  background-color: rgb(255 255 255 / 85%);
   border: 0;
   border-radius: 0;
   z-index: 1000;
@@ -1260,7 +1264,7 @@ General Styles - Owlcarousel
 }
 
 .navbar-custom .dropdown-menu {
-  background: rgba(26, 26, 26, 0.9);
+  background: rgb(255 255 255 / 85%);
   border-radius: 0;
   border: 0;
   padding: 0;
@@ -1268,10 +1272,10 @@ General Styles - Owlcarousel
 }
 
 .navbar-custom .navbar-brand {
-  letter-spacing: 4px;
-  font-weight: 400;
+  letter-spacing: 0.5px;
+  font-weight: 500;
   font-size: 22px;
-  color: #fff;
+  color: #3974d9;
 }
 
 .navbar-custom .nav li > a {
@@ -1310,7 +1314,7 @@ General Styles - Owlcarousel
 .navbar-custom .dropdown-menu > li > a:focus,
 .navbar-custom .dropdown-menu > li > a:hover {
   background: none;
-  color: #fff;
+  color: #838383;
 }
 
 .navbar-custom .dropdown-menu > li > a:hover {
@@ -3014,3 +3018,6 @@ Google map
 .detail_search-btn{height: 70px; width: 90px; border-radius: 10px 10px 0 0 ; background-color: #75b6c7; display: inline-block; padding: 7px; display: flex; justify-content: center; font-size: 15px;font-weight: bold;color: #fff; }
 .font-jua{font-family: 'Jua', sans-serif !important;}
 .main-color{color: #3974D9 !important;}
+.main-login-btn:hover{background-color:#9cc1e8 !important; color: #fff !important;}
+.widget p{margin: 0;}
+.auction-lv {border: 1px #ddd solid;font-weight: 500;font-size: 10px !important; background-color: transparent;}
