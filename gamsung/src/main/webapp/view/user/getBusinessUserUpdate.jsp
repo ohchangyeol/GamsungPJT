@@ -378,7 +378,7 @@
 
 					//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 					$("#get_b_updateUser").on("click", function () {
-						console.log("뭐지");
+						console.log("사업자회원 내정보 조회수정");
 						fncupdateUser();
 					});
 

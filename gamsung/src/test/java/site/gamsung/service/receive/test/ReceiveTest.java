@@ -115,7 +115,11 @@ public class ReceiveTest {
 	/* 양도&양수 승인시 Flag 처리*/
 		
 	int transferNo = 1;
-	int Approval = receiveService.UpdateTransferApproval(transferNo);
+	Receive receive = new Receive();
+	Transfer transfer = new Transfer();
+	transfer.setTransferNo(transferNo);
+	receive.setTransferNo(transfer);
+	int Approval = receiveService.updateTransferStatus(receive);
 
 	System.out.println("Approval::::" + Approval);
 		

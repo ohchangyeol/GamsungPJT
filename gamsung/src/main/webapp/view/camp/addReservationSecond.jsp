@@ -195,20 +195,20 @@ pageEncoding="UTF-8"%>
             $("#camp_use_num").on("propertychange change keyup paste input", function() {				
                  let useNum = $("#camp_use_num").val();
                  let maxUse = $("#camp_use_info").attr("camp_use_num");
-
+          
                  if(useNum > maxUse){
-                    $("#camp_use_num").val(maxUse);
+                    $("#camp_use_num").val(parseInt(maxUse));
                     return;
                  }
             });
 
             $("#camp_use_car_num").on("propertychange change keyup paste input", function() {	
-                let carNum = $("#camp_use_num").val();
+                let carNum = $("#camp_use_car_num").val();
                 let maxCar = $("#camp_use_info").attr("camp_use_car");
-
+             
                 if(carNum > maxCar){
-                  $("#camp_use_car_num").val(maxCar);
-                  
+                  $("#camp_use_car_num").val(parseInt(maxCar));
+                  return;
                 }
       
             });

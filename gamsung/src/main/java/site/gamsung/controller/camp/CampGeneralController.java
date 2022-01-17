@@ -505,8 +505,10 @@ public class CampGeneralController {
 		}else {
 		ratingReview.setRatingReviewStatus(1);
 		}
+		
 		CampReservation campReservation = campReservationService.getReservation(reservationNo);
-		campReservation.setReservationStatus(8);
+		campReservation.setReservationStatus(7);
+		campReservation.setTotalPaymentPrice(0);
 				
 		ratingReviewService.addRatingReview(ratingReview);
 		campReservationService.updateReservationStatus(campReservation);

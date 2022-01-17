@@ -90,5 +90,14 @@ public class TransferDAOImpl implements TransferDAO {
 	public int getTotalCount(Search search) throws Exception {
 		return sqlSession.selectOne("TransferMapper.getTotalCount", search);
 	}
+
+
+	@Override
+	public List<Transfer> listTransferForReceive(String userId) throws Exception {
+		
+		System.out.println(sqlSession.selectList("TransferMapper.listTransferForReceive", userId));
+		
+		return sqlSession.selectList("TransferMapper.listTransferForReceive", userId);
+	}
 	
 }

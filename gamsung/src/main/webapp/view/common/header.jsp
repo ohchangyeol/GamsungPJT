@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
 		<!-- 상단해더 Start -->
@@ -61,42 +61,54 @@
 								<li><a href="/servicecenter/listNotice">공지사항</a></li>
 								<li><a href="/servicecenter/listQna"> Q&A </a></li>
 								<c:if test="${sessionScope.user.role!=null}">
-									<li><a href="/servicecenter/listReport?id=${user.id}">내
-											신고 내역</a></li>
+									<li><a href="/servicecenter/listReport?id=${user.id}">내	신고 내역</a></li>
 								</c:if>
 							</ul>
 						</li>
 						<!-- 고객센터 End -->
 
 
-  						<!-- My / Business / Admin  Start -->
-                        <c:if test="${user.role == 'BUSINESS'}">
-                            <li><a href="/campBusiness/goSubMainCampBusiness">BusinessPage</a>
-                        </c:if>
 
-                        <c:if test="${user.role == 'ADMIN' }">
-                            <li><a href="/adminMain.jsp">AdminPage</a>
-                        </c:if>
+						<!-- My / Business / Admin  Start -->
+						<c:if test="${user.role == 'BUSINESS'}">
+							<li><a href="/campBusiness/goSubMainCampBusiness">BusinessPage</a>
+						</c:if>
+
+						<c:if test="${user.role == 'ADMIN' }">
+							<li><a href="/admin">AdminPage</a>
+						</c:if>
 
 						<c:if test="${user.role != 'BUSINESS' && sessionScope.user != null}">
 							<li class="dropdown">
-								<a class="dropdown-toggle" href="/user/mypage" data-toggle="dropdown">${user.nickName}님</a>
+								<c:if test="${user.role=='ADMIN'}">
+									<a class="dropdown-toggle" href="/admin" data-toggle="dropdown">${user.nickName}님</a>
+								</c:if>
+								
+								<c:if test="${user.role != 'ADMIN'}">
+									<a class="dropdown-toggle" href="/user/mypage" data-toggle="dropdown">${user.nickName}님</a>
+								</c:if>
+								
 								<ul class="dropdown-menu login-dropdown">
-									<li>
-										<p style="padding-bottom: 10px;">경매 등급 <span class="badge rounded-pill bg-info text-dark auction-lv" >${user.auctionGrade}LV</span></p>
-									</li>
-									<li>
-										<p>보유 포인트</p>
-										<p style="padding-bottom: 10px; border-bottom: 1px #ddd solid;"><span id="havingPoint" class="main-color" style="font-weight: 700;">${user.havingPoint} </span>p</p>
-									</li>
-									<li><a href="/user/mypage" style="border-bottom: none !important;"><i class="bi bi-person-circle"></i>&nbsp;내정보</a></li>
-									<li><a href="/community/listMyPost" style="border-bottom: none !important;"><i class="bi bi-filter-square"></i>&nbsp;커뮤니티</a></li>
-									<li><a href="" style="border-bottom: none !important;"><i class="bi bi-truck">&nbsp;</i>캠핑장</a></li>
-									<li><a id="auctionAdd" style="border-bottom: none !important;"><i class="fa fa-gavel" aria-hidden="true"></i>&nbsp;중고경매</a></li>
-									<li><a href=""style="border-bottom: none !important;"><i class="fa  fa-refresh" aria-hidden="true"></i>&nbsp;예약양도</a></li>
-									<li><a href="/payment/listPayment" style="border-bottom: none !important;"><i class="fa fa-money" aria-hidden="true"></i>&nbsp;결제 내역</a></li>
-									<li><a href="/payment/managePoint" style="border-bottom: none !important;"><i class="fa fa-money" aria-hidden="true"></i>&nbsp;포인트 관리</a></li>
-									<li><a href="/user/logout" style="border-bottom: none !important;"><button class="btn btn-border-w btn-round btn-xs" type="button"id="logout">LOGOUT</button></a></li>
+									<li><p style="padding-bottom: 10px;">경매 등급 <span class="badge rounded-pill bg-info text-dark auction-lv">${user.auctionGrade}LV</span>	</p></li>
+									<li><p>보유 포인트</p><p style="padding-bottom: 10px; border-bottom: 1px #ddd solid;">
+											<span id="havingPoint" class="main-color" style="font-weight: 700;">${user.havingPoint} </span>p</p></li>
+
+									<c:if test="${user.role == 'ADMIN' }">
+										<li><a href="/admin">AdminPage</a></li>
+									</c:if>
+									
+									<c:if test="${user.role != 'ADMIN'}">
+										<li><a href="/user/mypage" style="border-bottom: none !important;"><i class="bi bi-person-circle"></i>&nbsp;내정보</a></li>
+										<li><a href="/community/listMyPost" style="border-bottom: none !important;"><i class="bi bi-filter-square"></i>&nbsp;커뮤니티</a></li>
+										<li><a href="" style="border-bottom: none !important;"><i class="bi bi-truck">&nbsp;</i>캠핑장</a></li>
+										<li><a id="auctionAdd" style="border-bottom: none !important;"><i class="fa fa-gavel" aria-hidden="true"></i>&nbsp;중고경매</a></li>
+										<li><a href="" style="border-bottom: none !important;"><i class="fa  fa-refresh" aria-hidden="true"></i>&nbsp;예약양도</a></li>
+										<li><a href="/payment/listPayment" style="border-bottom: none !important;"><i class="fa fa-money" aria-hidden="true"></i>&nbsp;결제 내역</a></li>
+										<li><a href="/payment/managePoint" style="border-bottom: none !important;"><i class="fa fa-money" aria-hidden="true"></i>&nbsp;포인트 관리</a></li>
+									</c:if>
+									
+									<li><a href="#" style="border-bottom: none !important;"><button	class="btn btn-border-w btn-round btn-xs" type="button"	id="logout">LOGOUT</button></a></li>
+
 								</ul>
 							</li>
 						</c:if>
@@ -106,9 +118,7 @@
 						<!-- 로그인/로그아웃 Start -->
 						<li>
 							<c:if test="${sessionScope.user.role==null}">
-								<a class="modal-basic" href="#modalBasic" id="header-login">
-									<button class="btn btn-border-w btn-round btn-xs main-login-btn" type="button">LOGIN</button>
-								</a>
+								<a class="modal-basic" href="#modalBasic" id="header-login"><button class="btn btn-border-w btn-round btn-xs main-login-btn" type="button">LOGIN</button></a>
 							</c:if>
 						</li>
 						<!-- 로그인/로그아웃 End -->
@@ -146,26 +156,26 @@
 
 			$('#adminProduct').on('click', function () {
 				if (${ sessionScope.user.auctionSuspension != null }){
-					alert('경매 이용 정지되었습니다. 관리자에게 문의하세요.');
-					return;
-				}
-				window.location = "/auction/listAdminAuctionProduct";
+				alert('경매 이용 정지되었습니다. 관리자에게 문의하세요.');
+				return;
+			}
+			window.location = "/auction/listAdminAuctionProduct";
 			});
-			
+
 			$('#listWait').on('click', function () {
 				if (${ sessionScope.user.auctionSuspension != null }){
-					alert('경매 이용 정지되었습니다. 관리자에게 문의하세요.');
-					return;
-				}
-				window.location = "/auction/listWaitAuctionProduct";
+				alert('경매 이용 정지되었습니다. 관리자에게 문의하세요.');
+				return;
+			}
+			window.location = "/auction/listWaitAuctionProduct";
 			});
-			
+
 			$('#listProduct').on('click', function () {
 				if (${ sessionScope.user.auctionSuspension != null }){
-					alert('경매 이용 정지되었습니다. 관리자에게 문의하세요.');
-					return;
-				}
-				window.location = "/auction/listAuctionProduct";
+				alert('경매 이용 정지되었습니다. 관리자에게 문의하세요.');
+				return;
+			}
+			window.location = "/auction/listAuctionProduct";
 
 			});
 
