@@ -71,7 +71,7 @@
 	
 </head>
 
-<body>
+<body id="qnaschange" data-spy="scroll" data-target=".onpage-navigation" data-offset="60" style="overflow: hidden; width: 100%; height: 100%;" >
 
 	<!-- ToolBar -->
 		
@@ -158,6 +158,10 @@
       </table>
 	  
  	</div>
+
+	<script type="text/javascript">
+		parent.qnaIframeHeight(document.getElementById("qnaschange").scrollHeight);
+	</script>
  	
 </body>
 

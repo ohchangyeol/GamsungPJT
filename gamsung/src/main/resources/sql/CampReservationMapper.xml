@@ -132,10 +132,10 @@
 			total_reservation_reg_car = #{totalReservationRegCar},
 			</if>
 			reservation_status = #{reservationStatus}
-		<if test="reservationStatus != 7">
+		<if test="reservationStatus != 6">
 		WHERE reservation_no = #{reservationNo}
 		</if>
-		<if test="reservationStatus == 7">
+		<if test="reservationStatus == 6">
 		WHERE reservation_end_date =  DATE(NOW())
 		</if>
 	</update>

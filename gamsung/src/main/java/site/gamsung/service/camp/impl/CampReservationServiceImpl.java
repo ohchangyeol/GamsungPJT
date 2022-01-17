@@ -250,7 +250,7 @@ public class CampReservationServiceImpl implements CampReservationService {
 	public void reservationCompleteUse() {
 		
 		CampReservation campReservation = new CampReservation();
-		campReservation.setReservationStatus(7);
+		campReservation.setReservationStatus(6);
 		campReservationDAO.updateReservation(campReservation);
 		
 	}
