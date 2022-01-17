@@ -74,7 +74,7 @@
                         </c:if>
 
                         <c:if test="${user.role == 'ADMIN' }">
-                            <li><a href="/adminMain.jsp">AdminPage</a>
+                            <li><a href="/admin">AdminPage</a>
                         </c:if>
 
 						<c:if test="${user.role != 'BUSINESS' && sessionScope.user != null}">

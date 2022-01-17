@@ -123,7 +123,7 @@ pageEncoding="UTF-8"%>
                         <div class="col-sm-6">
                           <div class="row mb-20" style="margin-top: 100px;">
                             <div class="col-sm-3"  style="text-align: end; font-size: larger;">
-                              예약자 이름  :  
+                              예약자이름:  
                             </div>
                             
                             <div class="col-sm-7"  style="text-align: start; font-size: larger;">
@@ -132,7 +132,7 @@ pageEncoding="UTF-8"%>
                           </div>
                           <div class="row mb-20" style="margin-top: 25px;">
                             <div class="col-sm-3"  style="text-align: end; font-size: larger;">
-                              휴대폰 번호  :  
+                              휴대폰번호:  
                             </div>
                             
                             <div class="col-sm-7"  style="text-align: start; font-size: larger;">
@@ -141,7 +141,7 @@ pageEncoding="UTF-8"%>
                           </div>
                           <div class="row mb-20" style="margin-top: 25px;">
                             <div class="col-sm-3"  style="text-align: end; font-size: larger;">
-                              차 량  번 호  :  
+                              차 량  번 호 :  
                             </div>
                             
                             <div class="col-sm-7"  style="text-align: start; font-size: larger;">
@@ -150,7 +150,7 @@ pageEncoding="UTF-8"%>
                           </div>
                           <div class="row mb-20" style="margin-top: 25px;">
                             <div class="col-sm-3"  style="text-align: end; font-size: larger;">
-                              요 청  사 항  :  
+                              요 청  사 항 :  
                             </div>
                             
                             <div class="col-sm-7"  style="text-align: start; font-size: larger;">
@@ -178,8 +178,8 @@ pageEncoding="UTF-8"%>
                                 <i class="fa fa-warning"></i>
                               </div>
                               <div class="modal-text">
-                                <p>예약 임시 등록 후 결제 페이지로 넘어갑니다.</p>
-                                <p>당일 결제 진행 안할 시에는 자동 취소 됩니다.</p>
+                                <p style="margin-bottom: 5px;">예약 임시 등록 후 결제 페이지로 넘어갑니다.</p>
+                                <p style="margin-bottom: 5px;">당일 결제 진행 안할 시에는 자동 취소 됩니다.</p>
                                 <p>예약 결제는 마이페이지에서 할 수 있습니다.</p>
                               </div>
                             </div>

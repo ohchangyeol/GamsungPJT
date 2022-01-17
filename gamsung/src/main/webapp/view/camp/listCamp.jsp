@@ -239,7 +239,13 @@ pageEncoding="UTF-8"%>
         <script src="../../resources/js/campSearch.js"></script>
 
         <script type="text/javascript">
-    
+
+          window.onload = function() {
+
+            $(document).scrollTop($(".container")[0].scrollHeight);
+
+          }
+              
           var currentPage = 1;
       
           function fncGetList(currentPage) {

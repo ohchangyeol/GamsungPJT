@@ -8,7 +8,7 @@ public class CampReservation {
 	private User user;
 	private MainSite mainSite;
 	private String reservationNo;
-	//0 : 결제 대기 전 임시등록, (1.예약완료 2.예약변경 3.양도대기 4.취소대기) : 전, (5.양도완료 6.취소완료 7.이용완료 8.리뷰등록 완료) : 후
+	//0 : 결제 대기 전 임시등록, (1.예약완료 2.예약변경 3.양도대기) : 전, (5.양도완료 6.예약취소 7.이용완료 8.리뷰등록 완료) : 후
 	private int reservationStatus;
 	private String deleteFlag;
 	private Date reservationRegDate;
