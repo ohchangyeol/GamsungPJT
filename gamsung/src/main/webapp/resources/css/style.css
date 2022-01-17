@@ -699,8 +699,8 @@ a,
 
 .btn.btn-border-w {
   background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.75);
-  color: #fff;
+  border: 1px solid #2d2d2d;
+  color: #2d2d2d;
 }
 
 .btn.btn-border-w:hover,
@@ -1244,7 +1244,7 @@ General Styles - Owlcarousel
 	Navbar
 --------------------------------------------------------------*/
 .navbar-custom {
-  background-color: rgba(10, 10, 10, 0.9);
+  background-color: #fff;
   border: 0;
   border-radius: 0;
   z-index: 1000;
@@ -1276,7 +1276,8 @@ General Styles - Owlcarousel
 
 .navbar-custom .nav li > a {
   position: relative;
-  color: rgba(255, 255, 255, 0.7);
+  color: #2d2d2d;
+  font-size: 12px;
 }
 
 .navbar-custom .dropdown-menu > li > a {

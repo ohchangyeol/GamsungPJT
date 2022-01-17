@@ -232,7 +232,7 @@ pageEncoding="UTF-8"%>
       <a class="modal-with-form detail_search-btn" href="#modalForm">상세검색+</a>
     </div>
     <div class="main-search-box" style="position: relative;">
-      <h2 style="font-family: 'Gaegu', cursive; font-size: 40px; letter-spacing: -5.5px; "><span class="main-color">지금,</span> 떠나기 좋은 날</h2>
+      <h2 style="font-family: 'Gaegu', cursive; font-size: 40px; letter-spacing: -5.5px; "><span class="main-color">지금,</span> 떠나기 좋은 날!</h2>
       <form id="search">
         <div class="input-box">
           <div>
