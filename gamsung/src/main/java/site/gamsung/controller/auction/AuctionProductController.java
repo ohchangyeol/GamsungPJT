@@ -272,7 +272,6 @@ public class AuctionProductController {
 		//user 정보를 새로 세팅한다.
 		httpSession.setAttribute("user", user);
 		
-		
 		return navigation;
 	}
 	
