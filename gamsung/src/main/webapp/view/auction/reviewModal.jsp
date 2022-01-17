@@ -321,7 +321,7 @@
 			<div class="col-sm-4">
 				<div class="form-group">
 					<label class="sr-only" for="name"></label> 
-					<input class="form-control" id="name" type="text" name="name" value="${sessionScope.user.id}" readonly="readonly" />
+					<input class="form-control" id="name" type="text" name="name" value="${sessionScope.user.nickName}" readonly="readonly" />
 				</div>
 			</div>
 		</div>

@@ -1,7 +1,5 @@
 package site.gamsung.controller.auction;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,7 +34,6 @@ import site.gamsung.service.domain.Payment;
 import site.gamsung.service.domain.PaymentCode;
 import site.gamsung.service.domain.User;
 import site.gamsung.service.payment.PaymentService;
-import site.gamsung.util.auction.AWSService;
 import site.gamsung.util.auction.AuctionImgUpload;
 
 @RequestMapping("/auction/*")
@@ -189,7 +186,6 @@ public class AuctionProductController {
 		
 		//Id에 해당하는 임시 등록 정보가 있는지 확인한다.
 		AuctionProduct auctionProduct = auctionProductService.getTempSaveAuctionProduct(user.getId());
-		user = auctionInfoService.checkAndUpdateUserAuctionGrade(user);
 		
 		// 임시정보가 있다면 model에 담아 return한다.
 		if(auctionProduct != null) {
@@ -201,6 +197,7 @@ public class AuctionProductController {
 		model.addAttribute("fee",paymentCode.getPaymentCodeFee());
 		
 		//user 정보를 새로 세팅한다.
+		user = auctionInfoService.checkAndUpdateUserAuctionGrade(user);
 		httpSession.setAttribute("user", user);
 		
 		return "forward:/view/auction/addAuctionProduct.jsp";
@@ -246,6 +243,15 @@ public class AuctionProductController {
 			
 		}
 		
+		//결제 담당자가 서비스를 통해 처리하여 payment domain을 생성하여 인자로 준다.
+		Payment payment = (Payment)auctionInfoService.makePaymentInfo(user, "상품등록", null);
+		try {
+			paymentService.makePayment(payment);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		AuctionProduct tmpAuctionProduct = auctionProductService.getTempSaveAuctionProduct(user.getId());
 		String navigation = "";
 		if(tmpAuctionProduct != null) {
@@ -266,14 +272,6 @@ public class AuctionProductController {
 		//user 정보를 새로 세팅한다.
 		httpSession.setAttribute("user", user);
 		
-		//결제 담당자가 서비스를 통해 처리하여 payment domain을 생성하여 인자로 준다.
-		Payment payment = (Payment)auctionInfoService.makePaymentInfo(user, "상품등록", null);
-		try {
-			paymentService.makePayment(payment);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		
 		return navigation;
 	}
