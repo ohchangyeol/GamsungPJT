@@ -118,7 +118,7 @@ public class PaymentController {
 	
 	@RequestMapping(value = "paymentSystem", method = RequestMethod.POST)
 	public String paymentSystem (@ModelAttribute("payment") Payment payment, 
-									@ModelAttribute("campReservation") CampReservation campReservation, 
+									@ModelAttribute(value ="campReservation") CampReservation campReservation, 
 									HttpSession httpSession, Model model) throws Exception {	
 		
 		System.out.println("0 paymentSystem_payment : " + payment); 						// 테스트
