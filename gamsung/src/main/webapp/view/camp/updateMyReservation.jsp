@@ -150,8 +150,8 @@ pageEncoding="UTF-8"%>
                                   <div class="col-xs-5" ><strong>기존 결제 금액 :</strong></div>
                                   <div class="col-xs-7">
                                     <div>
-                                      <span style="font-weight: bold; font-size: larger;">
-                                        ${campReservation.totalPaymentPrice} 원
+                                      <span style="font-weight: bold; font-size: larger;" id="comma_price" value="${campReservation.totalPaymentPrice}">
+                                        
                                       </span>
                                     </div>
                                   </div>
@@ -227,6 +227,20 @@ pageEncoding="UTF-8"%>
   </main>  
 
     <script type="text/javascript">
+
+          window.onload = function() {
+
+          let str = $("#comma_price").attr("value");
+          let commaStr = comma(str);
+
+              $("#comma_price").html(commaStr+" 원");
+          };
+
+          function comma(str) {
+              str = String(str);
+              return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+          }
+
 
         $( function() {
 
@@ -386,12 +400,12 @@ pageEncoding="UTF-8"%>
                           //추가금액
                           var addpaymentPrice = mintotalprice - prepaymentPrice
                           
-                            $("#updatetotalprice").text(mintotalprice);
+                            $("#updatetotalprice").text(comma(mintotalprice));
                             $("#updatewon").text('원');
                             $("#updateleft").text('  (');
                             $("#updateright").text('박)');
                                                       
-                            $("#appendtotalprice").text(addpaymentPrice);
+                            $("#appendtotalprice").text(comma(addpaymentPrice));
                             $("#appendwon").text('원');
                             $("#appendleft").text('  (');
                             $("#appendright").text('박)');
@@ -417,12 +431,12 @@ pageEncoding="UTF-8"%>
                           //추가금액
                           var addpaymentPrice = totalprice - prepaymentPrice
                           
-                            $("#updatetotalprice").text(totalprice);
+                            $("#updatetotalprice").text(comma(totalprice));
                             $("#updatewon").text('원');
                             $("#updateleft").text('  (');
                             $("#updateright").text('박)');
                           
-                            $("#appendtotalprice").text(addpaymentPrice);
+                            $("#appendtotalprice").text(comma(addpaymentPrice));
                             $("#appendwon").text('원');
                             $("#appendleft").text('  (');
                             $("#appendright").text('박)');
@@ -476,12 +490,12 @@ pageEncoding="UTF-8"%>
                     //추가금액
                     var addpaymentPrice = mintotalprice - prepaymentPrice
                     
-                      $("#updatetotalprice").text(mintotalprice);
+                      $("#updatetotalprice").text(comma(mintotalprice));
                       $("#updatewon").text('원');
                       $("#updateleft").text('  (');
                       $("#updateright").text('박)');
                     
-                      $("#appendtotalprice").text(addpaymentPrice);
+                      $("#appendtotalprice").text(comma(addpaymentPrice));
                       $("#appendwon").text('원');
                       $("#appendleft").text('  (');
                       $("#appendright").text('박)');
@@ -507,12 +521,12 @@ pageEncoding="UTF-8"%>
                     //추가금액
                     var addpaymentPrice = totalprice - prepaymentPrice
                     
-                      $("#updatetotalprice").text(totalprice);
+                      $("#updatetotalprice").text(comma(totalprice));
                       $("#updatewon").text('원');
                       $("#updateleft").text('  (');
                       $("#updateright").text('박)');
               
-                      $("#appendtotalprice").text(addpaymentPrice);
+                      $("#appendtotalprice").text(comma(addpaymentPrice));
                       $("#appendwon").text('원');
                       $("#appendleft").text('  (');
                       $("#appendright").text('박)');

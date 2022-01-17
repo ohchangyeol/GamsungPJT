@@ -14,8 +14,7 @@
 
         <jsp:include page="../../resources/commonLib.jsp" />
 
-        <script src="../../resources/lib/magnific-popup/magnific-popup.js"></script>
-        <script src="../../resources/js/examples.lightbox.js"></script>
+       
         <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
         <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2091956a0610386314639136a353f95f&libraries=services"></script>
           
@@ -191,8 +190,10 @@
 
           .tab-pane iframe {
             width: 100%;
+            height: 100%;
             border: 0;
           }
+          
         </style>
 
 
@@ -209,7 +210,7 @@
             <section class="module">
               <div class="container">
                 <div class="row">
-                  <div class="col-sm-6 mb-sm-40">
+                  <div class="col-sm-6 mb-sm-40 ">
                     <a class="image-popup-vertical-fit" href="/uploadfiles/campimg/campbusiness/camp/${camp.campImg1}">
                       <img class="img-responsive" src="/uploadfiles/campimg/campbusiness/camp/${camp.campImg1}"
                         onerror="this.src='/uploadfiles/campimg/campbusiness/camp/no_image.jpg'">
@@ -845,19 +846,19 @@
               $("#hidden").attr("method", "POST").attr("action", "/campGeneral/addReservation?mainSiteNo=" + mainSiteNo).submit();
             });
 
-            $(".li-btn").on("click", function () {
+            $(".li-btn").on("shown.bs.tab", function (e) {
+              e.preventDefault();
+              $(this).tab('show');
               var iframeHeight = $(".tab-pane.active iframe").contents().find("html").height();
               $(".teb-iframe.active iframe").height(iframeHeight);
             });
             
           });
-          
-          function iframeHeight() {
-            let iframeHeight = $(".tab-pane iframe").contents().find("html").height();
-            $(".teb-iframe iframe").height(iframeHeight);
-          }
-
+       
         </script>
+
+      <script src="../../resources/lib/magnific-popup/magnific-popup.js"></script>
+      <script src="../../resources/js/examples.lightbox.js"></script>
 
       </body>
 
