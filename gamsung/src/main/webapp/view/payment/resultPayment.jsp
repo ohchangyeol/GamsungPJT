@@ -58,22 +58,6 @@
 						+"\n내용 : "+paymentRespond
 						+"\n처음으로 돌아갑니다.");				
 			}			
-
-			// 테스트용
-			$("#temp1").on("click" , function() {		
-				$(".container").show();
-				$("div").show();
-			});
-			
-			$("#temp2").on("click" , function() {				
-				const paymentPriceTotal = $("#paymentPriceTotal").val();
-				
-				$("#paymentPriceTotal").val(uncomma(paymentPriceTotal));
-				$("#paymentCode").val("P1");													
-				
-				$("#payForm").attr("method" , "POST").attr("action" , "/payment/updatePointTransfer").submit();	
-			});
-			// 테스트용
 					
 			$("#pointContainer").hide();
 			$("#chargeDiv").hide();
@@ -490,12 +474,8 @@
 	<!-- 포인트관리 버튼 start -->
 	<div id="pointChargeButtonContainer" class="container">
 		<div class="row">
-		
-			<div class="col-xs-2">
-				<button id="payment_cancle" type="button" class="btn btn-warning" value="1">결제 취소</button>
-			</div>
-			
-			<div class="col-xs-2 col-xs-offset-7">
+				
+			<div class="col-xs-2 col-xs-offset-5">
 	            <button id="payment_confirm" type="button" class="btn btn-primary">확인</button>
 	        </div> 
 	
@@ -503,17 +483,6 @@
 	</div>
 	<!-- 포인트관리 버튼 end -->
 	
-	
-	<!-- 테스트 버튼 -->
-	<div class="container">		
-		<br>
-		<div class="row">
- 			<div class="col-xs-2">
-	            <button id="temp1" type="button" class="btn btn-primary">임시모두보기</button>
-	        </div>
-
-		</div>
-	</div>		
 
 
 </body>
