@@ -168,6 +168,10 @@
 				$('#my_camp_review').on('click', function () {
 					window.location = "/campGeneral/listMyCampRatingReview";
 				});
+				
+				$('#my_camp_qna').on('click', function () {
+					window.location = "/campBusiness/listCampQna?userId=${user.id}";
+				});
 
 				$('#auctionAdd').on('click', function () {
 					window.location = "/auction/listMyAuctionProduct/add?currentPage=1";

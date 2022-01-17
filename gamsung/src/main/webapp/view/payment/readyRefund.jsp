@@ -74,7 +74,125 @@
 
 		});			
   	
-  	</script>	
+  	</script>
+  	
+  	  	<!-- import 결제모둘 Start -->  	
+	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>  	
+	<script type="text/javascript">
+
+	
+		function iamport() {
+			
+			$.ajax({
+				type : "POST",
+				url : "https://api.iamport.kr/payments/cancel" + rsp.imp_uid
+				headers: {
+				      "Content-Type": "application/json",
+				      "Authorization": access_token // 아임포트 서버로부터 발급받은 엑세스 토큰
+				    },
+				    data: {
+				      reason, // 가맹점 클라이언트로부터 받은 환불사유
+				      imp_uid, // imp_uid를 환불 `unique key`로 입력
+				      amount: cancel_request_amount, // 가맹점 클라이언트로부터 받은 환불금액
+				      checksum: cancelableAmount, // [권장] 환불 가능 금액 입력
+				      refund_holder, // [가상계좌 환불시 필수입력] 환불 수령계좌 예금주
+				      refund_bank, // [가상계좌 환불시 필수입력] 환불 수령계좌 은행코드(ex. KG이니시스의 경우 신한은행은 88번)
+				      refund_account // [가상계좌 환불시 필수입력] 환불 수령계좌 번호
+				    }
+			
+			}).done(function(data) {
+
+				console.log(data);
+
+				// 위의 rsp.paid_amount 와 data.response.amount를 비교한후 로직 실행 (import 서버검증)
+				if(rsp.paid_amount == data.response.amount){
+					alert("결제가 완료 되었습니다.");						
+					console.log("payViewCode : "+payViewCode);						
+					
+					//포인트 구매
+					if( payViewCode == "P1" ){						
+						$("#paymentCode").val("P1");
+					}
+					
+					if(payViewCode == "R1" && payViewCode == "R2"){
+						$("#paymentProductPriceTotal").val( parseInt(uncomma($("#paymentPriceTotal").val())) + parseInt(uncomma($("#paymentPriceTotalSecond").val())) );
+					}	
+					
+					const paymentPriceTotal = $("#paymentPriceTotal").val();						
+					$("#paymentPriceTotal").val(uncomma(paymentPriceTotal));
+					$("#paymentSender").val( $("#pay_buyerEmail").val() );
+					$("#payForm").attr("method" , "POST").attr("action" , "/payment/paymentSystem").submit();	
+					
+				} else {
+					alert("결제가 실패 되었습니다.");
+				}
+			
+			});
+			
+		}
+		
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+		function iamport() {
+			
+			const payViewCode = $("#viewController").val();			
+			const vPaymethod = $("input[name=paymentMethod]:checked").val();
+			const vMerchant_uid = $("#paymentReferenceNum").val(); 
+			const vName = $("#paymentProduct").val();
+			const vAmount = uncomma($("#paymentPriceTotal").val());			
+			const vBuyername = $("#paymentReceiver").val();
+			const vBuyeremail = $("#pay_buyeremail").val();
+			const vBuyertel = $("#pay_buyertel").val();
+					
+			console.log("vPaymethod 	: " + vPaymethod);
+			console.log("vMerchant_uid 	: " + vMerchant_uid);
+			console.log("vName 			: " + vName);
+			console.log("vAmount		: " + vAmount);
+			console.log("vBuyername 	: " + vBuyername);
+			console.log("vBuyeremail 	: " + vBuyeremail);			
+			console.log("vBuyertel 		: " + vBuyertel);
+					
+			IMP.init('imp23070563');			//가맹점 식별코드
+			IMP.request_pay({
+				pg: 'html5_inicis', 			// PG사 선택
+				pay_method: vPaymethod,			// 지불 수단	
+				merchant_uid: vMerchant_uid, 	// 가맹점에서 구별가능한 고유한id
+				name: vName, 					// 상품명
+				amount: vAmount, 				// 가격
+				buyer_email: vBuyeremail,		// 구매자 이메일
+				buyer_name: vBuyername, 		// 구매자 이름
+				buyer_tel: vBuyertel, 			// 구매자 연락처		
+		
+			}, function(rsp) {
+				console.log(rsp);
+				
+
+			});	
+		}	
+		
+	</script>	  	
+  	<!-- import 결제모둘 End -->
+  		
   	
 	<style>
 	

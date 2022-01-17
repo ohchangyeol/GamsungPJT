@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 
 		<!-- 상단해더 Start -->
 		<nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
@@ -145,14 +146,14 @@
 						<!-- 고객센터 End -->
 
 
-						<!-- My / Business / Admin  Start -->
-						<c:if test="${user.role == 'BUSINESS' || user.role == 'ADMIN'}">
-							<li><a href="/campBusiness/goSubMainCampBusiness">BusinessPage</a>
-						</c:if>
+  						 <!-- My / Business / Admin  Start -->
+                        <c:if test="${user.role == 'BUSINESS'}">
+                            <li><a href="/campBusiness/goSubMainCampBusiness">BusinessPage</a>
+                        </c:if>
 
-						<c:if test="${user.role == 'ADMIN' }">
-							<li><a href="/campBusiness/goSubMainCampBusiness">AdminPage</a>
-						</c:if>
+                        <c:if test="${user.role == 'ADMIN' }">
+                            <li><a href="/adminMain.jsp">AdminPage</a>
+                        </c:if>
 
 						<c:if test="${user.role != 'BUSINESS' && sessionScope.user != null}">
 							<li class="dropdown">
@@ -173,7 +174,6 @@
 						</c:if>
 						<!-- My / Business / Admin  End -->
 
-
 						<!-- 로그인/로그아웃 End -->
 						<li>
 							<c:if test="${sessionScope.user.role!=null}">
@@ -188,9 +188,35 @@
 								</a>
 							</c:if>
 						</li>
+						
+						
 						<!-- 로그인/로그아웃 End -->
+                        <c:if test="${user.role != 'BUSINESS' && sessionScope.user != null}">
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" href="/user/mypage" data-toggle="dropdown">${user.nickName}
+                                    <br /><span id="havingPoint">${user.havingPoint}</span> [P]
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="/user/mypage">내정보</a>
+                                    <br>
+                                    <li><a href="">캠핑장</a>
+                                    <br>
+                                    <li><a href="">중고경매</a>
+                                    <br>                                    
+                                    <li><a href="/community/listMyPost">내 게시글</a>
+                                    <br>
+                                    <li><a href="">예약양도</a>
+                                    <br>
+                                    <li><a href="/payment/listPayment">결제 내역</a></li>
+                                    <li><a href="/payment/managePoint">포인트 관리</a></li>
+                                    <br>
+                                    <li><a href="">고객센터</a>
+               
+                                </ul>
+                            </li>
 
-
+                        </c:if>
+                        <!-- My / Business / Admin  End -->
 					</ul>
 				</div>
 				<!-- 메뉴 End -->
