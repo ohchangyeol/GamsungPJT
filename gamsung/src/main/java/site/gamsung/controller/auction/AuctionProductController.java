@@ -251,6 +251,7 @@ public class AuctionProductController {
 		
 		//결제 담당자가 서비스를 통해 처리하여 payment domain을 생성하여 인자로 준다.
 		Payment payment = (Payment)auctionInfoService.makePaymentInfo(user, "상품등록", null);
+		
 		try {
 			paymentService.makePayment(payment);
 		} catch (Exception e) {

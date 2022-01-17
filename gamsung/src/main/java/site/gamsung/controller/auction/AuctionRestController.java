@@ -36,6 +36,7 @@ import site.gamsung.service.domain.Payment;
 import site.gamsung.service.domain.RatingReview;
 import site.gamsung.service.domain.User;
 import site.gamsung.service.payment.PaymentService;
+import site.gamsung.service.user.UserService;
 import site.gamsung.util.auction.NaverShoppingAPI;
 
 @RequestMapping("auction/rest/*")
@@ -61,6 +62,10 @@ public class AuctionRestController {
 	@Autowired
 	@Qualifier("paymentServiceImpl")
 	private PaymentService paymentService;
+	
+	@Autowired
+	@Qualifier("userServiceImpl")
+	private UserService userService;
 	
 	@Autowired
 	@Qualifier("naverShoppingAPI")
