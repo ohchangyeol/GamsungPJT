@@ -4,19 +4,15 @@
 <script type="text/javascript">
 
 	$(function () {
+		
+		let campNo = $("#campNo").val();
 	
 		$("#main").on("click", function () {
 			$(self.location).attr("href", "/main.jsp");
 		});
 		
 		$("a:contains('캠핑장정보 조회')").on("click", function () {		
-			var role = $("input[name='role']").val();			
-			if (role == 'BUSINESS') {
-				$("form[id=headhidden]").attr("method", "GET").attr("action", "/campBusiness/getCamp").submit();
-			}			
-			if (role == 'ADMIN') {
-				$("form[id=headhidden]").attr("method", "POST").attr("action", "/campBusiness/listCamp").submit();
-			}			
+			$("form[id=headhidden]").attr("method", "GET").attr("action", "/campBusiness/getCamp").submit();
 		});
 				
 		$("a:contains('주요시설 목록')").on("click", function () {
@@ -39,23 +35,16 @@
 			$("form[id=headhidden]").attr("method", "POST").attr("action", "/campBusiness/listMainSite").submit();
 		}); 
 	 	
-	 	$("a:contains('리뷰관리')" ).on("click" , function() {
-
-			let campNo = $("#campNo").val();
-
+	 	$("a:contains('리뷰관리')" ).on("click" , function() {		
 			window.self.location = "/campGeneral/listBusinessCampRatingReview?campNo="+campNo;
-		}); 
+		});
+	 	
+		$("a:contains('캠핑장 Q&A')").on("click", function () {
+			$("form[id=headhidden]").attr("method", "POST").attr("action", "/campBusiness/listCampQna").submit();
+		});
 	 					
 		$("a:contains('캠핑장 공지사항')").on("click", function () {
-		
-		});
-		
-		$("a:contains('캠핑장 Q&A')").on("click", function () {
-		
-		});
-		
-		$("a:contains('탈퇴하기')").on("click", function () {
-		
+			$("form[id=headhidden]").attr("method", "POST").attr("action", "/campBusiness/listCampNotice").submit();
 		});
 
 	});
@@ -145,8 +134,6 @@
 						<li><a href="../view/user/getBusinessUserUpdate.jsp">내 정보</a></li>
 						<li><br></li>
 						<li><a href="/user/logout">로그아웃</a></li>
-						<li><br></li>
-						<li><a href="#">탈퇴하기</a></li>
 					</ul>
 				</li>
 

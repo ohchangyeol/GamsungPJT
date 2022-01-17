@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 
 		<!-- 상단해더 Start -->
 		<nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
@@ -20,8 +21,7 @@
 				<div class="collapse navbar-collapse" id="custom-collapse">
 					<ul class="nav navbar-nav navbar-right">
 
-						<!-- 예시 Start -->
-							<!-- 중고경매 Start -->
+						<!-- 중고경매 Start -->
 						<li class="dropdown"><a class="dropdown-toggle" href="" data-toggle="dropdown">중고상품</a>
 							<ul class="dropdown-menu">
 								<li><a id="addProduct">상품 등록</a></li>
@@ -68,14 +68,14 @@
 						<!-- 고객센터 End -->
 
 
-						<!-- My / Business / Admin  Start -->
-						<c:if test="${user.role == 'BUSINESS' || user.role == 'ADMIN'}">
-							<li><a href="/campBusiness/goSubMainCampBusiness">BusinessPage</a>
-						</c:if>
+  						<!-- My / Business / Admin  Start -->
+                        <c:if test="${user.role == 'BUSINESS'}">
+                            <li><a href="/campBusiness/goSubMainCampBusiness">BusinessPage</a>
+                        </c:if>
 
-						<c:if test="${user.role == 'ADMIN' }">
-							<li><a href="/campBusiness/goSubMainCampBusiness">AdminPage</a>
-						</c:if>
+                        <c:if test="${user.role == 'ADMIN' }">
+                            <li><a href="/adminMain.jsp">AdminPage</a>
+                        </c:if>
 
 						<c:if test="${user.role != 'BUSINESS' && sessionScope.user != null}">
 							<li class="dropdown">
@@ -93,7 +93,8 @@
 									<li><a href="" style="border-bottom: none !important;"><i class="bi bi-truck">&nbsp;</i>캠핑장</a></li>
 									<li><a id="auctionAdd" style="border-bottom: none !important;"><i class="fa fa-gavel" aria-hidden="true"></i>&nbsp;중고경매</a></li>
 									<li><a href=""style="border-bottom: none !important;"><i class="fa  fa-refresh" aria-hidden="true"></i>&nbsp;예약양도</a></li>
-									<li><a href="" style="border-bottom: none !important;"><i class="fa fa-money" aria-hidden="true"></i>&nbsp;결제</a></li>
+									<li><a href="/payment/listPayment" style="border-bottom: none !important;"><i class="fa fa-money" aria-hidden="true"></i>&nbsp;결제 내역</a></li>
+									<li><a href="/payment/managePoint" style="border-bottom: none !important;"><i class="fa fa-money" aria-hidden="true"></i>&nbsp;포인트 관리</a></li>
 									<li><a href="#" style="border-bottom: none !important;"><button class="btn btn-border-w btn-round btn-xs" type="button"id="logout">LOGOUT</button></a></li>
 								</ul>
 							</li>
@@ -101,7 +102,7 @@
 						<!-- My / Business / Admin  End -->
 
 
-						<!-- 로그인/로그아웃 End -->
+						<!-- 로그인/로그아웃 Start -->
 						<li>
 							<c:if test="${sessionScope.user.role==null}">
 								<a class="modal-basic" href="#modalBasic" id="header-login">
@@ -115,7 +116,6 @@
 					</ul>
 				</div>
 				<!-- 메뉴 End -->
-
 
 			</div>
 		</nav>

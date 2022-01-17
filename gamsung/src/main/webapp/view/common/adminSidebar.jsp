@@ -96,8 +96,53 @@
                             </li>
                         </ul>
                     </li>
+
+		                    
+                    <hr class="separator" />
                     
-                    
+                     <li class="nav-parent">
+                        <a>
+                            <i class="fa fa-money" aria-hidden="true"></i>
+                            <span>캠핑장관리</span>
+                        </a>
+                        <ul class="nav nav-children">
+                        
+                        
+                        
+                        
+                        
+                        <!-- 
+                            <li>
+                                <a href="/campBusiness/listCamp">
+                                    캠핑장 목록
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/campBusiness/listMainSite">
+                                    캠핑장-주요시설 목록
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/campBusiness/listSubSite">
+                                    캠핑장-부가시설 목록
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/campBusiness/listCampQna">
+                                    캠핑장-Q&A 목록
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/campBusiness/listCampNotice">
+                                    캠핑장-공지사항 목록
+                                </a>
+                            </li>
+                         --> 
+                        
+                        </ul>
+                    </li>
+		
+   					<hr class="separator" />
                     
                     <li class="nav-parent">
                         <a>
@@ -171,8 +216,6 @@
                             </li>
                         </ul>
                     </li>
-
-                    
                     
                 </ul>
             </nav>
