@@ -46,29 +46,6 @@
   	
   	<script type="text/javascript">  
   	
- 		// 테스트용
-	  	$(function() {
-			
-	  		// 모든div펼침
-			$("#temp1").on("click" , function() {		
-				$(".container").show();
-				$("div").show();
-			});
-			
-	  		// 포인트결제
-			$("#temp2").on("click" , function() {				
-				$("#paymentSender").val( $("#pay_buyerEmail").val() );
-				$("#paymentCode").val("P1");
-				$("#paymentPriceTotal").val(uncomma($("#paymentPriceTotal").val()));			
-				$("#payForm").attr("method" , "POST").attr("action" , "/payment/paymentSystem").submit();	
-			});		
-			
-			$("#temp3").on("click" , function() {		
-				checkPaymentMethod();
-			});
-
-	  	}); 
-		// 테스트용
   		
 		<!-- 화면 Controller Start -->		
 		// 로딩시 화면 컨트롤
@@ -471,15 +448,27 @@
 	
 					// 위의 rsp.paid_amount 와 data.response.amount를 비교한후 로직 실행 (import 서버검증)
 					if(rsp.paid_amount == data.response.amount){
-						alert("결제가 완료 되었습니다.");						
-						console.log("payViewCode : "+payViewCode);						
+						alert("결제가 완료 되었습니다.");					
+						
+						const payCode = $("#viewController").val();	
+						console.log("payCode : "+payCode);						
 						
 						//포인트 구매
-						if( payViewCode == "P1" ){						
+						if( payCode == "P2" ){		
+																	
 							$("#paymentCode").val("P1");
+							$("#reservationStatus").val(parseInt("0"));
+							$("#totalPaymentPrice").val(parseInt("0"));							
+							$("#useNum").val(parseInt("0"));						
+							$("#rCampNo").val(parseInt("0"));							
+							$("#rMainSiteNo").val(parseInt("0"));
+							$("#reservationRegDate").val("2000-01-01");
+							$("#reservationStartDate").val("2000-01-01");
+							$("#reservationEndDate").val("2000-01-01");
+							
 						}
 						
-						if(payViewCode == "R1" && payViewCode == "R2"){
+						if(payCode == "R1" && payViewCode == "R2"){
 							$("#paymentProductPriceTotal").val( parseInt(uncomma($("#paymentPriceTotal").val())) + parseInt(uncomma($("#paymentPriceTotalSecond").val())) );
 						}	
 						
@@ -841,9 +830,9 @@
 			<input type="hidden" id="reservationUserName" name="reservationUserName" value="${campReservation.reservationUserName}">	
 			<input type="hidden" id="reservationStatus" name="reservationStatus" value="${campReservation.reservationStatus}">
 			<input type="hidden" id="camp.user.campName" name="camp.user.campName" value="${campReservation.camp.user.campName}">
-			<input type="hidden" id="camp.campNo" name="camp.campNo" value="${campReservation.camp.campNo}">
+			<input type="hidden" id="rCampNo" name="camp.campNo" value="${campReservation.camp.campNo}">
 			<input type="hidden" id="camp.campImg1" name="camp.campImg1" value="${campReservation.camp.campImg1}">
-			<input type="hidden" id="mainSite.mainSiteNo" name="mainSite.mainSiteNo" value="${campReservation.mainSite.mainSiteNo}">
+			<input type="hidden" id="rMainSiteNo" name="mainSite.mainSiteNo" value="${campReservation.mainSite.mainSiteNo}">
 			<input type="hidden" id="mainSite.mainSiteType" name="mainSite.mainSiteType" value="${campReservation.mainSite.mainSiteType}">
 			<input type="hidden" id="useNum" name="useNum" value="${campReservation.useNum}">	
 			<input type="hidden" id="totalPaymentPrice" name="totalPaymentPrice" value="${campReservation.totalPaymentPrice}">			
@@ -1005,18 +994,6 @@
 		</div>
 	</div>
 	<!-- 캠핑 버튼 end -->
-		
-	
-	<!-- 테스트 버튼 -->
-	<div class="container">		
-		<hr>
-		<div class="row">
-			<label class="col-xs-2">### 테스트 버튼 >>></label>
- 			<div class="col-xs-2">
-	            <button id="temp1" type="button" class="btn btn-primary">숨긴Div모두보기</button>
-	        </div>
-		</div>
-	</div>		
 
 
 </body>
