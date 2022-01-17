@@ -204,14 +204,11 @@
                     <input type="hidden" name="sortCondition" value="${search.sortCondition}">
                   </form>
 
-
               </div>
 
             </div>
         </div>
       </section>
-
-         
     
       </div>
       

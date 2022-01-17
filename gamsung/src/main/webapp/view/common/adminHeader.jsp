@@ -22,7 +22,7 @@
                         <!-- <img src="resources/images/!logged-user.jpg" alt="Joseph Doe" class="img-circle" data-lock-picture="resources/images/!logged-user.jpg" /> -->
                     </figure>
                     <div class="profile-info" data-lock-name="John Doe" data-lock-email="johndoe@JSOFT.com">
-                        <span class="name">${user.nickName}</span>
+                        <span class="name">${sessionScope.user.nickName}</span>
                         <span class="role">administrator</span>
                     </div>
 

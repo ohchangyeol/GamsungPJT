@@ -6,7 +6,7 @@
 <html>
   <head>
 
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Document Title -->
@@ -36,7 +36,7 @@
               <h4 class="col-sm-7 mb-0"></h4>
               <div class="col-sm-5 mb-sm-0">
                 <div class="row">
-                  <form role="form" id="searchform" class="reservation-search">
+                  <form role="form" id="searchform" class="reservation-search" method="post">
                     <div class="col-sm-4">
                       <select class="form-control" name="searchCondition">
                         <option value="0" ${! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>캠핑장</option>
@@ -46,7 +46,7 @@
                     </div>
                     <div class="col-sm-5">
                       <div class="search-box">
-                        <input class="form-control" type="text" name="searchKeyword" placeholder="Search...">
+                        <input class="form-control" type="text" name="searchKeyword" value="${search.searchKeyword}">
                         <button class="search-btn" type="submit"><i class="fa fa-search"></i></button>
                       </div>
                     </div>
@@ -117,9 +117,9 @@
    
       </section>
 
-         <form id="pagenavi">
+         <form id="pagenavi" method="post">
             <input type="hidden" id="currentPage" name="currentPage" value="0"/>
-            <input type="hidden" name="searchKeyword" value="${search.searchKeyword}">
+            <input type="hidden" id="searchKeyword" name="searchKeyword" value="${search.searchKeyword}">
             <input type="hidden" name="searchCondition" value="${search.searchCondition}">
          </form>
     
@@ -134,7 +134,7 @@
           function fncGetList(currentPage) {
 
                 $("#currentPage").val(currentPage);
-                $("#pagenavi").attr("method","POST").attr("action","/campGeneral/listMyReservation").submit();
+                $("#pagenavi").attr("action","/campGeneral/listMyReservation").submit();
 
               }
 
@@ -149,12 +149,12 @@
 
           $("#searchKeyword").keypress(function(e) { 
               if (e.keyCode == 13){
-                $("#searchform").attr("method","POST").attr("action","/campGeneral/listMyReservation").submit();
+                $("#searchform").attr("action","/campGeneral/listMyReservation").submit();
               }    
           });
 
           $("#search").on("click" , function() {
-            $("#searchform").attr("method","POST").attr("action","/campGeneral/listMyReservation").submit();
+            $("#searchform").attr("action","/campGeneral/listMyReservation").submit();
           });
         
         });

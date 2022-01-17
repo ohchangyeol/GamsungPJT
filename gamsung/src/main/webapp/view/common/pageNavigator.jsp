@@ -4,7 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
  
-<div class="container text-center">
+<div class="container text-center" style="display: contents;">
 		 
 		 <nav>
 		  <!-- 크기조절 :  pagination-lg pagination-sm-->

@@ -4,7 +4,7 @@
 <!-- admin Sidebar -->
 <aside id="sidebar-left" class="sidebar-left">
 
-	<!-- 상단 Start -->
+   <!-- 상단 Start -->
     <div class="sidebar-header">
         <div class="sidebar-title">
             <div class="logo" style="margin-left: 35px;">
@@ -53,11 +53,11 @@
     </div>
     <!-- 상단 End -->
 
-	<!-- 사이드 Start -->
+   <!-- 사이드 Start -->
     <div class="nano">
         <div class="nano-content">
-        	
-        	<!-- 메뉴 Start -->
+           
+           <!-- 메뉴 Start -->
             <nav id="menu" class="nav-main" role="navigation">
                 <ul class="nav nav-main">
                 
@@ -97,7 +97,6 @@
                         </ul>
                     </li>
 
-		                    
                     <hr class="separator" />
                     
                      <li class="nav-parent">
@@ -106,12 +105,7 @@
                             <span>캠핑장관리</span>
                         </a>
                         <ul class="nav nav-children">
-                        
-                        
-                        
-                        
-                        
-                        <!-- 
+ 
                             <li>
                                 <a href="/campBusiness/listCamp">
                                     캠핑장 목록
@@ -137,12 +131,12 @@
                                     캠핑장-공지사항 목록
                                 </a>
                             </li>
-                         --> 
+                         
                         
                         </ul>
                     </li>
-		
-   					<hr class="separator" />
+                    --> 
+                  <hr class="separator" />
                     
                     <li class="nav-parent">
                         <a>
@@ -219,7 +213,7 @@
                     
                 </ul>
             </nav>
-			<!-- 메뉴 End -->
+         <!-- 메뉴 End -->
 
             <hr class="separator" />
             <hr class="separator" />
@@ -229,7 +223,7 @@
             <hr class="separator" />
 
             
-			<!-- 하단 Start -->
+         <!-- 하단 Start -->
             <div class="sidebar-widget widget-stats">          
                 <div class="widget-content">                
                     <div><a href="https://goai.co.kr/">© 2022 AiA AIACADEMY</a></div>
@@ -244,6 +238,6 @@
             
         </div>
     </div>
-	<!-- 사이드 End -->
-	
+   <!-- 사이드 End -->
+   
 </aside>

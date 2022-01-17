@@ -41,6 +41,7 @@ public interface AuctionProductService {
 	public AuctionInfo updateBidEndTime(String auctionProductNo);
 	
 	//EC2 크롤링에 문제 발생
-//	public List<AuctionProduct> listCrawlingAuctionProduct(Search search);
-//	public AuctionProduct getCrawlingAuctionProductNo(AuctionProduct auctionProduct);
+	public List<AuctionProduct> listCrawlingAuctionProduct(Search search);
+	
+	public AuctionProduct getCrawlingAuctionProductNo(AuctionProduct auctionProduct);
 }

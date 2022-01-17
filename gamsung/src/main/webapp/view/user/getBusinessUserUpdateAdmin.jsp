@@ -11,6 +11,7 @@
 			<title>사업자회원정보 조회/수정</title>
 
 			<jsp:include page="../../resources/commonCssAdmin.jsp" />
+			<jsp:include page="../../resources/commonLib.jsp" />	
 
 			<!-- Specific Page Vendor CSS -->
 			<link rel="stylesheet" href="/resources/lib/select2/select2.css" />
@@ -101,12 +102,12 @@
 										<hr class="divider-w mt-10 mb-20">
 										<form class="form" role="form">
 											<div id="email" class="form-group row">
-												<div><input id="role" name="role" value="GENERAL" hidden="hidden">
+												<div><input id="role" name="role" value="BUSINESS" hidden="hidden">
 												</div>
-												<label for="id"
+												<label for="get_b_a_id"
 													class="col-sm-offset-1 col-sm-3 control-label"><strong>아이디</strong></label>
 												<div class="col-sm-6">
-													<input id="businessApproval-id" name="id" class="form-control "
+													<input id="get_b_a_id" name="id" class="form-control "
 														value="${user.id}" readonly />
 												</div>
 												<div class='col-sm-offset-3 col-sm-6'><span id="helpBlock"
@@ -114,26 +115,26 @@
 														<strong class="text-danger">아이디는 수정이 불가합니다.</strong>
 													</span></div>
 											</div>
-											<div id="campName" class="form-group row">
-												<label for="campName"
+											<div id="get_b_a_campName1" class="form-group row">
+												<label for="get_b_a_campName"
 													class="col-sm-offset-1 col-sm-3 control-label"><strong>캠핑장명</strong></label>
 												<div class="col-sm-6">
-													<input id="campName" name="campName" class="form-control"
+													<input id="get_b_a_campName" name="campName" class="form-control"
 														type="text" value="${user.campName}"
 														placeholder="캠핑장명을 입력해 주세요." />
 												</div>
 											</div>
 
 											<div class="form-group row">
-												<label for="campBusinessNum"
+												<label for="get_b_a_campBusinessNum"
 													class="col-sm-offset-1 col-sm-3 control-label"><strong>사업자
 														등록번호</strong></label>
 												<div class="col-sm-6">
-													<input id="campBusinessNum" name="campBusinessNum"
+													<input id="get_b_a_campBusinessNum" name="campBusinessNum"
 														class="form-control" type="text" value="${user.campBusinessNum}"
 														maxlength="10" readonly />
 												</div>
-												<div id="check-business" class='col-sm-offset-3 col-sm-6'></div>
+												<div id="get_b_a_check-business" class='col-sm-offset-3 col-sm-6'></div>
 											</div>
 
 											<div class="form-group row">
@@ -143,7 +144,7 @@
 													<div class="business_pic">
 													</div>
 												</div>
-												<img class="clickImg" alt="" id="input_businessImg_file"
+												<img class="clickImg" alt="" id="get_b_a_input_businessImg_file"
 													style="width:20%; margin-top:10px;"
 													src="/uploadfiles/userBusinessImg/${user.campBusinessImg}">
 
@@ -151,56 +152,58 @@
 
 
 											<div class="form-group row">
-												<label for="name"
+												<label for="get_b_a_name"
 													class="col-sm-offset-1 col-sm-3 control-label"><strong>사업자대표
 														이름</strong></label>
 												<div class="col-sm-6">
-													<input id="name" name="name" class="form-control" type="text"
-														value="${user.name}" placeholder="이름을 입력하세요" />
+													<input id="get_b_a_name" name="name" class="form-control"
+														type="text" value="${user.name}" placeholder="이름을 입력하세요" />
 												</div>
 											</div>
 
 											<div class="form-group row">
-												<label for="phone"
+												<label for="get_b_a_phone"
 													class="col-sm-offset-1 col-sm-3 control-label"><strong>휴대폰번호</strong></label>
 												<div class="col-sm-6">
-													<input id="phone" name="phone" class="form-control " type="text"
-														value="${user.phone}" placeholder="숫자만 입력해주세요" maxlength="11" />
+													<input id="get_b_a_phone" name="phone" class="form-control "
+														type="text" value="${user.phone}" placeholder="숫자만 입력해주세요"
+														maxlength="11" />
 
 												</div>
 											</div>
 
 											<div class="form-group row">
-												<label for="addr"
+												<label for="get_b_a_addr"
 													class="col-sm-offset-1 col-sm-3 control-label"><strong>주소</strong></label>
 												<div class="col-sm-6">
-													<input id="addr" name="addr" class="form-control" type="text"
-														value="${user.addr}" placeholder="주소를 입력하세요." />
+													<input id="get_b_a_addr" name="addr" class="form-control"
+														type="text" value="${user.addr}" placeholder="주소를 입력하세요." />
 												</div>
 											</div>
 
 											<div class="form-group row">
-												<label for="userAddr"
+												<label for="get_b_a_userAddr"
 													class="col-sm-offset-1 col-sm-3 control-label"></label>
 												<div class="col-sm-6">
-													<input id="userAddr" name="userAddr" class="form-control"
-														type="text" placeholder="상세주소를 입력하세요." />
+													<input id="get_b_a_userAddr" name="userAddr" class="form-control"
+														type="text" placeholder="상세주소를 입력하세요." style="display: none;" />
 													<input type="hidden" name="allAddr" />
 												</div>
 											</div>
 
 											<div class="form-group row">
-												<label for="campCall"
+												<label for="get_b_a_campCall"
 													class="col-sm-offset-1 col-sm-3 control-label"><strong>캠핑장
 														전화번호</strong></label>
 												<div class="col-sm-6">
-													<input id="campCall" name="campCall" class="form-control"
-														type="text" placeholder="숫자만 입력해주세요." />
+													<input id="get_b_a_campCall" name="campCall" class="form-control"
+														value="${user.campCall}" type="text"
+														placeholder="숫자만 입력해주세요." />
 												</div>
 											</div>
 
 											<div class="form-group row">
-												<label for="accountInfo"
+												<label for="get_b_a_accountInfo"
 													class="col-sm-offset-1 col-sm-3 control-label"><strong>계좌정보</strong></label>
 												<div class="col-sm-3">
 													<select class="form-control" name="bank" id="bank">
@@ -220,47 +223,49 @@
 													</select>
 												</div>
 												<div class="col-sm-3">
-													<input id="accountHolder" name="accountHolder" class="form-control"
-														type="text" value="${user.accountHolder}" placeholder="예금주" />
+													<input id="get_b_a_accountHolder" name="accountHolder"
+														class="form-control" type="text" value="${user.accountHolder}"
+														placeholder="예금주" />
 												</div>
 											</div>
 
 											<div class="form-group row">
 												<label class="col-sm-offset-1 col-sm-3 control-label"></label>
 												<div class="col-sm-6">
-													<input id="accountNum" name="accountNum" class="form-control"
-														type="text" value="${user.accountNum}"
+													<input id="get_b_a_accountNum" name="accountNum"
+														class="form-control" type="text" value="${user.accountNum}"
 														placeholder="계좌번호를 숫자만 입력하세요" maxlength="14" />
 												</div>
 											</div>
 
 											<div id="point" class="form-group row">
-												<label for="point"
+												<label for="get_b_a_point"
 													class="col-sm-offset-1 col-sm-3 control-label"><strong>포인트
 													</strong></label>
 												<div class="col-sm-6">
-													<input id="point" name="havingPoint" class="form-control"
+													<input id="get_b_a_point" name="havingPoint" class="form-control"
 														type="text" value="${user.havingPoint}" />
 												</div>
 											</div>
 
 											<div id="entryDate" class="form-group row">
-												<label for="entryDate"
+												<label for="get_b_a_entryDate"
 													class="col-sm-offset-1 col-sm-3 control-label"><strong>회원가입
 														일자</strong></label>
 												<div class="col-sm-6">
-													<input id="entryDate" name="addUserRegDate" class="form-control"
-														type="text" value="${user.addUserRegDate}" readonly />
+													<input id="get_b_a_entryDate" name="addUserRegDate"
+														class="form-control" type="text" value="${user.addUserRegDate}"
+														readonly />
 												</div>
 											</div>
 
 											<c:if test="${user.suspensionDate != null}">
-												<div id="suspention-date" class="form-group row">
+												<div id="get_b_a_suspention-date" class="form-group row">
 													<label for="suspention-date"
 														class="col-sm-offset-1 col-sm-3 control-label"><strong>이용정지
 															일자</strong></label>
 													<div class="col-sm-6">
-														<input id="Addsuspention-date" name="suspensionDate"
+														<input id="get_b_a_suspensionDate" name="suspensionDate"
 															class="form-control" type="text"
 															value="${user.suspensionDate}" readonly />
 													</div>
@@ -269,11 +274,11 @@
 
 											<c:if test="${user.secessionRegDate != null}">
 												<div id="secession-date" class="form-group row">
-													<label for="secession-date"
+													<label for="get_b_a_secession-date"
 														class="col-sm-offset-1 col-sm-3 control-label"><strong>탈퇴
 															일자</strong></label>
 													<div class="col-sm-6">
-														<input id="AddSecession-date" name="secessionRegDate"
+														<input id="get_b_a_secessionDate" name="secessionRegDate"
 															class="form-control" type="text"
 															value="${user.secessionRegDate}" readonly />
 													</div>
@@ -288,7 +293,7 @@
 									</c:if>
 									<button id="cancel" class="btn btn-xs btn-border-d btn-circle"
 										type="button">취소</button>
-									<button id="business-updateUser" class="btn btn-xs btn-border-d btn-circle"
+									<button id="get_b_a_business-updateUser" class="btn btn-xs btn-border-d btn-circle"
 										type="submit">수정하기</button>
 
 								</div>
@@ -310,20 +315,6 @@
 			<script src="/resources/lib/jquery-datatables/media/js/jquery.dataTables.js"></script>
 			<script src="/resources/lib/jquery-datatables/extras/TableTools/js/dataTables.tableTools.min.js"></script>
 			<script src="/resources/lib/jquery-datatables-bs3/assets/js/datatables.js"></script>
-
-<!-- 			<script src="../../resources/lib/jquery/jquery.js"></script>
-			<script src="../../resources/lib/bootstrap/js/bootstrap.min.js"></script>
-			<script src="../../resources/lib/wow/wow.js"></script>
-			<script src="../../resources/lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js"></script>
-			<script src="../../resources/lib/isotope/isotope.pkgd.js"></script>
-			<script src="../../resources/lib/imagesloaded/imagesloaded.pkgd.js"></script>
-			<script src="../../resources/lib/flexslider/jquery.flexslider.js"></script>
-			<script src="../../resources/lib/owl.carousel/dist/owl.carousel.min.js"></script>
-			<script src="../../resources/lib/smoothscroll.js"></script>
-			<script src="../../resources/lib/magnific-popup/jquery.magnific-popup.js"></script>
-			<script src="../../resources/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script>
-			<script src="../../resources/js/plugins.js"></script>
-			<script src="../../resources/js/main.js"></script> -->
 
 			<script type="text/javascript">
 
@@ -355,10 +346,10 @@
 
 
 					//휴대폰번호 중복체크
-					$("input[name='phone']").on("keyup", function () {
+					$("#get_b_a_phone").on("keyup", function () {
 
 						var regExp = /^[0-9]*$/;
-						var phone = $("input[name='phone']").val();
+						var phone = $("#get_b_a_phone").val();
 
 						$.ajax({
 							url: '/user/rest/checkDuplication',
@@ -375,21 +366,21 @@
 								if (result == 0) {
 									if (email != "") {
 										if (!(regExp.test(phone))) {
-											$("#phone").val("");
-											$("#check-phone").html("휴대폰번호는 숫자로만 입력 가능합니다.");
+											$("#get_b_a_phone").val("");
+											$("#get_b_a_check-phone").html("휴대폰번호는 숫자로만 입력 가능합니다.");
 										} else if (phone.length == 11) {
-											$("#check-phone").html('사용 가능한 번호입니다.');
-											$("#check-phone").css('color', 'green');
+											$("#get_b_a_check-phone").html('사용 가능한 번호입니다.');
+											$("#get_b_a_check-phone").css('color', 'green');
 										} else if (phone.length > 11) {
-											$("#phone").val("");
-											$("#check-phone").html("휴대폰번호는 11자리만 가능합니다.");
+											$("#get_b_a_phone").val("");
+											$("#get_b_a_check-phone").html("휴대폰번호는 11자리만 가능합니다.");
 										} else {
-											$("#check-phone").html("");
+											$("#get_b_a_check-phone").html("");
 										}
 
 									} else {
-										$("#check-phone").html('이미 사용중이거나 중복된 휴대폰번호 입니다.');
-										$("#check-phone").css('color', 'red');
+										$("#get_b_a_check-phone").html('이미 사용중이거나 중복된 휴대폰번호 입니다.');
+										$("#get_b_a_check-phone").css('color', 'red');
 									}
 								}
 							}
@@ -398,7 +389,7 @@
 					});
 
 					$("#approval-btn").on("click", function () {
-						var id = $("#businessApproval-id").val();
+						var id = $("#get_b_a_id").val();
 
 						console.log("가입승인");
 						$.ajax({
@@ -434,80 +425,32 @@
 					});
 
 					//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-					$("#business-updateUser").on("click", function () {
+					$("#get_b_a_business-updateUser").on("click", function () {
 						console.log("뭐지");
 						fncupdateUser();
 					});
 
 					function fncupdateUser() {
 
-						//var id=$("input[name='userId']").val();
-						var pw = $("input[name='password']").val();
-						var pw_confirm = $("input[name='confirmPassword']").val();
-						var name = $("input[name='name']").val();
-						var nickName = $("input[name='nickName']").val();
-						var phone = $("input[name='phone']").val();
-
-
-						/* if(id == null || id.length <1){
-							alert("아이디는 반드시 입력하셔야 합니다.");
-							return;
-						} *
-						
-						if(password == null || password.length <1){
-							alert("패스워드는  반드시 입력하셔야 합니다.");
-							return;
-						}
-						
-						if(7<password.length <16){
-							alert("패스워드는 8~15자까지 가능합니다.");
-							return;
-						}
-						
-						if(confirmPassword == null || confirmPassword.length <1){
-							alert("패스워드 확인은  반드시 입력하셔야 합니다.");
-							return;
-						}
-						
-						if(name == null || name.length <1){
-							alert("이름은  반드시 입력하셔야 합니다.");
-							return;
-						}
-						
-						if( password != confirmPassword ) {				
-							alert("비밀번호 확인이 일치하지 않습니다.");
-							$("input:text[name='confirmPassword']").focus();
-							return;
-						}
-						
-						if(nickName == null || nickName.length <1){
-							alert("닉네임은 반드시 입력하셔야 합니다.");
-							return;
-						}
-						
-						if(phone == null || phone.length <1){
-							alert("휴대폰번호는 반드시 입력하셔야 합니다.");
-							return;
-						}*/
-
 						var addr = "";
-						if ($("input:text[name='addr']").val() != "" && $("input:text[name='userAddr']").val() != "") {
-							var value = $("input[name='addr']").val() + ""
-								+ $("input[name='userAddr']").val();
+						if ($("#get_b_a_addr").val() != "" && $("#get_b_a_userAddr").val() != "") {
+							var value = $("#get_b_a_addr").val() + ""
+								+ $("#get_b_a_userAddr").val();
 						}
 
-						$("input:hidden[name='allAddr']").val(value);
+						$("#get_b_a_allAddr").val(value);
 
 						$("form").attr("method", "POST").attr("action", "/user/updateUser").submit();
 					}
 
 
 					//주소검색
-					document.getElementById("addr").addEventListener("click", function () { //주소입력칸을 클릭하면
+					document.getElementById("get_b_a_addr").addEventListener("click", function () { //주소입력칸을 클릭하면
+						$("#get_b_a_userAddr").show();
 						new daum.Postcode({
 							oncomplete: function (data) { //선택시 입력값 세팅
-								document.getElementById("addr").value = data.address; // 주소 넣기
-								document.querySelector("input[name=userAddr]").focus(); //상세입력 포커싱
+								document.getElementById("get_b_a_addr").value = data.address; // 주소 넣기
+								document.querySelector("#get_b_a_userAddr").focus(); //상세입력 포커싱
 							}
 						}).open();
 					});

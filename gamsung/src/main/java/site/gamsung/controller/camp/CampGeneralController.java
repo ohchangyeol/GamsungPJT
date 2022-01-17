@@ -1,6 +1,7 @@
 package site.gamsung.controller.camp;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -222,10 +223,10 @@ public class CampGeneralController {
 		
 	}
 	
-	@RequestMapping(value = "listMyReservation")
-	public String listMyReservation(@ModelAttribute("search") Search search, Model model ,HttpSession httpSession){
+	@RequestMapping(value = "listMyReservation" )
+	public String listMyReservation(@ModelAttribute("search") Search search, Model model ,HttpSession httpSession) throws Exception{
 		System.out.println("/campGeneral/listMyReservation : GET / POST");
-		
+			
 		User user = (User)httpSession.getAttribute("user");
 		
 		if (search.getCurrentPage() == 0) {

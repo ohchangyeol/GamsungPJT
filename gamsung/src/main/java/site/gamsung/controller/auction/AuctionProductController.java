@@ -1,7 +1,5 @@
 package site.gamsung.controller.auction;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -141,8 +139,8 @@ public class AuctionProductController {
 	}
 	
 	// 상품 상세 조회 페이지 출력
-	@PostMapping("getAuctionProduct")
-	public String getCrawlingAuctionProductNo(@ModelAttribute("auctionProduct") AuctionProduct auctionProduct) {
+	@PostMapping("getAuctionProductA")
+	public String getNaverAuctionProductNo(@ModelAttribute("auctionProduct") AuctionProduct auctionProduct) {
 
 		auctionProduct = auctionProductService.convertNaverToAuctionProduct(auctionProduct);
 
@@ -188,7 +186,6 @@ public class AuctionProductController {
 		
 		//Id에 해당하는 임시 등록 정보가 있는지 확인한다.
 		AuctionProduct auctionProduct = auctionProductService.getTempSaveAuctionProduct(user.getId());
-		user = auctionInfoService.checkAndUpdateUserAuctionGrade(user);
 		
 		// 임시정보가 있다면 model에 담아 return한다.
 		if(auctionProduct != null) {
@@ -200,6 +197,7 @@ public class AuctionProductController {
 		model.addAttribute("fee",paymentCode.getPaymentCodeFee());
 		
 		//user 정보를 새로 세팅한다.
+		user = auctionInfoService.checkAndUpdateUserAuctionGrade(user);
 		httpSession.setAttribute("user", user);
 		
 		return "forward:/view/auction/addAuctionProduct.jsp";
@@ -224,58 +222,37 @@ public class AuctionProductController {
 		if(auctionProduct.getProductImg1() == null) {
 			
 			List<MultipartFile> fileList = mtfRequest.getFiles("inputImgs");
-//			AWSService awsService = new AWSService();
-//			for(MultipartFile multipartFile : fileList) {
-//				File file = new File(multipartFile.getOriginalFilename());
-//				try {
-//					multipartFile.transferTo(file);
-//				} catch (IllegalStateException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				} catch (IOException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-//				awsService.uploadFile(file);
-//			}
 			
 			List<String> fileName = auctionImgUpload.imgUpload(fileList, path);
 			
 			auctionProduct = auctionProductService.auctionProductImgs(auctionProduct, fileName);
-			
 		}
 		
 		AuctionProduct tmpAuctionProduct = auctionProductService.getTempSaveAuctionProduct(user.getId());
-		String navigation = "";
+		
 		if(tmpAuctionProduct != null) {
 			auctionProduct.setAuctionProductNo(tmpAuctionProduct.getAuctionProductNo());
 			auctionProductService.updateAuctionProduct(auctionProduct);
-			
-			//사용자 경매 등급 재설정한다.
-			user = auctionInfoService.checkAndUpdateUserAuctionGrade(user);
-			navigation = "redirect:./listAuctionProduct";
 		}else {
 			//상품정보를 등록한다.
 			auctionProductService.addAuctionProduct(auctionProduct);
-			//사용자 경매 등급 재설정한다.
-			user = auctionInfoService.checkAndUpdateUserAuctionGrade(user);
-			navigation =  "redirect:./listAuctionProduct";
 		}
 		
-		//user 정보를 새로 세팅한다.
-		httpSession.setAttribute("user", user);
-		
 		//결제 담당자가 서비스를 통해 처리하여 payment domain을 생성하여 인자로 준다.
-		Payment payment = (Payment)auctionInfoService.makePaymentInfo(user, "상품등록", null);
-		
+		Payment payment = (Payment) auctionInfoService.makePaymentInfo(user, "상품등록", null);
 		try {
 			paymentService.makePayment(payment);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+				
+		//사용자 경매 등급 재설정한다.
+		user = auctionInfoService.checkAndUpdateUserAuctionGrade(user);
+		//user 정보를 새로 세팅한다.
+		httpSession.setAttribute("user", user);
 		
-		return navigation;
+		return  "redirect:./listAuctionProduct";
 	}
 	
 	//임시저장 요청시 매핑된다.
@@ -485,31 +462,31 @@ public class AuctionProductController {
 	//EC2에서 쿠팡 상품 크롤링 중 문제가 발생하여 네이버 검색 API로 전환한다.
 	
 	//경매 진행 중인 상품 최초 8개 조회
-//	@RequestMapping( "listWaitAuctionProduct")
-//	public String listCrawlingAuctionProduct(HttpSession httpSession, Model model, @ModelAttribute("search") Search search) {
-//		
-//		//출력할 개수을 commonProperties로 부터 받아오며, 1페이지가 고정값으로 들어간다.
-//		search.setSortCondition("latestAsc");
-//		search.setPageSize(auctionPageSize);
-//		search.setCurrentPage(1);
-//		
-//		//조건에 맞는 상위 8개의 상품 목록을 리스트로 받는다.
-//		List<AuctionProduct> list = auctionProductService.listCrawlingAuctionProduct(search);
-//		
-//		//받은 상품 목록을 model에 담아 return한다.
-//		model.addAttribute("list",list);
-//	
-//		return "forward:/view/auction/listWaitAuctionProduct.jsp";
-//		
-//	}
+	@RequestMapping( "listWaitAuctionProduct")
+	public String listCrawlingAuctionProduct(HttpSession httpSession, Model model, @ModelAttribute("search") Search search) {
+		
+		//출력할 개수을 commonProperties로 부터 받아오며, 1페이지가 고정값으로 들어간다.
+		search.setSortCondition("latestAsc");
+		search.setPageSize(auctionPageSize);
+		search.setCurrentPage(1);
+		
+		//조건에 맞는 상위 8개의 상품 목록을 리스트로 받는다.
+		List<AuctionProduct> list = auctionProductService.listCrawlingAuctionProduct(search);
+		
+		//받은 상품 목록을 model에 담아 return한다.
+		model.addAttribute("list",list);
+	
+		return "forward:/view/auction/listWaitAuctionProduct.jsp";
+		
+	}
 	
 	//상품 상세 조회 페이지 출력
-//	@PostMapping( "getAuctionProduct")
-//	public String getCrawlingAuctionProductNo(@ModelAttribute("auctionProduct") AuctionProduct auctionProduct) {
-//		
-//		auctionProduct = auctionProductService.getCrawlingAuctionProductNo(auctionProduct);
-//		
-//		return "redirect:./getAuctionProduct?auctionProductNo="+auctionProduct.getAuctionProductNo();
-//	}
+	@PostMapping( "getAuctionProductB")
+	public String getCrawlingAuctionProductNo(@ModelAttribute("auctionProduct") AuctionProduct auctionProduct) {
+		
+		auctionProduct = auctionProductService.getCrawlingAuctionProductNo(auctionProduct);
+		
+		return "redirect:./getAuctionProduct?auctionProductNo="+auctionProduct.getAuctionProductNo();
+	}
 	
 }
