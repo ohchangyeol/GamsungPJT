@@ -68,15 +68,22 @@ public class CampBusinessRestController {
 		System.out.println("listCampReservationJSON campNo : " + campNo);	
 		
 		List<CampReservation> campReservationList = campBusinessService.listCampReservationJSON(campNo);
-		
 		List<ReservationCalendar> newList = new ArrayList<ReservationCalendar>();
 
+		String mainSiteName = null;
+		String mainSiteType = null;
+		String reservationUserName = null;
+		int useNum = 0;				
 		for (int i = 0; i < campReservationList.size(); i++) {
 			
 			ReservationCalendar oneRsvEvent = new ReservationCalendar();
 			CampReservation oneReservation = campReservationList.get(i);
+			mainSiteName = oneReservation.getMainSite().getMainSiteName();
+			mainSiteType = oneReservation.getMainSite().getMainSiteType();
+			reservationUserName = oneReservation.getReservationUserName();
+			useNum = oneReservation.getUseNum();
 			
-			oneRsvEvent.setTitle(oneReservation.getMainSite().getMainSiteName());
+			oneRsvEvent.setTitle( mainSiteName+"/"+mainSiteType+"/"+reservationUserName+"/"+useNum+"명");
 			oneRsvEvent.setStart(oneReservation.getReservationStartDate());
 			oneRsvEvent.setEnd(oneReservation.getReservationEndDate());
 			oneRsvEvent.setUrl("/campGeneral/getMyReservation?reservationNo="+oneReservation.getReservationNo());
@@ -84,15 +91,22 @@ public class CampBusinessRestController {
 			String color = "";
 			if(i % 4 == 0) {
 				color = "blue";
+				oneRsvEvent.setTextColor("white");
+				
 			} else if(i % 3 == 0) {
 				color = "yellow";
+				oneRsvEvent.setTextColor("black");
+				
 			} else if(i % 2 == 0) {
 				color = "orange";
+				oneRsvEvent.setTextColor("black");
+				
 			} else if(i % 1 == 0) {
-				color = "green";	
+				color = "green";
+				oneRsvEvent.setTextColor("black");
 			}
-			oneRsvEvent.setTextColor(color);
-			oneRsvEvent.setTextColor("black");
+			
+			oneRsvEvent.setColor(color);
 			oneRsvEvent.setAllDay(false);
 			
 			System.out.println("paymentRecordList1 : "+i+" : " + oneReservation);
@@ -102,7 +116,7 @@ public class CampBusinessRestController {
 		System.out.println("reservationList : "+campReservationList);
 		System.out.println("newList : "+newList);
 			
-		Gson data = new GsonBuilder().serializeNulls().create();
+		Gson data = new GsonBuilder().serializeNulls().setDateFormat("yyyy-MM-dd").create();
 			
 		return data.toJson(newList);
 	}

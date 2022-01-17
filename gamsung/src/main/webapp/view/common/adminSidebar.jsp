@@ -139,33 +139,6 @@
                         </ul>
                     </li>
                     --> 
-                  <hr class="separator" />
-                    
-                    <li class="nav-parent">
-                        <a>
-                            <i class="fa fa-money" aria-hidden="true"></i>
-                            <span>결제관리</span>
-                        </a>
-                        <ul class="nav nav-children">
-                            <li>
-                                <a href="/payment/listSiteProfit">
-                                    사이트수익
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/payment/listPayment">
-                                    결제내역
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/payment/listPaymentCode">
-                                    결제코드관리
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    
-                    
                     
                     <li class="nav-parent">
                         <a>
@@ -185,8 +158,6 @@
                             </li>
                         </ul>
                     </li>
-                    
-                    
                     
                     <li class="nav-parent">
                         <a>
@@ -210,6 +181,30 @@
                             </li>
                             <li>
                                 <a href="/servicecenter/listReport">신고 내역</a>
+                            </li>
+                        </ul>
+                    </li>
+                    
+                    <li class="nav-parent">
+                        <a>
+                            <i class="fa fa-money" aria-hidden="true"></i>
+                            <span>결제관리</span>
+                        </a>
+                        <ul class="nav nav-children">
+                            <li>
+                                <a href="/payment/listSiteProfit">
+                                    사이트수익
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/payment/listPayment">
+                                    결제내역
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/payment/listPaymentCode">
+                                    결제코드관리
+                                </a>
                             </li>
                         </ul>
                     </li>

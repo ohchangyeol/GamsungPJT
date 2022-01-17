@@ -96,7 +96,7 @@
 									<li><a href=""style="border-bottom: none !important;"><i class="fa  fa-refresh" aria-hidden="true"></i>&nbsp;예약양도</a></li>
 									<li><a href="/payment/listPayment" style="border-bottom: none !important;"><i class="fa fa-money" aria-hidden="true"></i>&nbsp;결제 내역</a></li>
 									<li><a href="/payment/managePoint" style="border-bottom: none !important;"><i class="fa fa-money" aria-hidden="true"></i>&nbsp;포인트 관리</a></li>
-									<li><a href="#" style="border-bottom: none !important;"><button class="btn btn-border-w btn-round btn-xs" type="button"id="logout">LOGOUT</button></a></li>
+									<li><a href="/user/logout" style="border-bottom: none !important;"><button class="btn btn-border-w btn-round btn-xs" type="button"id="logout">LOGOUT</button></a></li>
 								</ul>
 							</li>
 						</c:if>

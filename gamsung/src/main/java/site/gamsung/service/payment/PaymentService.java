@@ -13,7 +13,10 @@ public interface PaymentService {
 	/*
 	 *  Point
 	 */	
-
+	public int pointUpdateById(PointTransfer pointTransfer) throws Exception;
+	
+	public int pointTransferByUsers(PointTransfer pointTransfer) throws Exception;
+	
 	
 	/*
 	 *  Payment

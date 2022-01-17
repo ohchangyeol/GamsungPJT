@@ -203,12 +203,15 @@ public class CampBusinessController {
 
 		Camp camp = campBusinessService.getCamp(campNo);
 		model.addAttribute("camp", camp);
-
+		System.out.println("updateCampView camp : " +camp);
+		
 		return "forward:/view/campbusiness/updateCamp.jsp";
 	}
 	
 	@RequestMapping(value = "updateCamp", method = RequestMethod.POST)
 	public String updateCamp(@ModelAttribute("camp") Camp camp, HttpSession httpSession) throws Exception {	
+		
+		System.out.println("c1 : " + camp);	
 		
 		String FILE_PATH_CAMP = httpSession.getServletContext().getRealPath("/")+"uploadfiles/campimg/campbusiness/camp/";
 					
@@ -216,8 +219,12 @@ public class CampBusinessController {
 		String extension = "";
 		String newfileName = ""; 		
 		
+		Camp originalCampData = campBusinessService.getCamp(camp.getCampNo());
+		System.out.println("originalCampData : " +originalCampData);
+		
 		if(camp.getCampMapFile() != null) {
 			originfileName = camp.getCampMapFile().getOriginalFilename().trim();
+			System.out.println("originfileName : " +originfileName);
 			
 			if(!(originfileName.equals(""))) {
 				extension = originfileName.split("\\.")[1];		
@@ -225,18 +232,21 @@ public class CampBusinessController {
 				camp.setCampMapImg(newfileName);
 				camp.getCampMapFile().transferTo(new File(FILE_PATH_CAMP, newfileName)); 
 			}
+		} else {
+			camp.setCampMapImg(originalCampData.getCampMapImg());
 		}
 		
 		if(camp.getCampImgFile1() != null) {
 			originfileName = camp.getCampImgFile1().getOriginalFilename().trim();
 			
 			if(!(originfileName.equals(""))) {
-				System.out.println("cccccc" +originfileName + "aaa");
 				extension = originfileName.split("\\.")[1];		
 				newfileName = camp.getCampNo() + "_1" + "." + extension;
 				camp.setCampImg1(newfileName);
 				camp.getCampImgFile1().transferTo(new File(FILE_PATH_CAMP, newfileName));
 			}
+		} else {
+			camp.setCampImg1(originalCampData.getCampImg1());
 		}
 		
 		if(camp.getCampImgFile2() != null) {
@@ -248,6 +258,8 @@ public class CampBusinessController {
 				camp.setCampImg2(newfileName);
 				camp.getCampImgFile2().transferTo(new File(FILE_PATH_CAMP, newfileName));
 			}
+		} else {
+			camp.setCampImg2(originalCampData.getCampImg2());
 		}		
 		
 		if(camp.getCampImgFile3() != null) {
@@ -259,6 +271,8 @@ public class CampBusinessController {
 				camp.setCampImg3(newfileName);
 				camp.getCampImgFile3().transferTo(new File(FILE_PATH_CAMP, newfileName));
 			}
+		} else {
+			camp.setCampImg3(originalCampData.getCampImg3());
 		}
 		
 		if(camp.getCampImgFile4() != null) {
@@ -270,6 +284,8 @@ public class CampBusinessController {
 				camp.setCampImg4(newfileName);
 				camp.getCampImgFile4().transferTo(new File(FILE_PATH_CAMP, newfileName));
 			}
+		} else {
+			camp.setCampImg4(originalCampData.getCampImg4());
 		}		
 		
 		if(camp.getCampImgFile5() != null) {
@@ -281,9 +297,11 @@ public class CampBusinessController {
 				camp.setCampImg5(newfileName);
 				camp.getCampImgFile5().transferTo(new File(FILE_PATH_CAMP, newfileName)); 
 			}
-		}		
+		} else {
+			camp.setCampImg5(originalCampData.getCampImg5());
+		}	
 	
-		System.out.println("c1 : " + camp);		
+		System.out.println("c2 : " + camp);		
 		campBusinessService.updateCamp(camp);
 		
 		return "forward:/view/campbusiness/getCamp.jsp";
