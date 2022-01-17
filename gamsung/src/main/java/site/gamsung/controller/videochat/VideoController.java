@@ -36,9 +36,7 @@ public class VideoController {
 	@RequestMapping("/video/{productNo}")
 	public String videoChat(@PathVariable("productNo") String productNo, Model model) {
 		
-		model.addAttribute("productNo",productNo);
-		
-		return "forward:/view/videochat/videoDoorGuard.jsp";
+		return "redirect:https://gamsung.site/video/"+productNo;
 	}
 	
 	@GetMapping("/video/videoChat")
@@ -63,7 +61,10 @@ public class VideoController {
 		AuctionProduct auctionProduct = (AuctionProduct)map.get("auctionProduct");
 		String id = user.getId();
 		
-		if(auctionProduct != null && ( !id.equals( auctionProduct.getRegistrantId()) || !id.equals(auctionProduct.getSuccessfulBidderId()) ) ) {
+		if(auctionProduct == null) {			
+			return "redirect:/";
+		}
+		if( !(id.equals( auctionProduct.getRegistrantId()) || id.equals(auctionProduct.getSuccessfulBidderId()) ) ) {
 			return "redirect:/";
 		}
 		

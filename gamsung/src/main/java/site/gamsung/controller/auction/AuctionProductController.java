@@ -1,5 +1,7 @@
 package site.gamsung.controller.auction;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,6 +36,7 @@ import site.gamsung.service.domain.Payment;
 import site.gamsung.service.domain.PaymentCode;
 import site.gamsung.service.domain.User;
 import site.gamsung.service.payment.PaymentService;
+import site.gamsung.util.auction.AWSService;
 import site.gamsung.util.auction.AuctionImgUpload;
 
 @RequestMapping("/auction/*")
@@ -222,7 +225,21 @@ public class AuctionProductController {
 		if(auctionProduct.getProductImg1() == null) {
 			
 			List<MultipartFile> fileList = mtfRequest.getFiles("inputImgs");
-		
+//			AWSService awsService = new AWSService();
+//			for(MultipartFile multipartFile : fileList) {
+//				File file = new File(multipartFile.getOriginalFilename());
+//				try {
+//					multipartFile.transferTo(file);
+//				} catch (IllegalStateException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				} catch (IOException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//				awsService.uploadFile(file);
+//			}
+			
 			List<String> fileName = auctionImgUpload.imgUpload(fileList, path);
 			
 			auctionProduct = auctionProductService.auctionProductImgs(auctionProduct, fileName);
