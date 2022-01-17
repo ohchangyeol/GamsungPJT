@@ -21,10 +21,6 @@
 			<div class="infoText font-weight-bold">낙찰자ID : ${auctionProduct.successfulBidderId}</div>
 			<div class="infoText font-weight-bold">최종금액 : <fmt:formatNumber type="number" maxFractionDigits="3" value="${auctionProduct.currentBidPrice}" />원</div>
 		</div>
-		<div>
-			<button>경매 확정</button>
-			<button>신고</button>
-		</div>
 		<div id="welcome">
 			<form>
 				<input type="hidden" value="${auctionProduct.auctionProductNo}">

@@ -202,12 +202,11 @@ public class AuctionInfoServiceImpl implements AuctionInfoService{
 		
 		//상품 등록 수수료를 받아올 때는 등록자 ID를 통해 가장 최근에 등록된 상품정보를 가져온다. 
 		if(auctionProduct == null) {
-			
 			auctionProduct = auctionProductDAO.paymentSubInfo(user.getId());
-			auctionProduct = auctionProductDAO.getAuctionProduct(auctionProduct.getAuctionProductNo());			
-
+			if(auctionProduct != null) {
+				auctionProduct = auctionProductDAO.getAuctionProduct(auctionProduct.getAuctionProductNo());							
+			}
 		}
-
 		PaymentCode paymentCode = new PaymentCode();
 		paymentCode.setPaymentCodeRangeStart(user.getAuctionGrade());
 		
@@ -239,7 +238,7 @@ public class AuctionInfoServiceImpl implements AuctionInfoService{
 		case "낙찰취소 수수료": 
 			return paymentCode;
 		case "경매확정":
-			payment.setPaymentReceiver(auctionProduct.getSuccessfulBidderId());
+			payment.setPaymentReceiver(auctionProduct.getRegistrantId());
 			break;
 		default : //상품등록, 중도철회, 낙찰취소
 			payment.setPaymentReceiver("admin");

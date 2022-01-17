@@ -31,12 +31,12 @@ public class CrawlingData {
 	public synchronized List<AuctionProduct> crawlingList(Search search){
 		
 		
-		int page = search.getCurrentPage()/9;
-		int unit = search.getCurrentPage()%9;
+		int page = search.getCurrentPage()/4;
+		int unit = search.getCurrentPage()%4;
 		
 		if(unit==0){
 			page --;
-			unit= 9;
+			unit= 4;
 		}
 		
 		String url = coupang+(page+1);
@@ -69,7 +69,8 @@ public class CrawlingData {
 		Elements prodTag = prodList.select(".search-product-link");
 		Elements imgTag = prodList.select(".search-product-wrap-img");
 		Elements nameTag = doc.select(".name");
-	
+		
+		System.out.println("unit : "+unit);
 
 		for (int j = 8*(unit-1); j < 8*(unit) ; j++) {
 
@@ -104,7 +105,9 @@ public class CrawlingData {
 				auctionProduct.setHashtag3("#" + hashtags[2]);
 
 			}
-
+			
+			System.out.println(auctionProduct);
+			
 			list.add(auctionProduct);
 
 		}
@@ -153,8 +156,8 @@ public class CrawlingData {
 							break;
 						}
 					}
+					System.out.println(doc.select(".total-price").text());
 					String price = doc.select(".total-price").text().replaceAll(",","").replaceAll("원","").trim();
-					
 					int intPrice = 0;
 					
 					if(price.indexOf(" ") != -1) {
@@ -183,10 +186,7 @@ public class CrawlingData {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-	
 
-			
 		return auctionProduct;
 	}
 }

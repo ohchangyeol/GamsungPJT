@@ -15,6 +15,8 @@ public interface ReceiveService {
 	
 	public List<Receive> listReceive(Search search)throws Exception;
 	
+	public List<Receive> mylistReceive(Search search)throws Exception;
+	
 	public Receive getReceive(int receiveNo)throws Exception;
 
 	public int updateReceive(Receive receive)throws Exception;
@@ -23,5 +25,5 @@ public interface ReceiveService {
 	
 	public int blindReceive(int receiveNo)throws Exception;
 	
-	public int UpdateTransferApproval(int transferNo)throws Exception;
+	public int updateTransferStatus(Receive receive)throws Exception;
 }

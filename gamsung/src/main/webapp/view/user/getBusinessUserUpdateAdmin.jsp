@@ -11,6 +11,7 @@
 			<title>사업자회원정보 조회/수정</title>
 
 			<jsp:include page="../../resources/commonCssAdmin.jsp" />
+			<jsp:include page="../../resources/commonLib.jsp" />	
 
 			<!-- Specific Page Vendor CSS -->
 			<link rel="stylesheet" href="/resources/lib/select2/select2.css" />

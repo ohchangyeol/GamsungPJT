@@ -677,18 +677,28 @@
 					    {targets: 8, data: "paymentReferenceNum",
 					    	render: function ( data, type, row, meta ) {
 					    		
-					    		var codeLetter = data.charAt(1);
-					    		var refNum = data.substring(1,7);
-					    		refNum = refNum.trim();
-					    							    		
-					    		console.log(codeLetter);
-					    		console.log(refNum);		    		
-					    		
-					    		if(codeLetter == 'R'){
+					    		var refNum = "";				    							    		
+					    		console.log(data);
+					    				    							    		
+					    		if(data.charAt(1) == 'R'){
+					    			
+					    			refNum = data.substring(1,7);
+					    			refNum = refNum.trim();
+					    			
+					    			console.log("R : "+data.charAt(1));
+					    			console.log("R : "+refNum);
+					    			
 					    			return '<a href="/campGeneral/getMyReservation?reservationNo='+refNum+'">'+data+' 상세내역</a>';
 					    			
-					    		} else if(codeLetter == 'A'){
-					    			return '<a href="/getMyReservation?reservationNo='+refNum+'">'+data+' 상세내역</a>';
+					    		} else if(data.substring(1,5) == 'PROD'){
+					    			
+					    			refNum = data.substring(1,10);
+					    			refNum = refNum.trim();
+					    			
+					    			console.log("P : "+data.substring(1,5));
+					    			console.log("P : "+refNum);
+					    			
+					    			return '<a href="/auction/getAuctionProduct/auctionProductNo?='+refNum+'">'+data+' 상세내역</a>';
 					    			
 					    		} else {
 					    			return data;
