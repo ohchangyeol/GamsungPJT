@@ -60,7 +60,7 @@
                         </ul>
                     </li>
 
-		<!--                     
+		                    
                     <hr class="separator" />
                     
                      <li class="nav-parent">
@@ -69,6 +69,12 @@
                             <span>캠핑장관리</span>
                         </a>
                         <ul class="nav nav-children">
+                        
+                        
+                        
+                        
+                        
+                        <!-- 
                             <li>
                                 <a href="/campBusiness/listCamp">
                                     캠핑장 목록
@@ -94,9 +100,11 @@
                                     캠핑장-공지사항 목록
                                 </a>
                             </li>
+                         --> 
+                        
                         </ul>
                     </li>
-		-->
+		
    					<hr class="separator" />
                     
                     <li class="nav-parent">
