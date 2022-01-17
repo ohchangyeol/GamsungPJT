@@ -28,6 +28,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.siot.IamportRestClient.IamportClient;
 import com.siot.IamportRestClient.exception.IamportResponseException;
+import com.siot.IamportRestClient.request.CancelData;
 import com.siot.IamportRestClient.response.IamportResponse;
 
 import site.gamsung.service.common.Page;
@@ -59,18 +60,34 @@ public class PaymentRestController {
 	
 	// REST_API_KEY 와 REST_API_SECRET
 	private IamportClient api = new IamportClient("9067791642102125","c7326e3340556f9c50ac1ad4323dfb45daa7b58d5efe2d3d70b722012420a8d60b656b2fccb648d2");
+		
 	
 	// Iamport 결제 검증
+	// /payment/rest/verifyIamport/
 	@ResponseBody
 	@RequestMapping(value="/verifyIamport/{imp_uid}")
-	public IamportResponse<com.siot.IamportRestClient.response.Payment> paymentByImpUid(
-			Model model, Locale locale, HttpSession session, 
-			@PathVariable(value= "imp_uid") String imp_uid) throws IamportResponseException, IOException {
+	public IamportResponse<com.siot.IamportRestClient.response.Payment> 
+				paymentByImpUid(Model model, Locale locale, HttpSession session, @PathVariable(value= "imp_uid") String imp_uid) 
+						throws IamportResponseException, IOException {
 		
 			return api.paymentByImpUid(imp_uid);
 	}
-	
-	// /payment/rest/verifyIamport/
+		
+	// Iamport 결제 취소
+	// /payment/rest/refundIamport/
+	@ResponseBody
+	@RequestMapping(value="/cancleIamport/{imp_uid}")
+	public IamportResponse<com.siot.IamportRestClient.response.Payment> 
+			cancelPaymentByImpUid(Model model, Locale locale, HttpSession session, @PathVariable(value= "imp_uid") String imp_uid) 
+					throws IamportResponseException, IOException {
+		
+		System.out.println("cancelPaymentByImpUid_imp_uid : " + imp_uid);
+		
+		CancelData oneCancelData = new CancelData(imp_uid, false); 
+		
+			return api.cancelPaymentByImpUid(oneCancelData);
+	}
+		
 	@RequestMapping(value = "listPayment")
 	private @ResponseBody String listPaymentJSON(HttpSession httpSession) throws Exception {
 		

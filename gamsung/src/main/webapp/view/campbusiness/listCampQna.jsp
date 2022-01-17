@@ -47,7 +47,7 @@
   
   	<style>
 	  body {
-            padding-top : 50px;
+            padding-top : 30px;
         }
     </style>
 
@@ -74,11 +74,7 @@
 <body>
 
 	<!-- ToolBar -->
-	
-	<br>
-	<br>
-	<br>
-	
+		
 	<c:if test="${user.role == 'BUSINESS' }">
 		<jsp:include page="/view/common/headerCampBusiness.jsp" />	  	
 	</c:if>
