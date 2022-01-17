@@ -393,6 +393,11 @@
 				return;
 			}
 			
+			if(${sessionScope.user.role eq 'BUSINESS'}){
+  				alert("사업자는 이용 불가합니다.");
+  				return;
+  			}
+			
 			var currentPrice = $('#currentPrice').text();
 			var startBidPrice = $('#startBidPrice').val();
 			var bidUnit = $('#bidUnit').val();

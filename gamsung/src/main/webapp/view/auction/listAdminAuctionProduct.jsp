@@ -33,6 +33,7 @@
               <div class="col-sm-6 col-sm-offset-3">
                 <h2 class="module-title font-alt">Auction Products</h2>
                 <div class="module-subtitle font-serif">관리자가 등록한 경매 상품입니다. 10분 동안만 진행됩니다.</div>
+                <div class="module-subtitle font-serif">네이버 상품 검색 API를 통해 만든 상품 내역입니다.</div>
               </div>
             </div>
           </div>
@@ -121,9 +122,9 @@
   			var sortCondition = $('#sortCondition').val();
   			var searchKeyword = $('#searchKeyword').val();
   			if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight/3) {
-  				 console.log("실행");
+  			
   				$.ajax({
-  						url : "/auction/rest/infiniteScroll",
+  						url : "/auction/rest/infiniteScrollA",
   						method : "POST",
   						async: false,
   						data : JSON.stringify({
@@ -135,9 +136,8 @@
   						},
   						dataType : "json",
   						success : function(JSONData, status) {
-  							console.log(JSONData.length);
 	  						var str = '<div class="container">';
-	  						for (var i = 0; i < JSONData.length-4; i++) {
+	  						for (var i = 0; i < JSONData.length-6; i++) {
 								var stringHtml = '<div class="col-sm-6 col-md-3 col-lg-3">'
 					              				+ '<div class="shop-item"><div class="shop-item-image">'
 					              				+ '<img src="'
@@ -160,6 +160,8 @@
 				                 			str += stringHtml;
 	  						}
 							str += '</div><div class="container">'
+							$("#append").append(str);
+							
 							str = '<div class="container">'
 	  						for (var i = 4; i < JSONData.length-2; i++) {
 								var stringHtml = '<div class="col-sm-6 col-md-3 col-lg-3">'
@@ -198,7 +200,7 @@
 	  				alert("로그인해 주세요.");
 	  				return;
 	  			}
-	  			
+	  				  			
 	   			const auctionProductName = $(this).parent().parent().next().text();
 	   			const productImg1 = $(this).parent().prev().attr('src');
 	   			const allHashTag = $(this).parent().parent().next().next().text()
@@ -211,12 +213,10 @@
 	   			$("#hashtag2").val(hashTags[1]);
 	   			$("#hashtag3").val(hashTags[2]);
 	   			$("#startBidPrice").val(startBidPrice);
-	   			$('form').attr('method','post').attr('action','/auction/getAuctionProduct').submit();
+	   			$('form').attr('method','post').attr('action','/auction/getAuctionProductA').submit();
 	   		});
   	});
-   	
-   	$(document).ready
-  		  	
+   	  		  	
   	</script>    
   </body>
 </html>

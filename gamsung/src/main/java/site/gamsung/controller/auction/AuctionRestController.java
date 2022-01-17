@@ -80,7 +80,7 @@ public class AuctionRestController {
 	@Autowired
 	private SimpMessagingTemplate simpMessagingTemplate;
 	
-	@RequestMapping(value = "infiniteScroll", produces = "application/json; charset=utf-8")
+	@RequestMapping(value = "infiniteScrollA", produces = "application/json; charset=utf-8")
 	public List<NaverProduct> naverShoppingAPI(@RequestBody Search search) {
 		
 		NaverProduct naverProduct = naverShoppingAPI.naverShopping(search);
@@ -346,12 +346,12 @@ public class AuctionRestController {
 	}
 	
 	//EC2 Coupang 상품 크롤링시 문제 발생
-//	@PostMapping("infiniteScroll")
-//	public synchronized List<AuctionProduct> InfiniteScroll(@RequestBody Search search){
-//	
-//		search.setOffset(auctionPageSize);
-//		search.setPageSize(auctionPageSize);
-//		
-//		return auctionProductService.listCrawlingAuctionProduct(search);
-//	}
+	@PostMapping("infiniteScrollB")
+	public synchronized List<AuctionProduct> InfiniteScroll(@RequestBody Search search){
+	
+		search.setOffset(auctionPageSize);
+		search.setPageSize(auctionPageSize);
+		
+		return auctionProductService.listCrawlingAuctionProduct(search);
+	}
 }
