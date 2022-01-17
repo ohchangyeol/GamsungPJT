@@ -210,8 +210,8 @@ pageEncoding="UTF-8"%>
                               <input type="hidden" id="addpaymentPrice"  name="totalPaymentPrice" value="">
                               <input type="hidden" id="prepaymentPrice"  value="${campReservation.totalPaymentPrice}">
                               <input type="hidden" id="update_rev_mainste_no" name="mainSite.mainSiteNo" value="" />
-                              <input type="hidden" id = "campno" name="camp.campNo" value="${campReservation.camp.campNo}" />
-                              <input type="hidden" name="reservationNo" value="${campReservation.reservationNo}" />
+                              <input type="hidden" id="campno" name="camp.campNo" value="${campReservation.camp.campNo}" />
+                              <input type="hidden" id="camp_reservationNo" name="reservationNo" value="${campReservation.reservationNo}" />
                                  
                             </form>  
                           
@@ -230,8 +230,6 @@ pageEncoding="UTF-8"%>
 
         $( function() {
 
-          
-
           $('#request').on('keyup', function() {
                 $('#request_cnt').html("("+$(this).val().length+" / 1000)");
         
@@ -242,11 +240,11 @@ pageEncoding="UTF-8"%>
             });
 
           $('#enddate').on('change',function(){
-                  start = $("#startdate").val();
-                  end = $("#enddate").val();
-                  temps = start.replace(/-/gi, "");
-                  tempe = end.replace(/-/gi, "");
-                  campno = $("#campno").val();
+                 let start = $("#startdate").val();
+                 let end = $("#enddate").val();
+                 let temps = start.replace(/-/gi, "");
+                 let tempe = end.replace(/-/gi, "");
+                 let campno = $("#campno").val();
                             
                     if(start <= new Date().toISOString().substring(0, 10)){
                       alert("현재일자 다음날부터 예약 가능합니다.");
@@ -313,6 +311,15 @@ pageEncoding="UTF-8"%>
         $("#update_reservation").attr("method", "POST").attr("action", "/campGeneral/updateMyReservation").submit();
       }
 
+      function getToday(){
+            var date = new Date();
+            var year = date.getFullYear();
+            var month = ("0" + (1 + date.getMonth())).slice(-2);
+            var day = ("0" + date.getDate()).slice(-2);
+
+            return year + "-" + month + "-" + day;
+        }
+
       function nextupdate(mainsite_no, camp_no) {
 
           var mainSiteNo = mainsite_no;
@@ -365,7 +372,6 @@ pageEncoding="UTF-8"%>
                         maxusecar(JSONData.mainSiteMaxCapacity, JSONData.mainSiteParkingSize)
                         $("#update_rev_mainste_no").val(JSONData.mainSiteNo);
                         
-
                         let start = new Date($("#startdate").val());
                         let end = new Date($("#enddate").val());
                         let minprice = JSONData.mainSiteMinPrice;
@@ -437,7 +443,7 @@ pageEncoding="UTF-8"%>
                         $(".totaldate").text(total);
 
                         if(addpaymentPrice < 0){
-                          var append_btn = "<button type='button' class='btn btn-danger' onclick='reservationupdate()'>예약취소</button>";
+                          var append_btn = "<button type='button' class='btn btn-danger' onclick='reservationcancle()'>예약취소</button>";
                             }else if(addpaymentPrice == 0){
                               var append_btn = "<button type='button' class='btn btn-primary' onclick='reservationupdate()'>확인</button>";
                             }else if(addpaymentPrice > 0){
@@ -526,7 +532,7 @@ pageEncoding="UTF-8"%>
                   $(".totaldate").text(total);
                   
                   if(addpaymentPrice < 0){
-                          var append_btn = "<button type='button' class='btn btn-danger' onclick='reservationupdate()'>예약취소</button>";
+                          var append_btn = "<button type='button' class='btn btn-danger' onclick='reservationcancle()'>예약취소</button>";
                     }else if(addpaymentPrice == 0){
                           var append_btn = "<button type='button' class='btn btn-primary' onclick='reservationupdate()'>확인</button>";
                     }else if(addpaymentPrice > 0){
@@ -562,8 +568,42 @@ pageEncoding="UTF-8"%>
                 }
              });
 
-          }
+             
+            }
+            
+            //예약취소  
+            function reservationcancle(){
 
+                  let start = $("#startdate").val();
+                  let reservationNo = $("camp_reservationNo").attr("value");
+                  let today = getToday();   
+
+                  let startDate = new Date('today');
+                  let endDate = new Date('start');
+                  let differenceDate = Math.ceil((endDate.getTime()-startDate.getTime())/(1000*3600*24));
+
+                  console.log(differenceDate);
+
+                  let refundCode ="";
+
+                  if(differenceDate === 2){
+                      refundCode = 'R3'
+                  }else if(differenceDate === 3){
+                      refundCode = 'R4'
+                  }else if(differenceDate === 4){
+                      refundCode = 'R5'
+                  }else if(differenceDate === 5){
+                      refundCode = 'R6'
+                  }else if(differenceDate === 6){
+                      refundCode = 'R7'
+                  }else{
+                      refundCode = 'R8'
+                  }
+
+                  console.log(refundCode);
+                  self.location ="/payment/readyRefund?reservationNo="+reservationNo+"&paymentRefundCode="+refundCode;
+
+              }
     </script>
 
 </body>

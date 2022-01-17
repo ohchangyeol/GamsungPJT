@@ -64,6 +64,15 @@
                     
                     <hr class="separator" />
                     
+                    <li>
+                        <a href="../../view/camp/reservationStatisticsOuter.jsp">
+                            <i class="fa fa-camera"	aria-hidden="true"></i>
+                            <span>캠핑장예약통계</span>
+                        </a>
+                    </li>
+
+                    <hr class="separator" />
+
                     <li class="nav-parent">
                         <a>
                             <i class="fa fa-money" aria-hidden="true"></i>
