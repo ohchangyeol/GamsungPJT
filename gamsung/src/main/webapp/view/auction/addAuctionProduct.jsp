@@ -500,8 +500,9 @@
 				
 				if(Number($('#havingPoint').text())< Number( $('#hopefulBidPrice').val() )*Number( ${fee} )/100 ){
 					
-					if( confirm(Number( $('#hopefulBidPrice').val() )*Number( ${fee} )/100-( Number( $('#havingPoint').text() ) )+"포인트가 부족하여 등록 할수 없습니다. 충전페이지로 이동하시겠습니까?" ) ){
-						window.location = "/payment/managePoint"			
+					if( confirm(Number( $('#hopefulBidPrice').val() )*Number( ${fee} )/100-( Number( $('#havingPoint').text() ) )+"포인트가 부족하여 등록 할수 없습니다. 충전페이지로 이동하시겠습니까?  임시 저장 후 충전하세요." ) ){
+						window.location = "/payment/managePoint"
+						return;
 					}else{
 						return;
 					}

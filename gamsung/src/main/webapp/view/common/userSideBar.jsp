@@ -6,15 +6,8 @@
 
 
 		<style type="text/css">
-			.sidebar-left {
-				background-color: #171717 !important;
-			}
 
-			aside {
-				margin-top: -60px;
-			}
-
-			a {
+			a{
 				cursor: pointer;
 			}
 
@@ -101,7 +94,7 @@
 									<span>중고경매</span>
 								</a>
 								<ul class="nav nav-children">
-									<li><a id="auctionAdd"> 내가 등록한 상품 </a></li>
+									<li><a id="auctionAdded"> 내가 등록한 상품 </a></li>
 									<li><a id="auctionHistory"> 경매 내역 </a></li>
 									<li><a id="auctionBid"> 응찰 관심 내역 </a></li>
 									<li><a id="auctionReview"> 리뷰 </a></li>
@@ -224,7 +217,11 @@
 				$('#my_camp_qna').on('click', function () {
 					window.location = "/campBusiness/listCampQna?userId=${user.id}";
 				});
-
+				
+				$('#auctionAdded').on('click', function () {
+					window.location = "/auction/listMyAuctionProduct/add?currentPage=1";
+				});
+				
 				$('#auctionAdd').on('click', function () {
 					window.location = "/auction/listMyAuctionProduct/add?currentPage=1";
 				});

@@ -329,7 +329,8 @@
 			if(Number($('#havingPoint').text())< Number( ${auctionProduct.hopefulBidPrice} )*Number( ${cancelFee} )/100 ){
 				
 				if( confirm(Number( ${auctionProduct.hopefulBidPrice} )*Number( ${cancelFee} )/100-( Number( $('#havingPoint').text() ) )+"포인트가 부족하여 낙찰취소 할 수 없습니다. 충전페이지로 이동하시겠습니까?" ) ){
-					window.location = "/payment/managePoint"			
+					window.location = "/payment/managePoint"
+					return;
 				}else{
 					return;
 				}
@@ -391,6 +392,11 @@
 			if($('#bidBtn').attr('disabled') == 'disabled'){
 				return;
 			}
+			
+			if(${sessionScope.user.role eq 'BUSINESS'}){
+  				alert("사업자는 이용 불가합니다.");
+  				return;
+  			}
 			
 			var currentPrice = $('#currentPrice').text();
 			var startBidPrice = $('#startBidPrice').val();
