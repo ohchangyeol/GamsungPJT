@@ -127,7 +127,7 @@
 
 
                         <!-- My / Business / Admin  Start -->
-                        <c:if test="${user.role == 'BUSINESS' || user.role == 'ADMIN'}">
+                        <c:if test="${user.role == 'BUSINESS'}">
                             <li><a href="/campBusiness/goSubMainCampBusiness">BusinessPage</a>
                         </c:if>
 
@@ -143,13 +143,20 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li><a href="/user/mypage">내정보</a>
-                                    <li><a href="/community/listMyPost">내 게시글</a>
+                                    <br>
                                     <li><a href="">캠핑장</a>
+                                    <br>
                                     <li><a href="">중고경매</a>
+                                    <br>                                    
+                                    <li><a href="/community/listMyPost">내 게시글</a>
+                                    <br>
                                     <li><a href="">예약양도</a>
-                                    <li><a href="">결제</a>
+                                    <br>
+                                    <li><a href="/payment/listPayment">결제 내역</a></li>
+                                    <li><a href="/payment/managePoint">포인트 관리</a></li>
+                                    <br>
                                     <li><a href="">고객센터</a>
-                                    <li><a href="">결제</a>
+               
                                 </ul>
                             </li>
 

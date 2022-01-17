@@ -42,21 +42,76 @@ pageEncoding="UTF-8"%>
 	<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales-all.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
 	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+	
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css">
 
 
 	<script>
-	
-      document.addEventListener('DOMContentLoaded', function() {
-        var calendarEl = document.getElementById('calendar');
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-          initialView: 'dayGridMonth'
-        });
-        calendar.render();
-      });
+		
+	    document.addEventListener('DOMContentLoaded', function() {
+	    	
+	    	let campNo = $("#campNo").val();
+			console.log("campNo : " +campNo);
+	  	  
+			var calendarEl = document.getElementById('calendar');
+			
+			var calendar = new FullCalendar.Calendar(calendarEl, {
+				
+				headerToolbar: {
+					left: 'prev,next today',
+					center: 'title',
+					right: 'dayGridMonth,listWeek'
+				},
+				locale: 'ko', 													// 한국어 설정
+				initialView: 'dayGridMonth',
+			  	height: '750px',
+			  	expandRows: true, 												// 화면에 맞게 높이 재설정
+			  	dayMaxEvents: true, 											// 이벤트가 오버되면 높이 제한 (+ 몇 개식으로 표현)
+			  	nowIndicator: true, 											// 현재 시간 마크
+			  	contentHeight: 'auto',
+			  	eventSources: [{
+			  		events: function(info, successCallback, failureCallback) {
+			             $.ajax({
+			                    url: '/campBusiness/rest/listCampReservationJSON?campNo='+campNo,
+	 							type: 'GET',
+	 							dataType: 'json',
+	 						    success: function(data) {
+	 				                
+	 						    	console.log(data);
+	 					
+	 						    	$.each(data, function(index, item){
+	 						    		calendar.addEvent( item );
+	 						    	});
+									
+	 						    	calendar.render();
+	 				                	
+	 				            }
+			             }); 
+			         }, 
+				}]		
+			});
+	    });
+	    
+	    
+ /*   
+	    $("#btnAddTest").click(function(){
+	    	 var arr = getCalendarDataInDB();
+	    	 $.each(arr, function(index, item){
+	    	  calendar.addEvent( item );
+	    	 });
+	    	 calendar.render();
+	    	});
+ */
 
-	</script>	
+ </script>
+	
+	<style>
+		
+	
+	
+	</style>	
 
 </head>
 	  
@@ -70,12 +125,12 @@ pageEncoding="UTF-8"%>
 	
 		<div class="row">
 			<div class="sub-title">
-				<h3>${user.campName} [${user.id}] </h3>			
+				<h3>${user.campName} [${user.id}]</h3>			
 			</div>
 		</div>
 		
 		<div class="row">	
-			<div id='calendar' style="padding-top: 20px;"></div>	
+			<div id='calendar'></div>	
 		</div>
 		
 

@@ -221,8 +221,8 @@ public class PaymentServiceImpl implements PaymentService{
 	}	
 	
 	@Override
-	public void refundPayment(Payment payment) throws Exception {
-		paymentDAO.updatePayment(payment);		
+	public void refundPayment(Payment payment) throws Exception {		
+		paymentDAO.updateRefundPayment(payment);		
 	}	
 			
 	@Override

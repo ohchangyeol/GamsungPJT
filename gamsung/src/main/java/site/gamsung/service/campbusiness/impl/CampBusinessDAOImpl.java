@@ -12,6 +12,8 @@ import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.Camp;
 import site.gamsung.service.domain.CampReservation;
 import site.gamsung.service.domain.MainSite;
+import site.gamsung.service.domain.Notice;
+import site.gamsung.service.domain.Qna;
 import site.gamsung.service.domain.SubSite;
 
 
@@ -124,6 +126,10 @@ public class CampBusinessDAOImpl implements CampBusinessDAO{
 		}
 	}
 	
+	public List<CampReservation> listCampReservationJSON(int campNo) throws Exception{
+		return sqlSession.selectList("CampBusinessMapper.listReservationByCampNo", campNo);
+	}
+	
 	@Override
 	public boolean isSecessionCampReservationCondition(String id) throws Exception {
 		
@@ -195,6 +201,55 @@ public class CampBusinessDAOImpl implements CampBusinessDAO{
 	@Override
 	public void deleteSubSite(int subSiteNo) throws Exception {
 		sqlSession.delete("CampBusinessMapper.deleteSubSite", subSiteNo);		
+	}
+	
+	
+	/*
+	 * Q&A
+	 */	
+	public void addCampQnaQuestion(Qna qna) throws Exception{
+		sqlSession.insert("CampBusinessMapper.addCampQnaQuestion", qna);
+	}
+	
+	public void addCampQnaAnswer(Qna qna) throws Exception{
+		sqlSession.update("CampBusinessMapper.addCampQnaAnswer", qna);
+	}
+	
+	public Qna getCampQna(int qnaNo) throws Exception{
+		return sqlSession.selectOne("CampBusinessMapper.getCampQna", qnaNo);
+	}
+	
+	public List<Qna> listCampQna(int campNo) throws Exception{
+		return sqlSession.selectList("CampBusinessMapper.listCampQna", campNo);
+	}
+	
+	public List<Qna> listCampQnaById(String userId) throws Exception{	
+		return sqlSession.selectList("CampBusinessMapper.listCampQnaById", userId);
+	}
+	
+	/*
+	 * Notice
+	 */	
+	public void addCampNotice(Notice notice) throws Exception{
+		sqlSession.insert("CampBusinessMapper.addCampNotice", notice);
+	}
+
+	public Notice getCampNotice(int noticeNo) throws Exception{
+		return sqlSession.selectOne("CampBusinessMapper.getCampNotice", noticeNo);
+	}
+	
+
+	public void updateCampNotice(Notice notice) throws Exception{
+		sqlSession.update("CampBusinessMapper.updateCampNotice", notice);		
+	}
+
+	public List<Notice> listCampNotice(int campNo) throws Exception{
+		return sqlSession.selectList("CampBusinessMapper.listCampNotice", campNo);
+	}
+	
+	
+	public void deleteCampNotice(int noticeNo) throws Exception{
+		sqlSession.update("CampBusinessMapper.deleteCampNotice", noticeNo);		
 	}
 	
 }

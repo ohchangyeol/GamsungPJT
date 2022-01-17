@@ -1,10 +1,14 @@
 package site.gamsung.service.campbusiness;
 
+import java.util.List;
 import java.util.Map;
 
 import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.Camp;
+import site.gamsung.service.domain.CampReservation;
 import site.gamsung.service.domain.MainSite;
+import site.gamsung.service.domain.Notice;
+import site.gamsung.service.domain.Qna;
 import site.gamsung.service.domain.SubSite;
 
 public interface CampBusinessService {
@@ -31,6 +35,8 @@ public interface CampBusinessService {
 	public int getCampNoById(String id) throws Exception;
 	
 	public int getCampTempSaveById(String id) throws Exception;	
+	
+	public List<CampReservation> listCampReservationJSON(int campNo) throws Exception;
 			
 	
 	/*
@@ -59,5 +65,35 @@ public interface CampBusinessService {
 	public Map<String,Object> listSubSite(Search search) throws Exception;
 	
 	public void deleteSubSite(int subSiteNo) throws Exception;
+
+	
+	/*
+	 * Q&A
+	 */	
+	public void addCampQnaQuestion(Qna qna) throws Exception;
+	
+	public void addCampQnaAnswer(Qna qna) throws Exception;
+
+	public Qna getCampQna(int qnaNo) throws Exception;
+
+	public List<Qna> listCampQna(int campNo) throws Exception;
+	
+	public List<Qna> listCampQnaById(String userId) throws Exception;	
+	
+	
+	/*
+	 * Notice
+	 */	
+	public void addCampNotice(Notice notice) throws Exception;
+
+	public Notice getCampNotice(int noticeNo) throws Exception;
+
+	public void updateCampNotice(Notice notice) throws Exception;
+
+	public List<Notice> listCampNotice(int campNo) throws Exception;
+	
+	public void deleteCampNotice(int noticeNo) throws Exception;
+	
+
 
 }
