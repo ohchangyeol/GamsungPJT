@@ -67,10 +67,6 @@
       <body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
 
         <main>
-
-          <!-- findIdModal -->
-          <jsp:include page="/view/user/findIdModal.jsp" />
-
           <!-- page-loader -->
 
           <!-- header -->
@@ -220,13 +216,15 @@
           </div>
           <div class="scroll-up"><a href="#totop"><i class="fa fa-angle-double-up"></i></a></div>
         </main>
+        <c:if test="${!empty user.id}">
+          <!-- chatting -->
+          <div id="messenger-btn" class="chatting-btn"><i class="fa fa-fw"></i></div>
+          <div id="messenger-iframe" class="ch-messenger-hidden">
+            <iframe src="/chat/chatlist" frameborder="1"
+              style="position:relative!important;height:100%;width:100%!important;border:none!important;"></iframe>
+          </div>
 
-        <!-- chatting -->
-        <div id="messenger-btn" class="chatting-btn"><i class="fa fa-fw"></i></div>
-        <div id="messenger-iframe" class="ch-messenger-hidden">
-          <iframe src="/chat/chatlist" frameborder="1"
-            style="position:relative!important;height:100%;width:100%!important;border:none!important;"></iframe>
-        </div>
+        </c:if>
 
 
         <script src="../../resources/lib/modals/examples.modals.js"></script>

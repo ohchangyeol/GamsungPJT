@@ -10,11 +10,7 @@ import site.gamsung.service.domain.NaverProduct;
 
 public interface AuctionProductService {
 	
-	public List<AuctionProduct> listCrawlingAuctionProduct(Search search);
-	
-	public List<NaverProduct> listNaverAuctionProduct();
-
-	public AuctionProduct getCrawlingAuctionProductNo(AuctionProduct auctionProduct);
+	public List<NaverProduct> listNaverAuctionProduct(Search search);
 	
 	public AuctionProduct convertNaverToAuctionProduct(AuctionProduct auctionProduct);
 	
@@ -40,9 +36,11 @@ public interface AuctionProductService {
 	
 	public AuctionProduct auctionProductImgs(AuctionProduct auctionProduct, List<String> fileList);
 	
-	public AuctionInfo deleteAuctionProduct(String auctionProductNo, String status);
+	public AuctionInfo deleteAuctionProduct(AuctionInfo auctionInfo);
 	
 	public AuctionInfo updateBidEndTime(String auctionProductNo);
 	
-	public AuctionProduct paymentSubInfo(String registrantId);
+	//EC2 크롤링에 문제 발생
+//	public List<AuctionProduct> listCrawlingAuctionProduct(Search search);
+//	public AuctionProduct getCrawlingAuctionProductNo(AuctionProduct auctionProduct);
 }

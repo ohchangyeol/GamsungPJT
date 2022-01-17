@@ -11,7 +11,10 @@
 			}
 
 			aside {
-				margin-top: -55px;
+				margin-top: -60px;
+			}
+			a{
+				cursor: pointer;
 			}
 		</style>
 
@@ -42,7 +45,7 @@
 								</a>
 								<ul class="nav nav-children">
 									<li>
-										<a href="/view/common/myPage.jsp">
+										<a href="/user/myPage">
 											내정보 조회/수정
 										</a>
 									</li>
@@ -52,10 +55,10 @@
 										</a>
 									</li>
 								</ul>
-							</li>
-
+								</li>							
+	
 							<hr class="separator" />
-
+	
 							<li class="nav-parent">
 								<a>
 									<i class="fa fa-camera" aria-hidden="true"></i>
@@ -67,9 +70,9 @@
 									<li><a id="my_camp_review" style="cursor: pointer;"> 등록한 리뷰 </a></li>
 								</ul>
 							</li>
-
+	
 							<hr class="separator" />
-
+	
 							<li class="nav-parent">
 								<a>
 									<i class="fa fa-gavel" aria-hidden="true"></i>
@@ -82,9 +85,9 @@
 									<li><a id="auctionReview"> 리뷰 </a></li>
 								</ul>
 							</li>
-
+	
 							<hr class="separator" />
-
+	
 							<li class="nav-parent">
 								<a>
 									<i class="fa fa-quote-left" aria-hidden="true"></i>
@@ -95,22 +98,23 @@
 									<li><a href="forms-advanced.html"> 샬라샬라 </a></li>
 								</ul>
 							</li>
-
+	
 							<hr class="separator" />
-
+	
 							<li class="nav-parent">
 								<a>
 									<i class="fa  fa-refresh" aria-hidden="true"></i>
 									<span>예약양도</span>
 								</a>
 								<ul class="nav nav-children">
-									<li><a href="forms-basic.html"> 샬라샬라 </a></li>
-									<li><a href="forms-advanced.html"> 샬라샬라 </a></li>
+									<li><a href="/transfer/listMyTransfer"> 나의 예약 양도내역 </a></li>
+									<li><a href="/transfer/managePoint"> 나의 예약 양수내역 </a></li>
 								</ul>
 							</li>
-
+	
+	
 							<hr class="separator" />
-
+	
 							<li class="nav-parent">
 								<a>
 									<i class="fa fa-money" aria-hidden="true"></i>
@@ -121,23 +125,27 @@
 									<li><a href="/payment/listPayment"> 내 결제/포인트 내역 </a></li>
 								</ul>
 							</li>
-
+	
 							<hr class="separator" />
 							<hr class="separator" />
-
+	
 							<li>
 								<a href="/user/logout" target="_blank">
 									<i class="fa fa-sign-out" aria-hidden="true"></i>
 									<span>로그아웃</span>
 								</a>
 							</li>
-
+	
 							<hr class="separator" />
 							<hr class="separator" />
 							<hr class="separator" />
 							<hr class="separator" />
 							<hr class="separator" />
-
+	
+							<li>
+								<span class="text-center">회원틸퇴</span>
+							</li>
+	
 						</ul>
 						<!-- 메뉴 End -->
 
@@ -186,8 +194,7 @@
 
 				var id = $("#secession-userId").val();
 				var password = $("#secession-userPwd").val();
-				alert("여기는 들어오나");
-
+				
 				$.ajax({
 					url: '/user/rest/addSecessionUser',
 					headers: {

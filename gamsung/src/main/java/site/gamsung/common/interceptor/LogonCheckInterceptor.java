@@ -69,11 +69,13 @@ public class LogonCheckInterceptor extends HandlerInterceptorAdapter {
 			//==> 로그인 시도 중.....			
 
 			if(		uri.indexOf("addUser") != -1 || uri.indexOf("sendEmailAuthNum") != -1 || uri.indexOf("findIdPhoneAuthNum") != -1 || uri.indexOf("login") != -1 || uri.indexOf("checkIdPassword") != -1 
-					|| uri.indexOf("checkDuplication") != -1 || uri.indexOf("findId") != -1 || uri.indexOf("sendPhoneAuthNum") != -1
-					|| uri.indexOf("findPassword") != -1 || uri.indexOf("getKakaoAuthUrl") != -1 || uri.indexOf("kakaoCallback") != -1 ||uri.indexOf("listCamp") != -1 || uri.indexOf("getCamp") != -1 
+					|| uri.indexOf("checkDuplication") != -1 || uri.indexOf("findId") != -1 || uri.indexOf("sendPhoneAuthNum") != -1 || uri.indexOf("updateDormantGeneralUserConvert") != -1
+					|| uri.indexOf("findPassword") != -1 || uri.indexOf("getKakaoAuthUrl") != -1 || uri.indexOf("kakaoCallback") != -1 
+					||uri.indexOf("listCamp") != -1 || uri.indexOf("getCamp") != -1 || uri.indexOf("getCampNotice") != -1
 					|| uri.indexOf("listCampQna") != -1 || uri.indexOf("listCampRatingReview") != -1 || uri.indexOf("listCampNotice") != -1 || uri.indexOf("getCampQna") != -1 
-					|| uri.indexOf("listWaitAuctionProduct") != -1 || uri.indexOf("listAuctionProduct") != -1 || uri.indexOf("infiniteScroll") != -1 || uri.indexOf("autoComplete") != -1 
-					|| uri.indexOf("naverShoppingAPI") != -1 || uri.indexOf("video") != -1 || uri.indexOf("getCampNotice") != -1){
+					|| uri.indexOf("listAdminAuctionProduct") != -1 || uri.indexOf("listAuctionProduct") != -1 || uri.indexOf("infiniteScroll") != -1 || uri.indexOf("autoComplete") != -1 
+					|| uri.indexOf("naverShoppingAPI") != -1 || uri.indexOf("video") != -1 || uri.indexOf("getAuctionProduct") != -1 
+					|| uri.indexOf("realtime") != -1 || uri.indexOf("app") != -1 || uri.indexOf("topic") != -1 ) {
 				System.out.println("[ 로그 시도 또는 비회원 접근가능 루트 .... ]");
 				System.out.println("[ LogonCheckInterceptor end........]\n");
 				return true;

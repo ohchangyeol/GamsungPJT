@@ -4,7 +4,7 @@ import java.util.Map;
 
 import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.AuctionInfo;
-import site.gamsung.service.domain.PaymentCode;
+import site.gamsung.service.domain.AuctionProduct;
 import site.gamsung.service.domain.User;
 
 public interface AuctionInfoService {
@@ -23,9 +23,10 @@ public interface AuctionInfoService {
 	
 	public AuctionInfo getBidderRanking(AuctionInfo auctionInfo);
 	
-	public PaymentCode getPaymentInfo(PaymentCode paymentCode);
-	
 	public Map<String, Object> listAuctionSuspensionUser(User user, Search search);
 	
 	public AuctionInfo deleteAuctionSuspension(User user);
+	
+	public Object makePaymentInfo(User user, String option, AuctionProduct auctionProduct);
+	
 }

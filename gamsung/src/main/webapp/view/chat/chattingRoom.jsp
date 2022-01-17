@@ -40,13 +40,13 @@
 		</div>
 		
 	
-		<script src="http://localhost:82/socket.io/socket.io.js"></script>
+		<script src="http://192.168.0.89:82/socket.io/socket.io.js"></script>
 		<script src="../../resources/lib/jquery/jquery.js"></script>
 		<script src="../../resources/lib/bootstrap/js/bootstrap.min.js"></script>
 		<script src="../../resources/js/chatEvent.js"></script>
 		<script>
 			$(document).ready(function(){
-				const socket = io("http://localhost:82/chatting");
+				const socket = io("http://192.168.0.89:82/chatting");
 				const message_box = $('#messages');
 				const sender = $("body").data("userid");
 				const receiver = $("body").data("receiver");

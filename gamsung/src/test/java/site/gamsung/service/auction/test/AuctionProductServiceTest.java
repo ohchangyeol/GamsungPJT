@@ -217,9 +217,15 @@ public class AuctionProductServiceTest {
 	
 	//@Test
 	public void testDeleteAuctionProduct() {
-		System.out.println(auctionProductService.deleteAuctionProduct("PROD00001","CANCEL").getInfo()); 
-		System.out.println(auctionProductService.deleteAuctionProduct("PROD00001","CONFIRM").getInfo()); 
-		System.out.println(auctionProductService.deleteAuctionProduct("PROD00001","WITHDRAWAL").getInfo()); 
+		
+		AuctionInfo auctionInfo = new AuctionInfo();
+		auctionInfo.setAuctionProductNo("PROD00001");
+		auctionInfo.setInfo("CANCEL");
+		System.out.println(auctionProductService.deleteAuctionProduct(auctionInfo).getInfo());
+		auctionInfo.setInfo("CONFIRM");
+		System.out.println(auctionProductService.deleteAuctionProduct(auctionInfo).getInfo());
+		auctionInfo.setInfo("WITHDRAWAL");
+		System.out.println(auctionProductService.deleteAuctionProduct(auctionInfo).getInfo()); 
 	}
 	
 	//@Test

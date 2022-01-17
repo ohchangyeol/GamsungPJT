@@ -2985,7 +2985,7 @@ Google map
 
 
 .mfp-iframe-holder .mfp-content {
-  width:400px;
+  width:400px !important;
   height: 730px;
   border-radius: 30px;
   overflow: hidden;
