@@ -345,9 +345,9 @@ public class ServiceCenterController {
 		if(receiverName != null) {
 			
 			receiverName = new String(receiverName.getBytes("8859_1"),"UTF-8");
-			model.addAttribute("receiverName",receiverName);
 		}
 		
+		model.addAttribute("receiverName",receiverName);
 		
 		System.out.println("change = reportType => " +reportType + "\n receiverName =>" + receiverName);
 		

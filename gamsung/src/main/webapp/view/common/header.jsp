@@ -21,7 +21,6 @@
 				<div class="collapse navbar-collapse" id="custom-collapse">
 					<ul class="nav navbar-nav navbar-right">
 
-		
 						<!-- 중고경매 Start -->
 						<li class="dropdown"><a class="dropdown-toggle" href="" data-toggle="dropdown">중고상품</a>
 							<ul class="dropdown-menu">
@@ -78,45 +77,36 @@
                             <li><a href="/adminMain.jsp">AdminPage</a>
                         </c:if>
 
-                        <c:if test="${user.role != 'BUSINESS' && sessionScope.user != null}">
-                            <li class="dropdown">
-                                <a class="dropdown-toggle" href="/user/mypage" data-toggle="dropdown">${user.nickName}
-                                    <br /><span id="havingPoint">${user.havingPoint}</span> [P]
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="/user/mypage">내정보</a>
-                                    <br>
-                                    <li><a href="">캠핑장</a>
-                                    <br>
-                                    <li><a href="">중고경매</a>
-                                    <br>                                    
-                                    <li><a href="/community/listMyPost">내 게시글</a>
-                                    <br>
-                                    <li><a href="">예약양도</a>
-                                    <br>
-                                    <li><a href="/payment/listPayment">결제 내역</a></li>
-                                    <li><a href="/payment/managePoint">포인트 관리</a></li>
-                                    <br>
-                                    <li><a href="">고객센터</a>
-               
-                                </ul>
-                            </li>
-
-                        </c:if>
+						<c:if test="${user.role != 'BUSINESS' && sessionScope.user != null}">
+							<li class="dropdown">
+								<a class="dropdown-toggle" href="/user/mypage" data-toggle="dropdown">${user.nickName}님</a>
+								<ul class="dropdown-menu login-dropdown">
+									<li>
+										<p style="padding-bottom: 10px;">경매 등급 <span class="badge rounded-pill bg-info text-dark auction-lv" >${user.auctionGrade}LV</span></p>
+									</li>
+									<li>
+										<p>보유 포인트</p>
+										<p style="padding-bottom: 10px; border-bottom: 1px #ddd solid;"><span id="havingPoint" class="main-color" style="font-weight: 700;">${user.havingPoint} </span>p</p>
+									</li>
+									<li><a href="/user/mypage" style="border-bottom: none !important;"><i class="bi bi-person-circle"></i>&nbsp;내정보</a></li>
+									<li><a href="/community/listMyPost" style="border-bottom: none !important;"><i class="bi bi-filter-square"></i>&nbsp;커뮤니티</a></li>
+									<li><a href="" style="border-bottom: none !important;"><i class="bi bi-truck">&nbsp;</i>캠핑장</a></li>
+									<li><a id="auctionAdd" style="border-bottom: none !important;"><i class="fa fa-gavel" aria-hidden="true"></i>&nbsp;중고경매</a></li>
+									<li><a href=""style="border-bottom: none !important;"><i class="fa  fa-refresh" aria-hidden="true"></i>&nbsp;예약양도</a></li>
+									<li><a href="/payment/listPayment" style="border-bottom: none !important;"><i class="fa fa-money" aria-hidden="true"></i>&nbsp;결제 내역</a></li>
+									<li><a href="/payment/managePoint" style="border-bottom: none !important;"><i class="fa fa-money" aria-hidden="true"></i>&nbsp;포인트 관리</a></li>
+									<li><a href="#" style="border-bottom: none !important;"><button class="btn btn-border-w btn-round btn-xs" type="button"id="logout">LOGOUT</button></a></li>
+								</ul>
+							</li>
+						</c:if>
 						<!-- My / Business / Admin  End -->
 
 
 						<!-- 로그인/로그아웃 Start -->
 						<li>
-							<c:if test="${sessionScope.user.role!=null}">
-								<a href="#">
-									<button class="btn btn-border-w btn-round btn-xs" type="button"
-										id="logout">LOGOUT</button>
-								</a>
-							</c:if>
 							<c:if test="${sessionScope.user.role==null}">
 								<a class="modal-basic" href="#modalBasic" id="header-login">
-									<button class="btn btn-border-w btn-round btn-xs " type="button">LOGIN</button>
+									<button class="btn btn-border-w btn-round btn-xs main-login-btn" type="button">LOGIN</button>
 								</a>
 							</c:if>
 						</li>

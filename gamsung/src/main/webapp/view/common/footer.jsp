@@ -2,82 +2,47 @@
 <div class="module-small bg-dark">
 	<div class="container">
 		<div class="row">
-			<div class="col-sm-3">
+			<div class="col-sm-6">
 				<div class="widget">
-					<h5 class="widget-title font-alt">About Titan</h5>
-					<p>The languages only differ in their grammar, their
-						pronunciation and their most common words.</p>
-					<p>Phone: +1 234 567 89 10</p>
-					Fax: +1 234 567 89 10
-					<p>
-						Email:<a href="#">somecompany@example.com</a>
-					</p>
+					<h5 class="widget-title font-alt">About Gamsung</h5>
+					<p>© 2022 AiA AIACADEMY</p>
+					<p>Team : 잘하고있어</p>
+					
+					<p>address : 서울특별시 종로구 종로 69 YMCA 7층</p>
+					<p>tel : 080 - 861 - 0909</p>
 				</div>
 			</div>
-			<div class="col-sm-3">
+			
+			<div class="col-sm-6">
 				<div class="widget">
-					<h5 class="widget-title font-alt">Recent Comments</h5>
-					<ul class="icon-list">
-						<li>Maria on <a href="#">Designer Desk Essentials</a></li>
-						<li>John on <a href="#">Realistic Business Card Mockup</a></li>
-						<li>Andy on <a href="#">Eco bag Mockup</a></li>
-						<li>Jack on <a href="#">Bottle Mockup</a></li>
-						<li>Mark on <a href="#">Our trip to the Alps</a></li>
-					</ul>
+					<h5 class="widget-title font-alt">Project member</h5>
+					<div class="col-sm-6"style="padding-left: 0;">
+						<ul>
+							<li>박철홍&nbsp;-&nbsp;<a href="#">hulis@naver.com</a></li>
+							<li>최인규&nbsp;-&nbsp;<a href="#">skyinsnick@hotmail.com</a></li>
+							<li>최정아&nbsp;-&nbsp;<a href="#">muse1264@nate.com</a></li>
+						</ul>
+					</div>
+					<div class="col-sm-6">
+						<ul>
+							<li>황현지&nbsp;-&nbsp;<a href="#">hhj0323@naver.com</a></li>
+							<li>오창열&nbsp;-&nbsp;<a href="#">cy950315@naver.com</a></li>
+							<li>임준희&nbsp;-&nbsp;<a href="#">yim3370@gmail.com</a></li>
+						</ul>
+					</div>
 				</div>
 			</div>
-			<div class="col-sm-3">
-				<div class="widget">
-					<h5 class="widget-title font-alt">Blog Categories</h5>
-					<ul class="icon-list">
-						<li><a href="#">Photography - 7</a></li>
-						<li><a href="#">Web Design - 3</a></li>
-						<li><a href="#">Illustration - 12</a></li>
-						<li><a href="#">Marketing - 1</a></li>
-						<li><a href="#">Wordpress - 16</a></li>
-					</ul>
-				</div>
-			</div>
-			<div class="col-sm-3">
-				<div class="widget">
-					<h5 class="widget-title font-alt">Popular Posts</h5>
-					<ul class="widget-posts">
-						<li class="clearfix">
-							<div class="widget-posts-image">
-								<a href="#"><img src=""	alt="Post Thumbnail" /></a>
-							</div>
-							<div class="widget-posts-body">
-								<div class="widget-posts-title">
-									<a href="#">Designer Desk Essentials</a>
-								</div>
-								<div class="widget-posts-meta">23 january</div>
-							</div>
-						</li>
-						<li class="clearfix">
-							<div class="widget-posts-image">
-								<a href="#"><img src="\" alt="Post Thumbnail" /></a>
-							</div>
-							<div class="widget-posts-body">
-								<div class="widget-posts-title">
-									<a href="#">Realistic Business Card Mockup</a>
-								</div>
-								<div class="widget-posts-meta">15 February</div>
-							</div>
-						</li>
-					</ul>
-				</div>
-			</div>
+			
 		</div>
 	</div>
 </div>
-<hr class="divider-d">
+<hr class="divider-d" style="height: 0px !important; border-top: 1px solid #fff !important;">
 <footer class="footer bg-dark">
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-6">
 				<p class="copyright font-alt">
-					&copy; 2017&nbsp;<a href="index.html">TitaN</a>, All Rights
-					Reserved
+					&copy;2022&nbsp;<a href="https://goai.co.kr/">AiA AIACADEMY</a>, All Rights Reserved
 				</p>
 			</div>
 			<div class="col-sm-6">
@@ -91,5 +56,7 @@
 	</div>
 </footer>
 <div class="scroll-up">
-	<a href="#totop"><i class="fa fa-angle-double-up"></i></a>
+	<a href="#totop"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up" viewBox="0 0 16 16">
+		<path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z"/>
+	  </svg></a>
 </div>
