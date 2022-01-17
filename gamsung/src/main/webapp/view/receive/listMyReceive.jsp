@@ -1,241 +1,332 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+package site.gamsung.controller.transfer;
 
-      <!DOCTYPE html>
-      <html>
+import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
-      <head>
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!-- Document Title -->
-        <title>listMyPost</title>
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
-        <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Shadows+Into+Light"
-          rel="stylesheet" type="text/css">
-        <!-- Vendor CSS -->
-        <link href="../../resources/lib/bootstrap/css/bootstrap.css" rel="stylesheet" />
-        <link href="../../resources/lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
-        <link href="../../resources/lib/magnific-popup/magnific-popup.css" rel="stylesheet" />
-        <link href="../../resources/lib/bootstrap-datepicker/css/datepicker3.css" rel="stylesheet" />
-        <!-- Theme CSS -->
-        <link href="../../resources/css/theme.css" rel="stylesheet" />
-        <!-- Skin CSS -->
-        <link href="../../resources/css/skins/default.css" rel="stylesheet" />
-        <!-- Theme Custom CSS -->
-        <link href="../../resources/css/theme-custom.css" rel="stylesheet">
-        <!-- Head Libs -->
-        <script src="../../resources/lib/modernizr/modernizr.js"></script>
-        <!-- JavaScripts -->
-        <script src="../../resources/lib/jquery/jquery.js"></script>
-        <script src="../../resources/lib/bootstrap/js/bootstrap.min.js"></script>
-        <script src="../../resources/lib/wow/wow.js"></script>
-        <script src="../../resources/lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js"></script>
-        <script src="../../resources/lib/isotope/isotope.pkgd.js"></script>
-        <script src="../../resources/lib/imagesloaded/imagesloaded.pkgd.js"></script>
-        <script src="../../resources/lib/flexslider/jquery.flexslider.js"></script>
-        <script src="../../resources/lib/owl.carousel/dist/owl.carousel.min.js"></script>
-        <script src="../../resources/lib/smoothscroll.js"></script>
-        <script src="../../resources/lib/magnific-popup/magnific-popup.js"></script>
-        <script src="../../resources/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script>
-        <script src="../../resources/js/plugins.js"></script>
-        <script src="../../resources/js/main.js"></script>
-        <!-- Kakao Map-->
-        <script type="text/javascript"
-          src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6f8199ad71211c3df709f290a0e83244&libraries=services"></script>
-        <!-- Default stylesheets-->
-        <link href="../../resources/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-        <!-- Template specific stylesheets-->
-        <link href="../../resources/lib/animate.css/animate.css" rel="stylesheet">
-        <link href="../../resources/lib/components-font-awesome/css/font-awesome.min.css" rel="stylesheet">
-        <link href="../../resources/lib/et-line-font/et-line-font.css" rel="stylesheet">
-        <link href="../../resources/lib/flexslider/flexslider.css" rel="stylesheet">
-        <link href="../../resources/lib/owl.carousel/dist/assets/owl.carousel.min.css" rel="stylesheet">
-        <link href="../../resources/lib/owl.carousel/dist/assets/owl.theme.default.min.css" rel="stylesheet">
-        <link href="../../resources/lib/magnific-popup/magnific-popup.css" rel="stylesheet">
-        <link href="../../resources/lib/simple-text-rotator/simpletextrotator.css" rel="stylesheet">
-        <!-- Main stylesheet and color file-->
-        <link href="../../resources/css/style.css" rel="stylesheet">
-        <link id="color-scheme" href="../../resources/css/colors/default.css" rel="stylesheet">
-
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-      </head>
-
-      <body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
-
-        <main>
-
-          <jsp:include page="../common/header.jsp"></jsp:include>
-
-          <div class="inner-wrapper">
-            <jsp:include page="../common/userSideBar.jsp"></jsp:include>
-
-            <section class="body">
-
-              <div class="row" style="padding-top: 20px;">
-                <div calss="col-sm-12" style="text-align: center; font-size: x-large; margin-bottom: 10px;">
-                  <span class="icon-happy"></span>&nbsp;나의 양도 내역 조회&nbsp;<span class="icon-happy"></span>
-                </div>
-                <div class="col-xs-12">
-                  <div class="row">
-                    <h4 class="col-sm-7 mb-0"></h4>
-                    <div class="col-sm-5 mb-sm-0">
-                      <div class="row">
-                        <form role="form" class="post-search">
-                          <div class="col-sm-4">
-                            <select class="form-control" name="searchCondition">
-                              <option value="0" ${! empty search.searchCondition && search.searchCondition==0
-                                ? "selected" : "" }>제목</option>
-                            </select>
-                          </div>
-                          <div class="col-sm-5">
-                            <div class="search-box">
-                              <input class="form-control" type="text" name="searchKeyword" placeholder="Search...">
-                              <button class="search-btn" type="submit"><i class="fa fa-search"></i></button>
-                            </div>
-                          </div>
-
-                        </form>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="row" style="margin-top: 20px; ">
-                    <div class="col-md-1"></div>
-                    <div class="col-md-10">
-                      <section class="panel">
-                        <div class="panel-body">
-                          <div class="table-responsive">
-                            <table class="table table-hover mb-none">
-                              <thead>
-                                <tr>
-                                  <th style="text-align: center;">No</th>
-                                  <th style="text-align: center;">[지역]양도캠핑장(숙소)</th>
-                                  <th style="text-align: center;">제목</th>
-                                  <th style="text-align: center;">양도금액</th>
-                                  <th style="text-align: center;">등록일자</th>
-                                  <th style="text-align: center;">거래상태</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <c:set var="i" value="0" />
-                                <c:forEach var="transfer" items="${Transferlist}">
-                                  <c:set var="i" value="${i+1}" />
-                                  <tr class="transfer" value=${transfer.transferNo}
-                                    style="cursor: pointer; text-align: center;">
+import site.gamsung.service.camp.CampReservationService;
+import site.gamsung.service.common.Page;
+import site.gamsung.service.common.Search;
+import site.gamsung.service.community.CommunityService;
+import site.gamsung.service.domain.Camp;
+import site.gamsung.service.domain.CampReservation;
+import site.gamsung.service.domain.Post;
+import site.gamsung.service.domain.Receive;
+import site.gamsung.service.domain.Transfer;
+import site.gamsung.service.domain.User;
+import site.gamsung.service.transfer.ReceiveService;
+import site.gamsung.service.transfer.TransferService;
 
 
+@RequestMapping("/transfer/*")
+@Controller
+public class TransferController {
+	
+	
+	@Autowired
+	@Qualifier("transferServiceImpl")
+	private TransferService transferService;	
 
-                                    <!--no-->
-                                    <td class="col-sm-1 center transferno" id="${transfer.transferNo}">${ i }</td>
+	@Autowired
+	@Qualifier("receiveServiceImpl")
+	private ReceiveService receiveService;	
+	
+	
+	
+	
+	@Autowired
+	@Qualifier("campReservationServiceImpl")
+	private CampReservationService campReservationService;	
+	
+	@Value("#{commonProperties['pageUnit']}")
+	int pageUnit;
+	
+	@Value("#{commonProperties['pageSize']}")
+	int pageSize;
+	
 
-                                    <!--양도캠핑장(숙소)-->
-                                    <td class="col-sm-2" id="campName">
-                                      ${transfer.transferArea}&ensp;${transfer.transferCampname}
-                                    </td>
+	public TransferController() {
+		System.out.println(this.getClass());
+	}
 
-                                    <!--제목-->
-                                    <td class="col-sm-3">${transfer.transferTitle}</td>
+	// 예약 양도 등록 페이지 navigation
+	
+	@RequestMapping(value = "addTransfer", method = RequestMethod.GET)	
+	public String addTransfer(HttpSession session, Model model) {
 
-                                    <!--양도금액-->
-                                    <td class="col-sm-2" id="date">${transfer.transferPrice}</td>
+		System.out.println("addTransfer Start");
 
-                                    <!-- 등록일자 -->
-                                    <td class="col-sm-2" name="price">${transfer.transferRegdate}</td>
+		// 세션으로 부터 요청한 유저의 정보를 가져온다.
+		User user = (User) session.getAttribute("user");
 
-                                    <!-- 거래상태 -->
-                                    <td class="col-sm-2"><span
-                                        style="color: rgb(20, 35, 55);">${transfer.transferStatus}</span>
-                                    </td>
+		if (user == null) {
+			return "redirect:/";
+		}
+				
+		 Search search = new Search();
+		 String id = user.getId();		
+		 
+		 if (search.getCurrentPage() == 0) {
+				search.setCurrentPage(1);
+			}
+			
+		search.setPageSize(10);
+		 		 
+		 Map<String, Object> List	= campReservationService.listMyReservation(search, id);
 
+		 
+		List<CampReservation> list = (List<CampReservation>) List.get("list");
+		
+		System.out.println("list::::::::::::::::::::::::::"+list);
+		System.out.println("list:::::::::::::::::끝");
+			
+		model.addAttribute("userId", user.getId());
+		model.addAttribute("list", list);
 
+		return "forward:/view/transfer/addTransfer.jsp";
+	}
+	
+	
+	// 예약양도등록 Mapping
 
+	@RequestMapping(value = "addTransfer", method = RequestMethod.POST) // RequestParam의 별칭은 file type속성의 name과 맞춘다.
+	public String addTransfer(@ModelAttribute("transfer") Transfer transfer, MultipartFile[] paymentImgs,
+			HttpServletRequest req, HttpSession session, Model model) throws Exception {
 
+		System.out.println("addTransfer Post Start");
+		System.out.println("transfer:::::::"+transfer);
+		
+			int index = 1;
+			
+//			ArrayList<String> imgs = new ArrayList<String>();
+			
+			for (MultipartFile multpartfile : paymentImgs) {
 
-                                  </tr>
-                                </c:forEach>
-                              </tbody>
-                            </table>
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                    <div class="col-md-1"></div>
-                  </div>
+				// MultipartFile로 받은 postImg에서 file이름을 originalPostImg에 넣는다.
+				String originalPostImg = multpartfile.getOriginalFilename();
 
-                </div>
+				System.out.println("originalPostImg::::" + originalPostImg + "!");
 
-              </div>
+				if (originalPostImg != null && originalPostImg != "") {
 
-              <div class="row">
-                <jsp:include page="../common/pageNavigator.jsp" />
-              </div>
+					// 그 파일명 .의 인덱스 숫자까지 잘라서 확장자만 추출 (ex .jsp)
+					String originalFileExtension = originalPostImg.substring(originalPostImg.lastIndexOf("."));
 
-            </section>
+					// UUID로 랜덤하게 생성한거에 -가 있으면 없애고 확장자를 붙임 (ex 359498a2ff1a40b8a8e16f6c43dd2bf3.jpg)
+					String root_path = req.getSession().getServletContext().getRealPath("/");
+					String attach_path = "uploadfiles/transfer/";
+					String storedFileName = UUID.randomUUID().toString().replaceAll("-", "") + originalFileExtension;
 
-            <form id="postPagenavi">
-              <input type="hidden" id="currentPage" name="currentPage" value="0" />
-              <input type="hidden" name="searchKeyword" value="${search.searchKeyword}">
-              <input type="hidden" name="searchCondition" value="${search.searchCondition}">
-            </form>
+					System.out.println(root_path);
+					// File을 생성해서 주소랑 새로 만든 파일이름을 넣는다.
+					File file = new File(root_path + attach_path + storedFileName);
 
-          </div>
+					System.out.println("file::::" + file);
 
-        </main>
+					// MultipartFile.transferTo(File file) - Byte형태의 데이터를 File객체에 설정한 파일 경로에 전송한다.
+					// file에는 주소랑 새로만든 파일이름이 있음. 그걸 PostImg에 넣는다.
+					multpartfile.transferTo(file); // postImg를 transferto(보낸다)file로
 
-        <script src="../../resources/lib/bootstrap/js/bootstrap.js"></script>
-        <script src="../../resources/lib/nanoscroller/nanoscroller.css"></script>
-        <script src="../../resources/lib/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
-        <script src="../../resources/lib/magnific-popup/magnific-popup.js"></script>
-        <script src="../../resources/lib/jquery-placeholder/jquery.placeholder.js"></script>
-        <!-- Specific Page Vendor -->
-        <script src="../../resources/lib/pnotify/pnotify.custom.js"></script>
-        <!-- Theme Base, Components and Settings -->
-        <script src="../../resources/js/theme.js"></script>
-        <!-- Theme Custom -->
-        <script src="../../resources/js/theme.custom.js"></script>
-        <!-- Theme Initialization Files -->
-        <script src="../../resources/js/theme.init.js"></script>
-        <!-- Examples -->
-        <script src="../../resources/js/examples.lightbox.js"></script>
+					System.out.println("file");
+					System.out.println("file.getPath::" + file.getPath());
 
-        <script type="text/javascript">
+//					imgs.add(storedFileName);
+				
+					if (index == 1) {
+						transfer.setPaymentImg(storedFileName);
+					} else if (index == 2) {
+						transfer.setPaymentImg(storedFileName);
+					} else {
+						transfer.setPaymentImg(storedFileName);
+					}
 
-          var currentPage = 1;
+					index++;
 
-          function fncGetList(currentPage) {
+				} // originalPostImg if문 END
 
-            $("#currentPage").val(currentPage);
-            $("#postPagenavi").attr("method", "POST").attr("action", "/community/listPost").submit();
+			} // postImg for문 END
 
-          }
+//			transfer.setPaymentImg(imgs);
+			
+			User user = (User) session.getAttribute("user");
+			
+			
+			
+			transfer.setTransferOr(user);
 
-          $(function () {
+			transferService.addTransfer(transfer);
 
-            $(".commu_post").on("click", function () {
+//		반장님꺼 뭘 건드려줘야함. 
+			
+		return "redirect:listTransfer";
+	}// 등록 method 종료
+	
+	
+	
+	// 예약양도 목록 페이지 navigation	
+	@RequestMapping(value = "listTransfer")	
+	public String listTransfer(@ModelAttribute("search")Search search , HttpSession session, Model model) throws Exception {
 
-              self.location = "/community/getPost?postNo=" + $(this).attr("value");
+		System.out.println("listTransfer Start");
 
-            });
+		User user = (User) session.getAttribute("user");
 
+		if (user == null) {
+			return "redirect:/";
+		}
+		
+		 Map<String, Object> map = new HashMap<String, Object>();
+		 	 
+		 if (search.getCurrentPage() == 0) {
+				search.setCurrentPage(1);
+			}
+				 
+		search.setPageSize(10);
 
-            $("#searchKeyword").keypress(function (e) {
-              if (e.keyCode == 13) {
-                $("#searchform").attr("method", "POST").attr("action", "/community/listPost").submit();
-              }
-            });
+		map.put("search", search);
+				 
+		map = transferService.listTransfer(map);
+		
+		int TotalCount = (int) map.get("TotalCount");
+	
+		List<Transfer> list =  (List<Transfer>) map.get("list");
+		
+		Page resultPage = new Page( search.getCurrentPage(), TotalCount, pageUnit, pageSize);
+				
+		model.addAttribute("user", user);
+		model.addAttribute("list", list);
+		model.addAttribute("resultPage", resultPage);		
+		
+		return "forward:/view/transfer/listTransfer.jsp";
+	}
+	
+	
+	
+	// 양도 상세 페이지 
+	
+	@RequestMapping(value = "getTransfer")	
+	public String getTransfer(@RequestParam("transferNo") int transferNo, HttpSession session, Model model, Search search) throws Exception {
 
-            $("#search").on("click", function () {
-              $("#searchform").attr("method", "POST").attr("action", "/community/listPost").submit();
-            });
+		System.out.println("getTransfer Start");
 
-          });
+		User user = (User) session.getAttribute("user");
 
-        </script>
+		if (user == null) {
+			return "redirect:/";
+		}
+					
+		 Transfer transfer = transferService.getTransfer(transferNo);
+		 
+		System.out.println("getTransfer:::"+transfer);
+				  
+		  search.setRole(user.getRole());
+		  search.setTransferNo(transferNo);
+		  search.setId(user.getId());
+		  search.setCurrentPage(1);
+		  search.setPageSize(10);
+			
+			//search setting해서 페이징처리 안할꺼면 매퍼를 고쳐야한다. 현재는 10개밖에 안뽑아온다. 
+		  
+		  List<Receive> listreceive = receiveService.listReceive(search);	
+		  
+		  System.out.println("listreceive"+listreceive);
+	
+			model.addAttribute("user", user);
+			model.addAttribute("transfer", transfer);
+			model.addAttribute("listreceive", listreceive);
+	
+		return "forward:/view/transfer/getTransfer.jsp";
+	}
+	
+	// 예약양도양수 My 페이지 navigation	
+	@RequestMapping(value = "listMyTransfer")	
+	public String listMyTransfer(@ModelAttribute("search")Search search, HttpSession session, Model model) throws Exception {
 
-      </body>
+		System.out.println("listMyTransfer Start");
 
-      </html>
+		User user = (User) session.getAttribute("user");
+
+		if (user == null) {
+			return "redirect:/";
+		}
+			
+		 Map<String, Object> map = new HashMap<String, Object>();
+		 
+		 	 
+		 if (search.getCurrentPage() == 0) {
+				search.setCurrentPage(1);
+			}
+				 
+		search.setPageSize(10);
+		search.setId(user.getId()); // listMyTransfer는 search에 id를 넣는다. 
+
+		map.put("search", search);
+				 
+		map = transferService.listTransfer(map);
+		
+		int TotalCount = (int) map.get("TotalCount");
+	
+		List<Transfer> Transferlist =  (List<Transfer>) map.get("list");
+		
+		Page resultPage = new Page( search.getCurrentPage(), TotalCount, pageUnit, pageSize);
+				
+		System.out.println(Transferlist);
+		
+		model.addAttribute("user", user);
+		model.addAttribute("Transferlist", Transferlist);
+		model.addAttribute("resultPage", resultPage);		
+		
+		return "forward:/view/transfer/listMyTransfer.jsp";
+	}
+	
+	
+	// 예약양수 My 페이지 navigation	
+	
+	@RequestMapping(value = "listMyReceive")	
+	public String listMyReceive(HttpSession session, Model model, Search search) throws Exception {
+
+		System.out.println("listMyReceive Start");
+
+		User user = (User) session.getAttribute("user");
+
+		if (user == null) {
+			return "redirect:/";
+		}
+		
+		 if (search.getCurrentPage() == 0) {
+				search.setCurrentPage(1);
+			}	
+		search.setPageSize(10);
+		search.setId(user.getId());
+		
+		 List<Receive> listreceive = receiveService.mylistReceive(search);	
+		 
+		 System.out.println(listreceive);
+		 	model.addAttribute("search",search);
+			model.addAttribute("listreceive", listreceive);
+		
+		 return "forward:/view/transfer/listMyReceive.jsp";
+	}
+	
+	
+	
+	
+}

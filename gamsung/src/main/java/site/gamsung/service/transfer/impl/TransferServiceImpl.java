@@ -77,8 +77,11 @@ public class TransferServiceImpl implements TransferService {
 		return map;
 	}
 
-	
-	
+	@Override
+	public List<Transfer> listTransferForReceive(String userId) throws Exception {
+		return transferDAO.listTransferForReceive(userId);
+	}
+
 	
 	
 	

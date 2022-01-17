@@ -116,7 +116,9 @@
 										<table class="table table-hover mb-none">
 											<thead>
 												<tr>
+												
 													<th style="text-align: center;">No</th>
+													<th style="text-align: center;">양도번호</th>
 													<th style="text-align: center;">[지역]양도캠핑장(숙소)</th>
 													<th style="text-align: center;">제목</th>
 													<th style="text-align: center;">양도금액</th>
@@ -135,7 +137,9 @@
 
 														<!--no-->
 														<td class="col-sm-1 center transferno" id="${transfer.transferNo}" >${ i }</td>
-
+														
+														<td class="col-sm-1 center transferno" id="${transfer.transferNo}" >${transfer.transferNo}</td>
+														
 														<!--양도캠핑장(숙소)-->
 														<td class="col-sm-2" id="campName">
 															${transfer.transferArea}&ensp;${transfer.transferCampname}
@@ -153,7 +157,7 @@
 															${transfer.transferEndDate}</td>
 
 														<!-- 양도자닉네임 -->
-														<td class="col-sm-2"><span
+														<td class="col-sm-1"><span
 																style="color: rgb(20, 35, 55);">${transfer.transferOr.nickName}</span>
 														</td>
 

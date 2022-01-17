@@ -62,8 +62,13 @@ public class ReceiveServiceImpl implements ReceiveService {
 	}
 
 	@Override
-	public int UpdateTransferApproval(int transferNo) throws Exception {
-		return receiveDAO.UpdateTransferApproval(transferNo);
+	public int updateTransferStatus(Receive receive) throws Exception {
+		return receiveDAO.updateTransferStatus(receive);
+	}
+
+	@Override
+	public List<Receive> mylistReceive(Search search) throws Exception {
+		return receiveDAO.mylistReceive(search);
 	}
 
 } 

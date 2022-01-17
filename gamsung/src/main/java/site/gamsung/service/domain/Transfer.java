@@ -47,7 +47,13 @@ public class Transfer {
 	
 	private CampReservation transferReservationNo;//
 	
+	private int receiveStatus;
 	
+	private int receiveNo;
+	
+	private String receiveRegdate;
+	
+	private String transferEe;
 	
 	
 	
@@ -174,24 +180,53 @@ public class Transfer {
 	public void setTransferReservationNo(CampReservation transferReservationNo) {
 		this.transferReservationNo = transferReservationNo;
 	}
-	@Override
-	public String toString() {
-		return "Transfer : transferNo=[" + transferNo + "] transferOr=[" + transferOr + "] transferRegdate=["
-				+ transferRegdate + "] transferTitle=[" + transferTitle + "] transferArea=[" + transferArea
-				+ "] transferCampname=[" + transferCampname + "] transferMainsiteType=[" + transferMainsiteType
-				+ "] transferCampCall=[" + transferCampCall + "] transferStartDate=[" + transferStartDate
-				+ "] transferEndDate=[" + transferEndDate + "] transferPrice=[" + transferPrice + "] transferContent=["
-				+ transferContent + "] transferAddContent=[" + transferAddContent + "] transferUserNum=["
-				+ transferUserNum + "] hashtag1=[" + hashtag1 + "] hashtag2=[" + hashtag2 + "] hashtag3=[" + hashtag3
-				+ "] paymentImg=[" + paymentImg + "] transferStatus=[" + transferStatus + "] deleteFlag=[" + deleteFlag
-				+ "] transferReservationNo=[" + transferReservationNo + "]";
-	}
+
 	public String getPaymentImg() {
 		return paymentImg;
 	}
 	public void setPaymentImg(String paymentImg) {
 		this.paymentImg = paymentImg;
 	}
+	public int getReceiveStatus() {
+		return receiveStatus;
+	}
+	public void setReceiveStatus(int receiveStatus) {
+		this.receiveStatus = receiveStatus;
+	}
+
+	public int getReceiveNo() {
+		return receiveNo;
+	}
+	public void setReceiveNo(int receiveNo) {
+		this.receiveNo = receiveNo;
+	}
+
+	public String getReceiveRegdate() {
+		return receiveRegdate;
+	}
+	public void setReceiveRegdate(String receiveRegdate) {
+		this.receiveRegdate = receiveRegdate;
+	}
+	@Override
+	public String toString() {
+		return "Transfer [transferNo=" + transferNo + ", transferOr=" + transferOr + ", transferRegdate="
+				+ transferRegdate + ", transferTitle=" + transferTitle + ", transferArea=" + transferArea
+				+ ", transferCampname=" + transferCampname + ", transferMainsiteType=" + transferMainsiteType
+				+ ", transferCampCall=" + transferCampCall + ", transferStartDate=" + transferStartDate
+				+ ", transferEndDate=" + transferEndDate + ", transferPrice=" + transferPrice + ", transferContent="
+				+ transferContent + ", transferAddContent=" + transferAddContent + ", transferUserNum="
+				+ transferUserNum + ", hashtag1=" + hashtag1 + ", hashtag2=" + hashtag2 + ", hashtag3=" + hashtag3
+				+ ", paymentImg=" + paymentImg + ", transferStatus=" + transferStatus + ", deleteFlag=" + deleteFlag
+				+ ", transferReservationNo=" + transferReservationNo + ", receiveStatus=" + receiveStatus
+				+ ", receiveNo=" + receiveNo + ", receiveRegdate=" + receiveRegdate + "]";
+	}
+	public String getTransferEe() {
+		return transferEe;
+	}
+	public void setTransferEe(String transferEe) {
+		this.transferEe = transferEe;
+	}
+
 
 	
 	
