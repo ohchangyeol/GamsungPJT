@@ -14,8 +14,7 @@
 
         <jsp:include page="../../resources/commonLib.jsp" />
 
-        <script src="../../resources/lib/magnific-popup/magnific-popup.js"></script>
-        <script src="../../resources/js/examples.lightbox.js"></script>
+       
         <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
         <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2091956a0610386314639136a353f95f&libraries=services"></script>
           
@@ -79,7 +78,7 @@
           }
 
           #category li .category_bg {
-            background: url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_category.png) no-repeat;
+            background: url(http://127.0.0.1:8080/uploadfiles/places_category11.png) no-repeat;
           }
 
           #category li .bank {
@@ -191,8 +190,10 @@
 
           .tab-pane iframe {
             width: 100%;
+            height: 100%;
             border: 0;
           }
+          
         </style>
 
 
@@ -209,7 +210,7 @@
             <section class="module">
               <div class="container">
                 <div class="row">
-                  <div class="col-sm-6 mb-sm-40">
+                  <div class="col-sm-6 mb-sm-40 ">
                     <a class="image-popup-vertical-fit" href="/uploadfiles/campimg/campbusiness/camp/${camp.campImg1}">
                       <img class="img-responsive" src="/uploadfiles/campimg/campbusiness/camp/${camp.campImg1}"
                         onerror="this.src='/uploadfiles/campimg/campbusiness/camp/no_image.jpg'">
@@ -645,7 +646,7 @@
                         // 마커를 생성하고 지도 위에 마커를 표시하는 함수입니다
                         function addMarker(position, order) {
                
-                           var imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_category.png', // 마커 이미지 url, 스프라이트 이미지를 씁니다
+                           var imageSrc = 'http://127.0.0.1:8080/uploadfiles/places_category11.png', // 마커 이미지 url, 스프라이트 이미지를 씁니다
                                imageSize = new kakao.maps.Size(27, 28),  // 마커 이미지의 크기
                                imgOptions =  {
                                   spriteSize : new kakao.maps.Size(72, 208), // 스프라이트 이미지의 크기
@@ -677,7 +678,7 @@
                         function displayPlaceInfo(place) {
                     
                           var content = '<div class="placeinfo">' +
-                            '   <a class="title" href="' + place.place_url + '" target="_blank" title="' + place.place_name + '">' + place.place_name + '</a>';
+                            '   <a class="title" style="background-color: deeppink;" href="' + place.place_url + '" target="_blank" title="' + place.place_name + '">' + place.place_name + '</a>';
 
                           if (place.road_address_name) {
                             content += '    <span title="' + place.road_address_name + '">' + place.road_address_name + '</span>' +
@@ -762,22 +763,36 @@
                               if (status === kakao.maps.services.Status.OK) {
                                 console.log("성공적으로 위도/경도 찾기 성공");
                                 coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-                      
+                                
+                                // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+                                map.setCenter(coords);
+
                                 // 결과값으로 받은 위치를 마커로 표시합니다
                                 var marker = new kakao.maps.Marker({
                                   map: map,
-                                  position: coords
+                                  position: coords,
+                                  clickable: true
                                 });
-                      
+                                  
+                                // 마커를 지도에 표시합니다.
+                                marker.setMap(map);
+
                                 // 인포윈도우로 장소에 대한 설명을 표시합니다
                                 var infowindow = new kakao.maps.InfoWindow({
-                                  content: '<div style="width:150px;text-align:center;padding:6px 0;">${camp.user.campName}&nbsp;캠핑장</div>'
+                                  content: '<div class="row" style="width:250px"><div style="text-align:center;padding:6px 0;">${camp.user.campName}&nbsp;캠핑장</div><hr>' +
+                                            '<div style="text-align:center;padding:6px 0;"">주소&nbsp;:&nbsp;${camp.user.addr}</div></div>',
+                                  removable : true
                                 });
-                      
-                                infowindow.open(map, marker);
 
-                                // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-                                map.setCenter(coords);
+                                // infowindow.open(map, marker);
+
+                                // 마커에 클릭이벤트를 등록합니다
+                                kakao.maps.event.addListener(marker, 'click', function() {
+                                      // 마커 위에 인포윈도우를 표시합니다
+                                      infowindow.open(map, marker);  
+                                });
+                           
+                                
                               }else{
                                 alert("캠핑장 주소 검색 결과가 없습니다.")
                               }
@@ -831,14 +846,19 @@
               $("#hidden").attr("method", "POST").attr("action", "/campGeneral/addReservation?mainSiteNo=" + mainSiteNo).submit();
             });
 
-            $(".li-btn").on("click", function () {
+            $(".li-btn").on("shown.bs.tab", function (e) {
+              e.preventDefault();
+              $(this).tab('show');
               var iframeHeight = $(".tab-pane.active iframe").contents().find("html").height();
               $(".teb-iframe.active iframe").height(iframeHeight);
             });
-
+            
           });
-
+       
         </script>
+
+      <script src="../../resources/lib/magnific-popup/magnific-popup.js"></script>
+      <script src="../../resources/js/examples.lightbox.js"></script>
 
       </body>
 

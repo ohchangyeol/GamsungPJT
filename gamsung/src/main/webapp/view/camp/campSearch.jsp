@@ -106,19 +106,19 @@ pageEncoding="UTF-8"%>
                 <input type="checkbox" id="sub_site1" name="subSite" value="전기">전기
               </label>
               <label class="checkbox-inline">
-                <input type="checkbox" id="sub_site1" name="subSite" value="온수">온수
+                <input type="checkbox" id="sub_site2" name="subSite" value="온수">온수
               </label>
               <label class="checkbox-inline">
-                <input type="checkbox" id="sub_site1" name="subSite" value="화장실">화장실
+                <input type="checkbox" id="sub_site3" name="subSite" value="화장실">화장실
               </label>
               <label class="checkbox-inline">
-                <input type="checkbox" id="sub_site1" name="subSite" value="무선인터넷">무선인터넷
+                <input type="checkbox" id="sub_site4" name="subSite" value="무선인터넷">무선인터넷
               </label>
               <label class="checkbox-inline">
-                <input type="checkbox" id="sub_site1" name="subSite" value="매점">매점
+                <input type="checkbox" id="sub_site5" name="subSite" value="매점">매점
               </label>
               <label class="checkbox-inline">
-                <input type="checkbox" id="sub_site1" name="subSite" value="물놀이장">물놀이장
+                <input type="checkbox" id="sub_site6" name="subSite" value="물놀이장">물놀이장
               </label>
             </div>
           </div>
@@ -126,10 +126,10 @@ pageEncoding="UTF-8"%>
             <label class="col-sm-2 control-label"></label>
             <div class="col-sm-10">
               <label class="checkbox-inline">
-                <input type="checkbox" id="sub_site1" name="subSite" value="트램폴린">트램폴린
+                <input type="checkbox" id="sub_site7" name="subSite" value="트램폴린">트램폴린
               </label>
               <label class="checkbox-inline">
-                <input type="checkbox" id="sub_site1" name="subSite" value="산책로">산책로
+                <input type="checkbox" id="sub_site8" name="subSite" value="산책로">산책로
               </label>
             </div>
           </div>
