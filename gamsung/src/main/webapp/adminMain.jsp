@@ -281,7 +281,7 @@ pageEncoding="UTF-8"%>
             .getContext('2d');
 
 			var siteProfit_chart = new Chart(other_context, {
-                type: 'line', 	// 차트의 형태
+				type: 'bar', 	// 차트의 형태
                 data: { 		// 차트에 들어갈 데이터
 		                labels:	[
 				                    //x 축
@@ -289,6 +289,18 @@ pageEncoding="UTF-8"%>
 				                ],
 		                datasets: [
 				                	{
+				                		type: 'bar', 	// 차트의 형태
+					                    label: '포인트 충전',
+					                    fill : false,        					// 채우기 없음
+					                    lineTension : 0,  						// 0이면 꺾은선 그래프, 숫자가 높을수록 둥글해짐
+					                    pointRadius : 0,    					// 각 지점에 포인트 주지 않음
+					                    backgroundColor: 'gray',
+					                    borderColor: 'gray',
+					                    data: [5, 10, 15, 20, 25, 30]
+				                	
+				                	}, 
+				                	{
+				                		type: 'line', 	
 					                    label: '포인트 결제',
 					                    fill : false,        					// 채우기 없음
 					                    lineTension : 0,  						// 0이면 꺾은선 그래프, 숫자가 높을수록 둥글해짐
@@ -299,6 +311,7 @@ pageEncoding="UTF-8"%>
 				                	
 				                	}, 
 				                	{
+				                		type: 'line', 	
 					                    label: '일반 결제',
 					                    fill : false,        
 					                    lineTension : 0, 
@@ -307,7 +320,8 @@ pageEncoding="UTF-8"%>
 					                    borderColor: 'blue',
 					                    data: [40, 50, 60, 70, 80, 90]
 				                	}, 
-				                	{
+				                	{	
+				                		type: 'line', 
 					                    label: '전체 결재',
 					                    fill : false,
 					                    lineTension : 0,

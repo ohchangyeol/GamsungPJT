@@ -1,7 +1,9 @@
 package site.gamsung.service.payment.impl;
 
+import java.sql.Date;
+import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.Payment;
 import site.gamsung.service.domain.PaymentCode;
 import site.gamsung.service.domain.PointTransfer;
+import site.gamsung.service.domain.SiteProfit;
 import site.gamsung.service.payment.PaymentDAO;
 
 @Repository("paymentDAOImpl")
@@ -107,6 +110,19 @@ public class PaymentDAOImpl implements PaymentDAO{
 	/*
 	 *  SiteProfit
 	 */
+	public Payment getPaymentRecord(HashMap<String, Object> searchParameter) throws Exception{		
+		return sqlSession.selectOne("PaymentMapper.getPaymentRecord", searchParameter);
+	}	
+	
+	public int addSiteProfit(SiteProfit siteProfit)throws Exception{		
+		return sqlSession.insert("PaymentMapper.addSiteProfit", siteProfit);
+	}
+	
+	public List<SiteProfit> listSiteProfit(Map<String, Object> dateRange) throws Exception{		
+		return sqlSession.selectList("PaymentMapper.listSiteProfit", dateRange);
+	}
+	
+
 
 
 }

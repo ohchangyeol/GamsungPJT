@@ -16,7 +16,7 @@
 		<result property="paymentRegTime" 					column="payment_reg_time" 				  		jdbcType="TIMESTAMP"/>
 		<result property="paymentCode" 						column="payment_code" 	  						jdbcType="VARCHAR"/>	
 		<result property="paymentReferenceNum"				column="payment_reference_num" 		 		 	jdbcType="VARCHAR"/>
-		<result property="impUid"							column="imp_uid" 		 		 	jdbcType="VARCHAR"/>		
+		<result property="impUid"							column="imp_uid" 		 		 				jdbcType="VARCHAR"/>		
 		<result property="paymentMethod" 					column="payment_method"  						jdbcType="VARCHAR"/>				
 		<result property="paymentPriceTotal" 				column="payment_price_total" 			 		jdbcType="NUMERIC"/>
 		<result property="paymentPricePay" 					column="payment_price_pay" 						jdbcType="NUMERIC"/>
@@ -34,6 +34,20 @@
 		<result property="paymentRefundPriceTotalSecond" 	column="payment_refund_price_total_second"  	jdbcType="NUMERIC"/>
 		<result property="paymentRefundPricePaySecond" 		column="payment_refund_price_pay_second" 		jdbcType="NUMERIC"/>
 		<result property="paymentRefundPriceFeeSecond" 		column="payment_refund_price_fee_second" 		jdbcType="NUMERIC"/>
+		
+		<result property="paymentPriceTotal" 				column="PAYPRICETOTAL" 			jdbcType="NUMERIC"/>
+		<result property="paymentPricePay" 					column="PAYPRICEPAY" 			jdbcType="NUMERIC"/>
+		<result property="paymentPriceFee" 					column="PAYPRICEFEE" 		 	jdbcType="NUMERIC"/>
+		<result property="paymentPriceTotalSecond" 			column="PAYPRICETOTALSEC" 		jdbcType="NUMERIC"/>
+		<result property="paymentPricePaySecond" 			column="PAYPRICEPAYSEC" 		jdbcType="NUMERIC"/>
+		<result property="paymentPriceFeeSecond" 			column="PAYPRICEFEESEC" 		jdbcType="NUMERIC"/>
+		
+		<result property="paymentRefundPriceTotal" 			column="REFUNDPRICETOTAL"  		jdbcType="NUMERIC"/>
+		<result property="paymentRefundPricePay" 			column="REFUNDPRICEPAY" 		jdbcType="NUMERIC"/>
+		<result property="paymentRefundPriceFee" 			column="REFUNDPRICEFEE" 	  	jdbcType="NUMERIC"/>
+		<result property="paymentRefundPriceTotalSecond" 	column="REFUNDPRICETOTALSEC"  	jdbcType="NUMERIC"/>
+		<result property="paymentRefundPricePaySecond" 		column="REFUNDPRICEPAYSEC" 		jdbcType="NUMERIC"/>
+		<result property="paymentRefundPriceFeeSecond" 		column="REFUNDPRICEFEESEC" 		jdbcType="NUMERIC"/>
 	</resultMap>
 	
 	<resultMap id="paymentCodeSelectMap" type="paymentCode">
@@ -52,6 +66,8 @@
 		<result property="profitRegularPayment" 		column="profit_regular_payment"		jdbcType="NUMERIC"/>
 		<result property="profitAllPayment" 			column="profit_all_payment" 		jdbcType="NUMERIC"/>
 	</resultMap>
+		
+ 	<!-- getPaymentRecordSelectMap -->
 	
 	<!-- SQL : Point ################################################################################################################### -->
 	
@@ -230,11 +246,11 @@
 	
 	<!-- SQL : PaymentCode ################################################################################################################### -->
 	
-	<insert id="addPaymentCode" parameterType="paymentCode">
+	<insert id="addPaymentCode" parameterType="paymentCode" >
 		INSERT
 		INTO PAYMENT_CODE(payment_code_regNum, payment_code, payment_code_range_start, payment_code_range_end, payment_code_info, payment_code_fee)
 		VALUES ( #{paymentCodeRegNum}
-				, #{paymentCode}		
+				, #{paymentCode}		paymentSelectMap
 				, #{paymentCodeRangeStart :NUMERIC}
 				, #{paymentCodeRangeEnd :NUMERIC}
 				, #{paymentCodeInfo :VARCHAR}
@@ -264,8 +280,103 @@
 	
 	<!-- SQL : SiteProfit ################################################################################################################### -->
 	
+	<select id="getPaymentRecord" parameterType="hashmap" resultMap="paymentSelectMap">	
+  		SELECT DISTINCT 
+  				A1.PAYPRICETOTAL 
+				, A2.PAYPRICEPAY
+				, A3.PAYPRICEFEE
+				, A4.PAYPRICETOTALSEC
+				, A5.PAYPRICEPAYSEC
+				, A6.PAYPRICEFEESEC
+				, B1.REFUNDPRICETOTAL
+				, B2.REFUNDPRICEPAY
+				, B3.REFUNDPRICEFEE
+				, B4.REFUNDPRICETOTALSEC
+				, B5.REFUNDPRICEPAYSEC
+				, B6.REFUNDPRICEFEESEC
+				
+			FROM
+			(SELECT sum(payment_price_total) PAYPRICETOTAL
+			FROM PAYMENT) A1,
+			
+			(SELECT sum(payment_price_pay) PAYPRICEPAY
+			FROM PAYMENT) A2,
+			
+			(SELECT sum(payment_price_fee) PAYPRICEFEE
+			FROM PAYMENT) A3,
+			
+			(SELECT sum(payment_price_total_second) PAYPRICETOTALSEC
+			FROM PAYMENT) A4,
+			
+			(SELECT sum(payment_price_pay_second) PAYPRICEPAYSEC
+			FROM PAYMENT) A5,
+			
+			(SELECT sum(payment_price_fee_second) PAYPRICEFEESEC
+			FROM PAYMENT) A6,
+			
+			(SELECT sum(payment_refund_price_total) REFUNDPRICETOTAL
+			FROM PAYMENT) B1,
+			
+			(SELECT sum(payment_refund_price_pay) REFUNDPRICEPAY
+			FROM PAYMENT) B2,
+			
+			(SELECT sum(payment_refund_price_fee) REFUNDPRICEFEE
+			FROM PAYMENT) B3,
+			
+			(SELECT sum(payment_refund_price_total_second) REFUNDPRICETOTALSEC
+			FROM PAYMENT) B4,
+			
+			(SELECT sum(payment_refund_price_pay_second) REFUNDPRICEPAYSEC
+			FROM PAYMENT) B5,
+			
+			(SELECT sum(payment_refund_price_fee_second) REFUNDPRICEFEESEC
+			FROM PAYMENT) B6,
+			
+			PAYMENT P
 		
+		<trim prefix="WHERE" prefixOverrides="AND">
+			<if test="paymentStatus != null">
+				P.payment_status = #{paymentStatus}			
+			</if>
+			<if test="paymentCode != null">
+				AND P.payment_code = #{paymentCode}			
+			</if>
+			<if test="payStartDay != null">
+				AND P.payment_reg_time <![CDATA[ >= ]]> #{payStartDay}			
+			</if>
+			<if test="payEndDay != null">
+				AND P.payment_reg_time <![CDATA[ <= ]]> #{payEndDay}			
+			</if>	
+			<if test="paymentRefundCode != null">
+				AND P.payment_refund_code = #{paymentRefundCode}			
+			</if>
+			<if test="refundStartDay != null">
+				AND P.payment_refund_reg_time <![CDATA[ >= ]]> #{refundStartDay}			
+			</if>
+			<if test="refundEndDay != null">
+				AND P.payment_refund_reg_time <![CDATA[ <= ]]> #{refundEndDay}			
+			</if>
+		</trim>					
+		
+	</select>
+	
+	<insert id="addSiteProfit" parameterType="SiteProfit">
+		INSERT
+		INTO SITE_PROFIT (profit_reg_date, profit_point_charge, profit_point_payment, profit_regular_payment, profit_all_payment)
+		VALUES ( DATE(NOW())
+				, #{profitPointCharge}		
+				, #{profitPointPayment}
+				, #{profitRegularPayment}
+				, #{profitAllPayment} )	
+	</insert>
+	
+	<select id="listSiteProfit" parameterType="Map" resultMap="siteProfitSelectMap">	
+  		SELECT profit_reg_date, profit_point_charge, profit_point_payment, profit_regular_payment, profit_all_payment
+		FROM SITE_PROFIT			
+		WHERE profit_reg_date = #{startDay}
+				AND profit_reg_date = #{endDay}
+		ORDER BY profit_reg_date		
+	</select>
 	
 	
-
 </mapper>

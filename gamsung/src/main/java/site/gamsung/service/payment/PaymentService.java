@@ -1,5 +1,6 @@
 package site.gamsung.service.payment;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -7,6 +8,7 @@ import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.Payment;
 import site.gamsung.service.domain.PaymentCode;
 import site.gamsung.service.domain.PointTransfer;
+import site.gamsung.service.domain.SiteProfit;
 
 public interface PaymentService {
 	
@@ -47,6 +49,7 @@ public interface PaymentService {
 	/*
 	 *  SiteProfit
 	 */
-	
-	
+	public List<SiteProfit> listSiteProfit(Map<String, Object> dateRange) throws Exception;
+		
+	public void calculateSiteProfit() throws Exception;
 }

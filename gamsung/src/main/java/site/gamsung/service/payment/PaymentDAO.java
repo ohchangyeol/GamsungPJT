@@ -1,13 +1,18 @@
 package site.gamsung.service.payment;
 
+import java.sql.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.Payment;
 import site.gamsung.service.domain.PaymentCode;
 import site.gamsung.service.domain.PointTransfer;
+import site.gamsung.service.domain.SiteProfit;
 
 public interface PaymentDAO {
+	
 	
 	/*
 	 * Common
@@ -34,6 +39,7 @@ public interface PaymentDAO {
 
 	public List<Payment> getPaymentListByRsvNo(String reservationNo) throws Exception;
 	
+	
 	/*
 	 *  PaymentCode
 	 */	
@@ -45,8 +51,14 @@ public interface PaymentDAO {
 	
 	public PaymentCode getPaymentCodeInfo(String paymentCodeLetter) throws Exception;
 	
+	
 	/*
 	 *  SiteProfit
 	 */
-
+	public Payment getPaymentRecord(HashMap<String, Object> searchParameter) throws Exception;
+	
+	public int addSiteProfit(SiteProfit siteProfit) throws Exception;
+	
+	public List<SiteProfit> listSiteProfit(Map<String, Object> dateRange) throws Exception;
+	
 }
