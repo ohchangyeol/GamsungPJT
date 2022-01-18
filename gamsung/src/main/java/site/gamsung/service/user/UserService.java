@@ -1,7 +1,6 @@
 package site.gamsung.service.user;
 
 import java.util.HashMap;
-import java.util.Map;
 
 import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.User;
@@ -42,16 +41,16 @@ public interface UserService {
 	public int checkDuplication(User user);
 	
 	//인증메일 발송
-	public void sendEmailAuthNum(String id, String key);
+	public void sendEmailAuthNum(String id, String key, String path);
 	
 	//인증문자 발송
 	public void sendPhoneAuthNum(String phone, String phKey);
 	
 	//사업자회원 승인
-	public void approvalBusinessUser(User user);
+	public void approvalBusinessUser(User user, String path);
 	
 	//임시비밀번호 발송
-	public void updateTempPassword(User user);
+	public void updateTempPassword(User user, String path);
 	
 	//카카오 로그인 토큰 얻기
 	public String getAccessToken(String code);
@@ -72,7 +71,7 @@ public interface UserService {
 	public boolean addSecessionUser(User user);
 	
 	//회원 휴면전환
-	public void addDormantUser() throws Exception;
+	public void addDormantUser();
 	
 	//휴면회원 일반회원 전환
 	public void updateDormantGeneralUserConvert(String id);
@@ -81,7 +80,7 @@ public interface UserService {
 	public void kakaoLogout(String accessToken);
 	
 	//카카오 연결끊기
-	public void unlink(String accessToken);
+	public void kakaoUnlink(String accessToken);
 
 
 }

@@ -71,7 +71,7 @@ public class LogonCheckInterceptor extends HandlerInterceptorAdapter {
 			if(		uri.indexOf("addUser") != -1 || uri.indexOf("sendEmailAuthNum") != -1 || uri.indexOf("findIdPhoneAuthNum") != -1 || uri.indexOf("login") != -1 || uri.indexOf("checkIdPassword") != -1 
 					|| uri.indexOf("checkDuplication") != -1 || uri.indexOf("findId") != -1 || uri.indexOf("sendPhoneAuthNum") != -1 || uri.indexOf("updateDormantGeneralUserConvert") != -1
 					|| uri.indexOf("findPassword") != -1 || uri.indexOf("getKakaoAuthUrl") != -1 || uri.indexOf("kakaoCallback") != -1 
-					||uri.indexOf("listCamp") != -1 || uri.indexOf("getCamp") != -1 || uri.indexOf("getCampNotice") != -1
+					|| uri.indexOf("listCamp") != -1 || uri.indexOf("getCamp") != -1 || uri.indexOf("getCampNotice") != -1  || uri.indexOf("addBusinessUser") != -1 
 					|| uri.indexOf("listCampQna") != -1 || uri.indexOf("listCampRatingReview") != -1 || uri.indexOf("listCampNotice") != -1 || uri.indexOf("getCampQna") != -1 
 					|| uri.indexOf("listAdminAuctionProduct") != -1 || uri.indexOf("listAuctionProduct") != -1 || uri.indexOf("listWaitAuctionProduct") != -1 || uri.indexOf("infiniteScroll") != -1 || uri.indexOf("autoComplete") != -1 
 					|| uri.indexOf("naverShoppingAPI") != -1 || uri.indexOf("video") != -1 || uri.indexOf("getAuctionProduct") != -1 

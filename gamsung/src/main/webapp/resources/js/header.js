@@ -167,11 +167,11 @@ $(document).ready(function(){
 
 	$("#joinUser").on("click" , function() {
 		//$(self.location).attr("href","/user/logout");
-		self.location = "/view/user/addGeneralUser.jsp"
+		self.location = "/user/addUser"
 	}); 
 	
 	$("#joinBusinessUser").on("click" , function() {
-		self.location = "/view/user/addBusinessUser.jsp"
+		self.location = "/user/addBusinessUser"
 	}); 
 				
 	// $("#id").focus();

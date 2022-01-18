@@ -228,6 +228,11 @@ pageEncoding="UTF-8"%>
 
     <script type="text/javascript">
 
+          function main_site_comma(str){
+            str = String(str);
+            return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+          }
+
           window.onload = function() {
 
           let str = $("#comma_price").attr("value");
@@ -279,6 +284,8 @@ pageEncoding="UTF-8"%>
                             },
                             success : function(JSONData , status) {
                               var append_node ="";   
+                              let comma_minprice ="";
+                              let comma_addprice ="";
                               if(JSONData == null){
                                  append_node += "<div style='text-align: center; color: rgb(0, 38, 255); padding-bottom: 20px;'>예약 가능한 주요시설이 없습니다. 예약일을 다시 설정 해 주세요.</div>"
                               }else{
@@ -286,6 +293,9 @@ pageEncoding="UTF-8"%>
                                       append_node += "</div>" 
                                       append_node += "<div class='row col-xs-8'>"   
                                       $.each(JSONData, function(i, mainSite) {
+                                        comma_minprice = mainSite.mainSiteMinPrice;
+                                        comma_addprice = mainSite.mainSiteAddPrice;
+
                                         append_node += "<div class='row'>"
                                         append_node += "<div class='col-sm-3 mb-sm-20'>"
                                         append_node += "<img class='mainsiteno' style='cursor: pointer;' src='/uploadfiles/campimg/campbusiness/mainsite/"+mainSite.mainSiteImg1+"'" + "onerror=this.src='/uploadfiles/campimg/campbusiness/camp/no_image.jpg' onclick='nextupdate("+mainSite.mainSiteNo+','+mainSite.campNo+")' />"
@@ -301,7 +311,7 @@ pageEncoding="UTF-8"%>
                                         append_node += "<div class='col-xs-12'> 기본 사용인원 : "+mainSite.mainSiteMinCapacity+"인 (최대 사용인원 : "+mainSite.mainSiteMaxCapacity+"인)</div>"
                                         append_node += "</div>"
                                         append_node += "<div class='row'>"    
-                                        append_node += "<div class='col-xs-12'> 이용가격(1박) : "+mainSite.mainSiteMinPrice+"원 (인원 추가금 : "+mainSite.mainSiteAddPrice+"원)</div>"
+                                        append_node += "<div class='col-xs-12'> 이용가격(1박) : "+main_site_comma(comma_minprice)+"원 (인원 추가금 : "+main_site_comma(comma_addprice)+"원)</div>"
                                         append_node += "</div>"
                                         append_node += "<div class='row'>"
                                         append_node += "<div class='col-xs-12'> 주차가능대수 : "+mainSite.mainSiteParkingSize+ "대</div>"
@@ -352,7 +362,10 @@ pageEncoding="UTF-8"%>
                       "Content-Type" : "application/json"
                     },
                     success : function(JSONData , status) {
-                      var append_node ="";   
+                      var append_node ="";
+                      let comma_minprice = JSONData.mainSiteMinPrice;
+                      let comma_addprice = JSONData.mainSiteAddPrice;   
+
                       append_node += "<div class='row col-xs-2'>" 
                       append_node += "</div>" 
                       append_node += "<div class='row col-xs-8'>"   
@@ -371,7 +384,7 @@ pageEncoding="UTF-8"%>
                       append_node += "<div class='col-xs-12'> 기본 사용인원 : "+JSONData.mainSiteMinCapacity+"인 (최대 사용인원 : "+JSONData.mainSiteMaxCapacity+"인)</div>"
                       append_node += "</div>"
                       append_node += "<div class='row'>"    
-                      append_node += "<div class='col-xs-12'> 이용가격(1박) : "+JSONData.mainSiteMinPrice+"원 (인원 추가금 : "+JSONData.mainSiteAddPrice+"원)</div>"
+                      append_node += "<div class='col-xs-12'> 이용가격(1박) : "+main_site_comma(comma_minprice)+"원 (인원 추가금 : "+main_site_comma(comma_addprice)+"원)</div>"
                       append_node += "</div>"
                       append_node += "<div class='row'>"
                       append_node += "<div class='col-xs-12'> 주차가능대수 : "+JSONData.mainSiteParkingSize+ "대</div>"

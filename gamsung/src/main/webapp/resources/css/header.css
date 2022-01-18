@@ -199,3 +199,7 @@
 .tab-content {
   border: none;
 }
+
+#findPwd:hover {
+  background-color: #3974d9;
+}
