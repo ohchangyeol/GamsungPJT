@@ -32,7 +32,6 @@ import site.gamsung.service.transfer.TransferDAO;
 import site.gamsung.service.user.UserDAO;
 import site.gamsung.service.user.UserService;
 import site.gamsung.util.user.SHA256Util;
-import site.gamsung.util.user.SendMail;
 import site.gamsung.util.user.SendMailHtml;
 import site.gamsung.util.user.SendMessage;
 import site.gamsung.util.user.TempKey;
@@ -112,7 +111,7 @@ public class UserServiceImpl implements UserService{
 	
 
 	@Override
-	public void sendEmailAuthNum(String id, String key){
+	public void sendEmailAuthNum(String id, String key, String path){
 				
 		String info = "[감성캠핑] 인증번호 입니다.";
 		String text="<img src=\"cid:image\"><div class=\"container\" style=\"width: 1008px;font-family: 'Noto Sans KR', sans-serif; text-align: center; font-weight: 400;\">\r\n"
@@ -127,9 +126,8 @@ public class UserServiceImpl implements UserService{
 		
 		SendMailHtml html=new SendMailHtml();
 		try {
-			html.sendMailHtml(id, info, text);
+			html.sendMailHtml(id, info, text, path);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -151,7 +149,7 @@ public class UserServiceImpl implements UserService{
 
 	//update와 같이 쓸 수 있는방법 생각해보기. Controller에서 처리하면 됨
 	@Override
-	public void approvalBusinessUser(User user){
+	public void approvalBusinessUser(User user, String path){
 		userDAO.updateUser(user);
 		SendMailHtml sendMail = new SendMailHtml();
 		String info = "[감성캠핑] 가입승인이 완료되었습니다.";
@@ -160,11 +158,12 @@ public class UserServiceImpl implements UserService{
 				+ "    <div class=\"color-text\">안녕하세요 감성캠핑입니다~</div>\r\n"
 				+ "    <div>가입승인이 왼료되었습니다:)</div>\r\n"
 				+ "    <div>승인이 완료되어 사이트 이용이 가능합니다 감사합니다~</div>\r\n"
-				+ "    <a href=\"http://127.0.0.1:8080\"><button class=\"w-btn-outline w-btn-green-outline\" type=\"button\" style=\"border: 3px solid #77af9c; color: darkgray; position: relative;\r\n"
-				+ "padding: 15px 30px; border-radius: 15px; font-family: 'paybooc-Light', sans-serif; box-shadow: 0 15px 35px rgb(0 0 0 / 20%);\r\n"
-				+ "text-decoration: none; font-weight: 600; transition: 0.25s; margin: 20px; box-sizing: border-box;\">감성캠핑 바로가기</button></a>";
+				+ "    <a href=\"http://127.0.0.1:8080\"><button type=\"button\"  style=\"animation: gradient1 5s ease infinite;  background: linear-gradient(-45deg, #00ffed 0%, #00bbff 100%);  position: relative;\r\n"
+				+ "    border: none;  display: inline-block;  border-radius: 15px;  font-family: 'paybooc-Light', sans-serif;  box-shadow: 0 15px 35px rgb(0 0 0 / 20%);\r\n"
+				+ "    text-decoration: none;  font-weight: 600;  transition: 0.25s;  margin: 0;  padding: 0;  box-sizing: border-box;  width: 200px;  height: 70px;  font-size: 20px;\r\n"
+				+ "    color: floralwhite; \"> 감성캠핑 바로가기</button></a>";
 		try {
-			sendMail.sendMailHtml(user.getId(), info, text);
+			sendMail.sendMailHtml(user.getId(), info, text, path);
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -185,7 +184,7 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public void updateTempPassword(User user){
+	public void updateTempPassword(User user, String path){
 		
 		TempKey tmp = new TempKey();
 		String pw = tmp.generateKey(10);
@@ -207,7 +206,7 @@ public class UserServiceImpl implements UserService{
 //		"로그인 후 비밀번호를 변경해주세요.";
 		try {
 			SendMailHtml sendMail = new SendMailHtml();
-			sendMail.sendMailHtml(user.getId(), info, text);
+			sendMail.sendMailHtml(user.getId(), info, text, path);
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -440,10 +439,12 @@ public class UserServiceImpl implements UserService{
 							+ "    <div class=\"color-text\">안녕하세요 감성캠핑입니다~</div>\r\n"
 							+ "    <div>정보통신망 이용촉진 및 정보보호 등에 관한 법률 제29조(개인정보의 파기)에 따라 회원님의 개인정보가 별로 분리저장되어 아이디가 7일 후 휴면계정으로 전환될 예정입니다.</div>\r\n"
 							+ "    <div>휴면계정으로 전환을 원치 않으시면 7일 이내에 사이트에 방문하에 로그인 부탁드립니다~</div>\r\n"
-							+ "    <a href=\"http://127.0.0.1:8080\"><button class=\"w-btn-outline w-btn-green-outline\" type=\"button\" style=\"border: 3px solid #77af9c; color: darkgray; position: relative;\r\n"
-							+ "padding: 15px 30px; border-radius: 15px; font-family: 'paybooc-Light', sans-serif; box-shadow: 0 15px 35px rgb(0 0 0 / 20%);\r\n"
-							+ "text-decoration: none; font-weight: 600; transition: 0.25s; margin: 20px; box-sizing: border-box;\">감성캠핑 바로가기</button></a>";
-					mail.sendMailHtml(user.getId(), info, text);
+							+ "    <a href=\"http://127.0.0.1:8080\"><button type=\"button\"  style=\"animation: gradient1 5s ease infinite;  background: linear-gradient(-45deg, #00ffed 0%, #00bbff 100%);  position: relative;\r\n"
+							+ "    border: none;  display: inline-block;  border-radius: 15px;  font-family: 'paybooc-Light', sans-serif;  box-shadow: 0 15px 35px rgb(0 0 0 / 20%);\r\n"
+							+ "    text-decoration: none;  font-weight: 600;  transition: 0.25s;  margin: 0;  padding: 0;  box-sizing: border-box;  width: 200px;  height: 70px;  font-size: 20px;\r\n"
+							+ "    color: floralwhite; \"> 감성캠핑 바로가기</button></a>";
+					String path="C:\\Users\\muse1\\OneDrive\\바탕 화면\\메인프로젝트\\sendMailImg.jpg";
+					mail.sendMailHtml(user.getId(), info, text, path);
 					}else if(user.getSecessionRegDate()==null&&user.getSuspensionDate()==null&&user.getDormantConversionDate()==null&&sdf.parse(TobeConvertedDate).after(sdf.parse(loginDate))) {
 		            userDAO.addDormantUser(user);
 		            }

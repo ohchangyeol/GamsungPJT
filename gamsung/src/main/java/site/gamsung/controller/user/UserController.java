@@ -54,9 +54,17 @@ public class UserController {
 
 		System.out.println("/user/addUser:GET");
 
-		return "redirect:/view/user/addGeneralUser.jsp";
+		return "forward:/view/user/addGeneralUser.jsp";
 	}
 
+	@RequestMapping(value = "addBusinessUser", method = RequestMethod.GET)
+	public String addBusinessUser() throws Exception {
+
+		System.out.println("/user/addBusinessUser:GET");
+
+		return "forward:/view/user/addBusinessUser.jsp";
+	}
+	
 	@RequestMapping(value = "addUser", method = RequestMethod.POST)
 	public String addUser(@ModelAttribute("user") User user, MultipartFile businessImg, HttpSession session) {
 

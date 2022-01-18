@@ -42,16 +42,16 @@ public interface UserService {
 	public int checkDuplication(User user);
 	
 	//인증메일 발송
-	public void sendEmailAuthNum(String id, String key);
+	public void sendEmailAuthNum(String id, String key, String path);
 	
 	//인증문자 발송
 	public void sendPhoneAuthNum(String phone, String phKey);
 	
 	//사업자회원 승인
-	public void approvalBusinessUser(User user);
+	public void approvalBusinessUser(User user, String path);
 	
 	//임시비밀번호 발송
-	public void updateTempPassword(User user);
+	public void updateTempPassword(User user, String path);
 	
 	//카카오 로그인 토큰 얻기
 	public String getAccessToken(String code);

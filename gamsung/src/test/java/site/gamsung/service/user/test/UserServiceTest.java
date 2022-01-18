@@ -168,25 +168,25 @@ public class UserServiceTest {
 	}
 	
 	//@Test
-	public void testUpdateTempPassword() throws Exception{
-		
-		User user = new User();
-		String id = "muse1264@nate.com";
-		user = userService.getUser(id);
-		if(user.getSalt()==null || user.getSalt()=="") {
-			String newSalt=SHA256Util.generateSalt();
-			System.out.println(newSalt);
-			user.setSalt(newSalt);
-			userService.updateUser(user);
-			System.out.println(user);
-		}else {
-		
-		System.out.println(user);
-		System.out.println(user.getSalt());
-		}
-		userService.updateTempPassword(user);
-		
-	}
+//	public void testUpdateTempPassword() throws Exception{
+//		
+//		User user = new User();
+//		String id = "muse1264@nate.com";
+//		user = userService.getUser(id);
+//		if(user.getSalt()==null || user.getSalt()=="") {
+//			String newSalt=SHA256Util.generateSalt();
+//			System.out.println(newSalt);
+//			user.setSalt(newSalt);
+//			userService.updateUser(user);
+//			System.out.println(user);
+//		}else {
+//		
+//		System.out.println(user);
+//		System.out.println(user.getSalt());
+//		}
+//		userService.updateTempPassword(user);
+//		
+//	}
 	
 	//@Test
 		public void testSendPhoneAuthNum() throws Exception{
@@ -336,21 +336,21 @@ public class UserServiceTest {
 		        
 		    }
 		    
-		    @Test
-		    public void TestSendMail() throws Exception{
-		    	SendMailHtml mail = new SendMailHtml();
-		    	String info = "[감성캠핑] 가입승인이 완료되었습니다.";
-				String text = "<img src=\\\"cid:image\\\"><div class=\"container\" style=\"width: 500px;font-family: 'Noto Sans KR', sans-serif; text-align: center; font-weight: 400;\">\r\n"
-						+ "    <div class=\"gamsung-title\" style=\"height: 100px;font-size: 36px;border-top: 1px solid #ddd;border-bottom: 1px solid #ddd; padding: 15px; box-sizing: border-box; font-weight: 700; margin-bottom: 15px;color: rgb(42, 99, 65);\">감성캠핑</div>\r\n"
-						+ "    <div class=\"color-text\">안녕하세요 감성캠핑입니다~</div>\r\n"
-						+ "    <div>가입승인이 왼료되었습니다:)</div>\r\n"
-						+ "    <div>승인이 완료되어 사이트 이용이 가능합니다 감사합니다~</div>\r\n"
-						+ "    <a href=\"http://127.0.0.1:8080\"><button class=\"w-btn-outline w-btn-green-outline\" type=\"button\" style=\"border: 3px solid #77af9c; color: darkgray; position: relative;\r\n"
-						+ "padding: 15px 30px; border-radius: 15px; font-family: 'paybooc-Light', sans-serif; box-shadow: 0 15px 35px rgb(0 0 0 / 20%);\r\n"
-						+ "text-decoration: none; font-weight: 600; transition: 0.25s; margin: 20px; box-sizing: border-box;\">감성캠핑 바로가기</button></a>";
-		    	mail.sendMailHtml("muse1264@nate.com", info, text);
-		    }
-		
+		  //  @Test
+//		    public void TestSendMail() throws Exception{
+//		    	SendMailHtml mail = new SendMailHtml();
+//		    	String info = "[감성캠핑] 가입승인이 완료되었습니다.";
+//				String text = "<img src=\\\"cid:image\\\"><div class=\"container\" style=\"width: 500px;font-family: 'Noto Sans KR', sans-serif; text-align: center; font-weight: 400;\">\r\n"
+//						+ "    <div class=\"gamsung-title\" style=\"height: 100px;font-size: 36px;border-top: 1px solid #ddd;border-bottom: 1px solid #ddd; padding: 15px; box-sizing: border-box; font-weight: 700; margin-bottom: 15px;color: rgb(42, 99, 65);\">감성캠핑</div>\r\n"
+//						+ "    <div class=\"color-text\">안녕하세요 감성캠핑입니다~</div>\r\n"
+//						+ "    <div>가입승인이 왼료되었습니다:)</div>\r\n"
+//						+ "    <div>승인이 완료되어 사이트 이용이 가능합니다 감사합니다~</div>\r\n"
+//						+ "    <a href=\"http://127.0.0.1:8080\"><button class=\"w-btn-outline w-btn-green-outline\" type=\"button\" style=\"border: 3px solid #77af9c; color: darkgray; position: relative;\r\n"
+//						+ "padding: 15px 30px; border-radius: 15px; font-family: 'paybooc-Light', sans-serif; box-shadow: 0 15px 35px rgb(0 0 0 / 20%);\r\n"
+//						+ "text-decoration: none; font-weight: 600; transition: 0.25s; margin: 20px; box-sizing: border-box;\">감성캠핑 바로가기</button></a>";
+//		    	mail.sendMailHtml("muse1264@nate.com", info, text);
+//		    }
+//		
 		
 	
 }

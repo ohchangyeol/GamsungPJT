@@ -49,11 +49,12 @@ public class UserRestController {
 
 		TempKey tmp = new TempKey();
 		String key = tmp.generateKey(6);
+		String path=session.getServletContext().getRealPath("/");
 
 		try {
 			session.setAttribute(id, key);
 
-			userService.sendEmailAuthNum(id, key);
+			userService.sendEmailAuthNum(id, key, path);
 
 			System.out.println("id" + id);
 			System.out.println("mailAuthKey&&" + key);
@@ -149,16 +150,17 @@ public class UserRestController {
 
 	// 비밀번호 찾기
 	@RequestMapping(value = "rest/findPassword", method = RequestMethod.POST)
-	public int findPassword(@RequestBody User user) {
+	public int findPassword(@RequestBody User user, HttpSession session) {
 
 		System.out.println("rest로 넘어오나");
 
 		
 		  User newUser = userService.findPassword(user);
+		  String path=session.getServletContext().getRealPath("/");
 		  
 		  if (newUser != null) 
 		  {
-		  userService.updateTempPassword(newUser);
+		  userService.updateTempPassword(newUser, path);
 		  System.out.println("여기까지 되는지");
 		  return 1;
 		  }else {
@@ -236,9 +238,10 @@ public class UserRestController {
 	public int approvalBusinessUser(@RequestParam("id") String id, HttpSession session) {
 		System.out.println("실행되는가");
 		System.out.println(id);
+		String path=session.getServletContext().getRealPath("/");
 		User user=userService.getUser(id);
 		if(user!=null) {
-			userService.approvalBusinessUser(user);
+			userService.approvalBusinessUser(user, path);
 			if(id!=null) {
 				return 1;
 			}
