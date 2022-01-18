@@ -92,7 +92,7 @@ pageEncoding="UTF-8"%>
                   <span><i class="fa fa-star star"></i></span>
                   <span><i class="fa fa-star star"></i></span>
                 </c:if>
-              <a class="open-tab section-scroll">&nbsp;(${campRating})</a>
+              <a class="open-tab section-scroll" id = "sub_camp_rating" value="${campRating}"></a>
         </div>
         <div class="row">
           <div class="fa-hover col-xs-12" style="text-align: end;">  
@@ -229,6 +229,15 @@ pageEncoding="UTF-8"%>
 
     <script type="text/javascript">
       parent.reviewIframeHeight(document.getElementById("reviewschange").scrollHeight);
+
+      window.onload = function() {
+            
+            let substring = " ("+$("#sub_camp_rating").attr("value").substring(0, 3)+")";
+            
+            $("#sub_camp_rating").html(substring);
+
+          };
+
     </script>
 
 </body>
