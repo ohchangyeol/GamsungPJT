@@ -226,7 +226,7 @@
 			, payment_refund_price_fee_second = #{paymentRefundPriceFeeSecond}
 	   	WHERE payment_no = #{paymentNo}
 	</update>
-
+	
 	
 	<!-- SQL : PaymentCode ################################################################################################################### -->
 	

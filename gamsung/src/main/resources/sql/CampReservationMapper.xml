@@ -255,7 +255,7 @@
 	<select id="getReservation" parameterType="String" resultMap="CampReservationSelectMap">
 		SELECT r.reservation_no, r.camp_no, r.mainsite_no, r.reservation_status, r.reservation_reg_date, r.reservation_user_name, r.reservation_start_date, 
 			   r.reservation_end_date, r.use_num, r.reservation_user_phone, r.reservation_reg_car_num, r.reservation_request, r.total_payment_price, 
-			   r.total_reservation_reg_car, r.delete_flag, r.payment_type, u.camp_name, u.camp_call, m.mainsite_type
+			   r.total_reservation_reg_car, r.delete_flag, r.payment_type, u.camp_name, u.camp_call, m.mainsite_type, c.camp_img1
 		FROM CAMP_RESERVATION r, USERS u, MAINSITE m, CAMP c
 		WHERE r.camp_no = c.camp_no AND c.user_id = u.user_id AND r.mainsite_no = m.mainsite_no AND r.reservation_no =  #{value};
 	</select>
