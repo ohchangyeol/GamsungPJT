@@ -5,8 +5,8 @@ pageEncoding="UTF-8"%>
 <div class="table-list-padding">
   <div class="col-xs-12">
     <div class="row">
-      <h4 class="col-sm-7 mb-0">공지 사항</h4>
-      <div class="col-sm-5 mb-sm-0">
+      <h4 class="col-sm-7 mb-0 font-jua main-color main-color">공지 사항</h4>
+      <div class="col-sm-5 mb-sm-0" style="margin-top: 15px;">
         <div class="row">
           <form role="form" class="notice-search">
             <div class="col-sm-4">
