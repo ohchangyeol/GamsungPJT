@@ -2,11 +2,11 @@
 pageEncoding="UTF-8"%>
 
 <section class="bg-dark-30 showcase-page-header module parallax-bg" data-background="../../resources/images/KakaoTalk_Moim_buAhAGzAhL3VZBLn5H9XCNfXpebbgi.jpg" style="background-attachment: inherit;">
-  <div id="modalForm" class="modal-block modal-block-primary mfp mfp-hide">
+  <div id="modalForm" class="modal-block modal-block-primary mfp mfp-hide" style="font-size: 12px;">
             
     <section class="panel">
-      <header class="panel-heading">
-        <h4 class="panel-title">캠핑장을 상세하게 검색 하세요!</h4>
+      <header class="panel-heading"  style="background-color: #f5f5f5; border-radius: 30px 30px 0 0;">
+        <h4 class="panel-title" style="font-size: 20px; padding: 15px; border-bottom: 1px solid rgb(219, 218, 213)">캠핑장을 상세하게 검색 하세요!</h4>
       </header>
       <div class="panel-body">
         <form id="detailSearch" class="form-horizontal mb-lg" novalidate="novalidate">
@@ -212,11 +212,11 @@ pageEncoding="UTF-8"%>
           </div>
         </form>
       </div>
-      <footer class="panel-footer">
+      <footer class="panel-footer" style="border-radius: 0 0 30px 30px;">
         <div class="row">
           <div class="col-md-12 text-right">
-            <button class="btn btn-success"  id="detail_search">검색</button>
-            <button class="btn btn-warning modal-dismiss">취소</button>
+            <button class="btn btn-success btn-circle"  id="detail_search">검색</button>
+            <button class="btn btn-warning modal-dismiss btn-circle">취소</button>
           </div>
         </div>
       </footer>

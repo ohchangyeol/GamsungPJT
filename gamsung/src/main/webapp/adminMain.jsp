@@ -221,8 +221,7 @@ pageEncoding="UTF-8"%>
                             label: '올해', //차트 제목
                             fill: false, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
                             data: [
-								//day,week,month,year //x축 label에 대응되는 데이터 값
-								day,4,6,7
+								day,week,month,year //x축 label에 대응되는 데이터 값
                             ],
                             backgroundColor: [
                                 //색상
@@ -247,8 +246,7 @@ pageEncoding="UTF-8"%>
                             label: '작년',
                             fill: false,
                             data: [
-								// beforeday,beforeweek,beforemonth,beforeyear
-								7,8,9,10
+								beforeday,beforeweek,beforemonth,beforeyear
                             ],
                             backgroundColor: [
 								'rgba(153, 102, 255, 0.2)',

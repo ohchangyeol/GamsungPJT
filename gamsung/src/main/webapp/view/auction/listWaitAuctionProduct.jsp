@@ -32,9 +32,6 @@
           <div class="container">
             <div class="row">
               <div class="col-sm-6 col-sm-offset-3">
-                <h2 class="module-title font-alt">Auction Products</h2>
-                <div class="module-subtitle font-serif">관리자가 등록한 경매 상품입니다. 10분 동안만 진행됩니다.</div>
-                <div class="module-subtitle font-serif">쿠팡 상품을 크롤링하여 만든 상품 내역입니다.</div>
               </div>
             </div>
           </div>
@@ -137,8 +134,9 @@
 					              				+ '<img src="'
 					              				+ JSONData[i].productImg1
 				              					+ '" alt="Accessories Pack"/>'
-				                  				+ '<div class="shop-item-detail">'
-				              					+ '<a class="btn btn-round btn-b">경매 시작하기!</a></div></div>'
+				                  				+ '<div class="shop-item-detail"><span hidden="hidden">'
+				                  				+ JSONData[i].auctionProductSubDetail
+				              					+ '</span><a class="btn btn-round btn-b">경매 시작하기!</a></div></div>'
 				                  				+ '</span><h4 class="shop-item-title font-alt prodNmae"><a href="">'
 				                   				+ JSONData[i].auctionProductName
 				                   				+ '</a></h4> <span>'
@@ -163,8 +161,9 @@
 					              				+ '<img src="'
 					              				+ JSONData[i].productImg1
 				              					+ '" alt="Accessories Pack"/>'
-				                  				+ '<div class="shop-item-detail">'
-				              					+ '<a class="btn btn-round btn-b">경매 시작하기!</a></div></div>'
+				              					+ '<div class="shop-item-detail"><span hidden="hidden">'
+				                  				+ JSONData[i].auctionProductSubDetail
+				              					+ '</span><a class="btn btn-round btn-b">경매 시작하기!</a></div></div>'
 				                  				+ '</span><h4 class="shop-item-title font-alt prodNmae"><a href="">'
 				                   				+ JSONData[i].auctionProductName
 				                   				+ '</a></h4> <span>'

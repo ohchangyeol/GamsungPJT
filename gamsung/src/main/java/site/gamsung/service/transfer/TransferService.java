@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.Transfer;
 
 public interface TransferService {
@@ -23,7 +24,7 @@ public interface TransferService {
 	public int blindTransfer(int transferNo)throws Exception;
 	
 	public int updateReservationStatus(String reservationNo)throws Exception;
-	
-	public List<Transfer> listTransferForReceive(String userId)throws Exception;
+
+	public List<Transfer> listTransferForReceive(String userId) throws Exception;
 
 }

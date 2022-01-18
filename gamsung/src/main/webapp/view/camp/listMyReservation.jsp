@@ -81,18 +81,17 @@
                                           <td class="col-sm-1 center">${ i }</td>
                                           <td class="col-sm-2">${reservation.camp.user.campName}</td>
                                           <td class="col-sm-2">${reservation.mainSite.mainSiteType}</td>
-                                          <td class="col-sm-2">${reservation.totalPaymentPrice}</td>
+                                          <td class="col-sm-2 comma" value="${reservation.totalPaymentPrice}"></td>
                                           <td class="col-sm-3">
                                              <c:choose>
                                                 <c:when test="${reservation.reservationStatus eq 0}"><span style="color: rgb(0, 0, 0);">결제대기</span></c:when>
                                                 <c:when test="${reservation.reservationStatus eq 1}"><span style="color: rgb(16, 112, 236);">예약완료</span></c:when>
                                                 <c:when test="${reservation.reservationStatus eq 2}"><span style="color: rgb(16, 112, 236);">예약변경</span></c:when>
                                                 <c:when test="${reservation.reservationStatus eq 3}"><span style="color: rgb(16, 112, 236);">양도대기</span></c:when>
-                                                <c:when test="${reservation.reservationStatus eq 4}"><span style="color: rgb(16, 112, 236);">취소대기</span></c:when>
-                                                <c:when test="${reservation.reservationStatus eq 5}"><span style="color: rgb(230, 173, 17);">양도완료</span></c:when>
-                                                <c:when test="${reservation.reservationStatus eq 6}"><span style="color: rgb(230, 173, 17);">취소완료</span></c:when>
-                                                <c:when test="${reservation.reservationStatus eq 7}"><span style="color: rgb(230, 173, 17);">이용완료</span></c:when>
-                                                <c:when test="${reservation.reservationStatus eq 8}"><span style="color: maroon;">리뷰등록완료</span></c:when>
+                                                <c:when test="${reservation.reservationStatus eq 4}"><span style="color: rgb(230, 173, 17);">양도완료</span></c:when>
+                                                <c:when test="${reservation.reservationStatus eq 5}"><span style="color: rgb(230, 173, 17);">예약취소</span></c:when>
+                                                <c:when test="${reservation.reservationStatus eq 6}"><span style="color: rgb(230, 173, 17);">이용완료</span></c:when>
+                                                <c:when test="${reservation.reservationStatus eq 7}"><span style="color: maroon;">리뷰등록완료</span></c:when>
                                              </c:choose>
                                           </td>
                                           <td class="col-sm-2">${reservation.reservationRegDate}</td>
@@ -140,6 +139,14 @@
 
           $( function() {
 
+            $(".comma").each(function(index,obj){
+              
+                let str = $(this).attr("value");
+                let comma = str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+                return $(this).html(comma+"원");
+              
+            });
+            
             $(".reservation").on("click" , function() {
             
               self.location ="/campGeneral/getMyReservation?reservationNo="+$(this).attr("value");

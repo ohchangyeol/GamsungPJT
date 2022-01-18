@@ -45,9 +45,10 @@
     <link id="color-scheme" href="/resources/css/colors/default.css" rel="stylesheet">  
   	<!-- ### headerCampBusiness resources End ### -->
   
+  
   	<style>
 	  body {
-            padding-top : 30px;
+            padding-top : 50px;
         }
     </style>
 
@@ -71,7 +72,7 @@
 	
 </head>
 
-<body>
+<body id="qnaschange" data-spy="scroll" data-target=".onpage-navigation" data-offset="60" style="overflow: hidden; width: 100%; height: 100%;" >
 
 	<!-- ToolBar -->
 		
@@ -79,15 +80,10 @@
 		<jsp:include page="/view/common/headerCampBusiness.jsp" />	  	
 	</c:if>
 	
-	<c:if test="${user.role == 'GENERAL' && campNo == '0'}">
+	<c:if test="${user.role == 'GENERAL'}">
 		<jsp:include page="/view/common/header.jsp" />	
 	</c:if>
-	
-	<c:if test="${!empty user.id && campNo == '0'}">
-		<jsp:include page="/view/common/userSideBar.jsp" />
-	</c:if>
-	
-   	
+	   	
    	<!-- Page Start -->
 	<div class="container">
 	
@@ -158,6 +154,10 @@
       </table>
 	  
  	</div>
+
+	<script type="text/javascript">
+		parent.qnaIframeHeight(document.getElementById("qnaschange").scrollHeight);
+	</script>
  	
 </body>
 

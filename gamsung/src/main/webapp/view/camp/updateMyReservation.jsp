@@ -54,7 +54,7 @@ pageEncoding="UTF-8"%>
                                     <span class="input-group-addon">
                                       <i class="fa fa-calendar"></i>
                                     </span>
-                                    <input type="date" class="form-control" min="new Date().toISOString().substring(0, 10)"id="startdate" name="reservationStartDate" >
+                                    <input type="date" class="form-control" min="new Date().toISOString().substring(0, 10)" id="startdate" name="reservationStartDate" >
                                     <span class="input-group-addon">to</span>
                                     <input type="date" class="form-control" id="enddate" name="reservationEndDate" >
                                   </div>
@@ -72,7 +72,7 @@ pageEncoding="UTF-8"%>
                                   <div class="col-xs-4" ><strong>예약 인원 :</strong></div>
                                   <div class="col-xs-8">
                                     <div>
-                                      <input type="number" name="useNum" id="useNum" onchange="totalupdateprice()" value="${campReservation.useNum}" min="1">
+                                      <input class="col-xs-4" type="number" name="useNum" id="useNum" onchange="totalupdateprice()" value="${campReservation.useNum}" min="1">
                                       <span style="font-weight: bold;">&nbsp;명</span>
                                     </div>
                                   </div>
@@ -81,7 +81,7 @@ pageEncoding="UTF-8"%>
                                 <div class="col-xs-4 panel-body" style="height: 40px; text-align: start; padding: 10px;">
                                     <div class="col-xs-4"><strong>주차 대수 :</strong></div>
                                     <div class="col-xs-8">
-                                      <input type="number" name="totalReservationRegCar" id="regCar"value="${campReservation.totalReservationRegCar}" min="0">
+                                      <input class="col-xs-4" type="number" name="totalReservationRegCar" id="regCar"value="${campReservation.totalReservationRegCar}" min="0">
                                       <span style="font-weight: bold; font-size: larger;">&nbsp;대</span>
                                     </div>
                                 </div>
@@ -94,7 +94,7 @@ pageEncoding="UTF-8"%>
                                   <div class="col-xs-4" ><strong>예약자 이름 :</strong></div>
                                   <div class="col-xs-8">
                                     <div>
-                                      <input type="text" name="reservationUserName" value="${campReservation.reservationUserName}">
+                                      <input class="col-xs-8" type="text" name="reservationUserName" value="${campReservation.reservationUserName}">
                                       <span style="font-weight: bold;">&nbsp;</span>
                                     </div>
                                   </div>
@@ -103,7 +103,7 @@ pageEncoding="UTF-8"%>
                                 <div class="col-xs-4 panel-body" style="height: 40px; text-align: start; padding: 10px;">
                                     <div class="col-xs-4"><strong>휴대폰 번호 :</strong></div>
                                     <div class="col-xs-8">
-                                      <input type="text" name="reservationUserPhone"  value="${campReservation.reservationUserPhone}" placeholder="'-' 없이 입력해주세요.">
+                                      <input class="col-xs-8" type="text" name="reservationUserPhone"  value="${campReservation.reservationUserPhone}" placeholder="'-' 없이 입력해주세요.">
                                     </div>
                                 </div>
                                 <div class="col-xs-2"></div>
@@ -115,7 +115,7 @@ pageEncoding="UTF-8"%>
                                   <div class="col-xs-4" ><strong>차량 번호 :</strong></div>
                                   <div class="col-xs-8">
                                     <div>
-                                      <input type="text" name="reservationRegCarNum" value="${campReservation.reservationRegCarNum}">
+                                      <input class="col-xs-8" type="text" name="reservationRegCarNum" value="${campReservation.reservationRegCarNum}">
                                     </div>
                                   </div>
                                </div>

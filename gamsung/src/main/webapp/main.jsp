@@ -92,7 +92,7 @@
                 </div>
                 <div class="col-sm-6 col-md-4 col-lg-4">
                   <div class="post">
-                    <div class="post-thumbnail"><img class="campImg" campNo="${topView.campNo}"
+                    <div class="post-thumbnail"><img class="campImg" campNo="${topView.campNo}" style="cursor: pointer;" 
                         src="/uploadfiles/campimg/campbusiness/camp/${topView.campImg1}" alt="Blog-post Thumbnail">
                     </div>
                     <div class="post-header font-alt">
@@ -107,7 +107,7 @@
                 </div>
                 <div class="col-sm-6 col-md-4 col-lg-4">
                   <div class="post">
-                    <div class="post-thumbnail"><img class="campImg" campNo="${topRating.campNo}"
+                    <div class="post-thumbnail"><img class="campImg" campNo="${topRating.campNo}" style="cursor: pointer;" 
                         src="/uploadfiles/campimg/campbusiness/camp/${topRating.campImg1}" alt="Blog-post Thumbnail">
                     </div>
                     <div class="post-header font-alt">
@@ -122,7 +122,7 @@
                 </div>
                 <div class="col-sm-6 col-md-4 col-lg-4">
                   <div class="post">
-                    <div class="post-thumbnail"><img class="campImg" campNo="${topReservation.campNo}"
+                    <div class="post-thumbnail"><img class="campImg" campNo="${topReservation.campNo}" style="cursor: pointer;" 
                         src="/uploadfiles/campimg/campbusiness/camp/${topReservation.campImg1}"
                         alt="Blog-post Thumbnail"></div>
                     <div class="post-header font-alt">

@@ -41,10 +41,56 @@ public class PaymentServiceImpl implements PaymentService{
 		System.out.println(this.getClass());
 	}
 	
+	
 	/*
 	 *  Private Method
-	 */		
-	private int pointTransferByUsers(PointTransfer pointTransfer) throws Exception {
+	 */
+	private String addPayment(Payment payment) throws Exception{
+		
+		PaymentCode oriPaymentCodeInfo = getPaymentCodeInfo(payment.getPaymentCode());
+		int oriPaymentReferenceFee = oriPaymentCodeInfo.getPaymentCodeFee();
+				
+		// 일반결제 DB저장
+		int paymentPriceTotal = payment.getPaymentPriceTotal();		
+		int paymentPriceFee = paymentPriceTotal * oriPaymentReferenceFee / 100;
+		int paymentPricePay = paymentPriceTotal - paymentPriceFee;
+		payment.setPaymentPriceFee(paymentPriceFee);
+		payment.setPaymentPricePay(paymentPricePay);
+		
+		System.out.println("paymentPriceTotal : " + paymentPriceTotal);										// 테스트
+		System.out.println("paymentPricePay : " + paymentPricePay);	
+		System.out.println("paymentPriceFee : " + paymentPriceFee);
+		
+		// 포인트결제 DB저장
+		if(payment.getPaymentPriceTotalSecond() != 0) {
+			
+			int paymentPriceTotalSecond = payment.getPaymentPriceTotalSecond();		
+			int paymentPriceFeeSecond = paymentPriceTotalSecond * oriPaymentReferenceFee / 100;
+			int paymentPricePaySecond = paymentPriceTotalSecond - paymentPriceFeeSecond;			
+			payment.setPaymentPriceFeeSecond(paymentPriceFeeSecond);
+			payment.setPaymentPricePaySecond(paymentPricePaySecond);	
+			
+			System.out.println("paymentPriceTotalSecond : " + paymentPriceTotalSecond);						// 테스트
+			System.out.println("paymentPricePaySecond : " + paymentPricePaySecond);	
+			System.out.println("paymentPriceFeeSecond : " + paymentPriceFeeSecond);
+		}					
+		
+		System.out.println("payment : " + payment);															// 테스트
+		
+		return paymentDAO.addPayment(payment);			
+	}
+		
+	
+	/*
+	 * Point
+	 */
+	@Override
+	public int pointUpdateById(PointTransfer pointTransfer) throws Exception {
+		return paymentDAO.pointUpdateById(pointTransfer);
+	}
+	
+	@Override
+	public int pointTransferByUsers(PointTransfer pointTransfer) throws Exception {
 		
 		int pointAmount = pointTransfer.getPointAmount();
 		int feeRate = pointTransfer.getFeeRate();		
@@ -91,41 +137,6 @@ public class PaymentServiceImpl implements PaymentService{
 			}
 			
 		}	
-	}
-	
-	private String addPayment(Payment payment) throws Exception{
-		
-		PaymentCode oriPaymentCodeInfo = getPaymentCodeInfo(payment.getPaymentCode());
-		int oriPaymentReferenceFee = oriPaymentCodeInfo.getPaymentCodeFee();
-				
-		// 일반결제 DB저장
-		int paymentPriceTotal = payment.getPaymentPriceTotal();		
-		int paymentPriceFee = paymentPriceTotal * oriPaymentReferenceFee / 100;
-		int paymentPricePay = paymentPriceTotal - paymentPriceFee;
-		payment.setPaymentPriceFee(paymentPriceFee);
-		payment.setPaymentPricePay(paymentPricePay);
-		
-		System.out.println("paymentPriceTotal : " + paymentPriceTotal);										// 테스트
-		System.out.println("paymentPricePay : " + paymentPricePay);	
-		System.out.println("paymentPriceFee : " + paymentPriceFee);
-		
-		// 포인트결제 DB저장
-		if(payment.getPaymentPriceTotalSecond() != 0) {
-			
-			int paymentPriceTotalSecond = payment.getPaymentPriceTotalSecond();		
-			int paymentPriceFeeSecond = paymentPriceTotalSecond * oriPaymentReferenceFee / 100;
-			int paymentPricePaySecond = paymentPriceTotalSecond - paymentPriceFeeSecond;			
-			payment.setPaymentPriceFeeSecond(paymentPriceFeeSecond);
-			payment.setPaymentPricePaySecond(paymentPricePaySecond);	
-			
-			System.out.println("paymentPriceTotalSecond : " + paymentPriceTotalSecond);						// 테스트
-			System.out.println("paymentPricePaySecond : " + paymentPricePaySecond);	
-			System.out.println("paymentPriceFeeSecond : " + paymentPriceFeeSecond);
-		}					
-		
-		System.out.println("payment : " + payment);															// 테스트
-		
-		return paymentDAO.addPayment(payment);			
 	}
 	
 	

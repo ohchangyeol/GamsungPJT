@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 
@@ -44,6 +45,8 @@
     <link id="color-scheme" href="/resources/css/colors/default.css" rel="stylesheet">    	
   	<!-- ### headerCampBusiness resources End ### -->  	
   	
+  	
+  	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>  	
   	<script type="text/javascript">
   	
 		<!-- 화면 Controller Start -->		
@@ -51,7 +54,7 @@
 		$(function() {
 					
 			$("#bankAccount").hide();
-	  		
+				  		
 			const isWireMoney = $("#paymentMethod").val();
 				
 			if( isWireMoney == "" ){
@@ -64,43 +67,47 @@
 	  	$(function() {
 	  		
 			$("#refundPayment").on("click" , function() {
-				alert("환불되었습니다.");
-				canclePayment()
-				//$("#payForm").attr("method" , "POST").attr("action" , "/payment/refundSystem").submit();
+				canclePayment();
 			});
 			
 			$("#cancle").on("click" , function() {
 				window.history.back();			
 			});
 
-		});			
+		});		
+	  	
+		function canclePayment() {
+			
+			var uidTagList = $(".impUid-list");
+	        var dataList = [];
+	        
+			for (let index = 0; index < uidTagList.length; index++) {
+				const el = $(uidTagList[index]).val();
+				dataList.push(el);
+			}
+	        console.log("data list => ",dataList);
+
+			// 결제 검증
+			$.ajax({
+				url    : "/payment/rest/cancleIamport"
+				, type : "POST"
+				, dataType : "JSON"
+				, data   : {
+					uidList : dataList
+				}
+				, success : function(res){ // 비동기통신의 성공일경우 success콜백으로 들어옵니다. 'res'는 응답받은 데이터이다.
+					alert("환불되었습니다.");
+					$("#payForm").attr("method" , "POST").attr("action" , "/payment/refundSystem").submit();         
+                }
+                , error : function(XMLHttpRequest, textStatus, errorThrown){ // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.
+                    alert("환불이 실패하였습니다. 관리자에게 문의하세요")
+                }
+			
+			});			
+		}	
   	
   	</script>
-  	
-	<!-- import 결제모둘 Start -->  	
-	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>  	
-	<script type="text/javascript">
-	
-		function canclePayment() {
-
-			const vMerchant_uid = $("#paymentReferenceNum").val(); 
-				
-				// 결제 검증
-				$.ajax({
-					type : "POST",
-					url : "/payment/rest/cancleIamport/" + vMerchant_uid
-				
-				}).done(function(data) {
-	
-					console.log(data);
-	
-					alert("aaaa");		
-				});
-		}	
-		
-	</script>	  	
-  	<!-- import 결제모둘 End -->
-  		
+  	 		
   	
 	<style>	    
 	    .form-horizontal .control-label{
@@ -123,9 +130,10 @@
 	<!-- 캠핑 start-->
 	<div id="campContainer" class="container">
 		
+		<br>
 		<div class="row">
 			<div class="page-header">
-				<h4 class="text-info">상품내역</h4>
+				<h4 class="text-info">환불예정 상품내역</h4>
 			</div>					
 		</div>
 		
@@ -197,7 +205,7 @@
 	<div id="payformContainer" class="container">
 		<div class="row">
 			<div class="page-header">
-				<h4 class="text-info">결재내역</h4>
+				<h4 class="text-info">환불예정 결제내역</h4>
 			</div>					
 		</div>
 		
@@ -361,6 +369,8 @@
 							    </c:otherwise>
 							</c:choose>
 						</div>
+						<input type="hidden" id="paymentList[${i}].impUid" name="paymentList[${i}].impUid" class="impUid-list" value="${payment.impUid}">
+						
 						<label class="col-xs-2" style="color:#162B8F;">* 상품 전체 금액</label>
 						<div class="col-xs-4 form-group">
 						    <input type="text" id="paymentList[${i}].paymentProductPriceTotal" name="paymentList[${i}].paymentProductPriceTotal" value="${payment.paymentProductPriceTotal}" class="form-control" readonly>
@@ -535,11 +545,7 @@
 						</div>
 						<label class="col-xs-2" style="color:#878F2B;">- 환불 상품번호</label>
 						<div class="col-xs-4 form-group">
-						
-						<!--     
-						    <input type="text" id="paymentList[${i}].paymentRefundReferenceNum" name="paymentList[${i}].paymentRefundReferenceNum" value="${payment.paymentRefundReferenceNum}" class="form-control" readonly>
-						-->
-						
+						    <input type="text" id="paymentRefundReferenceNum" name="paymentList[${i}].paymentRefundReferenceNum" value="[${campReservation.reservationNo}/예약취소]" class="form-control" readonly>
 						</div>					
 					</div>
 					
@@ -548,7 +554,7 @@
 						<div class="col-xs-4 form-group">
 						    <input type="text" id="paymentList[${i}].paymentRefundPricePay" name="paymentList[${i}].paymentRefundPricePay" value="${payment.paymentRefundPricePay}" class="form-control" readonly>
 						</div>
-						<label class="col-xs-2" style="color:#878F2B;">- 포인트결제 환불금액</label>
+						<label class="col-xs-2" style="color:#878F2B;">- 포인트 환불금액</label>
 						<div class="col-xs-4 form-group">
 						    <input type="text" id="paymentList[${i}].paymentRefundPricePaySecond" name="paymentList[${i}].paymentRefundPricePaySecond" value="${payment.paymentRefundPricePaySecond}" class="form-control" readonly>
 						</div>				
@@ -590,14 +596,7 @@
 			<div class="col-md-10 form-group">
 				<input type="text" id="accountNum" name="accountNum" value="${user.accountNum}" class="form-control" readonly>
 			</div>			
-		</div>
-		
-		<div class="row">				        
-	        <label class="col-xs-2">* paymentReferenceNum</label>
-			<div class="col-md-10 form-group">
-				<input type="text" id="paymentReferenceNum" name="paymentReferenceNum" value="" class="form-control">
-			</div>
-		</div>									 
+		</div>					 
 			
 		</form>	
 	</div>
@@ -616,6 +615,7 @@
 		</div>
 	</div>
 	<!-- 포인트관리 버튼 end -->
+	
 	
 </body>
 

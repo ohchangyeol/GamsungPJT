@@ -13,12 +13,13 @@
   font-size: 16px;
   font-weight: 700;
   background-color: #9cc1e8;
-  color:#fff;
+  color: #fff;
   transition: all 0.2s ease-in-out;
 }
 #modalBasic .panel .panel-body form div #loginBtn:hover {
-  background-color: #3974D9;
+  background-color: #3974d9;
 }
+
 #modalBasic .panel .panel-body form .find-content {
   margin-top: 20px;
 }
@@ -164,7 +165,7 @@
   width: 223px;
 }
 
-.login-dropdown {    
+.login-dropdown {
   width: 220px;
   left: 50% !important;
   right: 0 !important;
@@ -173,11 +174,28 @@
   /* text-align: center; */
   border-radius: 5px !important;
   background-color: #fff !important;
-  box-shadow: 0 6px 16px 0 rgb(0 0 0 / 20%) , 0 0 1px 0 rgb(0 0 0 / 20%) !important;
+  box-shadow: 0 6px 16px 0 rgb(0 0 0 / 20%), 0 0 1px 0 rgb(0 0 0 / 20%) !important;
 }
-.login-dropdown p {margin: 0; padding:0 20px 0 20px;}
-.login-dropdown #havingPoint {}
+.login-dropdown p {
+  margin: 0;
+  padding: 0 20px 0 20px;
+}
 
-.login-dropdown li a {border-bottom: none !important; padding:10px 20px 10px 20px !important;display: flex;align-items: center;font-weight: 500;}
-.login-dropdown li a i{font-size: 20px;}
+.login-dropdown #havingPoint {
+}
+
+.login-dropdown li a {
+  border-bottom: none !important;
+  padding: 10px 20px 10px 20px !important;
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+}
+.login-dropdown li a i {
+  font-size: 20px;
+}
 /* .login-dropdown li{padding: 0 10px 0 10px;} */
+
+.tab-content {
+  border: none;
+}

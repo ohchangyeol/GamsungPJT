@@ -813,7 +813,7 @@
                     <div class="tab-pane teb-iframe" id="qna">
                       <iframe src="/campBusiness/listCampQna?campNo=${camp.campNo}" scrolling="no" id="qnaschange"></iframe>
 	                      <script type="text/javascript">
-	                        function AdjustIframeHeight(i) { document.getElementById("qnaschange").style.height = parseInt(i) + "px"; }
+	                        function qnaIframeHeight(i) { document.getElementById("qnaschange").style.height = parseInt(i) + "px"; }
 	                      </script> 
                     </div>
 

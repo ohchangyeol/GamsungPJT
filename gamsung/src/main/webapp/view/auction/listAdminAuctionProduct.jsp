@@ -31,9 +31,10 @@
           <div class="container">
             <div class="row">
               <div class="col-sm-6 col-sm-offset-3">
-                <h2 class="module-title font-alt">Auction Products</h2>
-                <div class="module-subtitle font-serif">관리자가 등록한 경매 상품입니다. 10분 동안만 진행됩니다.</div>
-                <div class="module-subtitle font-serif">네이버 상품 검색 API를 통해 만든 상품 내역입니다.</div>
+                <div class="module-subtitle font-serif"></div>
+                <div class="module-subtitle font-serif"></div>
+                <div class="module-subtitle font-serif"></div>
+                <div class="module-subtitle font-serif"></div>
               </div>
             </div>
           </div>

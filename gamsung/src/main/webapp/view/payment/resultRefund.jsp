@@ -45,40 +45,16 @@
   	<!-- ### headerCampBusiness resources End ### -->  	
   	
   	<script type="text/javascript">
-  	
-		<!-- 화면 Controller Start -->		
-		// 로딩시 화면 컨트롤
-		$(function() {
-					
-			$("#bankAccount").hide();
-	  		
-			const isWireMoney = $("#paymentMethod").val();
-				
-			if( isWireMoney == "" ){
-				$("#bankAccount").show();
-			} 
-						
-		});
-		<!-- 화면 Controller End -->
-  	
+  		
 	  	$(function() {
-	  		
-			$("#refundPayment").on("click" , function() {
-				alert("환불되었습니다.");
-				$("#payForm").attr("method" , "POST").attr("action" , "/payment/refundSystem").submit();
+			$("#refundOk").on("click" , function() {
+				window.location = '/payment/listPayment';
 			});
-			
-			$("#cancle").on("click" , function() {
-				window.history.back();			
-			});
-
 		});			
   	
   	</script>	
   	
 	<style>
-	
-	    
 	    .form-horizontal .control-label{
 	        text-align: left;
 	    }	    
@@ -99,9 +75,10 @@
 	<!-- 캠핑 start-->
 	<div id="campContainer" class="container">
 		
+		<br>
 		<div class="row">
 			<div class="page-header">
-				<h4 class="text-info">환불상품내역</h4>
+				<h4 class="text-info">환불완료 상품</h4>
 			</div>					
 		</div>
 		
@@ -173,7 +150,7 @@
 	<div id="payformContainer" class="container">
 		<div class="row">
 			<div class="page-header">
-				<h4 class="text-info">환불결재내역</h4>
+				<h4 class="text-info">환불완료 결제내역</h4>
 			</div>					
 		</div>
 		
@@ -520,7 +497,7 @@
 						<div class="col-xs-4 form-group">
 						    <input type="text" id="paymentList[${i}].paymentRefundPricePay" name="paymentList[${i}].paymentRefundPricePay" value="${payment.paymentRefundPricePay}" class="form-control" readonly>
 						</div>
-						<label class="col-xs-2" style="color:#878F2B;">- 포인트결제 환불금액</label>
+						<label class="col-xs-2" style="color:#878F2B;">- 포인트 환불금액</label>
 						<div class="col-xs-4 form-group">
 						    <input type="text" id="paymentList[${i}].paymentRefundPricePaySecond" name="paymentList[${i}].paymentRefundPricePaySecond" value="${payment.paymentRefundPricePaySecond}" class="form-control" readonly>
 						</div>				
@@ -549,20 +526,6 @@
 				<input type="text" id="id" name="id" value="${user.id}" class="form-control" readonly>
 			</div>
 		</div>
-		<div id="bankAccount" class="row">	
-			<label class="col-xs-2">* 환불계좌정보 은행</label>
-			<div class="col-md-4 form-group">
-				<input type="text" id="bank" name="bank" value="${user.bank}" class="form-control" readonly>
-			</div>
-			<label class="col-xs-2">* 환불계좌정보 예금주</label>
-			<div class="col-md-4 form-group">
-				<input type="text" id="accountHolder" name="accountHolder" value="${user.accountHolder}" class="form-control" readonly>
-			</div>
-			<label class="col-xs-2">* 환불계좌정보 계좌정보</label>
-			<div class="col-md-10 form-group">
-				<input type="text" id="accountNum" name="accountNum" value="${user.accountNum}" class="form-control" readonly>
-			</div>			
-		</div>									 
 			
 		</form>	
 	</div>
@@ -573,7 +536,7 @@
 	<div id="pointButtonContainer" class="container">
 		<div class="row">		
 			<div class="col-xs-2 col-xs-offset-10">
-	            <button id="refundPayment" type="button" class="btn btn-primary">확인</button>
+	            <button id="refundOk" type="button" class="btn btn-primary">확인</button>
 	        </div>	        	    	        
 		</div>
 	</div>

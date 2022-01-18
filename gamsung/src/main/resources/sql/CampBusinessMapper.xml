@@ -220,7 +220,7 @@
 			, camp_map_img = #{campMapImg}
 			, camp_img1 =  #{campImg1}
 			, camp_img2 = #{campImg2}
-			, camp_img2 = #{campImg3}
+			, camp_img3 = #{campImg3}
 			, camp_img4 = #{campImg4}
 			, camp_img5 = #{campImg5}
 			, camp_theme1 = #{campTheme1}
