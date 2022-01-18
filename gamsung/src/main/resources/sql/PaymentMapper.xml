@@ -46,11 +46,11 @@
 	</resultMap>
 	
 	<resultMap id="siteProfitSelectMap" type="siteProfit">
-		<result property="profitRegDate" 				column="profit_reg_date" 		jdbcType="DATE"/>
-		<result property="profitPoint"					column="profit_point" 		  	jdbcType="NUMERIC"/>
-		<result property="profitCash" 					column="profit_cash" 	  		jdbcType="NUMERIC"/>
-		<result property="profitCreditcard" 			column="profit_creditcard"		jdbcType="NUMERIC"/>
-		<result property="profitSimplePay" 				column="profit_simplepay" 		jdbcType="NUMERIC"/>
+		<result property="profitRegDate" 				column="profit_reg_date" 			jdbcType="DATE"/>
+		<result property="profitPointCharge"			column="profit_point_charge" 		jdbcType="NUMERIC"/>
+		<result property="profitPointPayment" 			column="profit_point_payment" 	  	jdbcType="NUMERIC"/>
+		<result property="profitRegularPayment" 		column="profit_regular_payment"		jdbcType="NUMERIC"/>
+		<result property="profitAllPayment" 			column="profit_all_payment" 		jdbcType="NUMERIC"/>
 	</resultMap>
 	
 	<!-- SQL : Point ################################################################################################################### -->
