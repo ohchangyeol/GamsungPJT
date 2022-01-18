@@ -133,7 +133,7 @@
 		<br>
 		<div class="row">
 			<div class="page-header">
-				<h4 class="text-info">상품내역</h4>
+				<h4 class="text-info">환불예정 상품내역</h4>
 			</div>					
 		</div>
 		
@@ -205,7 +205,7 @@
 	<div id="payformContainer" class="container">
 		<div class="row">
 			<div class="page-header">
-				<h4 class="text-info">결제 및 환불예정내역</h4>
+				<h4 class="text-info">환불예정 결제내역</h4>
 			</div>					
 		</div>
 		

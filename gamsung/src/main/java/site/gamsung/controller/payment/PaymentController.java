@@ -303,6 +303,17 @@ public class PaymentController {
 			
 			}
 			
+			String paymentCode = onePayment.getPaymentCode();
+			System.out.println("paymentCode.charAt(0) : " + paymentCode.charAt(0));
+			if(paymentCode.charAt(0)=='R') {
+				
+				String tempReservationNum = onePayment.getPaymentReferenceNum().substring(1, 7);
+				System.out.println("tempReservationNum : " + tempReservationNum);
+				
+				onePayment.setPaymentReferenceNum(tempReservationNum);
+				campReservationService.cancleReservationDo(onePayment);
+			}
+			
 			paymentService.refundPayment(onePayment);
 		}
 		
