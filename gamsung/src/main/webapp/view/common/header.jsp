@@ -280,72 +280,66 @@
 			<!-- findIdPwdModal -->
 			<jsp:include page="/view/user/findIdPwdModal.jsp" />
 
-			<<<<<<< HEAD <script>
+			<script>
 				$(function () {
-				=======
-				<!-- loginModal -->
-				<jsp:include page="../user/loginModal.jsp" />
-
-				<!-- findIdPwdModal -->
-				<jsp:include page="/view/user/findIdPwdModal.jsp" />
-				>>>>>>> refs/heads/developer
-
-				// $(document).on('load', function () {
-				// $('#havingPoint').text(comma($('#havingPoint').text()));
-
-				// // 금액 "," 추가
-				// function comma(str) {
-				// str = String(str);
-				// return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
-				// }
-				// });
 
 
-				$('#addProduct').on('click', function () {
-				if (${empty sessionScope.user }){
-				alert('로그인 후 이용 가능합니다.');
-				return;
-				} else if (${ sessionScope.user.role eq 'BUSINESS' }){
-				alert('사업자 회원은 이용 불가능합니다.');
-				return;
+					// $(document).on('load', function () {
+					// $('#havingPoint').text(comma($('#havingPoint').text()));
+
+					// // 금액 "," 추가
+					// function comma(str) {
+					// str = String(str);
+					// return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+					// }
+					// });
+
+
+					$('#addProduct').on('click', function () {
+						if (${empty sessionScope.user }){
+						alert('로그인 후 이용 가능합니다.');
+						return;
+					} else if (${ sessionScope.user.role eq 'BUSINESS' }){
+					alert('사업자 회원은 이용 불가능합니다.');
+					return;
 				} else if (${ sessionScope.user.auctionSuspension != null }) {
-				alert('경매 이용 정지되었습니다. 관리자에게 문의하세요.');
-				return;
+					alert('경매 이용 정지되었습니다. 관리자에게 문의하세요.');
+					return;
 				}
 				window.location = '/auction/addAuctionProduct';
 				});
 
 				$('#adminProduct').on('click', function () {
-				if (${ sessionScope.user.auctionSuspension != null }){
-				alert('경매 이용 정지되었습니다. 관리자에게 문의하세요.');
-				return;
+					if (${ sessionScope.user.auctionSuspension != null }){
+					alert('경매 이용 정지되었습니다. 관리자에게 문의하세요.');
+					return;
 				}
 				window.location = "/auction/listAdminAuctionProduct";
 				});
 
 				$('#listWait').on('click', function () {
-				if (${ sessionScope.user.auctionSuspension != null }){
-				alert('경매 이용 정지되었습니다. 관리자에게 문의하세요.');
-				return;
+					if (${ sessionScope.user.auctionSuspension != null }){
+					alert('경매 이용 정지되었습니다. 관리자에게 문의하세요.');
+					return;
 				}
 				window.location = "/auction/listWaitAuctionProduct";
 				});
 
 				$('#listProduct').on('click', function () {
-				if (${ sessionScope.user.auctionSuspension != null }){
-				alert('경매 이용 정지되었습니다. 관리자에게 문의하세요.');
-				return;
+					if (${ sessionScope.user.auctionSuspension != null }){
+					alert('경매 이용 정지되었습니다. 관리자에게 문의하세요.');
+					return;
 				}
 				window.location = "/auction/listAuctionProduct";
 
 				});
 
 				$('#auctionAdd').on('click', function () {
-				window.location = "/auction/listMyAuctionProduct/add?currentPage=1";
+					window.location = "/auction/listMyAuctionProduct/add?currentPage=1";
 				});
 				});
 
 
 
 
-				</script>
+			</script>
