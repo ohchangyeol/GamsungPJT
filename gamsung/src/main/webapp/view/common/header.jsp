@@ -69,35 +69,41 @@
 
 
 
-						<!-- My / Business / Admin  Start -->
-						<c:if test="${user.role == 'BUSINESS'}">
-							<li><a href="/campBusiness/goSubMainCampBusiness">BusinessPage</a>
-						</c:if>
-
-						<c:if test="${user.role == 'ADMIN' }">
-							<li><a href="/admin">AdminPage</a>
-						</c:if>
-
-						<c:if test="${user.role != 'BUSINESS' && sessionScope.user != null}">
+						<!-- GENERAL / BUSINESS / Admin  Start -->
+						<c:if test="${sessionScope.user != null}">
 							<li class="dropdown">
+							
+							
 								<c:if test="${user.role=='ADMIN'}">
-									<a class="dropdown-toggle" href="/admin" data-toggle="dropdown">${user.nickName}님</a>
+									<a class="dropdown-toggle" href="/admin" data-toggle="dropdown">${user.nickName} 님</a>
 								</c:if>
 								
-								<c:if test="${user.role != 'ADMIN'}">
-									<a class="dropdown-toggle" href="/user/mypage" data-toggle="dropdown">${user.nickName}님</a>
+								<c:if test="${user.role == 'BUSINESS'}">
+									<a class="dropdown-toggle" href="/campBusiness/goSubMainCampBusiness" data-toggle="dropdown">${user.campName} 님 [사업자]</a>
+								</c:if>
+								
+								<c:if test="${user.role == 'GENERAL'}">
+									<a class="dropdown-toggle" href="/user/mypage" data-toggle="dropdown">${user.nickName} 님</a>
 								</c:if>
 								
 								<ul class="dropdown-menu login-dropdown">
-									<li><p style="padding-bottom: 10px;">경매 등급 <span class="badge rounded-pill bg-info text-dark auction-lv">${user.auctionGrade}LV</span>	</p></li>
+									
+									<c:if test="${user.role != 'BUSINESS'}">
+										<li><p style="padding-bottom: 10px;">경매 등급 <span class="badge rounded-pill bg-info text-dark auction-lv">${user.auctionGrade}LV</span>	</p></li>
+									</c:if>
+									
 									<li><p>보유 포인트</p><p style="padding-bottom: 10px; border-bottom: 1px #ddd solid;">
 											<span id="havingPoint" class="main-color" style="font-weight: 700;">${user.havingPoint} </span>p</p></li>
-
+							
 									<c:if test="${user.role == 'ADMIN' }">
 										<li><a href="/admin">AdminPage</a></li>
 									</c:if>
-									
-									<c:if test="${user.role != 'ADMIN'}">
+							
+									<c:if test="${user.role == 'BUSINESS'}">
+										<li><a href="/campBusiness/goSubMainCampBusiness">BusinessPage</a>
+									</c:if>	
+							
+									<c:if test="${user.role == 'GENERAL'}">
 										<li><a href="/user/mypage" style="border-bottom: none !important;"><i class="bi bi-person-circle"></i>&nbsp;내정보</a></li>
 										<li><a href="/community/listMyPost" style="border-bottom: none !important;"><i class="bi bi-filter-square"></i>&nbsp;커뮤니티</a></li>
 										<li><a href="" style="border-bottom: none !important;"><i class="bi bi-truck">&nbsp;</i>캠핑장</a></li>
@@ -107,7 +113,7 @@
 										<li><a href="/payment/managePoint" style="border-bottom: none !important;"><i class="fa fa-money" aria-hidden="true"></i>&nbsp;포인트 관리</a></li>
 									</c:if>
 									
-									<li><a href="#" style="border-bottom: none !important;"><button	class="btn btn-border-w btn-round btn-xs" type="button"	id="logout">LOGOUT</button></a></li>
+									<li><a href="/user/logout" style="border-bottom: none !important;"><button	class="btn btn-border-w btn-round btn-xs" type="button"	id="logout">LOGOUT</button></a></li>
 
 								</ul>
 							</li>
@@ -134,6 +140,7 @@
 
 		<!-- loginModal -->
 		<jsp:include page="../user/loginModal.jsp" />
+		
 		<!-- findIdPwdModal -->
 		<jsp:include page="/view/user/findIdPwdModal.jsp" />
 

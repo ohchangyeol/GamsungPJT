@@ -66,7 +66,7 @@
 		<div class="collapse navbar-collapse" id="custom-collapse">
 			<ul class="nav navbar-nav navbar-right"> 
 
-				<li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">캠핑장 관리</a>
+				<li class="dropdown"><a class="dropdown-toggle" href="/campBusiness/goSubMainCampBusiness" data-toggle="dropdown">캠핑장 관리</a>
 					<ul class="dropdown-menu">
 						<c:if test="${campSession.campTempSave == '3' || campSession.user.role == 'ADMIN'}">
 							<li><a href="#">캠핑장정보 조회</a></li>
@@ -125,15 +125,38 @@
 					</ul>
 				</li>
 				
-				<li class="dropdown"><a class="dropdown-toggle" href="/campBusiness/goSubMainCampBusiness" data-toggle="dropdown">${campSession.user.campName} [사업자회원]</a>
+				<li class="dropdown"><a class="dropdown-toggle" href="/campBusiness/goSubMainCampBusiness" data-toggle="dropdown">${campSession.user.campName} [사업자]</a>
 					<ul class="dropdown-menu">
-						<li><a href="#">보유 포인트 - ${campSession.user.havingPoint} (P)</a></li>
-						<li><a href="/payment/managePoint">포인트 관리</a></li>
-						<li><a href="/payment/listPayment">결제 내역</a></li>
-						<li><br></li>
-						<li><a href="../view/user/getBusinessUserUpdate.jsp">내 정보</a></li>
-						<li><br></li>
-						<li><a href="/user/logout">로그아웃</a></li>
+						<li>
+							<p>보유 포인트</p>
+							<p style="padding-bottom: 10px; border-bottom: 1px #ddd solid;">
+								<span id="havingPoint" class="main-color" style="font-weight: 700;">${user.havingPoint}</span>p
+							</p>
+						</li>
+						
+						<li>
+							<a href="/payment/listPayment" style="border-bottom: none !important;">
+								<i class="fa fa-money" aria-hidden="true"></i>&nbsp;결제 내역
+							</a>
+						</li>
+										
+						<li>
+							<a href="/payment/managePoint" style="border-bottom: none !important;">
+								<i class="fa fa-money" aria-hidden="true"></i>&nbsp;포인트 관리
+							</a>
+						</li>
+						
+						<li>
+							<a href="../view/user/getBusinessUserUpdate.jsp" style="border-bottom: none !important;">
+								<i class="bi bi-person-circle"></i>&nbsp;내정보
+							</a>
+						</li>
+																	
+						<li>
+							<a href="/user/logout" style="border-bottom: none !important;">
+								<button	class="btn btn-border-w btn-round btn-xs" type="button"	id="logout">LOGOUT</button>
+							</a>
+						</li>
 					</ul>
 				</li>
 
