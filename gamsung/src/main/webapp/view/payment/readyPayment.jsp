@@ -473,8 +473,12 @@
 						}	
 						
 						const paymentPriceTotal = $("#paymentPriceTotal").val();						
+
 						$("#paymentPriceTotal").val(uncomma(paymentPriceTotal));
 						$("#paymentSender").val( $("#pay_buyerEmail").val() );
+						$("#impUid").val(rsp.imp_uid);
+						console.log("imp_uid : "+rsp.imp_uid);
+						
 						$("#payForm").attr("method" , "POST").attr("action" , "/payment/paymentSystem").submit();	
 						
 					} else {
@@ -842,7 +846,8 @@
 			<input type="hidden" id="paymentReceiver" name="paymentReceiver" value="${payment.paymentReceiver}">	
 			<input type="hidden" id="paymentCode" name="paymentCode" value="unknownPC">	
 			<input type="hidden" id="pointChargeTotal" name="pointChargeTotal" value="0">
-			<input type="hidden" id="paymentProductPriceTotal" name="paymentProductPriceTotal" value="0">			
+			<input type="hidden" id="paymentProductPriceTotal" name="paymentProductPriceTotal" value="0">
+			<input type="hidden" id="impUid" name="impUid" value="unknownUid">			
 			
 			<div class="row">
 				<div id="paySecond" class="row">			

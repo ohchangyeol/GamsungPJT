@@ -42,8 +42,6 @@ pageEncoding="UTF-8"%>
 	<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales-all.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
 	
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-	
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css">
 
@@ -71,47 +69,62 @@ pageEncoding="UTF-8"%>
 			  	dayMaxEvents: true, 											// 이벤트가 오버되면 높이 제한 (+ 몇 개식으로 표현)
 			  	nowIndicator: true, 											// 현재 시간 마크
 			  	contentHeight: 'auto',
-			  	eventSources: [{
-			  		events: function(info, successCallback, failureCallback) {
-			             $.ajax({
-			                    url: '/campBusiness/rest/listCampReservationJSON?campNo='+campNo,
-	 							type: 'GET',
-	 							dataType: 'json',
-	 						    success: function(data) {
-	 				                
-	 						    	console.log(data);
-	 					
-	 						    	$.each(data, function(index, item){
-	 						    		calendar.addEvent( item );
-	 						    	});
-									
-	 						    	calendar.render();
-	 				                	
-	 				            }
-			             }); 
-			         }, 
-				}]		
-			});
+			  	editable: false,
+			    droppable: false,
+			  	events: function(info, successCallback, failureCallback) {
+					$.ajax({
+						url: '/campBusiness/rest/listCampReservationJSON?campNo='+campNo,
+						type: 'GET',
+						dataType: 'json',
+						success: 
+							function(result) {
+					          
+								console.log(result);
+								
+								 var events = [];
+								
+								 if(result != null){
+									 
+									 $.each(result, function(index, element) {
+		                                 
+		                                 events.push({
+                                             title: element.title,
+                                             start: element.start,
+                                             end: element.end,
+                                             url: element.url,
+                                             color: element.color,
+                                             textColor : element.textColor,
+                                             allday : element.allday
+                                          }); 									//.push()
+											
+									 }); 										//.each()
+									 console.log(events);
+
+								 }												//if end   
+					
+		                 successCallback(events);  
+					     }														//success: function end 
+					
+					}); 														//ajax end
+					
+			  	},																//events:function end 
+					
+			});																	//new FullCalendar end
+			calendar.render();
+			
 	    });
 	    
-	    
- /*   
-	    $("#btnAddTest").click(function(){
-	    	 var arr = getCalendarDataInDB();
-	    	 $.each(arr, function(index, item){
-	    	  calendar.addEvent( item );
-	    	 });
-	    	 calendar.render();
-	    	});
- */
-
  </script>
 	
 	<style>
-		
-	
-	
-	</style>	
+	    body > div.container{
+	        margin-top: 60px;
+	    }
+	    
+	    .form-horizontal .control-label{
+	        text-align: left;
+	    	
+	</style>
 
 </head>
 	  
@@ -125,7 +138,7 @@ pageEncoding="UTF-8"%>
 	
 		<div class="row">
 			<div class="sub-title">
-				<h3>${user.campName} [${user.id}]</h3>			
+				<h3>${user.campName} [${user.id}] 예약현황</h3>			
 			</div>
 		</div>
 		

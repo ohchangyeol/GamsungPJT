@@ -21,6 +21,7 @@ import site.gamsung.service.camp.CampReservationService;
 import site.gamsung.service.domain.CampReservation;
 import site.gamsung.service.domain.Payment;
 import site.gamsung.service.domain.PaymentCode;
+import site.gamsung.service.domain.PointTransfer;
 import site.gamsung.service.domain.User;
 import site.gamsung.service.payment.PaymentService;
 import site.gamsung.service.user.UserService;
@@ -167,10 +168,6 @@ public class PaymentController {
 		String referenceNum = null;
 		String refNum = null;
 		
-		//paymentNo = "P000000005";																			// 테스트
-		//reservationNo = "R00011";																			// 테스트
-		//paymentRefundCode = "R3";																			// 테스트
-		
 		System.out.println("paymentNo : " + paymentNo);														// 테스트
 		System.out.println("reservationNo : " + reservationNo);												// 테스트
 		System.out.println("paymentRefundCode : " + paymentRefundCode);										// 테스트
@@ -260,7 +257,62 @@ public class PaymentController {
 		for (int cnt = 0; cnt < paymentListFromParam.size(); cnt++) {
 			
 			Payment onePayment = paymentListFromParam.get(cnt);
-			System.out.println("paymentRecordList1 : "+cnt+" : " + onePayment);						// 테스트
+			onePayment.setPaymentStatus(3);
+			System.out.println("paymentRecordList : "+cnt+" : " + onePayment);						// 테스트
+			
+			if(onePayment.getPaymentMethodSecond() != null) {
+				
+				String sender = onePayment.getPaymentSender();
+				String receiver = onePayment.getPaymentReceiver();
+				
+				// 기존 포인트 취소
+				PointTransfer senderCase = new PointTransfer();
+				senderCase.setUserId(sender);
+				senderCase.setPointAmount(onePayment.getPaymentPriceTotalSecond());
+				paymentService.pointUpdateById(senderCase);
+				
+				PointTransfer receiverCase = new PointTransfer();
+				receiverCase.setUserId(receiver);
+				receiverCase.setPointAmount(onePayment.getPaymentPricePaySecond() * -1);
+				paymentService.pointUpdateById(receiverCase);
+				
+				PointTransfer adminCase = new PointTransfer();
+				adminCase.setUserId("admin");
+				adminCase.setPointAmount(onePayment.getPaymentPriceFeeSecond() * -1);				
+				paymentService.pointUpdateById(adminCase);
+
+				
+				// 환불규정 참조 재결제
+				PaymentCode onePaymentCodeInfo = paymentService.getPaymentCodeInfo(onePayment.getPaymentRefundCode());
+				PointTransfer newCase = new PointTransfer();
+				
+				int pointAmount = onePayment.getPaymentPriceTotalSecond();
+				int feeRate = onePaymentCodeInfo.getPaymentCodeFee();	
+				int adminFee = pointAmount * feeRate / 100;
+				int pointAmountAfterFee = pointAmount - adminFee;
+				
+				newCase.setSenderId(sender);
+				newCase.setReceiverId(receiver);
+				newCase.setPointAmount(pointAmount);
+				newCase.setFeeRate(feeRate);
+				paymentService.pointTransferByUsers(newCase);
+				
+				onePayment.setPaymentRefundPriceTotalSecond(pointAmount);
+				onePayment.setPaymentRefundPricePaySecond(pointAmountAfterFee);
+				onePayment.setPaymentRefundPriceFeeSecond(adminFee);
+			
+			}
+			
+			String paymentCode = onePayment.getPaymentCode();
+			System.out.println("paymentCode.charAt(0) : " + paymentCode.charAt(0));
+			if(paymentCode.charAt(0)=='R') {
+				
+				String tempReservationNum = onePayment.getPaymentReferenceNum().substring(1, 7);
+				System.out.println("tempReservationNum : " + tempReservationNum);
+				
+				onePayment.setPaymentReferenceNum(tempReservationNum);
+				campReservationService.cancleReservationDo(onePayment);
+			}
 			
 			paymentService.refundPayment(onePayment);
 		}

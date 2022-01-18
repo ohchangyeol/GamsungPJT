@@ -3,7 +3,6 @@ package site.gamsung.service.domain;
 import java.util.List;
 
 /*
-	  
 	=== [ Payment domain ]===	  
   
 	String 	paymentMethod						              
@@ -15,15 +14,9 @@ import java.util.List;
 	
 	
 	int paymentStatus
-		1			- 포인트[지급]
-		2			- 포인트[차감]
-		3			- 결제완료
-		4			- 추가결제완료		
-		5			- 환불완료
-	
-	     
-           
-
+		1			- 포인트이동
+		2			- 결제완료
+		3			- 환불완료
 */
 
 public class Payment {
@@ -40,6 +33,7 @@ public class Payment {
 	private String paymentCode;	
 	private String paymentReferenceNum;	
 	private int paymentReferenceFee;
+	private String impUid;
 	
 	private String paymentMethod;
 	private int paymentPriceTotal;
@@ -161,6 +155,14 @@ public class Payment {
 
 	public void setPaymentReferenceFee(int paymentReferenceFee) {
 		this.paymentReferenceFee = paymentReferenceFee;
+	}
+
+	public String getImpUid() {
+		return impUid;
+	}
+
+	public void setImpUid(String impUid) {
+		this.impUid = impUid;
 	}
 
 	public String getPaymentMethod() {
@@ -339,6 +341,7 @@ public class Payment {
 			+ "\n [paymentCode] : " + paymentCode 
 			+ "\n [paymentReferenceNum] : " + paymentReferenceNum 
 			+ "\n [paymentReferenceFee] : " + paymentReferenceFee 
+			+ "\n [impUid] : " + impUid 
 			+ "\n "			
 			+ "\n [paymentMethod] : " + paymentMethod		
 			+ "\n [paymentPriceTotal] : " + paymentPriceTotal 

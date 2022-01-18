@@ -15,7 +15,8 @@
 		<result property="paymentProductPriceTotal" 		column="payment_Product_Price_Total"			jdbcType="NUMERIC"/>	
 		<result property="paymentRegTime" 					column="payment_reg_time" 				  		jdbcType="TIMESTAMP"/>
 		<result property="paymentCode" 						column="payment_code" 	  						jdbcType="VARCHAR"/>	
-		<result property="paymentReferenceNum"				column="payment_reference_num" 		 		 	jdbcType="VARCHAR"/>		
+		<result property="paymentReferenceNum"				column="payment_reference_num" 		 		 	jdbcType="VARCHAR"/>
+		<result property="impUid"							column="imp_uid" 		 		 	jdbcType="VARCHAR"/>		
 		<result property="paymentMethod" 					column="payment_method"  						jdbcType="VARCHAR"/>				
 		<result property="paymentPriceTotal" 				column="payment_price_total" 			 		jdbcType="NUMERIC"/>
 		<result property="paymentPricePay" 					column="payment_price_pay" 						jdbcType="NUMERIC"/>
@@ -45,11 +46,11 @@
 	</resultMap>
 	
 	<resultMap id="siteProfitSelectMap" type="siteProfit">
-		<result property="profitRegDate" 				column="profit_reg_date" 		jdbcType="DATE"/>
-		<result property="profitPoint"					column="profit_point" 		  	jdbcType="NUMERIC"/>
-		<result property="profitCash" 					column="profit_cash" 	  		jdbcType="NUMERIC"/>
-		<result property="profitCreditcard" 			column="profit_creditcard"		jdbcType="NUMERIC"/>
-		<result property="profitSimplePay" 				column="profit_simplepay" 		jdbcType="NUMERIC"/>
+		<result property="profitRegDate" 				column="profit_reg_date" 			jdbcType="DATE"/>
+		<result property="profitPointCharge"			column="profit_point_charge" 		jdbcType="NUMERIC"/>
+		<result property="profitPointPayment" 			column="profit_point_payment" 	  	jdbcType="NUMERIC"/>
+		<result property="profitRegularPayment" 		column="profit_regular_payment"		jdbcType="NUMERIC"/>
+		<result property="profitAllPayment" 			column="profit_all_payment" 		jdbcType="NUMERIC"/>
 	</resultMap>
 	
 	<!-- SQL : Point ################################################################################################################### -->
@@ -73,6 +74,7 @@
 						payment_reg_time, 
 						payment_code, 
 						payment_reference_num, 
+						imp_uid,
 						payment_method, 
 						payment_price_total, 
 						payment_price_pay, 
@@ -89,6 +91,7 @@
 				, now(6)				
 				, #{paymentCode}
 				, #{paymentReferenceNum}
+				, #{impUid}
 				, #{paymentMethod}
 				, #{paymentPriceTotal :NUMERIC}
 				, #{paymentPricePay :NUMERIC}
@@ -108,6 +111,7 @@
 				payment_reg_time, 
 				payment_code, 
 				payment_reference_num, 
+				imp_uid,
 				payment_method, 
 				payment_price_total, 
 				payment_price_pay, 
@@ -136,6 +140,9 @@
 			</if>
 			<if test="paymentCode != null">
 				AND payment_code = #{paymentCode}			
+			</if>
+			<if test="paymentReferenceNum != null">
+				AND imp_uid = #{impUid}			
 			</if>
 			<if test="paymentReferenceNum != null">
 				AND payment_reference_num = #{paymentReferenceNum}			
@@ -170,7 +177,7 @@
 	<select id="listPayment" parameterType="search" resultMap="paymentSelectMap">
 		<if test="role == 'ADMIN'">
 			SELECT	payment_no, payment_status, payment_product, payment_sender, payment_receiver, payment_Product_Price_Total, 
-					payment_reg_time, payment_code, payment_reference_num, 
+					payment_reg_time, payment_code, payment_reference_num, imp_uid,
 					payment_method, payment_price_total, payment_price_pay, payment_price_fee, 
 					payment_method_second, payment_price_total_second, payment_price_pay_second, payment_price_fee_second, 
 					payment_refund_reg_time, payment_refund_code, payment_refund_reference_num, 
@@ -182,7 +189,7 @@
 	
 		<if test="role != 'ADMIN'">
 			SELECT	payment_no, payment_status, payment_product, payment_sender, payment_receiver, payment_Product_Price_Total, 
-				payment_reg_time, payment_code, payment_reference_num, 
+				payment_reg_time, payment_code, payment_reference_num,
 				payment_method, payment_price_total, payment_method_second, payment_price_total_second, 
 				payment_refund_reg_time, payment_refund_code, payment_refund_reference_num, 
 				payment_refund_price_total,  payment_refund_price_total_second  	
@@ -219,7 +226,7 @@
 			, payment_refund_price_fee_second = #{paymentRefundPriceFeeSecond}
 	   	WHERE payment_no = #{paymentNo}
 	</update>
-
+	
 	
 	<!-- SQL : PaymentCode ################################################################################################################### -->
 	

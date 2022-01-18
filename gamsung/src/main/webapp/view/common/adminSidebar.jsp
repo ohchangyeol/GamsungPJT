@@ -121,125 +121,123 @@
                             </ul>
                         </li>
 
-                        <!--     
-
-                    <hr class="separator" />
+		            <!--     
+		
+	                     <li class="nav-parent">
+	                        <a>
+	                            <i class="fa fa-money" aria-hidden="true"></i>
+	                            <span>캠핑장관리</span>
+	                        </a>
+	
+	                        <ul class="nav nav-children">                    
+	                        
+	                            <li>
+	                                <a href="/campBusiness/listCamp">
+	                                    캠핑장 목록
+	                                </a>
+	                            </li>
+	                            <li>
+	                                <a href="/campBusiness/listMainSite">
+	                                    캠핑장-주요시설 목록
+	                                </a>
+	                            </li>
+	                            <li>
+	                                <a href="/campBusiness/listSubSite">
+	                                    캠핑장-부가시설 목록
+	                                </a>
+	                            </li>
+	                            <li>
+	                                <a href="/campBusiness/listCampQna">
+	                                    캠핑장-Q&A 목록
+	                                </a>
+	                            </li>
+	                            <li>
+	                                <a href="/campBusiness/listCampNotice">
+	                                    캠핑장-공지사항 목록
+	                                </a>
+	                            </li>
+	                         
+	                        
+	                        </ul>
+	                    </li>
+	
+		            --> 
                     
-                     <li class="nav-parent">
-                        <a>
-                            <i class="fa fa-money" aria-hidden="true"></i>
-                            <span>캠핑장관리</span>
-                        </a>
+		                    <li class="nav-parent">
+		                        <a>
+		                            <i class="fa fa-gavel" aria-hidden="true"></i>
+		                            <span>경매관리</span>
+		                        </a>
+		                        <ul class="nav nav-children">
+		                            <li>
+		                                <a href="/auction/auctionSuspension?currentPage=1">
+		                                   경매 이용정지 회원관리
+		                                </a>
+		                            </li>
+		                             <li>
+		                                <a href="/auction/auctionStatistics">
+		                                   경매 통계
+		                                </a>
+		                            </li>
+		                        </ul>
+		                    </li>
+                    
+                    
+		                    <li class="nav-parent">
+		                        <a>
+		                            <i class="fa fa-align-left" aria-hidden="true"></i>
+		                            <span>고객 센터</span>
+		                        </a>
+		                        <ul class="nav nav-children">
+		                            <li class="nav-parent">
+		                                <a>공지사항</a>
+		                                <ul class="nav nav-children">
+		                                    <li>
+		                                        <a href="/servicecenter/addNotice">공지사항 등록</a>
+		                                    </li>
+		                                    <li>
+		                                        <a href="/servicecenter/listNotice">공지사항 목록</a>
+		                                    </li>
+		                                </ul>
+		                            </li>
+		                            <li>
+		                                <a href="/servicecenter/listQna">Q & A</a>
+		                            </li>
+		                            <li>
+		                                <a href="/servicecenter/listReport">신고 내역</a>
+		                            </li>
+		                        </ul>
+		                    </li>
+                    
+                    
+		                    <li class="nav-parent">
+		                        <a>
+		                            <i class="fa fa-money" aria-hidden="true"></i>
+		                            <span>결제관리</span>
+		                        </a>
+		                        <ul class="nav nav-children">
+		                            <li>
+		                                <a href="/payment/listSiteProfit">
+		                                    사이트수익
+		                                </a>
+		                            </li>
+		                            <li>
+		                                <a href="/payment/listPayment">
+		                                    결제내역
+		                                </a>
+		                            </li>
+		                            <li>
+		                                <a href="/payment/listPaymentCode">
+		                                    결제코드관리
+		                                </a>
+		                            </li>
+		                        </ul>
+		                    </li>
+                    
+		                </ul>
+		            </nav>
+		         <!-- 메뉴 End -->
 
-                        <ul class="nav nav-children">                    
-                        
-                            <li>
-                                <a href="/campBusiness/listCamp">
-                                    캠핑장 목록
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/campBusiness/listMainSite">
-                                    캠핑장-주요시설 목록
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/campBusiness/listSubSite">
-                                    캠핑장-부가시설 목록
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/campBusiness/listCampQna">
-                                    캠핑장-Q&A 목록
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/campBusiness/listCampNotice">
-                                    캠핑장-공지사항 목록
-                                </a>
-                            </li>
-                         
-                        
-                        </ul>
-                    </li>
-                    -->
-
-                        <li class="nav-parent">
-                            <a>
-                                <i class="fa fa-money" aria-hidden="true"></i>
-                                <span>결제관리</span>
-                            </a>
-                            <ul class="nav nav-children">
-                                <li>
-                                    <a href="/payment/listSiteProfit">
-                                        사이트수익
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/payment/listPayment">
-                                        결제내역
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/payment/listPaymentCode">
-                                        결제코드관리
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-
-
-
-                        <li class="nav-parent">
-                            <a>
-                                <i class="fa fa-gavel" aria-hidden="true"></i>
-                                <span>경매관리</span>
-                            </a>
-                            <ul class="nav nav-children">
-                                <li>
-                                    <a href="/auction/auctionSuspension?currentPage=1">
-                                        경매 이용정지 회원관리
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/auction/auctionStatistics">
-                                        경매 통계
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-
-
-
-                        <li class="nav-parent">
-                            <a>
-                                <i class="fa fa-align-left" aria-hidden="true"></i>
-                                <span>고객 센터</span>
-                            </a>
-                            <ul class="nav nav-children">
-                                <li class="nav-parent">
-                                    <a>공지사항</a>
-                                    <ul class="nav nav-children">
-                                        <li>
-                                            <a href="/servicecenter/addNotice">공지사항 등록</a>
-                                        </li>
-                                        <li>
-                                            <a href="/servicecenter/listNotice">공지사항 목록</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="/servicecenter/listQna">Q & A</a>
-                                </li>
-                                <li>
-                                    <a href="/servicecenter/listReport">신고 내역</a>
-                                </li>
-                            </ul>
-                        </li>
-
-                    </ul>
-                </nav>
-                <!-- 메뉴 End -->
 
                 <hr class="separator" />
                 <hr class="separator" />

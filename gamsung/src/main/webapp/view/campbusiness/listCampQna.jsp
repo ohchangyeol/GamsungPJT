@@ -45,9 +45,10 @@
     <link id="color-scheme" href="/resources/css/colors/default.css" rel="stylesheet">  
   	<!-- ### headerCampBusiness resources End ### -->
   
+  
   	<style>
 	  body {
-            padding-top : 30px;
+            padding-top : 50px;
         }
     </style>
 
@@ -79,15 +80,10 @@
 		<jsp:include page="/view/common/headerCampBusiness.jsp" />	  	
 	</c:if>
 	
-	<c:if test="${user.role == 'GENERAL' && campNo == '0'}">
+	<c:if test="${user.role == 'GENERAL'}">
 		<jsp:include page="/view/common/header.jsp" />	
 	</c:if>
-	
-	<c:if test="${!empty user.id && campNo == '0'}">
-		<jsp:include page="/view/common/userSideBar.jsp" />
-	</c:if>
-	
-   	
+	   	
    	<!-- Page Start -->
 	<div class="container">
 	

@@ -2,7 +2,7 @@
 /* Notice Layout */
 li {list-style: none;}
 .inner-body-notice{padding-top: 50px;}
-.container .row h4 {font-weight: 600;}
+.container .row h4 {font-size: 34px;}
 .container .row h4 a{ display: flex !important; justify-content: space-between; align-items: center;}
 .container .row h4 a div {margin-right: 30px;}
 .content-with-menu-container{margin-top: 55px;}

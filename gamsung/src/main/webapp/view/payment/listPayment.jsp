@@ -177,34 +177,34 @@
 					},
 
 					columnDefs: [
-						{ targets: 0,  width: 150 },
-						{ targets: 1,  width: 100 },
-						{ targets: 2,  width: 200 },
-						{ targets: 3,  width: 250 },
-						{ targets: 4,  width: 250 },
-						{ targets: 5,  width: 100 },
-						{ targets: 6,  width: 200 },
-						{ targets: 7,  width: 200 },
-						{ targets: 8,  width: 330 },
-						{ targets: 9,  width: 80 },
-						{ targets: 10,  width: 120 },
-						{ targets: 11, width: 100 },
-						{ targets: 12, width: 100 },
-						{ targets: 13, width: 100 },
+						{ targets: 0,  width: 170 },
+						{ targets: 1,  width: 120 },
+						{ targets: 2,  width: 220 },
+						{ targets: 3,  width: 270 },
+						{ targets: 4,  width: 270 },
+						{ targets: 5,  width: 120 },
+						{ targets: 6,  width: 220 },
+						{ targets: 7,  width: 220 },
+						{ targets: 8,  width: 370 },
+						{ targets: 9,  width: 100 },
+						{ targets: 10, width: 140 },
+						{ targets: 11, width: 120 },
+						{ targets: 12, width: 120 },
+						{ targets: 13, width: 120 },
 						{ targets: 14, width: 100 },
-						{ targets: 15, width: 120 },
-						{ targets: 16, width: 120 },
-						{ targets: 17, width: 120 },
-						{ targets: 18, width: 200 },
-						{ targets: 19, width: 80 },
-						{ targets: 20, width: 300 },
-						{ targets: 21, width: 100 },
-						{ targets: 22, width: 100 },
-						{ targets: 23, width: 100 },
-						{ targets: 24, width: 100 },
-						{ targets: 25, width: 120 },
-						{ targets: 26, width: 120 },
-						{ targets: 27, width: 120 }
+						{ targets: 15, width: 140 },
+						{ targets: 16, width: 140 },
+						{ targets: 17, width: 140 },
+						{ targets: 18, width: 220 },
+						{ targets: 19, width: 100 },
+						{ targets: 20, width: 320 },
+						{ targets: 21, width: 120 },
+						{ targets: 22, width: 120 },
+						{ targets: 23, width: 120 },
+						{ targets: 24, width: 120 },
+						{ targets: 25, width: 140 },
+						{ targets: 26, width: 140 },
+						{ targets: 27, width: 140 }
 					],
 					ajax : {
 					    url :"/payment/rest/listPayment",
@@ -281,26 +281,28 @@
 					    {targets: 8, data: "paymentReferenceNum",
 					    	render: function ( data, type, row, meta ) {
 					    		
-					    		var codeLetter = data.charAt(1);
-					    		var refNum = "";
-					    		refNum = refNum.trim();
-					    							    		
-					    		console.log("codeLetter"+codeLetter+"codeLetter");
-					    		console.log(refNum);		    		
-					    		
-					    		if(codeLetter == 'R'){
+					    		var refNum = "";				    							    		
+					    		console.log(data);
+					    				    							    		
+					    		if(data.charAt(1) == 'R'){
+					    			
 					    			refNum = data.substring(1,7);
+					    			refNum = refNum.trim();
+					    			
+					    			console.log("R : "+data.charAt(1));
 					    			console.log("R : "+refNum);
+					    			
 					    			return '<a href="/campGeneral/getMyReservation?reservationNo='+refNum+'">'+data+' 상세내역</a>';
 					    			
-					    		} else if(codeLetter == 'P'){
-					    			refNum = data.substring(1,10);
-					    			console.log("P : "+refNum);
-					    			return '<a href="/auction/getAuctionProduct?auctionProductNo='+refNum+'">'+data+' 상세내역</a>';
+					    		} else if(data.substring(1,5) == 'PROD'){
 					    			
-					    		} else if(codeLetter =='T') {
-					    			refNum = data;
-				    				return '<a href="/campGeneral/getMyReservation?reservationNo='+refNum+'">'+data+' 상세내역</a>';
+					    			refNum = data.substring(1,10);
+					    			refNum = refNum.trim();
+					    			
+					    			console.log("P : "+data.substring(1,5));
+					    			console.log("P : "+refNum);
+					    			
+					    			return '<a href="/auction/getAuctionProduct?auctionProductNo='+refNum+'">'+data+' 상세내역</a>';
 					    			
 					    		} else {
 					    			return data;
@@ -583,24 +585,24 @@
 					},
 
 					columnDefs: [
-						{ targets: 0,  width: 100 },
-						{ targets: 1,  width: 100 },
-						{ targets: 2,  width: 200 },
-						{ targets: 3,  width: 250 },
-						{ targets: 4,  width: 250 },
-						{ targets: 5,  width: 100 },
-						{ targets: 6,  width: 200 },
-						{ targets: 7,  width: 200 },
-						{ targets: 8,  width: 300 },
-						{ targets: 9,  width: 120 },
-						{ targets: 10,  width: 100 },
-						{ targets: 11, width: 100 },
-						{ targets: 12, width: 120 },
-						{ targets: 13, width: 200 },
-						{ targets: 14, width: 80 },
-						{ targets: 15, width: 300 },
-						{ targets: 16, width: 100 },
-						{ targets: 17, width: 120 }
+						{ targets: 0,  width: 120 },
+						{ targets: 1,  width: 120 },
+						{ targets: 2,  width: 220 },
+						{ targets: 3,  width: 270 },
+						{ targets: 4,  width: 270 },
+						{ targets: 5,  width: 120 },
+						{ targets: 6,  width: 220 },
+						{ targets: 7,  width: 220 },
+						{ targets: 8,  width: 370 },
+						{ targets: 9,  width: 140 },
+						{ targets: 10, width: 140 },
+						{ targets: 11, width: 120 },
+						{ targets: 12, width: 140 },
+						{ targets: 13, width: 220 },
+						{ targets: 14, width: 100 },
+						{ targets: 15, width: 320 },
+						{ targets: 16, width: 120 },
+						{ targets: 17, width: 140 }
 					],
 					ajax : {
 					    url :"/payment/rest/listPayment",
@@ -698,7 +700,7 @@
 					    			console.log("P : "+data.substring(1,5));
 					    			console.log("P : "+refNum);
 					    			
-					    			return '<a href="/auction/getAuctionProduct/auctionProductNo?='+refNum+'">'+data+' 상세내역</a>';
+					    			return '<a href="/auction/getAuctionProduct?auctionProductNo='+refNum+'">'+data+' 상세내역</a>';
 					    			
 					    		} else {
 					    			return data;
@@ -828,13 +830,12 @@
 
 	<style>
 	    body > div.container-fluid{
-	        margin-top: 20px;
+	        margin-top: 60px;
 	    }
 	    
 	    .form-horizontal .control-label{
 	        text-align: left;
-	    }
-	
+	    	
 	</style>	
 
 

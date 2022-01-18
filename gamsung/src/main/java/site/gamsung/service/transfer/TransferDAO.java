@@ -25,8 +25,8 @@ public interface TransferDAO {
 	
 	public int getTotalCount(Search search) throws Exception ;
 	
-	public List<Transfer> listTransferForReceive(String userId)throws Exception;
-	
+	public List<Transfer> listTransferForReceive(String userId) throws Exception;
 	/* 회원탈퇴가능여부 */
 	public boolean isSecessionTransferCondition(String id)throws Exception;
+
 }
