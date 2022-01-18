@@ -1,7 +1,5 @@
 package site.gamsung.controller.user;
 
-import java.time.LocalDate;
-import java.util.Date;
 import java.util.Random;
 
 import javax.servlet.http.HttpSession;
@@ -9,7 +7,6 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -123,12 +120,6 @@ public class UserRestController {
 	}
 
 	// 아이디찾기
-	/*
-	 * @RequestMapping(value = "rest/findId", method = RequestMethod.GET) public
-	 * String findId(){ return "forward:/view/user/findIdModal.jsp"; }
-	 */
-
-	// 아이디찾기
 	@RequestMapping(value = "rest/findId", method = RequestMethod.POST)
 	public String findId(@RequestParam("name") String name, @RequestParam("phone") String phone) {
 
@@ -166,20 +157,7 @@ public class UserRestController {
 		  }else {
 			  return 0;
 		  }
-		 
-		
-		/*
-		 * User user = new User(); user.setId(id); user.setName(name);
-		 * user.setPhone(phone);
-		 */
-		  
-//		  User newUser=userService.findPassword(user); 
-
-		/*
-		 * if (newUser != null) { userService.updateTempPassword(newUser);
-		 * System.out.println("여길타는지"); }
-		 */
-		 
+			 
 	}
 
 	@RequestMapping(value = "rest/addSecessionUser", method = RequestMethod.POST)
@@ -207,13 +185,13 @@ public class UserRestController {
 	}
 	
 	@RequestMapping(value="rest/kakaounlink") 
-	public int unlink(HttpSession session) { 
+	public int kakaoUnlink(HttpSession session) { 
 		
 		System.out.println("들어오긴 하는건가");
 		System.out.println("토큰"+(String)session.getAttribute("kakaoToken"));
 		String kakaoToken=(String)session.getAttribute("kakaoToken");
 		User kakaoUser=(User)session.getAttribute("user");
-			userService.unlink(kakaoToken); 
+			userService.kakaoUnlink(kakaoToken); 
 			userService.addSecessionUser(kakaoUser);
 			//	userService.kakaoLogout(kakaoToken);
 				System.out.println("카카오 토큰"+kakaoToken);
