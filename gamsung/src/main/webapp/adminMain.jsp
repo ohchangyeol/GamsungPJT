@@ -162,11 +162,11 @@ pageEncoding="UTF-8"%>
 							</div>
 							
 							<div class="col-md-6">
-								<h3><strong>사이트 수익</strong></h3>
+								<h3><strong>사이트 거래액</strong></h3>
 								<!--차트가 그려질 부분-->
 								<canvas id="siteProfit_chart"></canvas>
 								<div style="text-align: center; padding: 10px;">
-									<span>월별 수익</span>
+									<span>상반기 거래액</span>
 								</div>
 							</div>
 						</div>
@@ -237,8 +237,6 @@ pageEncoding="UTF-8"%>
                                 'rgba(54, 162, 235, 1)',
                                 'rgba(255, 206, 86, 1)',
                                 'rgba(75, 192, 192, 1)',
-                                'rgba(153, 102, 255, 1)',
-                                'rgba(255, 159, 64, 1)'
                             ],
                             borderWidth: 1 //경계선 굵기
                         } ,
@@ -283,93 +281,43 @@ pageEncoding="UTF-8"%>
             .getContext('2d');
 
 			var siteProfit_chart = new Chart(other_context, {
-                type: 'line', // 차트의 형태
-                data: { // 차트에 들어갈 데이터
-                    labels: [
-                        //x 축
-                        '1','2','3','4','5','6','7','8','9','10','11','12'
-                    ],
-                    datasets: [
-                        { //데이터
-                            label: '포인트결제', //차트 제목
-                            fill: false, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
-                            data: [
-                                5,10,15,20,25,30,5,10,15,20,35,30 //x축 label에 대응되는 데이터 값
-                            ],
-                            backgroundColor: [
-                                //색상
-                                'rgba(255, 99, 132, 0.2)',
-                                'rgba(54, 162, 235, 0.2)',
-                                'rgba(255, 206, 86, 0.2)',
-                                'rgba(75, 192, 192, 0.2)',
-                                'rgba(153, 102, 255, 0.2)',
-                                'rgba(255, 159, 64, 0.2)'
-                            ],
-                            borderColor: [
-                                //경계선 색상
-                                'rgba(255, 99, 132, 1)',
-                                'rgba(54, 162, 235, 1)',
-                                'rgba(255, 206, 86, 1)',
-                                'rgba(75, 192, 192, 1)',
-                                'rgba(153, 102, 255, 1)',
-                                'rgba(255, 159, 64, 1)'
-                            ],
-                            borderWidth: 1 //경계선 굵기
-                        },
-                        { //데이터
-                            label: '일반결제', //차트 제목
-                            fill: false, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
-                            data: [
-                            	15,20,25,30,45,50,15,20,25,30,45,40 //x축 label에 대응되는 데이터 값
-                            ],
-                            backgroundColor: [
-                                //색상
-                                'rgba(255, 99, 132, 0.2)',
-                                'rgba(54, 162, 235, 0.2)',
-                                'rgba(255, 206, 86, 0.2)',
-                                'rgba(75, 192, 192, 0.2)',
-                                'rgba(153, 102, 255, 0.2)',
-                                'rgba(255, 159, 64, 0.2)'
-                            ],
-                            borderColor: [
-                                //경계선 색상
-                                'rgba(255, 99, 132, 1)',
-                                'rgba(54, 162, 235, 1)',
-                                'rgba(255, 206, 86, 1)',
-                                'rgba(75, 192, 192, 1)',
-                                'rgba(153, 102, 255, 1)',
-                                'rgba(255, 159, 64, 1)'
-                            ],
-                            borderWidth: 1 //경계선 굵기
-                        },
-                        { //데이터
-                            label: '전체결제', //차트 제목
-                            fill: false, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
-                            data: [
-                                20,30,40,50,70,80,20,30,40,50,80,70 //x축 label에 대응되는 데이터 값
-                            ],
-                            backgroundColor: [
-                                //색상
-                                'rgba(255, 99, 132, 0.2)',
-                                'rgba(54, 162, 235, 0.2)',
-                                'rgba(255, 206, 86, 0.2)',
-                                'rgba(75, 192, 192, 0.2)',
-                                'rgba(153, 102, 255, 0.2)',
-                                'rgba(255, 159, 64, 0.2)'
-                            ],
-                            borderColor: [
-                                //경계선 색상
-                                'rgba(255, 99, 132, 1)',
-                                'rgba(54, 162, 235, 1)',
-                                'rgba(255, 206, 86, 1)',
-                                'rgba(75, 192, 192, 1)',
-                                'rgba(153, 102, 255, 1)',
-                                'rgba(255, 159, 64, 1)'
-                            ],
-                            borderWidth: 1 //경계선 굵기
-                        }
-                    ]
-                },
+                type: 'line', 	// 차트의 형태
+                data: { 		// 차트에 들어갈 데이터
+		                labels:	[
+				                    //x 축
+				                	'1','2','3','4','5','6'
+				                ],
+		                datasets: [
+				                	{
+					                    label: '포인트 결제',
+					                    fill : false,        					// 채우기 없음
+					                    lineTension : 0,  						// 0이면 꺾은선 그래프, 숫자가 높을수록 둥글해짐
+					                    pointRadius : 0,    					// 각 지점에 포인트 주지 않음
+					                    backgroundColor: 'green',
+					                    borderColor: 'green',
+					                    data: [10, 20, 30, 40, 50, 60]
+				                	
+				                	}, 
+				                	{
+					                    label: '일반 결제',
+					                    fill : false,        
+					                    lineTension : 0, 
+					                    pointRadius : 0,    
+					                    backgroundColor: 'blue',
+					                    borderColor: 'blue',
+					                    data: [40, 50, 60, 70, 80, 90]
+				                	}, 
+				                	{
+					                    label: '전체 결재',
+					                    fill : false,
+					                    lineTension : 0,
+					                    pointRadius : 0,
+					                    backgroundColor: 'orange',
+					                    borderColor: 'orange',
+					                    data: [100, 120, 150, 100, 180, 200]
+				               		}
+				                ]
+               	},
                 options: {
                     scales: {
                         yAxes: [
