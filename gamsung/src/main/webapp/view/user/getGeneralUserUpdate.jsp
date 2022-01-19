@@ -72,7 +72,7 @@
 													readonly />
 											</div>
 											<div class='col-sm-offset-3 col-sm-6'><span id="helpBlock"
-													class="help-block">
+													class="help-block" style="font-size: 12px;">
 													<strong class="text-danger">아이디는 수정이 불가합니다.</strong>
 												</span></div>
 										</div>
@@ -477,7 +477,7 @@
 
 					//주소검색
 					document.getElementById("get_g_addr").addEventListener("click", function () { //주소입력칸을 클릭하면
-						$("get_g_userAddr").show();
+						$("#get_g_userAddr").show();
 						new daum.Postcode({
 							oncomplete: function (data) { //선택시 입력값 세팅
 								document.getElementById("get_g_addr").value = data.address; // 주소 넣기

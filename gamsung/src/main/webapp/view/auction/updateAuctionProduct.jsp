@@ -234,7 +234,10 @@
 			$("#update").on('click',function(){
 				
 				if($('#auctionProductName').val().length == 0){
-					alert("상품명을 입력하세요");
+					Swal.fire({
+				    	text: '상품명을 입력하세요.',
+				    	icon: 'warning'
+				    })
 					$('#auctionProductName').focus();
 					return;
 				}
@@ -250,7 +253,10 @@
 				}
 				
 				if( Number($('#startBidPrice').val() ) >= Number( $('#hopefulBidPrice').val() ) ){
-					alert("입찰 희망가는 시작가보다 작을 수 없습니다.");
+					Swal.fire({
+				    	text: '입찰 희망가는 시작가보다 작을 수 없습니다.',
+				    	icon: 'warning'
+				    })
 					$('#startBidPrice').focus();
 					return
 				}
@@ -261,51 +267,75 @@
 				}
 				
 				if( Number($('#bidUnit').val() ) > ( Number( $('#hopefulBidPrice').val() ) - Number( $('#startBidPrice').val() ) ) ){
-					alert("입찰 단위는 희망낙찰가 시작가 차보다 작아야 합니다.");
+					Swal.fire({
+				    	text: '입찰 단위는 희망낙찰가 시작가 차보다 작아야 합니다.',
+				    	icon: 'warning'
+				    })
 					$('#bidUnit').focus();
 					return;
 				}
 				
 			 	if($('#startDate').val().length != 10){
-			 		alert("시작 날짜를 확인해 주세요");
+			 		Swal.fire({
+				    	text: '시작 날짜를 확인해 주세요.',
+				    	icon: 'warning'
+				    })
 			 		$('#startDate').focus();
 			 		return;
 			 	}
 			 	
 			 	if($('#startTime').val().length != 8){
-			 		alert("시작 시간를 확인해 주세요");
+			 		Swal.fire({
+				    	text: '시작 시간를 확인해 주세요.',
+				    	icon: 'warning'
+				    })
 			 		$('#startTime').focus();
 			 		return;
 			 	}
 			 	
 			 	if($('#endDate').val().length != 10){
-			 		alert("종료 날짜를 확인해 주세요");
+			 		Swal.fire({
+				    	text: '종료 날짜를 확인해 주세요.',
+				    	icon: 'warning'
+				    })
 			 		$('#endDate').focus();
 			 		return;
 			 	}
 			 	
 			 	if($('#endTime').val().length != 8){
-			 		alert("시작 시간를 확인해 주세요");
+			 		Swal.fire({
+				    	text: '시작 시간를 확인해 주세요.',
+				    	icon: 'warning'
+				    })
 			 		$('#endTime').focus();
 			 		return;
 			 	}
 			 	
 			 	if($('#startDate').val() == $('#endDate').val()){
 			 		if($('#startTime').val() == $('#endTime').val()){
-			 			alert('시작 시간과 종료 시간이 같을 수 없습니다.');
+			 			Swal.fire({
+					    	text: '시작 시간과 종료 시간이 같을 수 없습니다.',
+					    	icon: 'warning'
+					    })
 			 			return;
 			 		}
 			 	}
 				
 			 	if(dateCompare($('#startDate').val()+' '+$('#startTime').val(),$('#endDate').val()+' '+$('#endTime').val())){
-			 		alert('진행 시간이 10분 보다 짧을 수 없습니다.');
+			 		Swal.fire({
+				    	text: '진행 시간이 10분 보다 짧을 수 없습니다.',
+				    	icon: 'warning'
+				    })
 			 		$('#endTime').focus();
 			 		return;
 			 	}
 				
 				 
 				if($('.selProductFile').length == 0){
-					alert("1~5장의 사진이 필요합니다.");
+					Swal.fire({
+				    	text: '1~5장의 사진이 필요합니다.',
+				    	icon: 'warning'
+				    })
 					$('#fileUpload').click();
 					$('#uploadForm').attr('hidden',true);
 					return;
@@ -315,7 +345,10 @@
 				var tagCount = hashtags.length;
 				
 				if(hashtags.length >  4){
-					alert("해시태그는 최대 3개 까지 등록 가능합니다.");
+					Swal.fire({
+				    	text: '해시태그는 최대 3개 까지 등록 가능합니다.',
+				    	icon: 'warning'
+				    })
 					$('#allhashtag').focus();
 					return;
 				}else{
@@ -420,7 +453,10 @@
 			var index = 0;
 			
 			if(filesArray.length > 5){
-				alert("사진은 최대 5장까지 입니다.");
+				Swal.fire({
+			    	text: '사진은 최대 5장까지 입니다.',
+			    	icon: 'warning'
+			    })
 				return;
 			}
 			
@@ -429,7 +465,10 @@
 				$('#uploadForm').attr('hidden',false);
 				
 				if(!f.type.match("image.*")){
-					alert("이미지만 업로드 가능합니다.");
+					Swal.fire({
+				    	text: '이미지만 업로드 가능합니다.',
+				    	icon: 'warning'
+				    })
 					$('#uploadForm').attr('hidden',true);
 					return;
 				}

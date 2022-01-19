@@ -111,6 +111,11 @@ pageEncoding="UTF-8"%>
     </main>
 
     <script type="text/javascript">
+
+      function main_site_comma(str){
+        str = String(str);
+        return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+      }
         
       $( function() {
        
@@ -139,8 +144,14 @@ pageEncoding="UTF-8"%>
                       "Content-Type" : "application/json"
                     },
                     success : function(JSONData , status) {
-                      var append_node ="";      
+                      let append_node ="";
+                      let minprice ="";
+                      let addprice ="";
+
                       $.each(JSONData, function(i, mainSite) {
+                        minprice = mainSite.mainSiteMinPrice;
+                        addprice = mainSite.mainSiteAddPrice;
+
                         append_node += "<div class='row'>"
                         append_node += "<div class='col-sm-3 mb-sm-20'>"
                         append_node += "<img class='mainsiteno' style='cursor: pointer;' src='/uploadfiles/campimg/campbusiness/mainsite/"+mainSite.mainSiteImg1+"'" + "onerror=this.src='/uploadfiles/campimg/campbusiness/camp/no_image.jpg' onclick='next("+mainSite.mainSiteNo+")' />"
@@ -157,7 +168,7 @@ pageEncoding="UTF-8"%>
                         append_node += "<div class='col-xs-12' style='font-size: medium;'> 기본 사용인원 : "+mainSite.mainSiteMinCapacity+"인 (최대 사용인원 : "+mainSite.mainSiteMaxCapacity+"인)</div>"
                         append_node += "</div>"
                         append_node += "<div class='row'>"    
-                        append_node += "<div class='col-xs-12' style='font-size: medium; margin-top: 15px;'> 이용가격(1박) : "+mainSite.mainSiteMinPrice+"원 (인원 추가금 : "+mainSite.mainSiteAddPrice+"원)</div>"
+                        append_node += "<div class='col-xs-12' style='font-size: medium; margin-top: 15px;'> 이용가격(1박) : "+main_site_comma(minprice)+"원 (인원 추가금 : "+main_site_comma(addprice)+"원)</div>"
                         append_node += "</div>"
                         append_node += "<div class='row'>"
                         append_node += "<div class='col-xs-12' style='font-size: medium; margin-top: 15px;' > 주차가능대수 : "+mainSite.mainSiteParkingSize+ "대</div>"

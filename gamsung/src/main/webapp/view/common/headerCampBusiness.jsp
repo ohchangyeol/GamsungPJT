@@ -28,11 +28,11 @@
 		}); 
 	 	
 	 	$("a:contains('부가시설 등록')" ).on("click" , function() {
-	 		window.self.location = "/campBusiness/addSubSiteView";
+	 		window.self.location = "/campBusiness/addSubSiteView"; 
 		}); 
 	 	
 	 	$("a:contains('예약관리')" ).on("click" , function() {
-			$("form[id=headhidden]").attr("method", "POST").attr("action", "/campBusiness/listMainSite").submit();
+	 		window.self.location = "/campBusiness/goSubMainCampBusiness";
 		}); 
 	 	
 	 	$("a:contains('리뷰관리')" ).on("click" , function() {		

@@ -101,8 +101,10 @@
 	<update id="updateReservation" parameterType="campReservation">
 		UPDATE CAMP_RESERVATION 
 		set
-			<if test="mainSite.mainSiteNo != null and mainSite.mainSiteNo !=0">
-			mainsite_no = #{mainSite.mainSiteNo},
+			<if test="mainSite != null">
+				<if test="mainSite.mainSiteNo != null and mainSite.mainSiteNo !=0">
+				mainsite_no = #{mainSite.mainSiteNo},
+				</if>
 			</if>
 			<if test="reservationUserName != null and reservationUserName != ''">
 			reservation_user_name = #{reservationUserName:VARCHAR},
@@ -113,7 +115,7 @@
 			<if test="reservationEndDate != null">
 			reservation_end_date = #{reservationEndDate},
 			</if>		 
-			<if test="useNum != null and totalPaymentPrice !=0">
+			<if test="useNum != null and useNum !=0">
 			use_num = #{useNum},
 			</if> 
 			<if test="reservationUserPhone != null and reservationUserPhone != ''">
@@ -136,7 +138,7 @@
 		WHERE reservation_no = #{reservationNo}
 		</if>
 		<if test="reservationStatus == 6">
-		WHERE reservation_end_date =  DATE(NOW())
+		WHERE reservation_end_date =  DATE(NOW()) AND reservation_status IN (1, 2, 3)
 		</if>
 	</update>
 	

@@ -15,10 +15,6 @@
 			<jsp:include page="/resources/commonLib.jsp"></jsp:include>
 
 			<style type="text/css">
-				.sidebar-left {
-					background-color: #171717 !important;
-				}
-
 				.time {
 					display: flex;
 				}
@@ -57,7 +53,9 @@
 
 		<body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
 			<main>
-				
+				<!-- <div class="page-loader">
+					<div class="loader">Loading...</div>
+				</div> -->
 				<jsp:include page="header.jsp"></jsp:include>
 				<div class="inner-wrapper">
 					<jsp:include page="userSideBar.jsp"></jsp:include>
