@@ -212,7 +212,7 @@
            FROM TRANSFER tt, USERS u                                 
              WHERE tt.user_id = u.user_id 
              <if test="id != null">   
-             AND tt.user_id = #{search.id}  
+             AND tt.user_id = #{id}  
              </if>
              AND delete_flag = 'N'
                <if test="searchCondition != null"> 

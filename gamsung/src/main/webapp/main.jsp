@@ -178,37 +178,32 @@
             </section>
 
             <section class="module-medium" style="padding-top: 0">
-              <div class="container">
+              <div class="container" style="position: relative;">
                 <div class="row">
                   <div style="padding-left: 30px; padding-top: 0;">
                     <h2 class="module-title font-alt font-jua main-color" style="text-align: left;font-size: 34px; margin: 0;">최근에 올라온 커뮤니티</h2>
+                    <p class="">회원과 소통할 수 있는 공간을 소개합니다.</p>
                   </div>
                 </div>
-                <div class="row">
-                  <div class="owl-carousel text-center" data-items="4" data-pagination="false" data-navigation="false">
-                    <c:forEach var="auctionProduct" items="${productList}">
-                      <div class="owl-item">
-                        <div class="col-sm-12">
-                          <div class="ex-product">
-                            <c:if test="${!empty auctionProduct.auctionProductSubDetail}">
-                              <a><img class="shop-item-img" src="${auctionProduct.productImg1}" /></a>
-                            </c:if>
-                            <c:if test="${empty auctionProduct.auctionProductSubDetail}">
-                              <a><img class="shop-item-img"
-                                  src="/uploadfiles/auctionimg/product/${auctionProduct.productImg1}" /></a>
-                            </c:if>
-                            <input type="hidden" value="${auctionProduct.auctionProductNo}">
-                            <h4 class="shop-item-title"><a>${auctionProduct.auctionProductName}</a></h4>
-                            <h5>
-                              <fmt:formatNumber type="number" maxFractionDigits="3"
-                                value="${auctionProduct.hopefulBidPrice}" />원
-                            </h5>
-                            <h5>${auctionProduct.auctionEndTime}</h5>
-                          </div>
-                        </div>
+
+                <c:forEach var="post" items="${communityList}">
+                  <div class="col-sm-6 col-md-4 col-lg-4">
+                    <div class="post">
+                      <div class="post-thumbnail">
+                        <img class="campImg" src="/uploadfiles/community/img/${post.postImg1}">
                       </div>
-                    </c:forEach>
+                      <div class="post-header font-alt">
+                        <h2 class="post-title">${post.postTitle}</h2>
+                      </div>
+                      <div class="post-more">${post.writer.id}</div>
+                      <div class="post-entry">
+                        <p> ${post.postContent}</p>
+                      </div>
+                    </div>
                   </div>
+                </c:forEach>
+                <div style="position: absolute;top: 10px;right: 30px;font-weight: 700;">
+                  <a href="/community/listPost">+ 더보기</a>
                 </div>
               </div>
             </section>

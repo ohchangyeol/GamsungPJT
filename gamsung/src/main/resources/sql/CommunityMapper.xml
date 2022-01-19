@@ -288,5 +288,11 @@
 	WHERE post_no= #{value} and delete_flag = 'N';
 	 </select>  -->
 	 
+	 <select id="totalConcern" parameterType="int" resultType="int">
+	 	SELECT count(*) 
+	 	FROM POST_CONCERN 
+	 	WHERE post_no = #{value}
+	 	AND delete_flag = 'N'; 
+	 </select>
 	 
 </mapper> 
