@@ -2993,13 +2993,13 @@ Google map
 }
 
 
-.mfp-iframe-holder .mfp-content {
+.mfp-wrap.report-modal-content .mfp-iframe-holder .mfp-content {
   width:400px !important;
   height: 730px;
   border-radius: 30px;
   overflow: hidden;
 }
-.mfp-iframe-holder .mfp-content  .mfp-close{
+.mfp-wrap.report-modal-content .mfp-iframe-holder .mfp-content  .mfp-close{
   top: 0;
   right: 16px;
 }

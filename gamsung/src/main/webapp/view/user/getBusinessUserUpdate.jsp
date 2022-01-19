@@ -47,9 +47,7 @@
 
 		<body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
 			<main>
-				<div class="page-loader">
-					<div class="loader">Loading...</div>
-				</div>
+				
 
 				<jsp:include page="../common/headerCampBusiness.jsp"></jsp:include>
 
