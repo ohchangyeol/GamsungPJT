@@ -1,19 +1,23 @@
 package site.gamsung.service.payment.impl;
 
-import java.time.LocalDateTime;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.Payment;
 import site.gamsung.service.domain.PaymentCode;
 import site.gamsung.service.domain.PointTransfer;
-import site.gamsung.service.domain.User;
+import site.gamsung.service.domain.SiteProfit;
 import site.gamsung.service.payment.PaymentDAO;
 import site.gamsung.service.payment.PaymentService;
 import site.gamsung.service.user.UserDAO;
@@ -41,10 +45,56 @@ public class PaymentServiceImpl implements PaymentService{
 		System.out.println(this.getClass());
 	}
 	
+	
 	/*
 	 *  Private Method
-	 */		
-	private int pointTransferByUsers(PointTransfer pointTransfer) throws Exception {
+	 */
+	private String addPayment(Payment payment) throws Exception{
+		
+		PaymentCode oriPaymentCodeInfo = getPaymentCodeInfo(payment.getPaymentCode());
+		int oriPaymentReferenceFee = oriPaymentCodeInfo.getPaymentCodeFee();
+				
+		// 일반결제 DB저장
+		int paymentPriceTotal = payment.getPaymentPriceTotal();		
+		int paymentPriceFee = paymentPriceTotal * oriPaymentReferenceFee / 100;
+		int paymentPricePay = paymentPriceTotal - paymentPriceFee;
+		payment.setPaymentPriceFee(paymentPriceFee);
+		payment.setPaymentPricePay(paymentPricePay);
+		
+		System.out.println("paymentPriceTotal : " + paymentPriceTotal);										// 테스트
+		System.out.println("paymentPricePay : " + paymentPricePay);	
+		System.out.println("paymentPriceFee : " + paymentPriceFee);
+		
+		// 포인트결제 DB저장
+		if(payment.getPaymentPriceTotalSecond() != 0) {
+			
+			int paymentPriceTotalSecond = payment.getPaymentPriceTotalSecond();		
+			int paymentPriceFeeSecond = paymentPriceTotalSecond * oriPaymentReferenceFee / 100;
+			int paymentPricePaySecond = paymentPriceTotalSecond - paymentPriceFeeSecond;			
+			payment.setPaymentPriceFeeSecond(paymentPriceFeeSecond);
+			payment.setPaymentPricePaySecond(paymentPricePaySecond);	
+			
+			System.out.println("paymentPriceTotalSecond : " + paymentPriceTotalSecond);						// 테스트
+			System.out.println("paymentPricePaySecond : " + paymentPricePaySecond);	
+			System.out.println("paymentPriceFeeSecond : " + paymentPriceFeeSecond);
+		}					
+		
+		System.out.println("payment : " + payment);															// 테스트
+		
+		return paymentDAO.addPayment(payment);			
+	}
+		
+	
+	/*
+	 * Point
+	 */
+	@Override
+	public int pointUpdateById(PointTransfer pointTransfer) throws Exception {
+		return paymentDAO.pointUpdateById(pointTransfer);
+	}
+	
+	@Override
+	public int pointTransferByUsers(PointTransfer pointTransfer) throws Exception {
 		
 		int pointAmount = pointTransfer.getPointAmount();
 		int feeRate = pointTransfer.getFeeRate();		
@@ -91,41 +141,6 @@ public class PaymentServiceImpl implements PaymentService{
 			}
 			
 		}	
-	}
-	
-	private String addPayment(Payment payment) throws Exception{
-		
-		PaymentCode oriPaymentCodeInfo = getPaymentCodeInfo(payment.getPaymentCode());
-		int oriPaymentReferenceFee = oriPaymentCodeInfo.getPaymentCodeFee();
-				
-		// 일반결제 DB저장
-		int paymentPriceTotal = payment.getPaymentPriceTotal();		
-		int paymentPriceFee = paymentPriceTotal * oriPaymentReferenceFee / 100;
-		int paymentPricePay = paymentPriceTotal - paymentPriceFee;
-		payment.setPaymentPriceFee(paymentPriceFee);
-		payment.setPaymentPricePay(paymentPricePay);
-		
-		System.out.println("paymentPriceTotal : " + paymentPriceTotal);										// 테스트
-		System.out.println("paymentPricePay : " + paymentPricePay);	
-		System.out.println("paymentPriceFee : " + paymentPriceFee);
-		
-		// 포인트결제 DB저장
-		if(payment.getPaymentPriceTotalSecond() != 0) {
-			
-			int paymentPriceTotalSecond = payment.getPaymentPriceTotalSecond();		
-			int paymentPriceFeeSecond = paymentPriceTotalSecond * oriPaymentReferenceFee / 100;
-			int paymentPricePaySecond = paymentPriceTotalSecond - paymentPriceFeeSecond;			
-			payment.setPaymentPriceFeeSecond(paymentPriceFeeSecond);
-			payment.setPaymentPricePaySecond(paymentPricePaySecond);	
-			
-			System.out.println("paymentPriceTotalSecond : " + paymentPriceTotalSecond);						// 테스트
-			System.out.println("paymentPricePaySecond : " + paymentPricePaySecond);	
-			System.out.println("paymentPriceFeeSecond : " + paymentPriceFeeSecond);
-		}					
-		
-		System.out.println("payment : " + payment);															// 테스트
-		
-		return paymentDAO.addPayment(payment);			
 	}
 	
 	
@@ -267,6 +282,47 @@ public class PaymentServiceImpl implements PaymentService{
 	/*
 	 *  SiteProfit
 	 */
-
-
+	@Override
+	public SiteProfit listSiteProfit(String today) throws Exception{		
+		return paymentDAO.listSiteProfit(today);
+	}
+	
+	@Override
+	@Scheduled(cron="0 1 0 1 * *")
+	public void calculateSiteProfit() throws Exception{	
+		
+		HashMap<String, Object> searchParameterPointCharge = new HashMap<String, Object>();
+		HashMap<String, Object> searchParameterPayment = new HashMap<String, Object>();		
+		SiteProfit oneProfitRecord = new SiteProfit();
+		
+		Calendar calendar = new GregorianCalendar();
+		SimpleDateFormat SDF = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		
+		calendar.add(Calendar.DATE, -1);		
+		String payStartDay = SDF.format(calendar.getTime());	
+		System.out.println("payStartDay : "+payStartDay);
+		
+		calendar.add(Calendar.DATE, +1);
+		String payEndDay = SDF.format(calendar.getTime());
+		System.out.println("payEndDay : "+payEndDay);
+		
+		searchParameterPointCharge.put("paymentCode", "P1");
+		searchParameterPayment.put("payStartDay", payStartDay);
+		searchParameterPayment.put("payEndDay", payEndDay);
+		
+		Payment pointChargeRecord = paymentDAO.getPaymentRecord(searchParameterPointCharge);
+		Payment paymentRecord = paymentDAO.getPaymentRecord(searchParameterPayment);	
+		
+		System.out.println("pointChargeRecord : "+pointChargeRecord);
+		System.out.println("paymentRecord : "+paymentRecord);		
+		System.out.println("oneProfitRecord : "+oneProfitRecord);
+		
+		oneProfitRecord.setProfitPointCharge(pointChargeRecord.getPaymentPriceTotalSecond());
+		oneProfitRecord.setProfitPointPayment(paymentRecord.getPaymentPriceTotalSecond());
+		oneProfitRecord.setProfitRegularPayment(paymentRecord.getPaymentPriceTotal());
+		oneProfitRecord.setProfitAllPayment(paymentRecord.getPaymentPriceTotalSecond()+paymentRecord.getPaymentPriceTotal());
+		
+		paymentDAO.addSiteProfit(oneProfitRecord);
+		
+	}
 }

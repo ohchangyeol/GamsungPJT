@@ -227,6 +227,7 @@ public class AuctionInfoServiceImpl implements AuctionInfoService{
 		paymentCode = auctionInfoDAO.getPaymentInfo(paymentCode);
 		
 		Payment payment = new Payment();		
+		payment.setPaymentPriceTotalSecond(auctionProduct.getHopefulBidPrice()*paymentCode.getPaymentCodeFee()/100);
 		
 		switch(option) {
 		case "상품등록 수수료": 
@@ -239,6 +240,7 @@ public class AuctionInfoServiceImpl implements AuctionInfoService{
 			return paymentCode;
 		case "경매확정":
 			payment.setPaymentReceiver(auctionProduct.getRegistrantId());
+			payment.setPaymentPriceTotalSecond(auctionProduct.getCurrentBidPrice());
 			break;
 		default : //상품등록, 중도철회, 낙찰취소
 			payment.setPaymentReceiver("admin");
@@ -250,7 +252,6 @@ public class AuctionInfoServiceImpl implements AuctionInfoService{
 		payment.setPaymentReferenceNum("["+auctionProduct.getAuctionProductNo()+"]");
 		payment.setPaymentCode(paymentCode.getPaymentCode());
 		payment.setPaymentMethodSecond("point");
-		payment.setPaymentPriceTotalSecond(auctionProduct.getHopefulBidPrice()*paymentCode.getPaymentCodeFee()/100);
 		
 		return payment;
 	}

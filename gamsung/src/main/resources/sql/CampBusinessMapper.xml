@@ -165,7 +165,22 @@
 	
 	
 	<!-- SQL : Camp ################################################################################################################### -->
-
+	
+	<insert id="addCamp" parameterType="camp" >	
+		INSERT 
+		INTO CAMP ( user_id, camp_reg_date, camp_theme1, camp_theme2, 
+					camp_nature1, camp_nature2, camp_operation1, camp_operation2)			
+		VALUES	 ( #{user.id}
+					, #{campRegDate}					
+					, #{campTheme1}
+					, #{campTheme2}
+					, #{campNature1}
+					, #{campNature2}
+					, #{campOperation1}
+					, #{campOperation2} )
+	</insert>
+	
+	
 	<insert id="getRegNumInCamp" parameterType="camp" >	
 		INSERT 
 		INTO CAMP ( user_id, camp_reg_date, camp_theme1, camp_theme2, 
@@ -220,7 +235,7 @@
 			, camp_map_img = #{campMapImg}
 			, camp_img1 =  #{campImg1}
 			, camp_img2 = #{campImg2}
-			, camp_img2 = #{campImg3}
+			, camp_img3 = #{campImg3}
 			, camp_img4 = #{campImg4}
 			, camp_img5 = #{campImg5}
 			, camp_theme1 = #{campTheme1}

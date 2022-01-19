@@ -5,8 +5,8 @@ pageEncoding="UTF-8"%>
 <div class="table-list-padding">
   <div class="col-xs-12">
     <div class="row">
-      <h4 class="col-sm-7 mb-0">공지 사항</h4>
-      <div class="col-sm-5 mb-sm-0">
+      <h4 class="col-sm-7 mb-0 font-jua main-color"style="font-size: 34px;font-weight:400">공지 사항</h4>
+      <div class="col-sm-5 mb-sm-0 search-contents" style="margin-top: 15px;">
         <div class="row">
           <form role="form" class="notice-search">
             <div class="col-sm-4">
@@ -36,7 +36,17 @@ pageEncoding="UTF-8"%>
           <div class="row">
             <div class="col-sm-2 notice-no">${notice.noticeNo}</div>
             <div class="col-sm-6 notice-title">${notice.noticeTitle}</div>
-            <div class="col-sm-2 notice-view-count"><i class="fa fa-fw"></i> ${notice.viewCount}</div>
+            <div class="col-sm-2 notice-view-count">
+              <div> 
+                <i class="fa fa-fw"></i> 
+                ${notice.viewCount}
+              </div>
+              <div>
+                <c:if test="${!empty notice.noticeFile1 or !empty notice.noticeFile2 or !empty notice.noticeFile3 or !empty notice.noticeFile4 or !empty notice.noticeFile5}">
+                  <i class="bi bi-file-earmark-medical"></i>
+                </c:if>
+              </div>
+            </div>
             <div class="col-sm-2 notice-reg-date">${notice.regDate}</div>
           </div>
         </li>

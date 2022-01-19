@@ -41,16 +41,9 @@ console.log('%c Proudly Crafted with ZiOn.', 'background: #222; color: #bada55')
                     src: url,
                     type: 'iframe',
                     closeBtnInside: true,
-                    midClick: true ,
-                    callbacks: {
-                        markupParse: function(template, values, item) {
-                            console.log(template);
-                            template.find('iframe').addClass('bad-site-class');
-                        }
-                     }
-    
-                }
-    
+                    midClick: true
+                },
+                mainClass: 'report-modal-content'
             });
         })
     });

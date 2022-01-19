@@ -208,7 +208,8 @@ public class CampReservationServiceImpl implements CampReservationService {
 	public void cancleReservationDo(Payment payment){
 		
 		CampReservation campReservation = campReservationDAO.getReservation(payment.getPaymentReferenceNum());
-		campReservation.setReservationStatus(6);
+		campReservation.setReservationStatus(5);
+		campReservation.setTotalPaymentPrice(0);
 		
 		campReservationDAO.updateReservation(campReservation);
 		
@@ -234,7 +235,7 @@ public class CampReservationServiceImpl implements CampReservationService {
 				String text = "안녕하세요.\n"+
 							  "감성캠핑 사이트 입니다.\n"+
 							  list.get(i).getReservationUserName()+"님은\n"+
-							  list.get(i).getUser().getCampName()+"캠핑장에\n"+
+							  list.get(i).getCamp().getUser().getCampName()+"캠핑장에\n"+
 							  list.get(i).getReservationStartDate()+" 부터 "+
 							  list.get(i).getReservationEndDate()+" 까지 예약되어 있습니다.\n"+
 							  "이용에 참고 하시기 바랍니다.";
@@ -250,7 +251,7 @@ public class CampReservationServiceImpl implements CampReservationService {
 	public void reservationCompleteUse() {
 		
 		CampReservation campReservation = new CampReservation();
-		campReservation.setReservationStatus(7);
+		campReservation.setReservationStatus(6);
 		campReservationDAO.updateReservation(campReservation);
 		
 	}

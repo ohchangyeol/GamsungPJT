@@ -14,17 +14,17 @@ public class SiteProfit {
 
 	/// Field
 	private Date profitRegDate;
-	private int profitPoint;
-	private int profitCash;
-	private int profitCreditcard;
-	private int profitSimplePay;
+	private int profitPointCharge;
+	private int profitPointPayment;
+	private int profitRegularPayment;
+	private int profitAllPayment;
+	
 	
 	/// Default Constructor
 	public SiteProfit() {
 		
 	}
-	
-	/// Getter / Setter	
+
 	public Date getProfitRegDate() {
 		return profitRegDate;
 	}
@@ -33,46 +33,46 @@ public class SiteProfit {
 		this.profitRegDate = profitRegDate;
 	}
 
-	public int getProfitPoint() {
-		return profitPoint;
+	public int getProfitPointCharge() {
+		return profitPointCharge;
 	}
 
-	public void setProfitPoint(int profitPoint) {
-		this.profitPoint = profitPoint;
+	public void setProfitPointCharge(int profitPointCharge) {
+		this.profitPointCharge = profitPointCharge;
 	}
 
-	public int getProfitCash() {
-		return profitCash;
+	public int getProfitPointPayment() {
+		return profitPointPayment;
 	}
 
-	public void setProfitCash(int profitCash) {
-		this.profitCash = profitCash;
+	public void setProfitPointPayment(int profitPointPayment) {
+		this.profitPointPayment = profitPointPayment;
 	}
 
-	public int getProfitCreditcard() {
-		return profitCreditcard;
+	public int getProfitRegularPayment() {
+		return profitRegularPayment;
 	}
 
-	public void setProfitCreditcard(int profitCreditcard) {
-		this.profitCreditcard = profitCreditcard;
+	public void setProfitRegularPayment(int profitRegularPayment) {
+		this.profitRegularPayment = profitRegularPayment;
 	}
 
-	public int getProfitSimplePay() {
-		return profitSimplePay;
+	public int getProfitAllPayment() {
+		return profitAllPayment;
 	}
 
-	public void setProfitSimplePay(int profitSimplePay) {
-		this.profitSimplePay = profitSimplePay;
+	public void setProfitAllPayment(int profitAllPayment) {
+		this.profitAllPayment = profitAllPayment;
 	}
 
 	// Override toString
 	public String toString() {
 		return "\n -- SiteProfit --"
 			+ "\n [profitRegDate] : " + profitRegDate
-			+ "\n [profitPoint] : " + profitPoint
-			+ "\n [profitCash] : " + profitCash
-			+ "\n [profitCreditcard] : " + profitCreditcard				
-			+ "\n [profitSimplePay] : " + profitSimplePay
+			+ "\n [profitPointCharge] : " + profitPointCharge
+			+ "\n [profitPointPayment] : " + profitPointPayment
+			+ "\n [profitRegularPayment] : " + profitRegularPayment				
+			+ "\n [profitAllPayment] : " + profitAllPayment
 			+ "\n ---------------- \n";
 	}	
 

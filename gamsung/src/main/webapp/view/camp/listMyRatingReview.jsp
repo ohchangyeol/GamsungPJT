@@ -78,8 +78,8 @@
                             <div class="comments reviews">
                                 <div class="comment clearfix">
                                   <div class="row">
-                                  <div class="img-responsive col-sm-3">
-                                    <img class="img-responsive" src="/uploadfiles/campimg/review/${review.img1}" onerror="this.src='/uploadfiles/campimg/campbusiness/camp/no_image.jpg'"/>
+                                  <div class="img-responsive col-sm-3 galleryCont">
+                                    <img class="img-responsive photo" src="/uploadfiles/campimg/review/${review.img1}" onerror="this.src='/uploadfiles/campimg/campbusiness/camp/no_image.jpg'"/>
                                   </div>
 
                                   <div class="comment-content clearfix col-sm-8" style="margin-left: 0px; margin-bottom: 0px;">
@@ -96,8 +96,8 @@
                                       <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                                       <span class="review_btn_span">
                                          <c:if test="${review.commentRegDate == null}">
-                                            <button type="button" id="correction_btn" class="btn btn-default" value="${review.ratingReviewNo}" data-nick="${review.user.nickName}">수정</button>
-                                            <button type="button" id="delete_btn" class="btn btn-danger" value="${review.ratingReviewNo}" >삭제</button>
+                                            <button type="button" class="btn btn-primary" value="${review.ratingReviewNo}" data-nick="${review.user.nickName}">수정</button>
+                                            <button type="button" class="btn btn-danger" value="${review.ratingReviewNo}" >삭제</button>
                                          </c:if>
                                       </span>
                                     </div>
@@ -247,7 +247,7 @@
 
             });
 
-            $('body').on('click','#correction_btn',function(){  
+            $('body').on('click','.btn-primary',function(){  
                 var reviewNo = $(this).val();
                       
                       
@@ -352,8 +352,8 @@
                               review_star +="<span> ("+JSONData.statusRating+")</span>"
                               review_star +="</div>"
                              
-                              btn += "<button type='button' id='correction_btn' class='btn btn-default' style='margin-right: 5px;' value="+JSONData.ratingReviewNo+">수정</button>"
-                              btn += "<button type='button' id='delete_btn' class='btn btn-danger' value="+JSONData.ratingReviewNo+" >삭제</button>"  
+                              btn += "<button type='button' class='btn btn-primary' style='margin-right: 5px;' value="+JSONData.ratingReviewNo+">수정</button>"
+                              btn += "<button type='button' class='btn btn-danger' value="+JSONData.ratingReviewNo+" >삭제</button>"  
                               
                               $(this).parent().parent().next().empty();
                               $(this).parent().parent().next().html(review_star);
@@ -371,7 +371,7 @@
             })
 
 
-          $('body').on('click','#delete_btn',function(){
+          $('body').on('click','.btn-danger',function(){
               self.location ="/campGeneral/deleteMyCampRatingReview?ratingReviewNo="+$(this).attr("value");
           });
           

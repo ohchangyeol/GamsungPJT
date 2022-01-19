@@ -24,6 +24,8 @@ public interface TransferService {
 	public int blindTransfer(int transferNo)throws Exception;
 	
 	public int updateReservationStatus(String reservationNo)throws Exception;
+
 	
 	public Map<String, Object> listTransferForReceive(Search search) throws Exception;
+
 }

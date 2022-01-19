@@ -54,9 +54,17 @@ public class UserController {
 
 		System.out.println("/user/addUser:GET");
 
-		return "redirect:/view/user/addGeneralUser.jsp";
+		return "forward:/view/user/addGeneralUser.jsp";
 	}
 
+	@RequestMapping(value = "addBusinessUser", method = RequestMethod.GET)
+	public String addBusinessUser() throws Exception {
+
+		System.out.println("/user/addBusinessUser:GET");
+
+		return "forward:/view/user/addBusinessUser.jsp";
+	}
+	
 	@RequestMapping(value = "addUser", method = RequestMethod.POST)
 	public String addUser(@ModelAttribute("user") User user, MultipartFile businessImg, HttpSession session) {
 
@@ -206,8 +214,10 @@ public class UserController {
 			session.setAttribute("user", user);
 			if (user.getRole().equals("GENERAL")) {
 				return "forward:/view/common/myPage.jsp";
-			} else {
+			} else if(user.getRole().equals("BUSINESS")){
 				return "forward:/view/user/getBusinessUserUpdate.jsp";
+			}else {
+				return "forward:/view/user/adminMyPage.jsp";
 			}
 		}
 
@@ -228,25 +238,16 @@ public class UserController {
 		// Business Logic
 		System.out.println(user);
 		User dbUser = userService.getUser(user.getId());
-		// if(session.getAttribute("eamil")!=null) {
-		// User kUser=userService.getUser(session.getAttribute("eamil").toString());
-		// }
+
 		if (dbUser == null) {
 			return "forward:/view/user/addGeneralUser.jsp";
 		}
 
-		// if(kUser.getSnsId()!=null) {
-		// System.out.println("카카오 로그인");
-		// session.setAttribute("user", kUser);
-		// return "forward:/";
-		// }
 
 		System.out.println(dbUser);
 		LocalDate now = LocalDate.now();
 		String regDate = now.toString();
 		Date currentDate = dbUser.getCurrentLoginRegDate();
-		// SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		// java.sql.Date date = java.sql.Date.valueOf(now);
 
 		if (dbUser.getRole().equals("ADMIN")) {
 			session.setAttribute("user", dbUser);
@@ -305,7 +306,7 @@ public class UserController {
 
 	// 카카오 연동정보 조회
 	@RequestMapping(value = "kakaoCallback")
-	public String oauthKakao(@RequestParam(value = "code", required = false) String code, Model model,HttpSession session,HttpServletResponse res) {
+	public String oauthKakao(@RequestParam(value = "code", required = false) String code, Model model,HttpSession session, HttpServletResponse res) {
 
 		System.out.println("#########" + code);
 		String accessToken = userService.getAccessToken(code);
@@ -315,7 +316,7 @@ public class UserController {
 		System.out.println("###access_Token#### : " + accessToken);
 
 		if((String) userInfo.get("email")==null) {
-			userService.unlink(accessToken);
+			userService.kakaoUnlink(accessToken);
 			return "/";
 		}else {		
 		String email = (String) userInfo.get("email");
@@ -422,5 +423,30 @@ public class UserController {
 		return "forward:/view/common/myPage.jsp";
 
 	}
+	
+	@RequestMapping(value = "adminMypage", method = RequestMethod.GET)
+	public String adminMypage() {
+
+		System.out.println("/user/adminMypage : GET");
+
+		return "forward:/view/user/adminMyPage.jsp";
+
+	}
+	
+//	@RequestMapping(value = "findIdPhoneAuthNum", method = RequestMethod.POST)
+//	public String findIdPhoneAuthNum(@RequestBody User user, Model model) {
+//
+//		try {
+//			String userId = userService.findId(user.getName(), user.getPhone());
+//			if (userId == null) {
+//				return "redirect:./addUser";
+//			}
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//
+//		model.addAttribute("phone", user.getPhone());
+//		return "forward:./sendPhoneAuthNum";
+//	}
 
 }

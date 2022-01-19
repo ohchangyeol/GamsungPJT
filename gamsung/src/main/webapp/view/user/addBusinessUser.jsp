@@ -39,6 +39,11 @@
 						padding-top: 10px;
 						padding-bottom: 10px;
 					}
+
+					.checkFont {
+						font-size: 12px;
+						padding-left: 28px;
+					}
 				</style>
 
 				<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -55,21 +60,18 @@
 					</div>
 					<jsp:include page="../common/header.jsp"></jsp:include>
 					<div class="main">
-						<section class="module bg-dark-30 about-page-header"
-							data-background="../../resources/images/addBusinessUserImg.png">
-							<div class="container">
-								<div class="row">
-									<div class="col-sm-6 col-sm-offset-3">
-									</div>
-								</div>
-							</div>
-						</section>
-						<section class="module">
+						<!-- <section class="module bg-dark-30 about-page-header"
+						data-background="../../resources/images/addGeneralUserImg.png"> -->
+						<div class="container" style="padding-top: 72px;">
+							<img src="../../resources/images/addBusinessUserImg.png" alt="">
+						</div>
+						<!-- </section> -->
+						<section class="module" style="padding-top:0;">
 							<div class="container">
 								<div class="row">
 									<div class="col-sm-8 col-sm-offset-2">
 										<hr class="divider-w mt-10 mb-20">
-										<form class="form" role="form">
+										<form class="form" role="form" id="add_b_form">
 											<div id="add_b_email" class="form-group row">
 												<div><input id="role" name="role" value="BUSINESS" hidden="hidden">
 												</div>
@@ -89,8 +91,10 @@
 														class="form-control " type="text" placeholder="인증번호를 입력하세요."
 														maxlength="6" />
 												</div>
-												<div id="add_b_check-email" class='col-sm-offset-3 col-sm-6'></div>
-												<div id="add_b_check-email-auth" class='col-sm-offset-3 col-sm-6'></div>
+												<div id="add_b_check-email" class='col-sm-offset-3 col-sm-6 checkFont'>
+												</div>
+												<div id="add_b_check-email-auth"
+													class='col-sm-offset-3 col-sm-6 checkFont'></div>
 											</div>
 
 											<div class="form-group row">
@@ -101,7 +105,8 @@
 														type="password" placeholder="비밀번호는 8~15자까지 입력 가능합니다."
 														maxlength="15" />
 												</div>
-												<div id="add_b_check-pwd-exp" class='col-sm-offset-3 col-sm-6'></div>
+												<div id="add_b_check-pwd-exp"
+													class='col-sm-offset-3 col-sm-6 checkFont checkFont'></div>
 											</div>
 
 											<div class="form-group row">
@@ -113,7 +118,8 @@
 														class="form-control" type="password"
 														placeholder="비밀번호를 입력해 주세요." />
 												</div>
-												<div id="add_b_check-pwd" class='col-sm-offset-3 col-sm-6'></div>
+												<div id="add_b_check-pwd" class='col-sm-offset-3 col-sm-6 checkFont'>
+												</div>
 											</div>
 
 											<div id="add_b_campName" class="form-group row">
@@ -134,7 +140,8 @@
 														class="form-control" type="text" placeholder="숫자만 입력해주세요"
 														maxlength="10" />
 												</div>
-												<div id="add_b_check-business" class='col-sm-offset-3 col-sm-6'></div>
+												<div id="add_b_check-business"
+													class='col-sm-offset-3 col-sm-6 checkFont'></div>
 											</div>
 
 											<div class="form-group row">
@@ -170,7 +177,8 @@
 														type="text" placeholder="숫자만 입력해주세요" maxlength="11" />
 
 												</div>
-												<div id="add_b_check-phone" class='col-sm-offset-3 col-sm-6'></div>
+												<div id="add_b_check-phone" class='col-sm-offset-3 col-sm-6 checkFont'>
+												</div>
 											</div>
 
 											<div class="form-group row">
@@ -201,7 +209,8 @@
 													<input id="add_b_campCall" name="campCall" class="form-control"
 														type="text" placeholder="숫자만 입력해주세요." maxlength="11" />
 												</div>
-												<div id="add_b_check-campCall" class='col-sm-offset-3 col-sm-6'></div>
+												<div id="add_b_check-campCall"
+													class='col-sm-offset-3 col-sm-6 checkFont'></div>
 											</div>
 
 											<div class="form-group row">
@@ -230,7 +239,8 @@
 													<input id="add_b_accountNum" name="accountNum" class="form-control"
 														type="text" placeholder="계좌번호를 숫자만 입력하세요" maxlength="14" />
 												</div>
-												<div id="add_b_check-accountNum" class='col-sm-offset-3 col-sm-6'></div>
+												<div id="add_b_check-accountNum"
+													class='col-sm-offset-3 col-sm-6 checkFont'></div>
 											</div>
 										</form>
 									</div>
@@ -361,7 +371,7 @@ alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+
 
 							if (pwd.length > 0) {
 								$(this).val($(this).val().replace(/ /g, ''));
-								$("#add_b_check-pwd-exp").html("공백은 입력 불가합니다.");
+								// $("#add_b_check-pwd-exp").html("공백은 입력 불가합니다.");
 							} else {
 								$("#add_b_check-pwd-exp").html("");
 							}
@@ -546,13 +556,16 @@ alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+
 							var phone = $("#add_b_phone").val();
 							var campBusinessNum = $("#add_b_campBusinessNum").val();
 							var mainlConfirm = $("#add_b_checkMailAuth").val();
+
 							console.log(campName);
+
 							if (id == null || id.length < 1) {
 								alert("아이디는 반드시 입력하셔야 합니다.");
 								return;
 							}
 
 							if (auth_check != 1) {
+								console.log(auth_check);
 								alert("인증번호를 다시 확인해주세요.");
 								return;
 							}
@@ -604,10 +617,19 @@ alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+
 									+ $("#add_b_userAddr").val();
 							}
 
-							$("add_b_allAddr").val(value);
+							$("#add_b_allAddr").val(value);
 
-							$("form").attr("method", "POST").attr("action", "/user/addUser").attr("enctype", "multipart/form-data").submit();
+							Swal.fire({
+								icon: 'success',
+								title: '가입신청 완료',
+								html: '회원가입이 신청이 완료되었습니다.<br>관리자 승인 후 승인메일이 발송됩니다:)'
+							}).then(() => {
+
+								$("#add_b_form").attr("method", "POST").attr("action", "/user/addUser").attr("enctype", "multipart/form-data").submit();
+
+							});
 						}
+
 
 
 						//주소검색
@@ -619,6 +641,10 @@ alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+
 								}
 							}).open();
 						});
+
+						$("#get_b_cancel").on("click", function () {
+							window.history.go(-1);
+						})
 					});
 				</script>
 			</body>

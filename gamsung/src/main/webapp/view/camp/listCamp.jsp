@@ -198,12 +198,12 @@ pageEncoding="UTF-8"%>
                     
                        <div class="row">
                           <div class="col-xs-4" style="font-size: large; font-weight: bold ">${camp.user.campName}&nbsp;캠핑장</div>
-                          <div class="col-xs-4"> 등록일 : ${camp.campRegDate}</div>
+                          <div class="col-xs-4" style="margin-top: 3px;"> 등록일 : ${camp.campRegDate}</div>
                        </div>   
                        
                        <div class="row">
                         <br>
-                         <div class="col-xs-2"> 평점 : ${camp.campRate}</div>
+                         <div class="col-xs-2 substring" value="${camp.campRate}"></div>
                          <div class="col-xs-4"> 이달의 조회수 : ${camp.campViewCountCurrentMonth}</div>
                        </div>
                        
@@ -239,7 +239,13 @@ pageEncoding="UTF-8"%>
         <script src="../../resources/js/campSearch.js"></script>
 
         <script type="text/javascript">
-    
+
+          window.onload = function() {
+
+            $(document).scrollTop($(".container")[0].scrollHeight);
+
+          }
+              
           var currentPage = 1;
       
           function fncGetList(currentPage) {
@@ -248,6 +254,14 @@ pageEncoding="UTF-8"%>
           }
           
           $( function() {
+
+            $(".substring").each(function(index,obj){
+              
+              let str = $(this).attr("value");
+              let substring = str.substring(0, 3);
+              return $(this).html("평점 : "+substring);
+            
+            });
     
             $("#view").on("click" , function() {
                   $("#view_order").attr("method","POST").attr("action","/campGeneral/listCamp").submit();

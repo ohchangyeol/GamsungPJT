@@ -30,6 +30,11 @@
 				#checkPhoneAuthNum {
 					margin: 14px;
 				}
+
+				.checkFont {
+					font-size: 12px;
+					padding-left: 28px;
+				}
 			</style>
 
 			<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -42,29 +47,23 @@
 
 		<body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
 			<main>
-				<div class="page-loader">
-					<div class="loader">Loading...</div>
-				</div>
+				
 
 				<jsp:include page="../common/headerCampBusiness.jsp"></jsp:include>
 
 				<div class="main">
-					<section class="module bg-dark-30 about-page-header" data-background="assets/images/about_bg.jpg">
-						<div class="container">
-							<div class="row">
-								<div class="col-sm-6 col-sm-offset-3">
-									<h1 class="module-title font-alt mb-0">Forms</h1>
-								</div>
-							</div>
-						</div>
-					</section>
-					<section class="module">
+					<!-- <section class="module bg-dark-30 about-page-header" data-background="assets/images/about_bg.jpg"> -->
+					<div class="container">
+						<img src="../../resources/images/getBusinessUserUpdateImg.jpg" alt="">
+					</div>
+					<!-- </section> -->
+					<section class="module" style="padding-top: 0;">
 						<div class="container">
 							<div class="row">
 								<div class="col-sm-8 col-sm-offset-2">
 									<h4 class="font-alt mb-0">내정보 조회/수정</h4>
 									<hr class="divider-w mt-10 mb-20">
-									<form class="form" role="form">
+									<form class="form" role="form" id="update_b_form">
 										<div id="email" class="form-group row">
 											<div><input id="role" name="role" value="GENERAL" hidden="hidden"></div>
 											<label for="get_b_id"
@@ -73,7 +72,7 @@
 												<input id="get_b_id" name="id" class="form-control " value="${user.id}"
 													readonly />
 											</div>
-											<div class='col-sm-offset-3 col-sm-6'><span id="helpBlock"
+											<div class='col-sm-offset-3 col-sm-6 checkFont'><span id="helpBlock"
 													class="help-block">
 													<strong class="text-danger">아이디는 수정이 불가합니다.</strong>
 												</span></div>
@@ -87,7 +86,8 @@
 												<input id="get_b_password" name="password" class="form-control "
 													type="password" placeholder="변경할 비밀번호를 입력해 주세요." />
 											</div>
-											<div id="get_b_check-pwd-exp" class='col-sm-offset-3 col-sm-6'></div>
+											<div id="get_b_check-pwd-exp" class='col-sm-offset-3 col-sm-6 checkFont'>
+											</div>
 										</div>
 
 										<div class="form-group row">
@@ -98,7 +98,7 @@
 												<input id="get_b_confirmPassword" name="confirmPassword"
 													class="form-control" type="password" placeholder="비밀번호를 입력해 주세요." />
 											</div>
-											<div id="get_b_check-pwd" class='col-sm-offset-3 col-sm-6'></div>
+											<div id="get_b_check-pwd" class='col-sm-offset-3 col-sm-6 checkFont'></div>
 										</div>
 
 										<div id="campName" class="form-group row">
@@ -119,7 +119,8 @@
 													class="form-control" type="text" value="${user.campBusinessNum}"
 													maxlength="10" readonly />
 											</div>
-											<div id="get_b_check-business" class='col-sm-offset-3 col-sm-6'></div>
+											<div id="get_b_check-business" class='col-sm-offset-3 col-sm-6 checkFont'>
+											</div>
 										</div>
 
 										<div class="form-group row">
@@ -150,17 +151,19 @@
 													value="${user.phone}" placeholder="숫자만 입력해주세요" maxlength="11" />
 
 											</div>
-											<button id="get_b_phoneAuthNum" class="btn btn-circle btn-xs"
-												type="button">인증번호
+											<button id="get_b_phoneAuthNum" class="btn btn-circle btn-xs" type="button"
+												style="display: none;">인증번호
 												받기</button>
 											<div id="get_b_checkPhoneAuth" class="col-sm-offset-3 col-sm-6"
-												style="display:none;">
+												style="display:none; margin: 15px;">
 												<input id="get_b_checkPhoneAuthNum" name="checkPhoneAuthNum"
 													class="form-control " type="text" placeholder="인증번호를 입력하세요."
 													maxlength="4" />
 											</div>
-											<div id="get_b_check-phone" class='col-sm-offset-3 col-sm-6'></div>
-											<div id="get_b_check-phone-auth" class='col-sm-offset-3 col-sm-6'></div>
+											<div id="get_b_check-phone" class='col-sm-offset-3 col-sm-6 checkFont'>
+											</div>
+											<div id="get_b_check-phone-auth" class='col-sm-offset-3 col-sm-6 checkFont'>
+											</div>
 										</div>
 
 										<div class="form-group row">
@@ -245,7 +248,8 @@
 							<div class="col-sm-3 col-sm-offset-2"></div>
 							<div class="col-sm-3 col-sm-offset-2">
 								<div class="row">
-									<button id="cancel" class="btn btn-border-d btn-circle" type="button">취소</button>
+									<button id="get_b_cancel" class="btn btn-border-d btn-circle"
+										type="button">취소</button>
 									<button id="get_b_updateUser" class="btn btn-border-d btn-circle"
 										type="submit">수정하기</button>
 
@@ -300,6 +304,7 @@
 
 						var regExp = /^[0-9]*$/;
 						var phone = $("#get_b_phone").val();
+						$("#get_b_phoneAuthNum").show();
 
 						$.ajax({
 							url: '/user/rest/checkDuplication',
@@ -378,7 +383,7 @@
 
 					//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 					$("#get_b_updateUser").on("click", function () {
-						console.log("뭐지");
+						console.log("사업자회원 내정보 조회수정");
 						fncupdateUser();
 					});
 
@@ -419,7 +424,14 @@
 
 						$("#get_b_allAddr").val(value);
 
-						$("form").attr("method", "POST").attr("action", "/user/updateUser").submit();
+						Swal.fire({
+							icon: 'success',
+							title: '수정완료',
+							html: '정보수정이 완료되었습니다:)'
+
+						}).then(() => {
+							$("#update_b_form").attr("method", "POST").attr("action", "/user/updateUser").submit();
+						});
 					}
 
 
@@ -433,6 +445,10 @@
 							}
 						}).open();
 					});
+
+					$("#get_b_cancel").on("click", function () {
+						window.location = "/campBusiness/goSubMainCampBusiness";
+					})
 				});
 
 			</script>

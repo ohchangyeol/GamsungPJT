@@ -148,7 +148,7 @@ pageEncoding="UTF-8"%>
                                <div class="col-xs-12" style="font-size: medium;"> 기본 사용인원 : ${mainSite.mainSiteMinCapacity}인 (최대 사용인원 : ${mainSite.mainSiteMaxCapacity}인)</div>
                              </div>
                              <div class="row">
-                               <div class="col-xs-12" style="font-size: medium; margin-top: 15px;"> 이용가격(1박) : ${mainSite.mainSiteMinPrice}원 (인원 추가금 : ${mainSite.mainSiteAddPrice}원)</div>
+                               <div class="col-xs-12" style="font-size: medium; margin-top: 15px;" id="main_site_price" minprice="${mainSite.mainSiteMinPrice}" addprice="${mainSite.mainSiteAddPrice}"></div>
                              </div>
                              <div class="row">
                               <div class="col-xs-12" style="font-size: medium; margin-top: 15px;" > 주차가능대수 : ${mainSite.mainSiteParkingSize} 대</div>
@@ -177,9 +177,18 @@ pageEncoding="UTF-8"%>
 
     </main>
     <script type="text/javascript">
-        
+
+          window.onload = function() {
+                let minprice = $('#main_site_price').attr("minprice");
+                let addprice = $('#main_site_price').attr("addprice");
+                let mincomma = minprice.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+                let addcomma = addprice.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+                
+                return $('#main_site_price').html("이용가격(1박) : "+mincomma+"원 (인원 추가금 : "+addcomma+"원)");
+          }
+
         $( function() {
-            
+
             let start = new Date($("#startdate").val());
             let end = new Date($("#enddate").val());
             let total = Math.ceil((end.getTime()-start.getTime())/(1000*3600*24));
@@ -195,20 +204,20 @@ pageEncoding="UTF-8"%>
             $("#camp_use_num").on("propertychange change keyup paste input", function() {				
                  let useNum = $("#camp_use_num").val();
                  let maxUse = $("#camp_use_info").attr("camp_use_num");
-
+          
                  if(useNum > maxUse){
-                    $("#camp_use_num").val(maxUse);
+                    $("#camp_use_num").val(parseInt(maxUse));
                     return;
                  }
             });
 
             $("#camp_use_car_num").on("propertychange change keyup paste input", function() {	
-                let carNum = $("#camp_use_num").val();
+                let carNum = $("#camp_use_car_num").val();
                 let maxCar = $("#camp_use_info").attr("camp_use_car");
-
+             
                 if(carNum > maxCar){
-                  $("#camp_use_car_num").val(maxCar);
-                  
+                  $("#camp_use_car_num").val(parseInt(maxCar));
+                  return;
                 }
       
             });

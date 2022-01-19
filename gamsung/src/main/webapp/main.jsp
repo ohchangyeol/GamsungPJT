@@ -92,7 +92,7 @@
                 </div>
                 <div class="col-sm-6 col-md-4 col-lg-4">
                   <div class="post">
-                    <div class="post-thumbnail"><img class="campImg" campNo="${topView.campNo}"
+                    <div class="post-thumbnail"><img class="campImg" campNo="${topView.campNo}" style="cursor: pointer;" 
                         src="/uploadfiles/campimg/campbusiness/camp/${topView.campImg1}" alt="Blog-post Thumbnail">
                     </div>
                     <div class="post-header font-alt">
@@ -107,7 +107,7 @@
                 </div>
                 <div class="col-sm-6 col-md-4 col-lg-4">
                   <div class="post">
-                    <div class="post-thumbnail"><img class="campImg" campNo="${topRating.campNo}"
+                    <div class="post-thumbnail"><img class="campImg" campNo="${topRating.campNo}" style="cursor: pointer;" 
                         src="/uploadfiles/campimg/campbusiness/camp/${topRating.campImg1}" alt="Blog-post Thumbnail">
                     </div>
                     <div class="post-header font-alt">
@@ -122,7 +122,7 @@
                 </div>
                 <div class="col-sm-6 col-md-4 col-lg-4">
                   <div class="post">
-                    <div class="post-thumbnail"><img class="campImg" campNo="${topReservation.campNo}"
+                    <div class="post-thumbnail"><img class="campImg" campNo="${topReservation.campNo}" style="cursor: pointer;" 
                         src="/uploadfiles/campimg/campbusiness/camp/${topReservation.campImg1}"
                         alt="Blog-post Thumbnail"></div>
                     <div class="post-header font-alt">
@@ -216,15 +216,7 @@
             <jsp:include page="./view/common/footer.jsp"/>
 
         </main>
-        <c:if test="${!empty user.id}">
-          <!-- chatting -->
-          <div id="messenger-btn" class="chatting-btn"><i class="fa fa-fw"></i></div>
-          <div id="messenger-iframe" class="ch-messenger-hidden">
-            <iframe src="/chat/chatlist" frameborder="1"
-              style="position:relative!important;height:100%;width:100%!important;border:none!important;"></iframe>
-          </div>
-
-        </c:if>
+        
 
 
         <script src="../../resources/lib/modals/examples.modals.js"></script>

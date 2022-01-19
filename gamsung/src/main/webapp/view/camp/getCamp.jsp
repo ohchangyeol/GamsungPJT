@@ -269,7 +269,7 @@
                           <span><i class="fa fa-star star"></i></span>
                           <span><i class="fa fa-star star"></i></span>
                         </c:if>
-                        <a class="open-tab section-scroll">&nbsp;평점&nbsp;${camp.campRate}</a>
+                        <a class="open-tab section-scroll" id="main_camp_rating" value="${camp.campRate}"></a>
                       </div>
                     </div>
                     <div class="row mb-20">
@@ -495,8 +495,7 @@
                                     ${mainSite.mainSiteMinCapacity}인 (최대 사용인원 : (${mainSite.mainSiteMaxCapacity}인)</div>
                                 </div>
                                 <div class="row">
-                                  <div class="col-xs-12"> 이용가격(1박) : ${mainSite.mainSiteMinPrice}원 (인원 추가금 :
-                                    ${mainSite.mainSiteAddPrice}원)</div>
+                                  <div class="col-xs-12 subprice" minprice="${mainSite.mainSiteMinPrice}" addprice="${mainSite.mainSiteAddPrice}"></div>
                                 </div>
                               </div>
                             </div>
@@ -813,7 +812,7 @@
                     <div class="tab-pane teb-iframe" id="qna">
                       <iframe src="/campBusiness/listCampQna?campNo=${camp.campNo}" scrolling="no" id="qnaschange"></iframe>
 	                      <script type="text/javascript">
-	                        function AdjustIframeHeight(i) { document.getElementById("qnaschange").style.height = parseInt(i) + "px"; }
+	                        function qnaIframeHeight(i) { document.getElementById("qnaschange").style.height = parseInt(i) + "px"; }
 	                      </script> 
                     </div>
 
@@ -839,7 +838,26 @@
        
         <script type="text/javascript">
 
+          window.onload = function() {
+            
+            let substring = " 평점 "+$("#main_camp_rating").attr("value").substring(0, 3);
+            
+            $("#main_camp_rating").html(substring);
+
+          };
+
           $(function(){
+
+              $(".subprice").each(function(index,obj){
+
+                let minprice = $(this).attr("minprice");
+                let addprice = $(this).attr("addprice");
+                let mincomma = minprice.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+                let addcomma = addprice.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+
+                return $(this).html("이용가격(1박) : "+mincomma+"원 (인원 추가금 : "+addcomma+"원)");
+              
+              });
 
             $("#reservation").on("click", function () {
               var mainSiteNo = 0;

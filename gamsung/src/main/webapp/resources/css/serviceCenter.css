@@ -1,8 +1,10 @@
+
 .format{display: none;}
 /* Notice Layout */
 li {list-style: none;}
 .inner-body-notice{padding-top: 50px;}
-.container .row h4 {font-weight: 600;}
+.add-notice .inner-body-notice{padding-top: 20px !important;}
+.container .row h4 {font-weight: 500;}
 .container .row h4 a{ display: flex !important; justify-content: space-between; align-items: center;}
 .container .row h4 a div {margin-right: 30px;}
 .content-with-menu-container{margin-top: 55px;}
@@ -14,9 +16,11 @@ li {list-style: none;}
 hr.divider-w{height: 0 !important;}
 .date-view{display: flex; justify-content: space-between;}
 #notice-form {border-top: 52px transparent solid;box-sizing: border-box;}
+.notice-list .notice-view-count{display: flex;justify-content: space-between;}
 /* get Notice */
 .getNotice .row .row {display: flex; justify-content: end;}
 .getNotice .notice-content .n-body .row .file-content {border: 1px solid #f0f0f0; border-radius: 7px; background-color:#f0f0f09d ;padding: 10px; box-sizing: border-box;}
+.getNotice .notice-content .n-body .row .file-content ul{padding: 0;margin: 0;}
 .getNotice .notice-content .n-body .content {margin-top: 20px ;}
 .getNotice .u-d-button-box{display: flex;justify-content: end; gap: 15px;}
 /* add Notoce */
@@ -42,7 +46,10 @@ hr.divider-w{height: 0 !important;}
 .qna .panel-group .panel-default .panel-heading {height: 55px; background-color: transparent; display: flex; align-items: center; }
 .qna .panel-group .panel-default .panel-heading .panel-title{ width: 100%;}
 
+.add-notice .table-list-padding .col-xs-12 h4{font-size: 18px !important; font-weight: 600 !important; color:#666666 !important; }
+.add-notice .table-list-padding .col-xs-12 .search-contents{margin-top: 0 !important;}
 .sub-title{ display: flex; align-items: center;gap: 20px; position: relative;}
+.sub-title h4{font-size: 34px;}
 .sub-title .btn-box{position: absolute; right: 0;}
 .qna .module .container .panel-group{border-bottom: 2px solid #979797;}
 .qna .qna-btn-box{position: absolute; display: flex; flex-direction: column; row-gap: 20px; top: 100px;right: 0;z-index: 100;}

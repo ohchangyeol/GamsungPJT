@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONArray;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -70,24 +72,32 @@ public class PaymentRestController {
 				paymentByImpUid(Model model, Locale locale, HttpSession session, @PathVariable(value= "imp_uid") String imp_uid) 
 						throws IamportResponseException, IOException {
 		
+		System.out.println("paymentByImpUid_imp_uid : " + imp_uid);
+		
 			return api.paymentByImpUid(imp_uid);
-	}
+	}	
 		
 	// Iamport 결제 취소
-	// /payment/rest/refundIamport/
+	// /payment/rest/cancleIamport
 	@ResponseBody
-	@RequestMapping(value="/cancleIamport/{imp_uid}")
+	@RequestMapping(value="/cancleIamport")
 	public IamportResponse<com.siot.IamportRestClient.response.Payment> 
-			cancelPaymentByImpUid(Model model, Locale locale, HttpSession session, @PathVariable(value= "imp_uid") String imp_uid) 
+			cancelPaymentByImpUid(@RequestParam(value="uidList[]") List<String> uidList) 
 					throws IamportResponseException, IOException {
 		
-		System.out.println("cancelPaymentByImpUid_imp_uid : " + imp_uid);
-		
-		CancelData oneCancelData = new CancelData(imp_uid, false); 
-		
-			return api.cancelPaymentByImpUid(oneCancelData);
-	}
-		
+		CancelData oneCancelData = null;
+		if(uidList.size() > 0) {
+			for(int i=0; i<uidList.size(); i++) {
+				 
+				 System.out.println("input_uid ["+ i +"]"+ uidList.get(i));
+				 oneCancelData = new CancelData(uidList.get(i), true); 
+				 return api.cancelPaymentByImpUid(oneCancelData);
+				 
+			 }	
+		} 
+		return null;
+	}	
+	
 	@RequestMapping(value = "listPayment")
 	private @ResponseBody String listPaymentJSON(HttpSession httpSession) throws Exception {
 		

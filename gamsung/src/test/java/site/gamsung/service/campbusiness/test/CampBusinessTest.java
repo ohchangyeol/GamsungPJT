@@ -15,6 +15,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import junit.framework.Assert;
 import site.gamsung.service.campbusiness.CampBusinessService;
+import site.gamsung.service.common.GoCampAPI;
 import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.Camp;
 import site.gamsung.service.domain.MainSite;
@@ -41,8 +42,11 @@ public class CampBusinessTest {
 	@Qualifier("campBusinessServiceImpl")
 	private CampBusinessService campBusinessService;
 	
+	@Autowired
+	@Qualifier("GoCampAPI")
+	private GoCampAPI goCampAPI;
 	
-	@Test
+	//@Test
 	public void testaddSubSite() throws Exception{
 		
 		Date testDate = new Date(2020,01,01);	
@@ -62,6 +66,11 @@ public class CampBusinessTest {
 		
 		System.out.println("testSubSiteResult : "+ testSubSiteResult);
 		
+	}
+	
+	@Test
+	public void testAddGoCamp() throws Exception{
+		goCampAPI.addData();
 	}
 	
 	
