@@ -1,5 +1,10 @@
 package site.gamsung.controller.common;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,7 +21,9 @@ import site.gamsung.service.camp.CampReservationService;
 import site.gamsung.service.camp.CampSearchService;
 import site.gamsung.service.domain.AuctionProduct;
 import site.gamsung.service.domain.ReservationStatistics;
+import site.gamsung.service.domain.SiteProfit;
 import site.gamsung.service.domain.User;
+import site.gamsung.service.payment.PaymentService;
 
 @Controller
 public class MainController {
@@ -32,6 +39,10 @@ public class MainController {
 	@Autowired
 	@Qualifier("campReservationServiceImpl")
 	private CampReservationService campReservationService;
+	
+	@Autowired
+	@Qualifier("paymentServiceImpl")
+	private PaymentService paymentService;
 	
 	//메인페이지 접속시 mapping
 	@RequestMapping("/")
@@ -50,7 +61,7 @@ public class MainController {
 	}
 	
 	//관리자 로그인시 mapping
-	@RequestMapping("/admin")
+	@RequestMapping("admin")
 	public String adminMainPage(HttpSession httpSession, Model model) {
 		
 		User user = (User)httpSession.getAttribute("user");
@@ -61,6 +72,27 @@ public class MainController {
 		
 		ReservationStatistics reservationStatistics = campReservationService.getReservationStatistics();
 		
+		HashMap<String, Object> searchParameter = new HashMap<String, Object>();		
+		
+		Calendar calendar = new GregorianCalendar();
+		SimpleDateFormat SDF = new SimpleDateFormat("yyyy-MM-dd");
+		
+		calendar.add(Calendar.DATE, 0);		
+		String todayDay = SDF.format(calendar.getTime());		
+		System.out.println("todayDay : "+todayDay);
+	
+		
+		SiteProfit siteProfit = null;
+		try {
+			siteProfit = paymentService.listSiteProfit(todayDay);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		System.out.println("siteProfit : "+siteProfit);		
+		
+		model.addAttribute("siteProfit", siteProfit);
 		model.addAttribute("reservationStatistics", reservationStatistics);
 	
 		return "forward:/adminMain.jsp";

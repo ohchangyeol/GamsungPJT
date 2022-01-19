@@ -331,7 +331,6 @@
 							searchKeyword : searchKeyword
 						}),
 						success : function(JSONData,status){
-							console.log(JSONData)
 							$(function(){
 								$('#keyword').autocomplete({
 									source: JSONData
@@ -350,7 +349,10 @@
 	   		
 	   		$(document).on('click','.bidCocern',function(){
 	   			if(${empty sessionScope.user}){
-	   				alert("로그인 후 이용 가능합니다.");
+	   				Swal.fire({
+				    	text: '로그인 후 이용 가능합니다.',
+				    	icon: 'warning'
+				    })
 	   				window.location = "/"
 	   				return;
 	   			}
