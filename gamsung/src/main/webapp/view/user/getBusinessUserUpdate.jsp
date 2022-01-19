@@ -30,6 +30,11 @@
 				#checkPhoneAuthNum {
 					margin: 14px;
 				}
+
+				.checkFont {
+					font-size: 12px;
+					padding-left: 28px;
+				}
 			</style>
 
 			<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -49,16 +54,12 @@
 				<jsp:include page="../common/headerCampBusiness.jsp"></jsp:include>
 
 				<div class="main">
-					<section class="module bg-dark-30 about-page-header" data-background="assets/images/about_bg.jpg">
-						<div class="container">
-							<div class="row">
-								<div class="col-sm-6 col-sm-offset-3">
-									<h1 class="module-title font-alt mb-0">Forms</h1>
-								</div>
-							</div>
-						</div>
-					</section>
-					<section class="module">
+					<!-- <section class="module bg-dark-30 about-page-header" data-background="assets/images/about_bg.jpg"> -->
+					<div class="container">
+						<img src="../../resources/images/getBusinessUserUpdateImg.jpg" alt="">
+					</div>
+					<!-- </section> -->
+					<section class="module" style="padding-top: 0;">
 						<div class="container">
 							<div class="row">
 								<div class="col-sm-8 col-sm-offset-2">
@@ -87,7 +88,8 @@
 												<input id="get_b_password" name="password" class="form-control "
 													type="password" placeholder="변경할 비밀번호를 입력해 주세요." />
 											</div>
-											<div id="get_b_check-pwd-exp" class='col-sm-offset-3 col-sm-6'></div>
+											<div id="get_b_check-pwd-exp" class='col-sm-offset-3 col-sm-6 checkFont'>
+											</div>
 										</div>
 
 										<div class="form-group row">
@@ -98,7 +100,7 @@
 												<input id="get_b_confirmPassword" name="confirmPassword"
 													class="form-control" type="password" placeholder="비밀번호를 입력해 주세요." />
 											</div>
-											<div id="get_b_check-pwd" class='col-sm-offset-3 col-sm-6'></div>
+											<div id="get_b_check-pwd" class='col-sm-offset-3 col-sm-6 checkFont'></div>
 										</div>
 
 										<div id="campName" class="form-group row">
@@ -119,7 +121,8 @@
 													class="form-control" type="text" value="${user.campBusinessNum}"
 													maxlength="10" readonly />
 											</div>
-											<div id="get_b_check-business" class='col-sm-offset-3 col-sm-6'></div>
+											<div id="get_b_check-business" class='col-sm-offset-3 col-sm-6 checkFont'>
+											</div>
 										</div>
 
 										<div class="form-group row">
@@ -159,8 +162,10 @@
 													class="form-control " type="text" placeholder="인증번호를 입력하세요."
 													maxlength="4" />
 											</div>
-											<div id="get_b_check-phone" class='col-sm-offset-3 col-sm-6'></div>
-											<div id="get_b_check-phone-auth" class='col-sm-offset-3 col-sm-6'></div>
+											<div id="get_b_check-phone" class='col-sm-offset-3 col-sm-6 checkFont'>
+											</div>
+											<div id="get_b_check-phone-auth" class='col-sm-offset-3 col-sm-6 checkFont'>
+											</div>
 										</div>
 
 										<div class="form-group row">
