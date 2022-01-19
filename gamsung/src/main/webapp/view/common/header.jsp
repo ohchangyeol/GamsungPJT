@@ -47,7 +47,8 @@
 								data-toggle="dropdown">예약양도양수</a>
 							<ul class="dropdown-menu">
 								<li><a href="/transfer/listTransfer">예약 양도 목록</a></li>
-								<li><a href="/transfer/addTransfer">냐의 양도 등록 </a></li>
+								<li><a href="/transfer/addTransfer">예약 양도 등록 </a></li>
+								<li><a href="/transfer/listMyTransfer">나의 양도양수 현황</a>
 							</ul>
 						</li>
 						<!-- 양도양수 End -->
@@ -93,7 +94,7 @@
 									<li><a href="/community/listMyPost" style="border-bottom: none !important;"><i class="bi bi-filter-square"></i>&nbsp;커뮤니티</a></li>
 									<li><a href="" style="border-bottom: none !important;"><i class="bi bi-truck">&nbsp;</i>캠핑장</a></li>
 									<li><a id="auctionAdd" style="border-bottom: none !important;"><i class="fa fa-gavel" aria-hidden="true"></i>&nbsp;중고경매</a></li>
-									<li><a href=""style="border-bottom: none !important;"><i class="fa  fa-refresh" aria-hidden="true"></i>&nbsp;예약양도</a></li>
+									<li><a href="/transfer/listMyTransfer"style="border-bottom: none !important;"><i class="fa  fa-refresh" aria-hidden="true"></i>&nbsp;예약양도</a></li>
 									<li><a href="/payment/listPayment" style="border-bottom: none !important;"><i class="fa fa-money" aria-hidden="true"></i>&nbsp;결제 내역</a></li>
 									<li><a href="/payment/managePoint" style="border-bottom: none !important;"><i class="fa fa-money" aria-hidden="true"></i>&nbsp;포인트 관리</a></li>
 									<li><a href="#" style="border-bottom: none !important;"><button class="btn btn-border-w btn-round btn-xs" type="button"id="logout">LOGOUT</button></a></li>
