@@ -60,6 +60,11 @@
 				.business_pic img {
 					width: 600px;
 				}
+
+				.checkFont {
+					font-size: 12px;
+					padding-left: 28px;
+				}
 			</style>
 
 			<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -84,11 +89,10 @@
 
 					<section role="main" class="content-body">
 						<section class="module bg-dark-30 about-page-header"
-							data-background="assets/images/about_bg.jpg">
+							style="background-image: url(../../resources/images/getBusinessUserUpdateAdminImg.jpg)">>
 							<div class="container">
 								<div class="row">
 									<div class="col-sm-6 col-sm-offset-3">
-										<h1 class="module-title font-alt mb-0">Forms</h1>
 									</div>
 								</div>
 							</div>
@@ -97,7 +101,6 @@
 							<div class="container">
 								<div class="row">
 									<div class="col-sm-8 col-sm-offset-2">
-										<h4 class="font-alt mb-0">사업자회원정보 조회/수정</h4>
 										<hr class="divider-w mt-10 mb-20">
 										<form class="form" role="form">
 											<div id="email" class="form-group row">
@@ -109,7 +112,7 @@
 													<input id="get_b_a_id" name="id" class="form-control "
 														value="${user.id}" readonly />
 												</div>
-												<div class='col-sm-offset-3 col-sm-6'><span id="helpBlock"
+												<div class='col-sm-offset-3 col-sm-6 checkFont'><span id="helpBlock"
 														class="help-block">
 														<strong class="text-danger">아이디는 수정이 불가합니다.</strong>
 													</span></div>
@@ -133,7 +136,8 @@
 														class="form-control" type="text" value="${user.campBusinessNum}"
 														maxlength="10" readonly />
 												</div>
-												<div id="get_b_a_check-business" class='col-sm-offset-3 col-sm-6'></div>
+												<div id="get_b_a_check-business"
+													class='col-sm-offset-3 col-sm-6 checkFont'></div>
 											</div>
 
 											<div class="form-group row">

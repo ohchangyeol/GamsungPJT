@@ -31,6 +31,11 @@
 				#checkPhoneAuthNum {
 					margin: 14px;
 				}
+
+				.checkFont {
+					font-size: 12px;
+					padding-left: 28px;
+				}
 			</style>
 
 			<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -56,6 +61,19 @@
 							</div>
 						</div>
 					</section> -->
+					<div id="imgContainer" class="container">
+						<!-- <section class="module bg-dark-30 about-page-header"
+							style="background-image: url(../../resources/images/getGeneralUserUpdateImg.jpg)">
+
+							<div class="row">
+								<div class="col-sm-6 col-sm-offset-3">
+								</div>
+							</div>
+
+						</section> -->
+						<img src="../../resources/images/getGeneralUserUpdateImg.jpg" alt="">
+					</div>
+
 					<section class="module" style="padding-top: 30px;">
 						<div class="container">
 							<div class="row">
@@ -85,7 +103,7 @@
 												<input id="get_g_password" name="password" class="form-control "
 													value="" type="password" placeholder="변경할 비밀번호를 입력해 주세요." />
 											</div>
-											<div id="check-pwd-exp" class='col-sm-offset-3 col-sm-6'></div>
+											<div id="check-pwd-exp" class='col-sm-offset-3 col-sm-6 checkFont'></div>
 										</div>
 
 										<div class="form-group">
@@ -97,7 +115,7 @@
 													class="form-control" value="" type="password"
 													placeholder="비밀번호를 입력해 주세요." />
 											</div>
-											<div id="get_g_check-pwd" class='col-sm-offset-3 col-sm-6'></div>
+											<div id="get_g_check-pwd" class='col-sm-offset-3 col-sm-6 checkFont'></div>
 										</div>
 
 										<div id="get_g_nick-name" class="form-group">
@@ -107,7 +125,8 @@
 												<input id="get_g_nickName" name="nickName" class="form-control"
 													type="text" value="${user.nickName}" placeholder="닉네임을 입력해 주세요." />
 											</div>
-											<div id="get_g_check-nickName" class='col-sm-offset-3 col-sm-6'></div>
+											<div id="get_g_check-nickName" class='col-sm-offset-3 col-sm-6 checkFont'>
+											</div>
 										</div>
 
 
@@ -138,8 +157,10 @@
 													class="form-control " type="text" placeholder="인증번호를 입력하세요."
 													maxlength="4" />
 											</div>
-											<div id="get_g_check-phone" class='col-sm-offset-3 col-sm-6'></div>
-											<div id="get_g_check-phone-auth" class='col-sm-offset-3 col-sm-6'></div>
+											<div id="get_g_check-phone" class='col-sm-offset-3 col-sm-6 checkFont'>
+											</div>
+											<div id="get_g_check-phone-auth" class='col-sm-offset-3 col-sm-6 checkFont'>
+											</div>
 										</div>
 
 
@@ -263,7 +284,7 @@
 
 						if (pwd.length > 0) {
 							$(this).val($(this).val().replace(/ /g, ''));
-							$("#check-pwd-exp").html("공백은 입력 불가합니다.");
+							//$("#check-pwd-exp").html("공백은 입력 불가합니다.");
 						} else {
 							$("#check-pwd-exp").html("");
 						}
