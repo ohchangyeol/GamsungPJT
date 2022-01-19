@@ -86,22 +86,6 @@ public class UserRestController {
 		return numStr;
 	}
 
-	@RequestMapping(value = "findIdPhoneAuthNum", method = RequestMethod.POST)
-	public String findIdPhoneAuthNum(@RequestBody User user, Model model) {
-
-		try {
-			String userId = userService.findId(user.getName(), user.getPhone());
-			if (userId == null) {
-				return "redirect:./addUser";
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		model.addAttribute("phone", user.getPhone());
-		return "forward:./sendPhoneAuthNum";
-	}
-
 	@RequestMapping(value = "rest/checkDuplication", method = RequestMethod.POST)
 	public int checkDuplication(@RequestBody User user) {
 	

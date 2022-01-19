@@ -396,8 +396,8 @@
 		
 		//경매 확정 클릭시 발생 이벤트
 		$('#confirmBtn').on('click',function(){
-			if(Number($('#havingPoint').text())< Number( ${auctionProduct.hopefulBidPrice} )*Number( ${confirmFee} )/100 ){
-				const price = Number( ${auctionProduct.hopefulBidPrice} )*Number( ${confirmFee} )/100-( Number( $('#havingPoint').text() ) );
+			if(Number($('#havingPoint').text())< Number( ${auctionProduct.currentBidPrice} )){
+				const price = Number( ${auctionProduct.hopefulBidPrice} )-Number( $('#havingPoint').text() );
 				Swal.fire({
 					  text: price+'포인트가 부족하여 경매를 확정 지을 수 없습니다. 충전페이지로 이동하시겠습니까?',
 					  icon: 'question',
@@ -423,7 +423,7 @@
 						}
 					})
 			}else{
-				const priceA = Number( ${auctionProduct.hopefulBidPrice} )*Number( ${confirmFee} )/100;
+				const priceA = Number( ${auctionProduct.currentBidPrice} );
 				Swal.fire({
 					  text: priceA+'포인트가 차감됩니다. 경매를 확정하시겠습니까?',
 					  icon: 'question',
@@ -606,10 +606,7 @@
 						for (var i = 0; i < JSONData.length; i++) {
 							if(JSONData[i].reviewDeleteFlag === "N"){
 								var str	='<div class="comment clearfix">'
-										+'<div class="comment-avatar"><img src="'
-										+JSONData[i].img1
-										+'" alt="avatar"/></div>'
-		                     			+'<div class="comment-content clearfix">'
+										+'<div class="comment-content clearfix">'
 		                       			+'<div class="comment-author font-alt"><a>'
 		                       			+JSONData[i].auctionInfo.user.nickName
 		                       			+'</a></div><div>'
@@ -676,10 +673,7 @@
 					for (var i = 0; i < JSONData.length; i++) {
 						if(JSONData[i].reviewDeleteFlag === "N"){	
 							var str	='<div class="comment clearfix">'
-									+'<div class="comment-avatar"><img src="'
-									+JSONData[i].img1
-									+'" alt="avatar"/></div>'
-	                     			+'<div class="comment-content clearfix">'
+									+'<div class="comment-content clearfix">'
 	                       			+'<div class="comment-author font-alt"><a>'
 	                       			+JSONData[i].auctionInfo.user.nickName
 	                       			+'</a></div><div>'

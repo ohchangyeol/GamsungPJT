@@ -36,6 +36,11 @@
 					right: 25%;
 					margin-top: 15px;
 				}
+
+				.checkFont {
+					font-size: 12px;
+					padding-left: 28px;
+				}
 			</style>
 
 			<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -84,7 +89,7 @@
 													<input id="get_g_a_id" name="id" class="form-control "
 														value="${user.id}" readonly />
 												</div>
-												<div class='col-sm-offset-3 col-sm-6'><span id="helpBlock"
+												<div class='col-sm-offset-3 col-sm-6 checkFont'><span id="helpBlock"
 														class="help-block">
 														<strong class="text-danger">아이디는 수정이 불가합니다.</strong>
 													</span></div>
@@ -98,7 +103,8 @@
 														type="text" value="${user.nickName}"
 														placeholder="닉네임을 입력해 주세요." />
 												</div>
-												<div id="get_g_a_check-nickName" class='col-sm-offset-3 col-sm-6'></div>
+												<div id="get_g_a_check-nickName"
+													class='col-sm-offset-3 col-sm-6 checkFont'></div>
 											</div>
 
 

@@ -20,6 +20,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -423,5 +424,21 @@ public class UserController {
 		return "forward:/view/common/myPage.jsp";
 
 	}
+	
+//	@RequestMapping(value = "findIdPhoneAuthNum", method = RequestMethod.POST)
+//	public String findIdPhoneAuthNum(@RequestBody User user, Model model) {
+//
+//		try {
+//			String userId = userService.findId(user.getName(), user.getPhone());
+//			if (userId == null) {
+//				return "redirect:./addUser";
+//			}
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//
+//		model.addAttribute("phone", user.getPhone());
+//		return "forward:./sendPhoneAuthNum";
+//	}
 
 }
