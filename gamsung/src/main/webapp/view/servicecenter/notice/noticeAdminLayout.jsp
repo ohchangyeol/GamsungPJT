@@ -12,6 +12,8 @@ pageEncoding="UTF-8"%>
 		<title>공지사항</title>
 		
 		<jsp:include page="/resources/commonCssAdmin.jsp"/>
+		
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
 
 		<!-- Specific Page Vendor CSS -->
 		<link rel="stylesheet" href="../../../resources/lib/bootstrap-tagsinput/bootstrap-tagsinput.css" />

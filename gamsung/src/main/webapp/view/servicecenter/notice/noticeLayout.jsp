@@ -21,9 +21,7 @@ pageEncoding="UTF-8"%>
 
   <body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
     <main>
-      <div class="page-loader">
-        <div class="loader">Loading...</div>
-      </div>
+      
       
       <!-- header -->
       <jsp:include page="../../common/header.jsp"/>
@@ -34,7 +32,7 @@ pageEncoding="UTF-8"%>
           <div class="container">
             <div class="row">
               <div class="col-sm-6 col-sm-offset-3">
-                <h1 class="module-title font-alt mb-0">공지사항입니다</h1>
+                <!-- <h1 class="module-title font-alt mb-0">공지사항입니다</h1> -->
               </div>
             </div>
           </div>

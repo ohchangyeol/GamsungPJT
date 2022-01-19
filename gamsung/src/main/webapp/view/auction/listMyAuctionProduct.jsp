@@ -196,7 +196,10 @@
 					},
 					dataType : "json",
 					success : function(JSONData, status){
-						alert(JSONData.info);
+						Swal.fire({
+					    	text: JSONData.info,
+					    	icon: 'info'
+					    })
 					}
 				});
 			});
