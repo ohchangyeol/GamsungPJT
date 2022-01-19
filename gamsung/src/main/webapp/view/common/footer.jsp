@@ -19,15 +19,21 @@
 					<div class="col-sm-6"style="padding-left: 0;">
 						<ul>
 							<li>박철홍&nbsp;-&nbsp;<a href="#">hulis@naver.com</a></li>
+							<li>[일반회원 캠핑 담당]</li>
 							<li>최인규&nbsp;-&nbsp;<a href="#">skyinsnick@hotmail.com</a></li>
+							<li>[사업자회원 캠핑, 결제 담당]</li>
 							<li>최정아&nbsp;-&nbsp;<a href="#">muse1264@nate.com</a></li>
+							<li>[회원 담당]</li>
 						</ul>
 					</div>
 					<div class="col-sm-6">
 						<ul>
 							<li>황현지&nbsp;-&nbsp;<a href="#">hhj0323@naver.com</a></li>
+							<li>[커뮤니티, 양도양수 담당]</li>
 							<li>오창열&nbsp;-&nbsp;<a href="#">cy950315@naver.com</a></li>
+							<li>[고객센터, 채팅 담당]</li>
 							<li>임준희&nbsp;-&nbsp;<a href="#">yim3370@gmail.com</a></li>
+							<li>[중고상품, 화상채팅 담당]</li>
 						</ul>
 					</div>
 				</div>

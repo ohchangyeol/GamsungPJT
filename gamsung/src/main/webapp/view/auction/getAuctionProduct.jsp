@@ -270,11 +270,7 @@
 	var nickName = document.getElementById('nickName').value;
 	
 	$(function(){
-			var infoDiv = $('#logout').parent();
-			$('#logout').parent().empty();
-			infoDiv.html('<div>경매등급 : '+${auctionGrade}+'LV</div>');
-			infoDiv.css('font-weight', 'bold');
-	
+
 		auctionProductNo = $('#auctionProductNo').val();
 		userId = $('#userId').val(); 
 		nickName = $('#nickName').val();
