@@ -20,7 +20,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -422,6 +421,15 @@ public class UserController {
 		System.out.println("/user/mypage : GET");
 
 		return "forward:/view/common/myPage.jsp";
+
+	}
+	
+	@RequestMapping(value = "adminMypage", method = RequestMethod.GET)
+	public String adminMypage() {
+
+		System.out.println("/user/adminMypage : GET");
+
+		return "forward:/view/user/adminMyPage.jsp";
 
 	}
 	

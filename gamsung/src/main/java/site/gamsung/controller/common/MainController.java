@@ -64,6 +64,7 @@ public class MainController {
 	@RequestMapping("admin")
 	public String adminMainPage(HttpSession httpSession, Model model) {
 		
+		// reservationStatistics
 		User user = (User)httpSession.getAttribute("user");
 		
 		if(user == null || !user.getRole().equals("ADMIN")) {
@@ -72,29 +73,27 @@ public class MainController {
 		
 		ReservationStatistics reservationStatistics = campReservationService.getReservationStatistics();
 		
-		HashMap<String, Object> searchParameter = new HashMap<String, Object>();		
-		
+		// siteProfitStatistics
+		HashMap<String, Object> searchParameter = new HashMap<String, Object>();	
 		Calendar calendar = new GregorianCalendar();
 		SimpleDateFormat SDF = new SimpleDateFormat("yyyy-MM-dd");
 		
-		calendar.add(Calendar.DATE, 0);		
-		String todayDay = SDF.format(calendar.getTime());		
-		System.out.println("todayDay : "+todayDay);
-	
+		calendar.add(Calendar.DATE, -1);		
+		String targetDay = SDF.format(calendar.getTime());		
+		System.out.println("targetDay : "+targetDay);
 		
-		SiteProfit siteProfit = null;
+		SiteProfit siteProfitStatistics = null;
 		try {
-			siteProfit = paymentService.listSiteProfit(todayDay);
+			siteProfitStatistics = paymentService.listSiteProfit(targetDay);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		System.out.println("siteProfitStatistics : "+siteProfitStatistics);
 		
-		System.out.println("siteProfit : "+siteProfit);		
-		
-		model.addAttribute("siteProfit", siteProfit);
 		model.addAttribute("reservationStatistics", reservationStatistics);
-	
+		model.addAttribute("siteProfitStatistics", siteProfitStatistics);
+		
 		return "forward:/adminMain.jsp";
 	}
 }

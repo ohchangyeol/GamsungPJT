@@ -165,6 +165,7 @@
 					   })
 				   return;
 				} else if (${ sessionScope.user.auctionSuspension != null }) {
+
 				   Swal.fire({
 					   text: '경매 이용 정지되었습니다. 관리자에게 문의하세요.',
 					   icon: 'warning'
@@ -175,6 +176,7 @@
 			 });
 	
 				$('#adminProduct').on('click', function () {
+
 				   if (${ sessionScope.user.auctionSuspension != null }){
 					  Swal.fire({
 						  text: '경매 이용 정지되었습니다. 관리자에게 문의하세요.',
@@ -186,6 +188,7 @@
 			 });
 	
 				$('#listWait').on('click', function () {
+
 				   if (${ sessionScope.user.auctionSuspension != null }){
 					  Swal.fire({
 						  text: '경매 이용 정지되었습니다. 관리자에게 문의하세요.',
@@ -197,6 +200,7 @@
 			 });
 	
 				$('#listProduct').on('click', function () {
+
 				   if (${ sessionScope.user.auctionSuspension != null }){
 					  Swal.fire({
 						  text: '경매 이용 정지되었습니다. 관리자에게 문의하세요.',
