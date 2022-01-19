@@ -61,7 +61,7 @@ public class MainController {
 	}
 	
 	//관리자 로그인시 mapping
-	@RequestMapping("/admin")
+	@RequestMapping("admin")
 	public String adminMainPage(HttpSession httpSession, Model model) {
 		
 		User user = (User)httpSession.getAttribute("user");
@@ -77,29 +77,22 @@ public class MainController {
 		Calendar calendar = new GregorianCalendar();
 		SimpleDateFormat SDF = new SimpleDateFormat("yyyy-MM-dd");
 		
-		calendar.add(Calendar.DATE, -2);		
-		String startDay = SDF.format(calendar.getTime());		
-		calendar.add(Calendar.DATE, 0);
-		String endDay = SDF.format(calendar.getTime());
+		calendar.add(Calendar.DATE, 0);		
+		String todayDay = SDF.format(calendar.getTime());		
+		System.out.println("todayDay : "+todayDay);
+	
 		
-		System.out.println("startDay : "+startDay);
-		System.out.println("endDay : "+endDay);
-		
-		searchParameter.put("startDay", startDay);
-		searchParameter.put("endDay", endDay);
-		
-		List<SiteProfit> siteProfitList = null;
+		SiteProfit siteProfit = null;
 		try {
-			siteProfitList = paymentService.listSiteProfit(searchParameter);
+			siteProfit = paymentService.listSiteProfit(todayDay);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		System.out.println("siteProfitList : "+siteProfitList);
+		System.out.println("siteProfit : "+siteProfit);		
 		
-		
-		model.addAttribute("siteProfitList", siteProfitList);
+		model.addAttribute("siteProfit", siteProfit);
 		model.addAttribute("reservationStatistics", reservationStatistics);
 	
 		return "forward:/adminMain.jsp";

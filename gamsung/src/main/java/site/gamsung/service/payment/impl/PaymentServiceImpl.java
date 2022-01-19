@@ -283,8 +283,8 @@ public class PaymentServiceImpl implements PaymentService{
 	 *  SiteProfit
 	 */
 	@Override
-	public List<SiteProfit> listSiteProfit(Map<String, Object> dateRange) throws Exception{		
-		return paymentDAO.listSiteProfit(dateRange);
+	public SiteProfit listSiteProfit(String today) throws Exception{		
+		return paymentDAO.listSiteProfit(today);
 	}
 	
 	@Override

@@ -118,8 +118,8 @@ public class PaymentDAOImpl implements PaymentDAO{
 		return sqlSession.insert("PaymentMapper.addSiteProfit", siteProfit);
 	}
 	
-	public List<SiteProfit> listSiteProfit(Map<String, Object> dateRange) throws Exception{		
-		return sqlSession.selectList("PaymentMapper.listSiteProfit", dateRange);
+	public SiteProfit listSiteProfit(String today) throws Exception{		
+		return sqlSession.selectOne("PaymentMapper.listSiteProfit", today);
 	}
 	
 

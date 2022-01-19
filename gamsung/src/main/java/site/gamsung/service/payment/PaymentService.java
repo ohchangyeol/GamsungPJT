@@ -49,7 +49,7 @@ public interface PaymentService {
 	/*
 	 *  SiteProfit
 	 */
-	public List<SiteProfit> listSiteProfit(Map<String, Object> dateRange) throws Exception;
+	public SiteProfit listSiteProfit(String today) throws Exception;
 		
 	public void calculateSiteProfit() throws Exception;
 }

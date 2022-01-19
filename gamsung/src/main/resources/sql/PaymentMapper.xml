@@ -370,12 +370,10 @@
 				, #{profitAllPayment} )	
 	</insert>
 	
-	<select id="listSiteProfit" parameterType="Map" resultMap="siteProfitSelectMap">	
+	<select id="listSiteProfit" parameterType="String" resultMap="siteProfitSelectMap">	
   		SELECT profit_reg_date, profit_point_charge, profit_point_payment, profit_regular_payment, profit_all_payment
 		FROM SITE_PROFIT			
-		WHERE profit_reg_date = #{startDay}
-				AND profit_reg_date = #{endDay}
-		ORDER BY profit_reg_date		
+		WHERE profit_reg_date = #{value}
 	</select>
 	
 	
