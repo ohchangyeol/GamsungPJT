@@ -188,7 +188,8 @@
 							<div class="col-sm-3 col-sm-offset-2"></div>
 							<div class="col-sm-3 col-sm-offset-2">
 								<div class="add_user_btn_btn row">
-									<button id="cancel" class="btn btn-border-d btn-circle" type="button">취소</button>
+									<button id="get_g_cancel" class="btn btn-border-d btn-circle"
+										type="button">취소</button>
 									<button id="joinAddUser" class="btn btn-border-d btn-circle"
 										type="submit">가입하기</button>
 
@@ -576,6 +577,10 @@ alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+
 							}
 						}).open();
 					});
+
+					$("#get_g_cancel").on("click", function () {
+						window.history.go(-1);
+					})
 				});
 
 			</script>

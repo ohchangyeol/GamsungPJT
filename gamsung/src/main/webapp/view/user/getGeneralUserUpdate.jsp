@@ -489,7 +489,15 @@
 
 						$("#get_g_allAddr").val(value);
 
-						$("#update_g_form").attr("method", "POST").attr("action", "/user/updateUser").submit();
+						Swal.fire({
+							icon: 'success',
+							title: '수정완료',
+							html: '정보수정이 완료되었습니다:)'
+
+						}).then(() => {
+							$("#update_g_form").attr("method", "POST").attr("action", "/user/updateUser").submit();
+						});
+
 					}
 
 
