@@ -11,7 +11,8 @@ $(document).ready(function(){
 
 function noticeLoading(){
 
-    const noticeContent = $("#n-content").val();
+    const noticeContent = $("div.format.update-content").html();
+    console.log($("div.format.update-content"));
     console.log(noticeContent);
     console.log($(".note-editable"));
     if(noticeContent != undefined || noticeContent != null || noticeContent != ''){

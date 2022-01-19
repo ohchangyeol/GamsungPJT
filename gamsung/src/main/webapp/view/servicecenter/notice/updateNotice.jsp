@@ -70,7 +70,11 @@ pageEncoding="UTF-8"%>
                     <div id="compose-field" class="compose-control">
                     </div>
                 </div>
-                <input name="noticeContent" id="n-content" type="hidden" value="${notice.noticeContent}">
+                <input name="noticeContent" id="n-content" type="hidden" value="">
             </div>
         </form>
+
+        <div class="format update-content" style="display: none;">
+            ${notice.noticeContent}
+        </div>
     </div>

@@ -115,7 +115,7 @@
 				</if>
 			</trim>
 		</if>
-		ORDER BY n.reg_date
+		ORDER BY n.notice_no DESC 
 		LIMIT #{offset} , #{pageSize}
 	</select>
 	
