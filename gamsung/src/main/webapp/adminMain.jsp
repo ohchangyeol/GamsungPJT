@@ -125,7 +125,7 @@ pageEncoding="UTF-8"%>
 												<div class="summary">
 													<h4 class="title">사이트수익</h4>
 													<div class="info">
-														<strong class="amount">${siteProfit.profitAllPayment}</strong>
+														<strong class="amount">${siteProfit.profitAllPayment} ₩</strong>
 													</div>
 												</div>
 												<div class="summary-footer">
@@ -162,7 +162,7 @@ pageEncoding="UTF-8"%>
 							</div>
 							
 							<div class="col-md-6">
-								<h3><strong>사이트 거래액 - ${siteProfitList.profitRegDate}</strong></h3>
+								<h3><strong>사이트 거래액</strong></h3>
 								<!--차트가 그려질 부분-->
 								<canvas id="siteProfit_chart"></canvas>
 								<div style="text-align: center; padding: 10px;">
@@ -283,7 +283,7 @@ pageEncoding="UTF-8"%>
 			var siteProfit_chart = new Chart(other_context, {
 				type: 'bar', 													// 차트의 형태
                 data: { 														// 차트에 들어갈 데이터
-		                labels:	[ '-' , '-' , '-' , '-'], 						//x 축
+		                labels:	['단위 : (원)'], 						//x 축
 		                datasets: [
 				                	{
 				                		type: 'bar', 							// 차트의 형태
