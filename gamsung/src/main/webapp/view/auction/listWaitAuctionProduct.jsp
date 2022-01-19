@@ -189,7 +189,10 @@
 	  		$('body').on('click','.btn-b',function(){
 	  			
 	  			if(${empty sessionScope.user}){
-	  				alert("로그인해 주세요.");
+	  				Swal.fire({
+				    	text: '로그인해 주세요.',
+				    	icon: 'warning'
+				    })
 	  				return;
 	  			}
 	  			

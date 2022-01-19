@@ -129,13 +129,13 @@
 							</p>
 						</div>
 						<div class="form-group">
-							<label for="bidableGrade" class="col-sm-2 control-label">입찰
+							<label for="bidableGrade" class="col-sm-3 control-label">입찰
 								가능 등급</label> <input id="bidableGrade" name="bidableGrade"
 								class="form-control" type="number"
 								placeholder="입찰 가능 등급을 입력하세요." />
 						</div>
 						<div class="form-group">
-							<label for="bidableGrade" class="col-sm-2 control-label"></label>
+							<label for="bidableGrade" class="col-sm-3 control-label"></label>
 							<p class="text-info">
 								입찰 가능 등급은 <strong>최소 1LV</strong>부터 <strong>최대 100LV</strong>까지
 								입니다.
@@ -258,45 +258,57 @@
 			var imgCount = $('.selProductFile').length;
 							
 			if(auctionProduct.length == 9){
-				if(confirm("임시등록 상품이 존재합니다. 불러 오시겠습니까?")){
-					
-					if(${!empty auctionProduct.productImg1}){
-						$('#uploadForm').attr('hidden',false);
-					}
-					
-					$('#auctionProductName').val("${auctionProduct.auctionProductName}");
-					$('#startBidPrice').val(${auctionProduct.startBidPrice});
-					$('#hopefulBidPrice').val(${auctionProduct.hopefulBidPrice});
-					$('#bidUnit').val(${auctionProduct.bidUnit});
-					$('#auctionStartTime').val("${auctionProduct.auctionStartTime}");
-					$('#auctionEndTime').val("${auctionProduct.auctionEndTime}");
-					$('#bidableGrade').val(${auctionProduct.bidableGrade});
-					$('#auctionProductDetail').val("${auctionProduct.auctionProductDetail}");
-					
-					$('#productImg1').attr('src','/uploadfiles/auctionimg/product/${auctionProduct.productImg1}').attr('data-file','${auctionProduct.productImg1}');
-					$('#productImg2').attr('src','/uploadfiles/auctionimg/product/${auctionProduct.productImg2}').attr('data-file','${auctionProduct.productImg2}');
-					$('#productImg3').attr('src','/uploadfiles/auctionimg/product/${auctionProduct.productImg3}').attr('data-file','${auctionProduct.productImg3}');
-					$('#productImg4').attr('src','/uploadfiles/auctionimg/product/${auctionProduct.productImg4}').attr('data-file','${auctionProduct.productImg4}');
-					$('#productImg5').attr('src','/uploadfiles/auctionimg/product/${auctionProduct.productImg5}').attr('data-file','${auctionProduct.productImg5}');
-					
-					$('#inputImg1').val('${auctionProduct.productImg1}');
-					$('#inputImg2').val('${auctionProduct.productImg2}');
-					$('#inputImg3').val('${auctionProduct.productImg3}');
-					$('#inputImg4').val('${auctionProduct.productImg4}');
-					$('#inputImg5').val('${auctionProduct.productImg5}');
-					
-					$('#startDate').val('${fn:split(auctionProduct.auctionStartTime,' ')[0]}')
-					$('#startTime').val('${fn:split(auctionProduct.auctionStartTime,' ')[1]}')
-					$('#endDate').val('${fn:split(auctionProduct.auctionEndTime,' ')[0]}')
-					$('#endTime').val('${fn:split(auctionProduct.auctionEndTime,' ')[1]}')
-					
-				}else{
-					$('#imgId0').remove();
-					$('#imgId1').remove();
-					$('#imgId2').remove();
-					$('#imgId3').remove();
-					$('#imgId4').remove();
-				}
+				Swal.fire({
+					  text: "임시등록 상품이 존재합니다. 불러 오시겠습니까?",
+					  icon: 'question',
+					  showCancelButton: true,
+					  confirmButtonColor: '#3085d6',
+					  cancelButtonColor: '#d33',
+					  confirmButtonText: '확인',
+					  cancelButtonText: '취소'
+					}).then((result) => {
+					  if (result.isConfirmed) {
+					    Swal.fire({
+					    	text: '임시 저장 데이터를 불러왔습니다.',
+					    	icon: 'success'
+					    })
+					    if(${!empty auctionProduct.productImg1}){
+							$('#uploadForm').attr('hidden',false);
+						}
+						
+						$('#auctionProductName').val("${auctionProduct.auctionProductName}");
+						$('#startBidPrice').val(${auctionProduct.startBidPrice});
+						$('#hopefulBidPrice').val(${auctionProduct.hopefulBidPrice});
+						$('#bidUnit').val(${auctionProduct.bidUnit});
+						$('#auctionStartTime').val("${auctionProduct.auctionStartTime}");
+						$('#auctionEndTime').val("${auctionProduct.auctionEndTime}");
+						$('#bidableGrade').val(${auctionProduct.bidableGrade});
+						$('#auctionProductDetail').val("${auctionProduct.auctionProductDetail}");
+						
+						$('#productImg1').attr('src','/uploadfiles/auctionimg/product/${auctionProduct.productImg1}').attr('data-file','${auctionProduct.productImg1}');
+						$('#productImg2').attr('src','/uploadfiles/auctionimg/product/${auctionProduct.productImg2}').attr('data-file','${auctionProduct.productImg2}');
+						$('#productImg3').attr('src','/uploadfiles/auctionimg/product/${auctionProduct.productImg3}').attr('data-file','${auctionProduct.productImg3}');
+						$('#productImg4').attr('src','/uploadfiles/auctionimg/product/${auctionProduct.productImg4}').attr('data-file','${auctionProduct.productImg4}');
+						$('#productImg5').attr('src','/uploadfiles/auctionimg/product/${auctionProduct.productImg5}').attr('data-file','${auctionProduct.productImg5}');
+						
+						$('#inputImg1').val('${auctionProduct.productImg1}');
+						$('#inputImg2').val('${auctionProduct.productImg2}');
+						$('#inputImg3').val('${auctionProduct.productImg3}');
+						$('#inputImg4').val('${auctionProduct.productImg4}');
+						$('#inputImg5').val('${auctionProduct.productImg5}');
+						
+						$('#startDate').val('${fn:split(auctionProduct.auctionStartTime,' ')[0]}')
+						$('#startTime').val('${fn:split(auctionProduct.auctionStartTime,' ')[1]}')
+						$('#endDate').val('${fn:split(auctionProduct.auctionEndTime,' ')[0]}')
+						$('#endTime').val('${fn:split(auctionProduct.auctionEndTime,' ')[1]}')
+					  }else{
+						  $('#imgId0').remove();
+							$('#imgId1').remove();
+							$('#imgId2').remove();
+							$('#imgId3').remove();
+							$('#imgId4').remove();
+					  }
+				})
 			}
 			
 			$("#cancel").on('click', function(){
@@ -306,7 +318,10 @@
 			$("#tempSave").on('click',function(){
 				
 				if($('#auctionProductName').val().length == 0){
-					alert("상품명을 입력하세요");
+					Swal.fire({
+				    	text: '상품명을 입력하세요.',
+				    	icon: 'warning'
+				    })
 					$('#auctionProductName').focus();
 					return;
 				}
@@ -322,7 +337,10 @@
 				}
 				
 				if( Number($('#startBidPrice').val() ) >= Number( $('#hopefulBidPrice').val() ) ){
-					alert("입찰 희망가는 시작가보다 작을 수 없습니다.");
+					Swal.fire({
+				    	text: '입찰 희망가는 시작가보다 작을 수 없습니다.',
+				    	icon: 'warning'
+				    })
 					$('#startBidPrice').focus();
 					return
 				}
@@ -333,46 +351,70 @@
 				}
 				
 				if( Number($('#bidUnit').val() ) > ( Number( $('#hopefulBidPrice').val() ) - Number( $('#startBidPrice').val() ) ) ){
-					alert("입찰 단위는 희망낙찰가 시작가 차보다 작아야 합니다.");
+					Swal.fire({
+				    	text: '입찰 단위는 희망낙찰가 시작가 차보다 작아야 합니다.',
+				    	icon: 'warning'
+				    })
 					$('#bidUnit').focus();
 					return;
 				}
 				
 				if($('#startDate').val().length != 10){
-			 		alert("시작 날짜를 확인해 주세요");
+					Swal.fire({
+				    	text: '시작 날짜를 확인해 주세요.',
+				    	icon: 'warning'
+				    })
 			 		$('#startDate').focus();
 			 		return;
 			 	}
 			 	
 			 	if($('#startTime').val().length != 8){
-			 		alert("시작 시간를 확인해 주세요");
+			 		Swal.fire({
+				    	text: '시작 시간를 확인해 주세요.',
+				    	icon: 'warning'
+				    })
 			 		$('#startTime').focus();
 			 		return;
 			 	}
 			 	
 			 	if($('#endDate').val().length != 10){
-			 		alert("종료 날짜를 확인해 주세요");
+			 		Swal.fire({
+				    	text: '종료 날짜를 확인해 주세요.',
+				    	icon: 'warning'
+				    })
 			 		$('#endDate').focus();
 			 		return;
 			 	}
 			 	
 			 	if($('#endTime').val().length != 8){
-			 		alert("시작 시간를 확인해 주세요");
+			 		Swal.fire({
+				    	text: '시작 시간를 확인해 주세요.',
+				    	icon: 'warning'
+				    })
 			 		$('#endTime').focus();
 			 		return;
 			 	}
 			 	
 				
 				if(!$.isNumeric( $('#bidableGrade').val() ) ){
-			 		alert('입찰 가능 등급이 숫자가 아닙니다.');
+					Swal.fire({
+				    	text: '입찰 가능 등급이 숫자가 아닙니다.',
+				    	icon: 'warning'
+				    })
 			 		$('#bidableGrade').focus();
 			 		return;
 				}else if( Number($('#bidableGrade').val() )<1){
-			 		alert('입찰 가능 등급은 1보다 작을 수 없습니다.');
+					Swal.fire({
+				    	text: '입찰 가능 등급은 1보다 작을 수 없습니다.',
+				    	icon: 'warning'
+				    })
 			 		$('#bidableGrade').focus();
 			 		return;
 			 	}else if( Number($('#bidableGrade').val() )>100){
-			 		alert('입찰 가능 등급은 100보다 클 수 없습니다.');
+			 		Swal.fire({
+				    	text: '입찰 가능 등급은 100보다 클 수 없습니다.',
+				    	icon: 'warning'
+				    })
 			 		$('#bidableGrade').focus();
 			 		return;
 			 	}
@@ -393,7 +435,10 @@
 			$("#confirm").on('click',function(){
 				
 				if($('#auctionProductName').val().length == 0){
-					alert("상품명을 입력하세요");
+					Swal.fire({
+				    	text: '상품명을 입력하세요.',
+				    	icon: 'warning'
+				    })
 					$('#auctionProductName').focus();
 					return;
 				}
@@ -409,7 +454,10 @@
 				}
 				
 				if( Number($('#startBidPrice').val() ) >= Number( $('#hopefulBidPrice').val() ) ){
-					alert("입찰 희망가는 시작가보다 작을 수 없습니다.");
+					Swal.fire({
+				    	text: '입찰 희망가는 시작가보다 작을 수 없습니다.',
+				    	icon: 'warning'
+				    })
 					$('#startBidPrice').focus();
 					return
 				}
@@ -420,64 +468,97 @@
 				}
 				
 			 	if($('#startDate').val().length != 10){
-			 		alert("시작 날짜를 확인해 주세요");
+			 		Swal.fire({
+				    	text: '시작 날짜를 확인해 주세요.',
+				    	icon: 'warning'
+				    })
 			 		$('#startDate').focus();
 			 		return;
 			 	}
 			 	
 			 	if($('#startTime').val().length != 8){
-			 		alert("시작 시간를 확인해 주세요");
+			 		Swal.fire({
+				    	text: '시작 시간를 확인해 주세요.',
+				    	icon: 'warning'
+				    })
 			 		$('#startTime').focus();
 			 		return;
 			 	}
 			 	
 			 	if($('#endDate').val().length != 10){
-			 		alert("종료 날짜를 확인해 주세요");
+			 		Swal.fire({
+				    	text: '종료 날짜를 확인해 주세요.',
+				    	icon: 'warning'
+				    })
 			 		$('#endDate').focus();
 			 		return;
 			 	}
 			 	
 			 	if($('#endTime').val().length != 8){
-			 		alert("시작 시간를 확인해 주세요");
+			 		Swal.fire({
+				    	text: '시작 시간를 확인해 주세요.',
+				    	icon: 'warning'
+				    })
 			 		$('#endTime').focus();
 			 		return;
 			 	}
 			 	
 			 	if($('#startDate').val() == $('#endDate').val()){
 			 		if($('#startTime').val() == $('#endTime').val()){
-			 			alert('시작 시간과 종료 시간이 같을 수 없습니다.');
+			 			Swal.fire({
+					    	text: '시작 시간과 종료 시간이 같을 수 없습니다.',
+					    	icon: 'warning'
+					    })
 			 			return;
 			 		}
 			 	}
 			 	
 			 	if(dateCompare($('#startDate').val()+' '+$('#startTime').val(),$('#endDate').val()+' '+$('#endTime').val())){
-			 		alert('진행 시간이 10분 보다 짧을 수 없습니다.');
+			 		Swal.fire({
+				    	text: '진행 시간이 10분 보다 짧을 수 없습니다.',
+				    	icon: 'warning'
+				    })
 			 		$('#endTime').focus();
 			 		return;
 			 	}
 			 	
 			 	if(dayCompare($('#startDate').val()+' '+$('#startTime').val(),$('#endDate').val()+' '+$('#endTime').val())){
-			 		alert('진행 가능일은 최대 7일 입니다.');
+			 		Swal.fire({
+				    	text: '진행 가능일은 최대 7일 입니다.',
+				    	icon: 'warning'
+				    })
 			 		$('#endTime').focus();
 			 		return;
 			 	}
 			 	
 			 	if(!$.isNumeric( $('#bidableGrade').val() ) ){
-			 		alert('입찰 가능 등급이 숫자가 아닙니다.');
+			 		Swal.fire({
+				    	text: '입찰 가능 등급이 숫자가 아닙니다.',
+				    	icon: 'warning'
+				    })
 			 		$('#bidableGrade').focus();
 			 		return;
 				}else if( Number($('#bidableGrade').val() )<1){
-			 		alert('입찰 가능 등급은 1보다 작을 수 없습니다.');
+					Swal.fire({
+				    	text: '입찰 가능 등급은 1보다 작을 수 없습니다.',
+				    	icon: 'warning'
+				    })
 			 		$('#bidableGrade').focus();
 			 		return;
 			 	}else if( Number($('#bidableGrade').val() )>100){
-			 		alert('입찰 가능 등급은 100보다 클 수 없습니다.');
+			 		Swal.fire({
+				    	text: '입찰 가능 등급은 100보다 클 수 없습니다.',
+				    	icon: 'warning'
+				    })
 			 		$('#bidableGrade').focus();
 			 		return;
 			 	}
 				 
 				if($('.selProductFile').length == 0){
-					alert("1~5장의 사진이 필요합니다.");
+					Swal.fire({
+				    	text: '1~5장의 사진이 필요합니다.',
+				    	icon: 'warning'
+				    })
 					$('#fileUpload').click();
 					$('#uploadForm').attr('hidden',true);
 					return;
@@ -487,7 +568,10 @@
 				var tagCount = hashtags.length;
 				
 				if(hashtags.length >  4){
-					alert("해시태그는 최대 3개 까지 등록 가능합니다.");
+					Swal.fire({
+				    	text: '해시태그는 최대 3개 까지 등록 가능합니다.',
+				    	icon: 'warning'
+				    })
 					$('#allhashtag').focus();
 					return;
 				}else{
@@ -499,13 +583,31 @@
 				$('#auctionEndTime').val($('#endDate').val()+' '+$('#endTime').val());
 				
 				if(Number($('#havingPoint').text())< Number( $('#hopefulBidPrice').val() )*Number( ${fee} )/100 ){
-					
-					if( confirm(Number( $('#hopefulBidPrice').val() )*Number( ${fee} )/100-( Number( $('#havingPoint').text() ) )+"포인트가 부족하여 등록 할수 없습니다. 충전페이지로 이동하시겠습니까?  임시 저장 후 충전하세요." ) ){
-						window.location = "/payment/managePoint"
-						return;
-					}else{
-						return;
-					}
+					const price = Number( $('#hopefulBidPrice').val() )*Number( ${fee} )/100-( Number( $('#havingPoint').text() ) );
+					Swal.fire({
+						  text: price+'포인트가 부족하여 등록 할수 없습니다. 충전페이지로 이동하시겠습니까?  임시 저장 후 충전하세요.',
+						  icon: 'question',
+						  showCancelButton: true,
+						  confirmButtonColor: '#3085d6',
+						  cancelButtonColor: '#d33',
+						  confirmButtonText: '확인',
+						  cancelButtonText: '취소'
+						}).then((result) => {
+							if (result.isConfirmed) {
+							    Swal.fire({
+							    	text: '충전페이지로 이동합니다.',
+							    	icon: 'success'
+								})
+								window.location = "/payment/managePoint"
+								return;
+							}else{
+								Swal.fire({
+							    	text: '임시저장을 이용하세요.',
+							    	icon: 'info'
+								})
+								return;
+							}
+						})
 				}else{
 					$('form').attr('method','post').attr('action','/auction/addAuctionProduct').attr("enctype","multipart/form-data").submit();					
 				}
@@ -616,7 +718,10 @@
 			var index = 0;
 			
 			if(filesArray.length > 5){
-				alert("사진은 최대 5장까지 입니다.");
+				Swal.fire({
+			    	text: '사진은 최대 5장까지 입니다.',
+			    	icon: 'warning'
+			    })
 				return;
 			}
 			
@@ -625,7 +730,10 @@
 				$('#uploadForm').attr('hidden',false);
 				
 				if(!f.type.match("image.*")){
-					alert("이미지만 업로드 가능합니다.");
+					Swal.fire({
+				    	text: '이미지만 업로드 가능합니다.',
+				    	icon: 'warning'
+				    })
 					$('#uploadForm').attr('hidden',true);
 					return;
 				}
