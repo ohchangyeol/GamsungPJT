@@ -97,35 +97,33 @@ import site.gamsung.service.transfer.TransferService;
 //	  
 //	  }
 	 
-
-
   
-  
-//양수신청글 add
-  
- @RequestMapping(value = "rest/addReceive") 
- @ResponseBody
- public void addReceive (@ModelAttribute("receive") Receive receive, String transferNoo, HttpSession session) throws Exception{
-	 
-	 System.out.println("addReceive:::");
-	 System.out.println(receive);
-
-	 Transfer transfer = new Transfer();
-
-	 transfer.setTransferNo(Integer.parseInt(transferNoo));
-	 receive.setTransferNo(transfer);
-	 
-	 User user = (User)session.getAttribute("user");
-	 receive.setTransferee(user);
-	 
-	 receiveService.addReceive(receive);
-	 
-	 
-		/*
-		  receiveService.getReceive(receive.getTransferNo());
+// 양도 등록.
+	  
+	@RequestMapping(value = "rest/addReceive") 
+	public int addReceive (@ModelAttribute("receive") Receive receive, String transferNoo, HttpSession session, Model model) throws Exception{
 		 
-		/* return Receive; */ 
- }
+		 System.out.println("addReceive:::");
+		 System.out.println(receive);
+	
+		 Transfer transfer = new Transfer();
+	
+		 transfer.setTransferNo(Integer.parseInt(transferNoo));
+		 receive.setTransferNo(transfer);
+		 
+		 User user = (User)session.getAttribute("user");
+		 receive.setTransferee(user);
+		 
+		 System.out.println("receive getTransfer => "+ receive.getTransferNo());
+	//	 System.out.println("receive => " + receive);
+	//	 receiveService.addReceive(receive);
+		 
+		 return receiveService.addReceive(receive);
+	}
+
+  
+  
+
 	/*
 	 * //댓글 delete
 	 * 
@@ -205,11 +203,12 @@ import site.gamsung.service.transfer.TransferService;
     
 	 User user = (User)session.getAttribute("user");
 
-	 String userId =user.getId();
-    
-	 System.out.println("user::::::"+userId);
+	Search search = new Search ();
+	
+	search.setId(user.getId());
+    Map<String, Object> map = transferService.listTransferForReceive(search);
 	 
-    return transferService.listTransferForReceive(userId);
+    return (List<Transfer>) map.get("list");
     
     
     

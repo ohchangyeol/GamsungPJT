@@ -88,27 +88,7 @@
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
     
     
     
@@ -126,16 +106,53 @@
 	  AND T2.receive_no = #{receiveNo}
    </update>
    
-   <!--    양도완료로 변경  -> 양도, 양수 status 3로 변경.   -->
-    <update   id="updateCompleteStatus" parameterType="int"  >
+   
+   
+   
+   
+      <!-- 해당 양도글의 양수 status 4로 변경 1  -->
+    <update   id="updateTransferStatusTwo" parameterType="receive"  >
+   UPDATE TRANSFER T1 RIGHT JOIN RECEIVE T2
+   ON (T1.transfer_no = T2.transfer_no) 
+      <set> 
+      T2.receive_status = 4 
+         </set>
+      WHERE T1.transfer_no = #{transferNo.transferNo}
+   </update>
+   
+   
+   
+   
+   <!-- 해당 양도,양수 status 3으로 변경 2  -->
+    <update   id="updateTransferStatusThree" parameterType="receive"  >
    UPDATE TRANSFER T1 RIGHT JOIN RECEIVE T2
    ON (T1.transfer_no = T2.transfer_no) 
       <set> 
       T1.transfer_status = 3, 
       T2.receive_status = 3 
          </set>
-      WHERE T1.transfer_no = #{value};
-   </update>   
+      WHERE T1.transfer_no = #{transferNo.transferNo}
+	  AND T2.receive_no = #{receiveNo}
+   </update>
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
    
    <!--    양도글 삭제  -->
     <update   id="deleteReceive"   parameterType="int" >

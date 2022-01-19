@@ -93,11 +93,13 @@ public class TransferDAOImpl implements TransferDAO {
 
 
 	@Override
-	public List<Transfer> listTransferForReceive(String userId) throws Exception {
-		
-		System.out.println(sqlSession.selectList("TransferMapper.listTransferForReceive", userId));
-		
-		return sqlSession.selectList("TransferMapper.listTransferForReceive", userId);
-	}
-	
+   public List<Transfer> listTransferForReceive(Search search) throws Exception {
+//	      System.out.println(sqlSession.selectList("TransferMapper.listTransferForReceive", userId));
+      return sqlSession.selectList("TransferMapper.listTransferForReceive", search);
+   }
+
+   @Override
+   public int listMyReceiveGetTotalCount(Search search) throws Exception {
+      return sqlSession.selectOne("TransferMapper.listMyReceiveGetTotalCount", search);
+   }
 }

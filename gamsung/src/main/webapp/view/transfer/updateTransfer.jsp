@@ -14,7 +14,7 @@
 				<meta name="viewport"
 					content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-				<title>예약 양도 등록</title>
+				<title>예약 양도 수정</title>
 				<link rel="preconnect" href="https://fonts.googleapis.com">
 				<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 				<link
@@ -115,7 +115,6 @@
 
 					.form-group {
 						display: flex;
-					align-items: center;	
 					}
 
 					.form-group label {
@@ -200,23 +199,14 @@ placeholder
 					}
 					
 					.form-control{
-											    background: #286ec23b;
+						margin-top: 23px;
+					    background: #286ec23b;
 					    border-radius: 10px;
 					}
 					
 					
-					input::placeholder {
-						color: #2d2d2d !important;
-					}
-					
-										textarea::placeholder {
-						color: #2d2d2d !important;
-					}
-					
-					.transferlayer{
-					
-					display: none;
-					
+					input:placeholder {
+						color: #fff;
 					}
 					
 				</style>
@@ -237,26 +227,17 @@ placeholder
 					<div class="container">
 						<form name="transferform" id="transferform" role="form">
 							<div class="row">
-								<div class="col-sm-12 " style="margin-top: 20px;">
-					<input id="transferTitle" name="transferTitle" class="form-control" type="text"placeholder="제목을 등록해주세요." style="height: 45px; margin-bottom: 20px;"/>
+								<div class="col-sm-12 ">
+					<input id="transferTitle" name="transferTitle" class="form-control" value="${transfer.transferTitle}" type="text"placeholder="제목을 등록해주세요." style="height: 45px; margin-bottom: 20px;"/>
 								</div>
 							</div>
 
 
 
 							<div class="col-sm-12 minititle">
-														<button type="button" name="receivebutton" class="transferbutton"
-														style="background-color: #ffffff00; border: none; line-height: 4; width: 200px; height: 110px; transform: translatex(215px) translatey(19px);">
-														<h3 style="margin: 0px;
-														text-align: center;
-														font-family: 'Gaegu', cursive;
-														font-size: 39px;
-														color: #82727f;">
-															나의 캠핑장 예약 목록 (Click)</h3>
-													</button>
-						
+								<div>나의 캠핑장 예약 목록</div>
 
-								<div class="MyCampReservation transferlayer">
+								<div class="MyCampReservation">
 
 									<table class="table table-hover mb-none">
 										<thead>
@@ -271,10 +252,6 @@ placeholder
 												<th style="text-align: center;">예약상황</th>
 											</tr>
 										</thead>
-
-
-
-
 
 										<tbody>
 
@@ -357,7 +334,7 @@ placeholder
 										<input type="hidden" id="transferArea" name="transferArea" value="">
 
 										<input id="transferCampname" name="transferCampname" class="form-control"
-											value="" type="text" placeholder="직접입력/캠핑장" />
+											value="" type="text"  value="${transfer.transferCampname} " placeholder="직접입력/캠핑장" />
 									</div>
 
 								</div>
@@ -371,12 +348,12 @@ placeholder
 									<div>
 										<div class="ohcamp">
 											<input id="transferStartDate" name="transferStartDate" class="form-control"
-												value="" type="text" placeholder="YYYY-MM-DD" />
+												value="" type="text" value="${transfer.transferStartDate}" placeholder="YYYY-MM-DD" />
 
 											<span>-</span>
 
 											<input id="transferEndDate" name="transferEndDate" class="form-control"
-												value="" type="text" placeholder="YYYY-MM-DD" />
+												value="" type="text" value="${transfer.transferEndDate}" placeholder="YYYY-MM-DD" />
 										</div>
 
 									</div>
@@ -392,7 +369,7 @@ placeholder
 									</label>
 									<div>
 										<input id="transferCampCall" name="transferCampCall" class="form-control"
-											value="" type="text" placeholder="-없이 입력해주세요." />
+											value="" type="text" value="${transfer.transferCampCall}" placeholder="-없이 입력해주세요." />
 									</div>
 								</div>
 
@@ -402,7 +379,7 @@ placeholder
 									</label>
 
 									<div class="ohcamp">
-										<input id="transferUserNum" name="transferUserNum" class="form-control" value=""
+										<input id="transferUserNum" name="transferUserNum" value="${transfer.transferUserNum}" class="form-control" value=""
 											type="text" placeholder="0" />
 										<div>
 											<span>명</span>
@@ -416,7 +393,7 @@ placeholder
 									</label>
 									<div class="ohcamp">
 										<input id="textprice" name="transferPrice" class="form-control" value=""
-											type="text" placeholder="양도금액을 입력해주세요." />
+											type="text"  value="${transfer.transferPrice}"  placeholder="양도금액을 입력해주세요." />
 
 										<div class="free control-label">
 											<input type="checkbox" id="checkprice" class="" onClick="checkDisable(this.form)">
@@ -432,20 +409,20 @@ placeholder
 								<div class="minititle">
 									<h3>양도사유</h3>
 									<textarea id="transferContent" name="transferContent" class="form-control" rows="20"
-										placeholder="양도사유를 입력해주세요."></textarea>
+										value="${transfer.transferContent}" placeholder="양도사유를 입력해주세요."></textarea>
 								</div>
 							</div>
 							<div class="col-sm-8">
 								<div class="minititle" id="transferAddContent">
 									<h3>특이사항</h3>
 									<textarea id="transferAddContent" name="transferAddContent" class="form-control"
-										rows="8" placeholder="특이사항이 있을 경우 입력해주세요."></textarea>
+										rows="8" value="${transfer.transferAddContent}"  placeholder="특이사항이 있을 경우 입력해주세요."></textarea>
 								</div>
 
 								<div class="minititle" id="hashtag">
 									<h3>해시태그</h3>
 									<textarea id="allhashtag" name="allhashtag" class="form-control" rows="5"
-										placeholder="태그를 입력해주세요(최대 3개)"></textarea>
+										 value="${transfer.hashtag1}${transfer.hashtag2}${transfer.hashtag3}" placeholder="태그를 입력해주세요(최대 3개)"></textarea>
 
 									<input type="hidden" id="hashtag1" name="hashtag1" value="">
 									<input type="hidden" id="hashtag2" name="hashtag2" value="">
@@ -468,7 +445,7 @@ placeholder
 									</button>
 									<p
 										style="line-height: normal;font-size: 16px;transform: translatey(-28px);color: salmon;">
-										캠핑장(펜션 및 숙박장소)를 예약하신 후에 받은 확정 문자 및 메일을 이미지 파일로 업로드 해주세요(필수)</p>
+									예약양도결제내역 이미지는 변경이 불가능합니다. </p>
 									<input type="file" id="file" name="paymentImgs" multiple="multiple"
 										onchange="uploadFile(this)" style="display:none" />
 
@@ -478,7 +455,7 @@ placeholder
 
 							<!-- 	<div class="col-sm-12"> -->
 							<div class="col-sm-12">
-								<button class="snip1535" name="Addtransfer" type="button">양도 등록</button>
+								<button class="snip1535" name="Updatetransfer" type="button">양도 수정</button>
 							</div>
 							<!-- 	</div> -->
 
@@ -501,35 +478,6 @@ placeholder
 
 				<script>
 					$(document).ready(function () {
-						
-						$('.transferbutton').click(function () {
-							$('.transferlayer').toggle();
-						});
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
 						console.log($("input#textprice"));
 						$("input#textprice").on("keyup", function (e) {
 							console.log("zzzzz")
@@ -625,15 +573,15 @@ placeholder
 
 
 
-					$(function () { // 양도 게시글 등록 이벤트
+					$(function () { // 양도 게시글 수정 이벤트
 
-						$("button:button[name='Addtransfer']").on("click", function (e) {
+						$("button:button[name='Updatetransfer']").on("click", function (e) {
 							// e.preventDefault()
-							fncAddTransfer();
+							fncUpdateTransfer();
 						});
 					});
 
-					function fncAddTransfer() {
+					function fncUpdateTransfer() {
 
 						console.log("fncAddTransfer 호출")
 
@@ -726,7 +674,7 @@ placeholder
 
 
 						if (confirm("등록하시겠습니까?")) {
-							$("#transferform").attr("method", "POST").attr("action", "/transfer/addTransfer").attr("enctype", "multipart/form-data").submit();
+							$("#transferform").attr("method", "POST").attr("action", "/transfer/updateTransfer").submit();
 						}
 
 

@@ -75,16 +75,28 @@
 					display: none;
 				}
 
-				.receivelist {
+				.receivelistTitle {
 					font: -webkit-mini-control;
 					margin-bottom: 0px;
 					padding-top: 5px;
 					margin-top: 15px;
 				}
 
+				.receivelist {
+					margin: -32px;
+					margin-left: -1;
+					padding: 18px;
+					margin-top: 12px;
+					background: #ebf0f5;
+					border-radius: 30px;
+					margin-top: 43px;
+				}
+
+
+
 				.receiveminititle {
 					color: #2d2d2d;
-					font-size: 13px;
+					font-size: 15px;
 				}
 
 				.transferminititle {
@@ -102,10 +114,47 @@
 					display: flex;
 					justify-content: space-between;
 					align-items: center;
+					margin-bottom: 10px;
+					margin-top: 10px;
 				}
 
 				span {
-					font-size: 12px;
+					font-size: 14px;
+				}
+
+				button {
+					margin: 20px;
+				}
+
+				.w-btn-outline {
+					position: relative;
+					padding: 1px 20px;
+					border-radius: 7px;
+					font-family: "paybooc-Light", sans-serif;
+					box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+					text-decoration: none;
+					font-weight: 600;
+					transition: 0.25s;
+				}
+
+				.w-btn-blue-outline {
+					border: 3px solid #6aafe6;
+					color: #6e6e6e;
+				}
+
+				.w-btn-blue-outline:hover {
+					background-color: #6aafe6;
+					color: #d4dfe6;
+				}
+
+				.w-btn-outline:hover {
+
+					transform: scale(1.1);
+					cursor: pointer;
+				}
+
+				.w-btn-outline:active {
+					transform: scale(1.8);
 				}
 			</style>
 
@@ -136,7 +185,14 @@
 					</section>
 					<section class="module" style="padding: 20px">
 						<div class="container">
-							<div class="container">
+							<div class="container" style="
+							margin: 10px;
+							margin-left: -1px;
+							padding: 18px;
+							margin-top: 12px;
+							background: #f3f6f9;
+							border-radius: 30px;
+						">
 
 								<form name="transferform" id="transferform" role="form">
 									<div class="row"></div>
@@ -144,10 +200,26 @@
 
 
 									<div class="col-sm-12 minititle">
-										<div class="gettransfertitle">
-											${transfer.transferTitle}
-											<hr class="divider-w mt-10 mb-20">
+
+										<div class="gettransfertitle" style="display: flex;">
+											<div>${transfer.transferTitle}</div>
+
+
+											<div
+												style="text-align: end; text-align: end; font-size: 13px; padding-top: 5px; ">
+												<c:if test="${user.id == transfer.transferOr.id}">
+													<a href='/transfer/updateTransfer?transferNo=${transfer.transferNo}'
+														style="color: #2d2d2d" class="transfer-update-btn">수정 / </a>
+													<a href='/transfer/deleteTransfer?transferNo=${transfer.transferNo}'
+														style="color: #2d2d2d" class="transfer-delete-btn">삭제</a>
+												</c:if>
+
+
+											</div>
+
 										</div>
+										<hr class="divider-w mt-10 mb-20">
+
 										<div class="col-sm-6">
 											<div class="form-group a">
 
@@ -240,18 +312,18 @@
 											<div class="submit" id="submit">
 
 												<c:if test="${user.id != transfer.transferOr.id}">
-													<h3 style="text-align: center;">양수신청하고 캠핑가자</h3>
+
+
 													<button type="button" name="receivebutton" class="receivebutton"
-														style="background-color: white; padding-top: 0; border: none; position: relative; line-height: 4; width: 200px; height: 110px; overflow: hidden; transform: translatex(215px) translatey(19px);">
-														<svg xmlns="http://www.w3.org/2000/svg" width="100%"
-															height="100%" fill="currentColor"
-															class="bi bi-chevron-double-down" viewBox="0 0 16 16">
-															<path fill-rule="evenodd"
-																d="M1.646 6.646a.5.5 0 0 1 .708 0L8 12.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
-															<path fill-rule="evenodd"
-																d="M1.646 2.646a.5.5 0 0 1 .708 0L8 8.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
-														</svg>
+														style="background-color: #ffffff00; border: none; line-height: 4; width: 200px; height: 110px; transform: translatex(215px) translatey(19px);">
+														<h3 style="margin: 0px;
+														text-align: center;
+														font-family: 'Gaegu', cursive;
+														font-size: 39px;
+														color: yellowgreen;">
+															양수신청하고 캠핑가자(Click)</h3>
 													</button>
+
 												</c:if>
 											</div>
 										</div>
@@ -270,79 +342,100 @@
 
 							<!-- 내가 양도글 작성자 or 관리자라면 모든 양수 신청글이 보인다. else 내 양수 신청글이 보일것.  -->
 							<div class="container receive">
-								<div class="col-sm-12">
-									<h3 class="mb-0" style="font-family: 'Noto Sans KR', sans-serif;">양수신청목록(신청자는
-										본인의 양수신청내역만 조회하실 수 있습니다.)</h3>
+
+								<h3 class="mb-0" style="font-family: 'Noto Sans KR', sans-serif;">양수신청목록(신청자는 본인의
+									양수신청내역만 조회하실 수 있습니다.)</h3>
+								<div class="col-sm-12" style=" margin-top: -38px;">
+
 									<c:forEach var="receive" items="${listreceive}">
-										<div class='receivelist'>
+										<div class="receivelist">
+											<div class='receivelistTitle'>
 
 
-											<div class='receive'>
-												<div class="a">
+												<div class='receive'>
+													<div class="a">
 
-													<div>
-														<span class="receiveminititle"
-															style="color: steelblue;">작성자ID&nbsp;</span>
-														<span>${receive.transferee.id}</span> <span
-															class="receiveminititle"
-															style="color: steelblue;">핸드폰번호&nbsp;</span>
-														<span>${receive.receivePhone}</span>
+														<div>
+															<span class="receiveminititle"
+																style="color: steelblue;">작성자ID&nbsp;</span>
+															<span>${receive.transferee.id}</span> <span
+																class="receiveminititle"
+																style="color: steelblue;">핸드폰번호&nbsp;</span>
+															<span>${receive.receivePhone}</span>
+														</div>
+
+														<span class="receiveminititle">신청번호&nbsp;</span> <span
+															style="color: #c0c0c0; font-size: 10px;">&nbsp;${receive.receiveNo}&nbsp;&nbsp;</span>
+														<span class="receiveminititle">신청날짜&nbsp;</span> <span
+															style="color: #c0c0c0; font-size: 10px;">&nbsp;${receive.receiveRegdate}&nbsp;&nbsp;</span>
 													</div>
-
-													<span class="receiveminititle">신청번호&nbsp;</span> <span
-														style="color: #c0c0c0; font-size: 10px;">&nbsp;${receive.receiveNo}&nbsp;&nbsp;</span>
-													<span class="receiveminititle">신청날짜&nbsp;</span> <span
-														style="color: #c0c0c0; font-size: 10px;">&nbsp;${receive.receiveRegdate}&nbsp;&nbsp;</span>
 												</div>
 											</div>
 
 											<hr class="divider-w mt-10">
 
+											<div>
+												<div class="b">
+													<div>
+														<span class="receiveminititle">신청제목</span>
 
-											<div class="b">
-												<div>
-													<span class="receiveminititle">신청제목</span>
+
+														<c:if test="${user.id == transfer.transferOr.id}">
+
+															<button type='button'
+																class="updateTransferStatus ${receive.receiveNo} w-btn-outline w-btn-blue-outline"
+																data-transferNo="${receive.transferNo.transferNo}"
+																data-receiveNo="${receive.receiveNo}"
+																style="margin: 0px;">승인</button>
+
+														</c:if>
+													</div>
 												</div>
 
-												<c:if test="${user.id == transfer.transferOr.id}">
-													<span data-transferNo="${receive.transferNo.transferNo}"
-														data-receiveNo="${receive.receiveNo}"
-														class="updateTransferStatus ${receive.receiveNo}">승인</span>
+												<div class="b">
+													<span>${receive.receiveTitle}</span>
+												</div>
 
-												</c:if>
+
+												<div class="b">
+													<span class="receiveminititle">신청내용</span>
+												</div>
+
+												<div class="b">
+													<span>${receive.receiveContent}</span>
+												</div>
+
 											</div>
-
-											<div style="margin-bottom: 9px;">
-												<span>${receive.receiveTitle}</span>
-											</div>
-
-
-											<div>
-												<span class="receiveminititle">신청내용</span>
-											</div>
-
-											<span>${receive.receiveContent}</span>
-
 										</div>
+
 									</c:forEach>
 								</div>
+
 							</div>
+						</div>
 
-							<!-- ----------------------------------------- 신청 폼 ------------------------------------------------------------------------------------- -->
+						<!-- ----------------------------------------- 신청 폼 ------------------------------------------------------------------------------------- -->
+						<div class="container receive">
+
 							<div class="receivelayer">
-								<div class="container receive">
+								<div class="container receive" style="padding: 0;">
 									<form name="receiveform" id="receiveform" role="form">
-										<div class="col-sm-12">
+										<div class="col-sm-12"
+											style="padding: 0px; margin-top: 64px; background: #b3c2d175; border-radius: 30px;">
 
-											<div class="col-sm-12"
-												style="margin-top: 20px; border: 1px solid$000; border: 1px solid #e0bad3; border-style: dotted;">
+											<div class="col-sm-12" style="margin-top: 20px; border: none">
 												<h4 class="mb-0" style="font-family: 'Noto Sans KR', sans-serif;">예약양수
 													신청</h4>
 												<hr class="divider-w mt-10 mb-20">
 
 												<input id="receiveTitle" name="receiveTitle" class="form-control"
-													type="text" placeholder="제목을 등록해주세요."
-													style="height: 45px; margin-bottom: 18px;" />
+													type="text" placeholder="제목을 등록해주세요." style="height: 44px;
+													width: 1108px;
+													margin-bottom: 18px;
+													border-radius: 9px;
+													background: #ebf0f5;
+													border: none;
+													margin-left: 16px;" />
 
 												<div class="col-sm-6 ">
 													<div></div>
@@ -354,7 +447,8 @@
 														<div class="ohcamp">
 															<input id="receivePhone" name="receivePhone"
 																class="form-control" value="" type="text"
-																placeholder="-없이 입력해주세요. ex 01012345678" />
+																placeholder="-없이 입력해주세요. ex 01012345678"
+																style="border-radius: 9px; background: #ebf0f5; border: none;" />
 														</div>
 
 													</div>
@@ -365,16 +459,21 @@
 														<h3 style="margin-top: 0px;">양수신청사유</h3>
 														<textarea id="receiveContent" name="receiveContent"
 															class="form-control" rows="20"
-															style="height: 400px; margin-bottom: 20px;"
+															style="height: 400px; margin-bottom: 20px; border-radius: 9px; background: #ebf0f5; border: none;"
 															placeholder="양수신청내용을 입력해주세요."></textarea>
 													</div>
 													<br>
 													<button type="button" class="btn btn-secondary btn-block"
-														id="addreceive" style="margin-bottom: 23px;">신청 뾰로롱
+														id="addreceive" style="margin-bottom: 23px;	margin-left: 2px; margin-bottom: 23px;
+														margin-left: 2px;
+														background: #b3c2d1;
+														border-radius: 9px;
+														height: 53px;">신청 뾰로롱
 														~</button>
 												</div>
 
 												<input type="hidden" id="transferNo" name="transferNoo"
+													style="border-radius: 9px; background: #ebf0f5; border: none;"
 													value="${transfer.transferNo}">
 											</div>
 										</div>
@@ -382,7 +481,8 @@
 								</div>
 							</div>
 						</div>
-					</section>
+				</div>
+				</section>
 
 
 
@@ -417,28 +517,38 @@
 				$(function () { /* $로테이션을 jquery가 인식하기 위해서? script안에서 jquery를 사용하겠다는 것.  */ /* 요게 2순위 */
 					$("#addreceive").on("click", function () {
 
-						var form = $("#receiveform").serialize();
 
-						$.ajax({
-							type: "post",
-							url: "/transfer/rest/addReceive",
-							data: form,
-							error: function () {
-								alert(request, status, error);
-								alert("code:" + request.status + "\n"
-									+ "message:" + request.responseText
-									+ "\n" + "error:" + error);
-							},
-							success: function (list) {
 
-								console.log("list \n", list);
+						if (confirm("양수 신청을 하시겠습니까?")) {
+							//   $("#receiveform").attr("method", "POST").attr("action", "/transfer/addReceive").submit();
 
-							}
-						});
 
+							var form = $("#receiveform").serialize();
+
+							$.ajax({
+								type: "post",
+								url: "/transfer/rest/addReceive",
+								data: form,
+								error: function () {
+									alert(request, status, error);
+									alert("code:" + request.status + "\n"
+										+ "message:" + request.responseText
+										+ "\n" + "error:" + error);
+								},
+								success: function (data) {
+
+									console.log("add check  ==> ", data);
+
+									if (data == 1) {
+										// 페이지 새로고침
+										location.reload();
+
+									}
+
+								}
+							});
+						}
 					}); // addreceive click end
-
-
 
 
 
@@ -463,8 +573,12 @@
 								console.log("data::::" + data);
 
 
-								$(".updateTransferStatus").text("");
-								$(".updateTransferStatus." + receiveNo).text("승인완료");
+								$(".updateTransferStatus").css('display', 'none');
+								$(".updateTransferStatus." + receiveNo).css('display', 'block').text("승인완료").prop("disabled", true);
+
+								//  							var target = $(".updateTransferStatus." + receiveNo);
+								// 								target.disabled = true; 
+
 
 							},
 
