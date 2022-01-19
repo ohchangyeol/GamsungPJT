@@ -125,11 +125,11 @@ pageEncoding="UTF-8"%>
 												<div class="summary">
 													<h4 class="title">사이트수익</h4>
 													<div class="info">
-														<strong class="amount">${siteProfit.profitAllPayment} ₩</strong>
+														<strong class="amount">${siteProfitStatistics.profitAllPayment} ₩</strong>
 													</div>
 												</div>
 												<div class="summary-footer">
-													<a class="text-muted text-uppercase">${siteProfit.profitRegDate}</a>
+													<a class="text-muted text-uppercase">${siteProfitStatistics.profitRegDate}</a>
 												</div>
 											</div>
 										</div>
@@ -166,7 +166,7 @@ pageEncoding="UTF-8"%>
 								<!--차트가 그려질 부분-->
 								<canvas id="siteProfit_chart"></canvas>
 								<div style="text-align: center; padding: 10px;">
-									<span>${siteProfit.profitRegDate}</span>
+									<span>${siteProfitStatistics.profitRegDate}</span>
 								</div>
 							</div>
 						</div>
@@ -293,7 +293,7 @@ pageEncoding="UTF-8"%>
 					                    pointRadius : 0,    					// 각 지점에 포인트 주지 않음
 					                    backgroundColor: 'gray',
 					                    borderColor: 'gray',
-					                    data: [${siteProfit.profitPointCharge}]
+					                    data: [${siteProfitStatistics.profitPointCharge}]
 				                	
 				                	}, 
 				                	{
@@ -304,7 +304,7 @@ pageEncoding="UTF-8"%>
 					                    pointRadius : 0,    					
 					                    backgroundColor: 'green',
 					                    borderColor: 'green',
-					                    data: [${siteProfit.profitPointPayment}]
+					                    data: [${siteProfitStatistics.profitPointPayment}]
 				                	
 				                	}, 
 				                	{
@@ -315,7 +315,7 @@ pageEncoding="UTF-8"%>
 					                    pointRadius : 0,    
 					                    backgroundColor: 'blue',
 					                    borderColor: 'blue',
-					                    data: [${siteProfit.profitRegularPayment}]
+					                    data: [${siteProfitStatistics.profitRegularPayment}]
 				                	}, 
 				                	{	
 				                		type: 'bar', 
@@ -325,7 +325,7 @@ pageEncoding="UTF-8"%>
 					                    pointRadius : 0,
 					                    backgroundColor: 'orange',
 					                    borderColor: 'orange',
-					                    data: [${siteProfit.profitAllPayment}]
+					                    data: [${siteProfitStatistics.profitAllPayment}]
 				               		}
 				                ]
                	},

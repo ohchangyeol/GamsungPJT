@@ -641,6 +641,10 @@ alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+
 								}
 							}).open();
 						});
+
+						$("#get_b_cancel").on("click", function () {
+							window.history.go(-1);
+						})
 					});
 				</script>
 			</body>
