@@ -216,11 +216,15 @@
 		                            <span>결제관리</span>
 		                        </a>
 		                        <ul class="nav nav-children">
+		                          
+		                        <!--    
 		                            <li>
 		                                <a href="/payment/listSiteProfit">
 		                                    사이트수익
 		                                </a>
 		                            </li>
+		                        -->
+		                             
 		                            <li>
 		                                <a href="/payment/listPayment">
 		                                    결제내역
