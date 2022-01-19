@@ -57,9 +57,7 @@
 
 		<body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
 			<main>
-				<div class="page-loader">
-					<div class="loader">Loading...</div>
-				</div>
+				
 				<jsp:include page="header.jsp"></jsp:include>
 				<div class="inner-wrapper">
 					<jsp:include page="userSideBar.jsp"></jsp:include>
@@ -68,6 +66,7 @@
 					</section>
 				</div>
 			</main>
+			
 			<jsp:include page="footer.jsp"></jsp:include>
 
 

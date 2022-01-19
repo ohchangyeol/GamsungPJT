@@ -113,7 +113,8 @@
 										<li><a href="/payment/managePoint" style="border-bottom: none !important;"><i class="fa fa-money" aria-hidden="true"></i>&nbsp;포인트 관리</a></li>
 									</c:if>
 									
-									<li><a href="/user/logout" style="border-bottom: none !important;"><button	class="btn btn-border-w btn-round btn-xs" type="button"	id="logout">LOGOUT</button></a></li>
+									<li><a href="/user/logout"><button class="btn btn-border-w btn-round btn-xs" type="button"id="logout"style="border: none;padding: 5px 0 5px 0;width: 100%;font-size: 13px;text-align: left;color: #999; border-top:1px #ddd solid"><i class="bi bi-box-arrow-right" style="font-size: 20px;
+										"></i>&nbsp;로그아웃</button></a></li>
 
 								</ul>
 							</li>

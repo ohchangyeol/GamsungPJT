@@ -19,9 +19,6 @@ pageEncoding="UTF-8"%>
   </head>
   <body data-spy="scroll" data-target=".onpage-navigation" data-offset="60" class="myReport">
     <main>
-      <div class="page-loader">
-        <div class="loader">Loading...</div>
-      </div>
       
       <!-- header -->
       <jsp:include page="../../common/header.jsp"/>
@@ -43,8 +40,8 @@ pageEncoding="UTF-8"%>
             <section class="panel">
               <header class="panel-heading">
                 <div class="row">
-                  <h4 class="col-sm-7 mb-0">신고 내역 조회</h4>
-                  <div class="col-sm-5 mb-sm-0">
+                  <h4 class="col-sm-7 mb-0 font-jua main-color" style="font-size: 34px;font-weight: 400;">신고 내역 조회</h4>
+                  <div class="col-sm-5 mb-sm-0" style="margin-top: 15px;">
                     <div class="row">
                     <form role="form" class="rerport-search" method="post">
                       <div class="col-sm-4">
