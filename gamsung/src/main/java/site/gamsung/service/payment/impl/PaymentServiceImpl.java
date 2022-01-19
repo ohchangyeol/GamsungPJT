@@ -1,19 +1,23 @@
 package site.gamsung.service.payment.impl;
 
-import java.time.LocalDateTime;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.Payment;
 import site.gamsung.service.domain.PaymentCode;
 import site.gamsung.service.domain.PointTransfer;
-import site.gamsung.service.domain.User;
+import site.gamsung.service.domain.SiteProfit;
 import site.gamsung.service.payment.PaymentDAO;
 import site.gamsung.service.payment.PaymentService;
 import site.gamsung.service.user.UserDAO;
@@ -278,6 +282,47 @@ public class PaymentServiceImpl implements PaymentService{
 	/*
 	 *  SiteProfit
 	 */
-
-
+	@Override
+	public SiteProfit listSiteProfit(String today) throws Exception{		
+		return paymentDAO.listSiteProfit(today);
+	}
+	
+	@Override
+	@Scheduled(cron="0 1 0 1 * *")
+	public void calculateSiteProfit() throws Exception{	
+		
+		HashMap<String, Object> searchParameterPointCharge = new HashMap<String, Object>();
+		HashMap<String, Object> searchParameterPayment = new HashMap<String, Object>();		
+		SiteProfit oneProfitRecord = new SiteProfit();
+		
+		Calendar calendar = new GregorianCalendar();
+		SimpleDateFormat SDF = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		
+		calendar.add(Calendar.DATE, -1);		
+		String payStartDay = SDF.format(calendar.getTime());	
+		System.out.println("payStartDay : "+payStartDay);
+		
+		calendar.add(Calendar.DATE, +1);
+		String payEndDay = SDF.format(calendar.getTime());
+		System.out.println("payEndDay : "+payEndDay);
+		
+		searchParameterPointCharge.put("paymentCode", "P1");
+		searchParameterPayment.put("payStartDay", payStartDay);
+		searchParameterPayment.put("payEndDay", payEndDay);
+		
+		Payment pointChargeRecord = paymentDAO.getPaymentRecord(searchParameterPointCharge);
+		Payment paymentRecord = paymentDAO.getPaymentRecord(searchParameterPayment);	
+		
+		System.out.println("pointChargeRecord : "+pointChargeRecord);
+		System.out.println("paymentRecord : "+paymentRecord);		
+		System.out.println("oneProfitRecord : "+oneProfitRecord);
+		
+		oneProfitRecord.setProfitPointCharge(pointChargeRecord.getPaymentPriceTotalSecond());
+		oneProfitRecord.setProfitPointPayment(paymentRecord.getPaymentPriceTotalSecond());
+		oneProfitRecord.setProfitRegularPayment(paymentRecord.getPaymentPriceTotal());
+		oneProfitRecord.setProfitAllPayment(paymentRecord.getPaymentPriceTotalSecond()+paymentRecord.getPaymentPriceTotal());
+		
+		paymentDAO.addSiteProfit(oneProfitRecord);
+		
+	}
 }
