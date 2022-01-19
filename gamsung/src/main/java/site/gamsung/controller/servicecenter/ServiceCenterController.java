@@ -231,7 +231,85 @@ public class ServiceCenterController {
 		
 	}
 	
+	@GetMapping("updateNotice")
+	public String updateNotice(@RequestParam("noticeNo") int noticeNo,HttpSession session, Model model) throws Exception {
+		
+		User user = (User)session.getAttribute("user");
+		
+		noticeService.updateViewCount(noticeNo);
+		Notice notice = noticeService.getNotice(noticeNo);
+		
+//		NoticeWrapper wrapper = noticeService.listNotice(search);
+		System.out.println(notice);
+//		model.addAttribute("wrapper" , wrapper);
+		model.addAttribute("notice" , notice);
+		model.addAttribute("noticeType", "update");
+		
+		return "forward:/view/servicecenter/notice/noticeAdminLayout.jsp";
+	}
 	
+	@PostMapping("updateNotice")
+	public String updateNotice(@ModelAttribute Notice notice, @ModelAttribute User user , @RequestParam("files") MultipartFile[] files, HttpServletRequest req, Model model) throws Exception {
+		
+		System.out.println("update Notice Post!!");
+		
+		System.out.println("################################# \n Notice ==>"+ notice);
+		System.out.println("Files ==>" + files);
+		
+		notice.setWriter(user);
+		
+		System.out.println(files.length);
+		
+		
+		
+		for (int i = 0; i < files.length-1; i++) {
+			MultipartFile file = files[i];
+			System.out.println("파일 이름 "+ file.getOriginalFilename());
+			
+			if(!file.getOriginalFilename().isEmpty()) {
+				String root_path = req.getSession().getServletContext().getRealPath("/");  
+				String attach_path = "uploadfiles/servicecenter/";
+				String filename = file.getOriginalFilename();
+				
+				//System.out.println("==> root :: "+root_path + attach_path + filename);
+				
+				System.out.println(filename);
+				file.transferTo(new File(root_path + attach_path + filename));
+				
+				switch (i) {
+					case 0:
+						notice.setNoticeFile1(filename);
+						break;
+					case 1:
+						notice.setNoticeFile2(filename);
+						break;
+					case 2:
+						notice.setNoticeFile3(filename);
+						break;
+					case 3:
+						notice.setNoticeFile4(filename);
+						break;
+					case 4:
+						notice.setNoticeFile5(filename);
+						break;
+					default:
+						break;
+				}
+			}
+			
+		}
+		System.out.println(notice);
+		noticeService.updateNotice(notice);
+		notice = noticeService.getNotice(notice.getNoticeNo());
+		
+//		NoticeWrapper wrapper = noticeService.listNotice(search);
+		System.out.println(notice);
+//		model.addAttribute("wrapper" , wrapper);
+		model.addAttribute("notice" , notice);
+		model.addAttribute("noticeType", "get");
+		
+		return "forward:/view/servicecenter/notice/noticeAdminLayout.jsp";
+	}
 	
 	
 //	*===================================================================*

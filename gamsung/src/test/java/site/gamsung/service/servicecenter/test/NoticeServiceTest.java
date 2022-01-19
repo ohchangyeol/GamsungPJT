@@ -89,7 +89,7 @@ public class NoticeServiceTest {
 	public void updateNoticeServiceTest() throws Exception {
 		Notice notice = noticeService.getNotice(5);
 		
-		notice.setNoticeTitle("존나 짜증나는 상태입니다.");
+		notice.setNoticeTitle("짜증나는 상태입니다.");
 		notice.setNoticeContent("mySQL은 재밌지만 오류는 짜증이 납니다");
 		
 		noticeService.updateNotice(notice);

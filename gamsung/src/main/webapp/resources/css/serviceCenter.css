@@ -35,7 +35,9 @@ hr.divider-w{height: 0 !important;}
 .add-notice #dropZone button{background-color: transparent ;border: none;}
 /* .add-notice .inner-wrapper .content-body .add-notice{margin: -100px -40px -53px -40px;} */
 /* .add-notice .content-with-menu-container {padding-top: 55px;} */
-
+/* .features-item h3 {font-weight: 700;} */
+/* .features-item button{ background: #9cc1e8 !important;} */
+/* .features-item button:hover{ background: #3974d9 !important;} */
 /* QnA Layout */
 .qna hr{height: 0; margin-bottom: 30px;}
 .qna p{margin : 0;}

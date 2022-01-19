@@ -123,11 +123,19 @@
 	<update id="updateNotice" parameterType="notice">
 		UPDATE NOTICE
 		<set>
-			notice_title=#{noticeTitle},
-			notice_content=#{noticeContent}, 
-		    notice_file1=#{noticeFile1:VARCHAR}, 
-		    notice_file2=#{noticeFile2:VARCHAR},
-		    notice_file3=#{noticeFile3:VARCHAR}
+			<if test="#{noticeFile1 != null}">
+				notice_title=#{noticeTitle},
+				notice_content=#{noticeContent}, 
+			    notice_file1=#{noticeFile1:VARCHAR}, 
+			    notice_file2=#{noticeFile2:VARCHAR},
+			    notice_file3=#{noticeFile3:VARCHAR},
+			    notice_file4=#{noticeFile4:VARCHAR},
+			    notice_file5=#{noticeFile5:VARCHAR}
+			</if>
+			<if test="#{noticeFile1 == null}">
+				notice_title=#{noticeTitle},
+				notice_content=#{noticeContent} 
+			</if>
 		</set>
 		WHERE notice_no = #{noticeNo}
 	</update>
