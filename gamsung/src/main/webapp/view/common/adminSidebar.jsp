@@ -124,7 +124,7 @@
 		
 	                     <li class="nav-parent">
 	                        <a>
-	                            <i class="fa fa-good" aria-hidden="true"></i>
+	                            <i class="fa fa-tree" aria-hidden="true"></i>
 	                            <span>캠핑장관리</span>
 	                        </a>
 	
@@ -135,17 +135,19 @@
 	                                    캠핑장 목록
 	                                </a>
 	                            </li>
-	                       <!--  
+	                       
 	                            <li>
 	                                <a href="/campBusiness/listMainSite">
 	                                    캠핑장-주요시설 목록
 	                                </a>
 	                            </li>
-	                            <li>
+	                             <li>
 	                                <a href="/campBusiness/listSubSite">
 	                                    캠핑장-부가시설 목록
 	                                </a>
 	                            </li>
+	                       
+	                        <!--
 	                            <li>
 	                                <a href="/campBusiness/listCampQna">
 	                                    캠핑장-Q&A 목록

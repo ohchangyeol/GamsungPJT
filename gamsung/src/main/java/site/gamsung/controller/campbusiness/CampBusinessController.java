@@ -341,7 +341,7 @@ public class CampBusinessController {
 	}
 
 	// 구역크기, 기본인원, 최대인원, 기본인원사용금액, 추가인원금액 Ajax 처리필요
-	@RequestMapping(value = "listMainSite", method = RequestMethod.POST)
+	@RequestMapping(value = "listMainSite")
 	public String listMainSite(@ModelAttribute("search") Search search, Model model)
 			throws Exception {
 
@@ -456,7 +456,7 @@ public class CampBusinessController {
 		return "forward:/view/campbusiness/addSubSite.jsp";
 	}
 
-	@RequestMapping(value = "listSubSite", method = RequestMethod.POST)
+	@RequestMapping(value = "listSubSite")
 	public String listSubSite(@ModelAttribute("search") Search search, Model model)
 			throws Exception {
 
