@@ -168,7 +168,7 @@ public class CampBusinessController {
 	}
 	
 	// 주소, 전화번호, 회원ID, 테마, 환경, 운영 Ajax 처리필요
-	@RequestMapping(value = "listCamp", method = RequestMethod.POST)
+	@RequestMapping(value = "listCamp")
 	public String listCamp(@ModelAttribute("search") Search search, Model model)
 			throws Exception {
 

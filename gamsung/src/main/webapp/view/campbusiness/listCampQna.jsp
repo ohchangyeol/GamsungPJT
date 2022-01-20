@@ -66,8 +66,10 @@
 				self.location ="/campBusiness/addCampQnaQuestion?campNo="+$("#campNo").val();
 			});	
 				
+			
 		});	
-
+		
+	
 	</script>
 	
 </head>
@@ -80,7 +82,7 @@
 		<jsp:include page="/view/common/headerCampBusiness.jsp" />	  	
 	</c:if>
 	
-	<c:if test="${user.role == 'GENERAL'}">
+	<c:if test="${user.role == 'GENERAL' && empty campNo}">
 		<jsp:include page="/view/common/header.jsp" />	
 	</c:if>
 	   	
@@ -95,7 +97,7 @@
 	    
 	    <!-- 상단 -->
 	    <div class="row">
-	       	<c:if test="${user.role == 'GENERAL' && campNo != '0'}">
+	       	<c:if test="${user.role == 'GENERAL' && campNo != '0' }">
 		        <div class="col-xs-2 ofsform-group">
 					<button id="addQnabtn" type="button" class="btn btn-primary">질문등록</button>
 					<input type="hidden" name="campNo" id="campNo" value="${campNo}">
