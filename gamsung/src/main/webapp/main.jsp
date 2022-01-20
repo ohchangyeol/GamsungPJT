@@ -211,8 +211,6 @@
             <jsp:include page="./view/common/footer.jsp"/>
 
         </main>
-        
-
 
         <script src="../../resources/lib/modals/examples.modals.js"></script>
         <script src="/resources/js/campSearch.js"></script>
@@ -225,7 +223,6 @@
             $('.campImg').on('click', function () {
               window.location = '/campGeneral/getCamp?campNo=' + $(this).attr('campNo');
             });
-
 
             $('.shop-item-img').on('click', function () {
               window.location = '/auction/getAuctionProduct?auctionProductNo=' + $(this).parent().next().val();
