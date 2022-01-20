@@ -371,6 +371,7 @@ public class AuctionProductController {
 			map = auctionInfoService.listBidConcern(map);
 			break;
 		case "review":
+			System.out.println(search);
 			map = auctionReviewService.listMyRatingReview(map);
 			break;
 		}
