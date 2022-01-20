@@ -28,13 +28,13 @@
 				<c:if test="${ resultPage.currentPage == i }">
 					<!--  현재 page 가르킬경우 : active -->
 				    <li class="active">
-				    	<a href="javascript:fncGetList('${ i }');">${ i }<span class="sr-only">(current)</span></a>
+				    	<a href="javascript:fncGetList('${ i }');">${ i+1 }<span class="sr-only">(current)</span></a>
 				    </li>
 				</c:if>	
 				
-				<c:if test="${ resultPage.currentPage != i}">	
+				<c:if test="${ resultPage.currentPage != i}">
 					<li>
-						<a href="javascript:fncGetList('${ i }');">${ i }</a>
+						<a href="javascript:fncGetList('${ i }');">${ i+1 }</a>
 					</li>
 				</c:if>
 			</c:forEach>
