@@ -1,6 +1,5 @@
 CREATE SCHEMA gamsung;
-USE gamsung;
-
+USE GAMSUNG;
 
 CREATE TABLE `USERS` (
 `user_id` VARCHAR(50) NOT NULL,
@@ -18,19 +17,20 @@ CREATE TABLE `USERS` (
 `having_point` INT DEFAULT 0,
 `camp_name` VARCHAR(30),
 `camp_call` VARCHAR(15),
-`entry_approval_flag` CHAR(1),
+`entry_approval_flag` CHAR(1) DEFAULT 'N',
 `receive_cancel_total_count` INT DEFAULT 0,
 `receive_ban_end_date` DATE,
 `dormant_reg_date` DATE,
 `secession_reg_date` DATE,
 `suspension_reg_date` DATE,
-`tourism_business_num` VARCHAR(10),
+`camp_business_num` VARCHAR(10),
 `suspension_content` VARCHAR(200),
 `auction_grade` SMALLINT DEFAULT 1,
 `auction_suspension_reg_date` DATE,
 `sns_id` VARCHAR(15),
+`camp_business_img` VARCHAR(2000),
 PRIMARY KEY ( `user_id`),
-UNIQUE (`user_id`,`nick_name`, `phone`, `tourism_business_num`)
+UNIQUE (`user_id`,`nick_name`, `phone`, `camp_business_num`)
 );
 
 CREATE TABLE `LOGIN_HISTORY` (
@@ -107,6 +107,7 @@ CREATE TABLE `BID_CONCERN` (
     `user_id` VARCHAR(50) NOT NULL,
     `product_no` CHAR(9) NOT NULL,
     `concern_reg_date` DATETIME NOT NULL DEFAULT NOW(),
+    `send_mail_flag` CHAR(1) NOT NULL DEFAULT 'N',
     `delete_flag` CHAR(1) NOT NULL DEFAULT 'N',
     PRIMARY KEY (`bid_concern_no`)
 );
@@ -234,6 +235,7 @@ ALTER TABLE SUBSITE AUTO_INCREMENT=10000;
 
 CREATE TABLE `PAYMENT` (
     `payment_no` VARCHAR(10) NOT NULL,
+    `payment_status` INT,
     `payment_product` VARCHAR(50) NOT NULL,
     `payment_sender` VARCHAR(50) NOT NULL,
     `payment_receiver` VARCHAR(50) NOT NULL, 
@@ -241,6 +243,7 @@ CREATE TABLE `PAYMENT` (
     `payment_reg_time` DATETIME  NOT NULL,
     `payment_code` VARCHAR(10) NOT NULL,  
     `payment_reference_num` VARCHAR(100), 
+    `imp_uid` VARCHAR(100),     
     `payment_method` VARCHAR(20),    
     `payment_price_total` INT,    
     `payment_price_pay` INT,
@@ -274,20 +277,21 @@ END $$
 DELIMITER ;
 
 CREATE TABLE `PAYMENT_CODE` (
+    `payment_code_regNum` INT NOT null,
     `payment_code` VARCHAR(10) NOT NULL,
     `payment_code_range_start` INT,
     `payment_code_range_end` INT,
     `payment_code_info` VARCHAR(100) NOT NULL,
-    `payment_code_fee` INT NOT NULL,
+    `payment_code_fee` INT NOT NULL,    
     PRIMARY KEY (`payment_code`)
 );
 
 CREATE TABLE `SITE_PROFIT` (
     `profit_reg_date` DATE NOT NULL,
-    `profit_point` INT NOT NULL,
-    `profit_cash` INT NOT NULL,
-    `profit_creditcard` INT NOT NULL,
-    `profit_simplepay` INT NOT NULL,
+    `profit_point_charge` INT NOT NULL,
+    `profit_point_payment` INT NOT NULL,
+    `profit_regular_payment` INT NOT NULL,
+    `profit_all_payment` INT NOT NULL,
     PRIMARY KEY (`profit_reg_date`)
 );
 
@@ -451,7 +455,8 @@ CREATE TABLE `NOTICE` (
 `notice_file1` VARCHAR(50),
 `notice_file2` VARCHAR(50),
 `notice_file3` VARCHAR(50),
-
+`notice_file4` VARCHAR(50),
+`notice_file5` VARCHAR(50),
 PRIMARY KEY (`notice_no`),
 FULLTEXT title (notice_title),
 FULLTEXT content (notice_content),
@@ -533,7 +538,5 @@ ALTER TABLE `CAMP_RESERVATION` ADD FOREIGN KEY (`mainsite_no`) REFERENCES `MAINS
 ALTER TABLE `CAMP_RESERVATION` ADD FOREIGN KEY (`camp_no`) REFERENCES `CAMP`(`camp_no`);
 ALTER TABLE `PAYMENT` ADD FOREIGN KEY (`payment_code`) REFERENCES `PAYMENT_CODE`(`payment_code`);
 ALTER TABLE `PAYMENT` ADD FOREIGN KEY (`payment_refund_code`) REFERENCES `PAYMENT_CODE`(`payment_code`);
-ALTER TABLE `NOTICE` ADD FOREIGN KEY (`camp_no`) REFERENCES `CAMP`(`camp_no`);
-ALTER TABLE `QNA` ADD FOREIGN KEY (`camp_no`) REFERENCES `CAMP`(`camp_no`);
 ALTER TABLE `REPORT` ADD FOREIGN KEY (`report_type`) REFERENCES `REPORT_TABLE`(`report_type`);
 ALTER TABLE `AUCTION_VIEW_LOG` ADD FOREIGN KEY (`product_no`) REFERENCES `AUCTION_PRODUCT`(`product_no`);

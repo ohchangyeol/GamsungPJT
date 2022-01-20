@@ -57,6 +57,9 @@ pageEncoding="UTF-8"%>
 									<c:if test='${noticeType == "add"}'>
 										<jsp:include page="../notice/addNotice.jsp"/>
 									</c:if>
+									<c:if test='${noticeType == "update"}'>
+										<jsp:include page="../notice/updateNotice.jsp"/>
+									</c:if>
 									<c:if test='${noticeType == "get"}'>
 										<div class="inner-body-notice">
 											<jsp:include page="../notice/getNotice.jsp"/>

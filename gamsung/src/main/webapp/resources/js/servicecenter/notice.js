@@ -1,13 +1,24 @@
 $(document).ready(function(){
 
     eventInit();
-
+    noticeLoading();
     fncGetList = (currentPage)=>{
         $("#currentPage").val(currentPage);
         $(".notice-search").attr("method", "post").submit();
     }
 
 })// end jQurey
+
+function noticeLoading(){
+
+    const noticeContent = $("div.format.update-content").html();
+    console.log($("div.format.update-content"));
+    console.log(noticeContent);
+    console.log($(".note-editable"));
+    if(noticeContent != undefined || noticeContent != null || noticeContent != ''){
+        $(".note-editable").append(noticeContent);
+    }
+}
 
 function eventInit() {
 
@@ -50,12 +61,25 @@ function eventInit() {
         
     })
 
+    $("#notice-update-btn").on("click",()=>{
+        const noticeNo = $(".getNotice").data("noticeno");
+        
+        Swal.fire(
+        '수정페이지로 전환됩니다',
+        ' ',
+        'success'
+        ).then(()=>{
+            self.location ="/servicecenter/updateNotice?noticeNo="+noticeNo;
+        })
+    
+    })
+
     $("#n-files").bind('change', function() {
         selectFile(this.files);
     });
     
     $(".notice-btn").on("click" , (e)=>{
-        const no = $(".notice-btn").data("no");
+        const no = $(e.currentTarget).data("no");
         const tagContent = $(".note-editable").html();
         const file = $("#n-files").val();
 
@@ -89,7 +113,19 @@ function eventInit() {
                 })
                 break;
             case 2:
-
+                $("#notice-form")[0].reset();
+                break;
+            case 3:
+                Swal.fire(
+                    '등록이 완료되었습니다.',
+                    '공지사항 상세보기로 전환됩니다.',
+                    'success'
+                ).then(()=>{
+                    $("#notice-form").attr("action" , "/servicecenter/updateNotice").attr("method" , "post").attr("enctype","multipart/form-data").submit();
+                })
+                break;
+            case 4:
+                window.history.back();
                 break;
             default:
                 alert("뭘누른거임?")

@@ -77,10 +77,15 @@ public class TransferServiceImpl implements TransferService {
 		return map;
 	}
 
-	@Override
-	public List<Transfer> listTransferForReceive(String userId) throws Exception {
-		return transferDAO.listTransferForReceive(userId);
-	}
+   @Override
+   public Map<String ,Object> listTransferForReceive(Search search) throws Exception {
+      Map<String, Object> map = new HashMap<String, Object>();
+      List<Transfer> list = transferDAO.listTransferForReceive(search); 
+      map.put("list", list); 
+      map.put("TotalCount",transferDAO.listMyReceiveGetTotalCount(search));
+      
+      return map;
+   }
 
 	
 	

@@ -79,7 +79,7 @@
 								<div class="row">
 									<div class="col-sm-8 col-sm-offset-2">
 										<hr class="divider-w mt-10 mb-20">
-										<form class="form" role="form">
+										<form class="form" role="form" id="update_g_a_form">
 											<div id="email" class="form-group">
 												<div><input id="role" name="role" value="GENERAL" hidden="hidden">
 												</div>
@@ -191,8 +191,8 @@
 														</strong></label>
 													<div class="col-sm-6">
 														<input id="get_g_a_generalPoint" name="havingPoint"
-															class="form-control" type="text"
-															value="${user.havingPoint}" />
+															class="form-control" type="text" value="${user.havingPoint}"
+															readonly />
 													</div>
 												</div>
 
@@ -236,7 +236,7 @@
 									</div>
 								</div>
 								<div class="row" id="approval-general-btn">
-									<button id="cancel" class="btn btn-xs btn-border-d btn-circle"
+									<button id="get_g_a_cancel" class="btn btn-xs btn-border-d btn-circle"
 										type="button">취소</button>
 									<button id="get_g_a_general-updateUser" class="btn btn-xs btn-border-d btn-circle"
 										type="submit">수정하기</button>
@@ -311,7 +311,14 @@
 
 						$("#get_g_a_allAddr").val(value);
 
-						$("form").attr("method", "POST").attr("action", "/user/updateUser").submit();
+						Swal.fire({
+							icon: 'success',
+							title: '수정완료',
+							html: '정보수정이 완료되었습니다:)'
+
+						}).then(() => {
+							$("#update_g_a_form").attr("method", "POST").attr("action", "/user/updateUser").submit();
+						});
 					}
 
 
@@ -324,6 +331,10 @@
 							}
 						}).open();
 					});
+
+					$("#get_g_a_cancel").on("click", function () {
+						window.history.go(-1);
+					})
 				});
 
 			</script>

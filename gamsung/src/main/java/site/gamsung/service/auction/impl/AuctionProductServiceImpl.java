@@ -214,6 +214,7 @@ public class AuctionProductServiceImpl implements AuctionProductService{
 		auctionProductDAO.addAuctionProduct(auctionProduct);
 	}
 	
+	@Override
 	public void updateAuctionProduct(AuctionProduct auctionProduct) {
 		
 		auctionProduct.setIsTempSave("N");
