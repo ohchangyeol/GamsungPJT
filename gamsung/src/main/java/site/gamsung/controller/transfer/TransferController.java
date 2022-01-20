@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import site.gamsung.service.camp.CampReservationService;
@@ -291,14 +292,16 @@ public class TransferController {
       
    }
    
-   // 예약양도양수 My 페이지 navigation   
+   // 예약양도양수 My 페이지 navigation   1.양도 목록 
    @RequestMapping(value = "listMyTransfer")   
-   public String listMyTransfer(HttpSession session, Model model, Search search) throws Exception {
+   public String listMyTransfer(HttpSession session, Model model, Search search , @RequestParam(value = "options", defaultValue = "1") int options) throws Exception {
 
       System.out.println("listMyTransfer Start");
-
+      
+   
       User user = (User) session.getAttribute("user");
-
+      int TotalCount = 0;
+      List<Transfer> Transferlist = null;
       if (user == null) {
          return "redirect:/";
       }
@@ -313,12 +316,19 @@ public class TransferController {
       search.setId(user.getId()); // listMyTransfer는 search에 id를 넣는다. 
 
       map.put("search", search);
-             
-      map = transferService.listTransfer(map);
       
-      int TotalCount = (int) map.get("TotalCount");
+      System.out.println(" -------------- \n options ==>"+ options);
+      
+      if(options == 1) {
+         map = transferService.listTransfer(map);
+      }else {
+         map = transferService.listTransferForReceive(search);
+         
+      }
+      
+      TotalCount = (int) map.get("TotalCount");
+      Transferlist =  (List<Transfer>) map.get("list");
    
-      List<Transfer> Transferlist =  (List<Transfer>) map.get("list");
       
       Page resultPage = new Page( search.getCurrentPage(), TotalCount, pageUnit, pageSize);
             
@@ -326,10 +336,12 @@ public class TransferController {
       
       model.addAttribute("user", user);
       model.addAttribute("Transferlist", Transferlist);
-      model.addAttribute("resultPage", resultPage);      
+      model.addAttribute("resultPage", resultPage);
+      model.addAttribute("options", options);
       
       return "forward:/view/transfer/listMyTransfer.jsp";
    }
+   
    
    
    // 예약양수 My 페이지 navigation   
@@ -379,7 +391,7 @@ public class TransferController {
    
   // 양도양수 결제 
    @RequestMapping(value = "TransferPayment")   
-   public String TransferPayment(@RequestParam("transferor") String transferor, @RequestParam("transferPrice") String transferPrice, @RequestParam("transferno") String transferno, Model model, HttpSession session, Search search) throws Exception {
+   public String TransferPayment(@RequestParam(value = "receiveno", required = false) String receiveno, @RequestParam("transferor") String transferor, @RequestParam("transferPrice") String transferPrice, @RequestParam("transferno") String transferno, Model model, HttpSession session, Search search) throws Exception {
 
      System.out.println("listMyTransfer Start");
 
@@ -392,6 +404,7 @@ public class TransferController {
       System.out.println("transferor::"+transferor);
       System.out.println("transferPrice::"+transferPrice);
       System.out.println("transferno::"+transferno);
+      System.out.println("receiveno::"+receiveno);
       System.out.println("trasnferee::"+user.getId());
       
       Payment payment = new Payment();
@@ -400,10 +413,8 @@ public class TransferController {
       payment.setPaymentSender(user.getId()); //보내는 사람 ID    
       payment.setPaymentReceiver(transferor);  //받는 사람 ID    
       payment.setPaymentCode("T1");     
-      payment.setPaymentReferenceNum(transferno);
-      
-      payment.setPaymentMethodSecond("point");
-      
+      payment.setPaymentReferenceNum(transferno);     
+      payment.setPaymentMethodSecond("point");    
       payment.setPaymentPriceTotalSecond(Integer.parseInt(transferPrice));
 
       paymentService.makePayment(payment);
@@ -412,12 +423,145 @@ public class TransferController {
       session.removeAttribute("user");
       session.setAttribute("user", tempUser);
       
+      
+      //상태값 변경
+      
+      //양도 결제시 양도 결제되는 양도글번호랑 양수글번호 상태를 3으로 변경하고 나머지는 양수는 4로 변경한다. 
+      
+      
+      Receive receive = new Receive();
+      Transfer transfer = new Transfer();
+      
+      transfer.setTransferNo(Integer.parseInt(transferno));     
+      receive.setReceiveStatus(2);
+      receive.setTransferNo(transfer);
+      receive.setReceiveNo(Integer.parseInt(receiveno));
+      
+      receiveService.updateTransferStatus(receive);
+           
      return "redirect:/view/transfer/listMyTransfer.jsp";
+     
+     
     
    }
   
   
    
+ //양수신청글 add
+//   
+//   @RequestMapping(value = "addReceive") 
+//   public String addReceive (@ModelAttribute("receive") Receive receive, String transferNoo, HttpSession session, Model model) throws Exception{
+//  	 
+//  	 System.out.println("addReceive:::");
+//  	 System.out.println(receive);
+//
+//  	 Transfer transfer = new Transfer();
+//
+//  	 transfer.setTransferNo(Integer.parseInt(transferNoo));
+//  	 receive.setTransferNo(transfer);
+//  	 
+//  	 User user = (User)session.getAttribute("user");
+//  	 receive.setTransferee(user);
+//  	 
+//  	 System.out.println("receive getTransfer => "+ receive.getTransferNo());
+////  	 System.out.println("receive => " + receive);
+//  	 receiveService.addReceive(receive);
+//  	 
+//  	 System.out.println(transferNoo);
+//  	 
+//     model.addAttribute("transferNo", transferNoo);      
+//  		
+//  		return "forward:getTransfer";
+//   }
+   
+   
+   //양도수정page 네비게이션   
+   
+   @RequestMapping(value = "updateTransfer") 
+   public String updateTransfer (@RequestParam(value = "transferNo", required = false)int transferNo, HttpSession session, Model model) throws Exception{
+  	 
+  	 System.out.println("updateTransfer:::");
+  	 System.out.println(transferNo);
+	 
+  	 User user = (User)session.getAttribute("user");
+  	 
+     if (user == null) {
+         return "redirect:/";
+      }
+     
+     Search search = new Search();
+     String id = user.getId();      
+     
+     if (search.getCurrentPage() == 0) {
+          search.setCurrentPage(1);
+       }
+       
+     search.setPageSize(10);
+    
+  	 Map<String, Object> List   = campReservationService.listMyReservation(search, id);
+  	 
+     List<CampReservation> list = (List<CampReservation>) List.get("list");
+     
+  	 
+  	Transfer transfer = transferService.getTransfer(transferNo);
+  	 
+     model.addAttribute("list", list);
+     model.addAttribute("transfer", transfer);
+
+  		
+     return "forward:/view/transfer/updateTransfer.jsp";
+   }
+   
+   
+   
+   
+   // 예약양도수정 비즈니스
+   
+   @RequestMapping(value = "updateTransfer", method = RequestMethod.POST) // RequestParam의 별칭은 file type속성의 name과 맞춘다.
+   public String updateTransfer(@ModelAttribute("transfer") Transfer transfer, HttpServletRequest req, HttpSession session, Model model) throws Exception {
+
+      System.out.println("updateTransfer Post Start");
+      System.out.println("transfer:::::::"+transfer);
+
+      	 User user = (User)session.getAttribute("user");
+      	 
+         if (user == null) {
+             return "redirect:/";
+          }
+                          
+        transfer.setTransferOr(user);
+
+        System.out.println("수정페이지에서 받은 수정자료 + 세션에 있는 user를 transferor에 넣는다면?"+transfer);
+        
+    	transferService.updateTransfer(transfer);
+    	
+//      반장님꺼 뭘 건드려줘야함. 
+         
+      return "redirect:listTransfer";
+   }// 등록 method 종료 
+   
+   
+   
+   
+   
+   //양도삭제page 네비게이션   
+   
+   @RequestMapping(value = "deleteTransfer") 
+   public String deleteTransfer (@RequestParam(value = "transferNo", required = false)int transferNo, HttpSession session, Model model) throws Exception{
+  	 
+  	 System.out.println("deleteTransfer:::");
+  	 System.out.println(transferNo);
+	 
+  	 User user = (User)session.getAttribute("user");
+  	 
+     if (user == null) {
+         return "redirect:/";
+      }
+     
+     transferService.deleteTransfer(transferNo);
+  	   	   		
+     return "redirect:listTransfer";
+   }   
    
    
    
@@ -426,6 +570,35 @@ public class TransferController {
    
    
    
+   
+   
+   
+//   //@Test 
+//	 public void testUpdateTransfer() throws Exception {		
+//	 
+//	 Transfer transfer = transferService.getTransfer(1);
+//	 
+//	 transfer.setTransferTitle("코딩하느라 놀러갈 시간이 없어요"); //양도제목 1
+//	 transfer.setTransferCampname("오감자");  //캠핑장명 2 
+//	 transfer.setTransferMainsiteType("텐트");  //캠핑장메인시설 3 
+//	 transfer.setTransferStartDate("2021-12-31");  //예약시작날짜 4 
+//	 transfer.setTransferEndDate("2022-01-15");  //예약끝날짜 5 
+//	 transfer.setTransferCampCall("03112345678");  //캠핑장번호 6 
+//	 transfer.setTransferUserNum(5);  //예약인원 7
+//	 transfer.setTransferPrice(10000);  //양도금액 8 
+//	 transfer.setTransferContent("세상에 젠장 내 머리가 이렇게까지 굳었다니 놀랍다.");  //양도내용 9
+//	 transfer.setTransferAddContent("언제는 말랑말랑 했었나싶기도하고 ");  //양도특이사항  10 
+//	 transfer.setPaymentImg("AABBCCDDEEFFGGHHIIJJKKLL");  //결제이미지 11
+//	 transfer.setHashtag1("#오감자");  //해시태그1 12
+//	 transfer.setHashtag2("#오구마");  //해시태그2 13 
+//	 transfer.setHashtag3("#오사과");  //해시태그3 14 
+//	
+//	 int TRANSFER = transferService.updateTransfer(transfer);
+//	
+//	System.out.println("TRANSFER:::::::::::::::::::::::::::::::::" + TRANSFER);		 
+//	}
+//   
+ 
    
    
    

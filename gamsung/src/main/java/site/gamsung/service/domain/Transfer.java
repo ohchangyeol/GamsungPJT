@@ -55,6 +55,7 @@ public class Transfer {
 	
 	private String transferEe;
 	
+	private String receiveTitle;
 	
 	
 	
@@ -225,6 +226,12 @@ public class Transfer {
 	}
 	public void setTransferEe(String transferEe) {
 		this.transferEe = transferEe;
+	}
+	public String getReceiveTitle() {
+		return receiveTitle;
+	}
+	public void setReceiveTitle(String receiveTitle) {
+		this.receiveTitle = receiveTitle;
 	}
 
 

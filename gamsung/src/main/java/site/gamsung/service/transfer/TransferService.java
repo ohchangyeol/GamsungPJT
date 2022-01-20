@@ -25,6 +25,7 @@ public interface TransferService {
 	
 	public int updateReservationStatus(String reservationNo)throws Exception;
 
-	public List<Transfer> listTransferForReceive(String userId) throws Exception;
+	
+	public Map<String, Object> listTransferForReceive(Search search) throws Exception;
 
 }
