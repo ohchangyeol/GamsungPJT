@@ -59,7 +59,7 @@ public class AuctionReviewServiceImpl implements RatingReviewService, AuctionRev
 		map.put("list", list);
 		map.put("totalCount", totalCount);
 		
-		return null;
+		return map;
 	}
 
 	@Override

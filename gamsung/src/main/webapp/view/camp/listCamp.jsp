@@ -34,8 +34,9 @@ pageEncoding="UTF-8"%>
 
       <div class="container"  style="padding-top: 30px; padding-right: 15px; padding-left: 15px; margin-right: auto; margin-left: auto" >   
           
-        <div class="col-xs-1"></div>
-        <div class="col-xs-9">
+        <!-- <div class="col-xs-1"></div> -->
+        <!-- <div class="col-xs-9"> -->
+        <div>
         <!-- 상단 -->
         <div class="row">
         
@@ -227,7 +228,7 @@ pageEncoding="UTF-8"%>
         <!-- 캠핑장 목록 끝-->   
       </form>
       </div>
-      <div class="col-xs-1"></div>
+      
     </div>
          <!-- PageNavigation -->
          <div class="row">

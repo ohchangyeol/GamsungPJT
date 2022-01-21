@@ -90,18 +90,18 @@
 		                                          ELSE 'Y' END AS con_deleteFlag
 			  FROM POST p LEFT JOIN (SELECT CO.post_no, count(*) com_num
 									 FROM (SELECT *
-	  									   FROM comment 
+	  									   FROM COMMENT 
 	  									   WHERE delete_flag = 'N') CO
 									  GROUP BY CO.post_no)	com <!-- 게시물당 코멘트 총 수  -->
 			  ON p.post_no = com.post_no 
 						  LEFT JOIN (SELECT PO.post_no, count(*) con_num
 									 FROM (SELECT *
-	  									   FROM post_concern  
+	  									   FROM POST_CONCERN  
 	  								       WHERE delete_flag = 'N') PO
 	                                 GROUP BY PO.post_no) con <!-- 게시물당 추천 총 수  -->
 			  ON p.post_no = con.post_no	
 			  			 LEFT JOIN (SELECT post_no, delete_flag flag
-						            FROM post_concern pc
+						            FROM POST_CONCERN pc
 						            WHERE pc.user_id =#{userId}
 						          	) cop  <!-- 회원의 게시물 추천 유무 Y는 빈하트 표출   -->
 			   ON p.post_no = cop.post_no			            								
@@ -301,5 +301,11 @@
 	WHERE post_no= #{value} and delete_flag = 'N';
 	 </select>  -->
 	 
+	 <select id="totalConcern" parameterType="int" resultType="int">
+	 	SELECT count(*) 
+	 	FROM POST_CONCERN 
+	 	WHERE post_no = #{value}
+	 	AND delete_flag = 'N'; 
+	 </select>
 	 
 </mapper> 

@@ -226,7 +226,8 @@ public int AddConcern(@PathVariable("postNo") int postNo ,@PathVariable("concern
 //
 //	System.out.println("CONCERN:::::" + CONCERN);
 	
-	return communityService.updateConcern(postNo, userId, concernType);
+	communityService.updateConcern(postNo, userId, concernType);
+	return communityService.totalConcern(postNo);
 }
   
   

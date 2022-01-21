@@ -127,7 +127,12 @@ public class CommunityDAOImpl implements CommunityDAO {
 	@Override
 	public List<Post> listPostForComment(Search search) throws Exception {
 		return sqlSession.selectList("CommunityMapper.listPostForComment", search);
-	
 	}
+	
+	@Override
+	public int totalConcern (int postNo) throws Exception {
+		return sqlSession.selectOne("CommunityMapper.totalConcern", postNo);
+	}
+	
 	
 }

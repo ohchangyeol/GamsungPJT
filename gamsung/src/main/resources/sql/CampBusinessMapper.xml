@@ -338,14 +338,15 @@
 	</select>
 	
 	<select id="listMainSite" parameterType="search" resultMap="mainSiteSelectMap">
+  		
   		SELECT m.delete_flag, m.camp_no, m.mainsite_no, m.mainsite_type, m.mainsite_name, m.mainsite_section,  
 	  			m.mainsite_reservation_start, m.mainsite_reservation_end, m.mainsite_reservation_user_name, u.camp_name  								  		
 		FROM MAINSITE m, CAMP c, USERS u
 		WHERE m.camp_no = c.camp_no
-			AND  c.user_id  =  u.user_id					
-			<if test="role != 'ADMIN'">
+			AND  c.user_id  =  u.user_id
+			<if test="role == 'BUSINESS'">					
 				AND  m.camp_no  =  #{campNo}
-			</if>					
+			</if>
 			<if test="searchCondition != null">
 				<if test="searchCondition == 1 and searchKeyword !='' ">
 					AND m.mainsite_name = #{searchKeyword}
@@ -359,8 +360,8 @@
 				<if test="searchCondition == 4 and searchKeyword !='' ">
 					AND m.mainsite_reservation_user_name = #{searchKeyword}
 				</if>
-			</if>
-		ORDER BY mainsite_no
+			</if>		
+			ORDER BY mainsite_no		
 		<if test="pageSize != '' and offset !='' "> 
 			LIMIT #{pageSize} OFFSET #{offset};
 		</if>			
@@ -373,7 +374,7 @@
 				FROM 	MAINSITE m, CAMP c, USERS u
 				WHERE 	m.camp_no = c.camp_no
 						AND  c.user_id  =  u.user_id					
-						<if test="role != 'ADMIN'">
+						<if test="role == 'BUSINESS'">
 							AND  m.camp_no  =  #{campNo}
 						</if>					
 						<if test="searchCondition != null">
@@ -456,21 +457,22 @@
 	</select>
 	
 	<select id="listSubSite" parameterType="search" resultMap="subSiteSelectMap">
-  		SELECT  s.camp_no, s.subsite_no, s.subsite_name, s.subsite_type, u.camp_name							  		
-		FROM SUBSITE s, CAMP c, USERS u
-		WHERE s.camp_no = c.camp_no
-			AND  c.user_id  =  u.user_id					
-			<if test="role != 'ADMIN'">
-				AND  s.camp_no  =  #{campNo}
-			</if>					
-			<if test="searchCondition != null">
-				<if test="searchCondition == 1 and searchKeyword !='' ">
-					AND s.subsite_name = #{searchKeyword}
+	  		SELECT  s.camp_no, s.subsite_no, s.subsite_name, s.subsite_type, u.camp_name							  		
+			FROM SUBSITE s, CAMP c, USERS u
+			WHERE s.camp_no = c.camp_no
+				AND  c.user_id  =  u.user_id	
+				<if test="role == 'BUSINESS'">					
+					AND  s.camp_no  =  #{campNo}
 				</if>
-				<if test="searchCondition == 2 and searchKeyword !='' ">
-					AND s.subsite_type = #{searchKeyword}
+				<if test="searchCondition != null">
+					<if test="searchCondition == 1 and searchKeyword !='' ">
+						AND s.subsite_name = #{searchKeyword}
+					</if>
+					<if test="searchCondition == 2 and searchKeyword !='' ">
+						AND s.subsite_type = #{searchKeyword}
+					</if>
 				</if>
-			</if>
+		
 		ORDER BY s.subsite_no 
 		LIMIT #{pageSize} OFFSET #{offset};			
 	</select>
@@ -481,7 +483,7 @@
 				FROM SUBSITE s, CAMP c, USERS u
 				WHERE s.camp_no = c.camp_no
 					AND  c.user_id  =  u.user_id					
-					<if test="role != 'ADMIN'">
+					<if test="role == 'BUSINESS'">
 						AND  s.camp_no  =  #{campNo}
 					</if>					
 					<if test="searchCondition != null">

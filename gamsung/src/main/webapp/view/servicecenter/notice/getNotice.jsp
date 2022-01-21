@@ -70,7 +70,7 @@ pageEncoding="UTF-8"%>
         
         <c:if test="${user.role == 'ADMIN'}">
         <div class="u-d-button-box">
-          <!-- <button id="notice-update-btn" class="btn btn-warning btn-round" type="button">수정</button> -->
+          <button id="notice-update-btn" class="btn btn-warning btn-round" type="button">수정</button>
           <button id="notice-delete-btn" class="btn btn-danger btn-round" type="button">삭제</button>
         </div>
         </c:if>
