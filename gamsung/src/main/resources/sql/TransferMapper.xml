@@ -32,10 +32,7 @@
 		<result property="receiveStatus"					   column="receive_status"   	   jdbcType="NUMERIC"/>				
 		<result property="receiveNo"						   column="receive_no"   	   	   jdbcType="NUMERIC"/>	
 		<result property="receiveRegdate"					   column="receive_reg_date"   	   jdbcType="VARCHAR"/>	
-		<result property="transferEe"						   column="transferee"   	 	   jdbcType="VARCHAR"/>	
 		<result property="receiveTitle"						   column="receive_title"   	   jdbcType="VARCHAR"/>	
-					
-
 </resultMap> 
 
 <!-- SQL : INSERT -->
@@ -74,27 +71,27 @@
 	  		  AND delete_flag = 'N'
 			      <if test="search.searchCondition != null"> 
 				    <trim prefix="AND">
-						<if test='search.searchCondition == 1 and search.searchKeyword.equals("무료양도")'> 
+						<if test='search.searchCondition == 1 and search.searchKeyword == 1 '> 
 							transfer_price = 0	
 						</if>
  					
- 						<if test='search.searchCondition == 1 and search.searchKeyword.equals("1만원~9만원")'> 
+ 						<if test='search.searchCondition == 1 and search.searchKeyword == 2 '> 
 							transfer_price BETWEEN 10000 AND 90000
 						</if>
 						
-						<if test='search.searchCondition == 1 and search.searchKeyword.equals("10만원~19만원")'> 
+						<if test='search.searchCondition == 1 and search.searchKeyword == 3 '> 
 							transfer_price BETWEEN 100000 AND 190000
 						</if>
 						
-						<if test='search.searchCondition == 1 and search.searchKeyword.equals("20만원~29만원")'> 
+						<if test='search.searchCondition == 1 and search.searchKeyword == 4 '> 
 							transfer_price BETWEEN 200000 AND 290000	
 						</if>
 					
-						<if test='search.searchCondition == 1 and search.searchKeyword.equals("30만원~39만원")'> 
+						<if test='search.searchCondition == 1 and search.searchKeyword == 5 '> 
 							transfer_price BETWEEN 300000 AND 390000	
 						</if>
 						
-						<if test='search.searchCondition == 1 and search.searchKeyword.equals("40만원 이상")'> 
+						<if test='search.searchCondition == 1 and search.searchKeyword == 6 '> 
 							transfer_price > 390000
 						</if>
 						
@@ -125,7 +122,7 @@
        -->
       SELECT S.* 
       FROM (   SELECT @rownum:= @rownum+1 AS R , T.* 
-            FROM (   SELECT t.*, r.receive_status receive_status, r.receive_no receive_no , r.receive_reg_date receive_reg_date, r.user_id transferee, receive_title receiveTitle
+            FROM (   SELECT t.*, r.receive_status receive_status, r.receive_no receive_no , r.receive_reg_date receive_reg_date, r.receive_title receive_title
                   FROM TRANSFER t, RECEIVE r
                   WHERE r.user_id = #{id}
                   AND t.transfer_no = r.transfer_no) T, (select @rownum:= 0) M
@@ -256,7 +253,7 @@
 		
 	<select  id="listMyReceiveGetTotalCount"  parameterType="search"    resultType="int">   
       SELECT COUNT(*)   
-      FROM(   SELECT t.*, r.receive_status receive_status, r.receive_no receive_no , r.receive_reg_date receive_reg_date, r.user_id transferee
+      FROM(   SELECT t.*, r.receive_status receive_status, r.receive_no receive_no , r.receive_reg_date receive_reg_date, r.receive_title receive_title
             FROM TRANSFER t, RECEIVE r
             WHERE r.user_id = #{id}
             AND t.transfer_no = r.transfer_no)COUNTTABLE 

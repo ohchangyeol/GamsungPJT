@@ -47,8 +47,9 @@
                   <li class="dropdown"><a class="dropdown-toggle" href="/servicecenter/home"
                         data-toggle="dropdown">예약양도양수</a>
                      <ul class="dropdown-menu">
-                        <li><a href="/transfer/listTransfer">예약 양도 목록</a></li>
-                        <li><a href="/transfer/addTransfer">냐의 양도 등록 </a></li>
+                        <li><a href="/transfer/listTransfer">예약양도 목록</a></li>
+                        <li><a href="/transfer/addTransfer">예약양도 등록 </a></li>
+                        <li><a href="/transfer/listMyTransfer">양도양수 현황 </a></li>
                      </ul>
                   </li>
                   <!-- 양도양수 End -->
