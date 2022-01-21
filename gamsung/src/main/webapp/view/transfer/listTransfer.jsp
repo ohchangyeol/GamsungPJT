@@ -19,16 +19,10 @@
             .mb-0 {
                color: #333064;
                font-weight: 400;
-               font-size: xxx-large;
+               font-size: 14px;
                color: #333064;
             }
 
-            .my-report {
-               font-size: 12px;
-               color: #333064;
-               font-family:
-                  'Noto Sans KR', sans-serif;
-            }
 
             * {
                font-family:
@@ -73,9 +67,9 @@
 
       <body data-spy="scroll" data-target=".onpage-navigation" data-offset="60" class="myReport">
          <main>
-            <div class="page-loader">
-               <div class="loader">Loading...</div>
-            </div>
+<!--             <div class="page-loader"> -->
+<!--                <div class="loader">Loading...</div> -->
+<!--             </div> -->
 
             <!-- header -->
             <jsp:include page="../common/header.jsp" />
@@ -83,7 +77,8 @@
 
             <div class="main sc-main">
                <section class="module bg-dark-30 about-page-header"
-                  data-background="../../uploadfiles/transfer/transferhead.jpg"style="padding-top: 400px; padding-bottom: 185px;">
+                  data-background="../../uploadfiles/transfer/list.jpg"style="padding-top: 370px;
+    padding-bottom: 390px;">
                   <div class="container">
                      <div class="row">
                         <div class="col-sm-6 col-sm-offset-3">

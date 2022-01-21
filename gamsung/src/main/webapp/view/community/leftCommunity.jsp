@@ -1,6 +1,68 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
   <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+   
 
+
+      <style>
+     
+        .tags a {
+		    background: #b3c2d170;
+		    display: inline-block;
+		    font-size: 12px;
+		    color: #666;
+		    padding: 4px 13px 4px 12px;
+		    margin: 0 1px 4px;
+		    border-radius: 2px;
+		    
+		}
+		
+        .widget {
+		    color: #666;   
+		}
+		
+		.tooltip-arrow,
+		.red-tooltip + .tooltip > .tooltip-inner {background-color: #b3c2d1;}
+		
+		.red-tooltip + .tooltip.top > .tooltip-arrow {background-color: #b3c2d1;}
+		
+		
+		.tooltip-arrow, .red-tooltip + .tooltip > .tooltip-inner{
+		
+		background-color:#1110;}
+		
+		.tooltip-arrow{
+		
+		background-color:#1110;}
+		
+		.tooltip-inner{
+		
+		color:#666666;
+		background-color:#1110;}
+		
+		.tooltip.right .tooltip-arrow{
+		border-right-color : #1110;
+		}
+		
+		a {
+		    color: #666;
+		}
+		
+		.widget .widget-title {
+		    color: #666;
+		    letter-spacing: 3px;
+		}
+		
+		
+		
+		.form-control {
+		    color: #666;
+		}
+
+      </style>
+
+
+
+    
     <div class="col-sm-4 col-md-3 sidebar">
       <div class="widget">
         <form role="form" id="community-search-form">

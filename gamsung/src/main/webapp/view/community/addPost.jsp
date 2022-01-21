@@ -112,10 +112,14 @@
 }
 
 
-.btn.btn-d {
-    border-radius: 9px;
-    background-color: #c1c1c1;
-    color: #666666;
+#postsubmit {
+border-radius: 9px;
+    background-color: #676869;
+    color: rgb(255 255 255 / 70%);
+    font-size: 15px;
+    padding: 4px;
+    font-family: 'Gaegu', cursive;
+    letter-spacing: 1px;
 }
 
         /* class="text-start" style ="display: inline-block"; transform: translateY(1px); */
@@ -289,7 +293,7 @@
               </div>
 
               <div class="text-center">
-                <button class="btn btn-block btn-round btn-d" id="postsubmit" name="1" type="button">등 록</button>
+                <button class="btn btn-block btn-round btn-d" id="postsubmit" name="1" type="button">게시글 등록</button>
               </div>
 
 

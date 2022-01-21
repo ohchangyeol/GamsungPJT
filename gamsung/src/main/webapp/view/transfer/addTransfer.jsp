@@ -200,7 +200,7 @@ placeholder
 					}
 					
 					.form-control{
-											    background: #286ec23b;
+											    background: #f3f6f9;
 					    border-radius: 10px;
 					}
 					
@@ -218,6 +218,40 @@ placeholder
 					display: none;
 					
 					}
+									button {
+					margin: 20px;
+				}
+
+				.w-btn-outline {
+					position: relative;
+					padding: 9px 50px;
+					border-radius: 7px;
+					font-family: "paybooc-Light", sans-serif;
+					box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+					text-decoration: none;
+					font-weight: 600;
+					transition: 0.25s;
+				}
+
+				.w-btn-blue-outline {
+					border: 3px solid #cdddf1;
+					color: #8483a2;
+				}
+
+				.w-btn-blue-outline:hover {
+					background-color: #cdddf1;
+					color: #8483a2;
+				}
+
+				.w-btn-outline:hover {
+
+					transform: scale(1.1);
+					cursor: pointer;
+				}
+
+				.w-btn-outline:active {
+					transform: scale(1.8);
+				}
 					
 				</style>
 
@@ -229,8 +263,9 @@ placeholder
      	</div> -->
 				<jsp:include page="../common/header.jsp"></jsp:include>
 				<section class="module bg-dark-30 about-page-header"
-					data-background="../../uploadfiles/transfer/transferhead.jpg"
-					style="padding-top: 400px; padding-bottom: 185px;">
+					data-background="../../uploadfiles/transfer/insert.jpg"
+					style="padding-top: 370px;
+    padding-bottom: 390px;">
 
 				</section>
 				<section class="module" style="margin-top: 0px; padding: 0px; ">
@@ -478,7 +513,9 @@ placeholder
 
 							<!-- 	<div class="col-sm-12"> -->
 							<div class="col-sm-12">
-								<button class="snip1535" name="Addtransfer" type="button">양도 등록</button>
+								<button class="w-btn-outline w-btn-blue-outline" style="
+    transform: translateX(480px);
+"name="Addtransfer" type="button">양도 등록</button>
 							</div>
 							<!-- 	</div> -->
 
