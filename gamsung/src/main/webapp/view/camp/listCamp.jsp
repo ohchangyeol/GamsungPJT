@@ -234,6 +234,9 @@ pageEncoding="UTF-8"%>
          <div class="row">
            <jsp:include page="../common/pageNavigator.jsp"/>
         </div>
+
+
+        <jsp:include page="../../view/common/footer.jsp"/>
   
 
         <script src="../../resources/lib/modals/examples.modals.js"></script>
