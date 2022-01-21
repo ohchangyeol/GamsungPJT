@@ -53,8 +53,7 @@ public class Transfer {
 	
 	private String receiveRegdate;
 	
-	private String transferEe;
-	
+	private String receiveTitle;
 	
 	
 	
@@ -220,11 +219,12 @@ public class Transfer {
 				+ ", transferReservationNo=" + transferReservationNo + ", receiveStatus=" + receiveStatus
 				+ ", receiveNo=" + receiveNo + ", receiveRegdate=" + receiveRegdate + "]";
 	}
-	public String getTransferEe() {
-		return transferEe;
+
+	public String getReceiveTitle() {
+		return receiveTitle;
 	}
-	public void setTransferEe(String transferEe) {
-		this.transferEe = transferEe;
+	public void setReceiveTitle(String receiveTitle) {
+		this.receiveTitle = receiveTitle;
 	}
 
 

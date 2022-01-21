@@ -39,6 +39,7 @@ import site.gamsung.service.common.Search;
 import site.gamsung.service.community.CommunityService;
 import site.gamsung.service.domain.AuctionProduct;
 import site.gamsung.service.domain.Camp;
+import site.gamsung.service.domain.Comment;
 import site.gamsung.service.domain.Post;
 import site.gamsung.service.domain.RatingReview;
 import site.gamsung.service.domain.User;
@@ -145,8 +146,8 @@ public class CommunityController {
       System.out.println("addPost Post Start");
       
       System.out.println("----------------\n"
-                      +"ㅣ     data     ㅣ\n"
-                      +"----------------\n"+post);
+                      	+"ㅣ     data     ㅣ\n"
+                      	+"----------------\n"+post);
       
       RatingReview ratingReview = null;
       
@@ -335,7 +336,6 @@ public class CommunityController {
                                                                                  // Exception이
                                                                                  // 있어야 하는
                                                                                  // 경우?
-
       System.out.println("deletePost Post Start");
 
       // 세션으로 부터 요청한 유저의 정보를 가져온다.
@@ -350,5 +350,136 @@ public class CommunityController {
 
       return "redirect:listPost";
    }
+   
+// 커뮤니티 My post navigation  
+   
+   @RequestMapping(value = "listMyPost")
+   public String listMyPost(@ModelAttribute("search") Search search, @RequestParam(value = "postType", required = false) String postType, Model model, HttpSession session) throws Exception {
+
+      System.out.println("listMyPost"); // listPost 시작
+      System.out.println(postType);
+      System.out.println(search);
+
+      User user = (User) session.getAttribute("user"); // Session에서 user받아서 user setting하기.
+
+      System.out.println(user);
+
+      if (user == null) {
+         return "redirect:/";
+      } // user가 null이면 main으로 navigation
+
+      search.setPageSize(communityPageSize);
+
+      // System.out.println(search);
+
+      if (search.getCurrentPage() == 0) {
+         search.setCurrentPage(1);
+      }
+
+      HashMap<String, Object> map = new HashMap<String, Object>();
+
+      Post post = new Post();
+
+      if (postType != null) {
+        int postTypee = Integer.parseInt(postType);
+         post.setPostType(postTypee);
+      }
+      map.put("userId", user.getId());
+      map.put("search", search);
+      map.put("post", post);
+
+      // System.out.println(map);
+      List<Post> list = communityService.listPost(map);
+
+      System.out.println("list::::::" + list);
+
+      model.addAttribute("list", list);
+
+      return "forward:/view/community/listMyPost.jsp";
+
+   }
+
+// 커뮤니티 My comment List navigation  
+   
+   @RequestMapping(value = "listMyComment")
+   public String listMyComment(@ModelAttribute("search") Search search, @RequestParam(value = "postType", required = false) String postType, Model model, HttpSession session) throws Exception {
+  
+	  System.out.println("listMyComment"); 
+      User user = (User) session.getAttribute("user"); // Session에서 user받아서 user setting하기.
+
+      if (user == null) {
+         return "redirect:/";
+      } // user가 null이면 main으로 navigation
+      search.setPageSize(communityPageSize);
+
+      if (search.getCurrentPage() == 0) {
+         search.setCurrentPage(1);
+      }
+      
+      search.setId(user.getId());
+
+      // System.out.println(map);
+      List<Post> list = communityService.listPostForComment(search);//댓글 List		(map);
+
+      System.out.println("listPostForCommentlist::::::" + list);
+
+      model.addAttribute("list", list);
+
+      return "forward:/view/community/listMyComment.jsp";
+
+   }
+
+   // 게시물 상세
+   @GetMapping(value = "getPost")
+   public String getPost(@RequestParam("postNo") int postNo, HttpSession session, Model model) throws Exception { // throw
+                                                                                                                                 
+      System.out.println("getPost Post Start");
+
+      User user = (User) session.getAttribute("user");
+
+      if (user == null) {
+         return "redirect:/";
+
+      }
+
+      Post post = communityService.getPost(postNo);
+      
+      model.addAttribute("post", post);
+      
+      return "forward:/view/community/getPost.jsp";
+   }
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
 
 }

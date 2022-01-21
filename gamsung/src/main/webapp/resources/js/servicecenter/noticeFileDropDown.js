@@ -126,15 +126,15 @@ function selectFile(fileObject) {
                 fileSizeStr = parseInt(fileSize) + " byte";
             }
 
-            /* if ($.inArray(ext, [ 'exe', 'bat', 'sh', 'java', 'jsp', 'html', 'js', 'css', 'xml' ]) >= 0) {
+             if ($.inArray(ext, [ 'exe', 'bat', 'sh', 'java', 'jsp', 'html', 'js', 'css', 'xml' ]) >= 0) {
                 // 확장자 체크
-                alert("등록 불가 확장자");
-                break; */
-            if ($.inArray(ext, [  'ppt', 'pptx', 'txt', 'zip' ]) <= 0) {
+                alert("등록이 불가능한 파일 입니다");
+                break; 
+            /*if ($.inArray(ext, [  'ppt', 'pptx', 'txt', 'zip' ]) <= 0) {
                 // 확장자 체크
                 /* alert("등록이 불가능한 파일 입니다.");
-                break; */
-                alert("등록이 불가능한 파일 입니다.("+fileName+")");
+                break; 
+                alert("등록이 불가능한 파일 입니다.("+fileName+")");*/
             } else if (fileSizeMb > uploadSize) {
                 // 파일 사이즈 체크
                 alert("용량 초과\n업로드 가능 용량 : " + uploadSize + " MB");

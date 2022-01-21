@@ -1,7 +1,6 @@
 package site.gamsung.service.user;
 
 import java.util.HashMap;
-import java.util.Map;
 
 import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.User;
@@ -72,7 +71,7 @@ public interface UserService {
 	public boolean addSecessionUser(User user);
 	
 	//회원 휴면전환
-	public void addDormantUser() throws Exception;
+	public void addDormantUser();
 	
 	//휴면회원 일반회원 전환
 	public void updateDormantGeneralUserConvert(String id);
@@ -81,7 +80,7 @@ public interface UserService {
 	public void kakaoLogout(String accessToken);
 	
 	//카카오 연결끊기
-	public void unlink(String accessToken);
+	public void kakaoUnlink(String accessToken);
 
 
 }

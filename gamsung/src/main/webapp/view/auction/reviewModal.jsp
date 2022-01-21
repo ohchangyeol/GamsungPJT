@@ -7,308 +7,364 @@
 <jsp:include page="/resources/commonLib.jsp"></jsp:include>
 
 <style type="text/css">
-
-.kindnessRating>.input,
-.kindnessRating>.input>label:hover,
-.kindnessRating>.input>input:focus+label,
-.kindnessRating>.input>input:checked+label{
-    display: inline-block;
-    vertical-align: top;
-    background: url(https://hsecode.github.io/images_codepen/codepen_sp_star.png) no-repeat;
-}
-.kindnessRating{
-    white-space: nowrap;
-}
-.kindnessRating>.input{
-    display:inline-block;
-    width: 100px;
-    background-size: 100px;
-    height: 19px;
-    white-space: nowrap;
-    overflow: hidden;
-    position: relative;
-}
-.kindnessRating>.input>input{
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    opacity: 0;
-}
-.kindnessRating>.input.focus{
-    outline: 1px dotted #ddd;
-}
-.kindnessRating>.input>label{
-    width: 10px;
-    height: 0;
-    padding: 19px 0 0 0;
-    overflow: hidden;
-    float: left;
-    cursor: pointer;
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-.kindnessRating>.input>label:hover,
-.kindnessRating>.input>input:focus+label,
-.kindnessRating>.input>input:checked+label{
-    background-size: 100px;
-    background-position: 0 bottom;
-}
-.kindnessRating>.input>label:hover~label{
-    background-image: none;
-}
-.kindnessRating>.input>label[for="p10"]{ 
-    width: 10px;
-    z-index: 10;
-}
-.kindnessRating>.input>label[for="p11"]{ 
-    width: 20px;
-    z-index: 9;
-}
-.kindnessRating>.input>label[for="p12"]{ 
-    width: 30px;
-    z-index: 8;
-}
-.kindnessRating>.input>label[for="p13"]{ 
-    width: 40px;
-    z-index: 7;
-}
-.kindnessRating>.input>label[for="p14"]{ 
-    width: 50px;
-    z-index: 6;
-}
-.kindnessRating>.input>label[for="p15"]{ 
-    width: 60px;
-    z-index: 5;
-}
-.kindnessRating>.input>label[for="p16"]{ 
-    width: 70px;
-    z-index: 4;
-}
-.kindnessRating>.input>label[for="p17"]{ 
-    width: 80px;
-    z-index: 3;
-}
-.kindnessRating>.input>label[for="p18"]{ 
-    width: 90px;
-    z-index: 2;
-}
-.kindnessRating>.input>label[for="p19"]{ 
-    width: 100px;
-    z-index: 1;
-}
-.kindnessRating>output{
-    display: inline-block;
-    width: 36px;
-    text-align: right;
-}
-.kindnessRating>output>b{
-    font:bold 18px Helvetica, Arial, sans-serif;
-    vertical-align: middle;
+.flexbox {
+	overflow-y: hidden !important;
+	background-color: #ffff;
 }
 
-/* /////////////////////////////////////////////////////////////////////////// */
-.statusRating>.input,
-.statusRating>.input>label:hover,
-.statusRating>.input>input:focus+label,
-.statusRating>.input>input:checked+label{
-    display: inline-block;
-    vertical-align: top;
-    background: url(https://hsecode.github.io/images_codepen/codepen_sp_star.png) no-repeat;
+.kindnessRating>.input, .kindnessRating>.input>label:hover,
+	.kindnessRating>.input>input:focus+label, .kindnessRating>.input>input:checked+label
+	{
+	display: inline-block;
+	vertical-align: top;
+	background:
+		url(https://hsecode.github.io/images_codepen/codepen_sp_star.png)
+		no-repeat;
 }
-.statusRating{
-    white-space: nowrap;
+
+.kindnessRating {
+	white-space: nowrap;
 }
-.statusRating>.input{
-    display:inline-block;
-    width: 100px;
-    background-size: 100px;
-    height: 19px;
-    white-space: nowrap;
-    overflow: hidden;
-    position: relative;
+
+.kindnessRating>.input {
+	display: inline-block;
+	width: 100px;
+	background-size: 100px;
+	height: 19px;
+	white-space: nowrap;
+	overflow: hidden;
+	position: relative;
 }
-.statusRating>.input>input{
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    opacity: 0;
+
+.kindnessRating>.input>input {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	opacity: 0;
 }
-.statusRating>.input.focus{
-    outline: 1px dotted #ddd;
+
+.kindnessRating>.input.focus {
+	outline: 1px dotted #ddd;
 }
-.statusRating>.input>label{
-    width: 10px;
-    height: 0;
-    padding: 19px 0 0 0;
-    overflow: hidden;
-    float: left;
-    cursor: pointer;
-    position: absolute;
-    top: 0;
-    left: 0;
+
+.kindnessRating>.input>label {
+	width: 10px;
+	height: 0;
+	padding: 19px 0 0 0;
+	overflow: hidden;
+	float: left;
+	cursor: pointer;
+	position: absolute;
+	top: 0;
+	left: 0;
 }
-.statusRating>.input>label:hover,
-.statusRating>.input>input:focus+label,
-.statusRating>.input>input:checked+label{
-    background-size: 100px;
-    background-position: 0 bottom;
+
+.kindnessRating>.input>label:hover, .kindnessRating>.input>input:focus+label,
+	.kindnessRating>.input>input:checked+label {
+	background-size: 100px;
+	background-position: 0 bottom;
 }
-.statusRating>.input>label:hover~label{
-    background-image: none;
+
+.kindnessRating>.input>label:hover ~label {
+	background-image: none;
 }
-.statusRating>.input>label[for="p20"]{ 
-    width: 10px;
-    z-index: 10;
+
+.kindnessRating>.input>label[for="p10"] {
+	width: 10px;
+	z-index: 10;
 }
-.statusRating>.input>label[for="p21"]{ 
-    width: 20px;
-    z-index: 9;
+
+.kindnessRating>.input>label[for="p11"] {
+	width: 20px;
+	z-index: 9;
 }
-.statusRating>.input>label[for="p22"]{ 
-    width: 30px;
-    z-index: 8;
+
+.kindnessRating>.input>label[for="p12"] {
+	width: 30px;
+	z-index: 8;
 }
-.statusRating>.input>label[for="p23"]{ 
-    width: 40px;
-    z-index: 7;
+
+.kindnessRating>.input>label[for="p13"] {
+	width: 40px;
+	z-index: 7;
 }
-.statusRating>.input>label[for="p24"]{ 
-    width: 50px;
-    z-index: 6;
+
+.kindnessRating>.input>label[for="p14"] {
+	width: 50px;
+	z-index: 6;
 }
-.statusRating>.input>label[for="p25"]{ 
-    width: 60px;
-    z-index: 5;
+
+.kindnessRating>.input>label[for="p15"] {
+	width: 60px;
+	z-index: 5;
 }
-.statusRating>.input>label[for="p26"]{ 
-    width: 70px;
-    z-index: 4;
+
+.kindnessRating>.input>label[for="p16"] {
+	width: 70px;
+	z-index: 4;
 }
-.statusRating>.input>label[for="p27"]{ 
-    width: 80px;
-    z-index: 3;
+
+.kindnessRating>.input>label[for="p17"] {
+	width: 80px;
+	z-index: 3;
 }
-.statusRating>.input>label[for="p28"]{ 
-    width: 90px;
-    z-index: 2;
+
+.kindnessRating>.input>label[for="p18"] {
+	width: 90px;
+	z-index: 2;
 }
-.statusRating>.input>label[for="p29"]{ 
-    width: 100px;
-    z-index: 1;
+
+.kindnessRating>.input>label[for="p19"] {
+	width: 100px;
+	z-index: 1;
 }
-.statusRating>output{
-    display: inline-block;
-    width: 36px;
-    text-align: right;
+
+.kindnessRating>output {
+	display: inline-block;
+	width: 36px;
+	text-align: right;
 }
-.statusRating>output>b{
-    font:bold 18px Helvetica, Arial, sans-serif;
-    vertical-align: middle;
+
+.kindnessRating>output>b {
+	font: bold 18px Helvetica, Arial, sans-serif;
+	vertical-align: middle;
 }
 
 /* /////////////////////////////////////////////////////////////////////////// */
-.priceRating>.input,
-.priceRating>.input>label:hover,
-.priceRating>.input>input:focus+label,
-.priceRating>.input>input:checked+label{
-    display: inline-block;
-    vertical-align: top;
-    background: url(https://hsecode.github.io/images_codepen/codepen_sp_star.png) no-repeat;
-}
-.priceRating{
-    white-space: nowrap;
-}
-.priceRating>.input{
-    display:inline-block;
-    width: 100px;
-    background-size: 100px;
-    height: 19px;
-    white-space: nowrap;
-    overflow: hidden;
-    position: relative;
-}
-.priceRating>.input>input{
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    opacity: 0;
-}
-.priceRating>.input.focus{
-    outline: 1px dotted #ddd;
-}
-.priceRating>.input>label{
-    width: 10px;
-    height: 0;
-    padding: 19px 0 0 0;
-    overflow: hidden;
-    float: left;
-    cursor: pointer;
-    position: absolute;
-    top: 0;
-    left: 0;
+.statusRating>.input, .statusRating>.input>label:hover, .statusRating>.input>input:focus+label,
+	.statusRating>.input>input:checked+label {
+	display: inline-block;
+	vertical-align: top;
+	background:
+		url(https://hsecode.github.io/images_codepen/codepen_sp_star.png)
+		no-repeat;
 }
 
-.priceRating>.input>label:hover,
-.priceRating>.input>input:focus+label,
-.priceRating>.input>input:checked+label{
-    background-size: 100px;
-    background-position: 0 bottom;
-}
-.priceRating>.input>label:hover~label{
-    background-image: none;
-}
-.priceRating>.input>label[for="p30"]{ 
-    width: 10px;
-    z-index: 10;
-}
-.priceRating>.input>label[for="p31"]{ 
-    width: 20px;
-    z-index: 9;
-}
-.priceRating>.input>label[for="p32"]{ 
-    width: 30px;
-    z-index: 8;
-}
-.priceRating>.input>label[for="p33"]{ 
-    width: 40px;
-    z-index: 7;
-}
-.priceRating>.input>label[for="p34"]{ 
-    width: 50px;
-    z-index: 6;
-}
-.priceRating>.input>label[for="p35"]{ 
-    width: 60px;
-    z-index: 5;
-}
-.priceRating>.input>label[for="p36"]{ 
-    width: 70px;
-    z-index: 4;
-}
-.priceRating>.input>label[for="p37"]{ 
-    width: 80px;
-    z-index: 3;
-}
-.priceRating>.input>label[for="p38"]{ 
-    width: 90px;
-    z-index: 2;
-}
-.priceRating>.input>label[for="p39"]{ 
-    width: 100px;
-    z-index: 1;
-}
-.priceRating>output{
-    display: inline-block;
-    width: 36px;
-    text-align: right;
-}
-.priceRating>output>b{
-    font:bold 18px Helvetica, Arial, sans-serif;
-    vertical-align: middle;
+.statusRating {
+	white-space: nowrap;
 }
 
+.statusRating>.input {
+	display: inline-block;
+	width: 100px;
+	background-size: 100px;
+	height: 19px;
+	white-space: nowrap;
+	overflow: hidden;
+	position: relative;
+}
 
+.statusRating>.input>input {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	opacity: 0;
+}
+
+.statusRating>.input.focus {
+	outline: 1px dotted #ddd;
+}
+
+.statusRating>.input>label {
+	width: 10px;
+	height: 0;
+	padding: 19px 0 0 0;
+	overflow: hidden;
+	float: left;
+	cursor: pointer;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.statusRating>.input>label:hover, .statusRating>.input>input:focus+label,
+	.statusRating>.input>input:checked+label {
+	background-size: 100px;
+	background-position: 0 bottom;
+}
+
+.statusRating>.input>label:hover ~label {
+	background-image: none;
+}
+
+.statusRating>.input>label[for="p20"] {
+	width: 10px;
+	z-index: 10;
+}
+
+.statusRating>.input>label[for="p21"] {
+	width: 20px;
+	z-index: 9;
+}
+
+.statusRating>.input>label[for="p22"] {
+	width: 30px;
+	z-index: 8;
+}
+
+.statusRating>.input>label[for="p23"] {
+	width: 40px;
+	z-index: 7;
+}
+
+.statusRating>.input>label[for="p24"] {
+	width: 50px;
+	z-index: 6;
+}
+
+.statusRating>.input>label[for="p25"] {
+	width: 60px;
+	z-index: 5;
+}
+
+.statusRating>.input>label[for="p26"] {
+	width: 70px;
+	z-index: 4;
+}
+
+.statusRating>.input>label[for="p27"] {
+	width: 80px;
+	z-index: 3;
+}
+
+.statusRating>.input>label[for="p28"] {
+	width: 90px;
+	z-index: 2;
+}
+
+.statusRating>.input>label[for="p29"] {
+	width: 100px;
+	z-index: 1;
+}
+
+.statusRating>output {
+	display: inline-block;
+	width: 36px;
+	text-align: right;
+}
+
+.statusRating>output>b {
+	font: bold 18px Helvetica, Arial, sans-serif;
+	vertical-align: middle;
+}
+
+/* /////////////////////////////////////////////////////////////////////////// */
+.priceRating>.input, .priceRating>.input>label:hover, .priceRating>.input>input:focus+label,
+	.priceRating>.input>input:checked+label {
+	display: inline-block;
+	vertical-align: top;
+	background:
+		url(https://hsecode.github.io/images_codepen/codepen_sp_star.png)
+		no-repeat;
+}
+
+.priceRating {
+	white-space: nowrap;
+}
+
+.priceRating>.input {
+	display: inline-block;
+	width: 100px;
+	background-size: 100px;
+	height: 19px;
+	white-space: nowrap;
+	overflow: hidden;
+	position: relative;
+}
+
+.priceRating>.input>input {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	opacity: 0;
+}
+
+.priceRating>.input.focus {
+	outline: 1px dotted #ddd;
+}
+
+.priceRating>.input>label {
+	width: 10px;
+	height: 0;
+	padding: 19px 0 0 0;
+	overflow: hidden;
+	float: left;
+	cursor: pointer;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.priceRating>.input>label:hover, .priceRating>.input>input:focus+label,
+	.priceRating>.input>input:checked+label {
+	background-size: 100px;
+	background-position: 0 bottom;
+}
+
+.priceRating>.input>label:hover ~label {
+	background-image: none;
+}
+
+.priceRating>.input>label[for="p30"] {
+	width: 10px;
+	z-index: 10;
+}
+
+.priceRating>.input>label[for="p31"] {
+	width: 20px;
+	z-index: 9;
+}
+
+.priceRating>.input>label[for="p32"] {
+	width: 30px;
+	z-index: 8;
+}
+
+.priceRating>.input>label[for="p33"] {
+	width: 40px;
+	z-index: 7;
+}
+
+.priceRating>.input>label[for="p34"] {
+	width: 50px;
+	z-index: 6;
+}
+
+.priceRating>.input>label[for="p35"] {
+	width: 60px;
+	z-index: 5;
+}
+
+.priceRating>.input>label[for="p36"] {
+	width: 70px;
+	z-index: 4;
+}
+
+.priceRating>.input>label[for="p37"] {
+	width: 80px;
+	z-index: 3;
+}
+
+.priceRating>.input>label[for="p38"] {
+	width: 90px;
+	z-index: 2;
+}
+
+.priceRating>.input>label[for="p39"] {
+	width: 100px;
+	z-index: 1;
+}
+
+.priceRating>output {
+	display: inline-block;
+	width: 36px;
+	text-align: right;
+}
+
+.priceRating>output>b {
+	font: bold 18px Helvetica, Arial, sans-serif;
+	vertical-align: middle;
+}
 </style>
 
 <title>Insert title here</title>
@@ -384,7 +440,7 @@
 		<form>
 			<div class="col-sm-12">
 				<div class="form-group">
-					<textarea class="form-control" id="ratingReviewContent" name="ratingReviewContent" rows="10" placeholder="Review"></textarea>
+					<textarea class="form-control" id="ratingReviewContent" name="ratingReviewContent" rows="15" placeholder="Review"></textarea>
 				</div>
 			</div>
 			<input type="hidden" id="kindnessRating" name="kindnessRating">

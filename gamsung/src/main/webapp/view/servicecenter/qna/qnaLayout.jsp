@@ -22,9 +22,6 @@ pageEncoding="UTF-8"%>
 
   <body data-spy="scroll" data-target=".onpage-navigation" data-offset="60" class="qna" data-userid ="${user.id}" data-qnatype="${qnaType}">
     <main>
-      <div class="page-loader">
-        <div class="loader">Loading...</div>
-      </div>
       
       <!-- header -->
       <jsp:include page="../../common/header.jsp"/>
@@ -60,13 +57,13 @@ pageEncoding="UTF-8"%>
               <c:choose>
                 <c:when test='${qnaType == "list"}'>
                   <div class="sub-title">
-                    <h4>전체 Q&A </h4>
+                    <h4 class="font-jua main-color">전체 Q&A </h4>
                     <sub>${wrapper.totalCount}건</sub>
                   </div>
                 </c:when>
                 <c:when test='${qnaType == "get"}'>
                   <div class="sub-title">
-                    <h4>Q&A 상세</h4>
+                    <h4 class="font-jua main-color">Q&A 상세</h4>
                     <div class="btn-box">
                       <button class="btn btn-d btn-round qna-back" type="button">목록가기</button>
                     </div>
@@ -74,7 +71,7 @@ pageEncoding="UTF-8"%>
                 </c:when>
                 <c:when test='${qnaType == "add"}'>
                   <div class="sub-title">
-                    <h4>Q&A 등록</h4>
+                    <h4 class="font-jua main-color">Q&A 등록</h4>
                     <div class="btn-box">
                       <button id="qna-send" class="btn btn-d btn-round" type="button">등록하기</button>
                       <button class="btn btn-d btn-round qna-back" type="button">목록가기</button>
@@ -83,7 +80,7 @@ pageEncoding="UTF-8"%>
                 </c:when>
                 <c:when test='${qnaType == "my"}'>
                   <div class="sub-title">
-                    <h4>내 Q&A 조회</h4>
+                    <h4 class="font-jua main-color">내 Q&A 조회</h4>
                     <sub>${wrapper.totalCount}건</sub>
                     <div class="btn-box">
                       <button class="btn btn-d btn-round qna-back" type="button">목록가기</button>

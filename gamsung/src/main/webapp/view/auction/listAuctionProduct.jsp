@@ -36,9 +36,9 @@
   </head>
   <body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
     <main>
-      <div class="page-loader">
+      <!-- <div class="page-loader">
         <div class="loader">Loading...</div>
-      </div>
+      </div> -->
   	<jsp:include page="../common/header.jsp"></jsp:include>
     <div class="main">
       <section class="module bg-dark-60 shop-page-header" data-background="../../resources/images/6041bd81f941c55ff784f622_8-Tips-when-buying-at-auction.jpg">
@@ -95,9 +95,10 @@
         <hr class="divider-w">
         <section class="module-small">
           <div class="container">
-            <div class="row">
-              <div class="col-sm-6 col-sm-offset-3">
-                <h2 class="module-title font-alt">경매 진행 중 상품</h2>
+            <div class="row" style="margin-bottom: 30px;">
+              <div style="padding-left: 30px;">
+                <h2 class="module-title font-jua main-color gamsung-mini-title ">경매 진행 중 상품</h2>
+				<p class="">진행 중인 경매 상품입니다. 사기 행위에 유의하세요.</p>
               </div>
             </div>
             <div class="row multi-columns-row">
@@ -248,10 +249,11 @@
          </div>
         </section>
         
-        <hr class="divider-d">
+        <!-- <hr class="divider-d"> -->
+
         <jsp:include page="../common/footer.jsp"></jsp:include>
-      </div>
-      <div class="scroll-up"><a href="#totop"><i class="fa fa-angle-double-up"></i></a></div>
+      <!-- </div>
+      <div class="scroll-up"><a href="#totop"><i class="fa fa-angle-double-up"></i></a></div> -->
       <form>
       	<input type="hidden" id="auctionProductSubDetail" name="auctionProductSubDetail"/>
       	<input type="hidden" id="auctionProductName" name="auctionProductName"/>
@@ -331,7 +333,6 @@
 							searchKeyword : searchKeyword
 						}),
 						success : function(JSONData,status){
-							console.log(JSONData)
 							$(function(){
 								$('#keyword').autocomplete({
 									source: JSONData
@@ -350,7 +351,10 @@
 	   		
 	   		$(document).on('click','.bidCocern',function(){
 	   			if(${empty sessionScope.user}){
-	   				alert("로그인 후 이용 가능합니다.");
+	   				Swal.fire({
+				    	text: '로그인 후 이용 가능합니다.',
+				    	icon: 'warning'
+				    })
 	   				window.location = "/"
 	   				return;
 	   			}

@@ -125,11 +125,11 @@ pageEncoding="UTF-8"%>
 												<div class="summary">
 													<h4 class="title">사이트수익</h4>
 													<div class="info">
-														<strong class="amount">100억</strong>
+														<strong class="amount">${siteProfitStatistics.profitAllPayment} ₩</strong>
 													</div>
 												</div>
 												<div class="summary-footer">
-													<a class="text-muted text-uppercase">(2021년 1월)</a>
+													<a class="text-muted text-uppercase">${siteProfitStatistics.profitRegDate}</a>
 												</div>
 											</div>
 										</div>
@@ -166,7 +166,7 @@ pageEncoding="UTF-8"%>
 								<!--차트가 그려질 부분-->
 								<canvas id="siteProfit_chart"></canvas>
 								<div style="text-align: center; padding: 10px;">
-									<span>상반기 거래액</span>
+									<span>${siteProfitStatistics.profitRegDate}</span>
 								</div>
 							</div>
 						</div>
@@ -281,40 +281,51 @@ pageEncoding="UTF-8"%>
             .getContext('2d');
 
 			var siteProfit_chart = new Chart(other_context, {
-                type: 'line', 	// 차트의 형태
-                data: { 		// 차트에 들어갈 데이터
-		                labels:	[
-				                    //x 축
-				                	'1','2','3','4','5','6'
-				                ],
+				type: 'bar', 													// 차트의 형태
+                data: { 														// 차트에 들어갈 데이터
+		                labels:	['단위 : (원)'], 						//x 축
 		                datasets: [
 				                	{
-					                    label: '포인트 결제',
+				                		type: 'bar', 							// 차트의 형태
+					                    label: '포인트 충전',
 					                    fill : false,        					// 채우기 없음
 					                    lineTension : 0,  						// 0이면 꺾은선 그래프, 숫자가 높을수록 둥글해짐
 					                    pointRadius : 0,    					// 각 지점에 포인트 주지 않음
-					                    backgroundColor: 'green',
-					                    borderColor: 'green',
-					                    data: [10, 20, 30, 40, 50, 60]
+					                    backgroundColor: 'gray',
+					                    borderColor: 'gray',
+					                    data: [${siteProfitStatistics.profitPointCharge}]
 				                	
 				                	}, 
 				                	{
+				                		type: 'bar', 	
+					                    label: '포인트 결제',
+					                    fill : false,        					
+					                    lineTension : 0,  						
+					                    pointRadius : 0,    					
+					                    backgroundColor: 'green',
+					                    borderColor: 'green',
+					                    data: [${siteProfitStatistics.profitPointPayment}]
+				                	
+				                	}, 
+				                	{
+				                		type: 'bar', 	
 					                    label: '일반 결제',
 					                    fill : false,        
 					                    lineTension : 0, 
 					                    pointRadius : 0,    
 					                    backgroundColor: 'blue',
 					                    borderColor: 'blue',
-					                    data: [40, 50, 60, 70, 80, 90]
+					                    data: [${siteProfitStatistics.profitRegularPayment}]
 				                	}, 
-				                	{
+				                	{	
+				                		type: 'bar', 
 					                    label: '전체 결재',
 					                    fill : false,
 					                    lineTension : 0,
 					                    pointRadius : 0,
 					                    backgroundColor: 'orange',
 					                    borderColor: 'orange',
-					                    data: [100, 120, 150, 100, 180, 200]
+					                    data: [${siteProfitStatistics.profitAllPayment}]
 				               		}
 				                ]
                	},

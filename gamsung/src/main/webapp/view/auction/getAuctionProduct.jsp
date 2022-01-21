@@ -199,6 +199,9 @@
 									<p>관리자가 등록한 상품입니다.</p>
 									<p><a href="https://www.coupang.com${auctionProduct.auctionProductSubDetail}">상품 정보</a></p>								
 								</c:if>
+								<c:if test="${!empty auctionProduct.auctionProductDetail}">
+									<p>${auctionProduct.auctionProductDetail}</p>							
+								</c:if>
 								</div>
 								<div class="tab-pane" id="reviews">
 									<div id="ratingReview" class="comments reviews">
@@ -270,11 +273,7 @@
 	var nickName = document.getElementById('nickName').value;
 	
 	$(function(){
-			var infoDiv = $('#logout').parent();
-			$('#logout').parent().empty();
-			infoDiv.html('<div>경매등급 : '+${auctionGrade}+'LV</div>');
-			infoDiv.css('font-weight', 'bold');
-	
+
 		auctionProductNo = $('#auctionProductNo').val();
 		userId = $('#userId').val(); 
 		nickName = $('#nickName').val();
@@ -310,13 +309,18 @@
 		$('#updateBtn').on('click',function(){
 			
 			if(Number($('#currentPrice').text().replace('원','')) != 0){
-				alert('입찰자가 있어 수정 불가능 합니다.');
+				Swal.fire({
+			    	text: '입찰자가 있어 수정 불가능 합니다.',
+			    	icon: 'warning'
+			    })
 				return;
 			}
 			
 			if(${!empty auctionProduct.auctionProductSubDetail}){
-				//alert('크롤링 상품은 수정 불가능 합니다.');
-				alert('수정 불 가능한 상품입니다.');
+				Swal.fire({
+			    	text: '수정 불가능한 상품입니다.',
+			    	icon: 'warning'
+			    })
 				return;
 			}
 			
@@ -327,63 +331,138 @@
 		$('#cancelBtn').on('click',function(){
 			
 			if(Number($('#havingPoint').text())< Number( ${auctionProduct.hopefulBidPrice} )*Number( ${cancelFee} )/100 ){
-				
-				if( confirm(Number( ${auctionProduct.hopefulBidPrice} )*Number( ${cancelFee} )/100-( Number( $('#havingPoint').text() ) )+"포인트가 부족하여 낙찰취소 할 수 없습니다. 충전페이지로 이동하시겠습니까?" ) ){
-					window.location = "/payment/managePoint"
-					return;
-				}else{
-					return;
-				}
+				const price = Number( ${auctionProduct.hopefulBidPrice} )*Number( ${cancelFee} )/100-( Number( $('#havingPoint').text() ) );
+				Swal.fire({
+					  text: price+'포인트가 부족하여 낙찰취소 할 수 없습니다. 충전페이지로 이동하시겠습니까?',
+					  icon: 'question',
+					  showCancelButton: true,
+					  confirmButtonColor: '#3085d6',
+					  cancelButtonColor: '#d33',
+					  confirmButtonText: '확인',
+					  cancelButtonText: '취소'
+					}).then((result) => {
+						if (result.isConfirmed) {
+						    Swal.fire({
+						    	text: '충전페이지로 이동합니다.',
+						    	icon: 'success'
+							})
+							window.location = "/payment/managePoint"
+							return;
+						}else{
+							Swal.fire({
+						    	text: '충전 후 낙찰 취소 가능합니다.',
+						    	icon: 'info'
+							})
+							return;
+						}
+					})
 			}else{
-				if(!confirm(Number( ${auctionProduct.hopefulBidPrice} )*Number( ${cancelFee} )/100+"포인트가 차감됩니다. 낙찰취소 하시겠습니까?" ) ){
-					return;	
-				}
+				const priceA = Number( ${auctionProduct.hopefulBidPrice} )*Number( ${cancelFee} )/100
+				Swal.fire({
+					  text: priceA+'포인트가 차감됩니다. 낙찰취소 하시겠습니까?',
+					  icon: 'question',
+					  showCancelButton: true,
+					  confirmButtonColor: '#3085d6',
+					  cancelButtonColor: '#d33',
+					  confirmButtonText: '확인',
+					  cancelButtonText: '취소'
+					}).then((result) => {
+						if (result.isConfirmed) {
+							$.ajax({
+								url : "/auction/rest/updateAuctionStatus/"+auctionProductNo+"/CANCEL",
+								method : "GET",
+								headers : {
+									"Accept" : "application/json",
+									"Content-Type" : "application/json"
+								},
+								dataType : "json",
+								success : function(JSONData, status) {
+									Swal.fire({
+								    	text: JSONData.info,
+								    	icon: 'info'
+									})
+									window.location = "/auction/listAuctionProduct";
+								}
+							});
+							return;
+						}else{
+							Swal.fire({
+						    	text: '포인트 사용이 취소 되셨습니다.',
+						    	icon: 'info'
+							})
+							return;
+						}
+					})
 			}
 			
-			$.ajax({
-				url : "/auction/rest/updateAuctionStatus/"+auctionProductNo+"/CANCEL",
-				method : "GET",
-				headers : {
-					"Accept" : "application/json",
-					"Content-Type" : "application/json"
-				},
-				dataType : "json",
-				success : function(JSONData, status) {
-					alert(JSONData.info);
-					window.location = "/auction/listAuctionProduct";
-				}
-			});
 		});
 		
 		//경매 확정 클릭시 발생 이벤트
 		$('#confirmBtn').on('click',function(){
-			
-			if(Number($('#havingPoint').text())< Number( ${auctionProduct.hopefulBidPrice} )*Number( ${confirmFee} )/100 ){
-				
-				if( confirm(Number( ${auctionProduct.hopefulBidPrice} )*Number( ${confirmFee} )/100-( Number( $('#havingPoint').text() ) )+"포인트가 부족하여 경매를 확정 지을 수 없습니다. 충전페이지로 이동하시겠습니까?" ) ){
-					window.location = "/payment/managePoint"			
-				}else{
-					return;
-				}
+			if(Number($('#havingPoint').text())< Number( ${auctionProduct.currentBidPrice} )){
+				const price = Number( ${auctionProduct.hopefulBidPrice} )-Number( $('#havingPoint').text() );
+				Swal.fire({
+					  text: price+'포인트가 부족하여 경매를 확정 지을 수 없습니다. 충전페이지로 이동하시겠습니까?',
+					  icon: 'question',
+					  showCancelButton: true,
+					  confirmButtonColor: '#3085d6',
+					  cancelButtonColor: '#d33',
+					  confirmButtonText: '확인',
+					  cancelButtonText: '취소'
+					}).then((result) => {
+						if (result.isConfirmed) {
+						    Swal.fire({
+						    	text: '충전페이지로 이동합니다.',
+						    	icon: 'success'
+							})
+							window.location = "/payment/managePoint"
+							return;
+						}else{
+							Swal.fire({
+						    	text: '충전 후 경매 확정 가능합니다.',
+						    	icon: 'info'
+							})
+							return;
+						}
+					})
 			}else{
-				if(!confirm(Number( ${auctionProduct.hopefulBidPrice} )*Number( ${confirmFee} )/100+"포인트가 차감됩니다. 경매를 확정하시겠습니까?" ) ){
-					return;	
-				}
+				const priceA = Number( ${auctionProduct.currentBidPrice} );
+				Swal.fire({
+					  text: priceA+'포인트가 차감됩니다. 경매를 확정하시겠습니까?',
+					  icon: 'question',
+					  showCancelButton: true,
+					  confirmButtonColor: '#3085d6',
+					  cancelButtonColor: '#d33',
+					  confirmButtonText: '확인',
+					  cancelButtonText: '취소'
+					}).then((result) => {
+						if (result.isConfirmed) {
+							$.ajax({
+								url : "/auction/rest/updateAuctionStatus/"+auctionProductNo+"/CONFIRM",
+								method : "GET",
+								headers : {
+									"Accept" : "application/json",
+									"Content-Type" : "application/json"
+								},
+								dataType : "json",
+								success : function(JSONData, status) {
+									Swal.fire({
+								    	text: JSONData.info,
+								    	icon: 'info'
+									})
+									window.location = "/auction/getAuctionProduct?auctionProductNo="+auctionProductNo;
+								}
+							});
+							return;
+						}else{
+							Swal.fire({
+						    	text: '포인트 사용이 취소 되셨습니다.',
+						    	icon: 'info'
+							})
+							return;
+						}
+					})
 			}
-			
-			$.ajax({
-				url : "/auction/rest/updateAuctionStatus/"+auctionProductNo+"/CONFIRM",
-				method : "GET",
-				headers : {
-					"Accept" : "application/json",
-					"Content-Type" : "application/json"
-				},
-				dataType : "json",
-				success : function(JSONData, status) {
-					alert(JSONData.info);
-					window.location = "/auction/getAuctionProduct?auctionProductNo="+auctionProductNo;
-				}
-			});
 		});
 		
 		//입찰 버튼 클릭시 발생 이벤트
@@ -394,7 +473,10 @@
 			}
 			
 			if(${sessionScope.user.role eq 'BUSINESS'}){
-  				alert("사업자는 이용 불가합니다.");
+				Swal.fire({
+			    	text: '사업자는 이용 불가합니다.',
+			    	icon: 'warning'
+			    })
   				return;
   			}
 			
@@ -406,7 +488,10 @@
 			var userGrade = ${!empty sessionScope.user.auctionGrade ? sessionScope.user.auctionGrade : 0};
 			
 			if(bidableGrade > userGrade){
-				alert('입찰 가능 등급을 확인하세요.');
+				Swal.fire({
+			    	text: '입찰 가능 등급을 확인하세요.',
+			    	icon: 'warning'
+			    })
 				return;
 			}
 			
@@ -431,38 +516,76 @@
 		$('#deleteBtn').on('click',function(){
 		
 			if(Number($('#havingPoint').text())< Number( ${auctionProduct.hopefulBidPrice} )*Number( ${withdrawalFee} )/100 ){
-				
-				if( confirm(Number( ${auctionProduct.hopefulBidPrice} )*Number( ${withdrawalFee} )/100-( Number( $('#havingPoint').text() ) )+"포인트가 부족하여 중도철회 할 수 없습니다. 충전페이지로 이동하시겠습니까?" ) ){
-					window.location = "/payment/managePoint"			
-				}else{
-					return;
-				}
+				const price = Number( ${auctionProduct.hopefulBidPrice} )*Number( ${withdrawalFee} )/100-( Number( $('#havingPoint').text() ) );
+				Swal.fire({
+					  text: price+'포인트가 부족하여 중도철회 할 수 없습니다. 충전페이지로 이동하시겠습니까?',
+					  icon: 'question',
+					  showCancelButton: true,
+					  confirmButtonColor: '#3085d6',
+					  cancelButtonColor: '#d33',
+					  confirmButtonText: '확인',
+					  cancelButtonText: '취소'
+					}).then((result) => {
+						if (result.isConfirmed) {
+						    Swal.fire({
+						    	text: '충전페이지로 이동합니다.',
+						    	icon: 'success'
+							})
+							window.location = "/payment/managePoint"
+							return;
+						}else{
+							Swal.fire({
+						    	text: '충전 후 경매 확정 가능합니다.',
+						    	icon: 'info'
+							})
+							return;
+						}
+					})
 			}else{
-				if(!confirm(Number( ${auctionProduct.hopefulBidPrice} )*Number( ${withdrawalFee} )/100+"포인트가 차감됩니다. 중도철회 하시겠습니까?" ) ){
-					return;	
-				}
+				const priceA = Number( ${auctionProduct.hopefulBidPrice} )*Number( ${withdrawalFee} )/100;
+				Swal.fire({
+					  text: priceA+'포인트가 차감됩니다. 중도철회 하시겠습니까?',
+					  icon: 'question',
+					  showCancelButton: true,
+					  confirmButtonColor: '#3085d6',
+					  cancelButtonColor: '#d33',
+					  confirmButtonText: '확인',
+					  cancelButtonText: '취소'
+					}).then((result) => {
+						if (result.isConfirmed) {
+							$.ajax({
+								url : "/auction/rest/updateAuctionStatus/"+auctionProductNo+"/WITHDRAWAL",
+								method : "GET",
+								headers : {
+									"Accept" : "application/json",
+									"Content-Type" : "application/json"
+								},
+								dataType : "json",
+								success : function(JSONData, status) {
+									const info = JSONData.info;
+									
+									if(info.indexOf('성공') != -1){
+										stompClient.send('/app/delete/${auctionProduct.auctionProductNo}',{},JSON.stringify({
+								        	auctionProductNo : auctionProductNo
+								    	}));
+									}else{
+										Swal.fire({
+									    	text: info,
+									    	icon: 'info'
+										})
+									}				
+								}
+							});
+							return;
+						}else{
+							Swal.fire({
+						    	text: '포인트 사용이 취소 되셨습니다.',
+						    	icon: 'info'
+							})
+							return;
+						}
+					})
 			}
-
-			$.ajax({
-				url : "/auction/rest/updateAuctionStatus/"+auctionProductNo+"/WITHDRAWAL",
-				method : "GET",
-				headers : {
-					"Accept" : "application/json",
-					"Content-Type" : "application/json"
-				},
-				dataType : "json",
-				success : function(JSONData, status) {
-					const info = JSONData.info;
-					
-					if(info.indexOf('성공') != -1){
-						stompClient.send('/app/delete/${auctionProduct.auctionProductNo}',{},JSON.stringify({
-				        	auctionProductNo : auctionProductNo
-				    	}));
-					}else{
-						alert(info);
-					}				
-				}
-			});
 		});
 		
 		
@@ -486,10 +609,7 @@
 						for (var i = 0; i < JSONData.length; i++) {
 							if(JSONData[i].reviewDeleteFlag === "N"){
 								var str	='<div class="comment clearfix">'
-										+'<div class="comment-avatar"><img src="'
-										+JSONData[i].img1
-										+'" alt="avatar"/></div>'
-		                     			+'<div class="comment-content clearfix">'
+										+'<div class="comment-content clearfix">'
 		                       			+'<div class="comment-author font-alt"><a>'
 		                       			+JSONData[i].auctionInfo.user.nickName
 		                       			+'</a></div><div>'
@@ -556,10 +676,7 @@
 					for (var i = 0; i < JSONData.length; i++) {
 						if(JSONData[i].reviewDeleteFlag === "N"){	
 							var str	='<div class="comment clearfix">'
-									+'<div class="comment-avatar"><img src="'
-									+JSONData[i].img1
-									+'" alt="avatar"/></div>'
-	                     			+'<div class="comment-content clearfix">'
+									+'<div class="comment-content clearfix">'
 	                       			+'<div class="comment-author font-alt"><a>'
 	                       			+JSONData[i].auctionInfo.user.nickName
 	                       			+'</a></div><div>'
@@ -650,7 +767,10 @@
 				},
 				dataType : "json",
 				success : function(JSONData, status) {
-					alert(JSONData.info);
+					Swal.fire({
+				    	text: JSONData.info,
+				    	icon: 'info'
+					})
 					if(JSONData.info.indexOf('판매자') == -1){
 						location.empty();						
 					}
@@ -781,7 +901,10 @@
 			//중도 철회 subscribe
 			stompClient.subscribe('/topic/delete/${auctionProduct.auctionProductNo}',function(response){
 				var deleteInfo = JSON.parse(response.body)
-				alert(deleteInfo.info);
+				Swal.fire({
+				   	text: deleteInfo.info,
+				   	icon: 'info'
+				})
 				window.location = "/auction/listAuctionProduct";
 			});
 			

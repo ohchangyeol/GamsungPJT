@@ -115,6 +115,7 @@
 
 					.form-group {
 						display: flex;
+					align-items: center;	
 					}
 
 					.form-group label {
@@ -178,7 +179,7 @@
 							'Noto Sans KR', sans-serif;
 						margin-bottom: 30px;
 					}
-
+placeholder
 					#addcontent {
 						height: 180px;
 					}
@@ -197,6 +198,61 @@
 						font-family:
 							'Noto Sans KR', sans-serif;
 					}
+					
+					.form-control{
+											    background: #f3f6f9;
+					    border-radius: 10px;
+					}
+					
+					
+					input::placeholder {
+						color: #2d2d2d !important;
+					}
+					
+										textarea::placeholder {
+						color: #2d2d2d !important;
+					}
+					
+					.transferlayer{
+					
+					display: none;
+					
+					}
+									button {
+					margin: 20px;
+				}
+
+				.w-btn-outline {
+					position: relative;
+					padding: 9px 50px;
+					border-radius: 7px;
+					font-family: "paybooc-Light", sans-serif;
+					box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+					text-decoration: none;
+					font-weight: 600;
+					transition: 0.25s;
+				}
+
+				.w-btn-blue-outline {
+					border: 3px solid #cdddf1;
+					color: #8483a2;
+				}
+
+				.w-btn-blue-outline:hover {
+					background-color: #cdddf1;
+					color: #8483a2;
+				}
+
+				.w-btn-outline:hover {
+
+					transform: scale(1.1);
+					cursor: pointer;
+				}
+
+				.w-btn-outline:active {
+					transform: scale(1.8);
+				}
+					
 				</style>
 
 			</head>
@@ -206,27 +262,36 @@
        		<div class="loader">Loading...</div>
      	</div> -->
 				<jsp:include page="../common/header.jsp"></jsp:include>
-				<section class="module">
-					<div class="container">
+				<section class="module bg-dark-30 about-page-header"
+					data-background="../../uploadfiles/transfer/insert.jpg"
+					style="padding-top: 370px;
+    padding-bottom: 390px;">
 
+				</section>
+				<section class="module" style="margin-top: 0px; padding: 0px; ">
+					<div class="container">
 						<form name="transferform" id="transferform" role="form">
 							<div class="row">
-								<div class="col-sm-12 ">
-
-									<h4 class="mb-0" style="font-family:'Noto Sans KR', sans-serif;">예약양도 등록</h4>
-									<hr class="divider-w mt-10 mb-20">
-
-									<input id="transferTitle" name="transferTitle" class="form-control" type="text"
-										placeholder="제목을 등록해주세요." style="height: 45px; margin-bottom: 18px;" />
+								<div class="col-sm-12 " style="margin-top: 20px;">
+					<input id="transferTitle" name="transferTitle" class="form-control" type="text"placeholder="제목을 등록해주세요." style="height: 45px; margin-bottom: 20px;"/>
 								</div>
 							</div>
 
 
 
 							<div class="col-sm-12 minititle">
-								<div>나의 캠핑장 예약 목록</div>
+														<button type="button" name="receivebutton" class="transferbutton"
+														style="background-color: #ffffff00; border: none; line-height: 4; width: 200px; height: 110px; transform: translatex(215px) translatey(19px);">
+														<h3 style="margin: 0px;
+														text-align: center;
+														font-family: 'Gaegu', cursive;
+														font-size: 39px;
+														color: #82727f;">
+															나의 캠핑장 예약 목록 (Click)</h3>
+													</button>
+						
 
-								<div class="MyCampReservation">
+								<div class="MyCampReservation transferlayer">
 
 									<table class="table table-hover mb-none">
 										<thead>
@@ -389,7 +454,7 @@
 											type="text" placeholder="양도금액을 입력해주세요." />
 
 										<div class="free control-label">
-											<input type="checkbox" id="checkprice" onClick="checkDisable(this.form)">
+											<input type="checkbox" id="checkprice" class="" onClick="checkDisable(this.form)">
 
 											<span>무료양도</span>
 										</div>
@@ -448,7 +513,9 @@
 
 							<!-- 	<div class="col-sm-12"> -->
 							<div class="col-sm-12">
-								<button class="snip1535" name="Addtransfer" type="button">양도 등록</button>
+								<button class="w-btn-outline w-btn-blue-outline" style="
+    transform: translateX(480px);
+"name="Addtransfer" type="button">양도 등록</button>
 							</div>
 							<!-- 	</div> -->
 
@@ -471,6 +538,35 @@
 
 				<script>
 					$(document).ready(function () {
+						
+						$('.transferbutton').click(function () {
+							$('.transferlayer').toggle();
+						});
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
 						console.log($("input#textprice"));
 						$("input#textprice").on("keyup", function (e) {
 							console.log("zzzzz")

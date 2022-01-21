@@ -2993,13 +2993,13 @@ Google map
 }
 
 
-.mfp-iframe-holder .mfp-content {
+.mfp-wrap.report-modal-content .mfp-iframe-holder .mfp-content {
   width:400px !important;
   height: 730px;
   border-radius: 30px;
   overflow: hidden;
 }
-.mfp-iframe-holder .mfp-content  .mfp-close{
+.mfp-wrap.report-modal-content .mfp-iframe-holder .mfp-content  .mfp-close{
   top: 0;
   right: 16px;
 }
@@ -3021,3 +3021,5 @@ Google map
 .main-login-btn:hover{background-color:#9cc1e8 !important; color: #fff !important;}
 .widget p{margin: 0;}
 .auction-lv {border: 1px #ddd solid;font-weight: 500;font-size: 10px !important; background-color: transparent;}
+
+.gamsung-mini-title {text-align: left;font-size: 34px !important;margin: 0;}

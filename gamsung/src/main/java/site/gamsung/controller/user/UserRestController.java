@@ -1,7 +1,5 @@
 package site.gamsung.controller.user;
 
-import java.time.LocalDate;
-import java.util.Date;
 import java.util.Random;
 
 import javax.servlet.http.HttpSession;
@@ -9,7 +7,6 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -89,22 +86,6 @@ public class UserRestController {
 		return numStr;
 	}
 
-	@RequestMapping(value = "findIdPhoneAuthNum", method = RequestMethod.POST)
-	public String findIdPhoneAuthNum(@RequestBody User user, Model model) {
-
-		try {
-			String userId = userService.findId(user.getName(), user.getPhone());
-			if (userId == null) {
-				return "redirect:./addUser";
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		model.addAttribute("phone", user.getPhone());
-		return "forward:./sendPhoneAuthNum";
-	}
-
 	@RequestMapping(value = "rest/checkDuplication", method = RequestMethod.POST)
 	public int checkDuplication(@RequestBody User user) {
 	
@@ -121,12 +102,6 @@ public class UserRestController {
 		System.out.println("str" + isSuccess);
 		return isSuccess;
 	}
-
-	// 아이디찾기
-	/*
-	 * @RequestMapping(value = "rest/findId", method = RequestMethod.GET) public
-	 * String findId(){ return "forward:/view/user/findIdModal.jsp"; }
-	 */
 
 	// 아이디찾기
 	@RequestMapping(value = "rest/findId", method = RequestMethod.POST)
@@ -166,20 +141,7 @@ public class UserRestController {
 		  }else {
 			  return 0;
 		  }
-		 
-		
-		/*
-		 * User user = new User(); user.setId(id); user.setName(name);
-		 * user.setPhone(phone);
-		 */
-		  
-//		  User newUser=userService.findPassword(user); 
-
-		/*
-		 * if (newUser != null) { userService.updateTempPassword(newUser);
-		 * System.out.println("여길타는지"); }
-		 */
-		 
+			 
 	}
 
 	@RequestMapping(value = "rest/addSecessionUser", method = RequestMethod.POST)
@@ -207,13 +169,13 @@ public class UserRestController {
 	}
 	
 	@RequestMapping(value="rest/kakaounlink") 
-	public int unlink(HttpSession session) { 
+	public int kakaoUnlink(HttpSession session) { 
 		
 		System.out.println("들어오긴 하는건가");
 		System.out.println("토큰"+(String)session.getAttribute("kakaoToken"));
 		String kakaoToken=(String)session.getAttribute("kakaoToken");
 		User kakaoUser=(User)session.getAttribute("user");
-			userService.unlink(kakaoToken); 
+			userService.kakaoUnlink(kakaoToken); 
 			userService.addSecessionUser(kakaoUser);
 			//	userService.kakaoLogout(kakaoToken);
 				System.out.println("카카오 토큰"+kakaoToken);

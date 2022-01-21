@@ -72,10 +72,6 @@
           gap: 15px;
         }
 
-        .form-control {
-          border: 1px solid #d1d1d1;
-        }
-
         .camp1 .search-btn {
           right: 3px;
         }
@@ -108,6 +104,23 @@
         .campsearchadd {
           margin-bottom: 15px;
         }
+        
+        .form-control.add {
+    border-radius: 9px;
+    background-color: #b3c2d124;
+    border: #f0f8ff00;
+}
+
+
+#postsubmit {
+border-radius: 9px;
+    background-color: #676869;
+    color: rgb(255 255 255 / 70%);
+    font-size: 15px;
+    padding: 4px;
+    font-family: 'Gaegu', cursive;
+    letter-spacing: 1px;
+}
 
         /* class="text-start" style ="display: inline-block"; transform: translateY(1px); */
       </style>
@@ -141,7 +154,7 @@
               <!--addPost Start-->
 
               <div class="col-sm-8 col-sm-offset-1">
-                <h2 class="module-title font-alt " style="color: #9a9696; text-align: inherit; position:inherit">게시글 등록
+               <h2 class="module-title font-alt " style="color: #666666;text-align: inherit;position:inherit;font-family: 'Gaegu', cursive;font-size: 35px;letter-spacing: -3px;margin: 0px;">감성캠핑 커뮤니티게시글 등록
                 </h2>
                 <div class="module-subtitle font-serif"></div>
               </div>
@@ -153,7 +166,7 @@
 
                   <div class="camp1">
                     <div class="form-group">
-                      <select class="form-control" name="postType" id="postType" style="width: 216px">
+                      <select class="form-control add" name="postType" id="postType" style="width: 216px">
                         <option selected="selected">카테고리를 선택해주세요.</option>
                         <option value="1" ${ ! empty search.searchCondition && search.searchCondition==0 ? "selected"
                           : "" }>캠핑리포트</option>
@@ -172,7 +185,7 @@
 
                       <div class="search-box campsearch">
                         <label class="sr-only" for="searchCampKeyword">검색어</label>
-                        <input type="text" class="form-control" id="searchCampKeyword" name="searchCampKeyword"
+                        <input type="text" class="form-control add" id="searchCampKeyword" name="searchCampKeyword"
                           placeholder="캠핑장이름을 입력해주세요." value="">
                         <button class="search-btn" id="camp-search-btn" name="search-btn" type="button"><i
                             class="fa fa-search"></i></button>
@@ -188,7 +201,7 @@
 
                   <div class="form-group">
                     <label class="sr-only" for="title">제목</label>
-                    <input class="form-control" type="text" id="postTitle" name="postTitle" placeholder="제목을 입력해주세요."
+                    <input class="form-control add" type="text" id="postTitle" name="postTitle" placeholder="제목을 입력해주세요."
                       required="required" />
                     <p class="help-block text-danger"></p>
                   </div>
@@ -196,14 +209,20 @@
 
                   <div class="form-group">
                     <label class="sr-only" for="content">내용</label>
-                    <textarea class="form-control" id="postContent" name="postContent" placeholder="내용을 입력해주세요."
+                    <textarea class="form-control add" id="postContent" name="postContent" placeholder="내용을 입력해주세요."
                       required="required" style="height: 514px"></textarea>
                     <p class="help-block text-danger"></p>
                   </div>
 
                   <div class="form-group layer">
-                    <div class="starRev">
-                      <span class="text-start">평점</span>
+                  <div class="starRev" style="
+    transform: translateX(362px);
+">
+                     <span class="text-start" style="
+    font-family: 'Gaegu', cursive;
+    font-size: 22px;
+    transform: translateX(-3px) translateY(-5px);
+">평점</span>
                       <span class="starR on" data-star=1.0>별1</span>
                       <span class="starR" data-star=2.0>별2</span>
                       <span class="starR" data-star=3.0>별3</span>
@@ -216,7 +235,7 @@
 
                   <div class="form-group">
                     <label class="sr-only" for="hashtag">해시태그</label>
-                    <input class="form-control" type="text" id="allhashtag" name="allhashtag"
+                    <input class="form-control add" type="text" id="allhashtag" name="allhashtag"
                       placeholder="태그를 입력해주세요(최대3개)"></input>
                     <p class="help-block text-danger"></p>
                   </div>
@@ -274,7 +293,7 @@
               </div>
 
               <div class="text-center">
-                <button class="btn btn-block btn-round btn-d" id="postsubmit" name="1" type="button">등 록</button>
+                <button class="btn btn-block btn-round btn-d" id="postsubmit" name="1" type="button">게시글 등록</button>
               </div>
 
 

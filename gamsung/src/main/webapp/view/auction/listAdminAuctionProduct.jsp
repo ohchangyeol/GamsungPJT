@@ -22,9 +22,9 @@
   </head>
   <body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
     <main>
-      <div class="page-loader">
+      <!-- <div class="page-loader">
         <div class="loader">Loading...</div>
-      </div>
+      </div> -->
   	<jsp:include page="../common/header.jsp"></jsp:include>
     <div class="main">
       <section class="module bg-dark-60 shop-page-header" data-background="../../resources/images/6041bd81f941c55ff784f622_8-Tips-when-buying-at-auction.jpg">
@@ -42,14 +42,13 @@
         <hr class="divider-w">
         <section class="module-small">
           <div class="container">
-            <div class="row">
-              <div class="col-sm-6 col-sm-offset-3">
-                <h2 class="module-title font-alt">관리자 경매 상품</h2>
+            <div class="row" style="margin-bottom: 30px;">
+              <div style="padding-left: 30px;">
+                <h2 class="module-title font-jua main-color gamsung-mini-title">관리자 경매 상품</h2>
               </div>
             </div>
-            <div class="row multi-columns-row">
-          </div>
-          <div id="latest" class="container">
+            
+          <div id="latest">
             <c:forEach var="product" items="${list}" begin="0" step="1" end="3">
               <div class="col-sm-6 col-md-3 col-lg-3">
                 <div class="shop-item">
@@ -66,7 +65,7 @@
               </div>
             </c:forEach>
           </div>
-           <div id="latest" class="container">
+           <div id="latest">
             <c:forEach var="product" items="${list}" begin="4" step="1" end="7">
               <div class="col-sm-6 col-md-3 col-lg-3">
                 <div class="shop-item">
@@ -87,7 +86,7 @@
          </div>
         </section>
         
-        <hr class="divider-d">
+        <!-- <hr class="divider-d">
         <footer class="footer bg-dark">
           <div class="container">
             <div class="row">
@@ -102,7 +101,9 @@
           </div>
         </footer>
       </div>
-      <div class="scroll-up"><a href="#totop"><i class="fa fa-angle-double-up"></i></a></div>
+      <div class="scroll-up"><a href="#totop"><i class="fa fa-angle-double-up"></i></a></div> -->
+	  <jsp:include page="../../view/common/footer.jsp"/>
+
       <form>
       	<input type="hidden" id="auctionProductName" name="auctionProductName">
       	<input type="hidden" id="productImg1" name="productImg1">
@@ -198,7 +199,10 @@
 	  		$('body').on('click','.btn-b',function(){
 	  			
 	  			if(${empty sessionScope.user}){
-	  				alert("로그인해 주세요.");
+	  				Swal.fire({
+				    	text: '로그인해 주세요.',
+				    	icon: 'warning'
+				    })
 	  				return;
 	  			}
 	  				  			

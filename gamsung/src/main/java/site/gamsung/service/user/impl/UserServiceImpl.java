@@ -57,7 +57,6 @@ public class UserServiceImpl implements UserService{
 	private TransferDAO transDAO;
 	
 	
-	
 	public void setUserDAO(UserDAO userDAO) {
 		this.userDAO=userDAO;
 	}
@@ -486,7 +485,7 @@ public class UserServiceImpl implements UserService{
 		}
 
 	@Override
-	public void unlink(String accessToken) {
+	public void kakaoUnlink(String accessToken) {
 		String reqURL = "https://kapi.kakao.com/v1/user/unlink";
 		try { 
 			URL url = new URL(reqURL); 

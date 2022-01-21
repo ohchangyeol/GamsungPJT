@@ -43,11 +43,22 @@ pageEncoding="UTF-8"%>
               <div class="title">첨부파일</div>
               <div class="file-content">
                 <ul>
-                  <li><a href="/servicecenter/fileDownLoad?fileName=${notice.noticeFile1}"><span>${notice.noticeFile1}</span></a></li>
-                  <li><a href="/servicecenter/fileDownLoad?fileName=${notice.noticeFile2}"><span>${notice.noticeFile2}</span></a></li>
-                  <li><a href="/servicecenter/fileDownLoad?fileName=${notice.noticeFile3}"><span>${notice.noticeFile3}</span></a></li>
-                  <li><a href="/servicecenter/fileDownLoad?fileName=${notice.noticeFile4}"><span>${notice.noticeFile4}</span></a></li>
-                  <li><a href="/servicecenter/fileDownLoad?fileName=${notice.noticeFile5}"><span>${notice.noticeFile5}</span></a></li>
+                  <c:if test="${!empty notice.noticeFile1}">
+                    <li><a href="/servicecenter/fileDownLoad?fileName=${notice.noticeFile1}"><i class="bi bi-file-earmark-medical"></i>&nbsp;<span>${notice.noticeFile1}</span></a></li>
+                  </c:if>
+                  <c:if test="${!empty notice.noticeFile2}">
+                    <li><a href="/servicecenter/fileDownLoad?fileName=${notice.noticeFile2}"><i class="bi bi-file-earmark-medical"></i>&nbsp;<span>${notice.noticeFile2}</span></a></li>
+                  </c:if>
+                  <c:if test="${!empty notice.noticeFile3}">
+                    <li><a href="/servicecenter/fileDownLoad?fileName=${notice.noticeFile3}"><i class="bi bi-file-earmark-medical"></i>&nbsp;<span>${notice.noticeFile3}</span></a></li>
+                  </c:if>
+                  <c:if test="${!empty notice.noticeFile4}">
+                    <li><a href="/servicecenter/fileDownLoad?fileName=${notice.noticeFile4}"><i class="bi bi-file-earmark-medical"></i>&nbsp;<span>${notice.noticeFile4}</span></a></li>
+                  </c:if>
+                  <c:if test="${!empty notice.noticeFile5}">
+                    <li><a href="/servicecenter/fileDownLoad?fileName=${notice.noticeFile5}"><i class="bi bi-file-earmark-medical"></i>&nbsp;<span>${notice.noticeFile5}</span></a></li>
+                  </c:if>
+                  
                 </ul>
               </div>
             </div>

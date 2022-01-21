@@ -12,8 +12,8 @@
 
       <title>COMMUNITY</title>
 
-	  <jsp:include page="../../resources/commonLib.jsp"/>
-	  	
+      <jsp:include page="../../resources/commonLib.jsp" />
+
       <meta name="msapplication-TileColor" content="#ffffff">
       <meta name="msapplication-TileImage" content="../../resources/images/favicons/ms-icon-144x144.png">
       <meta name="theme-color" content="#ffffff">
@@ -61,7 +61,7 @@
           padding-left: inherit;
           padding-right: inherit;
           color: #ff1008;
-          transform: translateY(3px);
+          transform: translateY(-1px);
         }
 
 
@@ -123,6 +123,67 @@
           margin-top: 0px;
           text-align: right;
         }
+
+        .tags a {
+          background: #b3c2d170;
+          display: inline-block;
+          font-size: 12px;
+          color: #666;
+          padding: 4px 13px 4px 12px;
+          margin: 0 1px 4px;
+          border-radius: 2px;
+
+        }
+
+        .widget {
+          color: #666;
+        }
+
+        .tooltip-arrow,
+        .red-tooltip+.tooltip>.tooltip-inner {
+          background-color: #b3c2d1;
+        }
+
+        .red-tooltip+.tooltip.top>.tooltip-arrow {
+          background-color: #b3c2d1;
+        }
+
+
+        .tooltip-arrow,
+        .red-tooltip+.tooltip>.tooltip-inner {
+
+          background-color: #1110;
+        }
+
+        .tooltip-arrow {
+
+          background color: #1110;
+        }
+
+        .tooltip-inner {
+
+          color: #666666;
+          background-color: #1110;
+        }
+
+        .tooltip.right .tooltip-arrow {
+          border-right-color: #1110;
+        }
+
+        a {
+          color: #666;
+        }
+
+        .widget .widget-title {
+          color: #666;
+          letter-spacing: 3px;
+        }
+
+
+
+        .form-control {
+          color: #666;
+        }
       </style>
 
 
@@ -140,15 +201,15 @@
 
       <main class="community">
 
-        <div class="page-loader">
+        <!-- <div class="page-loader">
           <div class="loader">Loading...</div>
-        </div>
+        </div> -->
 
         <!-- header -->
         <jsp:include page="../common/header.jsp" />
         <!-- headerEnd -->
 
-        
+
         <div class="main">
           <section class="module-small">
             <div class="container">
@@ -223,13 +284,15 @@
                       <div class="post-addition">
 
                         <span>좋아요</span>
-                        <button type="button" class="happy">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor"
+                        <button type="button" class="happy" data-concerntype="insert">
+                          <!-- <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor"
                             class="bi bi-suit-heart" viewBox="0 0 16 16">
                             <path
                               d="m8 6.236-.894-1.789c-.222-.443-.607-1.08-1.152-1.595C5.418 2.345 4.776 2 4 2 2.324 2 1 3.326 1 4.92c0 1.211.554 2.066 1.868 3.37.337.334.721.695 1.146 1.093C5.122 10.423 6.5 11.717 8 13.447c1.5-1.73 2.878-3.024 3.986-4.064.425-.398.81-.76 1.146-1.093C14.446 6.986 15 6.131 15 4.92 15 3.326 13.676 2 12 2c-.777 0-1.418.345-1.954.852-.545.515-.93 1.152-1.152 1.595L8 6.236zm.392 8.292a.513.513 0 0 1-.784 0c-1.601-1.902-3.05-3.262-4.243-4.381C1.3 8.208 0 6.989 0 4.92 0 2.755 1.79 1 4 1c1.6 0 2.719 1.05 3.404 2.008.26.365.458.716.596.992a7.55 7.55 0 0 1 .596-.992C9.281 2.049 10.4 1 12 1c2.21 0 4 1.755 4 3.92 0 2.069-1.3 3.288-3.365 5.227-1.193 1.12-2.642 2.48-4.243 4.38z" />
-                          </svg></button>
-                        <span style="color: #2d2d2d;">${post.postConcernCount}&nbsp;</span>
+                          </svg> -->
+                          <i class="fa fa-fw"></i>
+                        </button>
+                        <span style="color: #2d2d2d;" class="post-concern">${post.postConcernCount}&nbsp;</span>
 
                         <span>댓글</span>
                         <button type="button" class="reply" name="reply" id="${userId}" value="${post.postNo}">
@@ -350,116 +413,173 @@
 
 
 
-        <div class="format">
-          <div class="post" data-postno="${post.postNo}">
+      <div class="format">
+        <div class="post" data-postno="${post.postNo}">
 
-            <div class="post-header">
-              <div class="post-meta">
-                <div>
-                  <span>number </span>
-                  <span style="color: #2d2d2d;" class="post-number"></span>
+          <div class="post-header">
+            <div class="post-meta">
+              <div>
+                <span>number </span>
+                <span style="color: #2d2d2d;" class="post-number"></span>
 
-                  <span>category </span>
-                  <span style="color: #2d2d2d;" class="post-postType">
+                <span>category </span>
+                <span style="color: #2d2d2d;" class="post-postType">
 
-                  </span>
+                </span>
 
-                </div>
-
-
-                <div>
-                  <span>writer </span>
-                  <span style="color: #2d2d2d" class="post-writer"></span>
-                  <span>time </span>
-                  <span style="color: #2d2d2d" class="post-regDate"></span>
-                </div>
-              </div> <!-- post-meta end -->
-
-
-
-
-              <div class="post-entry">
-                <h3 class="post-title" style="text-align: inherit"></h3>
               </div>
-            </div><!-- post-header end -->
 
-            <div class="post-thumbnail"></div>
-            <!-- src 해석필요함.. 절대경로 상대경로 공부가 필요함.. ㅠ_ㅠ.. 완벽한 이해가 되질않음..  -->
 
-            <div class="post-content"> ${post.postContent}</div>
-            <p class="help-block text-danger"></p>
+              <div>
+                <span>writer </span>
+                <span style="color: #2d2d2d" class="post-writer"></span>
+                <span>time </span>
+                <span style="color: #2d2d2d" class="post-regDate"></span>
+              </div>
+            </div> <!-- post-meta end -->
 
-            <div class="hashtag">
-              <span  style="font-size: 16px;color: #2D2D2D;font-kerning: none;">#HashTag</span>
-              
+
+
+
+            <div class="post-entry">
+              <h3 class="post-title" style="text-align: inherit"></h3>
             </div>
-            <p class="help-block text-danger"></p>
+          </div><!-- post-header end -->
 
-            <div class="post-addition">
+          <div class="post-thumbnail"></div>
+          <!-- src 해석필요함.. 절대경로 상대경로 공부가 필요함.. ㅠ_ㅠ.. 완벽한 이해가 되질않음..  -->
 
-              <span>좋아요</span>
-              <button type="button" class="happy">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor"
-                  class="bi bi-suit-heart" viewBox="0 0 16 16">
-                  <path
-                    d="m8 6.236-.894-1.789c-.222-.443-.607-1.08-1.152-1.595C5.418 2.345 4.776 2 4 2 2.324 2 1 3.326 1 4.92c0 1.211.554 2.066 1.868 3.37.337.334.721.695 1.146 1.093C5.122 10.423 6.5 11.717 8 13.447c1.5-1.73 2.878-3.024 3.986-4.064.425-.398.81-.76 1.146-1.093C14.446 6.986 15 6.131 15 4.92 15 3.326 13.676 2 12 2c-.777 0-1.418.345-1.954.852-.545.515-.93 1.152-1.152 1.595L8 6.236zm.392 8.292a.513.513 0 0 1-.784 0c-1.601-1.902-3.05-3.262-4.243-4.381C1.3 8.208 0 6.989 0 4.92 0 2.755 1.79 1 4 1c1.6 0 2.719 1.05 3.404 2.008.26.365.458.716.596.992a7.55 7.55 0 0 1 .596-.992C9.281 2.049 10.4 1 12 1c2.21 0 4 1.755 4 3.92 0 2.069-1.3 3.288-3.365 5.227-1.193 1.12-2.642 2.48-4.243 4.38z" />
-                </svg></button>
-              <span style="color: #2d2d2d;" class="post-concern">${post.postConcernCount}&nbsp;</span>
+          <div class="post-content"> ${post.postContent}</div>
+          <p class="help-block text-danger"></p>
 
-              <span>댓글</span>
-              <button type="button" class="reply" name="reply" id="${user.id}" value="${post.postNo}">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor"
-                  class="bi bi-chat-dots" viewBox="0 0 16 16">
-                  <path
-                    d="M5 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
-                  <path
-                    d="m2.165 15.803.02-.004c1.83-.363 2.948-.842 3.468-1.105A9.06 9.06 0 0 0 8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6a10.437 10.437 0 0 1-.524 2.318l-.003.011a10.722 10.722 0 0 1-.244.637c-.079.186.074.394.273.362a21.673 21.673 0 0 0 .693-.125zm.8-3.108a1 1 0 0 0-.287-.801C1.618 10.83 1 9.468 1 8c0-3.192 3.004-6 7-6s7 2.808 7 6c0 3.193-3.004 6-7 6a8.06 8.06 0 0 1-2.088-.272 1 1 0 0 0-.711.074c-.387.196-1.24.57-2.634.893a10.97 10.97 0 0 0 .398-2z" />
-                </svg></button>&nbsp;
+          <div class="hashtag">
+            <span style="font-size: 16px;color: #2D2D2D;font-kerning: none;">#HashTag</span>
 
-              <span class="post-comment-count">총 댓글 수&nbsp;${post.commentTotalCount}</span>
-            </div>
-            <!-- post-meta end -->
-
-            <div class="comments">
-              <!--댓글 list 들어가는 부분-->
-            </div>
-            <!--Post End-->
           </div>
+          <p class="help-block text-danger"></p>
 
-          <div class="post-updatedelete">
-            <a href='/community/updatePost?postNo=${post.postNo}' style="color: #2d2d2d" class="post-update-btn">게시물 수정 /</a>
-            <a href='/community/deletePost?postNo=${post.postNo}' style="color: #2d2d2d" class="post-delete-btn">삭제</a>
+          <div class="post-addition">
+
+            <span>좋아요</span>
+            <!-- <<<<<<< HEAD
+            <button type="button" class="happy" data-concerntype="insert">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor"
+                class="bi bi-suit-heart" viewBox="0 0 16 16">
+                <path
+                  d="m8 6.236-.894-1.789c-.222-.443-.607-1.08-1.152-1.595C5.418 2.345 4.776 2 4 2 2.324 2 1 3.326 1 4.92c0 1.211.554 2.066 1.868 3.37.337.334.721.695 1.146 1.093C5.122 10.423 6.5 11.717 8 13.447c1.5-1.73 2.878-3.024 3.986-4.064.425-.398.81-.76 1.146-1.093C14.446 6.986 15 6.131 15 4.92 15 3.326 13.676 2 12 2c-.777 0-1.418.345-1.954.852-.545.515-.93 1.152-1.152 1.595L8 6.236zm.392 8.292a.513.513 0 0 1-.784 0c-1.601-1.902-3.05-3.262-4.243-4.381C1.3 8.208 0 6.989 0 4.92 0 2.755 1.79 1 4 1c1.6 0 2.719 1.05 3.404 2.008.26.365.458.716.596.992a7.55 7.55 0 0 1 .596-.992C9.281 2.049 10.4 1 12 1c2.21 0 4 1.755 4 3.92 0 2.069-1.3 3.288-3.365 5.227-1.193 1.12-2.642 2.48-4.243 4.38z" />
+              </svg></button>
+            <span style="color: #2d2d2d;" class="post-concern">${post.postConcernCount}&nbsp;</span>
+======= -->
+            <button type="button" class="happy" data-concerntype="insert">
+              <i class="fa fa-fw"></i>
+            </button>
+            <span style="color: #2d2d2d;" class="post-concern">${post.postConcernCount}&nbsp;</span>
+            <!-- >>>>>>> refs/remotes/origin/developer -->
+
+            <span>댓글</span>
+            <button type="button" class="reply" name="reply" id="${user.id}" value="${post.postNo}">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-chat-dots"
+                viewBox="0 0 16 16">
+                <path
+                  d="M5 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
+                <path
+                  d="m2.165 15.803.02-.004c1.83-.363 2.948-.842 3.468-1.105A9.06 9.06 0 0 0 8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6a10.437 10.437 0 0 1-.524 2.318l-.003.011a10.722 10.722 0 0 1-.244.637c-.079.186.074.394.273.362a21.673 21.673 0 0 0 .693-.125zm.8-3.108a1 1 0 0 0-.287-.801C1.618 10.83 1 9.468 1 8c0-3.192 3.004-6 7-6s7 2.808 7 6c0 3.193-3.004 6-7 6a8.06 8.06 0 0 1-2.088-.272 1 1 0 0 0-.711.074c-.387.196-1.24.57-2.634.893a10.97 10.97 0 0 0 .398-2z" />
+              </svg></button>&nbsp;
+
+            <span class="post-comment-count">총 댓글 수&nbsp;${post.commentTotalCount}</span>
           </div>
+          <!-- post-meta end -->
+
+          <div class="comments">
+            <!--댓글 list 들어가는 부분-->
+          </div>
+          <!--Post End-->
         </div>
+
+        <div class="post-updatedelete">
+          <a href='/community/updatePost?postNo=${post.postNo}' style="color: #2d2d2d" class="post-update-btn">게시물 수정
+            /</a>
+          <a href='/community/deletePost?postNo=${post.postNo}' style="color: #2d2d2d" class="post-delete-btn">삭제</a>
+        </div>
+      </div>
 
 
       <script src="../../resources//js/community.js"></script>
 
       <script>
+
+        // 좋아요 버튼
+        $(function () {
+
+
+
+          $(document).on("click", ".happy", function (e) {
+            const postNo = $(e.currentTarget).closest(".post").data("postno");
+            const concernType = $(e.currentTarget).data("concerntype");
+            const target = $(e.currentTarget);
+
+            console.log(postNo);
+            console.log(concernType);
+
+            $.ajax({
+              url: "/community/rest/concern/" + postNo + "/" + concernType,
+              type: "GET",
+              dataType: "json",
+              // data: {
+              //   "postNo" : postNo ,
+              //   "concernType":concernType},
+              success: function (data) {
+                console.log(data);
+                console.log(e.currentTarget);
+                console.log(target);
+                const concernCount = target.next();
+                if (concernType == "insert") {
+                  target.data("concerntype", "delete");
+                  target.html("");
+                  target.append("<i class='fa fa-fw'></i>");
+                  concernCount.text(data);
+                } else {
+                  target.data("concerntype", "insert");
+                  target.html("");
+                  target.append("<i class='fa fa-fw'></i>");
+                  concernCount.text(data);
+                }
+              },
+              error: function (request, status, error) {
+                alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+              }
+            });
+
+          }); // end of Event
+
+        }); // end of 좋아요
+
+
+        //  무한 스크롤...
         $(function () {
           var userId = $("body").data("userid");
 
           let isFlag = false;
           let ajaxToggle = false;
           const pageEl = $("#currentPage");
-          
 
-          $(window).scroll(function(){
+
+          $(window).scroll(function () {
             let currentPage = pageEl.val();
-            
-            if(window.innerHeight+ window.scrollY >= Math.floor( $(document).height()-($(document).height() / 10) ) && !isFlag && !ajaxToggle ){
-              pageEl.val(++currentPage); 
+
+            if (window.innerHeight + window.scrollY >= Math.floor($(document).height() - ($(document).height() / 10)) && !isFlag && !ajaxToggle) {
+              pageEl.val(++currentPage);
               $.ajax({
-                url : "/community/rest/listPost" ,
-                method : "GET" ,
-                data:$("#community-search-form").serialize(),
-                dataType : "json" ,
-                success : function(JSONData , status) {
+                url: "/community/rest/listPost",
+                method: "GET",
+                data: $("#community-search-form").serialize(),
+                dataType: "json",
+                success: function (JSONData, status) {
                   console.log(JSONData);
 
                   const list = JSONData.list;
-                  
-                  if(list.length == 0){
+
+                  if (list.length == 0) {
                     isFlag = true;
                   }
                   // const imgUrl = "/uploadfiles/community/img/";
@@ -484,8 +604,8 @@
                   // const postrComment  = postList.find(".post-comment-count");
                   // const commentsBox = postList.find(".comments "); // class add ;
                   console.log(list);
-                  
-                  list.forEach( (el, index) => {
+
+                  list.forEach((el, index) => {
 
                     const imgUrl = "/uploadfiles/community/img/";
                     // ui
@@ -505,22 +625,22 @@
                     const postContent = postList.find(".post-content");
                     const postHashtag = postList.find(".hashtag");
                     const postConcern = postList.find(".post-concern");
-                    const postrReply  = postList.find(".reply"); // val(postNo)
-                    const postrComment  = postList.find(".post-comment-count").addClass("commentTotalCount"+el.postNo);
+                    const postrReply = postList.find(".reply"); // val(postNo)
+                    const postrComment = postList.find(".post-comment-count").addClass("commentTotalCount" + el.postNo);
                     const commentsBox = postList.find(".comments"); // class add ;
-                    
-                    postList.attr("data-postno",el.postNo);
+
+                    postList.attr("data-postno", el.postNo);
 
                     postNo.text(el.postNo);
-                    if(postType == 1){
+                    if (postType == 1) {
                       postType.text("캠핑리포트");
-                    }else if (postType == 2){
+                    } else if (postType == 2) {
                       postType.text("캠핑노하우");
-                    }else if(postType == 3){
+                    } else if (postType == 3) {
                       postType.text("추억 한 컷");
-                    }else if(postType == 4){
+                    } else if (postType == 4) {
                       postType.text("캠핑 기록");
-                    }else{
+                    } else {
                       postType.text("캠핑 지식인");
                     }
                     postWriter.text(el.writer.id);
@@ -528,17 +648,17 @@
 
 
                     postTitle.text(el.postTitle);
-                    
-                    if(el.postImg1 != null){
-                      postImgBox.append("<img src="+imgUrl+el.postImg1+">");
+
+                    if (el.postImg1 != null) {
+                      postImgBox.append("<img src=" + imgUrl + el.postImg1 + ">");
                     }
-                    if(el.postImg2 != null){
-                      postImgBox.append("<img src="+imgUrl+el.postImg2+">");
+                    if (el.postImg2 != null) {
+                      postImgBox.append("<img src=" + imgUrl + el.postImg2 + ">");
                     }
-                    if(el.postImg3 != null){
-                      postImgBox.append("<img src="+imgUrl+el.postImg3+">");
+                    if (el.postImg3 != null) {
+                      postImgBox.append("<img src=" + imgUrl + el.postImg3 + ">");
                     }
-                    
+
                     postContent.text(el.postContent);
 
                     // postHashtag
@@ -546,8 +666,8 @@
                     postConcern.text(el.postConcernCount);
                     postrReply.val(el.postNo);
 
-                    const className = "post"+el.postNo;
-                    postrComment.text("총 댓글 수 "+el.commentTotalCount);
+                    const className = "post" + el.postNo;
+                    postrComment.text("총 댓글 수 " + el.commentTotalCount);
 
                     // console.log(commentsBox);
 
@@ -606,10 +726,10 @@
             }
           })
 
-      });
+        });
 
         $(function () {
-          $("button:button[name='reply']").on("click", listComment);
+          $(document).on("click", "button:button[name='reply']", listComment);
           //name이 reply인 button을 click했을때  listComment는 param값이 없다.
           // 그렇지만 클릭시 버튼에 걸린 event값이 event object 객체로 전달됨. 
 
@@ -826,13 +946,13 @@
 
                   success: function (post) {
 
-                  console.log("get::::" + post);
+                    console.log("get::::" + post);
 
-                  let commentTotalCount = post.commentTotalCount;
-                  let postNo = post.postNo;
-                  let commentText = "총 댓글 수 " +commentTotalCount;
-                
-                  $('.commentTotalCount'+postNo).text(commentText);
+                    let commentTotalCount = post.commentTotalCount;
+                    let postNo = post.postNo;
+                    let commentText = "총 댓글 수 " + commentTotalCount;
+
+                    $('.commentTotalCount' + postNo).text(commentText);
 
 
 
@@ -883,14 +1003,14 @@
 
 
                 listComment(e); //.delete-comment 클릭시 넘어온 event object를 넘긴다.          
-            
-                  let commentTotalCount = post.commentTotalCount;
-                  let postNo = post.postNo;
-                  let commentText = "총 댓글 수 " +commentTotalCount;
 
-                  // console.log(commentText);
-                  $('.commentTotalCount'+postNo).html(commentText);
-                
+                let commentTotalCount = post.commentTotalCount;
+                let postNo = post.postNo;
+                let commentText = "총 댓글 수 " + commentTotalCount;
+
+                // console.log(commentText);
+                $('.commentTotalCount' + postNo).html(commentText);
+
               },
               error: function () {
 
@@ -903,7 +1023,14 @@
 
           } //deleteClickComment END 
 
-          
+
+
+
+
+          $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+          })
+
 
         }); //function END
 

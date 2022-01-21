@@ -36,6 +36,11 @@
 					right: 25%;
 					margin-top: 15px;
 				}
+
+				.checkFont {
+					font-size: 12px;
+					padding-left: 28px;
+				}
 			</style>
 
 			<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -74,7 +79,7 @@
 								<div class="row">
 									<div class="col-sm-8 col-sm-offset-2">
 										<hr class="divider-w mt-10 mb-20">
-										<form class="form" role="form">
+										<form class="form" role="form" id="update_g_a_form">
 											<div id="email" class="form-group">
 												<div><input id="role" name="role" value="GENERAL" hidden="hidden">
 												</div>
@@ -84,7 +89,7 @@
 													<input id="get_g_a_id" name="id" class="form-control "
 														value="${user.id}" readonly />
 												</div>
-												<div class='col-sm-offset-3 col-sm-6'><span id="helpBlock"
+												<div class='col-sm-offset-3 col-sm-6 checkFont'><span id="helpBlock"
 														class="help-block">
 														<strong class="text-danger">아이디는 수정이 불가합니다.</strong>
 													</span></div>
@@ -98,7 +103,8 @@
 														type="text" value="${user.nickName}"
 														placeholder="닉네임을 입력해 주세요." />
 												</div>
-												<div id="get_g_a_check-nickName" class='col-sm-offset-3 col-sm-6'></div>
+												<div id="get_g_a_check-nickName"
+													class='col-sm-offset-3 col-sm-6 checkFont'></div>
 											</div>
 
 
@@ -185,8 +191,8 @@
 														</strong></label>
 													<div class="col-sm-6">
 														<input id="get_g_a_generalPoint" name="havingPoint"
-															class="form-control" type="text"
-															value="${user.havingPoint}" />
+															class="form-control" type="text" value="${user.havingPoint}"
+															readonly />
 													</div>
 												</div>
 
@@ -230,7 +236,7 @@
 									</div>
 								</div>
 								<div class="row" id="approval-general-btn">
-									<button id="cancel" class="btn btn-xs btn-border-d btn-circle"
+									<button id="get_g_a_cancel" class="btn btn-xs btn-border-d btn-circle"
 										type="button">취소</button>
 									<button id="get_g_a_general-updateUser" class="btn btn-xs btn-border-d btn-circle"
 										type="submit">수정하기</button>
@@ -305,7 +311,14 @@
 
 						$("#get_g_a_allAddr").val(value);
 
-						$("form").attr("method", "POST").attr("action", "/user/updateUser").submit();
+						Swal.fire({
+							icon: 'success',
+							title: '수정완료',
+							html: '정보수정이 완료되었습니다:)'
+
+						}).then(() => {
+							$("#update_g_a_form").attr("method", "POST").attr("action", "/user/updateUser").submit();
+						});
 					}
 
 
@@ -318,6 +331,10 @@
 							}
 						}).open();
 					});
+
+					$("#get_g_a_cancel").on("click", function () {
+						window.history.go(-1);
+					})
 				});
 
 			</script>

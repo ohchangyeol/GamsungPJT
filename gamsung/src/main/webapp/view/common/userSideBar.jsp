@@ -47,7 +47,6 @@
 				<div class="nano-content">
 					<nav id="menu" class="nav-main" role="navigation">
 
-						<hr class="separator" />
 
 						<!-- 메뉴 Start -->
 						<ul class="nav nav-main">
@@ -71,7 +70,6 @@
 								</ul>
 							</li>
 
-							<hr class="separator" />
 
 							<li class="nav-parent">
 								<a>
@@ -85,7 +83,6 @@
 								</ul>
 							</li>
 
-							<hr class="separator" />
 
 							<li class="nav-parent">
 								<a>
@@ -100,7 +97,6 @@
 								</ul>
 							</li>
 
-							<hr class="separator" />
 
 							<li class="nav-parent">
 								<a>
@@ -108,12 +104,11 @@
 									<span>커뮤니티</span>
 								</a>
 								<ul class="nav nav-children">
-									<li><a href="forms-basic.html"> 나의 커뮤니티게시물 </a></li>
-									<li><a href="forms-advanced.html"> 나의 커뮤니티댓글 </a></li>
+									<li><a href="/community/listMyPost"> 나의 커뮤니티게시물 </a></li>
+									<li><a href="/community/listMyComment"> 나의 커뮤니티댓글 </a></li>
 								</ul>
 							</li>
 
-							<hr class="separator" />
 
 							<li class="nav-parent">
 								<a>
@@ -126,7 +121,6 @@
 							</li>
 
 
-							<hr class="separator" />
 
 							<li class="nav-parent">
 								<a>
@@ -141,19 +135,21 @@
 
 							<hr class="separator" />
 							<hr class="separator" />
+							<hr class="separator" />
+							<hr class="separator" />
 
-							<li>
-								<a href="/user/logout" target="_blank">
-									<i class="fa fa-sign-out" aria-hidden="true"></i>
-									<span>로그아웃</span>
-								</a>
-							</li>
+							<div class="sidebar-widget widget-stats mypage">
+								<ul class="nav nav-main">
+									
+									<li>
+										<a href="/user/logout" target="_blank">
+											<i class="fa fa-sign-out" aria-hidden="true"></i>
+											<span>로그아웃</span>
+										</a>
+									</li>
 
-							<hr class="separator" />
-							<hr class="separator" />
-							<hr class="separator" />
-							<hr class="separator" />
-							<hr class="separator" />
+								</ul>
+							</div>
 
 						</ul>
 						<!-- 메뉴 End -->

@@ -25,8 +25,10 @@ import javax.servlet.http.HttpSession;
   import org.springframework.stereotype.Controller; 
   import org.springframework.ui.Model; 
   import org.springframework.web.bind.annotation.GetMapping; 
-  import org.springframework.web.bind.annotation.ModelAttribute; 
-  import org.springframework.web.bind.annotation.RequestMapping; 
+  import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping; 
   import org.springframework.web.bind.annotation.RequestMethod; 
   import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -208,7 +210,25 @@ public Map<String, Object> listPost(@ModelAttribute("search") Search search,
 
 }
 
-  
+@RequestMapping(value = "rest/concern/{postNo}/{concernType}")
+public int AddConcern(@PathVariable("postNo") int postNo ,@PathVariable("concernType") String concernType , HttpSession session) throws Exception {
+
+	System.out.println("postNo======> "+postNo+"\n concernType======>"+concernType);
+	
+	String userId = ((User)session.getAttribute("user")).getId();
+	System.out.println("userId =======>"+ userId);
+	
+//	int postNo = 1;
+//	String userId = "user5@gamsung.com";
+//	String concernType = "insert";
+//
+//	int CONCERN = communityService.updateConcern(postNo, userId, concernType);
+//
+//	System.out.println("CONCERN:::::" + CONCERN);
+	
+	communityService.updateConcern(postNo, userId, concernType);
+	return communityService.totalConcern(postNo);
+}
   
   
   

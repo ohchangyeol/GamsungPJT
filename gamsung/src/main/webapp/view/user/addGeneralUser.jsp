@@ -11,40 +11,6 @@
 
 			<title>회원가입</title>
 
-<!-- 			<link rel="apple-touch-icon" sizes="57x57" href="../../resources/images/favicons/apple-icon-57x57.png">
-			<link rel="apple-touch-icon" sizes="60x60" href="../../resources/images/favicons/apple-icon-60x60.png">
-			<link rel="apple-touch-icon" sizes="72x72" href="../../resources/images/favicons/apple-icon-72x72.png">
-			<link rel="apple-touch-icon" sizes="76x76" href="../../resources/images/favicons/apple-icon-76x76.png">
-			<link rel="apple-touch-icon" sizes="114x114" href="../../resources/images/favicons/apple-icon-114x114.png">
-			<link rel="apple-touch-icon" sizes="120x120" href="../../resources/images/favicons/apple-icon-120x120.png">
-			<link rel="apple-touch-icon" sizes="144x144" href="../../resources/images/favicons/apple-icon-144x144.png">
-			<link rel="apple-touch-icon" sizes="152x152" href="../../resources/images/favicons/apple-icon-152x152.png">
-			<link rel="apple-touch-icon" sizes="180x180" href="../../resources/images/favicons/apple-icon-180x180.png">
-			<link rel="icon" type="image/png" sizes="192x192"
-				href="../../resources/images/favicons/android-icon-192x192.png">
-			<link rel="icon" type="image/png" sizes="32x32" href="../../resources/images/favicons/favicon-32x32.png">
-			<link rel="icon" type="image/png" sizes="96x96" href="../../resources/images/favicons/favicon-96x96.png">
-			<link rel="icon" type="image/png" sizes="16x16" href="../../resources/images/favicons/favicon-16x16.png">
-			<meta name="msapplication-TileColor" content="#ffffff">
-			<meta name="msapplication-TileImage" content="../../resources/images/favicons/ms-icon-144x144.png">
-			<meta name="theme-color" content="#ffffff">
-
-			<link href="../../resources/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-			Template specific stylesheets
-			<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700" rel="stylesheet">
-			<link href="https://fonts.googleapis.com/css?family=Volkhov:400i" rel="stylesheet">
-			<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
-			<link href="../../resources/lib/animate.css/animate.css" rel="stylesheet">
-			<link href="../../resources/lib/components-font-awesome/css/font-awesome.min.css" rel="stylesheet">
-			<link href="../../resources/lib/et-line-font/et-line-font.css" rel="stylesheet">
-			<link href="../../resources/lib/flexslider/flexslider.css" rel="stylesheet">
-			<link href="../../resources/lib/owl.carousel/dist/assets/owl.carousel.min.css" rel="stylesheet">
-			<link href="../../resources/lib/owl.carousel/dist/assets/owl.theme.default.min.css" rel="stylesheet">
-			<link href="../../resources/lib/magnific-popup/magnific-popup.css" rel="stylesheet">
-			<link href="../../resources/lib/simple-text-rotator/simpletextrotator.css" rel="stylesheet">
-			Main stylesheet and color file
-			<link href="../../resources/css/style.css" rel="stylesheet">
-			<link id="color-scheme" href="../../resources/css/colors/default.css" rel="stylesheet"> -->
 
 			<style>
 				.time {
@@ -77,6 +43,11 @@
 					right: 7%;
 					margin-top: 15px;
 				}
+
+				.checkFont {
+					font-size: 12px;
+					padding-left: 28px;
+				}
 			</style>
 
 			<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -93,16 +64,13 @@
 				</div>
 				<jsp:include page="../common/header.jsp"></jsp:include>
 				<div class="main">
-					<section class="module bg-dark-30 about-page-header"
-						data-background="../../resources/images/addGeneralUserImg.png">
-						<div class="container">
-							<div class="row">
-								<div class="col-sm-6 col-sm-offset-3">
-								</div>
-							</div>
-						</div>
-					</section>
-					<section class="module">
+					<!-- <section class="module bg-dark-30 about-page-header"
+						data-background="../../resources/images/addGeneralUserImg.png"> -->
+					<div class="container" style="padding-top: 72px;">
+						<img src="../../resources/images/addGeneralUserImg.png" alt="">
+					</div>
+					<!-- </section> -->
+					<section class="module" style="padding-top:0;">
 						<div class="container">
 							<!-- <div class="row"> -->
 							<div class="col-sm-8 col-sm-offset-2">
@@ -124,8 +92,8 @@
 											<input id="checkMailAuthNum" name="checkMailAuthNum" class="form-control "
 												type="text" placeholder="인증번호를 입력하세요." maxlength="6" />
 										</div>
-										<div id="check-email" class='col-sm-offset-3 col-sm-6'></div>
-										<div id="check-email-auth" class='col-sm-offset-3 col-sm-6'></div>
+										<div id="check-email" class='col-sm-offset-3 col-sm-6 checkFont'></div>
+										<div id="check-email-auth" class='col-sm-offset-3 col-sm-6 checkFont'></div>
 									</div>
 
 									<div class="form-group row">
@@ -136,7 +104,7 @@
 												type="password" placeholder="비밀번호는 8~15자까지 입력 가능합니다." maxlength="15" />
 										</div>
 										<div></div>
-										<div id="check-pwd-exp" class='col-sm-offset-3 col-sm-6'></div>
+										<div id="check-pwd-exp" class='col-sm-offset-3 col-sm-6 checkFont'></div>
 									</div>
 
 									<div class="form-group row">
@@ -148,7 +116,7 @@
 												type="password" placeholder="비밀번호를 입력해 주세요." maxlength="15" />
 										</div>
 										<div></div>
-										<div id="check-pwd" class='col-sm-offset-3 col-sm-6'></div>
+										<div id="check-pwd" class='col-sm-offset-3 col-sm-6 checkFont'></div>
 									</div>
 
 									<div id="nick-name" class="form-group row">
@@ -159,7 +127,7 @@
 												placeholder="닉네임을 입력해 주세요." />
 										</div>
 										<div></div>
-										<div id="check-nickName" class='col-sm-offset-3 col-sm-6'></div>
+										<div id="check-nickName" class='col-sm-offset-3 col-sm-6 checkFont'></div>
 									</div>
 
 
@@ -192,8 +160,8 @@
 												class="form-control " type="text" style=" margin: 15px;"
 												placeholder="인증번호를 입력하세요." maxlength="4" />
 										</div>
-										<div id="check-phone" class='col-sm-offset-3 col-sm-6'></div>
-										<div id="check-phone-auth" class='col-sm-offset-3 col-sm-6'></div>
+										<div id="check-phone" class='col-sm-offset-3 col-sm-6 checkFont'></div>
+										<div id="check-phone-auth" class='col-sm-offset-3 col-sm-6 checkFont'></div>
 									</div>
 
 									<div class="form-group row">
@@ -220,7 +188,8 @@
 							<div class="col-sm-3 col-sm-offset-2"></div>
 							<div class="col-sm-3 col-sm-offset-2">
 								<div class="add_user_btn_btn row">
-									<button id="cancel" class="btn btn-border-d btn-circle" type="button">취소</button>
+									<button id="get_g_cancel" class="btn btn-border-d btn-circle"
+										type="button">취소</button>
 									<button id="joinAddUser" class="btn btn-border-d btn-circle"
 										type="submit">가입하기</button>
 
@@ -347,7 +316,7 @@ alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+
 						var pwd = $('#addGeneralPassword').val();
 						if (pwd.length > 0) {
 							$(this).val($(this).val().replace(/ /g, ''));
-							$("#check-pwd-exp").html("공백은 입력 불가합니다.");
+							//	$("#check-pwd-exp").html("공백은 입력 불가합니다.");
 						} else {
 							$("#check-pwd-exp").html("");
 						}
@@ -390,9 +359,9 @@ alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+
 								console.log('성공: ' + result);
 								if (result == 0) {
 									if (space.exec(nickName)) {
-										$("#check-nickName").html("공백은 입력 불가합니다");
+										//$("#check-nickName").html("공백은 입력 불가합니다");
 										$("input[name='nickName']").val("");
-									} else if (nickName.length > 2) {
+									} else if (nickName.length > 1) {
 										$("#check-nickName").html('사용 가능한 닉네임입니다.');
 										$("#check-nickName").css('color', 'green');
 									} else {
@@ -480,7 +449,7 @@ alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+
 
 									if (ab.length > 0) {
 										if (space.exec(ab)) {
-											$("#check-phone-auth").html("공백은 입력 불가합니다");
+											//	$("#check-phone-auth").html("공백은 입력 불가합니다");
 											$("#add_g_checkPhoneAuthNum").val("");
 											phone_auth = 0;
 										} else if (dataa == ab) {
@@ -586,7 +555,16 @@ alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+
 
 						$("input:hidden[name='allAddr']").val(value);
 
-						$("#add_g_form").attr("method", "POST").attr("action", "/user/addUser").attr("enctype", "multipart/form-data").submit();
+
+						Swal.fire({
+							icon: 'success',
+							title: '가입완료',
+							html: '회원가입이 완료되었습니다.<br>로그인 후 이용 가능합니다:)'
+
+						}).then(() => {
+							$("#add_g_form").attr("method", "POST").attr("action", "/user/addUser").attr("enctype", "multipart/form-data").submit();
+						});
+
 					}
 
 
@@ -599,6 +577,10 @@ alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+
 							}
 						}).open();
 					});
+
+					$("#get_g_cancel").on("click", function () {
+						window.history.go(-1);
+					})
 				});
 
 			</script>

@@ -15,10 +15,6 @@
 			<jsp:include page="/resources/commonLib.jsp"></jsp:include>
 
 			<style type="text/css">
-				.sidebar-left {
-					background-color: #171717 !important;
-				}
-
 				.time {
 					display: flex;
 				}
@@ -68,6 +64,7 @@
 					</section>
 				</div>
 			</main>
+			
 			<jsp:include page="footer.jsp"></jsp:include>
 
 

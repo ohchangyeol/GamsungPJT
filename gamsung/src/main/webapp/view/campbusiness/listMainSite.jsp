@@ -153,7 +153,7 @@
  	</div>
  	
  	<!-- PageNavigation -->
-	<jsp:include page="../common/pageNavigator.jsp"/>
+	<jsp:include page="./pageNavigator_new.jsp"/>
 	
 </body>
 

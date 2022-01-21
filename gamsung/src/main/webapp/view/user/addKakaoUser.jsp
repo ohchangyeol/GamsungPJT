@@ -33,6 +33,11 @@
 				#checkPhoneAuthNum {
 					margin: 14px;
 				}
+
+				.checkFont {
+					font-size: 12px;
+					padding-left: 28px;
+				}
 			</style>
 
 			<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -49,20 +54,17 @@
 				</div>
 				<jsp:include page="../common/header.jsp"></jsp:include>
 				<div class="main">
-					<section class="module bg-dark-30 about-page-header"
-						data-background="../../resources/images/addGeneralUserImg.png">
-						<div class="container">
-							<div class="row">
-								<div class="col-sm-6 col-sm-offset-3">
-								</div>
-							</div>
-						</div>
-					</section>
+					<!-- <section class="module bg-dark-30 about-page-header"
+						data-background="../../resources/images/addGeneralUserImg.png"> -->
+					<div class="container" style="padding-top: 72px;">
+						<img src="../../resources/images/addGeneralUserImg.png" alt="">
+					</div>
+					<!-- </section> -->
 					<section class="module" style="padding-top:50px;">
 						<div class="container">
 							<!-- <div class="row"> -->
 							<div class="col-sm-8 col-sm-offset-2">
-								<h4 class="font-alt mb-0">SNS 간편 회원가입</h4>
+								<h4 class="font-alt mb-0">Kakao 간편 회원가입</h4>
 								<hr class="divider-w mt-10 mb-20">
 								<form id="add_kakao_form">
 									<div id="email" class="form-group row">
@@ -74,7 +76,7 @@
 											<input id="add_kakao_id" name="id" class="form-control " type="text"
 												value="${kakaoUser.id}" placeholder="아이디는 이메일 형식만 가능합니다." />
 										</div>
-										<div id="check-email" class='col-sm-offset-3 col-sm-6'></div>
+										<div id="check-email" class='col-sm-offset-3 col-sm-6 checkFont'></div>
 									</div>
 
 									<div class="form-group row">
@@ -85,7 +87,7 @@
 												type="password" placeholder="비밀번호는 8~15자까지 입력 가능합니다." />
 										</div>
 										<div></div>
-										<div id="check-pwd-exp" class='col-sm-offset-3 col-sm-6'></div>
+										<div id="check-pwd-exp" class='col-sm-offset-3 col-sm-6 checkFont'></div>
 									</div>
 
 									<div class="form-group row">
@@ -97,7 +99,7 @@
 												class="form-control" type="password" placeholder="비밀번호를 입력해 주세요." />
 										</div>
 										<div></div>
-										<div id="add_kakao_check-pwd" class='col-sm-offset-3 col-sm-6'></div>
+										<div id="add_kakao_check-pwd" class='col-sm-offset-3 col-sm-6 checkFont'></div>
 									</div>
 
 									<div id="add_kakao_nick-name" class="form-group row">
@@ -108,7 +110,8 @@
 												type="text" value="${kakaoUser.nickName}" placeholder="닉네임을 입력해 주세요." />
 										</div>
 										<div></div>
-										<div id="add_kakao_check-nickName" class='col-sm-offset-3 col-sm-6'></div>
+										<div id="add_kakao_check-nickName" class='col-sm-offset-3 col-sm-6 checkFont'>
+										</div>
 									</div>
 
 
@@ -132,7 +135,7 @@
 										</div>
 										<div>
 											<button id="add_kakao_phoneAuthNum" class="btn btn-circle btn-xs"
-												type="button">인증번호
+												type="button" style="display:none;">인증번호
 												받기</button>
 										</div>
 
@@ -143,8 +146,10 @@
 												class="form-control " type="text" placeholder="인증번호를 입력하세요."
 												maxlength="4" />
 										</div>
-										<div id="add_kakao_check-phone" class='col-sm-offset-3 col-sm-6'></div>
-										<div id="add_kakao_check-phone-auth" class='col-sm-offset-3 col-sm-6'></div>
+										<div id="add_kakao_check-phone" class='col-sm-offset-3 col-sm-6 checkFont'>
+										</div>
+										<div id="add_kakao_check-phone-auth" class='col-sm-offset-3 col-sm-6 checkFont'>
+										</div>
 									</div>
 									<div>
 										<input id="add_kakao_snsId" hidden="hidden" name="snsId" value="${user.snsId}">
@@ -306,6 +311,7 @@ alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+
 											$("#add_kakao_check-phone").html("휴대폰번호는 숫자로만 입력 가능합니다.");
 										} else if (phone.length == 11) {
 											$("#add_kakao_check-phone").html('사용 가능한 번호입니다.');
+											$("#add_kakao_phoneAuthNum").show();
 											$("#add_kakao_check-phone").css('color', 'green');
 										} else if (phone.length > 11) {
 											$("#add_kakao_phone").val("");

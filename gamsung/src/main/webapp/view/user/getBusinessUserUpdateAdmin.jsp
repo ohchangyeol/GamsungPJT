@@ -60,6 +60,11 @@
 				.business_pic img {
 					width: 600px;
 				}
+
+				.checkFont {
+					font-size: 12px;
+					padding-left: 28px;
+				}
 			</style>
 
 			<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -84,11 +89,10 @@
 
 					<section role="main" class="content-body">
 						<section class="module bg-dark-30 about-page-header"
-							data-background="assets/images/about_bg.jpg">
+							style="background-image: url(../../resources/images/getBusinessUserUpdateAdminImg.jpg)">>
 							<div class="container">
 								<div class="row">
 									<div class="col-sm-6 col-sm-offset-3">
-										<h1 class="module-title font-alt mb-0">Forms</h1>
 									</div>
 								</div>
 							</div>
@@ -97,9 +101,8 @@
 							<div class="container">
 								<div class="row">
 									<div class="col-sm-8 col-sm-offset-2">
-										<h4 class="font-alt mb-0">사업자회원정보 조회/수정</h4>
 										<hr class="divider-w mt-10 mb-20">
-										<form class="form" role="form">
+										<form class="form" role="form" id="update_b_a_form">
 											<div id="email" class="form-group row">
 												<div><input id="role" name="role" value="BUSINESS" hidden="hidden">
 												</div>
@@ -109,7 +112,7 @@
 													<input id="get_b_a_id" name="id" class="form-control "
 														value="${user.id}" readonly />
 												</div>
-												<div class='col-sm-offset-3 col-sm-6'><span id="helpBlock"
+												<div class='col-sm-offset-3 col-sm-6 checkFont'><span id="helpBlock"
 														class="help-block">
 														<strong class="text-danger">아이디는 수정이 불가합니다.</strong>
 													</span></div>
@@ -133,7 +136,8 @@
 														class="form-control" type="text" value="${user.campBusinessNum}"
 														maxlength="10" readonly />
 												</div>
-												<div id="get_b_a_check-business" class='col-sm-offset-3 col-sm-6'></div>
+												<div id="get_b_a_check-business"
+													class='col-sm-offset-3 col-sm-6 checkFont'></div>
 											</div>
 
 											<div class="form-group row">
@@ -166,7 +170,7 @@
 												<div class="col-sm-6">
 													<input id="get_b_a_phone" name="phone" class="form-control "
 														type="text" value="${user.phone}" placeholder="숫자만 입력해주세요"
-														maxlength="11" />
+														maxlength="11" readonly />
 
 												</div>
 											</div>
@@ -243,7 +247,7 @@
 													</strong></label>
 												<div class="col-sm-6">
 													<input id="get_b_a_point" name="havingPoint" class="form-control"
-														type="text" value="${user.havingPoint}" />
+														type="text" value="${user.havingPoint}" readonly />
 												</div>
 											</div>
 
@@ -290,7 +294,7 @@
 									<c:if test="${user.businessUserApprovalFlag !='Y'}"> <button id="approval-btn"
 											class="btn btn-xs btn-border-d btn-circle" type="button">가입승인</button>
 									</c:if>
-									<button id="cancel" class="btn btn-xs btn-border-d btn-circle"
+									<button id="get_b_a_cancel" class="btn btn-xs btn-border-d btn-circle"
 										type="button">취소</button>
 									<button id="get_b_a_business-updateUser" class="btn btn-xs btn-border-d btn-circle"
 										type="submit">수정하기</button>
@@ -439,7 +443,15 @@
 
 						$("#get_b_a_allAddr").val(value);
 
-						$("form").attr("method", "POST").attr("action", "/user/updateUser").submit();
+						Swal.fire({
+							icon: 'success',
+							title: '수정완료',
+							html: '정보수정이 완료되었습니다:)'
+
+						}).then(() => {
+							$("#update_b_a_form").attr("method", "POST").attr("action", "/user/updateUser").submit();
+						});
+
 					}
 
 
@@ -453,6 +465,10 @@
 							}
 						}).open();
 					});
+
+					$("#get_b_a_cancel").on("click", function () {
+						window.history.go(-1);
+					})
 				});
 
 			</script>

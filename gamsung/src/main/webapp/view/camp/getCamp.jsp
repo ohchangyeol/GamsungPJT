@@ -809,7 +809,17 @@
                       </script>
                     </div>
 
+					
                     <div class="tab-pane teb-iframe" id="qna">
+                    
+                    <form name="forcampQna">
+						<input type="hidden" name="iframeCampName" id="iframeCampName" value="${camp.user.campName}">
+					</form>
+					<script>
+					    document.forcampQna.target = "qnaschange";
+					    document.forcampQna.submit();
+					</script>
+                    
                       <iframe src="/campBusiness/listCampQna?campNo=${camp.campNo}" scrolling="no" id="qnaschange"></iframe>
 	                      <script type="text/javascript">
 	                        function qnaIframeHeight(i) { document.getElementById("qnaschange").style.height = parseInt(i) + "px"; }

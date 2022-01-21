@@ -24,6 +24,7 @@
 	 	<result property="postConcernCount"  column="con_num" 		   jdbcType="NUMERIC" /> 
 		<result property="commentTotalCount" column="com_num" 		   jdbcType="NUMERIC" />
 		<result property="conDeleteFlag"	 column="con_deleteFlag"   jdbcType="NUMERIC" />		
+		<result property="commentContent"	 column="comment_content"  jdbcType="VARCHAR" />		
 	</resultMap>
 	
 	<resultMap id="commentMapper" type="comment">
@@ -47,14 +48,14 @@
 	<!-- 게시글 등록 -->
     <insert    id="addPost"      parameterType="post" >
       INSERT 
-      INTO  GAMSUNG.POST(user_id,post_type,post_title,post_content,post_Img1,post_Img2,post_Img3,post_hashtag1,post_hashtag2,post_hashtag3,video)
+      INTO POST(user_id,post_type,post_title,post_content,post_Img1,post_Img2,post_Img3,post_hashtag1,post_hashtag2,post_hashtag3,video)
       VALUES    (#{writer.id}, #{postType}, #{postTitle:VARCHAR}, #{postContent:VARCHAR}, #{postImg1:VARCHAR}, #{postImg2:VARCHAR}, #{postImg3:VARCHAR}, #{hashtag1:VARCHAR}, #{hashtag2:VARCHAR}, #{hashtag3:VARCHAR}, #{video:VARCHAR})                                     
     </insert>
 
 	<!-- 댓글 등록 -->	 
     <insert    id="addComment"      parameterType="comment" >
       INSERT 
-      INTO  GAMSUNG.COMMENT(post_no,user_id,comment_content)
+      INTO COMMENT(post_no,user_id,comment_content)
       VALUES    (#{postNo.postNo}, #{commentWriter.id}, #{commentContent:VARCHAR})                                      
     </insert>	 	 
  	 
@@ -89,22 +90,25 @@
 		                                          ELSE 'Y' END AS con_deleteFlag
 			  FROM POST p LEFT JOIN (SELECT CO.post_no, count(*) com_num
 									 FROM (SELECT *
-	  									   FROM comment 
+	  									   FROM COMMENT 
 	  									   WHERE delete_flag = 'N') CO
 									  GROUP BY CO.post_no)	com <!-- 게시물당 코멘트 총 수  -->
 			  ON p.post_no = com.post_no 
 						  LEFT JOIN (SELECT PO.post_no, count(*) con_num
 									 FROM (SELECT *
-	  									   FROM post_concern  
+	  									   FROM POST_CONCERN  
 	  								       WHERE delete_flag = 'N') PO
 	                                 GROUP BY PO.post_no) con <!-- 게시물당 추천 총 수  -->
 			  ON p.post_no = con.post_no	
 			  			 LEFT JOIN (SELECT post_no, delete_flag flag
-						            FROM post_concern pc
+						            FROM POST_CONCERN pc
 						            WHERE pc.user_id =#{userId}
 						          	) cop  <!-- 회원의 게시물 추천 유무 Y는 빈하트 표출   -->
 			   ON p.post_no = cop.post_no			            								
 	  		  WHERE p.delete_flag = 'N' 
+	  		  <if test="userId != null">		
+	  		  AND p.user_id = #{userId}
+	  		  </if>
 	  		  <if test="post.postType != null and post.postType != 0">		
 	  		  AND p.post_type = #{post.postType}
 	  		  </if>
@@ -136,7 +140,7 @@
 						</if>
 					</trim>
 				</if>
-				ORDER BY p.post_reg_date ) P, (select @rownum:= 0) M
+				ORDER BY p.post_reg_date DESC) P, (select @rownum:= 0) M
 				WHERE @rownum  <![CDATA[ <=]]> #{search.endRowNum} ) S
 				WHERE R BETWEEN #{search.startRowNum} AND #{search.endRowNum} 
 	 </select> 	 
@@ -234,13 +238,19 @@
 
 
    <!-- 추천 해제 table에 postNo값이 등록이 되어있어야 헤재도 된다. -->   
-	<update	id="deleteConcern"	parameterType="hashmap" >
+	<!-- <update	id="deleteConcern"	parameterType="hashmap" >
 	   	UPDATE POST_CONCERN
 	   	<set>
 	   		delete_flag = 'Y'
 	   	</set>
 	   	WHERE post_no= #{postNo} AND user_id = #{userId}
-	 </update> 
+	 </update>  -->
+	 
+	 <delete id="deleteConcern" parameterType="hashmap"  >
+	 	 DELETE from POST_CONCERN
+		 WHERE user_id = #{userId}
+ 		 AND post_no = #{postNo}
+	 </delete>
 	 
 	    <!-- 총 댓글수를 update해준다.-->
 	<!-- 코멘트 번호가 해당 번호일때의 포스트 정보를 가지고 온다.  -->
@@ -260,14 +270,26 @@
     AND delete_flag = 'n'
 	 </select> 
 	 
+	 <!--나의 댓글리스트-->
+<select id="listPostForComment" parameterType="search" resultMap="postMapper">
+      SELECT S.* 
+      FROM (SELECT @rownum:= @rownum+1 AS R , PC.* 
+            FROM (SELECT p.*, c.comment_content comment_content
+                  FROM POST p, COMMENT c
+                  WHERE c.user_id = #{id}
+                  AND p.post_no = c.post_no) PC, (select @rownum:= 0) M
+            WHERE @rownum  <![CDATA[ <=]]> #{endRowNum} ) S
+            WHERE R BETWEEN #{startRowNum} AND #{endRowNum} 
+   </select> 
+	 
 	<!-- 총 추천수를 update해준다.-->
 	<!-- 코멘트 번호가 해당 번호일때의 포스트 정보를 가지고 온다.  -->
-<!--  	<select  id="UpdatetotalConcern"  parameterType="int"	resultMap="postMapper"> 	
+ 	<!-- <select  id="UpdatetotalConcern"  parameterType="int"	resultMap="postMapper"> 	
 	select p.*
-	from post p, post_concern con
+	from POST p, POST_CONCERN CON
 	where p.post_no = con.post_no
 	and con.count_no = #{value}
-	 </select> 	  -->
+	 </select> --> 	 
 	 
 	 
 	 
@@ -285,5 +307,11 @@
 	WHERE post_no= #{value} and delete_flag = 'N';
 	 </select>  -->
 	 
+	 <select id="totalConcern" parameterType="int" resultType="int">
+	 	SELECT count(*) 
+	 	FROM POST_CONCERN 
+	 	WHERE post_no = #{value}
+	 	AND delete_flag = 'N'; 
+	 </select>
 	 
 </mapper> 
