@@ -336,7 +336,7 @@
 		
 		<trim prefix="WHERE" prefixOverrides="AND">
 			<if test="paymentStatus != null">
-				P.payment_status = #{paymentStatus}			
+				AND P.payment_status = #{paymentStatus}			
 			</if>
 			<if test="paymentCode != null">
 				AND P.payment_code = #{paymentCode}			
@@ -363,7 +363,7 @@
 	<insert id="addSiteProfit" parameterType="SiteProfit">
 		INSERT
 		INTO SITE_PROFIT (profit_reg_date, profit_point_charge, profit_point_payment, profit_regular_payment, profit_all_payment)
-		VALUES ( DATE(NOW())
+		VALUES ( date(now())
 				, #{profitPointCharge}		
 				, #{profitPointPayment}
 				, #{profitRegularPayment}
