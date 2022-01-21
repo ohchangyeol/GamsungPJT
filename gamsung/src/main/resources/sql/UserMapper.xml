@@ -273,7 +273,7 @@
 	 <select  id="reportSuspensionListUser"  parameterType="search"	resultMap="userSelectMap">
 		SELECT u.role, u.user_id, u.name, u.nick_name, u.camp_name, u.entry_reg_date, u.suspension_reg_date, 
 		u.secession_reg_date, u.dormant_reg_date, u.entry_approval_flag, rtc.rc
-		FROM USERS u left outer join (SELECT count(receiver_id)rc, receiver_id FROM report where report_status=1 group by receiver_id having count(receiver_id) >0)rtc
+		FROM USERS u left outer join (SELECT count(receiver_id)rc, receiver_id FROM REPORT where report_status=1 group by receiver_id having count(receiver_id) >0)rtc
 		on u.user_id = rtc.receiver_id
 			<trim prefix="WHERE" prefixOverrides="AND">
 			<if test="searchCondition != null">
@@ -305,7 +305,7 @@
 	 
 	 <select id="countReportSuspensionListUser" parameterType="search" resultType="int">
 		SELECT COUNT(rtc.rc)
-		FROM USERS u left outer join (SELECT count(receiver_id)rc, receiver_id FROM report where report_status=1 group by receiver_id having count(receiver_id) >0)rtc
+		FROM USERS u left outer join (SELECT count(receiver_id)rc, receiver_id FROM REPORT where report_status=1 group by receiver_id having count(receiver_id) >0)rtc
 		on u.user_id = rtc.receiver_id where rtc.rc >0
 		<!-- <if test='_parameter != null'>
 			AND registrant_id = #{value}

@@ -30,7 +30,7 @@ CREATE TABLE `USERS` (
 `sns_id` VARCHAR(15),
 `camp_business_img` VARCHAR(2000),
 PRIMARY KEY ( `user_id`),
-UNIQUE (`user_id`,`nick_name`, `phone`, `camp_business_num`)
+UNIQUE (`user_id`,`nick_name`, `phone`, `camp_business_num`, `salt`)
 );
 
 CREATE TABLE `LOGIN_HISTORY` (
