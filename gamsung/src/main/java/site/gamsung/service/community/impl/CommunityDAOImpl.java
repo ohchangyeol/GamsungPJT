@@ -101,7 +101,7 @@ public class CommunityDAOImpl implements CommunityDAO {
 		if(concernType.equals("insert")){
 			return sqlSession.insert("CommunityMapper.addConcern", Map);	
 		}else {
-			return sqlSession.update("CommunityMapper.deleteConcern", Map);	
+			return sqlSession.delete("CommunityMapper.deleteConcern", Map);	
 		}
 		
 	}

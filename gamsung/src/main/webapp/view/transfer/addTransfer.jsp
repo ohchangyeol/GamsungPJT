@@ -264,7 +264,8 @@ placeholder
 				<jsp:include page="../common/header.jsp"></jsp:include>
 				<section class="module bg-dark-30 about-page-header"
 					data-background="../../uploadfiles/transfer/insert.jpg"
-					style="padding-top: 400px; padding-bottom: 185px;">
+					style="padding-top: 370px;
+    padding-bottom: 390px;">
 
 				</section>
 				<section class="module" style="margin-top: 0px; padding: 0px; ">
