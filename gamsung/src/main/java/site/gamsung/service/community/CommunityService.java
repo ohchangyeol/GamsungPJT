@@ -24,7 +24,8 @@ public interface CommunityService {
 		//댓글
 
 		public int addComment(Comment comment)throws Exception;//댓글 등록		
-		public List<Comment> listComment(int postNo)throws Exception;//댓글 List		
+		public List<Comment> listComment(int postNo)throws Exception;//댓글 List	
+		public List<Post> listPostForComment(Search search)throws Exception;//my 댓글 List		
 		public int updateComment(Comment comment)throws Exception;//댓글 수정		
 		public int deleteComment(int CommentNo)throws Exception;//댓글 Delete
 		public int blindComment(int CommentNo)throws Exception;//댓글 Blind

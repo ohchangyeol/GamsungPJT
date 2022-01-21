@@ -24,6 +24,7 @@
 	 	<result property="postConcernCount"  column="con_num" 		   jdbcType="NUMERIC" /> 
 		<result property="commentTotalCount" column="com_num" 		   jdbcType="NUMERIC" />
 		<result property="conDeleteFlag"	 column="con_deleteFlag"   jdbcType="NUMERIC" />		
+		<result property="commentContent"	 column="comment_content"  jdbcType="VARCHAR" />		
 	</resultMap>
 	
 	<resultMap id="commentMapper" type="comment">
@@ -47,14 +48,14 @@
 	<!-- 게시글 등록 -->
     <insert    id="addPost"      parameterType="post" >
       INSERT 
-      INTO  GAMSUNG.POST(user_id,post_type,post_title,post_content,post_Img1,post_Img2,post_Img3,post_hashtag1,post_hashtag2,post_hashtag3,video)
+      INTO POST(user_id,post_type,post_title,post_content,post_Img1,post_Img2,post_Img3,post_hashtag1,post_hashtag2,post_hashtag3,video)
       VALUES    (#{writer.id}, #{postType}, #{postTitle:VARCHAR}, #{postContent:VARCHAR}, #{postImg1:VARCHAR}, #{postImg2:VARCHAR}, #{postImg3:VARCHAR}, #{hashtag1:VARCHAR}, #{hashtag2:VARCHAR}, #{hashtag3:VARCHAR}, #{video:VARCHAR})                                     
     </insert>
 
 	<!-- 댓글 등록 -->	 
     <insert    id="addComment"      parameterType="comment" >
       INSERT 
-      INTO  GAMSUNG.COMMENT(post_no,user_id,comment_content)
+      INTO COMMENT(post_no,user_id,comment_content)
       VALUES    (#{postNo.postNo}, #{commentWriter.id}, #{commentContent:VARCHAR})                                      
     </insert>	 	 
  	 
@@ -262,6 +263,18 @@
 	WHERE post_no = #{value}
     AND delete_flag = 'n'
 	 </select> 
+	 
+	 <!--나의 댓글리스트-->
+<select id="listPostForComment" parameterType="search" resultMap="postMapper">
+      SELECT S.* 
+      FROM (SELECT @rownum:= @rownum+1 AS R , PC.* 
+            FROM (SELECT p.*, c.comment_content comment_content
+                  FROM POST p, COMMENT c
+                  WHERE c.user_id = #{id}
+                  AND p.post_no = c.post_no) PC, (select @rownum:= 0) M
+            WHERE @rownum  <![CDATA[ <=]]> #{endRowNum} ) S
+            WHERE R BETWEEN #{startRowNum} AND #{endRowNum} 
+   </select> 
 	 
 	<!-- 총 추천수를 update해준다.-->
 	<!-- 코멘트 번호가 해당 번호일때의 포스트 정보를 가지고 온다.  -->

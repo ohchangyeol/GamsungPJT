@@ -454,7 +454,7 @@ a {
           <div class="post-addition">
 
             <span>좋아요</span>
-            <button type="button" class="happy">
+            <button type="button" class="happy" data-concerntype="insert">
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor"
                 class="bi bi-suit-heart" viewBox="0 0 16 16">
                 <path
@@ -497,11 +497,10 @@ a {
         // 좋아요 버튼
         $(function () {
         	
-        	
-        	
-          $(".happy").on("click", function (e) {
-            const postNo = $(e.currentTarget).closest(".post").data("postno");
-            const concernType = $(e.currentTarget).data("concerntype");
+          $(document).on("click",".happy", function (e) {
+        	  const target =$(e.currentTarget);
+            const postNo = target.closest(".post").data("postno");
+            const concernType = target.data("concerntype");
 
             console.log(postNo);
             console.log(concernType);
@@ -516,13 +515,13 @@ a {
               success: function (data) {
                 console.log(data);
                 if (concernType == "insert") {
-                  $(e.currentTarget).data("concerntype", "delete");
-                  $(e.currentTarget).html("");
-                  $(e.currentTarget).append("<i class='fa fa-fw'></i>");
+                  	target.data("concerntype", "delete");
+                  	target.html("");
+                  	target.append("<i class='fa fa-fw'></i>");
                 } else {
-                  $(e.currentTarget).data("concerntype", "insert");
-                  $(e.currentTarget).html("");
-                  $(e.currentTarget).append("<i class='fa fa-fw'></i>");
+                	target.data("concerntype", "insert");
+                	target.html("");
+                	target.append("<i class='fa fa-fw'></i>");
 
                 }
               },
@@ -710,7 +709,7 @@ a {
         });
 
         $(function () {
-          $("button:button[name='reply']").on("click", listComment);
+          $(document).on("click","button:button[name='reply']", listComment);
           //name이 reply인 button을 click했을때  listComment는 param값이 없다.
           // 그렇지만 클릭시 버튼에 걸린 event값이 event object 객체로 전달됨. 
 

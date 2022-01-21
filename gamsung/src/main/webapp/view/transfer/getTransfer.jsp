@@ -54,7 +54,8 @@
 				.gettransfertitle {
 					font-size: 20px;
 					color: #2d2d2d;
-					padding-left: 15px
+					padding-left: 15px;
+					    font-weight: 700;
 				}
 
 				h3 {
@@ -156,6 +157,18 @@
 				.w-btn-outline:active {
 					transform: scale(1.8);
 				}
+				
+				
+				.transferminititle {
+    color: #2d2d2d;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+
+.transfercontent{
+    font-size: 18px;
+}
 			</style>
 
 			<!-- <link id="color-scheme" href="../../../resources/css/serviceCenter.css" rel="stylesheet"> -->
@@ -163,9 +176,9 @@
 
 		<body data-spy="scroll" data-target=".onpage-navigation" data-offset="60" class="myReport">
 			<main>
-				<div class="page-loader">
-					<div class="loader">Loading...</div>
-				</div>
+<!-- 				<div class="page-loader"> -->
+<!-- 					<div class="loader">Loading...</div> -->
+<!-- 				</div> -->
 
 				<!-- header -->
 				<jsp:include page="../common/header.jsp" />
@@ -220,7 +233,7 @@
 										</div>
 										<hr class="divider-w mt-10 mb-20">
 
-										<div class="col-sm-6">
+										<div class="col-sm-7">
 											<div class="form-group a">
 
 												<label for="campname" class="control-label">
@@ -229,7 +242,7 @@
 												</label>
 
 
-												<div>[${transfer.transferArea}]&ensp;${transfer.transferCampname}</div>
+												<div class="transfercontent">[${transfer.transferArea}]&ensp;${transfer.transferCampname}</div>
 
 											</div>
 
@@ -243,7 +256,7 @@
 
 
 												<div>
-													<div>${transfer.transferStartDate}
+													<div class="transfercontent">${transfer.transferStartDate}
 
 														<span>&ensp;-&ensp;</span> ${transfer.transferEndDate}
 													</div>
@@ -252,7 +265,7 @@
 											</div>
 										</div>
 
-										<div class="col-sm-6">
+										<div class="col-sm-5">
 
 											<div class="form-group a">
 
@@ -260,7 +273,7 @@
 													<div class="transferminititle">캠핑장</div>
 													<div class="transferminititle">전화번호</div>
 												</label>
-												<div>${transfer.transferCampCall}</div>
+												<div class="transfercontent">${transfer.transferCampCall}</div>
 
 											</div>
 
@@ -268,18 +281,18 @@
 
 
 
-											<div class="form-group a transferminititle">
-												<label for="transferUserNum" class="control-label"> <span>예약인원</span>
+											<div class="form-group a">
+												<label for="transferUserNum" class="control-label" style="transform: translateY(2px);"> <span class="transferminititle">예약인원</span>
 												</label>
-												<div class="ohcamp transferminititle">${transfer.transferUserNum}&ensp;명
+												<div class="ohcamp transfercontent">${transfer.transferUserNum}&ensp;명
 												</div>
 											</div>
 
-											<div class="form-group a transferminititle">
-												<label for="textprice" class="control-label"> <span>양도금액</span>
+											<div class="form-group a">
+												<label for="textprice" class="control-label" style="transform: translateY(2px);"> <span class="transferminititle" >양도금액</span>
 												</label>
-												<div class="ohcamp transferminititle">
-													${transfer.transferPrice} <span>무료양도</span>
+												<div class="ohcamp transfercontent">
+													${transfer.transferPrice} <!-- <span>무료양도</span> -->
 												</div>
 											</div>
 										</div>
@@ -292,20 +305,20 @@
 										<hr class="divider-w mt-10 mb-20">
 
 										<div class="col-sm-7">
-											<div class="transferminititle">
-												<h3>양도사유</h3>
-												<div>${transfer.transferContent}</div>
+											<div class="">
+												<h3 class="transferminititle">양도사유</h3>
+												<div class="transfercontent">${transfer.transferContent}</div>
 											</div>
 
-											<div class="transferminititle" id="transferAddContent">
-												<h3>특이사항</h3>
-												<div>${transfer.transferAddContent}</div>
+											<div class="" id="">
+												<h3 class="transferminititle">특이사항</h3>
+												<div class="transfercontent">${transfer.transferAddContent}</div>
 											</div>
 
 
-											<div class="transferminititle" id="hashtag">
-												<h3>해시태그</h3>
-												${transfer.hashtag1}&ensp;${transfer.hashtag2}&ensp;${transfer.hashtag3}
+											<div class="" id="hashtag">
+												<h3 class="transferminititle">해시태그</h3>
+												<div class="transfercontent">${transfer.hashtag1}&ensp;${transfer.hashtag2}&ensp;${transfer.hashtag3}</div>
 											</div>
 
 
@@ -329,7 +342,7 @@
 										</div>
 
 										<div class="minititle transferpayment col-sm-5 transferminititle">
-											<h3>예약양도결제내역</h3>
+											<h3 class="transferminititle">예약양도결제내역</h3>
 											<div class="image-upload">
 												<img src="/uploadfiles/transfer/${transfer.paymentImg}" />
 												<!-- src 해석필요함.. 절대경로 상대경로 공부가 필요함.. ㅠ_ㅠ.. 완벽한 이해가 되질않음..  -->

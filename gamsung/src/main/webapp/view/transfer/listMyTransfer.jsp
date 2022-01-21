@@ -72,6 +72,19 @@
 					.panel-body.table-responsive.table.table-hover.mb-none.tr {
 						color: #2d2d2d;
 					}
+					
+					
+					
+					.inner-wrapper {
+
+    padding-top: 0px;
+    }
+					
+					
+					
+					
+					
+					
 				</style>
 
 			</head>
@@ -83,7 +96,7 @@
 
 					<jsp:include page="../common/header.jsp"></jsp:include>
 	<section class="module bg-dark-30 about-page-header"
-					data-background="../../uploadfiles/transfer/transferhead.jpg"
+					data-background="../../uploadfiles/transfer/my.png"
 					style="padding-top: 400px; padding-bottom: 185px;">
 
 				</section>
@@ -95,9 +108,7 @@
 
 
 							<div class="row" style="padding-top: 20px;">
-								<div calss="col-sm-12"
-									style="color: #2d2d2d; text-align: left; font-size: x-large; margin-bottom: -2px; margin-left: 142px; letter-spacing: -3px;"
-									id="receiveminititle">&nbsp;나의 양도 내역 조회&nbsp;</div>
+					
 
 
 								<div class="col-xs-12">
@@ -128,7 +139,7 @@
 															id="transfer-outlined" autocomplete="off" value="1"
 															onclick="transfercheck();" ${ empty options || options==1
 															? "checked" : "" }> <label class="btn btn-outline-success"
-															style="padding: 0px; font-size:10px" for="success-outlined">${user.nickName}님의 양도내역</label>
+															style="padding: 0px; font-size:10px" for="success-outlined">${user.nickName}님의<br/>양도내역</label>
 													</div>
 													<div class="col-sm-2 form-check"
 														style="text-align: center; padding: 0px; padding-top: 3px;">
@@ -136,7 +147,7 @@
 															id="receive-outlined" autocomplete="off" value="2"
 															onclick="receivecheck()" ${ ! empty options && options==2
 															? "checked" : "" }> <label class="btn btn-outline-success"
-															style="padding: 0px; font-size:10px "for="success-outlined">${user.nickName}님의 양수내역</label>
+															style="padding: 0px; font-size:10px "for="success-outlined">${user.nickName}님의<br/>양수내역</label>
 													</div>
 													<div class="col-sm-4">
 														<select class="form-control" name="searchCondition"
@@ -235,7 +246,7 @@
 
 																		<!--양수글 제목-->
 																		<c:if test='${options == 2}'>
-																		 <td class="center transferno" id="${transfer.receiveTitle}">														
+																		 <td class="center receiveTitle" id="${transfer.receiveTitle}">														
 																		${transfer.receiveTitle}
 																		</td>
 																		</c:if>

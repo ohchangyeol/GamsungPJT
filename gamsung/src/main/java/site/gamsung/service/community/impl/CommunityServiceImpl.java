@@ -112,4 +112,9 @@ public class CommunityServiceImpl implements CommunityService {
 		return communityDAO.updatetotalComment2(postNo);
 	}
 
+	@Override
+	public List<Post> listPostForComment(Search search) throws Exception {
+		return communityDAO.listPostForComment(search);
+	}
+
 }
