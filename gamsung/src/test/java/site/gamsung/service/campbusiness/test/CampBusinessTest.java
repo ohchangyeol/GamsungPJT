@@ -1,24 +1,15 @@
 package site.gamsung.service.campbusiness.test;
 
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import junit.framework.Assert;
 import site.gamsung.service.campbusiness.CampBusinessService;
 import site.gamsung.service.common.GoCampAPI;
-import site.gamsung.service.common.Search;
-import site.gamsung.service.domain.Camp;
-import site.gamsung.service.domain.MainSite;
 import site.gamsung.service.domain.SubSite;
 
 /*
@@ -72,6 +63,4 @@ public class CampBusinessTest {
 	public void testAddGoCamp() throws Exception{
 		goCampAPI.addData();
 	}
-	
-	
 }// end of class
