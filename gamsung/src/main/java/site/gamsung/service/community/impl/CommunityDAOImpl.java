@@ -123,6 +123,10 @@ public class CommunityDAOImpl implements CommunityDAO {
 		return sqlSession.selectOne("CommunityMapper.updatetotalComment2", postNo);
 	}
 	
+	@Override
+	public int totalConcern (int postNo) throws Exception {
+		return sqlSession.selectOne("CommunityMapper.totalConcern", postNo);
+	}
 	
 	
 }

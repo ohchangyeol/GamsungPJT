@@ -104,8 +104,8 @@
 									<span>커뮤니티</span>
 								</a>
 								<ul class="nav nav-children">
-									<li><a href="forms-basic.html"> 나의 커뮤니티게시물 </a></li>
-									<li><a href="forms-advanced.html"> 나의 커뮤니티댓글 </a></li>
+									<li><a href="/community/listMyPost"> 나의 커뮤니티게시물 </a></li>
+									<li><a href="/community/listMyComment"> 나의 커뮤니티댓글 </a></li>
 								</ul>
 							</li>
 

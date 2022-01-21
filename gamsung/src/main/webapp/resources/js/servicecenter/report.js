@@ -113,7 +113,7 @@ $(document).ready(function(){
                 type: 'iframe',
                 closeBtnInside: true,
                 midClick: true ,
-
+                
                 iframe: {
                 markup: '<div style="width:400px; height:720px;">'+
                         '<div class="mfp-iframe-scaler" >'+
@@ -121,8 +121,10 @@ $(document).ready(function(){
                         '<iframe class="mfp-iframe" frameborder="0" allowfullscreen></iframe>'+
                         '</div></div>'
                 }
+               
 
-            }
+            },
+            mainClass: 'report-modal-content'
 
         });
     })

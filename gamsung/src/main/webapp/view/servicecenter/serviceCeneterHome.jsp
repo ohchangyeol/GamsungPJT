@@ -13,6 +13,8 @@ pageEncoding="UTF-8"%>
     <title>고객센터 홈</title>
     
     <jsp:include page="../../resources/commonLib.jsp"/>
+
+    <link rel="stylesheet" href="../../resources/css/serviceCenter.css  ">
     
 
   </head>
@@ -43,7 +45,7 @@ pageEncoding="UTF-8"%>
             <div class="row multi-columns-row service-center-home">
               <div class="col-md-3 col-sm-6 col-xs-12">
                 <div class="features-item">
-                  <div class="features-icon"><span class="icon-lightbulb"></span></div>
+                  <div class="features-icon"><i class="bi bi-megaphone"></i></div>
                   <h3 class="features-title font-alt">공지사항</h3>
                   <p>사이트 내 공지사항을 <br/>조회할 수 있습니다.</p>
                   <button class="btn btn-d btn-round btn-block" type="button" data-btntype="1">
@@ -55,7 +57,7 @@ pageEncoding="UTF-8"%>
               </div>
               <div class="col-md-3 col-sm-6 col-xs-12">
                 <div class="features-item">
-                  <div class="features-icon"><span class="icon-bike"></span></div>
+                  <div class="features-icon"><i class="bi bi-quora"></i></div>
                   <h3 class="features-title font-alt">Q&amp;A</h3>
                   <p>사이트 내 궁금하신 점이나 <br/>의견을 남길 수 있습니다.</p>
                   <button class="btn btn-d btn-round btn-block" type="button" data-btntype="2">
@@ -67,7 +69,7 @@ pageEncoding="UTF-8"%>
               </div>
               <div class="col-md-3 col-sm-6 col-xs-12">
                 <div class="features-item">
-                  <div class="features-icon"><span class="icon-tools"></span></div>
+                  <div class="features-icon"><i class="bi bi-lightbulb"></i></div>
                   <h3 class="features-title font-alt">신고하기</h3>
                   <p>신속하게 해결하여 보다 나은 <br/>서비스를 만들어가도록 노력하겠습니다.</p>
                   <button id="report-btn" class="btn btn-d btn-round btn-block" type="button" data-btntype="3" data-userid="${user.id}">
@@ -79,7 +81,7 @@ pageEncoding="UTF-8"%>
               </div>
               <div class="col-md-3 col-sm-6 col-xs-12">
                 <div class="features-item report-and-qna">
-                  <div class="features-icon"><span class="icon-gears"></span></div>
+                  <div class="features-icon"><i class="bi bi-mastodon"></i></div>
                   <h3 class="features-title font-alt">내 신고 / Q&amp;A내역</h3>
                   <p>내 신고 및 Q&amp;A 내역의 <br/> 진행 현황을 확인할 수 있습니다.</p>
                   <button class="btn btn-d btn-round btn-block" type="button" data-btntype="4">

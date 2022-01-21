@@ -31,4 +31,5 @@ public interface CommunityDAO {
 	public PostConcern Concernflag(PostConcern postConcern) throws Exception ;
 	public Post updatetotalComment(int CommentNo) throws Exception;
 	public Post updatetotalComment2(int postNo) throws Exception;
+	int totalConcern(int postNo) throws Exception;
 }

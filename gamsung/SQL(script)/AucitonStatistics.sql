@@ -1,4 +1,4 @@
-INSERT INTO gamsung.auction_product
+INSERT INTO AUCTION_PRODUCT
 (registrant_id, successful_bidder_id, product_name, product_detail, product_sub_detail, start_bid_price, hopeful_bid_price, bid_unit, auction_start_time, auction_end_time, bidable_grade, hashtag1, hashtag2, hashtag3, product_img1, product_img2, product_img3, product_img4, product_img5, product_view_count, product_reg_date, registrant_confirm_flag, successful_bidder_confirm_flag, auction_status, temp_save_flag, delete_flag)
 VALUES
 ('gamsungsite@gmail.com', 'user1@gamsung.com', 'test1', '', '', 0, 0, 0, '2011-03-03 12:00:00', '2011-03-03 12:00:00', 0, '', '', '', '', '', '', '', '', 0, '2011-03-03 00:00:01', 'N', 'N', 'CANCEL', 'N', 'N')
