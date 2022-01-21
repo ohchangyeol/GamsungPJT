@@ -199,6 +199,9 @@
 									<p>관리자가 등록한 상품입니다.</p>
 									<p><a href="https://www.coupang.com${auctionProduct.auctionProductSubDetail}">상품 정보</a></p>								
 								</c:if>
+								<c:if test="${!empty auctionProduct.auctionProductDetail}">
+									<p>${auctionProduct.auctionProductDetail}</p>							
+								</c:if>
 								</div>
 								<div class="tab-pane" id="reviews">
 									<div id="ratingReview" class="comments reviews">
