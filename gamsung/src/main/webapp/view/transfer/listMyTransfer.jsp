@@ -96,8 +96,9 @@
 
 					<jsp:include page="../common/header.jsp"></jsp:include>
 	<section class="module bg-dark-30 about-page-header"
-					data-background="../../uploadfiles/transfer/my.png"
-					style="padding-top: 400px; padding-bottom: 185px;">
+					data-background="../../uploadfiles/transfer/mytransfer.jpg"
+					style="padding-top: 370px;
+    padding-bottom: 390px;">
 
 				</section>
 					<div class="inner-wrapper" style="background: ghostwhite;">

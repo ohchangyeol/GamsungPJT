@@ -186,8 +186,8 @@
 
 				<div class="main sc-main">
 					<section class="module bg-dark-30 about-page-header"
-						data-background="../../uploadfiles/transfer/transferhead.jpg"
-						style="padding-top: 400px; padding-bottom: 185px;">
+						data-background="../../uploadfiles/transfer/get.jpg"
+						style="padding-top: 370px;    padding-bottom: 390px;">
 						<div class="container">
 							<div class="row">
 								<div class="col-sm-6 col-sm-offset-3">

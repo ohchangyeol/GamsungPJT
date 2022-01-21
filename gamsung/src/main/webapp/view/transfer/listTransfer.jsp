@@ -77,7 +77,8 @@
 
             <div class="main sc-main">
                <section class="module bg-dark-30 about-page-header"
-                  data-background="../../uploadfiles/transfer/list.jpg"style="padding-top: 370px; padding-bottom: 390px;">
+                  data-background="../../uploadfiles/transfer/list.jpg"style="padding-top: 370px;
+    padding-bottom: 390px;">
                   <div class="container">
                      <div class="row">
                         <div class="col-sm-6 col-sm-offset-3">
