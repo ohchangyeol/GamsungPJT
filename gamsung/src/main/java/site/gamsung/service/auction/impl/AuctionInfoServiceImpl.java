@@ -227,9 +227,6 @@ public class AuctionInfoServiceImpl implements AuctionInfoService{
 		paymentCode = auctionInfoDAO.getPaymentInfo(paymentCode);
 		
 		Payment payment = new Payment();
-		if(auctionProduct != null) {
-			payment.setPaymentPriceTotalSecond(auctionProduct.getHopefulBidPrice()*paymentCode.getPaymentCodeFee()/100);			
-		}
 		
 		switch(option) {
 		case "상품등록 수수료": 
@@ -246,6 +243,7 @@ public class AuctionInfoServiceImpl implements AuctionInfoService{
 			break;
 		default : //상품등록, 중도철회, 낙찰취소
 			payment.setPaymentReceiver("admin");
+			payment.setPaymentPriceTotalSecond(auctionProduct.getHopefulBidPrice()*paymentCode.getPaymentCodeFee()/100);
 			break;
 		}
 		
