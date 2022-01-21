@@ -33,7 +33,7 @@
                     <ul class="list-unstyled">
                         <li class="divider"></li>
                         <li>
-                            <a role="menuitem" tabindex="-1" href="/user/adminMyPage"><i
+                            <a role="menuitem" tabindex="-1" href="/user/adminMypage"><i
                                     class="fa fa-user"></i>
                                 My Profile</a>
                         </li>
