@@ -49,7 +49,7 @@ pageEncoding="UTF-8"%>
 												<div class="summary">
 													<h4 class="title">예약자 수</h4>
 													<div class="info">
-														<strong class="amount">${reservationStatistics.dayCount} 명</strong>
+														<strong class="amount">${reservationStatistics.dayCount} 건</strong>
 													</div>
 												</div>
 												<div class="summary-footer">

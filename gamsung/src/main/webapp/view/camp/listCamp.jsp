@@ -13,9 +13,14 @@ pageEncoding="UTF-8"%>
     <title>ListCamp</title>
     
     <jsp:include page="../../resources/commonLib.jsp"/>
-     
-
-    
+    <style type="text/css">
+      .camp_name_sub {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    </style>
+        
   </head>
   <body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
     <main>
@@ -197,7 +202,7 @@ pageEncoding="UTF-8"%>
                     <div class="col-lg-9">
                     
                        <div class="row">
-                          <div class="col-xs-4" style="font-size: large; font-weight: bold ">${camp.user.campName}&nbsp;캠핑장</div>
+                          <div class="col-xs-4 camp_name_sub" style="font-size: large; font-weight: bold ">${camp.user.campName}&nbsp;</div>
                           <div class="col-xs-4" style="margin-top: 3px;"> 등록일 : ${camp.campRegDate}</div>
                        </div>   
                        
@@ -210,7 +215,7 @@ pageEncoding="UTF-8"%>
                        <div class="row">
                           <br>
                          <div class="col-xs-8" style="font-size: medium;"> 주소 : ${camp.user.addr}</div>
-                         <div class="col-xs-4">전화번호 : ${camp.user.campCall}</div>
+                         <div class="col-xs-4 phone_format" value="${camp.user.campCall}">전화번호 : ${camp.user.campCall}</div>
                        </div>
                        
                        <div class="row">
@@ -245,6 +250,14 @@ pageEncoding="UTF-8"%>
             $(document).scrollTop($(".container")[0].scrollHeight);
 
           }
+
+          $(".phone_format").each(function(index,obj){
+            
+              let str = $(this).attr("value");
+              let phone = str.replace(/(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/,"$1-$2-$3");
+              return $(this).html("전화번호 : "+phone);
+            
+          });
               
           var currentPage = 1;
       
