@@ -157,11 +157,12 @@ public class UserServiceTest {
 		System.out.println(result);
 	}
 	
-	//@Test
+	@Test
 	public void testUpdatePassword() throws Exception{
 		
-		User user = userService.getUser("user1@gamsung.com");
-		user.setPassword("3333");
+		User user = userService.getUser("camp@gamsung.com");
+		System.out.println(user);
+		user.setPassword("11111111");
 		
 		userService.updateUser(user);
 		

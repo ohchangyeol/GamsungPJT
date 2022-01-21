@@ -133,12 +133,13 @@
 								</ul>
 							</li>
 
+					<!-- 		<hr class="separator" />
+							<hr class="separator" /> -->
+						<!-- 	<hr class="separator" /> -->
 							<hr class="separator" />
-							<hr class="separator" />
-							<hr class="separator" />
-							<hr class="separator" />
-
-							<div class="sidebar-widget widget-stats mypage">
+				
+				
+				<!-- <div class="sidebar-widget widget-stats mypage"> -->
 								<ul class="nav nav-main">
 									
 									<li>
@@ -149,8 +150,7 @@
 									</li>
 
 								</ul>
-							</div>
-
+							<!-- </div> -->
 						</ul>
 						<!-- 메뉴 End -->
 
@@ -316,8 +316,8 @@
 								})
 
 							} else {
-								Swal.fire('완료되지 않은 거래내역 있어 탈퇴가 어렵습니다.거래완료 후 다시 시도해주세요.').then(() => {
-									self.location = "/user/mypage.jsp";
+								Swal.fire( {html : '완료되지 않은 거래내역 있어 탈퇴가 어렵습니다.<br>거래완료 후 다시 시도해주세요.'}).then(() => {
+									self.location = "/user/mypage";
 								})
 
 							}
