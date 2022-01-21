@@ -63,11 +63,16 @@
     border: #f0f8ff00;
 }
 
-.btn.btn-d {
-    border-radius: 9px;
-    background-color: #c1c1c1;
-    color: #666666;
+#postupdate {
+border-radius: 9px;
+    background-color: #676869;
+    color: rgb(255 255 255 / 70%);
+    font-size: 15px;
+    padding: 4px;
+    font-family: 'Gaegu', cursive;
+    letter-spacing: 1px;
 }
+
      </style>
 
 
@@ -97,7 +102,7 @@
      <!--addPost Start-->   
      
 	   		  <div class="col-sm-8 col-sm-offset-1">
-	    		  <h2 class="module-title font-alt " style="color: #666666;text-align: inherit;position:inherit; font-family: 'Gaegu', cursive; font-size: 35px;letter-spacing: -3px;margin: 0px;">감성캠핑 커뮤니티게시글 수정
+	    		  <h2 class="module-title font-alt " style="color: #666666;text-align: inherit;position:inherit; font-family: 'Gaegu', cursive; font-size: 35px;letter-spacing: -3px;margin: 0px;">커뮤니티 게시글수정
                 </h2>
                   <div class="module-subtitle font-serif"></div>              
               </div>
@@ -186,7 +191,7 @@
             </div>
             
             <div class="text-center">
-              <button class="btn btn-block btn-round btn-d" id="postsubmit" name="1" type="button">수 정</button>
+              <button class="btn btn-block btn-round btn-d" id="postupdate" name="1" type="button">게시물 수정</button>
             </div>
 
           </form>

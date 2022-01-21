@@ -39,6 +39,7 @@ import site.gamsung.service.common.Search;
 import site.gamsung.service.community.CommunityService;
 import site.gamsung.service.domain.AuctionProduct;
 import site.gamsung.service.domain.Camp;
+import site.gamsung.service.domain.Comment;
 import site.gamsung.service.domain.Post;
 import site.gamsung.service.domain.RatingReview;
 import site.gamsung.service.domain.User;
@@ -350,7 +351,7 @@ public class CommunityController {
       return "redirect:listPost";
    }
    
-// 커뮤니티 My List navigation  
+// 커뮤니티 My post navigation  
    
    @RequestMapping(value = "listMyPost")
    public String listMyPost(@ModelAttribute("search") Search search, @RequestParam(value = "postType", required = false) String postType, Model model, HttpSession session) throws Exception {
@@ -398,7 +399,35 @@ public class CommunityController {
 
    }
 
+// 커뮤니티 My comment List navigation  
    
+   @RequestMapping(value = "listMyComment")
+   public String listMyComment(@ModelAttribute("search") Search search, @RequestParam(value = "postType", required = false) String postType, Model model, HttpSession session) throws Exception {
+  
+	  System.out.println("listMyComment"); 
+      User user = (User) session.getAttribute("user"); // Session에서 user받아서 user setting하기.
+
+      if (user == null) {
+         return "redirect:/";
+      } // user가 null이면 main으로 navigation
+      search.setPageSize(communityPageSize);
+
+      if (search.getCurrentPage() == 0) {
+         search.setCurrentPage(1);
+      }
+      
+      search.setId(user.getId());
+
+      // System.out.println(map);
+      List<Post> list = communityService.listPostForComment(search);//댓글 List		(map);
+
+      System.out.println("listPostForCommentlist::::::" + list);
+
+      model.addAttribute("list", list);
+
+      return "forward:/view/community/listMyComment.jsp";
+
+   }
 
    // 게시물 상세
    @GetMapping(value = "getPost")

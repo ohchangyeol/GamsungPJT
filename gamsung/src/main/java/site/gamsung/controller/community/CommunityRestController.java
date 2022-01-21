@@ -211,7 +211,7 @@ public Map<String, Object> listPost(@ModelAttribute("search") Search search,
 }
 
 @RequestMapping(value = "rest/concern/{postNo}/{concernType}")
-public int testAddConcern(@PathVariable("postNo") int postNo ,@PathVariable("concernType") String concernType , HttpSession session) throws Exception {
+public int AddConcern(@PathVariable("postNo") int postNo ,@PathVariable("concernType") String concernType , HttpSession session) throws Exception {
 
 	System.out.println("postNo======> "+postNo+"\n concernType======>"+concernType);
 	

@@ -116,4 +116,10 @@ public class CommunityServiceImpl implements CommunityService {
 	public int totalConcern (int postNo) throws Exception {
 		return communityDAO.totalConcern(postNo);
 	}
+	
+	@Override
+	public List<Post> listPostForComment(Search search) throws Exception {
+		return communityDAO.listPostForComment(search);
+	}
+
 }

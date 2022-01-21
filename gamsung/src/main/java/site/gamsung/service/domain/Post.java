@@ -29,6 +29,7 @@ public class Post {
 	private String concernType;
 	private double statusRating;
 	private int campNo;
+	private String commentContent;
 
 	
 	
@@ -172,6 +173,12 @@ public class Post {
 				+ ", hashtag1=" + hashtag1 + ", hashtag2=" + hashtag2 + ", hashtag3=" + hashtag3 + ", search=" + search
 				+ ", conDeleteFlag=" + conDeleteFlag + ", concernType=" + concernType + ", statusRating=" + statusRating
 				+ ", campNo=" + campNo + "]";
+	}
+	public String getCommentContent() {
+		return commentContent;
+	}
+	public void setCommentContent(String commentContent) {
+		this.commentContent = commentContent;
 	}
 
 
