@@ -219,7 +219,7 @@
                   <div class="col-sm-6">
                     <div class="row">
                       <div class="col-sm-12">
-                        <h1 class="product-title font-alt" style="margin-bottom: 0px;">${camp.user.campName}&nbsp;캠핑장
+                        <h1 class="product-title font-alt" style="margin-bottom: 0px;">${camp.user.campName}
                         </h1>
                       </div>
                     </div>
@@ -279,7 +279,7 @@
                     </div>
                     <div class="row">
                       <div class="col-sm-12">
-                        <div><span style="font-size: small;">전화번호&nbsp;:&nbsp;${camp.user.campCall}</span></div>
+                        <div><span style="font-size: small;" id="phone_format" value="${camp.user.campCall}">전화번호&nbsp;:&nbsp;${camp.user.campCall}</span></div>
                       </div>
                     </div>
                     <hr>
@@ -851,8 +851,10 @@
           window.onload = function() {
             
             let substring = " 평점 "+$("#main_camp_rating").attr("value").substring(0, 3);
+            let phone = $("#phone_format").attr("value").replace(/(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/,"$1-$2-$3");
             
             $("#main_camp_rating").html(substring);
+            $("#phone_format").html("전화번호 : "+phone);
 
           };
 

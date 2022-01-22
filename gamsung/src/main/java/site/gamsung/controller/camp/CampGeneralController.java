@@ -34,8 +34,6 @@ import site.gamsung.service.domain.Payment;
 import site.gamsung.service.domain.RatingReview;
 import site.gamsung.service.domain.User;
 import site.gamsung.service.servicecenter.NoticeService;
-import site.gamsung.service.servicecenter.QnaService;
-import site.gamsung.service.user.UserService;
 
 @Controller
 @RequestMapping("/campGeneral/*")
@@ -54,17 +52,9 @@ public class CampGeneralController {
 	private NoticeService noticeService;
 	
 	@Autowired
-	@Qualifier("qnaServiceImpl")
-	private QnaService qnaService;
-		
-	@Autowired
 	@Qualifier("campRatingReviewServiceImpl")
 	private RatingReviewService ratingReviewService;
 	
-	@Autowired
-	@Qualifier("userServiceImpl")
-	private UserService userService;
-		
 	public CampGeneralController() {
 		System.out.println(this.getClass());
 	}
@@ -452,7 +442,7 @@ public class CampGeneralController {
 	
 	@RequestMapping(value = "addCampRatingReview", method = RequestMethod.POST)
 	public String addCampRatingReview(@ModelAttribute("RatingReview") RatingReview ratingReview, @RequestParam("article_file") MultipartFile[] reviewImg, 
-											@RequestParam("reservationNo") String reservationNo, Model model ,HttpServletRequest request,HttpSession httpSession){
+											@RequestParam("reservationNo") String reservationNo, Model model ,HttpSession httpSession){
 		
 		System.out.println("/campGeneral/addCampRatingReview : POST");
 		

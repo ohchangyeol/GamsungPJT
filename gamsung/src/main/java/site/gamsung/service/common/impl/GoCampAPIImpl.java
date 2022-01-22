@@ -161,9 +161,9 @@ public class GoCampAPIImpl implements GoCampAPI{
 							user.setcampBusinessNum("1234567890");
 						}
 						
-						if(jsonObject.get("addr1") != null) {
+						if(jsonObject.get("addr1") == null) {
 							user.setAddr("서울시 비트캠프");
-						}else if(jsonObject.get("addr2") != null){
+						}else if(jsonObject.get("addr2") == null){
 							user.setAddr(jsonObject.get("addr1").toString());
 						}else {
 							user.setAddr(jsonObject.get("addr1").toString()+jsonObject.get("addr2").toString());

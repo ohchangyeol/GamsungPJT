@@ -67,7 +67,7 @@
 											<input id="get_g_id" name="id" class="form-control " value="${user.id}"
 												readonly />
 										</div>
-										<div class='col-sm-offset-3 col-sm-6' style="padding-left: 30px;"><span id="helpBlock"
+										<div class='col-sm-offset-3 col-sm-6 checkFont' style="padding-left: 30px;"><span id="helpBlock"
 												class="help-block" style="font-size: 12px;">
 												<strong class="text-danger">아이디는 수정이 불가합니다.</strong>
 											</span></div>
