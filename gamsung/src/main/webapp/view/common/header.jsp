@@ -35,16 +35,16 @@
 
 
                      <!-- 커뮤니티 Start -->
-                  <li class="dropdown"><a class="dropdown-toggle" href="/community/listPost"
-                        data-toggle="dropdown">커뮤니티</a>
-                     <ul class="dropdown-menu">
+                  <li class="">
+                     <a id="commut" class="" data-toggle="">커뮤니티</a>
+                     <!-- <ul class="dropdown-menu">
                         <li><a href="/community/listPost">커뮤니티</a></li>
-                     </ul>
+                     </ul> -->
                   </li>
                   <!-- 커뮤니티 End -->
 
                   <!-- 양도양수 Start -->
-                  <li class="dropdown"><a class="dropdown-toggle" href="/servicecenter/home"
+                  <li class="dropdown"><a class="dropdown-toggle" href=""
                         data-toggle="dropdown">예약양도양수</a>
                      <ul class="dropdown-menu">
                         <li><a href="/transfer/listTransfer">예약양도 목록</a></li>
@@ -151,7 +151,18 @@
 
          <script>
             $(function () {
-   
+               $("#commut").on("click", function(){
+                  if (${empty sessionScope.user }){
+                     Swal.fire({
+                        text: '로그인 후 이용 가능합니다.',
+                        icon: 'warning'
+                     })
+                     return;
+                  } else{
+                     window.location="/community/listPost"; 
+                  }
+               });
+
                $('#addProduct').on('click', function () {
                  if (${empty sessionScope.user }){
                    Swal.fire({

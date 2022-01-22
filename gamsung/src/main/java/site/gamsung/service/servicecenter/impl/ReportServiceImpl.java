@@ -62,10 +62,12 @@ public class ReportServiceImpl implements ReportService {
 			
 			reportDAO.updateCodeReport(report);
 			User receiver = userDAO.getUser(report.getReceiverId());
-
+			
+			System.out.println("\n\n Service Impl ==> "+ receiver);
+			
 			if(receiver.getReportTotalCount() <= 5) {
 				System.out.println("신고 대상자 이용정지");
-				userDAO.addSecessionUser(receiver);
+				userDAO.addSuspensionUser(receiver);
 			}
 			return 1;
 		}else {
