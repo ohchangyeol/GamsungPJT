@@ -70,13 +70,13 @@
             <select class="form-control" name="searchCondition" style="font-size: 12px; ">
               <option value="0" ${ ! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>회원ID
               </option>
-              <option value="1" ${ ! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>제목
+              <option value="1" ${ ! empty search.searchCondition && search.searchCondition==1 ? "selected" : "" }>제목
               </option>
-              <option value="2" ${ ! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>번호
+              <option value="2" ${ ! empty search.searchCondition && search.searchCondition==2 ? "selected" : "" }>번호
               </option>
-              <option value="3" ${ ! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>내용
+              <option value="3" ${ ! empty search.searchCondition && search.searchCondition==3 ? "selected" : "" }>내용
               </option>
-              <option value="4" ${ ! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>해시태그
+              <option value="4" ${ ! empty search.searchCondition && search.searchCondition==4 ? "selected" : "" }>해시태그
               </option>
             </select>
           </div>
@@ -86,7 +86,7 @@
           <div class="search-box">
             <label class="sr-only" for="searchKeyword">검색어</label>
             <input type="text" class="form-control" id="searchKeyword" name="searchKeyword" placeholder="검색어를 입력해주세요."
-              value="">
+              value="${search.searchKeyword}">
             <button id="left-search-btn" class="search-btn" name="search-btn" type="submit"><i
                 class="fa fa-search"></i></button>
           </div>

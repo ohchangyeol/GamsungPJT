@@ -121,5 +121,14 @@ public class CommunityServiceImpl implements CommunityService {
 	public List<Post> listPostForComment(Search search) throws Exception {
 		return communityDAO.listPostForComment(search);
 	}
-
+	
+	@Override
+	public int getTotalPost (HashMap<String, Object> map) throws Exception {
+		return communityDAO.getTotalPost(map);
+	}
+	
+	@Override
+	public int getTotalComment (Search search) throws Exception {
+		return communityDAO.getTotalComment(search);
+	}
 }
