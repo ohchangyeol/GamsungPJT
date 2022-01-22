@@ -213,7 +213,7 @@
 			const count3 = $("#count3").val();
 							
 			const pointChargeTotaltext = parseInt(100000*count1) + parseInt(10000*count2) + parseInt(1000*count3);
-			const paymentPriceTotaltext = parseInt(95000*count1) + parseInt(10000*count2) + parseInt(100*count3);
+			const paymentPriceTotaltext = parseInt(90000*count1) + parseInt(95000*count2) + parseInt(1000*count3);
 			const finalPointtext = parseInt(havingPoint1) + parseInt(pointChargeTotaltext);
 			
 			$("#finalPoint").val(comma(finalPointtext));
@@ -559,7 +559,7 @@
 						<div class="row">
 							<label class="col-xs-12">* 100,000[P] 구매</label>
 							<div class="col-xs-12 form-group">
-								<input type="text" id="100k" name="100k" value="95,000 원" class="form-control" readonly>
+								<input type="text" id="100k" name="100k" value="90,000 원" class="form-control" readonly>
 							</div>
 						</div>
 					</div>	
@@ -576,7 +576,7 @@
 						<div class="row">
 							<label class="col-xs-12">* 10,000[P] 구매</label>
 							<div class="col-xs-12 form-group">
-								<input type="text" id="10k" name="10k" value="10,000 원" class="form-control" readonly>
+								<input type="text" id="10k" name="10k" value="9,500 원" class="form-control" readonly>
 							</div>
 						</div>
 					</div>
@@ -593,7 +593,7 @@
 						<div class="row">	
 							<label class="col-xs-12">* 1,000[P] 구매</label>
 							<div class="col-xs-12 form-group">
-								<input type="text" id="1k" name="1k" value="1,00 원" class="form-control" readonly>
+								<input type="text" id="1k" name="1k" value="1,000 원" class="form-control" readonly>
 							</div>
 						</div>	
 					</div>

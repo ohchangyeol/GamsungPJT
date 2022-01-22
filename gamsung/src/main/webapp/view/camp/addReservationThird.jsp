@@ -61,7 +61,7 @@ pageEncoding="UTF-8"%>
                         <div class="col-sm-6">
                           <div class="row">
                             <div class="col-sm-12">
-                              <h1 class="product-title font-alt" style="margin-bottom: 0px; text-align: center;">${campReservation.user.campName} 캠핑장</h1>
+                              <h1 class="product-title font-alt" style="margin-bottom: 0px; text-align: center;">${campReservation.user.campName}</h1>
                             </div>
                           </div>
                           <hr>

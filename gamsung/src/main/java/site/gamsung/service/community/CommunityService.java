@@ -37,6 +37,8 @@ public interface CommunityService {
 		public Post updatetotalComment(int CommentNo)throws Exception;//총 댓글수 update delete
 		public Post updatetotalComment2(int postNo)throws Exception;//총 댓글수 update add
 		
-		int totalConcern(int postNo) throws Exception;
+		public int totalConcern(int postNo) throws Exception;
+		public int getTotalPost(HashMap<String, Object> map) throws Exception;
+		public int getTotalComment(Search search) throws Exception;
 		
 }

@@ -49,7 +49,7 @@ pageEncoding="UTF-8"%>
 												<div class="summary">
 													<h4 class="title">예약자 수</h4>
 													<div class="info">
-														<strong class="amount">${reservationStatistics.dayCount} 명</strong>
+														<strong class="amount">${reservationStatistics.dayCount} 건</strong>
 													</div>
 												</div>
 												<div class="summary-footer">
@@ -244,7 +244,7 @@ pageEncoding="UTF-8"%>
                             label: '작년',
                             fill: false,
                             data: [
-								beforeday,beforeweek,beforemonth,beforeyear
+								8,42,128,832
                             ],
                             backgroundColor: [
 								'rgba(153, 102, 255, 0.2)',

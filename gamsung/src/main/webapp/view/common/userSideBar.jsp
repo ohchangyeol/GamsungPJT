@@ -2,9 +2,6 @@
 	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
-		<jsp:include page="/resources/commonCssMypage.jsp" />
-
-
 		<style type="text/css">
 			a {
 				cursor: pointer;
@@ -50,7 +47,7 @@
 
 						<!-- 메뉴 Start -->
 						<ul class="nav nav-main">
-
+							<hr class="separator" />
 							<li class="nav-parent">
 								<a>
 									<i class="fa fa-user" varia-hidden="true"></i>
@@ -78,7 +75,7 @@
 								</a>
 								<ul class="nav nav-children">
 									<li><a id="my_reservation" style="cursor: pointer;"> 예약 내역</a></li>
-									<li><a id="my_camp_qna" style="cursor: pointer;"> 등록한 Q&A </a></li>
+									<li><a id="my_camp_qna" data-userid="${user.id}" style="cursor: pointer;"> 등록한 Q&A </a></li>
 									<li><a id="my_camp_review" style="cursor: pointer;"> 등록한 리뷰 </a></li>
 								</ul>
 							</li>
@@ -110,7 +107,7 @@
 							</li>
 
 
-							<li class="nav-parent">
+							<!-- <li class="nav-parent">
 								<a>
 									<i class="fa  fa-refresh" aria-hidden="true"></i>
 									<span>예약양도</span>
@@ -118,7 +115,7 @@
 								<ul class="nav nav-children">
 									<li><a href="/transfer/listMyTransfer"> 나의 예약양도양수 </a></li>
 								</ul>
-							</li>
+							</li> -->
 
 
 
@@ -133,12 +130,13 @@
 								</ul>
 							</li>
 
+					<!-- 		<hr class="separator" />
+							<hr class="separator" /> -->
+						<!-- 	<hr class="separator" /> -->
 							<hr class="separator" />
-							<hr class="separator" />
-							<hr class="separator" />
-							<hr class="separator" />
-
-							<div class="sidebar-widget widget-stats mypage">
+				
+				
+				<!-- <div class="sidebar-widget widget-stats mypage"> -->
 								<ul class="nav nav-main">
 									
 									<li>
@@ -149,8 +147,7 @@
 									</li>
 
 								</ul>
-							</div>
-
+							<!-- </div> -->
 						</ul>
 						<!-- 메뉴 End -->
 
@@ -195,7 +192,7 @@
 			</div>
 		</div>
 
-		<jsp:include page="/resources/commonScriptMypage.jsp" />
+		
 
 		<script>
 			$(function () {
@@ -209,7 +206,7 @@
 				});
 
 				$('#my_camp_qna').on('click', function () {
-					window.location = "/campBusiness/listCampQna?userId=${user.id}";
+					window.location = "/campBusiness/listCampQna?userId="+$(this).data("userid");
 				});
 
 				$('#auctionAdded').on('click', function () {
@@ -316,8 +313,8 @@
 								})
 
 							} else {
-								Swal.fire('완료되지 않은 거래내역 있어 탈퇴가 어렵습니다.거래완료 후 다시 시도해주세요.').then(() => {
-									self.location = "/user/mypage.jsp";
+								Swal.fire( {html : '완료되지 않은 거래내역 있어 탈퇴가 어렵습니다.<br>거래완료 후 다시 시도해주세요.'}).then(() => {
+									self.location = "/user/mypage";
 								})
 
 							}

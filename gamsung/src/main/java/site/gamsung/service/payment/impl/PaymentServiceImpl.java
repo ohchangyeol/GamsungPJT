@@ -289,6 +289,7 @@ public class PaymentServiceImpl implements PaymentService{
 	
 	@Override
 	@Scheduled(cron="0 1 0 1 * *")
+	//@Scheduled(cron="5 * * * * *")
 	public void calculateSiteProfit() throws Exception{	
 		
 		HashMap<String, Object> searchParameterPointCharge = new HashMap<String, Object>();
@@ -313,6 +314,8 @@ public class PaymentServiceImpl implements PaymentService{
 		Payment pointChargeRecord = paymentDAO.getPaymentRecord(searchParameterPointCharge);
 		Payment paymentRecord = paymentDAO.getPaymentRecord(searchParameterPayment);	
 		
+		System.out.println("searchParameterPointCharge : "+searchParameterPointCharge);
+		System.out.println("searchParameterPayment : "+searchParameterPayment);
 		System.out.println("pointChargeRecord : "+pointChargeRecord);
 		System.out.println("paymentRecord : "+paymentRecord);		
 		System.out.println("oneProfitRecord : "+oneProfitRecord);

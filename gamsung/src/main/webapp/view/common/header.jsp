@@ -95,7 +95,7 @@
                            </c:if>
                            
                            <li><p>보유 포인트</p><p style="padding-bottom: 10px; border-bottom: 1px #ddd solid;">
-                                 <span id="havingPoint" class="main-color" style="font-weight: 700;">${user.havingPoint} </span>p</p></li>
+                                 <span id="havingPoint" class="main-color" style="font-weight: 700;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${user.havingPoint}" /> </span>p</p></li>
                      
                            <c:if test="${user.role == 'ADMIN' }">
                               <li><a href="/admin">AdminPage</a></li>

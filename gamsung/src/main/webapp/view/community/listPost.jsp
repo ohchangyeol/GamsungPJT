@@ -157,7 +157,7 @@
 
         .tooltip-arrow {
 
-          background color: #1110;
+          background-color: #1110;
         }
 
         .tooltip-inner {
