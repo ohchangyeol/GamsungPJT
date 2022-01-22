@@ -8,26 +8,41 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<jsp:include page="/resources/commonLib.jsp"></jsp:include>
+	
+    <jsp:include page="/resources/commonCssMypage.jsp" />
     
     <title>myPage</title>
 
-<jsp:include page="/resources/commonLib.jsp"></jsp:include>
 </head>
   <body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
   <section class="body">
-      <div class="page-loader">
+      <!-- <div class="page-loader">
         <div class="loader">Loading...</div>
-      </div>
-		<jsp:include page="../common/header.jsp"></jsp:include>
+      </div> -->
+		
      	 <div class="inner-wrapper">
 			<jsp:include page="../common/userSideBar.jsp"></jsp:include>
-				<section role="main" class="content-body">
+				<section role="main" class="content-body mypage-body">
 					
 					<!-- start: page -->
 						<div class="row">
 							<div class="col-md-12">
 								<section class="panel">
 									<div class="panel-body">
+										<c:if test="${auctionInfo.info eq 'add'}">
+											<div style="font-weight: 500; font-size:28px; margin-bottom: 30px;">내가 등록한 상품</div>
+										</c:if>
+										<c:if test="${auctionInfo.info eq 'history'}">
+											<div style="font-weight: 500; font-size:28px; margin-bottom: 30px;">경매 내역</div>
+										</c:if>
+										<c:if test="${auctionInfo.info eq 'bid'}">
+											<div style="font-weight: 500; font-size:28px; margin-bottom: 30px;">응찰 관심 내역</div>
+										</c:if>
+										<c:if test="${auctionInfo.info eq 'review'}">
+											<div style="font-weight: 500; font-size:28px; margin-bottom: 30px;">리뷰</div>
+										</c:if>
 										<div class="table-responsive">
 											<table class="table table-hover mb-none">
 												<thead>
@@ -170,8 +185,10 @@
 					<!-- end: page -->
 				</section>
 			</div>
-		<jsp:include page="../common/footer.jsp"></jsp:include>
+		
 		</section>
+
+	<jsp:include page="/resources/commonScriptMypage.jsp" />
     
 	<script src="../../resources/js/dashboard/examples.dashboard.js"></script>
 	

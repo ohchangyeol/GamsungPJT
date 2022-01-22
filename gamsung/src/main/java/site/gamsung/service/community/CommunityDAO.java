@@ -18,6 +18,7 @@ public interface CommunityDAO {
 	public int updatePost(Post post)throws Exception;	
 	public int deletePost(int postNo)throws Exception;	
 	public int blindPost(int postNo)throws Exception;
+	public int getTotalPost(HashMap<String, Object> map);
 	
 	//댓글
 	public int addComment(Comment comment)throws Exception;
@@ -32,5 +33,7 @@ public interface CommunityDAO {
 	public PostConcern Concernflag(PostConcern postConcern) throws Exception ;
 	public Post updatetotalComment(int CommentNo) throws Exception;
 	public Post updatetotalComment2(int postNo) throws Exception;
-	int totalConcern(int postNo) throws Exception;
+	public int totalConcern(int postNo) throws Exception;
+	public int getTotalComment(Search search);
+	
 }
