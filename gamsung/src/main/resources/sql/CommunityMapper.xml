@@ -65,7 +65,7 @@
 	SELECT #{postNo}, #{userId}
 	FROM DUAL
 	WHERE NOT EXISTS (SELECT post_no, user_id 
-					  FROM post_concern 
+					  FROM POST_CONCERN
 					  WHERE post_no = #{postNo}
 					  AND user_id = #{userId} )                                   
     </insert>
@@ -247,7 +247,7 @@
 	 </update>  -->
 	 
 	 <delete id="deleteConcern" parameterType="hashmap"  >
-	 	 DELETE from POST_CONCERN
+	 	 DELETE FROM POST_CONCERN
 		 WHERE user_id = #{userId}
  		 AND post_no = #{postNo}
 	 </delete>
@@ -257,15 +257,15 @@
  	<select  id="updatetotalComment"  parameterType="int"	resultMap="postMapper"> 	
 		SELECT post_no,count(*) com_num
 		FROM COMMENT
-		WHERE post_no = (select post_no
-			   			 from comment 
-			   			 where comment_no = #{value})
+		WHERE post_no = (SELECT post_no
+			   			 FROM COMMENT
+			   			 WHERE comment_no = #{value})
 	    AND delete_flag = 'n'
 	 </select> 
 	 
   	<select  id="updatetotalComment2"  parameterType="int"	resultMap="postMapper"> 	
 	SELECT post_no,count(*) com_num
-	from COMMENT
+	FROM COMMENT
 	WHERE post_no = #{value}
     AND delete_flag = 'n'
 	 </select> 
