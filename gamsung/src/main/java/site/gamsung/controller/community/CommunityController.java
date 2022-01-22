@@ -112,6 +112,11 @@ public class CommunityController {
       map.put("userId", user.getId());
       map.put("search", search);
       map.put("post", post);
+      
+      System.out.println("\n\n\n\n\n\n listPost ======");
+      
+      System.out.println(user.getId());
+      System.out.println(post);
 
       // System.out.println(map);
       List<Post> list = communityService.listPost(map);
