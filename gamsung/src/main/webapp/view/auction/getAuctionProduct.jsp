@@ -44,7 +44,9 @@
 			<section class="module">
 				<div class="container">
 					<div class="col-sm-2"></div>
-					<div class="col-sm-8"><h2 class="product-title">${auctionProduct.auctionProductName}</h2></div>
+					<div class="col-sm-8">
+						<h2 class="product-title">${auctionProduct.auctionProductName}</h2>
+					</div>
 					<div class="col-sm-2"></div>
 				</div>
 				<div class="container">
@@ -93,6 +95,7 @@
 								<span>${auctionProduct.registrantNickName}</span>
 								<span id="avgRating"></span>
 								<a class="open-tab section-scroll" href="#reviews">${ratingReview.avgRating}</a>
+								<button type="button" id="report-btn" data-userid = "${user.id}" class="badge badge-danger" data-reporttype = "2" data-receivername = "${auctionProduct.registrantNickName}" >신고</button>
 							</div>
 						</div>
 						<div class="row mb-20">
@@ -128,7 +131,7 @@
 								<div id="cancel" class="col-sm-5">
 									<c:if test="${auctionProduct.auctionStatus eq 'WAIT'}">
 										<a id="cancelBtn" class="btn btn-sm btn-block btn-round btn-b">낙찰취소</a>
-										<a id="confirmBtn" class="btn btn-sm btn-block btn-round btn-b">경매확정</a>									
+										<a id="confirmBtn" class="btn btn-sm btn-block btn-round btn-b">경매확정</a>			
 									</c:if>
 									<c:if test="${empty auctionProduct.productRegDate && auctionProduct.auctionStatus eq 'CONFIRM' }">
 										<a class="btn btn-sm btn-block btn-round btn-b video-pop-up" href="/auction/addReview/${auctionProduct.auctionProductNo}">리뷰쓰기</a>
