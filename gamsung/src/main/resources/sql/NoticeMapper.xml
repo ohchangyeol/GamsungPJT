@@ -123,7 +123,7 @@
 	<update id="updateNotice" parameterType="notice">
 		UPDATE NOTICE
 		<set>
-			<if test="#{noticeFile1 != null}">
+			<if test="noticeFile1 != null">
 				notice_title=#{noticeTitle},
 				notice_content=#{noticeContent}, 
 			    notice_file1=#{noticeFile1:VARCHAR}, 
@@ -132,7 +132,7 @@
 			    notice_file4=#{noticeFile4:VARCHAR},
 			    notice_file5=#{noticeFile5:VARCHAR}
 			</if>
-			<if test="#{noticeFile1 == null}">
+			<if test="noticeFile1 == null">
 				notice_title=#{noticeTitle},
 				notice_content=#{noticeContent} 
 			</if>

@@ -206,7 +206,7 @@
 	   		post_reg_date=#{postRegdate},
 	   		video= #{video},
 	   		delete_flag= #{deleteFlag},
-   		<if test="postImg1 != null and postImg1 == ''">
+   		<if test="postImg1 != null and postImg1 != ''">
 	   		post_Img1= #{postImg1},
 	   		post_Img2= #{postImg2},
 	   		post_Img3= #{postImg3},

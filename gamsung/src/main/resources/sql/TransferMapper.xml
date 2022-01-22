@@ -171,7 +171,6 @@
 	<update	id="updateTransfer"	parameterType="transfer" >
 		 UPDATE TRANSFER
 	   	<set>
-		transfer_reg_date= #{transferRegdate},
 		transfer_title= #{transferTitle},
 		transfer_camp_area= #{transferArea},
 		transfer_camp_name= #{transferCampname},
@@ -186,8 +185,10 @@
 		transfer_hashtag1= #{hashtag1},
 		transfer_hashtag2= #{hashtag2},
 		transfer_hashtag3= #{hashtag3},
+		<if test="paymentImg != null and paymentImg != ''">
 		transfer_payment_img= #{paymentImg},
-		transfer_status= #{transferStatus},
+		</if>
+		
 		reservation_no= #{transferReservationNo.reservationNo}
 	   	</set>
 	   	WHERE transfer_no = #{transferNo}
