@@ -31,9 +31,9 @@
 				}
 
 				#approval-general-btn {
-					position: relative;
-					bottom: -501px;
-					right: 25%;
+					position: absolute;
+					bottom: 0%;
+					right: 30%;
 					margin-top: 15px;
 				}
 
