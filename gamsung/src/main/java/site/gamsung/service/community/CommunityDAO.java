@@ -14,6 +14,7 @@ public interface CommunityDAO {
 	//게시물	
 	public int addPost(Post post)throws Exception;
 	public List<Post> listPost(HashMap<String, Object> map)throws Exception;
+	public List<Post> MylistPost(HashMap<String, Object> map)throws Exception;
 	public Post getPost(int postNo)throws Exception;
 	public int updatePost(Post post)throws Exception;	
 	public int deletePost(int postNo)throws Exception;	

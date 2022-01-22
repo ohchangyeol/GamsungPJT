@@ -47,6 +47,13 @@ public class CommunityServiceImpl implements CommunityService {
 		
 		return list;
 	}
+	
+	public List<Post> MylistPost(HashMap<String, Object> map) throws Exception {
+		
+		List<Post> list = communityDAO.MylistPost(map);
+		
+		return list;
+	}
 
 	public Post getPost(int postNo) throws Exception {
 		return communityDAO.getPost(postNo);
