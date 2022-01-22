@@ -477,7 +477,7 @@ public class TransferController {
    
    //양도수정page 네비게이션   
    
-   @RequestMapping(value = "updateTransfer") 
+   @RequestMapping(value = "updateTransfer", method= RequestMethod.GET) 
    public String updateTransfer (@RequestParam(value = "transferNo", required = false)int transferNo, HttpSession session, Model model) throws Exception{
   	 
   	 System.out.println("updateTransfer:::");
@@ -505,6 +505,10 @@ public class TransferController {
   	 
   	Transfer transfer = transferService.getTransfer(transferNo);
   	 
+  	
+  	System.out.println("\n\n Transfer ==>" + transfer );
+  	
+  	
      model.addAttribute("list", list);
      model.addAttribute("transfer", transfer);
 
