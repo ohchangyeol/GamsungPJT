@@ -14,9 +14,10 @@
   
   <style>
   	.prodName{
-  		 text-decoration: none;
-		 text-overflow: ellipsis;
-  	}
+	  overflow: hidden !important;
+	  text-overflow: ellipsis !important;
+	  white-space: nowrap !important;
+	}
   </style>
   
   </head>
@@ -26,7 +27,6 @@
         <div class="loader">Loading...</div>
       </div> -->
   	<jsp:include page="../common/header.jsp"></jsp:include>
-    <div class="main">
       <section class="module bg-dark-60 shop-page-header" data-background="../../resources/images/6041bd81f941c55ff784f622_8-Tips-when-buying-at-auction.jpg">
           <div class="container">
             <div class="row">
@@ -40,50 +40,54 @@
           </div>
         </section>
         <hr class="divider-w">
-        <section class="module-small">
-          <div class="container">
-            <div class="row" style="margin-bottom: 30px;">
-              <div style="padding-left: 30px;">
-                <h2 class="module-title font-jua main-color gamsung-mini-title">관리자 경매 상품</h2>
-              </div>
-            </div>
             
-          <div id="latest">
-            <c:forEach var="product" items="${list}" begin="0" step="1" end="3">
-              <div class="col-sm-6 col-md-3 col-lg-3">
-                <div class="shop-item">
-                  <div class="shop-item-image">
-                  	<img src="${product.image}" alt="Accessories Pack"/>
-                    <div class="shop-item-detail">
-                    	<a class="btn btn-round btn-b">경매 시작하기!</a>
-                    </div>
-                  </div>
-                  <h4 class="shop-item-title font-alt prodNmae"><a href="#">${product.title}</a></h4>
-                  <span>${product.category1} ${product.category2} ${product.category3}</span>	
-                  <input type="hidden" name="startBidPrice" value="${product.lprice}">		
-                </div>
-              </div>
-            </c:forEach>
-          </div>
-           <div id="latest">
-            <c:forEach var="product" items="${list}" begin="4" step="1" end="7">
-              <div class="col-sm-6 col-md-3 col-lg-3">
-                <div class="shop-item">
-                  <div class="shop-item-image">
-                  	<img src="${product.image}" alt="Accessories Pack"/>
-                  	<div class="shop-item-detail">
-                    	<a class="btn btn-round btn-b">경매 시작하기!</a>
-                    </div>
-                  </div>
-                  <h4 class="shop-item-title font-alt prodNmae"><a href="#">${product.title}</a></h4>
-                  <span>${product.category1} ${product.category2} ${product.category3}</span>
-                  <input type="hidden" name="startBidPrice" value="${product.lprice}">				
-                </div>
-              </div>
-            </c:forEach>
-          </div>
+        <section class="module-small">
+        	<div class="container">
+	            <div class="row" style="margin-bottom: 30px;">
+	              <div style="padding-left: 30px;">
+	                <h2 class="module-title font-jua main-color gamsung-mini-title">관리자 경매 상품</h2>
+	              </div>
+	            </div>
+            </div>
+          	<div class="container">
+	          <div id="latest">
+	            <c:forEach var="product" items="${list}" begin="0" step="1" end="3">
+	              <div class="col-sm-6 col-md-3 col-lg-3">
+	                <div class="shop-item">
+	                  <div class="shop-item-image">
+	                  	<img src="${product.image}" alt="Accessories Pack"/>
+	                    <div class="shop-item-detail">
+	                    	<a class="btn btn-round btn-b">경매 시작하기!</a>
+	                    </div>
+	                  </div>
+	                  <h4 class="shop-item-title font-alt prodNmae"><a href="#">${product.title}</a></h4>
+	                  <span>${product.category1} ${product.category2} ${product.category3}</span>	
+	                  <input type="hidden" name="startBidPrice" value="${product.lprice}">		
+	                </div>
+	              </div>
+	            </c:forEach>
+	          </div>
+	          </div>
+	          <div class="container">
+	           <div id="latest">
+	            <c:forEach var="product" items="${list}" begin="4" step="1" end="7">
+	              <div class="col-sm-6 col-md-3 col-lg-3">
+	                <div class="shop-item">
+	                  <div class="shop-item-image">
+	                  	<img src="${product.image}" alt="Accessories Pack"/>
+	                  	<div class="shop-item-detail">
+	                    	<a class="btn btn-round btn-b">경매 시작하기!</a>
+	                    </div>
+	                  </div>
+	                  <h4 class="shop-item-title font-alt prodNmae"><a href="#">${product.title}</a></h4>
+	                  <span>${product.category1} ${product.category2} ${product.category3}</span>
+	                  <input type="hidden" name="startBidPrice" value="${product.lprice}">				
+	                </div>
+	              </div>
+	            </c:forEach>
+	          </div>
+         	</div>
           <span id="append"></span>
-         </div>
         </section>
         
         <!-- <hr class="divider-d">
@@ -103,7 +107,7 @@
       </div>
       <div class="scroll-up"><a href="#totop"><i class="fa fa-angle-double-up"></i></a></div> -->
 	  <jsp:include page="../../view/common/footer.jsp"/>
-
+	
       <form>
       	<input type="hidden" id="auctionProductName" name="auctionProductName">
       	<input type="hidden" id="productImg1" name="productImg1">
