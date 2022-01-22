@@ -115,7 +115,7 @@ pageEncoding="UTF-8"%>
                       <div class="form-group" style="text-align: center;">
                           <div class="col-xs-4"></div>
                           <div class="col-xs-4" id="camp_avg_rating" value="${camp.campRate}">
-                            <strong>${camp.user.campName}캠핑장 평점</strong>
+                            <strong>${camp.user.campName} 평점</strong>
                             <hr>
                           </div>
                       </div>

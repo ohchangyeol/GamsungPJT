@@ -8,7 +8,7 @@ public class TestTemp {
 		
 	SHA256Util a= new SHA256Util();
 	String salt = a.generateSalt();
-	String pw=a.getEncrypt("1234", salt);
+	String pw=a.getEncrypt("11111111", salt);
 	
 	System.out.println("salt"+salt);
 	System.out.println("pw"+pw);

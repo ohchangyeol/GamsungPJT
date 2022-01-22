@@ -83,7 +83,9 @@
 	</c:if>
 	
 	<c:if test="${user.role == 'GENERAL' && empty campNo}">
+		<jsp:forward page="../campbusiness/listUserCampQna.jsp"/>
 		<jsp:include page="/view/common/header.jsp" />	
+
 	</c:if>
 	   	
    	<!-- Page Start -->
