@@ -646,3 +646,36 @@ VALUES
  (33,'A20', 1, 9, '경매 E등급 낙찰취소 수수료' , 5),
  (34,'T0', 0, 0, '양도양수 관리자', 0),
  (35,'T1', 0, 0, '양도양수', 0); 
+ 
+ INSERT INTO POST (user_id,post_type,post_title,post_content,post_reg_date,post_Img1,post_Img2,post_Img3,post_hashtag1,post_hashtag2,post_hashtag3,video,delete_flag) VALUES
+    ('user7@gamsung.com',1,'바베큐는 사랑입니다.','캠핑에는 역시 바베큐죠. 고기익어가는 냄새에 행복했습니다','2022-01-17 21:44:35',NULL,NULL,NULL,'#코딩','#맑은공기','#비트캠프',NULL,'N'),
+    ('user7@gamsung.com',2,'창열이는 오늘도 캠핑 중','열심히 돈 벌어서 열심히 놀러다니고 있습니다. ','2022-01-17 21:44:35','pexelsamitthakare712067.jpg',NULL,NULL,'#플렉스','#캠핑','#오창열',NULL,'N'),
+    ('user7@gamsung.com',3,'인생은 캠핑캠사','어차피 한번 살다 갈 인생인 것을.. .','2022-01-17 21:44:35',NULL,NULL,NULL,'#인생이란..','#후..','#28세의 한숨',NULL,'N'),
+    ('user9@gamsung.com',4,'태빈이랑 즐거운 주말','저희 태빈이 이번에 초등학교 입학합니다. 다들 축하해주세요 !! 박수 짝짝 !!','2022-01-17 21:44:35','pexelsbiancagasparoto1752805.jpg',NULL,NULL,'#태빈','#8살','#초등학생',NULL,'N'),
+    ('user9@gamsung.com,5,'도와줘요 캠핑지식인!! ','산에서 캠핑하다가 곰을 만나면 어떻게 해야 할까요 ㅠㅠ 무서워서 산을 갈 수가 없어요..','2022-01-17 21:44:35','pexelsbradyknoll5914157.jpg',NULL,NULL,'#산','#곰','#덜덜',NULL,'N'),
+    ('user10@gamsung.com',2,'삶에 지칠때는 멀리 떠나봐요','공기도 좋고 한적하고 너무 즐거운 시간이었습니다.','2022-01-17 21:44:35','pexelschaitgoli2666598.jpg',NULL,NULL,'#산','#맑은공기','#행복',NULL,'N'),
+    ('user10@gamsung.com',3,'캠핑을 가다','공기도 좋고 한적하고 너무 즐거운 시간이었습니다.','2022-01-17 21:44:35','pexelscottonbro5364965.jpg',NULL,NULL,'#산','#맑은공기','#행복',NULL,'N'),
+    ('user11@gamsung.com',4,'캠핑을 가다','공기도 좋고 한적하고 너무 즐거운 시간이었습니다.','2022-01-17 21:44:35','pexelsdanielap868306.jpg',NULL,NULL,'#산','#맑은공기','#행복',NULL,'N'),
+    ('user9@gamsung.com',5,'캠핑을 가다','공기도 좋고 한적하고 너무 즐거운 시간이었습니다.','2022-01-17 21:44:35','pexelsjameswheeler1539225.jpg',NULL,NULL,'#산','#맑은공기','#행복',NULL,'N'),
+    ('user7@gamsung.com',1,'캠핑을 가다','공기도 좋고 한적하고 너무 즐거운 시간이었습니다.','2022-01-17 21:44:35','pexelsjeremybishop2422968.jpg',NULL,NULL,'#산','#맑은공기','#행복',NULL,'N');
+INSERT INTO gamsung.post (user_id,post_type,post_title,post_content,post_reg_date,post_Img1,post_Img2,post_Img3,post_hashtag1,post_hashtag2,post_hashtag3,video,delete_flag) VALUES
+    ('user11@gamsung.com',2,'캠핑을 가다','공기도 좋고 한적하고 너무 즐거운 시간이었습니다.','2022-01-17 21:44:35','pexelsjoshhild2422265.jpg',NULL,NULL,'#산','#맑은공기','#행복',NULL,'N'),
+    ('user11@gamsung.com',3,'캠핑을 가다','공기도 좋고 한적하고 너무 즐거운 시간이었습니다.','2022-01-17 21:44:35','pexelsmarkusspiske2126578.jpg',NULL,NULL,'#산','#맑은공기','#행복',NULL,'N'),
+    ('user7@gamsung.com',4,'캠핑을 가다','공기도 좋고 한적하고 너무 즐거운 시간이었습니다.','2022-01-17 21:44:35','pexelsnickwehrli5717775.jpg',NULL,NULL,'#산','#맑은공기','#행복',NULL,'N'),
+    ('user7@gamsung.com',5,'캠핑을 가다','공기도 좋고 한적하고 너무 즐거운 시간이었습니다.','2022-01-17 21:44:35','pexelspixabay266436.jpg',NULL,NULL,'#산','#맑은공기','#행복',NULL,'N'),
+    ('user9@gamsung.com',1,'캠핑을 가다','공기도 좋고 한적하고 너무 즐거운 시간이었습니다.','2022-01-17 21:44:35','pexelsromanodintsov4553618.jpg',NULL,NULL,'#산','#맑은공기','#행복',NULL,'N'),
+    ('user9@gamsung.com',2,'캠핑을 가다','공기도 좋고 한적하고 너무 즐거운 시간이었습니다.','2022-01-17 21:44:35','pexelssangeetrao4660487.jpg',NULL,NULL,'#산','#맑은공기','#행복',NULL,'N'),
+    ('user11@gamsung.com',3,'캠핑을 가다','공기도 좋고 한적하고 너무 즐거운 시간이었습니다.','2022-01-17 21:44:35','pexelssolodsha7664387.jpg',NULL,NULL,'#산','#맑은공기','#행복',NULL,'N'),
+    ('user10@gamsung.com',4,'캠핑을 가다','공기도 좋고 한적하고 너무 즐거운 시간이었습니다.','2022-01-17 21:44:35','pexelstarynelliott6743248.jpg',NULL,NULL,'#산','#맑은공기','#행복',NULL,'N'),
+    ('user10@gamsung.com',5,'캠핑을 가다','공기도 좋고 한적하고 너무 즐거운 시간이었습니다.','2022-01-17 21:44:35','pexelsteemur1840394.jpg',NULL,NULL,'#산','#맑은공기','#행복',NULL,'N'),
+    ('user7@gamsung.com',1,'캠핑을 가다','공기도 좋고 한적하고 너무 즐거운 시간이었습니다.','2022-01-17 21:44:35','pexelsvaleriyakobzar7438505.jpg',NULL,NULL,'#산','#맑은공기','#행복',NULL,'N');
+INSERT INTO gamsung.post (user_id,post_type,post_title,post_content,post_reg_date,post_Img1,post_Img2,post_Img3,post_hashtag1,post_hashtag2,post_hashtag3,video,delete_flag) VALUES
+    ('user7@gamsung.com',2,'캠핑을 가다','공기도 좋고 한적하고 너무 즐거운 시간이었습니다.','2022-01-17 21:44:35','pexelsvladbagacian1061640.jpg',NULL,NULL,'#산','#맑은공기','#행복',NULL,'N');
+    
+INSERT INTO REPORT_TABLE(report_name)
+values
+('캠핑장 신고'),
+('경매 신고'),
+('커뮤니티 신고'),
+('예약 양도 신고'),
+('이용 고객 신고');

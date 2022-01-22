@@ -330,6 +330,8 @@ public class CommunityController {
       }
 
       post.setWriter(user);
+      
+      System.out.println("\n\n Post ==> " + post);
 
       communityService.updatePost(post);
 
@@ -344,6 +346,10 @@ public class CommunityController {
                                                                                  // 경우?
       System.out.println("deletePost Post Start");
 
+      
+      System.out.println("postNo ==> " + postNo);
+      
+      
       // 세션으로 부터 요청한 유저의 정보를 가져온다.
       User user = (User) session.getAttribute("user");
 
