@@ -72,7 +72,7 @@ pageEncoding="UTF-8"%>
                     <thead>
                       <tr>
                         <th>신고번호</th>
-                        <th>신고자 아이디</th>
+                        <!-- <th>신고자 아이디</th> -->
                         <th>신고 유형</th>
                         <th>상대방 아이디</th>
                         <th>상태</th>
@@ -83,10 +83,7 @@ pageEncoding="UTF-8"%>
                     <c:forEach var ="report" items="${wrapper.reports}">
                       <tr>
                         <td class="report-no">${report.reportNo}</td>
-                        <td>
-                          ${report.sender.nickName}
-                          ${report.sender.campName}
-                        </td>
+                        
                         <td>${report.reportTypeName}</td>
                         <td>
                           ${report.receiver.nickName}
