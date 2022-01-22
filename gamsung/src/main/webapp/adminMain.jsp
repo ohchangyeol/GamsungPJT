@@ -244,7 +244,7 @@ pageEncoding="UTF-8"%>
                             label: '작년',
                             fill: false,
                             data: [
-								beforeday,beforeweek,beforemonth,beforeyear
+								8,42,128,832
                             ],
                             backgroundColor: [
 								'rgba(153, 102, 255, 0.2)',
