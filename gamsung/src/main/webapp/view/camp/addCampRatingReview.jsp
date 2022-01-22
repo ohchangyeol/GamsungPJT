@@ -161,15 +161,15 @@ pageEncoding="UTF-8"%>
                                     
                                     <div class="form-group">
                                           <div class="col-xs-2" style="text-align: start;">
-                                              <button type="button" id="report-btn" data-userid = "${user.id}" class="btn btn-danger" data-reporttype = "1" data-receivername = "${camp.user.campName}" >신고</button>
+                                              <button type="button" style="padding-left: 20px; padding-right: 20px;" id="report-btn" data-userid = "${user.id}" class="btn btn-danger" data-reporttype = "1" data-receivername = "${camp.user.campName}" >신고</button>
                                           </div>
 
-                                          <div class="col-xs-8" style="text-align: start; top: 7px; padding-left: 0px;">
+                                          <div class="col-xs-8" style="text-align: start; top: 3px; padding-left: 0px;">
                                               <span style="color:tomato">이용하신 캠핑장에 신고사항이 있으면 신고 해주세요.</span>
                                           </div>
 
                                           <div class="col-xs-2" style="text-align: end;">
-                                              <button type="button" class="btn btn-success" onclick="add_camp_review()">등록</button>
+                                              <button type="button" style="padding-left: 20px; padding-right: 20px;" class="btn btn-success" onclick="add_camp_review()">등록</button>
                                           </div>
                                     </div>
                                 
