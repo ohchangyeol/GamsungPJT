@@ -210,7 +210,7 @@ border-radius: 9px;
                   <div class="form-group">
                     <label class="sr-only" for="content">내용</label>
                     <textarea class="form-control add" id="postContent" name="postContent" placeholder="내용을 입력해주세요."
-                      required="required" style="height: 514px"></textarea>
+                      required="required" style="height: 514px" wrap="hard"></textarea>
                     <p class="help-block text-danger"></p>
                   </div>
 
@@ -329,6 +329,13 @@ border-radius: 9px;
           var postType = $("select[name='postType']").val();
           var postContent = $("textarea[name='postContent']").val();
           var hashtags = $('#allhashtag').val().split('#');
+
+
+
+          $("textarea[name='postContent']").val($("textarea[name='postContent']").val().replace(/\n/g, "<br>"));
+
+          console.log($("textarea[name='postContent']").val());
+          
 
           hashtags.shift(); // 첫번째 배열 삭제 
 
