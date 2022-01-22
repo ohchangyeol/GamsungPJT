@@ -177,9 +177,11 @@
 	   		post_reg_date=#{postRegdate},
 	   		video= #{video},
 	   		delete_flag= #{deleteFlag},
+   		<if test="postImg1 != null and postImg1 == ''">
 	   		post_Img1= #{postImg1},
 	   		post_Img2= #{postImg2},
 	   		post_Img3= #{postImg3},
+   		</if>
 	   		post_hashtag1= #{hashtag1},
 	   		post_hashtag2= #{hashtag2},
 	   		post_hashtag3= #{hashtag3}
@@ -189,7 +191,7 @@
 	 
     <!-- 게시물 삭제 그에 딸린 댓글들도 delete_flags를 Y 설정해줘야한다. 내 댓글 보기에서 안보이게 하려면 --> 	 
  	<update	id="deletePost"	parameterType="int" >
-	 UPDATE POST P RIGHT JOIN COMMENT C
+	 UPDATE POST P LEFT JOIN COMMENT C
 	 ON (P.post_no = C.post_no ) 
 		<set> 
 	 		P.delete_flag = 'Y', C.delete_flag = 'Y' 

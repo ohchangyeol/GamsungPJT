@@ -48,6 +48,14 @@
 						<!-- 메뉴 Start -->
 						<ul class="nav nav-main">
 							<hr class="separator" />
+							<ul class="nav nav-main">
+								<li>
+									<a href="/" >
+										<i class="bi bi-house-fill"></i>
+										<span>홈으로</span>
+									</a>
+								</li>
+							</ul>
 							<li class="nav-parent">
 								<a>
 									<i class="fa fa-user" varia-hidden="true"></i>

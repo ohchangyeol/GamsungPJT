@@ -160,7 +160,7 @@
                                     
                                        <th style="text-align: center;">No</th>
                                        <th style="text-align: center;">양도번호</th>
-                                       <th style="text-align: center;">[지역]양도캠핑장(숙소)</th>
+                                       <th style="text-align: center;">[주소]양도캠핑장(숙소)</th>
                                        <th style="text-align: center;">제목</th>
                                        <th style="text-align: center;">양도금액</th>
                                        <th style="text-align: center;">이용일자(입/퇴실)</th>
@@ -183,7 +183,7 @@
                                           
                                           <!--양도캠핑장(숙소)-->
                                           <td class="" id="campName">
-                                             ${transfer.transferArea}&ensp;${transfer.transferCampname}
+                                            [ <span style="color:#dfbee7">${transfer.transferArea}</span> ]&ensp;${transfer.transferCampname}
                                           </td>
 
                                           <!--제목-->
