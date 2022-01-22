@@ -10,9 +10,10 @@
 	
 	<title>상품 등록</title>
 	        
-	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+ 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
 	<jsp:include page="/resources/commonLib.jsp"></jsp:include>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
 		
     		 
  	<style>
@@ -62,6 +63,9 @@
             margin-right: 10px;
         }
 		 
+		.usetwentyfour{
+			width: 266px !important;
+		}
 	</style>
 	
 </head>

@@ -40,7 +40,7 @@
     <link href="/resources/lib/magnific-popup/magnific-popup.css" rel="stylesheet">
     <link href="/resources/lib/simple-text-rotator/simpletextrotator.css" rel="stylesheet">
 
-    <link href="/resources/lib/bootstrap-datepicker/css/datepicker3.css" rel="stylesheet" />
+	<link href="/resources/lib/bootstrap-datepicker/css/datepicker3.css" rel="stylesheet" />
 
     <link rel="stylesheet" href="/resources/css/theme.css" />
     <link rel="stylesheet" href="/resources/css/theme-custom.css">
