@@ -283,49 +283,51 @@ public class PaymentServiceImpl implements PaymentService{
 	 *  SiteProfit
 	 */
 	@Override
-	public SiteProfit listSiteProfit(String today) throws Exception{		
-		return paymentDAO.listSiteProfit(today);
+	public SiteProfit listSiteProfit(String targetDay) throws Exception{		
+		return paymentDAO.listSiteProfit(targetDay);
 	}
 	
 	@Override
-	@Scheduled(cron="0 1 0 1 * *")
-	//@Scheduled(cron="5 * * * * *")
+	@Scheduled(cron="0 0 0 1 * *")
+	//@Scheduled(cron="0/5 * * * * *")
+	//@Scheduled(cron="1 * * * * *")
 	public void calculateSiteProfit() throws Exception{	
 		
 		HashMap<String, Object> searchParameterPointCharge = new HashMap<String, Object>();
 		HashMap<String, Object> searchParameterPayment = new HashMap<String, Object>();		
 		SiteProfit oneProfitRecord = new SiteProfit();
 		
-		Calendar calendar = new GregorianCalendar();
-		SimpleDateFormat SDF = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-		
-		calendar.add(Calendar.DATE, -1);		
-		String payStartDay = SDF.format(calendar.getTime());	
-		System.out.println("payStartDay : "+payStartDay);
-		
-		calendar.add(Calendar.DATE, +1);
-		String payEndDay = SDF.format(calendar.getTime());
-		System.out.println("payEndDay : "+payEndDay);
-		
+		// Payment Mapper getPaymentRecord 참고
 		searchParameterPointCharge.put("paymentCode", "P1");
-		searchParameterPayment.put("payStartDay", payStartDay);
-		searchParameterPayment.put("payEndDay", payEndDay);
+		searchParameterPointCharge.put("payStartNum", "-1");
+		searchParameterPointCharge.put("payEndNum", "1");
+		searchParameterPointCharge.put("type", "day");
+		searchParameterPayment.put("payStartNum", "-1");
+		searchParameterPayment.put("payEndNum", "1");
+		searchParameterPayment.put("type", "day");		
 		
 		Payment pointChargeRecord = paymentDAO.getPaymentRecord(searchParameterPointCharge);
 		Payment paymentRecord = paymentDAO.getPaymentRecord(searchParameterPayment);	
 		
-		System.out.println("searchParameterPointCharge : "+searchParameterPointCharge);
-		System.out.println("searchParameterPayment : "+searchParameterPayment);
-		System.out.println("pointChargeRecord : "+pointChargeRecord);
-		System.out.println("paymentRecord : "+paymentRecord);		
-		System.out.println("oneProfitRecord : "+oneProfitRecord);
+		if(pointChargeRecord != null) {
+			System.out.println("\n pointChargeRecord : "+pointChargeRecord);
+			oneProfitRecord.setProfitPointCharge(pointChargeRecord.getPaymentPriceTotalSecond());
+		}
 		
-		oneProfitRecord.setProfitPointCharge(pointChargeRecord.getPaymentPriceTotalSecond());
-		oneProfitRecord.setProfitPointPayment(paymentRecord.getPaymentPriceTotalSecond());
-		oneProfitRecord.setProfitRegularPayment(paymentRecord.getPaymentPriceTotal());
-		oneProfitRecord.setProfitAllPayment(paymentRecord.getPaymentPriceTotalSecond()+paymentRecord.getPaymentPriceTotal());
+		if(paymentRecord != null) {
+			System.out.println("\n paymentRecord : "+paymentRecord);
+			oneProfitRecord.setProfitPointPayment(paymentRecord.getPaymentPriceTotalSecond());
+			oneProfitRecord.setProfitRegularPayment(paymentRecord.getPaymentPriceTotal());
+			oneProfitRecord.setProfitAllPayment(paymentRecord.getPaymentPriceTotalSecond()+paymentRecord.getPaymentPriceTotal());
+		}
 		
-		paymentDAO.addSiteProfit(oneProfitRecord);
+		if(pointChargeRecord != null || paymentRecord != null) {
+			paymentDAO.addSiteProfit(oneProfitRecord);
+		}
+		
+		System.out.println("\nsearchParameterPointCharge : \n"+searchParameterPointCharge);
+		System.out.println("\nsearchParameterPayment : \n"+searchParameterPayment);				
+		System.out.println("\n oneProfitRecord : "+oneProfitRecord);
 		
 	}
 }

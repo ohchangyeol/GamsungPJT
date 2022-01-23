@@ -1,6 +1,7 @@
 package site.gamsung.service.payment;
 
 import java.sql.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -49,7 +50,7 @@ public interface PaymentService {
 	/*
 	 *  SiteProfit
 	 */
-	public SiteProfit listSiteProfit(String today) throws Exception;
+	public SiteProfit listSiteProfit(String targetDay) throws Exception;
 		
 	public void calculateSiteProfit() throws Exception;
 }

@@ -59,6 +59,6 @@ public interface PaymentDAO {
 	
 	public int addSiteProfit(SiteProfit siteProfit) throws Exception;
 	
-	public SiteProfit listSiteProfit(String today) throws Exception;
+	public SiteProfit listSiteProfit(String targetDay) throws Exception;
 	
 }

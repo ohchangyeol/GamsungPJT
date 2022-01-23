@@ -21,6 +21,8 @@
 		<context:exclude-filter type="annotation" 	expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>	
 	
+
+  
 	<!-- Auction Properties & Beans -->
 	<util:properties id="auctionProperties" location="classpath:config/auction.properties"/>
 	<bean id="sendMail" class="site.gamsung.util.user.SendMail"></bean>

@@ -342,21 +342,26 @@
 				AND P.payment_code = #{paymentCode}			
 			</if>
 			<if test="payStartDay != null">
-				AND P.payment_reg_time <![CDATA[ >= ]]> #{payStartDay}			
+				AND P.payment_reg_time <![CDATA[ >= ]]> date_add(NOW(), interval #{payStartNum} #{type})		
 			</if>
 			<if test="payEndDay != null">
-				AND P.payment_reg_time <![CDATA[ <= ]]> #{payEndDay}			
+				AND P.payment_reg_time <![CDATA[ <= ]]> date_add(NOW(), interval #{payEndNum} #{type})		
 			</if>	
 			<if test="paymentRefundCode != null">
 				AND P.payment_refund_code = #{paymentRefundCode}			
 			</if>
 			<if test="refundStartDay != null">
-				AND P.payment_refund_reg_time <![CDATA[ >= ]]> #{refundStartDay}			
+				AND P.payment_refund_reg_time <![CDATA[ >= ]]> date_add(NOW(), interval #{refundStartNum} #{type})		
 			</if>
 			<if test="refundEndDay != null">
-				AND P.payment_refund_reg_time <![CDATA[ <= ]]> #{refundEndDay}			
+				AND P.payment_refund_reg_time <![CDATA[ <= ]]> date_add(NOW(), interval #{refundEndNum} #{type})		
 			</if>
-		</trim>					
+		</trim>			
+		
+		<!-- 
+			date_add(NOW(), interval -1 day)	
+			date_add(NOW(), interval 1 day)	
+		 -->		
 		
 	</select>
 	
