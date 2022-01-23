@@ -62,7 +62,7 @@
 			
 			var addCampTempSave = $("#addCampTempSave").val();			
 			if(addCampTempSave != 3){
-				alert("임시등록 된 캠핑장 정보가 있습니다.\n등록을 완료하세요.");
+				alert("미등록된 캠핑장 정보가 있습니다.\n등록을 완료하세요.");
 			}
 			
 			

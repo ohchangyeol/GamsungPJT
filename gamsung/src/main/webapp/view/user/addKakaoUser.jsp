@@ -141,7 +141,7 @@
 
 
 										<div id="add_kakao_checkPhoneAuth" class="col-sm-offset-3 col-sm-6"
-											style="display:none;">
+											style="display:none; margin: 15px; margin-left: 200px;">
 											<input id="add_kakao_checkPhoneAuthNum" name="checkPhoneAuthNum"
 												class="form-control " type="text" placeholder="인증번호를 입력하세요."
 												maxlength="4" />
@@ -377,7 +377,7 @@ alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+
 
 						var id = $("input#add_kakao_id").val();
 						var pw = $("#add_kakao_password").val();
-						var pw_confirm = $("#cadd_kakao_confirmPassword").val();
+						var pw_confirm = $("#add_kakao_confirmPassword").val();
 						var name = $("#add_kakao_name").val();
 						var nickName = $("#add_kakao_nickName").val();
 						var phone = $("#add_kakao_phone").val();
@@ -396,10 +396,10 @@ alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+
 							return;
 						}
 
-						if (pw_confirm == null || pw_confirm.length < 1) {
-							alert("패스워드 확인은  반드시 입력하셔야 합니다.");
-							return;
-						}
+						// if (pw_confirm == null || pw_confirm.length < 1) {
+						// 	alert("패스워드 확인은  반드시 입력하셔야 합니다.");
+						// 	return;
+						// }
 
 						if (name == null || name.length < 1) {
 							alert("이름은  반드시 입력하셔야 합니다.");

@@ -172,6 +172,9 @@ public class CampReservationServiceImpl implements CampReservationService {
 		
 		CampReservation currentCampReservation = campReservationDAO.getReservation(campReservation.getReservationNo());
 				
+		System.out.println("예약서비스 새로운 예약정보 :: "+campReservation);
+		System.out.println("예약서비스 기존 예약정보 :: "+currentCampReservation);
+		
 		if(currentCampReservation.getReservationStartDate() != campReservation.getReservationStartDate()
 				|| currentCampReservation.getReservationEndDate() != campReservation.getReservationEndDate()
 					|| currentCampReservation.getReservationUserName() != campReservation.getReservationUserName()) {
