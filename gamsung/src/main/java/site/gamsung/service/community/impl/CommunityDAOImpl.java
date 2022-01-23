@@ -47,6 +47,10 @@ public class CommunityDAOImpl implements CommunityDAO {
 	public List<Post> listPost(HashMap<String, Object> map) throws Exception {
 		return sqlSession.selectList("CommunityMapper.listPost", map);
 	}
+	@Override
+	public List<Post> MylistPost(HashMap<String, Object> map) throws Exception {
+		return sqlSession.selectList("CommunityMapper.MylistPost", map);
+	}
 
 	@Override
 	public Post getPost(int postNo) throws Exception {

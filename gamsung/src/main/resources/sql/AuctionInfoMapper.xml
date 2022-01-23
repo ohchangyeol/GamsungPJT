@@ -136,6 +136,7 @@
 		<if test='user.role.equals("GENERAL")'>
 			AND registrant_id = #{user.id}
 		</if>
+		ORDER BY product_reg_date DESC
 		LIMIT #{search.pageSize} OFFSET #{search.offset};
 	</select>
 	
