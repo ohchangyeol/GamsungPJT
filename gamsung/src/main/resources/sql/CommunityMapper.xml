@@ -65,7 +65,7 @@
 	SELECT #{postNo}, #{userId}
 	FROM DUAL
 	WHERE NOT EXISTS (SELECT post_no, user_id 
-					  FROM post_concern 
+					  FROM POST_CONCERN
 					  WHERE post_no = #{postNo}
 					  AND user_id = #{userId} )                                   
     </insert>
@@ -106,9 +106,6 @@
 						          	) cop  <!-- 회원의 게시물 추천 유무 Y는 빈하트 표출   -->
 			   ON p.post_no = cop.post_no			            								
 	  		  WHERE p.delete_flag = 'N' 
-	  		  <if test="userId != null">		
-	  		  AND p.user_id = #{userId}
-	  		  </if>
 	  		  <if test="post.postType != null and post.postType != 0">		
 	  		  AND p.post_type = #{post.postType}
 	  		  </if>
@@ -140,7 +137,39 @@
 						</if>
 					</trim>
 				</if>
-				ORDER BY p.post_reg_date DESC) P, (select @rownum:= 0) M
+				ORDER BY p.post_no DESC) P, (select @rownum:= 0) M
+				WHERE @rownum  <![CDATA[ <=]]> #{search.endRowNum} ) S
+				WHERE R BETWEEN #{search.startRowNum} AND #{search.endRowNum} 
+	 </select> 	 
+	 
+	 <select  id="MylistPost"  parameterType="hashmap"	resultMap="postMapper">
+	SELECT S.* 
+	FROM (SELECT @rownum:= @rownum+1 AS R , P.* 
+		FROM (SELECT *	 
+         	  FROM POST
+	  		  WHERE delete_flag = 'N' 	
+	  		  AND user_id = #{userId}
+			      <if test="search.searchCondition != null">		
+				    <trim prefix="AND">
+						<if test="search.searchCondition == 1 and search.searchKeyword !='' "> 
+						<!-- 게시글 제목 -->
+						<!-- 	MATCH(post_title) AGAINST (concat_ws(#{search.searchKeyword},'*','*')in boolean mode) -->
+						    post_title LIKE CONCAT_WS(#{search.searchKeyword},'%','%')
+						</if>
+						<if test="search.searchCondition == 3 and search.searchKeyword !='' ">
+						<!-- 내용 -->
+							<!-- MATCH(p.post_content) AGAINST (concat_ws(#{search.searchKeyword},'*','*')in boolean mode) -->
+							post_content LIKE CONCAT_WS(#{search.searchKeyword},'%','%')
+						</if>
+						<if test="search.searchCondition == 4 and search.searchKeyword !='' ">
+						<!--해시태그  -->
+							   post_hashtag1 LIKE CONCAT_WS(#{search.searchKeyword},'%','%')
+	  						OR post_hashtag2 LIKE CONCAT_WS(#{search.searchKeyword},'%','%')
+	  						OR post_hashtag3 LIKE CONCAT_WS(#{search.searchKeyword},'%','%')
+						</if>
+					</trim>
+				</if>
+				ORDER BY post_no DESC) P, (select @rownum:= 0) M
 				WHERE @rownum  <![CDATA[ <=]]> #{search.endRowNum} ) S
 				WHERE R BETWEEN #{search.startRowNum} AND #{search.endRowNum} 
 	 </select> 	 
@@ -177,7 +206,7 @@
 	   		post_reg_date=#{postRegdate},
 	   		video= #{video},
 	   		delete_flag= #{deleteFlag},
-   		<if test="postImg1 != null and postImg1 == ''">
+   		<if test="postImg1 != null and postImg1 != ''">
 	   		post_Img1= #{postImg1},
 	   		post_Img2= #{postImg2},
 	   		post_Img3= #{postImg3},
@@ -249,7 +278,7 @@
 	 </update>  -->
 	 
 	 <delete id="deleteConcern" parameterType="hashmap"  >
-	 	 DELETE from POST_CONCERN
+	 	 DELETE FROM POST_CONCERN
 		 WHERE user_id = #{userId}
  		 AND post_no = #{postNo}
 	 </delete>
@@ -259,15 +288,15 @@
  	<select  id="updatetotalComment"  parameterType="int"	resultMap="postMapper"> 	
 		SELECT post_no,count(*) com_num
 		FROM COMMENT
-		WHERE post_no = (select post_no
-			   			 from comment 
-			   			 where comment_no = #{value})
+		WHERE post_no = (SELECT post_no
+			   			 FROM COMMENT
+			   			 WHERE comment_no = #{value})
 	    AND delete_flag = 'n'
 	 </select> 
 	 
   	<select  id="updatetotalComment2"  parameterType="int"	resultMap="postMapper"> 	
 	SELECT post_no,count(*) com_num
-	from COMMENT
+	FROM COMMENT
 	WHERE post_no = #{value}
     AND delete_flag = 'n'
 	 </select> 

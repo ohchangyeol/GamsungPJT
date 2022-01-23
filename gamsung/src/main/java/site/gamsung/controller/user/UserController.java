@@ -176,19 +176,19 @@ public class UserController {
 				System.out.println("패스워드가 널이다");
 				user.setPassword(dbUser.getPassword());
 				user.setSalt(dbUser.getSalt());
-				System.out.println(dbUser.getPassword());
-			} else {
+				System.out.println("db패스워드"+dbUser.getPassword());
+			} else{
 				System.out.println("널이 아니다");
 				user.setPassword(user.getPassword());
 				user.setSalt(dbUser.getSalt());
 			}
-		}
-		if(user.getCampBusinessImg()==null) {
-			user=userService.getUser(user.getId());
-			if(user.getCampBusinessImg()!=null) {
-			System.out.println("캠프 이미지"+user.getCampBusinessImg());
-			user.setCampBusinessImg(user.getCampBusinessImg());
+			if(user.getCampBusinessImg()==null) {
+				if(user.getCampBusinessImg()!=null) {
+					System.out.println("캠프 이미지"+user.getCampBusinessImg());
+				user.setCampBusinessImg(user.getCampBusinessImg());
 			}
+		}
+		
 		}
 
 		userService.updateUser(user);

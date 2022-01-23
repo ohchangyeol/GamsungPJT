@@ -85,6 +85,8 @@ function eventInit() {
 
         $("#n-content").val(tagContent);
         
+        console.log(tagContent);
+        
         switch (no) {
             case 1:
                 console.log($("#n-content").val());

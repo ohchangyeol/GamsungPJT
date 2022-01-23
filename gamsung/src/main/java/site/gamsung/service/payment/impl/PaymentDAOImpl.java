@@ -49,6 +49,8 @@ public class PaymentDAOImpl implements PaymentDAO{
 	 *  Point
 	 */	
 	public int pointUpdateById(PointTransfer pointTransfer) throws Exception {
+		
+		System.out.println("DAO pointTransferByUsers_pointTransfer: " + pointTransfer); 		
 		return sqlSession.update("PaymentMapper.pointUpdateById", pointTransfer);
 	}
 	
@@ -118,8 +120,8 @@ public class PaymentDAOImpl implements PaymentDAO{
 		return sqlSession.insert("PaymentMapper.addSiteProfit", siteProfit);
 	}
 	
-	public SiteProfit listSiteProfit(String today) throws Exception{		
-		return sqlSession.selectOne("PaymentMapper.listSiteProfit", today);
+	public SiteProfit listSiteProfit(String targetDay) throws Exception{		
+		return sqlSession.selectOne("PaymentMapper.listSiteProfit", targetDay);
 	}
 	
 

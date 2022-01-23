@@ -137,10 +137,17 @@ public class PaymentController {
 			payment.setPaymentNotice(paymentRespond);			
 		}
 				
-		// 캠핑장예약 결제완료-예약완료 처리
-		campReservation.setReservationStatus(1);		
-		campReservation.setTotalPaymentPrice(0);
-		campReservationService.updateTempReservationToReal(campReservation);	
+		// 캠핑장 최초예약 결제완료-예약완료 처리
+		if(campReservation.getReservationStatus() == 0) {
+			campReservation.setReservationStatus(1);		
+			campReservation.setTotalPaymentPrice(0);
+			campReservationService.updateTempReservationToReal(campReservation);
+		}
+		
+		// 캠핑장 예약변경 결제완료-예약완료 처리
+		if(campReservation.getReservationStatus() == 2) {
+			campReservationService.updateReservation(campReservation);
+		}			
 		
 		// Session 정보업데이트
 		tempUser = userService.getUser( ((User) httpSession.getAttribute("user")).getId() );

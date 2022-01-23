@@ -647,31 +647,7 @@ VALUES
  (34,'T0', 0, 0, '양도양수 관리자', 0),
  (35,'T1', 0, 0, '양도양수', 0); 
  
- INSERT INTO POST (user_id,post_type,post_title,post_content,post_reg_date,post_Img1,post_Img2,post_Img3,post_hashtag1,post_hashtag2,post_hashtag3,video,delete_flag) VALUES
-    ('user7@gamsung.com',1,'바베큐는 사랑입니다.','캠핑에는 역시 바베큐죠. 고기익어가는 냄새에 행복했습니다','2022-01-17 21:44:35',NULL,NULL,NULL,'#코딩','#맑은공기','#비트캠프',NULL,'N'),
-    ('user7@gamsung.com',2,'창열이는 오늘도 캠핑 중','열심히 돈 벌어서 열심히 놀러다니고 있습니다. ','2022-01-17 21:44:35','pexelsamitthakare712067.jpg',NULL,NULL,'#플렉스','#캠핑','#오창열',NULL,'N'),
-    ('user7@gamsung.com',3,'인생은 캠핑캠사','어차피 한번 살다 갈 인생인 것을.. .','2022-01-17 21:44:35',NULL,NULL,NULL,'#인생이란..','#후..','#28세의 한숨',NULL,'N'),
-    ('user9@gamsung.com',4,'태빈이랑 즐거운 주말','저희 태빈이 이번에 초등학교 입학합니다. 다들 축하해주세요 !! 박수 짝짝 !!','2022-01-17 21:44:35','pexelsbiancagasparoto1752805.jpg',NULL,NULL,'#태빈','#8살','#초등학생',NULL,'N'),
-    ('user9@gamsung.com,5,'도와줘요 캠핑지식인!! ','산에서 캠핑하다가 곰을 만나면 어떻게 해야 할까요 ㅠㅠ 무서워서 산을 갈 수가 없어요..','2022-01-17 21:44:35','pexelsbradyknoll5914157.jpg',NULL,NULL,'#산','#곰','#덜덜',NULL,'N'),
-    ('user10@gamsung.com',2,'삶에 지칠때는 멀리 떠나봐요','공기도 좋고 한적하고 너무 즐거운 시간이었습니다.','2022-01-17 21:44:35','pexelschaitgoli2666598.jpg',NULL,NULL,'#산','#맑은공기','#행복',NULL,'N'),
-    ('user10@gamsung.com',3,'캠핑을 가다','공기도 좋고 한적하고 너무 즐거운 시간이었습니다.','2022-01-17 21:44:35','pexelscottonbro5364965.jpg',NULL,NULL,'#산','#맑은공기','#행복',NULL,'N'),
-    ('user11@gamsung.com',4,'캠핑을 가다','공기도 좋고 한적하고 너무 즐거운 시간이었습니다.','2022-01-17 21:44:35','pexelsdanielap868306.jpg',NULL,NULL,'#산','#맑은공기','#행복',NULL,'N'),
-    ('user9@gamsung.com',5,'캠핑을 가다','공기도 좋고 한적하고 너무 즐거운 시간이었습니다.','2022-01-17 21:44:35','pexelsjameswheeler1539225.jpg',NULL,NULL,'#산','#맑은공기','#행복',NULL,'N'),
-    ('user7@gamsung.com',1,'캠핑을 가다','공기도 좋고 한적하고 너무 즐거운 시간이었습니다.','2022-01-17 21:44:35','pexelsjeremybishop2422968.jpg',NULL,NULL,'#산','#맑은공기','#행복',NULL,'N');
-INSERT INTO gamsung.post (user_id,post_type,post_title,post_content,post_reg_date,post_Img1,post_Img2,post_Img3,post_hashtag1,post_hashtag2,post_hashtag3,video,delete_flag) VALUES
-    ('user11@gamsung.com',2,'캠핑을 가다','공기도 좋고 한적하고 너무 즐거운 시간이었습니다.','2022-01-17 21:44:35','pexelsjoshhild2422265.jpg',NULL,NULL,'#산','#맑은공기','#행복',NULL,'N'),
-    ('user11@gamsung.com',3,'캠핑을 가다','공기도 좋고 한적하고 너무 즐거운 시간이었습니다.','2022-01-17 21:44:35','pexelsmarkusspiske2126578.jpg',NULL,NULL,'#산','#맑은공기','#행복',NULL,'N'),
-    ('user7@gamsung.com',4,'캠핑을 가다','공기도 좋고 한적하고 너무 즐거운 시간이었습니다.','2022-01-17 21:44:35','pexelsnickwehrli5717775.jpg',NULL,NULL,'#산','#맑은공기','#행복',NULL,'N'),
-    ('user7@gamsung.com',5,'캠핑을 가다','공기도 좋고 한적하고 너무 즐거운 시간이었습니다.','2022-01-17 21:44:35','pexelspixabay266436.jpg',NULL,NULL,'#산','#맑은공기','#행복',NULL,'N'),
-    ('user9@gamsung.com',1,'캠핑을 가다','공기도 좋고 한적하고 너무 즐거운 시간이었습니다.','2022-01-17 21:44:35','pexelsromanodintsov4553618.jpg',NULL,NULL,'#산','#맑은공기','#행복',NULL,'N'),
-    ('user9@gamsung.com',2,'캠핑을 가다','공기도 좋고 한적하고 너무 즐거운 시간이었습니다.','2022-01-17 21:44:35','pexelssangeetrao4660487.jpg',NULL,NULL,'#산','#맑은공기','#행복',NULL,'N'),
-    ('user11@gamsung.com',3,'캠핑을 가다','공기도 좋고 한적하고 너무 즐거운 시간이었습니다.','2022-01-17 21:44:35','pexelssolodsha7664387.jpg',NULL,NULL,'#산','#맑은공기','#행복',NULL,'N'),
-    ('user10@gamsung.com',4,'캠핑을 가다','공기도 좋고 한적하고 너무 즐거운 시간이었습니다.','2022-01-17 21:44:35','pexelstarynelliott6743248.jpg',NULL,NULL,'#산','#맑은공기','#행복',NULL,'N'),
-    ('user10@gamsung.com',5,'캠핑을 가다','공기도 좋고 한적하고 너무 즐거운 시간이었습니다.','2022-01-17 21:44:35','pexelsteemur1840394.jpg',NULL,NULL,'#산','#맑은공기','#행복',NULL,'N'),
-    ('user7@gamsung.com',1,'캠핑을 가다','공기도 좋고 한적하고 너무 즐거운 시간이었습니다.','2022-01-17 21:44:35','pexelsvaleriyakobzar7438505.jpg',NULL,NULL,'#산','#맑은공기','#행복',NULL,'N');
-INSERT INTO gamsung.post (user_id,post_type,post_title,post_content,post_reg_date,post_Img1,post_Img2,post_Img3,post_hashtag1,post_hashtag2,post_hashtag3,video,delete_flag) VALUES
-    ('user7@gamsung.com',2,'캠핑을 가다','공기도 좋고 한적하고 너무 즐거운 시간이었습니다.','2022-01-17 21:44:35','pexelsvladbagacian1061640.jpg',NULL,NULL,'#산','#맑은공기','#행복',NULL,'N');
-    
+
 INSERT INTO REPORT_TABLE(report_name)
 values
 ('캠핑장 신고'),
@@ -679,3 +655,127 @@ values
 ('커뮤니티 신고'),
 ('예약 양도 신고'),
 ('이용 고객 신고');
+
+INSERT INTO POST (user_id,post_type,post_title,post_content,post_reg_date,post_Img1,post_Img2,post_Img3,post_hashtag1,post_hashtag2,post_hashtag3,video,delete_flag) VALUES
+	 ('user7@gamsung.com',1,'장비는 조금씩 천천히','캠핑장비는 고가의 풀세트를 구비하려면 수 백 만원을 호가할 수 있다.<br>꼭 필요한 장비는 한꺼번에 구입하지 말고 경험을 쌓으며 조금씩 구매하는 것이 좋다.<br>장비가 마련되면 캠핑업체나 동호회에서 진행하는 캠핑축제에 참가해 보는 것도 좋다. <br> 수백명의 캠퍼들이 모이는 장소에서 자연스럽게 그들의 장비노하우를 전수받을 수 있기 때문이다.<br> ','2022-01-17 21:44:35','ma1.jpg',NULL,NULL,'#글램핑','#장비','#감성캠핑',NULL,'N'),
+	 ('user7@gamsung.com',1,'캠핑장에서 어려움에 처하면 즉시 도움을 청하라','갑작스런 비에 대한 대비책을 마련하는 것도 필요하다.<br>최근에는 스마트폰에 ''와글와글 캠핑스토리'' 등과 같은 어플을 다운받아 다양한 정보를 얻는 이들도 있다.<br> 캠핑장 검색에서 부터 이용후기까지 한 눈에 볼 수 있다.<br>오토캠핑장에 도착하면 가장 먼저 텐트를 쳐야 한다. 초보자들은 30분이면 족할 텐트치기에 2~3시간을 허비할 수 있다. <br>이렇게 되면 즐거워햐할 캠핑장이 짜증으로 바뀔 수 있다. 이럴 경우에는 바로 주변에 도움을 청하는것이 현명하다.<br>Tip.  근래 각종 TV프로그램에서 야생생활과 관련하여 방송을 하여 야생생활을 체험해 보려는 분들이 많다.<br> 그러나 야생생활이란것은 말처럼 쉽지가 않을 것이다.<br> TV프로그램 촬영때에도 각종 안전요원과 전문가들을 상주시켜놓고 촬영을 하는것이 관례이다. <br>처음부터 너무 욕심을 부리지 말고 오토캠핑장 등에서 충분히 연습과 경력을 쌓고 야생 생활에 도전해 보는것이 바람직 하다.<br>또한 처음 몇번은 경험이 풍부한 사람과 동행을 하고 너무 외진곳과 인적이 없는곳은 가급적 피하는 것이 좋다. <br>본인도 깊은 산중에서 멧돼지 떼와 밤새 씨름을 하느라고 즐거워야할 캠핑이 피곤으로 이어진 일이 몇번인가 있다.<br>','2022-01-17 21:44:35','ma2.jpg',NULL,NULL,'#캠핑','#도움','#캠핑매거진',NULL,'N'),
+	 ('user7@gamsung.com',1,'초보 캠퍼가 준비해야할 장비들','→ 그라운드 시트 : 침낭, 텐트밑에 깔 그라운드시트와 등이 배기지 않기 위해 매트리스가 필요하다.<br> 매트리스는 한 번 장만하면 5년 이상 쓸 수 있으니 검증된 제품이 좋다. <br> 침낭은 백페킹(베낭 하나 메고 오지 등으로 혼자 떠나는 캠핑)의 경우 휴대가 간편한 머미형이 좋고 오토캠핑의 경우에는 사각형 침낭이 좋다. <br><br>- Tip : 혼자 여행시 짐의 부피를 줄이고자 그라운드시트나 메트리스를 빼 놓는 경우가 있다. <br>이럴땐 야생의 풀이나 나무의 잔가지를 베어다가 텐트나 침낭의 밑에 깔아주면 좋다.<br> <br>→ 랜턴과 화롯대 : 렌턴은 캠핑의 분위기를 살려줄 뿐 아니라 야간 이동시 필수적이다. <br>최근에는 LED랜턴이 많이 나온다. 화롯대 또한 가족이 모여 캠핑의 낭만을 즐길 수 있는 장비다.<br> <br>→ 기타 필수장비 : 요리에 필요한 버너, 코펠, 이이스박스, 캠핑의 하이라이트인 바비큐파티를 위한 그릴과 숯에 불을 붙일 토치, <br>편안한 휴식을 위한 테0이블과 레저용 체어 등도 필요하다. <br> <br> Tip : 백페킹의 경우에는 베낭, 침낭, 텐트, 버너, 코펠, 등산용 나이프, 로프, 랜턴, 라디오나 스마트폰, <br>우천시를 대비한 우의나 비닐, 야전삽, 휴대용 물통 등.<br>','2022-01-17 21:44:35','ma2.jpg',NULL,NULL,'#인생이란..','#후..','#캠핑초보',NULL,'N'),
+	 ('user7@gamsung.com',2,'수도 시설·화장실은 되도록 멀리','캠핑 초보자들은 편의 시설과 가까운 곳에 자리를 잡는 걸 선호합니다.<br>하지만 제 생각은 다릅니다.<br>편리함을 생각해 가까운 곳에 자리를 잡게 되면 늦은 시간에 수도 시설과 화장실을 사용하는 이용객의 소음 때문에 잠들기 어려울 뿐만 아니라 각종 해충에 시달릴 확률이 높아요 !','2022-01-17 21:44:35','how3.jpg',NULL,NULL,'#캠핑','#캠핑초보','#캠핑팁',NULL,'N'),
+	 ('user7@gamsung.com',2,'장작과 장작사이에 틈을 주세요','화로대에 장작을 넣을때는 사이사에 공기가 드나들 틈을 주세요.<br>마른 솔방울을 모아 불을 붙이거나 신문지를 물에 적셔 동그랗게 말은 후 햇볕에 바짝 말려 불쏘시개로 활용해주세요^___^','2022-01-17 21:44:35','how2.jpg',NULL,NULL,'#감성캠핑','캠핑팁','#장작',NULL,'N'),
+	 ('user8@gamsung.com',2,'주차는 바람이 부는 방향으로 하세요','요즘 사이트 옆은 주차할 수 있도록 되있습니다.이때 주차는 바람이 불어오는 쪽이나 햇빛이 가려지지 않는쪽으로 주차를 하고 그 뒤로 텐트를 치면됩니다. 일단 차가 바람을 막아주니 그만큼 안전하겠죠? ','2022-01-17 21:44:35','how1.jpg',NULL,NULL,'#캠핑','#캠핑카','#주차',NULL,'N'),
+	 ('user8@gamsung.com',3,'주말은 감성캠핑','주말은 재충전의 시간입니다.','2022-01-17 21:44:35','photo5.jpg',NULL,NULL,'#감성캠핑','#맑은공기','#텐트',NULL,'N'),
+	 ('user8@gamsung.com',3,'태빈이랑 즐거운 주말','저희 태빈이 이번에 초등학교 입학합니다. 다들 축하해주세요 !! 박수 짝짝 !!','2022-01-17 21:44:35','photo4.jpg',NULL,NULL,'#캠핑','#가족여행','#텐트',NULL,'N'),
+	 ('user8@gamsung.com',3,'인생은 캠핑캠사','어차피 한번 살다 갈 인생인 것을.. 좋아하는 캠핑 실컷다닐랍니다.','2022-01-17 21:44:35','photo3.jpg',NULL,NULL,'#감성캠핑','#인생','#캠핑캠사',NULL,'N'),
+	 ('user9@gamsung.com',3,'창열이는 오늘도 캠핑 중','열심히 돈 벌어서 열심히 놀러다니고 있습니다. ','2022-01-17 21:44:35','photo2.jpg',NULL,NULL,'#캠핑','#감성','#창열이짱',NULL,'N');
+INSERT INTO POST (user_id,post_type,post_title,post_content,post_reg_date,post_Img1,post_Img2,post_Img3,post_hashtag1,post_hashtag2,post_hashtag3,video,delete_flag) VALUES
+	 ('user9@gamsung.com',3,'바베큐는 사랑입니다.','캠핑에는 역시 바베큐죠. 고기익어가는 냄새에 행복했습니다','2022-01-17 21:44:35','photo1.jpg',NULL,NULL,'#감성캠핑','#바베큐','#데이트',NULL,'N'),
+	 ('user9@gamsung.com',4,'밤하늘 은하수','첫 동게캠핑이었는데 눈도 오고 바람도 불었지만 밤하늘에 보는 은하수가 너무 아름다워서 다 잊게 되네요. ','2022-01-17 21:44:35','report5.jpg',NULL,NULL,'#캠핑','#맑은공기','#텐트',NULL,'N'),
+	 ('user10@gamsung.com',4,'카라반','텐트만 치다가 오랜만에 편하게 지내고 갑니다.','2022-01-17 21:44:35','report4.jpg',NULL,NULL,'#감성캠핑','#맑은공기','#카라반',NULL,'N'),
+	 ('user10@gamsung.com',4,'아늑하고 편안해요','설치되어있는 텐트 아늑하고 편안한데 이웃들도 조용해서 편안하고 너무 좋았어요','2022-01-17 21:44:35','report3.jpg',NULL,NULL,'#캠핑','#힐링','#텐트',NULL,'N'),
+	 ('user12@gamsung.com',4,'힐링캠프','🏕 대구 바람숲 야영장 <br> 갈 때마다 기분좋은 곳입니다. 좋은 뷰에 힐링이 되네요.친절한 캠장까지 완벽해서 저만 알고싶은 곳이예요','2022-01-17 21:44:35','report2.jpg',NULL,NULL,'#감성캠핑','#데이트','#힐링',NULL,'N'),
+	 ('user11@gamsung.com',4,'노을지는 순간','캠핑장 B사이트 노을지는 풍경을 바라보고있자니 모든 고민이 사라지네요.','2022-01-17 21:44:35','report1.jpg',NULL,NULL,'#캠핑','#감성','#노을',NULL,'N'),
+	 ('user11@gamsung.com',5,'질문드립니다 ','❔ 2월 장박하고 싶습니다. 수지구청에서 1시간대로 혹시 아시는 곳 있을까요?','2022-01-17 21:44:35','question.jpg',NULL,NULL,'#캠핑','#2월장박','#질문',NULL,'N'),
+	 ('user12@gamsung.com',5,'캠핑장비말리기 ❕❕❕❕','❔ 우중 캠핑 후에 장비 말리는 팁이 있을까요?. 장소가 마땅치가 않네요.🤷
+<br>아파트 사시는 분들 장비 말리는 꿀팁 공유부탁드려요 !','2022-01-17 21:44:35','question.jpg',NULL,NULL,'#감성캠핑','#비말리기','#질문',NULL,'N'),
+	 ('user12@gamsung.com',5,'실링팬 추천부탁드려요','❔  서큘레이터로 부족한 공기 순환 ㅠ_ㅠ 실링 팬 추천해주실 수 있나요? <br>자꾸 꺼져서 유선으로 찾고 있는데 무선? 유선 어떤걸 선호 하시나요?','2022-01-17 21:44:35','question.jpg',NULL,NULL,'#캠핑','#실링팬','#감성캠핑',NULL,'N'),
+	 ('user12@gamsung.com',5,'이색적인 난로 캠핑요리','❔ 난로로 할 수 있는 캠핑요리 찾고 있는데 이색적인 난로캠핑요리가 어떤게 있을까요? ','2022-01-17 21:44:35','question.jpg',NULL,NULL,'#감성캠핑','#캠핑요리','#난로',NULL,'N');
+INSERT INTO POST (user_id,post_type,post_title,post_content,post_reg_date,post_Img1,post_Img2,post_Img3,post_hashtag1,post_hashtag2,post_hashtag3,video,delete_flag) VALUES
+	 ('user12@gamsung.com',5,'동계캠핑 갑니다 ','❔ 영하의 추운날씨에 캠핑을 가려고 합니다. 동계캠핑이 가능할까요? 우레탄창은 보통 몇개정도를 설치해야 춥지않으면서 뷰가 좋을까요?','2022-01-17 21:44:35','question.jpg',NULL,NULL,'#캠핑','#산','#바다',NULL,'N'),
+	 ('user11@gamsung.com',4,'아이들과 즐거운 추억남겼습니다.','강원도에서 방문했던 캠핑장중에서 제일 좋았습니다.<br>따뜻한 물도 잘나오고 시설도 청결하고 깔끔했습니다.<br>아이들 체험학습할 수 있는 체험학습장도 근처에 있어서 아이들과 즐겁게 놀다올 수 었습니다.<br><br>아! 일출 일몰이 정말 최고였습니다.👍👍👍<br>미산분교 캠핑장 추천합니다.👍👍','2022-01-22 17:27:34','main7.jpg',NULL,NULL,'#감성캠핑','#가족여행','#강',NULL,'N'),
+	 ('user10@gamsung.com',4,'즐거웠던 시간 ','작년 말 무수아취캠핑장을 방문했었습니다. <br>
+맑은 공기에 친절한 캠장님 덕분에 즐거운 시간을 보낼 수 있었습니다. 
+밤에 풀벌레소리에 기분좋게 잠들 수 있었습니다. ','2022-01-23 12:17:03','308841daf09e4869b4e32e205bfc51fb.jpg',NULL,NULL,'#캠핑','#즐거운시간','#기록',NULL,'Y');
+
+INSERT INTO COMMENT (post_no,user_id,comment_content,comment_reg_date,delete_flag) VALUES
+	 (1,'user8@gamsung.com','안그래도 캠핑에 관심을 가지게 된 후에 장비 욕심이 많이 생겼는데 당분간은 자제해야겠네요 ^^;','2022-01-22 18:21:05','N'),
+	 (2,'user10@gamsung.com','우중캠핑 분위기있을 것 같아서 꼭 한번 가보고싶었어요','2022-01-22 18:21:05','N'),
+	 (2,'user8@gamsung.com','그쵸 캠핑하러가서 힘들고 예민해서 싸운 경우가 많아요','2022-01-22 18:21:05','N'),
+	 (2,'user9@gamsung.com','우와 .. 멧돼지라니 엄청난 경험을 하셨네요','2022-01-22 18:21:05','N'),
+	 (3,'user8@gamsung.com','요새 랜턴이 인기가 많더라구요. 구하기도 힘든것 같아요. ','2022-01-22 18:21:05','N'),
+	 (3,'user9@gamsung.com','좋은 정보 감사합니다 ^^❤','2022-01-22 18:21:05','N'),
+	 (3,'user10@gamsung.com','퍼가요~❤','2022-01-22 18:21:05','N'),
+	 (4,'user9@gamsung.com','너무 좋은 팁인데요? 참','2022-01-22 18:21:05','N'),
+	 (4,'user8@gamsung.com','제가 딱 그 캠핑초보자네요 ㅎㅎ','2022-01-22 18:21:05','N'),
+	 (5,'user9@gamsung.com','장작과 장작사이에는 틈을 줘야한다! 무릎 탁!','2022-01-22 18:21:05','N');
+INSERT INTO COMMENT (post_no,user_id,comment_content,comment_reg_date,delete_flag) VALUES
+	 (5,'user8@gamsung.com','신문지를 저렇게 활용할 수 있는거군요 ?','2022-01-22 18:21:05','N'),
+	 (6,'user7@gamsung.com','일단 차가 없습니다... 캠핑카 사고싶어요 ㅠ3ㅠ','2022-01-22 18:21:05','N'),
+	 (6,'user10@gamsung.com','너무 좋은 정보네요 참고하겠습니다! ','2022-01-22 18:22:12','N'),
+	 (6,'user9@gamsung.com','텐트가 바람에 휘청거린적이많았는데 진작 이글을 읽었더라면...','2022-01-22 18:22:12','N'),
+	 (7,'user9@gamsung.com','월요일이 오는게 무섭습니다.','2022-01-22 18:22:12','N'),
+	 (7,'user10@gamsung.com','제대로 재충전하셨나봅니다 😊','2022-01-22 18:22:12','N'),
+	 (8,'user7@gamsung.com','초등학교 입학을 축하합니다 😍','2022-01-22 18:22:12','N'),
+	 (8,'user8@gamsung.com','아이가 정말 좋아했을 것 같아요 ❤❤','2022-01-22 18:22:12','N'),
+	 (8,'user9@gamsung.com','조카랑 놀아주시는 모습이 너무 보기 좋네요.','2022-01-22 18:22:12','N'),
+	 (9,'user7@gamsung.com','인생은 캠핑캠사.. 배워갑니다..!','2022-01-22 18:22:12','N');
+INSERT INTO COMMENT (post_no,user_id,comment_content,comment_reg_date,delete_flag) VALUES
+	 (9,'user8@gamsung.com','그러게요. 인생 별거있나요 하핫..!','2022-01-22 18:22:12','N'),
+	 (9,'user9@gamsung.com','저도 떠나고 싶어요','2022-01-22 18:22:12','N'),
+	 (10,'user7@gamsung.com','창열아 나도 캠핑 같이가자! 나도 가고싶어!','2022-01-22 18:22:12','N'),
+	 (10,'user8@gamsung.com','그래요 돈 벌어서 어디다씁니까 캠핑하는데 쓰지~','2022-01-22 18:22:12','N'),
+	 (11,'user7@gamsung.com','고기는 사랑입니다.','2022-01-22 18:25:07','N'),
+	 (11,'user8@gamsung.com','바베큐 너무너무 맛있어보여요 ❤❤','2022-01-22 18:25:07','N'),
+	 (15,'user9@gamsung.com','뷰가 너무 좋은데요? 꼭 한번 가보고 싶어요 💙','2022-01-22 18:25:07','N'),
+	 (15,'user8@gamsung.com','저도 여기 갔었는데 캠장님 너무 친절하시더라구요 !','2022-01-22 18:25:07','N'),
+	 (15,'user11@gamsung.com','행복한 시간 보내신 것같아 너무 부럽습니다','2022-01-22 18:25:07','N'),
+	 (21,'user7@gamsung.com','동계 캠핑 고생이지만 즐거운 추억이 되실거예요','2022-01-22 18:25:07','N');
+INSERT INTO COMMENT (post_no,user_id,comment_content,comment_reg_date,delete_flag) VALUES
+	 (21,'user8@gamsung.com','우레탄창은 한 두개정도면 되지않을까요?','2022-01-22 18:25:07','N'),
+	 (21,'user9@gamsung.com','설치하기 나름아닐까싶습니다..','2022-01-22 18:25:07','N'),
+	 (22,'user10@gamsung.com','너무 좋아보이는데요 ? 진짜 놀러가고싶어요!','2022-01-22 20:27:34','N'),
+	 (15,'user10@gamsung.com','댓글을 등록해볼게요','2022-01-23 12:36:12','Y');
+	 
+
+INSERT INTO POST_CONCERN (delete_flag,user_id,post_no) VALUES
+	 ('N','user1@gamsung.com',21),
+	 ('N','user2@gamsung.com',21),
+	 ('N','user1@gamsung.com',20),
+	 ('N','user2@gamsung.com',20),
+	 ('N','user1@gamsung.com',19),
+	 ('N','user2@gamsung.com',19),
+	 ('N','user3@gamsung.com',19),
+	 ('N','user3@gamsung.com',18),
+	 ('N','user1@gamsung.com',17),
+	 ('N','user2@gamsung.com',17);
+INSERT INTO POST_CONCERN (delete_flag,user_id,post_no) VALUES
+	 ('N','user1@gamsung.com',16),
+	 ('N','user2@gamsung.com',16),
+	 ('N','user1@gamsung.com',15),
+	 ('N','user2@gamsung.com',15),
+	 ('N','user1@gamsung.com',14),
+	 ('N','user5@gamsung.com',1),
+	 ('N','user5@gamsung.com',13),
+	 ('N','user9@gamsung.com',12),
+	 ('N','user8@gamsung.com',11),
+	 ('N','user6@gamsung.com',10);
+INSERT INTO POST_CONCERN (delete_flag,user_id,post_no) VALUES
+	 ('N','user6@gamsung.com',9),
+	 ('N','user8@gamsung.com',8),
+	 ('N','user6@gamsung.com',7),
+	 ('N','user6@gamsung.com',6),
+	 ('N','user5@gamsung.com',5),
+	 ('N','user5@gamsung.com',4),
+	 ('N','user4@gamsung.com',3),
+	 ('N','user3@gamsung.com',2),
+	 ('N','user10@gamsung.com',22),
+	 ('N','user10@gamsung.com',21);
+INSERT INTO POST_CONCERN (delete_flag,user_id,post_no) VALUES
+	 ('N','user10@gamsung.com',20),
+	 ('N','user10@gamsung.com',19),
+	 ('N','user10@gamsung.com',18),
+	 ('N','user10@gamsung.com',17);
+INSERT INTO RECEIVE (transfer_no,user_id,transfer_ee_phone,receive_title,receive_content,receive_reg_date,receive_cancel_date,receive_status,delete_flag) VALUES
+	 (5,'user1@gamsung.com','01012345678','취업준비생인 친구의 생일파티','제일 친한 친구예요 꼭 축하해주고 싶습니다.','2022-01-22 19:40:01',NULL,1,'N'),
+	 (5,'user2@gamsung.com','01012345678','사랑하는 여동생의 취업축하파티','제가 백수라서 해줄 수 있는게 없네요.','2022-01-22 19:40:01',NULL,1,'N'),
+	 (5,'user3@gamsung.com','01012345678','이번년도에는 놀러가고싶어요','그동안 일하느라 너무 힘들었어요','2022-01-22 19:40:01',NULL,1,'N');
+	 INSERT INTO TRANSFER (user_id,reservation_no,transfer_camp_area,transfer_camp_name,transfer_mainsite_type,transfer_camp_call,transfer_start_date,transfer_end_date,transfer_use_num,transfer_price,transfer_title,transfer_content,transfer_add_content,transfer_reg_date,transfer_status,transfer_payment_img,delete_flag,transfer_hashtag1,transfer_hashtag2,transfer_hashtag3) VALUES
+	 ('user1@gamsung.com',NULL,'대구 동구 팔공로230길 103 (진인동)','바람숲야영장','방갈로','0212345678','2022-02-03','2022-02-05',4,30000,'저는 양도를 하기 위해 태어났습니다.','제 삶의 목표를 이루고자 합니다','','2022-01-17 16:03:47',1,'b.jpg','N','#바람숲야영장','#감성캠핑','#방갈로'),
+	 ('user8@gamsung.com',NULL,'경남 의령군 대의면 신전리 276,277','천하장사골야영장','자동차야영장  ','0555741109','2022-02-01','2022-02-07',5,0,'수녀가 되기로 해서 양도합니다.','아멘.','','2022-01-17 16:03:47',1,'b.jpg','N','#천하장사골야영장','#감성캠핑','#자동차야영장  '),
+	 ('user9@gamsung.com',NULL,'서울시 노원구 월계동 750번지','초안산캠핑장','오토캠핑','0222896865','2022-02-07','2022-02-10',2,10000,'몸살이 나서 놀러가지 못하게되었습니다 ','지금 아프면 안되는데.. 속상하네요 ','세면도구는 따로 주지않는다고 합니다.','2022-01-17 16:03:47',1,'b.jpg','N','#초안산캠핑장','#감성캠핑','#오토캠핑'),
+	 ('user11@gamsung.com',NULL,'서울 도봉구 도봉로169길 249 (도봉동)','무수아취캠핑장','팬션','029540249','2022-02-05','2022-02-11',4,50000,'남자친구랑 100일인걸 까먹고 ㅠ_ㅠ','양도한 돈으로 선물을 사야될 것 같습니다.ㅠ_ㅠ','','2022-01-17 16:03:47',1,'b.jpg','N','#무수아취캠핑장','#감성캠핑','#팬션'),
+	 ('user7@gamsung.com',NULL,'서울 강북구 삼양로181길 28 (우이동)','우이동가족캠핑장','오토캠핑','0212345678','2022-02-11','2022-02-14',1,10000,'날짜를 잘못 예약했는데 취소가 안됩니다.','다시 예약해야할것같습니다.','','2022-01-17 16:03:47',2,'b.jpg','N','#우이동가족캠핑장','#감성캠핑','#오토캠핑'),
+	 ('user9@gamsung.com',NULL,'강원도 홍천군 내촌면 와야리 807-2','달콤한캠핑장','카라반','0212345678','2022-02-15','2022-02-16',5,10000,'스님이 되기로 하여 캠핑장을 못가게 되었습니다.','나무아비타불관세음보살','','2022-01-17 16:03:47',1,'b.jpg','N','#달콤한캠핑장','#감성캠핑','#카라반'),
+	 ('user9@gamsung.com',NULL,'강원도 인제군 상남면 미산리 376-6','미산분교 캠핑장','오토캠핑','01020136096','2022-02-10','2022-02-13',7,15000,'놀러가는 것보다 집에 있는게 편해서 양도합니다. ','세상 집순이 화이팅!','','2022-01-17 16:03:47',1,'b.jpg','N','#미산분교 캠핑장','#감성캠핑','#오토캠핑'),
+	 ('user9@gamsung.com',NULL,'강원 인제군 남면 설악로 1129','러빙네이쳐캠핑장','팬션','0212345678','2022-02-07','2022-02-10',4,15000,'안녕 ! 난 준희로이드 ! ','저에게 경매구현은 껌이었습니다. 질겅질겅','','2022-01-17 16:03:47',1,'b.jpg','N','#러빙네이쳐캠핑장','#감성캠핑','#팬션'),
+	 ('user10@gamsung.com',NULL,'경북 청도군 각북면 금천리 427-2','청도글램핑캠핑장','글램핑','01041685900','2022-02-14','2022-02-15',9,0,'휴가 날짜를 잘못알아서 예약을 잘못했습니다ㅠ_ㅠ','집에 꿀단지 숨겨놨어요','','2022-01-17 16:03:47',1,'b.jpg','N','#청도글램핑캠핑장','#감성캠핑','#글램핑'),
+	 ('user11@gamsung.com',NULL,'경북 청도군 화양읍 이슬미로 297-41','청도프로방스카라반캠핑카펜션','카라반','0212345678','2022-02-03','2022-02-07',2,30000,'로또당첨으로 캠핑장대신 해외여행을 가기로 했습니다.','전 대한민국을 떠납니다!','애완동물은 동반 불가라고 하네요','2022-01-17 16:03:47',1,'b.jpg','N','#청도프로방스카라반캠핑카펜션','#감성캠핑','#카라반');

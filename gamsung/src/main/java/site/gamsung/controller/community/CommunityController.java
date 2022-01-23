@@ -109,9 +109,14 @@ public class CommunityController {
          post.setPostType(postTypee);
 
       }
-      map.put("userId", user.getId());
+      map.put("userId", user.getId()); // 세션에 있는 아이디로 추천여부확인. 
       map.put("search", search);
       map.put("post", post);
+      
+      System.out.println("\n\n\n\n\n\n listPost ======");
+      
+      System.out.println(user.getId());
+      System.out.println(post);
 
       // System.out.println(map);
       List<Post> list = communityService.listPost(map);
@@ -368,9 +373,9 @@ public class CommunityController {
    @RequestMapping(value = "listMyPost")
    public String listMyPost(@ModelAttribute("search") Search search, @RequestParam(value = "postType", required = false) String postType, Model model, HttpSession session) throws Exception {
 
-      System.out.println("listMyPost"); // listPost 시작
-      System.out.println(postType);
-      System.out.println(search);
+      System.out.println("listMyPost시작"); // listPost 시작
+      System.out.println("postType"+postType);
+      System.out.println("search"+search);
 
       User user = (User) session.getAttribute("user"); // Session에서 user받아서 user setting하기.
 
@@ -400,8 +405,8 @@ public class CommunityController {
       map.put("search", search);
       map.put("post", post);
 
-      // System.out.println(map);
-      List<Post> list = communityService.listPost(map);
+      List<Post> list = communityService.MylistPost(map);
+      
       int totalCount = communityService.getTotalPost(map);
       
       Page resultPage = new Page( search.getCurrentPage(), totalCount, pageUnit, communityPageSize);

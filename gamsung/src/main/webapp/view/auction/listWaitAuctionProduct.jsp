@@ -44,7 +44,7 @@
                 <h2 class="module-title font-jua main-color gamsung-mini-title">경매 진행 전 상품</h2>
               </div>
             </div>
-
+		<div class="container">
           <div id="latest">
             <c:forEach var="product" items="${list}" begin="0" step="1" end="3">
               <div class="col-sm-6 col-md-3 col-lg-3">
@@ -62,6 +62,8 @@
               </div>
             </c:forEach>
           </div>
+          </div>
+          <div class="container">
            <div id="latest" class="container">
             <c:forEach var="product" items="${list}" begin="4" step="1" end="7">
               <div class="col-sm-6 col-md-3 col-lg-3">
@@ -77,6 +79,7 @@
                 </div>
               </div>
             </c:forEach>
+          </div>
           </div>
           <span id="append"></span>
          </div>

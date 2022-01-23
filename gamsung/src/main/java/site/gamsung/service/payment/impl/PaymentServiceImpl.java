@@ -96,19 +96,21 @@ public class PaymentServiceImpl implements PaymentService{
 	@Override
 	public int pointTransferByUsers(PointTransfer pointTransfer) throws Exception {
 		
+		System.out.println("pointTransferByUsers_pointTransfer: " + pointTransfer); 	
+		
 		int pointAmount = pointTransfer.getPointAmount();
 		int feeRate = pointTransfer.getFeeRate();		
 		int adminFee = pointAmount * feeRate / 100;
 		int pointAmountAfterFee = pointAmount - adminFee;
 		
-		if(pointTransfer.getReceiverId().equals("admin")) {
+		if(pointTransfer.getReceiverId().equals("gamsungsite@gmail.com")) {
 			
 			PointTransfer senderCase = new PointTransfer();
 			senderCase.setUserId(pointTransfer.getSenderId());
 			senderCase.setPointAmount(pointAmount * -1);
 			
 			PointTransfer adminCase = new PointTransfer();
-			adminCase.setUserId("admin");
+			adminCase.setUserId("gamsungsite@gmail.com");
 			adminCase.setPointAmount(pointAmount);
 
 			if(paymentDAO.pointUpdateById(senderCase) == 1 
@@ -129,17 +131,35 @@ public class PaymentServiceImpl implements PaymentService{
 			receiverCase.setPointAmount(pointAmountAfterFee);
 			
 			PointTransfer adminCase = new PointTransfer();
-			adminCase.setUserId("admin");
-			adminCase.setPointAmount(adminFee);				
+			adminCase.setUserId("gamsungsite@gmail.com");
+			adminCase.setPointAmount(adminFee);			
 			
-			if(paymentDAO.pointUpdateById(senderCase) == 1 
-					&& paymentDAO.pointUpdateById(receiverCase) == 1
-					&& paymentDAO.pointUpdateById(adminCase) == 1 ) {
-				return 1;
+			
+			
+			
+			
+			if(paymentDAO.pointUpdateById(senderCase) == 1) {
+				System.out.println("pointTransferByUsers_senderCase: " + senderCase); 
+				
+				if(paymentDAO.pointUpdateById(receiverCase) == 1) {
+					System.out.println("pointTransferByUsers_receiverCase: " + receiverCase); 
+					
+					if(paymentDAO.pointUpdateById(adminCase) == 1) {
+						System.out.println("pointTransferByUsers_adminCase: " + adminCase); 
+						return 1;
+					} else {
+						System.out.println("pointTransferByUsers_adminCase Error"); 	
+					}	
+					
+				} else {					
+					System.out.println("pointTransferByUsers_receiverCase Error"); 				
+				}
+				
 			} else {
-				return 0;
+				System.out.println("pointTransferByUsers_senderCase Error"); 
 			}
-			
+
+			return 0;
 		}	
 	}
 	
@@ -150,7 +170,7 @@ public class PaymentServiceImpl implements PaymentService{
 	@Override
 	public String makePayment(Payment payment) throws Exception {
 		
-		System.out.println("addMakePayment payment : " + payment); 											// 테스트
+		System.out.println("makePayment payment : " + payment); 											// 테스트
 		
 		PointTransfer pointTransfer = new PointTransfer();
 		Payment movePointHistory = new Payment();
@@ -171,7 +191,7 @@ public class PaymentServiceImpl implements PaymentService{
 		if(oriPaymentCode.equals("P1")) {
 			
 			// 포인트이동 User_DB
-			pointTransfer.setSenderId("admin");
+			pointTransfer.setSenderId("gamsungsite@gmail.com");
 			pointTransfer.setReceiverId(oriSenderId);		
 			pointTransfer.setPointAmount(oriPointChargeTotal);	
 			pointTransfer.setFeeRate(oriPaymentReferenceFee);
@@ -283,49 +303,51 @@ public class PaymentServiceImpl implements PaymentService{
 	 *  SiteProfit
 	 */
 	@Override
-	public SiteProfit listSiteProfit(String today) throws Exception{		
-		return paymentDAO.listSiteProfit(today);
+	public SiteProfit listSiteProfit(String targetDay) throws Exception{		
+		return paymentDAO.listSiteProfit(targetDay);
 	}
 	
 	@Override
-	@Scheduled(cron="0 1 0 1 * *")
-	//@Scheduled(cron="5 * * * * *")
+	@Scheduled(cron="0 0 0 1 * *")
+	//@Scheduled(cron="0/5 * * * * *")
+	//@Scheduled(cron="1 * * * * *")
 	public void calculateSiteProfit() throws Exception{	
 		
 		HashMap<String, Object> searchParameterPointCharge = new HashMap<String, Object>();
 		HashMap<String, Object> searchParameterPayment = new HashMap<String, Object>();		
 		SiteProfit oneProfitRecord = new SiteProfit();
 		
-		Calendar calendar = new GregorianCalendar();
-		SimpleDateFormat SDF = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-		
-		calendar.add(Calendar.DATE, -1);		
-		String payStartDay = SDF.format(calendar.getTime());	
-		System.out.println("payStartDay : "+payStartDay);
-		
-		calendar.add(Calendar.DATE, +1);
-		String payEndDay = SDF.format(calendar.getTime());
-		System.out.println("payEndDay : "+payEndDay);
-		
+		// Payment Mapper getPaymentRecord 참고
 		searchParameterPointCharge.put("paymentCode", "P1");
-		searchParameterPayment.put("payStartDay", payStartDay);
-		searchParameterPayment.put("payEndDay", payEndDay);
+		searchParameterPointCharge.put("payStartNum", "-1");
+		searchParameterPointCharge.put("payEndNum", "1");
+		searchParameterPointCharge.put("type", "day");
+		searchParameterPayment.put("payStartNum", "-1");
+		searchParameterPayment.put("payEndNum", "1");
+		searchParameterPayment.put("type", "day");		
 		
 		Payment pointChargeRecord = paymentDAO.getPaymentRecord(searchParameterPointCharge);
 		Payment paymentRecord = paymentDAO.getPaymentRecord(searchParameterPayment);	
 		
-		System.out.println("searchParameterPointCharge : "+searchParameterPointCharge);
-		System.out.println("searchParameterPayment : "+searchParameterPayment);
-		System.out.println("pointChargeRecord : "+pointChargeRecord);
-		System.out.println("paymentRecord : "+paymentRecord);		
-		System.out.println("oneProfitRecord : "+oneProfitRecord);
+		if(pointChargeRecord != null) {
+			System.out.println("\n pointChargeRecord : "+pointChargeRecord);
+			oneProfitRecord.setProfitPointCharge(pointChargeRecord.getPaymentPriceTotalSecond());
+		}
 		
-		oneProfitRecord.setProfitPointCharge(pointChargeRecord.getPaymentPriceTotalSecond());
-		oneProfitRecord.setProfitPointPayment(paymentRecord.getPaymentPriceTotalSecond());
-		oneProfitRecord.setProfitRegularPayment(paymentRecord.getPaymentPriceTotal());
-		oneProfitRecord.setProfitAllPayment(paymentRecord.getPaymentPriceTotalSecond()+paymentRecord.getPaymentPriceTotal());
+		if(paymentRecord != null) {
+			System.out.println("\n paymentRecord : "+paymentRecord);
+			oneProfitRecord.setProfitPointPayment(paymentRecord.getPaymentPriceTotalSecond());
+			oneProfitRecord.setProfitRegularPayment(paymentRecord.getPaymentPriceTotal());
+			oneProfitRecord.setProfitAllPayment(paymentRecord.getPaymentPriceTotalSecond()+paymentRecord.getPaymentPriceTotal());
+		}
 		
-		paymentDAO.addSiteProfit(oneProfitRecord);
+		if(pointChargeRecord != null || paymentRecord != null) {
+			paymentDAO.addSiteProfit(oneProfitRecord);
+		}
+		
+		System.out.println("\nsearchParameterPointCharge : \n"+searchParameterPointCharge);
+		System.out.println("\nsearchParameterPayment : \n"+searchParameterPayment);				
+		System.out.println("\n oneProfitRecord : "+oneProfitRecord);
 		
 	}
 }

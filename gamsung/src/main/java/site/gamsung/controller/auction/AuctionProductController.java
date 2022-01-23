@@ -25,6 +25,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import site.gamsung.service.auction.AuctionInfoService;
 import site.gamsung.service.auction.AuctionProductService;
 import site.gamsung.service.auction.AuctionReviewService;
+import site.gamsung.service.common.Page;
 import site.gamsung.service.common.RatingReviewService;
 import site.gamsung.service.common.Search;
 import site.gamsung.service.domain.AuctionInfo;
@@ -383,6 +384,7 @@ public class AuctionProductController {
 		model.addAttribute("auctionInfo", auctionInfo);
 		model.addAttribute("search",search);
 		
+		model.addAttribute("resultPage",new Page(search.getCurrentPage(), (int)map.get("totalCount"),10,5));		
 		return "forward:/view/auction/listMyAuctionProduct.jsp";
 	}
 	

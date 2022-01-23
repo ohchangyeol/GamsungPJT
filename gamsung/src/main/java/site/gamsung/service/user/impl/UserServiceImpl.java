@@ -89,13 +89,6 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public void updateUser(User user){
 		
-		if(user.getSalt() !=null) {
-		String pw = user.getPassword();
-		String newPwd = SHA256Util.getEncrypt(pw, user.getSalt());
-		user.setPassword(newPwd);
-		
-		}
-		
 		userDAO.updateUser(user);
 		
 	}
@@ -163,6 +156,7 @@ public class UserServiceImpl implements UserService{
 				+ "    border: none;  display: inline-block;  border-radius: 15px;  font-family: 'paybooc-Light', sans-serif;  box-shadow: 0 15px 35px rgb(0 0 0 / 20%);\r\n"
 				+ "    text-decoration: none;  font-weight: 600;  transition: 0.25s;  margin: 0;  padding: 0;  box-sizing: border-box;  width: 200px;  height: 70px;  font-size: 20px;\r\n"
 				+ "    color: floralwhite; \"> 감성캠핑 바로가기</button></a>";
+	    path="D:\\Main\\GamsungPJT\\gamsung\\src\\main\\webapp";
 		try {
 			sendMail.sendMailHtml(user.getId(), info, text, path);
 		}catch(Exception e) {
@@ -444,7 +438,7 @@ public class UserServiceImpl implements UserService{
 							+ "    border: none;  display: inline-block;  border-radius: 15px;  font-family: 'paybooc-Light', sans-serif;  box-shadow: 0 15px 35px rgb(0 0 0 / 20%);\r\n"
 							+ "    text-decoration: none;  font-weight: 600;  transition: 0.25s;  margin: 0;  padding: 0;  box-sizing: border-box;  width: 200px;  height: 70px;  font-size: 20px;\r\n"
 							+ "    color: floralwhite; \"> 감성캠핑 바로가기</button></a>";
-					String path="C:\\Users\\muse1\\OneDrive\\바탕 화면\\메인프로젝트\\sendMailImg.jpg";
+					String path="D:\\Main\\GamsungPJT\\gamsung\\src\\main\\webapp";
 					mail.sendMailHtml(user.getId(), info, text, path);
 					}else if(user.getSecessionRegDate()==null&&user.getSuspensionDate()==null&&user.getDormantConversionDate()==null&&sdf.parse(TobeConvertedDate).after(sdf.parse(loginDate))) {
 		            userDAO.addDormantUser(user);
