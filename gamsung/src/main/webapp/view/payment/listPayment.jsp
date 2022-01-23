@@ -179,7 +179,7 @@
 					columnDefs: [
 						{ targets: 0,  width: 170 },
 						{ targets: 1,  width: 120 },
-						{ targets: 2,  width: 220 },
+						{ targets: 2,  width: 270 },
 						{ targets: 3,  width: 270 },
 						{ targets: 4,  width: 270 },
 						{ targets: 5,  width: 120 },
@@ -587,7 +587,7 @@
 					columnDefs: [
 						{ targets: 0,  width: 120 },
 						{ targets: 1,  width: 120 },
-						{ targets: 2,  width: 220 },
+						{ targets: 2,  width: 270 },
 						{ targets: 3,  width: 270 },
 						{ targets: 4,  width: 270 },
 						{ targets: 5,  width: 120 },
