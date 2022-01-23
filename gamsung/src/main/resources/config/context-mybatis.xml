@@ -30,8 +30,7 @@
 
 	
     														
-<!--     <mongo:mongo-client id="mongoClient" connection-string="mongodb://gamsung:gam0323@127.0.0.1:27017/message-database?authSource=admin"/> -->
-    <!-- <mongo:mongo-client id="mongoClient" connection-string="mongodb://gamsung:gam0323@cluster0.rj4km.mongodb.net/message-database?authSource=admin"/>
+<!--     <mongo:mongo-client id="mongoClient" connection-string="mongodb://gamsung:gam0323@127.0.0.1:27017/message-database?authSource=admin"/>
 	<mongo:db-factory id="mongoDbFactory" dbname="message-database" mongo-client-ref="mongoClient" />
 	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate"> 
         <constructor-arg ref="mongoDbFactory"/> 

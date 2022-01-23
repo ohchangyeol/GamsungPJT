@@ -32,6 +32,10 @@
                 </li>
                 <li>
                     <div class="report-title" ">상대방 아이디</div>
+                    <div class="report-text">${report.receiver.id}</div>
+                </li>
+                <li>
+                    <div class="report-title" ">상대방 닉네임</div>
                     <div class="report-text">${report.receiver.nickName}${report.receiver.campName}</div>
                 </li>
                 <li>

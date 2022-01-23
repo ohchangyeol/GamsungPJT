@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+<<<<<<< HEAD
                                             	
     
     
+=======
+<<<<<<< HEAD
+                            	
+=======
+                                    	
+>>>>>>> refs/remotes/origin/developer
     
     
+>>>>>>> refs/heads/developer
     
     
     
@@ -11,11 +19,19 @@
     
     
     <wb-module deploy-name="gamsung">
+<<<<<<< HEAD
                                                                                         		
         
         
+=======
+<<<<<<< HEAD
+                                                        		
+=======
+                                                                        		
+>>>>>>> refs/remotes/origin/developer
         
         
+>>>>>>> refs/heads/developer
         
         
         
@@ -23,11 +39,19 @@
         
         
         <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
+<<<<<<< HEAD
                                                                                         		
         
         
+=======
+<<<<<<< HEAD
+                                                        		
+=======
+                                                                        		
+>>>>>>> refs/remotes/origin/developer
         
         
+>>>>>>> refs/heads/developer
         
         
         
@@ -35,11 +59,19 @@
         
         
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
+<<<<<<< HEAD
                                                                                         		
         
         
+=======
+<<<<<<< HEAD
+                                                        		
+=======
+                                                                        		
+>>>>>>> refs/remotes/origin/developer
         
         
+>>>>>>> refs/heads/developer
         
         
         
@@ -47,11 +79,19 @@
         
         
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
+<<<<<<< HEAD
                                                                                         		
         
         
+=======
+<<<<<<< HEAD
+                                                        		
+=======
+                                                                        		
+>>>>>>> refs/remotes/origin/developer
         
         
+>>>>>>> refs/heads/developer
         
         
         
@@ -59,11 +99,19 @@
         
         
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
+<<<<<<< HEAD
                                                                                         		
         
         
+=======
+<<<<<<< HEAD
+                                                        		
+=======
+                                                                        		
+>>>>>>> refs/remotes/origin/developer
         
         
+>>>>>>> refs/heads/developer
         
         
         
@@ -71,12 +119,21 @@
         
         
         <property name="java-output-path" value="/gamsung/target/classes"/>
+<<<<<<< HEAD
         <property name="context-root" value="/"/>
                                                                                         	
     
     
+=======
+        <property name="context-root" value="gamsung"/>
+<<<<<<< HEAD
+                                                        	
+=======
+                                                                        	
+>>>>>>> refs/remotes/origin/developer
     
     
+>>>>>>> refs/heads/developer
     
     
     
@@ -84,11 +141,19 @@
     
     
     </wb-module>
+<<<<<<< HEAD
                                             
 
 
+=======
+<<<<<<< HEAD
+                            
+=======
+                                    
+>>>>>>> refs/remotes/origin/developer
 
 
+>>>>>>> refs/heads/developer
 
 
 

@@ -48,7 +48,7 @@ public class ServiceCenterRestController {
 	int pageUnit;
 	
 	@Value("#{commonProperties['pageSize']}")
-	int pageSize;
+	int pageSize; 
 	
 	
 	// Constructor

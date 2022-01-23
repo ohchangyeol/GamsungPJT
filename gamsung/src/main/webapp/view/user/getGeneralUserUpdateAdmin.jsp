@@ -182,7 +182,7 @@
 													<div class="col-sm-6">
 														<input id="get_g_a_accountNum" name="accountNum"
 															class="form-control" type="text"
-															placeholder="계좌번호를 숫자만 입력하세요" maxlength="14" />
+															value="${user.accountNum}" placeholder="계좌번호를 숫자만 입력하세요" maxlength="14" />
 													</div>
 												</div>
 												<div id="general-point" class="form-group">
@@ -305,8 +305,7 @@
 
 						var addr = "";
 						if ($("#get_g_a_addr").val() != "" && $("#get_g_a_userAddr").val() != "") {
-							var value = $("#get_g_a_addr").val() + ""
-								+ $("#get_g_a_userAddr").val();
+							var value = $("#get_g_a_addr").val() + $("#get_g_a_userAddr").val();
 						}
 
 						$("#get_g_a_allAddr").val(value);
