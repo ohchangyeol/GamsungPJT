@@ -134,15 +134,32 @@ public class PaymentServiceImpl implements PaymentService{
 			adminCase.setUserId("gamsungsite@gmail.com");
 			adminCase.setPointAmount(adminFee);			
 			
-			System.out.println("pointTransferByUsers_senderCase: " + senderCase); 
-			System.out.println("pointTransferByUsers_receiverCase: " + receiverCase); 
-			System.out.println("pointTransferByUsers_adminCase: " + adminCase); 
 			
-			paymentDAO.pointUpdateById(senderCase);
-			paymentDAO.pointUpdateById(receiverCase);
-			paymentDAO.pointUpdateById(adminCase);
+			
+			
+			
+			if(paymentDAO.pointUpdateById(senderCase) == 1) {
+				System.out.println("pointTransferByUsers_senderCase: " + senderCase); 
+				
+				if(paymentDAO.pointUpdateById(receiverCase) == 1) {
+					System.out.println("pointTransferByUsers_receiverCase: " + receiverCase); 
+					
+					if(paymentDAO.pointUpdateById(adminCase) == 1) {
+						System.out.println("pointTransferByUsers_adminCase: " + adminCase); 
+						return 1;
+					} else {
+						System.out.println("pointTransferByUsers_adminCase Error"); 	
+					}	
+					
+				} else {					
+					System.out.println("pointTransferByUsers_receiverCase Error"); 				
+				}
+				
+			} else {
+				System.out.println("pointTransferByUsers_senderCase Error"); 
+			}
 
-			return 1;
+			return 0;
 		}	
 	}
 	
