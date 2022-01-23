@@ -213,7 +213,7 @@
 			const count3 = $("#count3").val();
 							
 			const pointChargeTotaltext = parseInt(100000*count1) + parseInt(10000*count2) + parseInt(1000*count3);
-			const paymentPriceTotaltext = parseInt(90000*count1) + parseInt(95000*count2) + parseInt(1000*count3);
+			const paymentPriceTotaltext = parseInt(90000*count1) + parseInt(9500*count2) + parseInt(1000*count3);
 			const finalPointtext = parseInt(havingPoint1) + parseInt(pointChargeTotaltext);
 			
 			$("#finalPoint").val(comma(finalPointtext));
