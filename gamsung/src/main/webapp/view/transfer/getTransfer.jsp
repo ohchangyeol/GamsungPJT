@@ -434,7 +434,7 @@
 								<div class="container receive" style="padding: 0;">
 									<form name="receiveform" id="receiveform" role="form">
 										<div class="col-sm-12"
-											style="padding: 0px; margin-top: 64px; background: #b3c2d175; border-radius: 30px;">
+											style="padding: 0px; margin-top: 64px; background: ##f3f6f9; border-radius: 30px;">
 
 											<div class="col-sm-12" style="margin-top: 20px; border: none">
 												<h4 class="mb-0" style="font-family: 'Noto Sans KR', sans-serif;">예약양수
@@ -481,7 +481,7 @@
 														margin-left: 2px;
 														background: #b3c2d1;
 														border-radius: 9px;
-														height: 53px;">신청 뾰로롱
+														height: 53px;">양수 신청
 														~</button>
 												</div>
 
