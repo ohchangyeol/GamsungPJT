@@ -65,7 +65,7 @@ public class ReportServiceImpl implements ReportService {
 			
 			System.out.println("\n\n Service Impl ==> "+ receiver);
 			
-			if(receiver.getReportTotalCount() <= 5) {
+			if(receiver.getReportTotalCount() >= 5) {
 				System.out.println("신고 대상자 이용정지");
 				userDAO.addSuspensionUser(receiver);
 			}

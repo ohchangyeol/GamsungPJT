@@ -305,8 +305,7 @@
 
 						var addr = "";
 						if ($("#get_g_a_addr").val() != "" && $("#get_g_a_userAddr").val() != "") {
-							var value = $("#get_g_a_addr").val() + ""
-								+ $("#get_g_a_userAddr").val();
+							var value = $("#get_g_a_addr").val() + $("#get_g_a_userAddr").val();
 						}
 
 						$("#get_g_a_allAddr").val(value);

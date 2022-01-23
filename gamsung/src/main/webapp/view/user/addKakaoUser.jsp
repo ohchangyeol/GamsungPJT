@@ -271,7 +271,7 @@ alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+
 							success: function (result) {
 								console.log('성공: ' + result);
 								if (result == 0) {
-									if (nickName.length > 2) {
+									if (nickName.length > 1) {
 										$("#add_kakao_check-nickName").html('사용 가능한 닉네임입니다.');
 										$("#add_kakao_check-nickName").css('color', 'green');
 									} else {

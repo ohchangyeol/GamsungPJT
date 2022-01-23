@@ -150,6 +150,7 @@ public class UserServiceImpl implements UserService{
 	//update와 같이 쓸 수 있는방법 생각해보기. Controller에서 처리하면 됨
 	@Override
 	public void approvalBusinessUser(User user, String path){
+		user.setBusinessUserApprovalFlag("Y");
 		userDAO.updateUser(user);
 		SendMailHtml sendMail = new SendMailHtml();
 		String info = "[감성캠핑] 가입승인이 완료되었습니다.";
