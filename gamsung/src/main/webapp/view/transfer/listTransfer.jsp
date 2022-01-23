@@ -158,13 +158,12 @@
                                  <thead>
                                     <tr>
                                     
-                                       <th style="text-align: center;">No</th>
-                                       <th style="text-align: center;">양도번호</th>
+                                       <th style="text-align: center;" class="col-md-1">양도번호</th>
                                        <th style="text-align: center;">[주소]양도캠핑장(숙소)</th>
                                        <th style="text-align: center;">제목</th>
                                        <th style="text-align: center;">양도금액</th>
                                        <th style="text-align: center;">이용일자(입/퇴실)</th>
-                                       <th style="text-align: center;">양도자닉네임</th>
+                                       <th style="text-align: center;" class="col-md-2">양도자닉네임</th>
                                     </tr>
                                  </thead>
 
@@ -177,13 +176,12 @@
                                        <tr class="transfer" style="cursor: pointer; text-align: center;">
 
                                           <!--no-->
-                                          <td class="center transferno" id="${transfer.transferNo}" >${ i }</td>
                                           
                                           <td class="center transferno" id="${transfer.transferNo}" >${transfer.transferNo}</td>
                                           
                                           <!--양도캠핑장(숙소)-->
                                           <td class="" id="campName">
-                                            [ <span style="color:#dfbee7">${transfer.transferArea}</span> ]&ensp;${transfer.transferCampname}
+                                            <span style="color:#dfbee7">${transfer.transferArea}</span>&ensp;${transfer.transferCampname}
                                           </td>
 
                                           <!--제목-->

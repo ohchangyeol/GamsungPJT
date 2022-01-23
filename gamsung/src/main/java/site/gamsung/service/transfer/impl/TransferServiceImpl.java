@@ -69,6 +69,18 @@ public class TransferServiceImpl implements TransferService {
 		
 		 List<Transfer> list = transferDAO.listTransfer(map);
 		 
+		 for (Transfer transfer : list) {
+			 
+			 if(transfer.getTransferArea() != null && !("".equals(transfer.getTransferArea())) ) {
+				 
+				int index = transfer.getTransferArea().indexOf(" ");
+				String addr = transfer.getTransferArea().substring(0,index);
+				
+				transfer.setTransferArea(addr);
+			}
+			
+		}
+		 
 		 int TotalCount = transferDAO.getTotalCount(search);
 	
 		map.put("list", list);
