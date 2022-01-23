@@ -42,7 +42,7 @@
 
 					.checkFont {
 						font-size: 12px;
-						padding-left: 28px;
+						padding-left: 57px;
 					}
 				</style>
 
@@ -106,7 +106,7 @@
 														maxlength="15" />
 												</div>
 												<div id="add_b_check-pwd-exp"
-													class='col-sm-offset-3 col-sm-6 checkFont checkFont'></div>
+													class='col-sm-offset-3 col-sm-6 checkFont'></div>
 											</div>
 
 											<div class="form-group row">
