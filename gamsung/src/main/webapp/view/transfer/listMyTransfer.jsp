@@ -238,7 +238,7 @@
 																		
 																		<!--양도캠핑장(숙소)-->
 																		<td id="campName">
-																			${transfer.transferArea}&ensp;${transfer.transferCampname}
+																			[<span>${transfer.transferArea}<span>]${transfer.transferCampname}
 																		</td>
 
 																		<!--양도글 제목-->
@@ -287,7 +287,7 @@
 																				<c:if
 																					test="${transfer.receiveStatus == 1}">
 																					양수 등록 </c:if>
-																				<c:if	test="${transfer.receiveStatus == 2}">
+																				<c:if test="${transfer.receiveStatus == 2}">
 																					양수 승인
 																					<div>
 																						<button type='button'
