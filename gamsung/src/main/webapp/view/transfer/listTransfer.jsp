@@ -194,8 +194,7 @@
 
                                           <!--양도캠핑장(숙소)-->
                                           <td class="" id="campName">
-                                             <span
-                                                style="color:#dfbee7; font-size: 12px;">${transfer.transferArea}</span><br>${transfer.transferCampname}
+                                             [<span>${transfer.transferArea}</span>]${transfer.transferCampname}
                                           </td>
 
                                           <!--제목-->
