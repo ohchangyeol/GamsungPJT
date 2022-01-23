@@ -2,9 +2,15 @@
 
 <beans xmlns="http://www.springframework.org/schema/beans"
 		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		
+		xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+		
 		xsi:schemaLocation=
 				"http://www.springframework.org/schema/beans 
-				 http://www.springframework.org/schema/beans/spring-beans.xsd">
+				 http://www.springframework.org/schema/beans/spring-beans.xsd
+				 
+				 http://www.springframework.org/schema/data/mongo
+        		http://www.springframework.org/schema/data/mongo/spring-mongo.xsd">
 				
 	<!-- ㅇ SqlSession 인스턴스를 생성하는 SqlSessionFactory 생성
 	      ㅇ Factory Pattern  적용 :: Spring 의 FactoryBean interface 구현 -->
@@ -21,5 +27,15 @@
 					class="org.mybatis.spring.SqlSessionTemplate" >		
 		<constructor-arg ref="sqlSessionFactoryBean"/>
 	</bean>
+
+	
+    														
+<!--     <mongo:mongo-client id="mongoClient" connection-string="mongodb://gamsung:gam0323@127.0.0.1:27017/message-database?authSource=admin"/> -->
+    <!-- <mongo:mongo-client id="mongoClient" connection-string="mongodb://gamsung:gam0323@cluster0.rj4km.mongodb.net/message-database?authSource=admin"/>
+	<mongo:db-factory id="mongoDbFactory" dbname="message-database" mongo-client-ref="mongoClient" />
+	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate"> 
+        <constructor-arg ref="mongoDbFactory"/> 
+	</bean> -->
+	
 
 </beans>
