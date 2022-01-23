@@ -133,6 +133,19 @@ public class CommunityDAOImpl implements CommunityDAO {
 	public int totalConcern (int postNo) throws Exception {
 		return sqlSession.selectOne("CommunityMapper.totalConcern", postNo);
 	}
+
+
+	@Override
+	public int getTotalPost(HashMap<String, Object> map) {
+		return sqlSession.selectOne("CommunityMapper.getTotalPost", map);
+	}
+
+
+	@Override
+	public int getTotalComment(Search search) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("CommunityMapper.getTotalComment", search);
+	}
 	
 	
 }

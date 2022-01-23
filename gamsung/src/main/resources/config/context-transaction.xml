@@ -4,13 +4,15 @@
 		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		xmlns:tx="http://www.springframework.org/schema/tx"
 		xmlns:aop="http://www.springframework.org/schema/aop"
+		
 		xsi:schemaLocation=
 				"http://www.springframework.org/schema/beans 
 				 http://www.springframework.org/schema/beans/spring-beans.xsd
 				 http://www.springframework.org/schema/tx 
 				 http://www.springframework.org/schema/tx/spring-tx.xsd
 				 http://www.springframework.org/schema/aop 
-				 http://www.springframework.org/schema/aop/spring-aop.xsd">
+				 http://www.springframework.org/schema/aop/spring-aop.xsd
+				 ">
 				 
 	<!-- PropertyPlaceholderConfigurer 로 로드된 resource 는 ${  } 로 접근 가능 -->
 	<bean	id="propertyConfigurer"
@@ -27,7 +29,7 @@
         <property name="initialSize" value="${jdbc.initialSize}"/>
         <property name="maxActive" value="${jdbc.maxActive}"/>
 	</bean>				 
-												 
+	
 	
 	<!-- TransactioManager instance 생성 -->
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager" >

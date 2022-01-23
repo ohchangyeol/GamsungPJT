@@ -70,13 +70,13 @@
             <select class="form-control" name="searchCondition" style="font-size: 12px; ">
               <option value="0" ${ ! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>회원ID
               </option>
-              <option value="1" ${ ! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>제목
+              <option value="1" ${ ! empty search.searchCondition && search.searchCondition==1 ? "selected" : "" }>제목
               </option>
-              <option value="2" ${ ! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>번호
+              <option value="2" ${ ! empty search.searchCondition && search.searchCondition==2 ? "selected" : "" }>번호
               </option>
-              <option value="3" ${ ! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>내용
+              <option value="3" ${ ! empty search.searchCondition && search.searchCondition==3 ? "selected" : "" }>내용
               </option>
-              <option value="4" ${ ! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>해시태그
+              <option value="4" ${ ! empty search.searchCondition && search.searchCondition==4 ? "selected" : "" }>해시태그
               </option>
             </select>
           </div>
@@ -86,7 +86,7 @@
           <div class="search-box">
             <label class="sr-only" for="searchKeyword">검색어</label>
             <input type="text" class="form-control" id="searchKeyword" name="searchKeyword" placeholder="검색어를 입력해주세요."
-              value="">
+              value="${search.searchKeyword}">
             <button id="left-search-btn" class="search-btn" name="search-btn" type="submit"><i
                 class="fa fa-search"></i></button>
           </div>
@@ -123,9 +123,12 @@
               d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z">
             </path>
           </svg>
+        
+          <div style="font-size: 12px; font-family: 'Gaegu', cursive;  font-size: 34px; letter-spacing: -4px;" class="addPost font-alt">
+            <p style="transform: translateX(10px)translateY(-77px); ">게시글</p>
+            <p style=" transform: translateX(85px)translateY(-99px);">등록</p>
+          </div>
         </a>
-        <div style="font-size: 12px; font-family: 'Gaegu', cursive;  font-size: 34px; letter-spacing: -4px;" class="addPost font-alt"><p style="transform: translateX(10px)translateY(-77px); ">게시글</p>
-        <p style=" transform: translateX(85px)translateY(-99px);">등록</p></div>
       </div>
     </div>
     

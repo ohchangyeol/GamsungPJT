@@ -160,7 +160,7 @@
 	</update>
 	
 	<update id="updateCampReservationCount" parameterType="int">
-		UPDATE Camp
+		UPDATE CAMP
 		SET camp_reservation_count = camp_reservation_count+1 
 		WHERE camp_no = #{value}
 	</update>

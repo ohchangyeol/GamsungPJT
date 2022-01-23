@@ -101,7 +101,7 @@
 	                                 GROUP BY PO.post_no) con <!-- 게시물당 추천 총 수  -->
 			  ON p.post_no = con.post_no	
 			  			 LEFT JOIN (SELECT post_no, delete_flag flag
-						            FROM POST_CONCERN pc
+						            FROM POST_CONCERN  pc
 						            WHERE pc.user_id =#{userId}
 						          	) cop  <!-- 회원의 게시물 추천 유무 Y는 빈하트 표출   -->
 			   ON p.post_no = cop.post_no			            								
@@ -177,9 +177,11 @@
 	   		post_reg_date=#{postRegdate},
 	   		video= #{video},
 	   		delete_flag= #{deleteFlag},
+   		<if test="postImg1 != null and postImg1 != ''">
 	   		post_Img1= #{postImg1},
 	   		post_Img2= #{postImg2},
 	   		post_Img3= #{postImg3},
+   		</if>
 	   		post_hashtag1= #{hashtag1},
 	   		post_hashtag2= #{hashtag2},
 	   		post_hashtag3= #{hashtag3}
@@ -189,7 +191,7 @@
 	 
     <!-- 게시물 삭제 그에 딸린 댓글들도 delete_flags를 Y 설정해줘야한다. 내 댓글 보기에서 안보이게 하려면 --> 	 
  	<update	id="deletePost"	parameterType="int" >
-	 UPDATE POST P RIGHT JOIN COMMENT C
+	 UPDATE POST P LEFT JOIN COMMENT C
 	 ON (P.post_no = C.post_no ) 
 		<set> 
 	 		P.delete_flag = 'Y', C.delete_flag = 'Y' 
@@ -312,6 +314,74 @@
 	 	FROM POST_CONCERN 
 	 	WHERE post_no = #{value}
 	 	AND delete_flag = 'N'; 
+	 </select>
+	 
+	 <select id="getTotalPost" parameterType="hashmap" resultType="int">
+	 	SELECT count(*) 
+	 	FROM (SELECT p.*,com.com_num,con.con_num, CASE WHEN cop.flag = 'Y' THEN 'Y'
+		                                          WHEN cop.flag = 'N' THEN 'N'
+		                                          ELSE 'Y' END AS con_deleteFlag
+			  FROM POST p LEFT JOIN (SELECT CO.post_no, count(*) com_num
+									 FROM (SELECT *
+	  									   FROM COMMENT 
+	  									   WHERE delete_flag = 'N') CO
+									  GROUP BY CO.post_no)	com <!-- 게시물당 코멘트 총 수  -->
+			  ON p.post_no = com.post_no 
+						  LEFT JOIN (SELECT PO.post_no, count(*) con_num
+									 FROM (SELECT *
+	  									   FROM POST_CONCERN  
+	  								       WHERE delete_flag = 'N') PO
+	                                 GROUP BY PO.post_no) con <!-- 게시물당 추천 총 수  -->
+			  ON p.post_no = con.post_no	
+			  			 LEFT JOIN (SELECT post_no, delete_flag flag
+						            FROM POST_CONCERN pc
+						            WHERE pc.user_id =#{userId}
+						          	) cop  <!-- 회원의 게시물 추천 유무 Y는 빈하트 표출   -->
+			   ON p.post_no = cop.post_no			            								
+	  		  WHERE p.delete_flag = 'N' 
+	  		  <if test="userId != null">		
+	  		  AND p.user_id = #{userId}
+	  		  </if>
+	  		  <if test="post.postType != null and post.postType != 0">		
+	  		  AND p.post_type = #{post.postType}
+	  		  </if>
+			      <if test="search.searchCondition != null">		
+				    <trim prefix="AND">
+						<if test="search.searchCondition == 0 and search.searchKeyword !='' "> 
+						<!--작성자id -->
+							p.user_id LIKE CONCAT_WS(#{search.searchKeyword},'%','%')		
+						</if>
+						<if test="search.searchCondition == 1 and search.searchKeyword !='' "> 
+						<!-- 게시글 제목 -->
+						<!-- 	MATCH(post_title) AGAINST (concat_ws(#{search.searchKeyword},'*','*')in boolean mode) -->
+						    p.post_title LIKE CONCAT_WS(#{search.searchKeyword},'%','%')
+						</if>
+						<if test="search.searchCondition == 2 and search.searchKeyword !='' "> 
+						<!-- 게시글 번호 -->
+							p.post_no = #{search.searchKeyword}
+						</if>
+						<if test="search.searchCondition == 3 and search.searchKeyword !='' ">
+						<!-- 내용 -->
+							<!-- MATCH(p.post_content) AGAINST (concat_ws(#{search.searchKeyword},'*','*')in boolean mode) -->
+							p.post_content LIKE CONCAT_WS(#{search.searchKeyword},'%','%')
+						</if>
+						<if test="search.searchCondition == 4 and search.searchKeyword !='' ">
+						<!--해시태그  -->
+							   p.post_hashtag1 LIKE CONCAT_WS(#{search.searchKeyword},'%','%')
+	  						OR p.post_hashtag2 LIKE CONCAT_WS(#{search.searchKeyword},'%','%')
+	  						OR p.post_hashtag3 LIKE CONCAT_WS(#{search.searchKeyword},'%','%')
+						</if>
+					</trim>
+				</if>
+				ORDER BY p.post_reg_date DESC) POSTTABLE
+	 </select>
+	 
+	 <select id="getTotalComment" parameterType="search" resultType="int">
+	 	SELECT count(*) 
+	 	FROM (SELECT p.*, c.comment_content comment_content
+              FROM POST p, COMMENT c
+              WHERE c.user_id = #{id}
+              AND p.post_no = c.post_no) commentTable
 	 </select>
 	 
 </mapper> 

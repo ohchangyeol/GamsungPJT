@@ -63,7 +63,7 @@ pageEncoding="UTF-8"%>
                             <div class="col-xs-1 col-md-1 "></div>
                             <div class="col-xs-3 col-md-1 panel-body" style="height: 40px; text-align: center; padding: 10px;"><strong>캠핑장 번호</strong></div>
                             <div class="col-xs-1 col-md-1 "></div>
-                            <div class="col-xs-7 col-md-2 panel-body" style="height: 40px; text-align: center; padding: 10px;">${campReservation.camp.user.campCall}</div>   
+                            <div class="col-xs-7 col-md-2 panel-body" style="height: 40px; text-align: center; padding: 10px;" id="call_format" value="${campReservation.camp.user.campCall}"></div>   
                             <div class="col-xs-1 col-md-1 "></div>   
                           </div>
                           
@@ -107,7 +107,7 @@ pageEncoding="UTF-8"%>
                             <div class="col-xs-1 col-md-1 "></div>
                             <div class="col-xs-3 col-md-1 panel-body" style="height: 40px; text-align: center; padding: 10px;"><strong>휴대폰번호</strong></div>
                             <div class="col-xs-1 col-md-1 "></div>
-                            <div class="col-xs-7 col-md-2 panel-body" style="height: 40px; text-align: center; padding: 10px;">${campReservation.reservationUserPhone}</div>   
+                            <div class="col-xs-7 col-md-2 panel-body" style="height: 40px; text-align: center; padding: 10px;" id="phone_format" value="${campReservation.reservationUserPhone}"></div>   
                             <div class="col-xs-1 col-md-1 "></div>
                             <div class="col-xs-3 col-md-1 panel-body" style="height: 40px; text-align: center; padding: 10px;"><strong>결제금액</strong></div>
                             <div class="col-xs-1 col-md-1 "></div>
@@ -219,8 +219,12 @@ pageEncoding="UTF-8"%>
 
             let str = $("#comma_price").attr("value");
             let commaStr = comma(str);
+            let phone = $("#phone_format").attr("value").replace(/(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/,"$1-$2-$3");
+            let call = $("#call_format").attr("value").replace(/(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/,"$1-$2-$3");
 
                 $("#comma_price").html(commaStr+" 원");
+                $("#phone_format").html(phone);
+                $("#call_format").html(call);
       };
 
       function comma(str) {

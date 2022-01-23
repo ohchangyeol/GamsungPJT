@@ -178,7 +178,7 @@
 							'Noto Sans KR', sans-serif;
 						margin-bottom: 30px;
 					}
-placeholder
+
 					#addcontent {
 						height: 180px;
 					}
@@ -224,16 +224,14 @@ placeholder
 
 				</section>
 				<section class="module" style="margin-top: 0px; padding: 0px; ">
-					<div class="container">
+					<div class="container" style="padding-top: 50px;">
 						<form name="transferform" id="transferform" role="form">
 							<div class="row">
 								<div class="col-sm-12 ">
-					<input id="transferTitle" name="transferTitle" class="form-control" value="${transfer.transferTitle}" type="text"placeholder="제목을 등록해주세요." style="height: 45px; margin-bottom: 20px;"/>
+							<input id="transferTitle" name="transferTitle" class="form-control" value="${transfer.transferTitle}" type="text"placeholder="제목을 등록해주세요." style="height: 45px; margin-bottom: 20px;"/>
 								</div>
+								
 							</div>
-
-
-
 							<div class="col-sm-12 minititle">
 								<div>나의 캠핑장 예약 목록</div>
 
@@ -322,7 +320,7 @@ placeholder
 							<div class="col-sm-6">
 
 								<div class="form-group">
-
+									<input type="hidden" name="transferNo" value="${transfer.transferNo}">
 									<label for="transferCampname" class="control-label">
 										<div>캠핑장</div>
 										<div>(펜션 및 숙박 장소)</div>
@@ -331,10 +329,10 @@ placeholder
 									<div>
 										<!-- <input type="hidden" id="transferReservationNo" name="transferReservationNo"
 											value="">-->
-										<input type="hidden" id="transferArea" name="transferArea" value="">
+										<input type="hidden" id="transferArea" name="transferArea" value="${transfer.transferArea}">
 
 										<input id="transferCampname" name="transferCampname" class="form-control"
-											value="" type="text"  value="${transfer.transferCampname} " placeholder="직접입력/캠핑장" />
+											type="text"  value="${transfer.transferCampname}" placeholder="직접입력/캠핑장" />
 									</div>
 
 								</div>
@@ -348,12 +346,12 @@ placeholder
 									<div>
 										<div class="ohcamp">
 											<input id="transferStartDate" name="transferStartDate" class="form-control"
-												value="" type="text" value="${transfer.transferStartDate}" placeholder="YYYY-MM-DD" />
+												 type="text" value="${transfer.transferStartDate}" placeholder="YYYY-MM-DD" />
 
 											<span>-</span>
 
 											<input id="transferEndDate" name="transferEndDate" class="form-control"
-												value="" type="text" value="${transfer.transferEndDate}" placeholder="YYYY-MM-DD" />
+												 type="text" value="${transfer.transferEndDate}" placeholder="YYYY-MM-DD" />
 										</div>
 
 									</div>
@@ -369,7 +367,7 @@ placeholder
 									</label>
 									<div>
 										<input id="transferCampCall" name="transferCampCall" class="form-control"
-											value="" type="text" value="${transfer.transferCampCall}" placeholder="-없이 입력해주세요." />
+											 type="text" value="${transfer.transferCampCall}" placeholder="-없이 입력해주세요." />
 									</div>
 								</div>
 
@@ -379,7 +377,7 @@ placeholder
 									</label>
 
 									<div class="ohcamp">
-										<input id="transferUserNum" name="transferUserNum" value="${transfer.transferUserNum}" class="form-control" value=""
+										<input id="transferUserNum" name="transferUserNum" value="${transfer.transferUserNum}" class="form-control" 
 											type="text" placeholder="0" />
 										<div>
 											<span>명</span>
@@ -392,7 +390,7 @@ placeholder
 										<span>양도금액</span>
 									</label>
 									<div class="ohcamp">
-										<input id="textprice" name="transferPrice" class="form-control" value=""
+										<input id="textprice" name="transferPrice" class="form-control" 
 											type="text"  value="${transfer.transferPrice}"  placeholder="양도금액을 입력해주세요." />
 
 										<div class="free control-label">
@@ -409,20 +407,20 @@ placeholder
 								<div class="minititle">
 									<h3>양도사유</h3>
 									<textarea id="transferContent" name="transferContent" class="form-control" rows="20"
-										value="${transfer.transferContent}" placeholder="양도사유를 입력해주세요."></textarea>
+										value="${transfer.transferContent}" placeholder="양도사유를 입력해주세요.">${transfer.transferContent}</textarea>
 								</div>
 							</div>
 							<div class="col-sm-8">
 								<div class="minititle" id="transferAddContent">
 									<h3>특이사항</h3>
 									<textarea id="transferAddContent" name="transferAddContent" class="form-control"
-										rows="8" value="${transfer.transferAddContent}"  placeholder="특이사항이 있을 경우 입력해주세요."></textarea>
+										rows="8" value="${transfer.transferAddContent}"  placeholder="특이사항이 있을 경우 입력해주세요.">${transfer.transferAddContent}</textarea>
 								</div>
 
 								<div class="minititle" id="hashtag">
 									<h3>해시태그</h3>
 									<textarea id="allhashtag" name="allhashtag" class="form-control" rows="5"
-										 value="${transfer.hashtag1}${transfer.hashtag2}${transfer.hashtag3}" placeholder="태그를 입력해주세요(최대 3개)"></textarea>
+										 value="${transfer.hashtag1}${transfer.hashtag2}${transfer.hashtag3}" placeholder="태그를 입력해주세요(최대 3개)">${transfer.hashtag1}${transfer.hashtag2}${transfer.hashtag3}</textarea>
 
 									<input type="hidden" id="hashtag1" name="hashtag1" value="">
 									<input type="hidden" id="hashtag2" name="hashtag2" value="">

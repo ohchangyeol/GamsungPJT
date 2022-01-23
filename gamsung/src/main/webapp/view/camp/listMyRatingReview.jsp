@@ -13,7 +13,8 @@
     <title>listMyRatingReview</title>
 
     <jsp:include page="../../resources/commonLib.jsp" />
-   
+    <jsp:include page="/resources/commonCssMypage.jsp" />
+
     <style>
       .starR{
           background: url('http://127.0.0.1:8080/uploadfiles/ico_review.png') no-repeat right 0;
@@ -32,18 +33,17 @@
 
 <body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
   
+  
    <main>
-
-      <jsp:include page="../common/header.jsp"></jsp:include>
 
    <div class="inner-wrapper">
       <jsp:include page="../common/userSideBar.jsp"></jsp:include>
       
-      <section class="body">
+      <section class="body mypage-body">
         <div class="row getReservation" >
             <div class="col-xs-12">
               
-              <div class="row" style="padding-top: 20px;">
+              <div class="row" style="padding-top: 100px;">
                 <div calss="col-sm-12" style="text-align: center; font-size: x-large; margin-bottom: 10px;">
                   <span class="icon-happy"></span>&nbsp;리뷰 내역&nbsp;<span class="icon-happy"></span>
                 </div>
@@ -213,7 +213,7 @@
       </div>
       
    </main>    
-      
+   <jsp:include page="/resources/commonScriptMypage.jsp" />
      <script type="text/javascript">
 
           var currentPage = 1;

@@ -93,6 +93,7 @@ public class UserServiceImpl implements UserService{
 		String pw = user.getPassword();
 		String newPwd = SHA256Util.getEncrypt(pw, user.getSalt());
 		user.setPassword(newPwd);
+		
 		}
 		
 		userDAO.updateUser(user);

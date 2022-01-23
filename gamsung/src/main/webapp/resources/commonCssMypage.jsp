@@ -48,4 +48,22 @@ pageEncoding="UTF-8"%>
 	<link rel="stylesheet" href="../../resources/css/skins/default.css" />
 	<link rel="stylesheet" href="../../resources/css/theme-custom.css">
 	<script src="../../resources/lib/modernizr/modernizr.js"></script>
+
+	<style>
+		body{background: #fff;}
+		.inner-wrapper {padding-top: 0;}
+
+		.sidebar-left {
+			bottom: 0;
+			left: 0;
+			padding-bottom: 50px;
+			position: fixed;
+			top: 0px;
+		}
+		.mypage-body{margin-left: 220px;}
+		.mypage-search-container{position: relative;}
+		.mypage-search-container .mypage-search-box{position: absolute; top: 0; right: 0; margin-top: 8px;}
+		.table-responsive table thead tr th{text-align: center;}
+		.table-responsive table tbody tr td{text-align: center;}
+	</style>
 	

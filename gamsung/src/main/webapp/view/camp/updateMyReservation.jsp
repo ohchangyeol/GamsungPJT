@@ -137,7 +137,7 @@ pageEncoding="UTF-8"%>
                                   <div class="col-xs-7">
                                     <div>
                                       <span style="font-weight: bold; font-size: large;">
-                                        ${campReservation.camp.user.campName} 캠핑장
+                                        ${campReservation.camp.user.campName} 
                                       </span>
                                     </div>
                                   </div>

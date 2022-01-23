@@ -98,7 +98,7 @@
                     <div class="post-header font-alt">
                       <h2 class="post-title">조회수 TOP</a></h2>
                     </div>
-                    <div class="post-more">${topView.user.campName} 캠핑장 <span
+                    <div class="post-more">${topView.user.campName} <span
                         style="color: rgb(230, 173, 17);">(${topView.campViewCountCurrentMonth}건)</span></div>
                     <div class="post-entry">
                       <p>${topView.user.addr}</p>
@@ -113,7 +113,7 @@
                     <div class="post-header font-alt">
                       <h2 class="post-title">평점 TOP</a></h2>
                     </div>
-                    <div class="post-more">${topRating.user.campName} 캠핑장 <span
+                    <div class="post-more">${topRating.user.campName} <span
                         style="color: rgb(230, 173, 17);">(${topRating.campRate}점)</span></div>
                     <div class="post-entry">
                       <p>${topRating.user.addr}</p>
@@ -128,7 +128,7 @@
                     <div class="post-header font-alt">
                       <h2 class="post-title">예약자수 TOP</a></h2>
                     </div>
-                    <div class="post-more">${topReservation.user.campName} 캠핑장 <span
+                    <div class="post-more">${topReservation.user.campName} <span
                         style="color: rgb(230, 173, 17);">(${topReservation.campReservationCount}건)</span></div>
                     <div class="post-entry">
                       <p>${topReservation.user.addr}</p>

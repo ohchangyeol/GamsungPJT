@@ -51,3 +51,6 @@
 	<script src="../../resources/js/theme.custom.js"></script>
 	<script src="../../resources/js/theme.init.js"></script>
 	<script src="../../resources/js/dashboard/examples.dashboard.js"></script>
+
+	<!-- <script src="../resources/js/mypageSidebar.js"></script> -->
+

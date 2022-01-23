@@ -32,8 +32,8 @@
 
 				#approval-general-btn {
 					position: absolute;
-					bottom: 0;
-					right: 25%;
+					bottom: 0%;
+					right: 30%;
 					margin-top: 15px;
 				}
 
@@ -235,7 +235,7 @@
 
 									</div>
 								</div>
-								<div class="row" id="approval-general-btn">
+								<div id="approval-general-btn">
 									<button id="get_g_a_cancel" class="btn btn-xs btn-border-d btn-circle"
 										type="button">취소</button>
 									<button id="get_g_a_general-updateUser" class="btn btn-xs btn-border-d btn-circle"

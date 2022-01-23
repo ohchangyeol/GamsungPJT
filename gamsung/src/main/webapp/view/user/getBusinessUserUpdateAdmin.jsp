@@ -30,9 +30,9 @@
 				}
 
 				#approval-business-btn {
-					position: absolute;
+					position: relative;
 					bottom: 0;
-					right: 25%;
+					right: -57%;
 					margin-top: 15px;
 				}
 

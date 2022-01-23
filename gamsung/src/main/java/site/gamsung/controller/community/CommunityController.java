@@ -34,6 +34,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import site.gamsung.service.common.Page;
 import site.gamsung.service.common.RatingReviewService;
 import site.gamsung.service.common.Search;
 import site.gamsung.service.community.CommunityService;
@@ -59,6 +60,10 @@ public class CommunityController {
    @Qualifier("campRatingReviewServiceImpl")
    private RatingReviewService ratingReviewService;
    
+   
+   
+   @Value("#{commonProperties['pageUnit']}")
+   int pageUnit;
    
 
    public CommunityController() {
@@ -107,6 +112,11 @@ public class CommunityController {
       map.put("userId", user.getId());
       map.put("search", search);
       map.put("post", post);
+      
+      System.out.println("\n\n\n\n\n\n listPost ======");
+      
+      System.out.println(user.getId());
+      System.out.println(post);
 
       // System.out.println(map);
       List<Post> list = communityService.listPost(map);
@@ -116,6 +126,7 @@ public class CommunityController {
 
       model.addAttribute("list", list);
       model.addAttribute("userId", user.getId());
+      model.addAttribute("search", search);
 
       return "forward:/view/community/listPost.jsp";
 
@@ -324,6 +335,8 @@ public class CommunityController {
       }
 
       post.setWriter(user);
+      
+      System.out.println("\n\n Post ==> " + post);
 
       communityService.updatePost(post);
 
@@ -338,6 +351,10 @@ public class CommunityController {
                                                                                  // 경우?
       System.out.println("deletePost Post Start");
 
+      
+      System.out.println("postNo ==> " + postNo);
+      
+      
       // 세션으로 부터 요청한 유저의 정보를 가져온다.
       User user = (User) session.getAttribute("user");
 
@@ -390,11 +407,16 @@ public class CommunityController {
 
       // System.out.println(map);
       List<Post> list = communityService.listPost(map);
-
+      int totalCount = communityService.getTotalPost(map);
+      
+      Page resultPage = new Page( search.getCurrentPage(), totalCount, pageUnit, communityPageSize);
+      
       System.out.println("list::::::" + list);
 
       model.addAttribute("list", list);
-
+      model.addAttribute("resultPage", resultPage); 
+      model.addAttribute("search",search);
+      
       return "forward:/view/community/listMyPost.jsp";
 
    }
@@ -420,11 +442,15 @@ public class CommunityController {
 
       // System.out.println(map);
       List<Post> list = communityService.listPostForComment(search);//댓글 List		(map);
-
+      int totalCount = communityService.getTotalComment(search);
+      
       System.out.println("listPostForCommentlist::::::" + list);
-
+      
+      Page resultPage = new Page( search.getCurrentPage(), totalCount, pageUnit, communityPageSize);
+      
       model.addAttribute("list", list);
-
+      model.addAttribute("resultPage",resultPage);
+      
       return "forward:/view/community/listMyComment.jsp";
 
    }
