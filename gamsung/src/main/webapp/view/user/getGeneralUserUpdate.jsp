@@ -457,10 +457,10 @@
 						return;
 					}
 
-					if ($("#get_g_phoneAuthNum").css("display") != null && get_g_phone_auth != 1) {
-						alert("인증번호를 확인해주세요.");
-						return;
-					}
+					// if ($("#get_g_phoneAuthNum").css("display") != null && get_g_phone_auth != 1) {
+					// 	alert("인증번호를 확인해주세요.");
+					// 	return;
+					// }
 
 					var addr = "";
 					if ($("#get_g_addr").val() != "" && $("#get_g_userAddr").val() != "") {
