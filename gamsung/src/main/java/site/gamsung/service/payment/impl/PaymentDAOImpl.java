@@ -49,6 +49,8 @@ public class PaymentDAOImpl implements PaymentDAO{
 	 *  Point
 	 */	
 	public int pointUpdateById(PointTransfer pointTransfer) throws Exception {
+		
+		System.out.println("DAO pointTransferByUsers_pointTransfer: " + pointTransfer); 		
 		return sqlSession.update("PaymentMapper.pointUpdateById", pointTransfer);
 	}
 	
