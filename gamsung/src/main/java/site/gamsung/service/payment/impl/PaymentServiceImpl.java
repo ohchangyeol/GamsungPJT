@@ -96,19 +96,21 @@ public class PaymentServiceImpl implements PaymentService{
 	@Override
 	public int pointTransferByUsers(PointTransfer pointTransfer) throws Exception {
 		
+		System.out.println("pointTransferByUsers_pointTransfer: " + pointTransfer); 	
+		
 		int pointAmount = pointTransfer.getPointAmount();
 		int feeRate = pointTransfer.getFeeRate();		
 		int adminFee = pointAmount * feeRate / 100;
 		int pointAmountAfterFee = pointAmount - adminFee;
 		
-		if(pointTransfer.getReceiverId().equals("admin")) {
+		if(pointTransfer.getReceiverId().equals("gamsungsite@gmail.com")) {
 			
 			PointTransfer senderCase = new PointTransfer();
 			senderCase.setUserId(pointTransfer.getSenderId());
 			senderCase.setPointAmount(pointAmount * -1);
 			
 			PointTransfer adminCase = new PointTransfer();
-			adminCase.setUserId("admin");
+			adminCase.setUserId("gamsungsite@gmail.com");
 			adminCase.setPointAmount(pointAmount);
 
 			if(paymentDAO.pointUpdateById(senderCase) == 1 
@@ -129,17 +131,35 @@ public class PaymentServiceImpl implements PaymentService{
 			receiverCase.setPointAmount(pointAmountAfterFee);
 			
 			PointTransfer adminCase = new PointTransfer();
-			adminCase.setUserId("admin");
-			adminCase.setPointAmount(adminFee);				
+			adminCase.setUserId("gamsungsite@gmail.com");
+			adminCase.setPointAmount(adminFee);			
 			
-			if(paymentDAO.pointUpdateById(senderCase) == 1 
-					&& paymentDAO.pointUpdateById(receiverCase) == 1
-					&& paymentDAO.pointUpdateById(adminCase) == 1 ) {
-				return 1;
+			
+			
+			
+			
+			if(paymentDAO.pointUpdateById(senderCase) == 1) {
+				System.out.println("pointTransferByUsers_senderCase: " + senderCase); 
+				
+				if(paymentDAO.pointUpdateById(receiverCase) == 1) {
+					System.out.println("pointTransferByUsers_receiverCase: " + receiverCase); 
+					
+					if(paymentDAO.pointUpdateById(adminCase) == 1) {
+						System.out.println("pointTransferByUsers_adminCase: " + adminCase); 
+						return 1;
+					} else {
+						System.out.println("pointTransferByUsers_adminCase Error"); 	
+					}	
+					
+				} else {					
+					System.out.println("pointTransferByUsers_receiverCase Error"); 				
+				}
+				
 			} else {
-				return 0;
+				System.out.println("pointTransferByUsers_senderCase Error"); 
 			}
-			
+
+			return 0;
 		}	
 	}
 	
@@ -150,7 +170,7 @@ public class PaymentServiceImpl implements PaymentService{
 	@Override
 	public String makePayment(Payment payment) throws Exception {
 		
-		System.out.println("addMakePayment payment : " + payment); 											// 테스트
+		System.out.println("makePayment payment : " + payment); 											// 테스트
 		
 		PointTransfer pointTransfer = new PointTransfer();
 		Payment movePointHistory = new Payment();
@@ -171,7 +191,7 @@ public class PaymentServiceImpl implements PaymentService{
 		if(oriPaymentCode.equals("P1")) {
 			
 			// 포인트이동 User_DB
-			pointTransfer.setSenderId("admin");
+			pointTransfer.setSenderId("gamsungsite@gmail.com");
 			pointTransfer.setReceiverId(oriSenderId);		
 			pointTransfer.setPointAmount(oriPointChargeTotal);	
 			pointTransfer.setFeeRate(oriPaymentReferenceFee);

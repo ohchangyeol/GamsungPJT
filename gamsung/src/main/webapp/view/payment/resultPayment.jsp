@@ -112,10 +112,21 @@
   	<script type="text/javascript">  
   	
 		$(function() {
+			
+			const viewController = $("#viewController").val();
+			const ctrlViewCode = viewController.charAt();
 	   
 		    // 확인
 		    $("#payment_confirm").on("click" , function() {
-		    	window.location = "/campGeneral/listMyReservation";		 
+		    	
+		    	if( ctrlViewCode == "P" ){
+		    		window.location = "/";	
+		    	}
+		    	
+				if( ctrlViewCode == "R" ){
+					window.location = "/campGeneral/listMyReservation";	
+		    	}
+		    		 
 			});	
 		    
 		    // 결제취소

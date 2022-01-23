@@ -104,7 +104,7 @@
 						</if>	
 					</trim>
 				</if>
-				ORDER BY transfer_reg_date DESC) T, (select @rownum:= 0) M
+				ORDER BY transfer_no DESC) T, (select @rownum:= 0) M
 				WHERE @rownum  <![CDATA[ <=]]> #{search.endRowNum} ) S
 				WHERE R BETWEEN #{search.startRowNum} AND #{search.endRowNum} 
 	 </select> 	
