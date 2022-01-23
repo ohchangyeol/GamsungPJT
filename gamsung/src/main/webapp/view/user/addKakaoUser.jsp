@@ -422,7 +422,17 @@ alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+
 							return;
 						}
 
-						$("#add_kakao_form").attr("method", "POST").attr("action", "/user/addUser").submit();
+						Swal.fire({
+								icon: 'success',
+								title: '가입완료',
+								html: '회원가입이 완료되었습니다.<br>로그인 후 이용 가능합니다:)'
+							}).then(() => {
+
+								$("#add_kakao_form").attr("method", "POST").attr("action", "/user/addUser").submit();
+
+							});
+
+						
 					}
 				});
 
