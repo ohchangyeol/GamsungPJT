@@ -168,7 +168,7 @@
 										<label for="addr"
 											class="col-sm-offset-1 col-sm-3 control-label"><strong>주소</strong></label>
 										<div class="col-sm-6">
-											<input id="addr" name="addr" class="form-control" type="text"
+											<input id="add_g_addr" name="addr" class="form-control" type="text"
 												placeholder="주소를 입력하세요." />
 										</div>
 									</div>
@@ -176,7 +176,7 @@
 									<div class="form-group row">
 										<label for="userAddr" class="col-sm-offset-1 col-sm-3 control-label"></label>
 										<div class="col-sm-6">
-											<input id="userAddr" name="userAddr" class="form-control" type="text"
+											<input id="add_g_userAddr" name="userAddr" class="form-control" type="text"
 												placeholder="상세주소를 입력하세요." /> <input type="hidden" name="allAddr" />
 										</div>
 									</div>
@@ -548,9 +548,9 @@ alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+
 						}
 
 						var addr = "";
-						if ($("input:text[name='addr']").val() != "" && $("input:text[name='userAddr']").val() != "") {
-							var value = $("input[name='addr']").val() + ""
-								+ $("input[name='userAddr']").val();
+						if ($("#add_g_addr").val() != "" && $("#add_g_userAddr").val() != "") {
+							var value = $("#add_g_addr").val() + ""
+								+ $("#add_g_userAddr").val();
 						}
 
 						$("input:hidden[name='allAddr']").val(value);
@@ -569,10 +569,10 @@ alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+
 
 
 					//주소검색
-					document.getElementById("addr").addEventListener("click", function () { //주소입력칸을 클릭하면
+					document.getElementById("add_g_addr").addEventListener("click", function () { //주소입력칸을 클릭하면
 						new daum.Postcode({
 							oncomplete: function (data) { //선택시 입력값 세팅
-								document.getElementById("addr").value = data.address; // 주소 넣기
+								document.getElementById("add_g_addr").value = data.address; // 주소 넣기
 								document.querySelector("input[name=userAddr]").focus(); //상세입력 포커싱
 							}
 						}).open();

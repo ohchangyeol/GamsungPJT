@@ -132,11 +132,7 @@ public class PaymentServiceImpl implements PaymentService{
 			
 			PointTransfer adminCase = new PointTransfer();
 			adminCase.setUserId("gamsungsite@gmail.com");
-			adminCase.setPointAmount(adminFee);			
-			
-			
-			
-			
+			adminCase.setPointAmount(adminFee);					
 			
 			if(paymentDAO.pointUpdateById(senderCase) == 1) {
 				System.out.println("pointTransferByUsers_senderCase: " + senderCase); 
@@ -149,17 +145,15 @@ public class PaymentServiceImpl implements PaymentService{
 						return 1;
 					} else {
 						System.out.println("pointTransferByUsers_adminCase Error"); 	
-					}	
-					
+					}						
 				} else {					
 					System.out.println("pointTransferByUsers_receiverCase Error"); 				
-				}
-				
+				}				
 			} else {
 				System.out.println("pointTransferByUsers_senderCase Error"); 
 			}
-
-			return 0;
+			
+			return 0;			
 		}	
 	}
 	
