@@ -291,7 +291,7 @@ placeholder
 													</button>
 						
 
-								<div class="MyCampReservation transferlayer">
+								<div class="MyCampReservation transferlayer" style="padding-top: 50px;">
 
 									<table class="table table-hover mb-none">
 										<thead>

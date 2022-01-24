@@ -93,6 +93,18 @@ public class TransferServiceImpl implements TransferService {
    public Map<String ,Object> listTransferForReceive(Search search) throws Exception {
       Map<String, Object> map = new HashMap<String, Object>();
       List<Transfer> list = transferDAO.listTransferForReceive(search); 
+      
+      for (Transfer transfer : list) {
+			 
+		 if(transfer.getTransferArea() != null && !("".equals(transfer.getTransferArea())) ) {
+			 
+			int index = transfer.getTransferArea().indexOf(" ");
+			String addr = transfer.getTransferArea().substring(0,index);
+			
+			transfer.setTransferArea(addr);
+		 }
+			
+      }
       map.put("list", list); 
       map.put("TotalCount",transferDAO.listMyReceiveGetTotalCount(search));
       
