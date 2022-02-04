@@ -48,7 +48,7 @@
                                                 maxlength="4" />
                                         </div>
                                         <div id="findId-check-phone" class='col-sm-offset-3 col-sm-6'></div>
-                                        <div id="findId-check-phone-auth" class='col-sm-offset-3 col-sm-6'></div>
+                                        <div id="findId-check-phone-auth" class='col-sm-offset-3 col-sm-9'></div>
                                     </div>
 
                                     <div class="find-btn">

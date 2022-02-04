@@ -180,7 +180,7 @@ pageEncoding="UTF-8"%>
                                       <div class="row" style="padding-top: 15px; padding-bottom: 15px;">
                                         <div>
                                           <button type="button" class="btn btn-success" value="${campReservation.reservationNo}">예약변경</button>
-                                          <button type="button" class="btn btn-danger">예약취소</button>
+                                          <button type="button" class="btn btn-danger" value="${campReservation.reservationNo}">예약취소</button>
                                         </div>
                                       </div>
                                     </div>
@@ -206,7 +206,7 @@ pageEncoding="UTF-8"%>
     <form id="hidden">
       <input type="hidden" name="mainSite.mainSiteNo" value="${campReservation.mainSite.mainSiteNo}" />
       <input type="hidden" name="camp.campNo" value="${campReservation.camp.campNo}" />
-      <input type="hidden" name="reservationStartDate" value="${campReservation.reservationStartDate}" />
+      <input type="hidden" id= "reservation_start_date" name="reservationStartDate" value="${campReservation.reservationStartDate}" />
       <input type="hidden" name="reservationEndDate" value="${campReservation.reservationEndDate}" />
       <input type="hidden" id="reservationNo" name="reservationNo" value="${campReservation.reservationNo}" />
     </form>
@@ -247,29 +247,31 @@ pageEncoding="UTF-8"%>
 
                 let reservationStartDate =$('#reservation_start_date').val();
 
-                let today = getToday();   
+                let today = getToday()+1;   
 
                 let startDate = new Date('today');
                 let endDate = new Date('reservationStartDate');
                 let differenceDate = Math.ceil((endDate.getTime()-startDate.getTime())/(1000*3600*24));
 
                 console.log(differenceDate);
+                console.log(reservationStartDate);
 
-                let refundCode ="";
+                let refundCode ="R3";
 
-                if(differenceDate === 2){
-                    refundCode = 'R3'
-                }else if(differenceDate === 3){
-                    refundCode = 'R4'
-                }else if(differenceDate === 4){
-                    refundCode = 'R5'
-                }else if(differenceDate === 5){
-                    refundCode = 'R6'
-                }else if(differenceDate === 6){
-                    refundCode = 'R7'
-                }else{
-                    refundCode = 'R8'
-                }
+
+                // if(differenceDate === 2){
+                //     refundCode = 'R3'
+                // }else if(differenceDate === 3){
+                //     refundCode = 'R4'
+                // }else if(differenceDate === 4){
+                //     refundCode = 'R5'
+                // }else if(differenceDate === 5){
+                //     refundCode = 'R6'
+                // }else if(differenceDate === 6){
+                //     refundCode = 'R7'
+                // }else{
+                //     refundCode = 'R8'
+                // }
 
                 console.log(refundCode);
                 self.location ="/payment/readyRefund?reservationNo="+$(this).attr("value")+"&paymentRefundCode="+refundCode;
