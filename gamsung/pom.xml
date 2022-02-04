@@ -344,8 +344,7 @@
 	        <artifactId>spring-data-mongodb</artifactId>
 	        <version>3.0.4.RELEASE</version>
 	    </dependency> -->
-		
-        
+
 
 	</dependencies>
 	
@@ -357,8 +356,8 @@
 			<id>jitpack.io</id>
 			<url>https://jitpack.io</url>
 		</repository>
+		 
 		
-
 	</repositories>
 	
 		

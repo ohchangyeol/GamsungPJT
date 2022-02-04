@@ -29,9 +29,9 @@
 //	 private MongoTemplate mongoTemplate;
 //	
 //	
-//	public void setMongoTemplate(MongoTemplate mongoTemplate) {
-//		this.mongoTemplate = mongoTemplate;
-//	}
+////	public void setMongoTemplate(MongoTemplate mongoTemplate) {
+////		this.mongoTemplate = mongoTemplate;
+////	}
 //	
 //	
 //	public ChatMongoDbImpl() {

@@ -24,10 +24,12 @@ pageEncoding="UTF-8"%>
   </head>
   <body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
     <main>
+    <!-- 
       <div class="page-loader">
         <div class="loader">Loading...</div>
       </div>
-      
+    -->
+       
       <!-- header -->      
       <jsp:include page="/view/common/header.jsp"/>
       <!-- header End -->
