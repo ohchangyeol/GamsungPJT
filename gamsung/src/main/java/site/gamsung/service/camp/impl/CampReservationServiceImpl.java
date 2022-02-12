@@ -225,7 +225,7 @@ public class CampReservationServiceImpl implements CampReservationService {
 	}
 
 	@Override
-	@Scheduled(cron="0 0 18 * * *")
+	@Scheduled(cron="0 0 16 * * *")
 	public void sendMessage() {
 		
 		List<CampReservation> list = campReservationDAO.sendMessageInfo();

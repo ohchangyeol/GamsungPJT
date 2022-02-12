@@ -438,7 +438,7 @@
 	<select id="sendMessageInfo" resultMap="CampReservationSelectMap">
 		SELECT u.camp_name, m.mainsite_type, r.reservation_user_name, r.reservation_user_phone, r.reservation_start_date, r.reservation_end_date, r.reservation_reg_date
 		FROM CAMP c , CAMP_RESERVATION r, USERS u, MAINSITE m 
-		WHERE c.camp_no = r.camp_no and c.user_id = u.user_id and r.mainsite_no = m.mainsite_no and r.reservation_start_date-1 =  DATE(NOW())
+		WHERE c.camp_no = r.camp_no and c.user_id = u.user_id and r.mainsite_no = m.mainsite_no and r.reservation_start_date-2 =  DATE(NOW())
 	</select>
 	
 	<update id="resetCount">

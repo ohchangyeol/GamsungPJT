@@ -332,6 +332,20 @@
 			<version>2.3.0-b170201.1204</version>
 		</dependency>
 		
+		<!-- mongoDB -->
+		<!-- https://mvnrepository.com/artifact/org.mongodb/mongodb-driver-core -->
+		<dependency>
+		    <groupId>org.mongodb</groupId>
+		    <artifactId>mongodb-driver-sync</artifactId>
+		    <version>4.2.2</version>
+		</dependency>
+				
+		<dependency>
+		    <groupId>org.springframework.data</groupId>
+		    <artifactId>spring-data-mongodb</artifactId>
+		    <version>3.0.9.RELEASE</version>
+		</dependency>
+
 		<!-- <dependency>
 			<groupId>org.mongodb</groupId>
 			<artifactId>mongodb-driver-legacy</artifactId>
