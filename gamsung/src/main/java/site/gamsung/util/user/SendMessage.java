@@ -21,7 +21,7 @@ public class SendMessage {
 		    HashMap<String, String> params = new HashMap<String, String>();
 			params.put("to", phone);
 			 
-			params.put("from", "010-4515-2520");
+			params.put("from", "010-xxxx-xxxx");
 			params.put("type", "SMS");
 			params.put("text", text);
 			params.put("app_version", "test app 1.2"); // application name and version
